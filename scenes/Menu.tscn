@@ -1,0 +1,469 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=1]
+[ext_resource path="res://textures/GUI/Menu/Space.png" type="Texture" id=2]
+[ext_resource path="res://textures/GUI/Menu/title.png" type="Texture" id=3]
+[ext_resource path="res://textures/GUI/Menu/Planets.png" type="Texture" id=4]
+[ext_resource path="res://textures/GUI/Menu/stars.png" type="Texture" id=5]
+[ext_resource path="res://scripts/menu/Menu.gd" type="Script" id=6]
+[ext_resource path="res://textures/GUI/Menu/Buttons.png" type="Texture" id=7]
+[ext_resource path="res://textures/GUI/Blank.png" type="Texture" id=8]
+[ext_resource path="res://textures/GUI/Menu/save_bg.png" type="Texture" id=9]
+[ext_resource path="res://assets/saveSelect.tscn" type="PackedScene" id=10]
+[ext_resource path="res://scripts/menu/loadSave.gd" type="Script" id=11]
+[ext_resource path="res://Audio/music/TinyPlanets.ogg" type="AudioStream" id=12]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 4 )
+region = Rect2( 9, 71, 23, 25 )
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 2, 51 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "default"
+length = 8.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 2, 2.9, 3.9, 5.3, 6, 7, 8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2, 120 ), Vector2( 40, 75 ), Vector2( 60, 65 ), Vector2( 80, 50 ), Vector2( 128, 40 ), Vector2( 150, 73 ), Vector2( 150, 150 ), Vector2( 0, 150 ) ]
+}
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 98, 128, 30 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 7 )
+region = Rect2( 96, 68, 64, 15 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 7 )
+region = Rect2( 96, 87, 64, 15 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 7 )
+region = Rect2( 73, 52, 23, 14 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 7 )
+region = Rect2( 13, 14, 33, 8 )
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 32, 48 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Camera2D:zoom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("blank:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Main/Title:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 16 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Main/Title:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Main/Buttons:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("AudioStreamPlayer:autoplay")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("AudioStreamPlayer:playing")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "buttons"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Main/Buttons:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=8]
+resource_name = "title"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Main/Title:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 56, 16 ), Vector2( 56, 16 ), Vector2( 56, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Main/Title:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "zoom"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Camera2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 120, 120 ), Vector2( 120, 80 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Camera2D:zoom")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("blank:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("AudioStreamPlayer:autoplay")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("AudioStreamPlayer:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 6 )
+
+[node name="Space" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 2 )
+stretch_mode = 7
+
+[node name="Stars" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 5 )
+stretch_mode = 7
+
+[node name="Moon" type="Sprite" parent="."]
+position = Vector2( 2, 51 )
+texture = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Moon"]
+playback_speed = 0.05
+anims/RESET = SubResource( 2 )
+anims/default = SubResource( 3 )
+
+[node name="Planet" type="TextureRect" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -56.0
+texture = SubResource( 12 )
+stretch_mode = 7
+
+[node name="Main" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Title" type="TextureRect" parent="Main"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_top = 16.0
+margin_right = 128.0
+margin_bottom = 144.0
+texture = ExtResource( 3 )
+
+[node name="Buttons" type="Control" parent="Main"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Play" type="TextureButton" parent="Main/Buttons"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -7.5
+margin_right = 32.0
+margin_bottom = 7.5
+texture_normal = SubResource( 4 )
+
+[node name="Label" type="Label" parent="Main/Buttons/Play"]
+margin_top = 4.0
+margin_right = 64.0
+margin_bottom = 12.0
+custom_fonts/font = ExtResource( 1 )
+text = "PLAY"
+align = 1
+
+[node name="Options" type="TextureButton" parent="Main/Buttons"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = 22.5
+margin_right = 32.0
+margin_bottom = 37.5
+texture_normal = SubResource( 5 )
+
+[node name="Label" type="Label" parent="Main/Buttons/Options"]
+margin_top = 4.0
+margin_right = 64.0
+margin_bottom = 12.0
+custom_fonts/font = ExtResource( 1 )
+text = "OPTIONS"
+align = 1
+
+[node name="World" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="BG" type="TextureRect" parent="World"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 9 )
+stretch_mode = 6
+
+[node name="loadSave" type="Control" parent="World"]
+anchor_left = 0.187
+anchor_top = 0.075
+anchor_right = 0.812
+anchor_bottom = 0.912
+margin_left = 0.119999
+margin_right = 0.119995
+margin_bottom = 0.0799866
+script = ExtResource( 11 )
+
+[node name="back" type="TextureButton" parent="World/loadSave"]
+margin_left = 3.0
+margin_top = 117.0
+margin_right = 26.0
+margin_bottom = 131.0
+texture_normal = SubResource( 10 )
+
+[node name="new" type="TextureButton" parent="World/loadSave"]
+visible = false
+margin_left = 17.0
+margin_top = 44.0
+margin_right = 57.0
+margin_bottom = 84.0
+texture_normal = SubResource( 11 )
+
+[node name="saves" type="VBoxContainer" parent="World/loadSave"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -54.5
+margin_top = -42.5
+margin_right = 24.5
+margin_bottom = 42.5
+custom_constants/separation = 2
+
+[node name="save1" parent="World/loadSave/saves" instance=ExtResource( 10 )]
+
+[node name="save2" parent="World/loadSave/saves" instance=ExtResource( 10 )]
+margin_top = 29.0
+margin_bottom = 56.0
+id = 1
+
+[node name="save3" parent="World/loadSave/saves" instance=ExtResource( 10 )]
+margin_top = 58.0
+margin_bottom = 85.0
+id = 2
+
+[node name="newSave" type="Control" parent="World"]
+visible = false
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 59.0
+margin_bottom = 58.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 32, 48 )
+current = true
+zoom = Vector2( 0.5, 0.5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 6 )
+anims/buttons = SubResource( 9 )
+anims/title = SubResource( 8 )
+anims/zoom = SubResource( 7 )
+
+[node name="blank" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 8 )
+stretch_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = -10.0
+
+[node name="Label" type="Label" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -8.0
+custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "TU 2 beta 1 (Unstable)"
+align = 1
+
+[connection signal="pressed" from="Main/Buttons/Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="World/loadSave/back" to="." method="_on_back_pressed"]

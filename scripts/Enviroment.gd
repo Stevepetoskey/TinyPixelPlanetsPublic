@@ -1,0 +1,106 @@
+extends ParallaxBackground
+
+const skyColorDict = {
+	SUNSET = Color("ff462d"),
+	DAY = Color.white,
+	SUNRISE = Color("ffd190"),
+	NIGHT = Color("3d1b63")
+}
+
+export var defualtColor = Color.white
+export var nightColor = Color(0.43,0.39,0.49)
+
+onready var sky = get_node("../ParallaxBackground/SkyLayer/sky")
+
+var backTextures = {"terra":preload("res://textures/enviroment/backgrounds/terra_back.png"),
+	"stone":preload("res://textures/enviroment/backgrounds/stone_back.png"),
+	"snow":preload("res://textures/enviroment/backgrounds/snow_back.png"),
+	"snow_terra":preload("res://textures/enviroment/backgrounds/snow_back.png"),
+	"mud":preload("res://textures/enviroment/backgrounds/mud_back.png"),
+	"desert":preload("res://textures/enviroment/backgrounds/desert_back.png")
+}
+var frontTextures = {"terra":preload("res://textures/enviroment/backgrounds/terra_front.png"),
+	"stone":preload("res://textures/enviroment/backgrounds/stone_front.png"),
+	"snow":preload("res://textures/enviroment/backgrounds/snow_front.png"),
+	"snow_terra":preload("res://textures/enviroment/backgrounds/snow_terra_front.png"),
+	"mud":preload("res://textures/enviroment/backgrounds/mud_front.png"),
+	"desert":preload("res://textures/enviroment/backgrounds/desert_front.png")
+}
+
+var oldTime = -1.0
+var active = false
+
+func _process(delta):
+	if active:
+		var time = get_node("../ParallaxBackground2/Sky").get_day_light()
+		var TOD = get_node("../ParallaxBackground2/Sky").get_day_type()
+		if time != oldTime:
+			get_node("../ParallaxBackground2/Sky").set_atmosphere(time*1)
+			if time == 1.0:
+				change_sounds(-5,0,-1000)
+				sky.modulate = skyColorDict.DAY
+				sky.show()
+			elif time == -1.0:
+				change_sounds(-1000,-1000,-15)
+				sky.modulate = skyColorDict.NIGHT * Color(1,1,1,0)
+				sky.hide()
+			elif TOD =="sunset":
+				sky.show()
+				change_sounds(lerp(-5,-35,1-time),lerp(0,-35,1-time),lerp(-50,-15,1-time))
+				if time >= 0.5:
+					sky.modulate = lerp(skyColorDict.DAY,skyColorDict.SUNSET,1-(time-0.5)*2.0)
+				else:
+					sky.modulate = lerp(skyColorDict.SUNSET,skyColorDict.NIGHT * Color(1,1,1,0),1-(time*2.0))
+			else:
+				change_sounds(lerp(-5,-35,1-time),lerp(0,-35,1-time),lerp(-50,-15,1-time))
+				sky.show()
+				if time <= 0.5:
+					sky.modulate = lerp(skyColorDict.NIGHT * Color(1,1,1,0),skyColorDict.SUNRISE,time*2.0)
+				else:
+					sky.modulate = lerp(skyColorDict.SUNRISE,skyColorDict.DAY,(time-.5)*2.0)
+		oldTime = time
+
+func change_sounds(volume1 : int,volume2 = -1000, volume3 = -1000) -> void:
+	match StarSystem.find_planet_id(Global.currentPlanet).type["type"]:
+		"terra":
+			if volume1 == -1000:
+				get_node("../../sfx/forest").stop()
+			else:
+				if !get_node("../../sfx/forest").playing:
+					get_node("../../sfx/forest").play()
+				get_node("../../sfx/forest").volume_db = volume1
+			if volume2 == -1000:
+				get_node("../../sfx/wind").stop()
+			else:
+				if !get_node("../../sfx/wind").playing:
+					get_node("../../sfx/wind").play()
+				get_node("../../sfx/wind").volume_db = volume2
+			if volume3 == -1000:
+				get_node("../../sfx/crickets").stop()
+			else:
+				if !get_node("../../sfx/crickets").playing:
+					get_node("../../sfx/crickets").play()
+				get_node("../../sfx/crickets").volume_db = volume3
+		"snow_terra","snow":
+			if volume1 == -1000:
+				get_node("../../sfx/winterWind").stop()
+			else:
+				if !get_node("../../sfx/winterWind").playing:
+					get_node("../../sfx/winterWind").play()
+				get_node("../../sfx/winterWind").volume_db = volume1
+
+func set_background(type : String):
+	$back/Sprite.texture = backTextures[type]
+	$front/Sprite.texture = frontTextures[type]
+
+
+func _on_World_world_loaded():
+	if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
+		active = true
+	match StarSystem.find_planet_id(Global.currentPlanet).type["type"]:
+		"terra":
+			get_node("../../sfx/crickets").play()
+			get_node("../../sfx/forest").play()
+			get_node("../../sfx/wind").play()
+		"snow_terra","snow":
+			get_node("../../sfx/winterWind").play()

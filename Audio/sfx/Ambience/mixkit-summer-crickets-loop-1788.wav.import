@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/mixkit-summer-crickets-loop-1788.wav-2a164647c5ff79c94f7042d3f96596a6.sample"
+
+[deps]
+
+source_file="res://Audio/sfx/Ambience/mixkit-summer-crickets-loop-1788.wav"
+dest_files=[ "res://.import/mixkit-summer-crickets-loop-1788.wav-2a164647c5ff79c94f7042d3f96596a6.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

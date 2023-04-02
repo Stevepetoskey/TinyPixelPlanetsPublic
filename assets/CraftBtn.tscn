@@ -1,0 +1,82 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=1]
+[ext_resource path="res://textures/GUI/main/GUI_buttons.png" type="Texture" id=2]
+[ext_resource path="res://textures/blocks2X/Cobble.png" type="Texture" id=3]
+[ext_resource path="res://scripts/CraftBtn.gd" type="Script" id=4]
+
+[sub_resource type="AtlasTexture" id=1]
+resource_local_to_scene = true
+atlas = ExtResource( 2 )
+region = Rect2( 119, 20, 58, 14 )
+
+[node name="CraftBtn" type="TextureButton"]
+margin_right = 58.0
+margin_bottom = 14.0
+texture_normal = SubResource( 1 )
+script = ExtResource( 4 )
+
+[node name="Recipe1" type="Sprite" parent="."]
+position = Vector2( 31, 7 )
+texture = ExtResource( 3 )
+
+[node name="R1Amount" type="Label" parent="."]
+margin_left = 19.0
+margin_top = 4.0
+margin_right = 27.0
+margin_bottom = 12.0
+custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "1"
+align = 1
+clip_text = true
+
+[node name="Recipe2" type="Sprite" parent="."]
+visible = false
+position = Vector2( 11, 7 )
+texture = ExtResource( 3 )
+
+[node name="R2Amount" type="Label" parent="."]
+visible = false
+margin_top = 4.0
+margin_right = 7.0
+margin_bottom = 12.0
+custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "1"
+align = 1
+clip_text = true
+
+[node name="Result" type="Sprite" parent="."]
+position = Vector2( 52, 7 )
+texture = ExtResource( 3 )
+
+[node name="R3Amount" type="Label" parent="."]
+margin_left = 40.0
+margin_top = 4.0
+margin_right = 48.0
+margin_bottom = 12.0
+custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "10"
+align = 1
+clip_text = true
+
+[node name="=" type="Label" parent="."]
+margin_left = 36.0
+margin_top = 4.0
+margin_right = 40.0
+margin_bottom = 12.0
+custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "="
+
+[node name="+" type="Label" parent="."]
+visible = false
+margin_left = 17.0
+margin_top = 4.0
+margin_right = 21.0
+margin_bottom = 12.0
+custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "+"
