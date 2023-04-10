@@ -42,7 +42,7 @@ func _physics_process(delta):
 		elif seePlayer and !lostPlayer:
 			lostPlayer = true
 			$seeTimer.start()
-	if !$AnimatedSprite.playing:
+	if !$AnimatedSprite.playing or state == "attack":
 		match state:
 			"roam":
 				if randi()%100 == 1 or seePlayer:
@@ -66,14 +66,16 @@ func _physics_process(delta):
 					$AnimatedSprite.play("land")
 					motion = Vector2(0,0)
 					state = "roam"
+				else:
+					state = "roam"
 		motion = move_and_slide(motion,Vector2(0,-1))
 
 
 func _on_AnimatedSprite_animation_finished():
+	$AnimatedSprite.playing = false
 	if state != "attack":
 		match $AnimatedSprite.animation:
 			"hop":
-				$AnimatedSprite.playing = false
 				var dir
 				var nextState = "jump" if position.distance_to(player.position) >= MAX_SPEED else "attack"
 				if !seePlayer:
@@ -85,8 +87,9 @@ func _on_AnimatedSprite_animation_finished():
 				state = nextState
 				if state == "attack":
 					$AnimatedSprite.play("attack")
+					motion.y -= JUMPSPEED/2.0
+					motion = move_and_slide(motion,Vector2(0,-1))
 			"land":
-				$AnimatedSprite.playing = false
 				state = "roam"
 
 func _on_seeTimer_timeout():

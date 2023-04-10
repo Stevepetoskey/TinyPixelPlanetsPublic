@@ -55,16 +55,17 @@ func update_crafting(menu = "null") -> void:
 		currentPage = 0
 		currentMenu = menu
 	if currentMenu != "null":
-		for child in $recipes.get_children():
-			child.queue_free()
-		yield(get_tree(),"idle_frame")
+		for page in $recipes.get_children():
+			for recipe in page.get_children():
+				recipe.queue_free()
 		var recipesSelect = get_available_recipes(currentMenu)
 		var loc = 0
 		for recipeID in range(recipesSelect.size()):
 			if recipeID % ITEM_PER_PAGE == 0:
-				var page = Control.new()
-				page.name = str(recipeID / ITEM_PER_PAGE)
-				$recipes.add_child(page)
+				if !$recipes.has_node(str(recipeID / ITEM_PER_PAGE)):
+					var page = Control.new()
+					page.name = str(recipeID / ITEM_PER_PAGE)
+					$recipes.add_child(page)
 				loc = 0
 			var item = CRAFT_BTN.instance()
 			item.rect_position.y = loc * 18

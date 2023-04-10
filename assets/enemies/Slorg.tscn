@@ -70,6 +70,7 @@ shape = SubResource( 3 )
 [node name="HurtTimer" type="Timer" parent="."]
 
 [node name="Label" type="Label" parent="."]
+visible = false
 margin_left = -11.0
 margin_top = -6.0
 margin_right = 12.0

@@ -1082,7 +1082,7 @@ anchor_bottom = 1.0
 margin_top = -8.0
 custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
 custom_fonts/font = ExtResource( 10 )
-text = "TU 2 beta 1 (Unstable)"
+text = "TU 2 beta 2 (Unstable)"
 align = 1
 
 [node name="World" type="Node2D" parent="."]

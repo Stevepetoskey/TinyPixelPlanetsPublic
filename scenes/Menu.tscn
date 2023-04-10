@@ -462,7 +462,7 @@ anchor_bottom = 1.0
 margin_top = -8.0
 custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
 custom_fonts/font = ExtResource( 1 )
-text = "TU 2 beta 1 (Unstable)"
+text = "TU 2 beta 2 (Unstable)"
 align = 1
 
 [connection signal="pressed" from="Main/Buttons/Play" to="." method="_on_Play_pressed"]
