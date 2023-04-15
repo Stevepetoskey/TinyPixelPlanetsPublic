@@ -22,9 +22,9 @@ var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra
 	"desert":{"texture":preload("res://textures/planets/desertMedium.png"),"size":sizeTypes.medium,"type":"desert"},
 	"mud":{"texture":preload("res://textures/planets/mudMedium.png"),"size":sizeTypes.medium,"type":"mud"},
 	"stone":{"texture":preload("res://textures/planets/StoneMedium.png"),"size":sizeTypes.medium,"type":"stone"},
-	"gas1":{"texture":preload("res://textures/planets/gas1.png"),"size":sizeTypes.large,"type":"gas"},
-	"gas2":{"texture":preload("res://textures/planets/gas2.png"),"size":sizeTypes.large,"type":"gas"},
-	"gas3":{"texture":preload("res://textures/planets/gas3.png"),"size":sizeTypes.large,"type":"gas"},
+	"gas1":{"texture":preload("res://textures/planets/gas1.png"),"size":sizeTypes.large,"type":"gas1"},
+	"gas2":{"texture":preload("res://textures/planets/gas2.png"),"size":sizeTypes.large,"type":"gas2"},
+	"gas3":{"texture":preload("res://textures/planets/gas3.png"),"size":sizeTypes.large,"type":"gas3"},
 }
 
 var sizeData = { #Normal moon chance: 10,50,95
@@ -45,6 +45,7 @@ var currentSeed
 var currentStarData
 
 var systemDat = {}
+var visitedPlanets = []
 
 signal planet_ready
 signal found_system
@@ -255,7 +256,7 @@ func create_name(systemSeed : int) -> String:
 	return starName
 
 func get_system_data() -> Dictionary:
-	var data = {"star":currentStar,"seed":currentSeed,"planets":{}}
+	var data = {"star":currentStar,"seed":currentSeed,"planets":{},"visited":visitedPlanets}
 	var planets = get_system_bodies()
 	for planet in planets:
 		data["planets"][planet.id] = {"current_orbit":planet.currentOrbit,"current_rot":planet.currentRot}

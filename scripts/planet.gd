@@ -13,5 +13,5 @@ func _process(delta):
 	$Sprite.rotation = planetRef.shadeAngle + deg2rad(180)
 
 func _on_Area2D_body_entered(body):
-	if planetRef.type["type"] != "gas":
+	if !["gas1","gas2","gas3"].has(planetRef.type["type"]):
 		main.planet_entered(self)

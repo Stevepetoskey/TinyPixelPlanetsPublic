@@ -659,19 +659,21 @@ stretch_mode = 2
 
 [node name="back" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
 motion_scale = Vector2( 0.1, 0.1 )
+motion_offset = Vector2( 0, -90 )
 motion_mirroring = Vector2( 320, 0 )
 
 [node name="Sprite" type="Sprite" parent="CanvasLayer/Enviroment/back"]
 texture = ExtResource( 22 )
-offset = Vector2( 0, -20 )
+centered = false
 
 [node name="front" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
 motion_scale = Vector2( 0.3, 0.3 )
-motion_offset = Vector2( 0, -30 )
+motion_offset = Vector2( 0, -90 )
 motion_mirroring = Vector2( 320, 0 )
 
 [node name="Sprite" type="Sprite" parent="CanvasLayer/Enviroment/front"]
 texture = ExtResource( 20 )
+centered = false
 
 [node name="Hotbar" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -1071,7 +1073,6 @@ anims/fadeIn = SubResource( 12 )
 anims/fadeOut = SubResource( 13 )
 
 [node name="FPS" type="Label" parent="CanvasLayer"]
-visible = false
 margin_right = 40.0
 margin_bottom = 14.0
 

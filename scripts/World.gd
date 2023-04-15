@@ -114,6 +114,7 @@ func start_world():
 	if !StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
 		get_node("../CanvasLayer/ParallaxBackground/SkyLayer").hide()
 	if Global.new:
+		#StarSystem.visitedPlanets.append(Global.currentPlanet)
 		if !Global.gameStart:
 			var playerData = Global.playerData
 			inventory.inventory = playerData["inventory"]
@@ -138,6 +139,7 @@ func start_world():
 	yield(get_tree(),"idle_frame")
 	emit_signal("update_blocks")
 	Global.gameStart = false
+	inventory.update_inventory()
 
 func generateWorld(worldType : String):
 	var worldSeed = StarSystem.currentSeed + Global.currentPlanet
@@ -310,7 +312,14 @@ func set_block(pos : Vector2, layer : int, id : int, update = false) -> void:
 		block.get_node("Sprite").texture = get_item_texture(id)
 		$blocks.add_child(block)
 	if update:
-		emit_signal("update_blocks")
+		for x in range(pos.x-1,pos.x+2):
+			for y in range(pos.y-1,pos.y+2):
+				if Vector2(x,y) != pos and get_block(Vector2(x,y),1) != null:
+					get_block(Vector2(x,y),1).on_update()
+				if get_block(Vector2(x,y),0) != null:
+					get_block(Vector2(x,y),0).on_update()
+					#print(get_block_id(Vector2(x,y),layer))
+		#emit_signal("update_blocks")
 
 func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction = true) -> void:
 	if action == "Build" and get_block(pos,layer) == null and blockData.has(id):

@@ -8,7 +8,7 @@ var save_path = "user://" #place of the file
 var currentSave : String
 var new = true
 var gameStart = true
-var currentPlanet
+var currentPlanet : int
 var playerData
 
 signal loaded_data
@@ -26,6 +26,7 @@ func open_save(saveId : String) -> void:
 			savegame.close()
 			currentPlanet = playerData["current_planet"]
 			StarSystem.systemDat = load_system(playerData["current_system"])
+			StarSystem.visitedPlanets = StarSystem.systemDat["visited"]
 			StarSystem.new_system(playerData["current_system"])
 			new = false
 		else:

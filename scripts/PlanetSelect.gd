@@ -24,6 +24,7 @@ func load_system():
 		planetObj.planetRef = planet
 		$system.add_child(planetObj)
 	emit_signal("system_loaded")
+	$CanvasLayer/Nav.update_nav()
 
 func planet_entered(planet : Object) -> void:
 	$ship.canMove = false
