@@ -242,7 +242,7 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 
 func inv_btn_action(location : int,action : String) -> void:
 	var item = inventory[location]["id"]
-	if world.itemData.has(item) and ["Tool"].has(world.itemData[item]["type"]):
+	if world.itemData.has(item) and ["Tool","weapon"].has(world.itemData[item]["type"]):
 		$equip.play()
 		match action:
 			"j":

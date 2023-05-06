@@ -68,7 +68,10 @@ func _physics_process(delta):
 					state = "roam"
 				else:
 					state = "roam"
-		motion = move_and_slide(motion,Vector2(0,-1))
+		if motion.y < 0 or ["jump","attack"].has(state):
+			motion.y = move_and_slide(motion,Vector2(0,-1)).y
+		else:
+			motion = move_and_slide(motion,Vector2(0,-1))
 
 
 func _on_AnimatedSprite_animation_finished():
@@ -88,7 +91,7 @@ func _on_AnimatedSprite_animation_finished():
 				if state == "attack":
 					$AnimatedSprite.play("attack")
 					motion.y -= JUMPSPEED/2.0
-					motion = move_and_slide(motion,Vector2(0,-1))
+					motion.y = move_and_slide(motion,Vector2(0,-1)).y
 			"land":
 				state = "roam"
 
@@ -98,7 +101,7 @@ func _on_seeTimer_timeout():
 
 func _on_HitBox_body_entered(body):
 	if state == "attack":
-		body.health -= 2
+		body.damage(2)
 		$HurtTimer.start()
 
 func _on_HurtTimer_timeout():

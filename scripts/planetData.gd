@@ -1,6 +1,6 @@
 extends Sprite
 
-const TIME_FACTOR = 0.1
+const TIME_FACTOR = 10 #10
 
 export var orbitalSpeed = 1
 export var rotationSpeed = 1

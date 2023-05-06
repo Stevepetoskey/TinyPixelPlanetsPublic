@@ -11,7 +11,15 @@ var gameStart = true
 var currentPlanet : int
 var playerData
 
+var playerBase = {"skin":Color("F8DEC3"),"hair_style":"Short","hair_color":Color("debe99"),"sex":"Guy"}
+
 signal loaded_data
+
+func save_exists(saveId : String) -> bool:
+	var dir = Directory.new()
+	if dir.dir_exists(save_path + saveId):
+		return true
+	return false
 
 func open_save(saveId : String) -> void:
 	currentSave = saveId
@@ -55,6 +63,8 @@ func new_planet(_planet : Object) -> void:
 
 func save(saveData : Dictionary) -> void:
 	playerData = saveData["player"]
+	playerData["skin"] = playerBase["skin"];playerData["hair_color"] = playerBase["hair_color"];playerData["hair_style"] = playerBase["hair_style"]
+	playerData["sex"] = playerBase["sex"]
 	savegame.open(save_path + currentSave + "/playerData.dat",File.WRITE)
 	savegame.store_var(saveData["player"])
 	savegame.close()

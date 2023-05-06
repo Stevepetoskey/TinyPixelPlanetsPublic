@@ -47,6 +47,8 @@ var currentStarData
 var systemDat = {}
 var visitedPlanets = []
 
+var planetReady = false
+
 signal planet_ready
 signal found_system
 
@@ -57,7 +59,9 @@ func start_game():
 		yield(self,"found_system")
 		Global.currentPlanet = find_planet("type","terra").id
 		print("Current Planet: ", find_planet_id(Global.currentPlanet).pName)
+	planetReady = true
 	emit_signal("planet_ready")
+	print("Planet Ready")
 
 func start_space():
 	print("going into space")

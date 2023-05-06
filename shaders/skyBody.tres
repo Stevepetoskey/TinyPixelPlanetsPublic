@@ -136,7 +136,7 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -347.032, -34.8489 )
+graph_offset = Vector2( -800.25, 276.75 )
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2( 1280, 200 )
@@ -145,7 +145,7 @@ nodes/fragment/2/position = Vector2( -860, 100 )
 nodes/fragment/3/node = SubResource( 10 )
 nodes/fragment/3/position = Vector2( -1300, 160 )
 nodes/fragment/4/node = SubResource( 11 )
-nodes/fragment/4/position = Vector2( -860, 360 )
+nodes/fragment/4/position = Vector2( -880, 360 )
 nodes/fragment/5/node = SubResource( 12 )
 nodes/fragment/5/position = Vector2( -1200, 420 )
 nodes/fragment/6/node = SubResource( 13 )

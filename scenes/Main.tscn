@@ -1,4 +1,4 @@
-[gd_scene load_steps=107 format=2]
+[gd_scene load_steps=109 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://textures/enviroment/sky.png" type="Texture" id=2]
@@ -18,7 +18,7 @@
 [ext_resource path="res://assets/Player.tscn" type="PackedScene" id=16]
 [ext_resource path="res://textures/GUI/main/bars.png" type="Texture" id=17]
 [ext_resource path="res://scripts/Sky.gd" type="Script" id=18]
-[ext_resource path="res://textures/enviroment/space.png" type="Texture" id=19]
+[ext_resource path="res://scripts/enviroment/Space.gd" type="Script" id=19]
 [ext_resource path="res://textures/enviroment/backgrounds/terra_front.png" type="Texture" id=20]
 [ext_resource path="res://scripts/Enviroment.gd" type="Script" id=21]
 [ext_resource path="res://textures/enviroment/backgrounds/terra_back.png" type="Texture" id=22]
@@ -46,6 +46,8 @@
 [ext_resource path="res://scripts/Bars.gd" type="Script" id=44]
 [ext_resource path="res://textures/weather/rain.png" type="Texture" id=45]
 [ext_resource path="res://textures/weather/Cloud_Large1.png" type="Texture" id=46]
+[ext_resource path="res://scripts/Effects.gd" type="Script" id=47]
+[ext_resource path="res://textures/enviroment/space-2.png" type="Texture" id=48]
 
 [sub_resource type="VisualShaderNodeScalarOp" id=67]
 output_port_for_preview = 0
@@ -613,8 +615,9 @@ texture = ExtResource( 46 )
 [node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
 
 [node name="Space" type="Sprite" parent="CanvasLayer/ParallaxBackground"]
-position = Vector2( 120, 80 )
-texture = ExtResource( 19 )
+position = Vector2( 120, 120 )
+texture = ExtResource( 48 )
+script = ExtResource( 19 )
 
 [node name="SkyLayer" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
 motion_scale = Vector2( 0, 0 )
@@ -1173,7 +1176,6 @@ script = ExtResource( 43 )
 
 [node name="Spawn" type="Timer" parent="Entities"]
 wait_time = 10.0
-autostart = true
 
 [node name="Hold" type="Node2D" parent="Entities"]
 
@@ -1190,6 +1192,9 @@ visibility_rect = Rect2( -100, -100, 250, 200 )
 process_material = SubResource( 75 )
 texture = ExtResource( 45 )
 
+[node name="Effects" type="Node2D" parent="."]
+script = ExtResource( 47 )
+
 [connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn" to="CanvasLayer/Inventory" method="_on_InventoryBtn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/GoUp" to="World" method="_on_GoUp_pressed"]
 [connection signal="pressed" from="CanvasLayer/Inventory/leftBtn" to="CanvasLayer/Inventory" method="_on_leftBtn_pressed"]
@@ -1201,6 +1206,7 @@ texture = ExtResource( 45 )
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Save" to="CanvasLayer/Pause" method="_on_Save_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Continue" to="CanvasLayer/Pause" method="_on_Continue_pressed"]
 [connection signal="world_loaded" from="World" to="." method="_on_World_world_loaded"]
+[connection signal="world_loaded" from="World" to="CanvasLayer/ParallaxBackground/Space" method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="CanvasLayer/Enviroment" method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="Entities" method="_on_World_world_loaded"]
 [connection signal="body_entered" from="Cursor/playerTest" to="Cursor" method="_on_playerTest_body_entered"]
