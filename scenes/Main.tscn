@@ -1,4 +1,4 @@
-[gd_scene load_steps=107 format=2]
+[gd_scene load_steps=111 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://textures/enviroment/sky.png" type="Texture" id=2]
@@ -18,7 +18,7 @@
 [ext_resource path="res://assets/Player.tscn" type="PackedScene" id=16]
 [ext_resource path="res://textures/GUI/main/bars.png" type="Texture" id=17]
 [ext_resource path="res://scripts/Sky.gd" type="Script" id=18]
-[ext_resource path="res://textures/enviroment/space.png" type="Texture" id=19]
+[ext_resource path="res://scripts/enviroment/Space.gd" type="Script" id=19]
 [ext_resource path="res://textures/enviroment/backgrounds/terra_front.png" type="Texture" id=20]
 [ext_resource path="res://scripts/Enviroment.gd" type="Script" id=21]
 [ext_resource path="res://textures/enviroment/backgrounds/terra_back.png" type="Texture" id=22]
@@ -46,6 +46,10 @@
 [ext_resource path="res://scripts/Bars.gd" type="Script" id=44]
 [ext_resource path="res://textures/weather/rain.png" type="Texture" id=45]
 [ext_resource path="res://textures/weather/Cloud_Large1.png" type="Texture" id=46]
+[ext_resource path="res://scripts/Effects.gd" type="Script" id=47]
+[ext_resource path="res://textures/enviroment/space-2.png" type="Texture" id=48]
+[ext_resource path="res://scripts/Dead.gd" type="Script" id=49]
+[ext_resource path="res://fonts/pixelHeader.tres" type="DynamicFont" id=50]
 
 [sub_resource type="VisualShaderNodeScalarOp" id=67]
 output_port_for_preview = 0
@@ -422,7 +426,7 @@ region = Rect2( 173, 110, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 14 )
-region = Rect2( 96, 87, 64, 15 )
+region = Rect2( 96, 68, 64, 15 )
 
 [sub_resource type="Animation" id=11]
 length = 0.001
@@ -613,8 +617,9 @@ texture = ExtResource( 46 )
 [node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
 
 [node name="Space" type="Sprite" parent="CanvasLayer/ParallaxBackground"]
-position = Vector2( 120, 80 )
-texture = ExtResource( 19 )
+position = Vector2( 120, 120 )
+texture = ExtResource( 48 )
+script = ExtResource( 19 )
 
 [node name="SkyLayer" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
 motion_scale = Vector2( 0, 0 )
@@ -659,19 +664,25 @@ stretch_mode = 2
 
 [node name="back" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
 motion_scale = Vector2( 0.1, 0.1 )
-motion_mirroring = Vector2( 320, 0 )
+motion_offset = Vector2( 0, -90 )
+motion_mirroring = Vector2( 640, 0 )
 
 [node name="Sprite" type="Sprite" parent="CanvasLayer/Enviroment/back"]
 texture = ExtResource( 22 )
-offset = Vector2( 0, -20 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 640, 180 )
 
 [node name="front" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
 motion_scale = Vector2( 0.3, 0.3 )
-motion_offset = Vector2( 0, -30 )
-motion_mirroring = Vector2( 320, 0 )
+motion_offset = Vector2( 0, -90 )
+motion_mirroring = Vector2( 640, 0 )
 
 [node name="Sprite" type="Sprite" parent="CanvasLayer/Enviroment/front"]
 texture = ExtResource( 20 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 640, 180 )
 
 [node name="Hotbar" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -1070,19 +1081,82 @@ anims/RESET = SubResource( 11 )
 anims/fadeIn = SubResource( 12 )
 anims/fadeOut = SubResource( 13 )
 
+[node name="Dead" type="Control" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 49 )
+
+[node name="BG" type="TextureRect" parent="CanvasLayer/Dead"]
+modulate = Color( 0.741176, 0, 0, 0.52549 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 13 )
+expand = true
+
+[node name="youDed" type="Label" parent="CanvasLayer/Dead"]
+anchor_right = 1.0
+margin_bottom = 30.0
+custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
+custom_fonts/font = ExtResource( 50 )
+text = "You Died!"
+align = 1
+valign = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Dead"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -23.0
+margin_right = 32.0
+margin_bottom = 23.0
+custom_constants/separation = 16
+
+[node name="Respawn" type="TextureButton" parent="CanvasLayer/Dead/VBoxContainer"]
+margin_right = 64.0
+margin_bottom = 15.0
+texture_normal = SubResource( 10 )
+
+[node name="Label" type="Label" parent="CanvasLayer/Dead/VBoxContainer/Respawn"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
+custom_fonts/font = ExtResource( 10 )
+text = "Respawn"
+align = 1
+valign = 1
+
+[node name="Quit" type="TextureButton" parent="CanvasLayer/Dead/VBoxContainer"]
+margin_top = 31.0
+margin_right = 64.0
+margin_bottom = 46.0
+texture_normal = SubResource( 10 )
+
+[node name="Label" type="Label" parent="CanvasLayer/Dead/VBoxContainer/Quit"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
+custom_fonts/font = ExtResource( 10 )
+text = "Quit"
+align = 1
+valign = 1
+
 [node name="FPS" type="Label" parent="CanvasLayer"]
 visible = false
 margin_right = 40.0
 margin_bottom = 14.0
 
 [node name="Label" type="Label" parent="CanvasLayer"]
+visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = -8.0
 custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
 custom_fonts/font = ExtResource( 10 )
-text = "TU 2 beta 2 (Unstable)"
+text = "TU 2 beta 5 (Unstable)"
 align = 1
 
 [node name="World" type="Node2D" parent="."]
@@ -1172,7 +1246,6 @@ script = ExtResource( 43 )
 
 [node name="Spawn" type="Timer" parent="Entities"]
 wait_time = 10.0
-autostart = true
 
 [node name="Hold" type="Node2D" parent="Entities"]
 
@@ -1189,6 +1262,9 @@ visibility_rect = Rect2( -100, -100, 250, 200 )
 process_material = SubResource( 75 )
 texture = ExtResource( 45 )
 
+[node name="Effects" type="Node2D" parent="."]
+script = ExtResource( 47 )
+
 [connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn" to="CanvasLayer/Inventory" method="_on_InventoryBtn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/GoUp" to="World" method="_on_GoUp_pressed"]
 [connection signal="pressed" from="CanvasLayer/Inventory/leftBtn" to="CanvasLayer/Inventory" method="_on_leftBtn_pressed"]
@@ -1199,7 +1275,10 @@ texture = ExtResource( 45 )
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Quit" to="CanvasLayer/Pause" method="_on_Quit_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Save" to="CanvasLayer/Pause" method="_on_Save_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Continue" to="CanvasLayer/Pause" method="_on_Continue_pressed"]
+[connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Respawn" to="CanvasLayer/Dead" method="_on_Respawn_pressed"]
+[connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Quit" to="CanvasLayer/Dead" method="_on_Quit_pressed"]
 [connection signal="world_loaded" from="World" to="." method="_on_World_world_loaded"]
+[connection signal="world_loaded" from="World" to="CanvasLayer/ParallaxBackground/Space" method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="CanvasLayer/Enviroment" method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="Entities" method="_on_World_world_loaded"]
 [connection signal="body_entered" from="Cursor/playerTest" to="Cursor" method="_on_playerTest_body_entered"]

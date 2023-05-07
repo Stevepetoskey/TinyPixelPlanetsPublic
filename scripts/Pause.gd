@@ -5,7 +5,7 @@ onready var cursor = get_node("../../Cursor")
 onready var world = get_node("../../World")
 
 func _process(_delta):
-	if !inventory.visible and Input.is_action_just_pressed("ui_cancel"):
+	if !get_node("../Dead").visible and !inventory.visible and Input.is_action_just_pressed("ui_cancel"):
 		toggle_pause()
 
 func toggle_pause(toggle = true, setValue = false):

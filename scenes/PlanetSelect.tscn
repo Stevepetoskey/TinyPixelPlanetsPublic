@@ -1,6 +1,6 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=30 format=2]
 
-[ext_resource path="res://textures/enviroment/space.png" type="Texture" id=1]
+[ext_resource path="res://textures/enviroment/space-2.png" type="Texture" id=1]
 [ext_resource path="res://scripts/PlanetSelect.gd" type="Script" id=2]
 [ext_resource path="res://textures/enviroment/stars.png" type="Texture" id=3]
 [ext_resource path="res://textures/stars/B-type.png" type="Texture" id=4]
@@ -15,6 +15,9 @@
 [ext_resource path="res://textures/ships/pointer.png" type="Texture" id=13]
 [ext_resource path="res://scripts/stars.gd" type="Script" id=14]
 [ext_resource path="res://Audio/sfx/Ambience/mixkit-space-ship-hum-2136.wav" type="AudioStream" id=15]
+[ext_resource path="res://textures/GUI/space/Nav.png" type="Texture" id=16]
+[ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=18]
+[ext_resource path="res://scripts/space/Nav.gd" type="Script" id=23]
 
 [sub_resource type="Animation" id=5]
 length = 0.001
@@ -99,6 +102,26 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 16 )
+region = Rect2( 2, 99, 38, 39 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 16 )
+region = Rect2( 2, 86, 38, 11 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 16 )
+region = Rect2( 41, 86, 38, 11 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 16 )
+region = Rect2( 42, 122, 8, 16 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 16 )
+region = Rect2( 51, 122, 8, 16 )
+
 [sub_resource type="Environment" id=2]
 background_mode = 4
 glow_enabled = true
@@ -134,6 +157,8 @@ motion_mirroring = Vector2( 256, 256 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/BG"]
 texture = ExtResource( 1 )
+centered = false
+region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Stars" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.2, 0.2 )
@@ -141,6 +166,8 @@ motion_mirroring = Vector2( 256, 256 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/Stars"]
 texture = ExtResource( 3 )
+centered = false
+region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -155,6 +182,78 @@ expand = true
 anims/RESET = SubResource( 5 )
 anims/fadeIn = SubResource( 6 )
 anims/fadeOut = SubResource( 7 )
+
+[node name="Nav" type="Control" parent="CanvasLayer"]
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_right = 18.0
+script = ExtResource( 23 )
+
+[node name="Map" type="TextureRect" parent="CanvasLayer/Nav"]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -41.0
+margin_right = 40.0
+margin_bottom = -2.0
+texture = SubResource( 8 )
+
+[node name="SystemInfoBtn" type="TextureButton" parent="CanvasLayer/Nav"]
+margin_left = 2.0
+margin_top = 147.0
+margin_right = 40.0
+margin_bottom = 158.0
+toggle_mode = true
+texture_normal = SubResource( 9 )
+texture_pressed = SubResource( 10 )
+
+[node name="Label" type="Label" parent="CanvasLayer/Nav/SystemInfoBtn"]
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 34.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 18 )
+text = "System"
+
+[node name="Tab" type="TextureButton" parent="CanvasLayer/Nav"]
+margin_left = 42.0
+margin_top = 142.0
+margin_right = 50.0
+margin_bottom = 158.0
+toggle_mode = true
+texture_normal = SubResource( 11 )
+texture_pressed = SubResource( 12 )
+
+[node name="SystemInfo" type="NinePatchRect" parent="CanvasLayer/Nav"]
+visible = false
+margin_left = 2.0
+margin_top = 1.0
+margin_right = 97.0
+margin_bottom = 104.0
+texture = ExtResource( 16 )
+region_rect = Rect2( 2, 2, 38, 82 )
+patch_margin_left = 3
+patch_margin_top = 12
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="name" type="Label" parent="CanvasLayer/Nav/SystemInfo"]
+margin_left = 2.0
+margin_top = 3.0
+margin_right = 93.0
+margin_bottom = 11.0
+custom_fonts/font = ExtResource( 18 )
+text = "SAB-1390"
+align = 1
+clip_text = true
+
+[node name="Planets" type="VBoxContainer" parent="CanvasLayer/Nav/SystemInfo"]
+margin_left = 2.0
+margin_top = 12.0
+margin_right = 56.0
+margin_bottom = 80.0
+custom_constants/separation = 0
 
 [node name="system" type="Node2D" parent="."]
 
@@ -209,3 +308,6 @@ texture = ExtResource( 13 )
 stream = ExtResource( 15 )
 volume_db = -7.0
 autoplay = true
+
+[connection signal="toggled" from="CanvasLayer/Nav/SystemInfoBtn" to="CanvasLayer/Nav" method="_on_SystemInfoBtn_toggled"]
+[connection signal="toggled" from="CanvasLayer/Nav/Tab" to="CanvasLayer/Nav" method="_on_Tab_toggled"]

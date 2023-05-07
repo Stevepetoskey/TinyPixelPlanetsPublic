@@ -24,10 +24,11 @@ func load_system():
 		planetObj.planetRef = planet
 		$system.add_child(planetObj)
 	emit_signal("system_loaded")
+	$CanvasLayer/Nav.update_nav()
 
 func planet_entered(planet : Object) -> void:
 	$ship.canMove = false
 	$CanvasLayer/Black/AnimationPlayer.play("fadeIn")
 	yield($CanvasLayer/Black/AnimationPlayer,"animation_finished")
 	print("Landed")
-	StarSystem.land(planet.planetRef)
+	StarSystem.land(planet.planetRef.id)

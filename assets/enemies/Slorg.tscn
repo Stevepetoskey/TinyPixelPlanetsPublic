@@ -35,7 +35,7 @@ extents = Vector2( 3, 3 )
 [sub_resource type="CircleShape2D" id=3]
 radius = 5.0
 
-[node name="Slorg" type="KinematicBody2D"]
+[node name="Slorg" type="KinematicBody2D" groups=["enemy"]]
 z_index = 1
 collision_layer = 8
 script = ExtResource( 6 )

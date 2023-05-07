@@ -8,5 +8,5 @@ script = ExtResource( 1 )
 
 [node name="system" type="Node2D" parent="."]
 
-[node name="stars" type="Node2D" parent="."]
+[node name="stars" type="Node2D" parent="." groups=["star"]]
 script = ExtResource( 2 )

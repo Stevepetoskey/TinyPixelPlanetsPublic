@@ -22,6 +22,11 @@ var recipes = {
 		{"recipe":[{"id":18,"amount":1},{"id":14,"amount":1}],"result":{"id":25,"amount":2}},
 		{"recipe":[{"id":26,"amount":4}],"result":{"id":27,"amount":4}},
 		{"recipe":[{"id":8,"amount":2},{"id":3,"amount":2}],"result":{"id":28,"amount":1}},
+		{"recipe":[{"id":5,"amount":2},{"id":13,"amount":4}],"result":{"id":58,"amount":1}}, #Wood club
+		{"recipe":[{"id":5,"amount":2},{"id":13,"amount":4}],"result":{"id":59,"amount":1}}, #Wood axe
+		{"recipe":[{"id":5,"amount":2},{"id":13,"amount":3}],"result":{"id":61,"amount":1}}, #Wood sword
+		#{"recipe":[{"id":5,"amount":1},{"id":13,"amount":2}],"result":{"id":60,"amount":1}}, #Wood machete
+		{"recipe":[{"id":58,"amount":1},{"id":8,"amount":3}],"result":{"id":62,"amount":1}}, #Barbed club
 	],
 	"oven": [
 		{"recipe":[{"id":14,"amount":1}],"result":{"id":20,"amount":1}},
@@ -44,6 +49,12 @@ var recipes = {
 		{"recipe":[{"id":56,"amount":10}],"result":{"id":40,"amount":1}},
 		{"recipe":[{"id":56,"amount":7}],"result":{"id":41,"amount":1}},
 		{"recipe":[{"id":56,"amount":5}],"result":{"id":42,"amount":1}},
+		{"recipe":[{"id":5,"amount":2},{"id":52,"amount":4}],"result":{"id":63,"amount":1}}, #Copper axe
+		{"recipe":[{"id":5,"amount":1},{"id":52,"amount":2}],"result":{"id":64,"amount":1}}, #Copper dagger
+		{"recipe":[{"id":5,"amount":2},{"id":52,"amount":3}],"result":{"id":65,"amount":1}}, #Copper sword
+		{"recipe":[{"id":5,"amount":2},{"id":56,"amount":4}],"result":{"id":66,"amount":1}}, #Silver axe
+		{"recipe":[{"id":5,"amount":1},{"id":56,"amount":2}],"result":{"id":67,"amount":1}}, #Silver dagger
+		{"recipe":[{"id":5,"amount":2},{"id":56,"amount":3}],"result":{"id":68,"amount":1}}, #Silver sword
 	]
 }
 

@@ -1,6 +1,6 @@
 extends Sprite
 
-const TIME_FACTOR = 10
+const TIME_FACTOR = 10 #10
 
 export var orbitalSpeed = 1
 export var rotationSpeed = 1
@@ -9,7 +9,6 @@ export var currentOrbit = 0
 export var currentRot = 0
 var orbitingBody : Object
 var pName : String
-var planetId = 0
 var systemYPos = 0
 var hasAtmosphere : bool
 export(Dictionary) var type

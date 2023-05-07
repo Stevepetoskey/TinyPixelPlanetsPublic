@@ -39,5 +39,7 @@ func _on_Spawn_timeout():
 				hostileCount += 1
 
 func _on_World_world_loaded():
+	if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
+		$Spawn.start()
 	seed(StarSystem.currentSeed + Global.currentPlanet)
 	loaded = true

@@ -54,9 +54,9 @@ var blockData = {
 }
 
 var itemData = {
-	4:{"texture_loc":preload("res://textures/items/wood_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":1,"speed":1},
+	4:{"texture_loc":preload("res://textures/items/wood_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":1,"speed":1,"big_texture":preload("res://textures/weapons/wood_pick.png")},
 	5:{"texture_loc":preload("res://textures/items/stick.png"),"type":"Item"},
-	31:{"texture_loc":preload("res://textures/items/stone_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":2,"speed":2},
+	31:{"texture_loc":preload("res://textures/items/stone_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":2,"speed":2,"big_texture":preload("res://textures/weapons/stone_pick.png")},
 	32:{"texture_loc":preload("res://textures/items/armor/shirt.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":0,"speed":0,"air_tight":false}},
 	33:{"texture_loc":preload("res://textures/items/armor/jeans.png"),"type":"armor","armor_data":{"armor_type":"pants","def":0,"speed":0,"air_tight":false}},
 	34:{"texture_loc":preload("res://textures/items/armor/black_shoes.png"),"type":"armor","armor_data":{"armor_type":"shoes","def":0,"speed":0,"air_tight":false}},
@@ -78,10 +78,21 @@ var itemData = {
 	50:{"texture_loc":preload("res://textures/items/armor/red_dress.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":0,"speed":0,"air_tight":false}},
 	51:{"texture_loc":preload("res://textures/items/armor/red_dress_bottom.png"),"type":"armor","armor_data":{"armor_type":"pants","def":0,"speed":-1,"air_tight":false}},
 	52:{"texture_loc":preload("res://textures/items/copper.png"),"type":"Item"},
-	53:{"texture_loc":preload("res://textures/items/copper_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":3,"speed":4},
-	54:{"texture_loc":preload("res://textures/items/stone_spear.png"),"type":"weapon","weapon_type":"Spear","dmg":2,"speed":0.1},
+	53:{"texture_loc":preload("res://textures/items/copper_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":3,"speed":4,"big_texture":preload("res://textures/weapons/copper_pick.png")},
+	54:{"texture_loc":preload("res://textures/items/stone_spear.png"),"type":"weapon","weapon_type":"Spear","dmg":3,"speed":2,"range":64,"big_texture":preload("res://textures/weapons/stone_spear.png")},
 	56:{"texture_loc":preload("res://textures/items/silver.png"),"type":"Item"},
-	57:{"texture_loc":preload("res://textures/items/silver_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":4,"speed":6},
+	57:{"texture_loc":preload("res://textures/items/silver_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":4,"speed":6,"big_texture":preload("res://textures/weapons/silver_pick.png")},
+	58:{"texture_loc":preload("res://textures/items/wood_club.png"),"type":"weapon","weapon_type":"Club","dmg":3,"speed":1,"range":32,"big_texture":preload("res://textures/weapons/wood_club.png")},
+	59:{"texture_loc":preload("res://textures/items/wood_axe_big.png"),"type":"weapon","weapon_type":"Axe","dmg":4,"speed":2,"range":32,"big_texture":preload("res://textures/weapons/wood_axe.png")},
+	60:{"texture_loc":preload("res://textures/items/wood_machete_big.png"),"type":"weapon","weapon_type":"Machete","dmg":1,"speed":0.1,"range":16},
+	61:{"texture_loc":preload("res://textures/items/wood_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":2,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/wood_sword.png")},
+	62:{"texture_loc":preload("res://textures/items/barbed_club.png"),"type":"weapon","weapon_type":"Club","dmg":5,"speed":1,"range":32,"big_texture":preload("res://textures/weapons/barbed_club.png")},
+	63:{"texture_loc":preload("res://textures/items/copper_axe.png"),"type":"weapon","weapon_type":"Axe","dmg":7,"speed":2,"range":32,"big_texture":preload("res://textures/weapons/copper_axe.png")},
+	64:{"texture_loc":preload("res://textures/items/copper_dagger.png"),"type":"weapon","weapon_type":"Dagger","dmg":2,"speed":0.1,"range":16,"big_texture":preload("res://textures/weapons/copper_dagger.png")},
+	65:{"texture_loc":preload("res://textures/items/copper_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":4,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/copper_sword.png")},
+	66:{"texture_loc":preload("res://textures/items/silver_axe.png"),"type":"weapon","weapon_type":"Axe","dmg":12,"speed":2,"range":32,"big_texture":preload("res://textures/weapons/silver_axe.png")},
+	67:{"texture_loc":preload("res://textures/items/silver_dagger.png"),"type":"weapon","weapon_type":"Dagger","dmg":5,"speed":0.1,"range":16,"big_texture":preload("res://textures/weapons/silver_dagger.png")},
+	68:{"texture_loc":preload("res://textures/items/silver_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":8,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/silver_sword.png")},
 }
 
 signal update_blocks
@@ -91,17 +102,15 @@ func _ready():
 	StarSystem.connect("planet_ready",self,"start_world")
 	Global.connect("loaded_data",self,"start_world")
 	if Global.gameStart:
-		if Global.new:
-			StarSystem.start_game()
-		else:
-			start_world()
+		StarSystem.start_game()
 
 #func _process(delta):
 #	print(Engine.get_frames_per_second())
 
 func start_world():
 	print("World started")
-	
+	if !StarSystem.planetReady:
+		yield(StarSystem,"planet_ready")
 	#world size stuff
 	worldSize = StarSystem.get_current_world_size()
 	get_node("../Player/Camera2D").limit_right = worldSize.x * BLOCK_SIZE.x - 4
@@ -113,16 +122,15 @@ func start_world():
 	get_node("../CanvasLayer/Black").show()
 	if !StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
 		get_node("../CanvasLayer/ParallaxBackground/SkyLayer").hide()
+	if !Global.gameStart:
+		Global.playerData.erase("pos")
+	if !(Global.gameStart and Global.new):
+		load_player_data()
+		Global.gameStart = Global.playerData["starter_planet"]
 	if Global.new:
-		if !Global.gameStart:
-			var playerData = Global.playerData
-			inventory.inventory = playerData["inventory"]
-			armor.armor = playerData["armor"]
-			armor.emit_signal("updated_armor",armor.armor)
-			if playerData.has("inventory_refs"):
-				inventory.jId = playerData["inventory_refs"]["j"]
-				inventory.kId = playerData["inventory_refs"]["k"]
-		else:
+		#StarSystem.visitedPlanets.append(Global.currentPlanet)
+		if Global.gameStart:
+			player.gender = Global.playerBase["sex"]
 			inventory.add_to_inventory(4,1)
 			armor.armor = {"Helmet":{"id":46,"amount":1},"Hat":{},"Chestplate":{"id":47,"amount":1},"Shirt":{},"Leggings":{"id":48,"amount":1},"Pants":{},"Boots":{"id":49,"amount":1},"Shoes":{}}
 			armor.emit_signal("updated_armor",armor.armor)
@@ -138,6 +146,8 @@ func start_world():
 	yield(get_tree(),"idle_frame")
 	emit_signal("update_blocks")
 	Global.gameStart = false
+	inventory.update_inventory()
+	Global.save(get_world_data())
 
 func generateWorld(worldType : String):
 	var worldSeed = StarSystem.currentSeed + Global.currentPlanet
@@ -240,22 +250,27 @@ func generateWorld(worldType : String):
 						else:
 							set_block_all(pos,3)
 
-func get_world_data() -> Dictionary:
+func get_world_data(quit = true) -> Dictionary:
 	var data = {}
-	data["player"] = {"armor":armor.armor,"inventory":inventory.inventory,"inventory_refs":{"j":inventory.jId,"k":inventory.kId},"pos":player.position,"health":player.health,"max_health":player.maxHealth,"oxygen":player.oxygen,"max_oxygen":player.maxOxygen,"current_planet":Global.currentPlanet,"current_system":StarSystem.currentSeed}
+	data["player"] = {"armor":armor.armor,"inventory":inventory.inventory,"inventory_refs":{"j":inventory.jId,"k":inventory.kId},"health":player.health,"max_health":player.maxHealth,"oxygen":player.oxygen,"max_oxygen":player.maxOxygen,"current_planet":Global.currentPlanet,"current_system":StarSystem.currentSeed,"pos":player.position}
 	data["system"] = StarSystem.get_system_data()
 	data["planet"] = {"blocks":[],"entities":entities.get_entity_data()}
 	for block in $blocks.get_children():
 		data["planet"]["blocks"].append({"id":block.id,"layer":block.layer,"position":block.pos,"data":block.data})
 	return data
 
-func load_world_data() -> void:#data : Dictionary) -> void:
+func load_player_data() -> void:
 	#Loads player data
-	var playerData = Global.load_player()
+	var playerData = Global.playerData.duplicate(true)
+	Global.playerBase = {"skin":playerData["skin"],"hair_style":playerData["hair_style"],"hair_color":playerData["hair_color"],"sex":playerData["sex"]}
+	player.get_node("Textures/body").modulate = playerData["skin"]
+	player.gender = playerData["sex"]
 	player.health = playerData["health"]
 	player.oxygen = playerData["oxygen"]
 	player.maxHealth = playerData["max_health"]
 	player.maxOxygen = playerData["max_oxygen"]
+	if playerData.has("pos"):
+		player.position = playerData["pos"]
 	inventory.inventory = playerData["inventory"]
 	armor.armor = playerData["armor"]
 	armor.emit_signal("updated_armor",armor.armor)
@@ -263,6 +278,8 @@ func load_world_data() -> void:#data : Dictionary) -> void:
 		inventory.jId = playerData["inventory_refs"]["j"]
 		inventory.kId = playerData["inventory_refs"]["k"]
 		inventory.update_inventory()
+
+func load_world_data() -> void:#data : Dictionary) -> void:
 	#Loads planet data
 	var planetData = Global.load_planet(StarSystem.currentSeed,Global.currentPlanet)
 	entities.load_entities(planetData["entities"])
@@ -310,7 +327,14 @@ func set_block(pos : Vector2, layer : int, id : int, update = false) -> void:
 		block.get_node("Sprite").texture = get_item_texture(id)
 		$blocks.add_child(block)
 	if update:
-		emit_signal("update_blocks")
+		for x in range(pos.x-1,pos.x+2):
+			for y in range(pos.y-1,pos.y+2):
+				if Vector2(x,y) != pos and get_block(Vector2(x,y),1) != null:
+					get_block(Vector2(x,y),1).on_update()
+				if get_block(Vector2(x,y),0) != null:
+					get_block(Vector2(x,y),0).on_update()
+					#print(get_block_id(Vector2(x,y),layer))
+		#emit_signal("update_blocks")
 
 func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction = true) -> void:
 	if action == "Build" and get_block(pos,layer) == null and blockData.has(id):
@@ -329,5 +353,5 @@ func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction 
 					inventory.add_to_inventory(itemsToDrop[i]["id"],int(rand_range(itemsToDrop[i]["amount"][0],itemsToDrop[i]["amount"][1] + 1)))
 
 func _on_GoUp_pressed():
-	Global.save(get_world_data())
+	Global.save(get_world_data(false))
 	StarSystem.start_space()

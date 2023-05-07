@@ -1,10 +1,10 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=1]
-[ext_resource path="res://textures/GUI/Menu/Space.png" type="Texture" id=2]
+[ext_resource path="res://textures/GUI/Menu/MenuSpace.png" type="Texture" id=2]
 [ext_resource path="res://textures/GUI/Menu/title.png" type="Texture" id=3]
-[ext_resource path="res://textures/GUI/Menu/Planets.png" type="Texture" id=4]
-[ext_resource path="res://textures/GUI/Menu/stars.png" type="Texture" id=5]
+[ext_resource path="res://textures/GUI/Menu/MenuStars.png" type="Texture" id=4]
+[ext_resource path="res://textures/GUI/Menu/MenuPlanets.png" type="Texture" id=5]
 [ext_resource path="res://scripts/menu/Menu.gd" type="Script" id=6]
 [ext_resource path="res://textures/GUI/Menu/Buttons.png" type="Texture" id=7]
 [ext_resource path="res://textures/GUI/Blank.png" type="Texture" id=8]
@@ -12,46 +12,27 @@
 [ext_resource path="res://assets/saveSelect.tscn" type="PackedScene" id=10]
 [ext_resource path="res://scripts/menu/loadSave.gd" type="Script" id=11]
 [ext_resource path="res://Audio/music/TinyPlanets.ogg" type="AudioStream" id=12]
+[ext_resource path="res://textures/GUI/Menu/MenuCharacter.png" type="Texture" id=13]
+[ext_resource path="res://textures/player/Body/Guy.png" type="Texture" id=14]
+[ext_resource path="res://scripts/menu/character.gd" type="Script" id=15]
+[ext_resource path="res://textures/player/Hair/Beard.png" type="Texture" id=16]
+[ext_resource path="res://textures/GUI/Menu/MenuBtns1.png" type="Texture" id=17]
+[ext_resource path="res://textures/GUI/Menu/armor-Guy.png" type="Texture" id=18]
+[ext_resource path="res://scripts/menu/CharacterEdit.gd" type="Script" id=19]
+[ext_resource path="res://fonts/pixelLineEdit.tres" type="DynamicFont" id=20]
+
+[sub_resource type="Curve2D" id=25]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 127, -109.811, 50.8491, 109.811, -50.8491, 113, 51, 0, 0, 0, 0, 279, 21, 0, 0, 0, 0, 286, 157, 0, 0, 0, 0, -15, 158, 0, 0, 0, 0, 0, 127 )
+}
 
 [sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 4 )
-region = Rect2( 9, 71, 23, 25 )
-
-[sub_resource type="Animation" id=2]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 2, 51 ) ]
-}
-
-[sub_resource type="Animation" id=3]
-resource_name = "default"
-length = 8.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 2, 2.9, 3.9, 5.3, 6, 7, 8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 2, 120 ), Vector2( 40, 75 ), Vector2( 60, 65 ), Vector2( 80, 50 ), Vector2( 128, 40 ), Vector2( 150, 73 ), Vector2( 150, 150 ), Vector2( 0, 150 ) ]
-}
+atlas = ExtResource( 5 )
+region = Rect2( 34, 38, 31, 31 )
 
 [sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 98, 128, 30 )
+atlas = ExtResource( 5 )
+region = Rect2( 0, 104, 240, 56 )
 
 [sub_resource type="AtlasTexture" id=4]
 atlas = ExtResource( 7 )
@@ -68,6 +49,130 @@ region = Rect2( 73, 52, 23, 14 )
 [sub_resource type="AtlasTexture" id=11]
 atlas = ExtResource( 7 )
 region = Rect2( 13, 14, 33, 8 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 13 )
+region = Rect2( 8, 9, 21, 28 )
+
+[sub_resource type="Animation" id=18]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 4 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Armor:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 3 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hair:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 3 ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "idle"
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5, 4 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Armor:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5, 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Hair:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5, 4 ]
+}
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 13 )
+region = Rect2( 8, 37, 11, 12 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 13 )
+region = Rect2( 30, 37, 11, 12 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 13 )
+region = Rect2( 18, 37, 11, 12 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 13 )
+region = Rect2( 40, 37, 11, 12 )
+
+[sub_resource type="StyleBoxTexture" id=20]
+texture = ExtResource( 13 )
+region_rect = Rect2( 31, 18, 88, 11 )
+margin_left = 2.0
+margin_right = 2.0
+margin_top = 2.0
+margin_bottom = 2.0
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 13 )
+region = Rect2( 5, 51, 114, 11 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 13 )
+region = Rect2( 6, 62, 6, 9 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 13 )
+region = Rect2( 112, 62, 6, 9 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 17 )
+region = Rect2( 83, 103, 64, 15 )
 
 [sub_resource type="Animation" id=6]
 length = 0.001
@@ -290,17 +395,19 @@ stretch_mode = 7
 [node name="Stars" type="TextureRect" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 stretch_mode = 7
 
-[node name="Moon" type="Sprite" parent="."]
-position = Vector2( 2, 51 )
-texture = SubResource( 1 )
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 25 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Moon"]
-playback_speed = 0.05
-anims/RESET = SubResource( 2 )
-anims/default = SubResource( 3 )
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2( 0, 127 )
+rotation = -1.15401
+
+[node name="Moon" type="Sprite" parent="Path2D/PathFollow2D"]
+rotation = 1.15401
+texture = SubResource( 1 )
 
 [node name="Planet" type="TextureRect" parent="."]
 anchor_top = 1.0
@@ -348,7 +455,7 @@ custom_fonts/font = ExtResource( 1 )
 text = "PLAY"
 align = 1
 
-[node name="Options" type="TextureButton" parent="Main/Buttons"]
+[node name="Credits" type="TextureButton" parent="Main/Buttons"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -359,40 +466,50 @@ margin_right = 32.0
 margin_bottom = 37.5
 texture_normal = SubResource( 5 )
 
-[node name="Label" type="Label" parent="Main/Buttons/Options"]
+[node name="Label" type="Label" parent="Main/Buttons/Credits"]
 margin_top = 4.0
 margin_right = 64.0
 margin_bottom = 12.0
 custom_fonts/font = ExtResource( 1 )
-text = "OPTIONS"
+text = "CREDITS"
 align = 1
 
 [node name="World" type="Control" parent="."]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -59.5
+margin_top = -67.5
+margin_right = 59.5
+margin_bottom = 67.5
 
-[node name="BG" type="TextureRect" parent="World"]
+[node name="BG" type="NinePatchRect" parent="World"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 9 )
-stretch_mode = 6
+region_rect = Rect2( 2, 2, 120, 108 )
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
 
 [node name="loadSave" type="Control" parent="World"]
-anchor_left = 0.187
-anchor_top = 0.075
-anchor_right = 0.812
-anchor_bottom = 0.912
-margin_left = 0.119999
-margin_right = 0.119995
-margin_bottom = 0.0799866
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -54.5
+margin_top = 10.0
+margin_right = 54.0
+margin_bottom = 96.0
 script = ExtResource( 11 )
 
 [node name="back" type="TextureButton" parent="World/loadSave"]
-margin_left = 3.0
-margin_top = 117.0
-margin_right = 26.0
-margin_bottom = 131.0
+margin_left = -1.5
+margin_top = 107.5
+margin_right = 21.5
+margin_bottom = 121.5
 texture_normal = SubResource( 10 )
 
 [node name="new" type="TextureButton" parent="World/loadSave"]
@@ -404,34 +521,242 @@ margin_bottom = 84.0
 texture_normal = SubResource( 11 )
 
 [node name="saves" type="VBoxContainer" parent="World/loadSave"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -54.5
-margin_top = -42.5
-margin_right = 24.5
-margin_bottom = 42.5
-custom_constants/separation = 2
+margin_right = 79.0
+margin_bottom = 85.0
+custom_constants/separation = 6
 
 [node name="save1" parent="World/loadSave/saves" instance=ExtResource( 10 )]
 
 [node name="save2" parent="World/loadSave/saves" instance=ExtResource( 10 )]
-margin_top = 29.0
-margin_bottom = 56.0
+margin_top = 33.0
+margin_bottom = 60.0
 id = 1
 
 [node name="save3" parent="World/loadSave/saves" instance=ExtResource( 10 )]
-margin_top = 58.0
-margin_bottom = 85.0
+margin_top = 66.0
+margin_bottom = 93.0
 id = 2
 
-[node name="newSave" type="Control" parent="World"]
-visible = false
-margin_left = 5.0
-margin_top = 5.0
-margin_right = 59.0
-margin_bottom = 58.0
+[node name="character" type="Control" parent="World"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 15 )
+
+[node name="Char" type="TextureRect" parent="World/character"]
+margin_left = 3.5
+margin_top = 3.5
+margin_right = 25.5
+margin_bottom = 32.5
+texture = SubResource( 13 )
+
+[node name="Body" type="Sprite" parent="World/character/Char"]
+position = Vector2( 11, 13 )
+texture = ExtResource( 14 )
+hframes = 3
+vframes = 6
+frame = 4
+
+[node name="Armor" type="Sprite" parent="World/character/Char"]
+position = Vector2( 11, 13 )
+texture = ExtResource( 18 )
+hframes = 3
+vframes = 6
+frame = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="World/character/Char"]
+anims/RESET = SubResource( 18 )
+anims/idle = SubResource( 19 )
+
+[node name="Hair" type="Sprite" parent="World/character/Char"]
+position = Vector2( 11, 13 )
+texture = ExtResource( 16 )
+hframes = 3
+vframes = 6
+frame = 3
+
+[node name="Female" type="TextureButton" parent="World/character"]
+margin_left = 4.0
+margin_top = 32.0
+margin_right = 16.0
+margin_bottom = 45.0
+toggle_mode = true
+texture_normal = SubResource( 14 )
+texture_pressed = SubResource( 15 )
+texture_disabled = SubResource( 15 )
+
+[node name="Male" type="TextureButton" parent="World/character"]
+margin_left = 13.5
+margin_top = 31.5
+margin_right = 25.5
+margin_bottom = 44.5
+toggle_mode = true
+texture_normal = SubResource( 16 )
+texture_pressed = SubResource( 17 )
+texture_disabled = SubResource( 17 )
+
+[node name="Name" type="LineEdit" parent="World/character"]
+margin_left = 29.0
+margin_top = 12.0
+margin_right = 106.0
+margin_bottom = 21.0
+custom_fonts/font = ExtResource( 20 )
+custom_styles/normal = SubResource( 20 )
+text = "hello"
+max_length = 14
+context_menu_enabled = false
+
+[node name="Label" type="Label" parent="World/character/Name"]
+margin_left = 1.0
+margin_top = -7.0
+margin_right = 25.0
+margin_bottom = 1.0
+custom_fonts/font = ExtResource( 1 )
+text = "Name:"
+
+[node name="edit" type="VBoxContainer" parent="World/character"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 46.0
+margin_right = -2.0
+margin_bottom = -4.0
+custom_constants/separation = -1
+
+[node name="SkinCol" type="TextureRect" parent="World/character/edit"]
+margin_right = 115.0
+margin_bottom = 11.0
+texture = SubResource( 21 )
+stretch_mode = 1
+script = ExtResource( 19 )
+
+[node name="Label" type="Label" parent="World/character/edit/SkinCol"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 0.5
+margin_top = 0.5
+margin_right = 0.5
+margin_bottom = 0.5
+custom_fonts/font = ExtResource( 1 )
+text = "Skin Color"
+align = 1
+valign = 1
+
+[node name="left" type="TextureButton" parent="World/character/edit/SkinCol"]
+anchor_bottom = 1.0
+margin_left = 0.5
+margin_top = 0.5
+margin_right = 6.5
+margin_bottom = 0.5
+texture_normal = SubResource( 22 )
+
+[node name="right" type="TextureButton" parent="World/character/edit/SkinCol"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -7.0
+margin_top = 1.0
+margin_right = -1.0
+texture_normal = SubResource( 23 )
+
+[node name="HairCol" type="TextureRect" parent="World/character/edit"]
+margin_top = 10.0
+margin_right = 115.0
+margin_bottom = 21.0
+texture = SubResource( 21 )
+stretch_mode = 1
+script = ExtResource( 19 )
+
+[node name="Label" type="Label" parent="World/character/edit/HairCol"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 0.5
+margin_top = 0.5
+margin_right = 0.5
+margin_bottom = 0.5
+custom_fonts/font = ExtResource( 1 )
+text = "Hair Color"
+align = 1
+valign = 1
+
+[node name="left" type="TextureButton" parent="World/character/edit/HairCol"]
+anchor_bottom = 1.0
+margin_left = 0.5
+margin_top = 0.5
+margin_right = 6.5
+margin_bottom = 0.5
+texture_normal = SubResource( 22 )
+
+[node name="right" type="TextureButton" parent="World/character/edit/HairCol"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -7.0
+margin_top = 1.0
+margin_right = -1.0
+texture_normal = SubResource( 23 )
+
+[node name="HairSty" type="TextureRect" parent="World/character/edit"]
+margin_top = 20.0
+margin_right = 115.0
+margin_bottom = 31.0
+texture = SubResource( 21 )
+stretch_mode = 1
+script = ExtResource( 19 )
+
+[node name="Label" type="Label" parent="World/character/edit/HairSty"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 0.5
+margin_top = 0.5
+margin_right = 0.5
+margin_bottom = 0.5
+custom_fonts/font = ExtResource( 1 )
+text = "Hair Style"
+align = 1
+valign = 1
+
+[node name="left" type="TextureButton" parent="World/character/edit/HairSty"]
+anchor_bottom = 1.0
+margin_left = 0.5
+margin_top = 0.5
+margin_right = 6.5
+margin_bottom = 0.5
+texture_normal = SubResource( 22 )
+
+[node name="right" type="TextureButton" parent="World/character/edit/HairSty"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -7.0
+margin_top = 1.0
+margin_right = -1.0
+texture_normal = SubResource( 23 )
+
+[node name="Start" type="TextureButton" parent="World/character"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -32.5
+margin_top = -18.0
+margin_right = 32.5
+margin_bottom = -2.0
+texture_normal = SubResource( 24 )
+
+[node name="Label" type="Label" parent="World/character/Start"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = ExtResource( 1 )
+text = "Start!"
+align = 1
+valign = 1
+
+[node name="back" type="TextureButton" parent="World/character"]
+margin_left = 4.5
+margin_top = 117.5
+margin_right = 27.5
+margin_bottom = 131.5
+texture_normal = SubResource( 10 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 32, 48 )
@@ -462,8 +787,99 @@ anchor_bottom = 1.0
 margin_top = -8.0
 custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
 custom_fonts/font = ExtResource( 1 )
-text = "TU 2 beta 2 (Unstable)"
+text = "Tiny Pixel Planets TU2 (v0.2.0)"
 align = 1
 
+[node name="Credits" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -71.0
+margin_top = -51.0
+margin_right = 71.0
+margin_bottom = 51.0
+
+[node name="BG" type="NinePatchRect" parent="Credits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 9 )
+region_rect = Rect2( 2, 2, 120, 108 )
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="back" type="TextureButton" parent="Credits"]
+margin_left = 3.0
+margin_top = 85.0
+margin_right = 26.0
+margin_bottom = 99.0
+texture_normal = SubResource( 10 )
+
+[node name="Title" type="Label" parent="Credits"]
+anchor_right = 1.0
+margin_bottom = 14.0
+custom_colors/font_color_shadow = Color( 0.219122, 0.510774, 0.660156, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Credits"
+align = 1
+valign = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 13.0
+margin_right = -2.0
+margin_bottom = -18.0
+custom_constants/separation = 2
+
+[node name="Ost" type="Label" parent="Credits/VBoxContainer"]
+margin_right = 138.0
+margin_bottom = 8.0
+custom_fonts/font = ExtResource( 1 )
+text = "OST - The_Mad_Duck"
+align = 1
+
+[node name="Art" type="Label" parent="Credits/VBoxContainer"]
+margin_top = 9.0
+margin_right = 138.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 1 )
+text = "Art - SP Possibilities"
+align = 1
+
+[node name="Prog" type="Label" parent="Credits/VBoxContainer"]
+margin_top = 18.0
+margin_right = 138.0
+margin_bottom = 26.0
+custom_fonts/font = ExtResource( 1 )
+text = "Programming - SP Possibilities"
+align = 1
+
+[node name="Prog2" type="Label" parent="Credits/VBoxContainer"]
+margin_top = 27.0
+margin_right = 138.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 1 )
+text = "SFX - Mixkit, Kenny Game Assets"
+align = 1
+autowrap = true
+
 [connection signal="pressed" from="Main/Buttons/Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="Main/Buttons/Credits" to="." method="_on_Credits_pressed"]
 [connection signal="pressed" from="World/loadSave/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="World/character/Female" to="World/character" method="_on_Female_pressed"]
+[connection signal="pressed" from="World/character/Male" to="World/character" method="_on_Male_pressed"]
+[connection signal="text_changed" from="World/character/Name" to="World/character" method="_on_Name_text_changed"]
+[connection signal="pressed" from="World/character/edit/SkinCol/left" to="World/character/edit/SkinCol" method="_on_left_pressed"]
+[connection signal="pressed" from="World/character/edit/SkinCol/right" to="World/character/edit/SkinCol" method="_on_right_pressed"]
+[connection signal="pressed" from="World/character/edit/HairCol/left" to="World/character/edit/HairCol" method="_on_left_pressed"]
+[connection signal="pressed" from="World/character/edit/HairCol/right" to="World/character/edit/HairCol" method="_on_right_pressed"]
+[connection signal="pressed" from="World/character/edit/HairSty/left" to="World/character/edit/HairSty" method="_on_left_pressed"]
+[connection signal="pressed" from="World/character/edit/HairSty/right" to="World/character/edit/HairSty" method="_on_right_pressed"]
+[connection signal="pressed" from="World/character/Start" to="World/character" method="_on_Start_pressed"]
+[connection signal="pressed" from="World/character/back" to="World/character" method="_on_back_pressed"]
+[connection signal="pressed" from="Credits/back" to="." method="_on_back_pressed"]

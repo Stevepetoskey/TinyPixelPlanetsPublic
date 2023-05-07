@@ -22,6 +22,7 @@ func _ready():
 		match planetRef.type["size"]:
 			1:
 				viewPort.rect_size = Vector2(28,28)
+				$ViewportContainer/Viewport
 				viewPort.rect_position = Vector2(-14,-14)
 				#print($ViewportContainer/Viewport.size)
 			2:
@@ -53,7 +54,7 @@ func _physics_process(_delta):
 			scale = Vector2(size,size)
 			z_index = -int(distance)
 			rot = mainPlanet.position.angle_to_point(planetPos) - mainPlanet.currentRot
-			position = Vector2(int(cos(rot) * (main.SKY_RADIUS + planetYPos - mainPlanet.systemYPos)),int(sin(rot) * (main.SKY_RADIUS + planetYPos - mainPlanet.systemYPos)))
+			position = Vector2((cos(rot) * (main.SKY_RADIUS + planetYPos - mainPlanet.systemYPos)),(sin(rot) * (main.SKY_RADIUS + planetYPos - mainPlanet.systemYPos)))
 		if !isStar and mainPlanet.hasAtmosphere:
 			match get_node("..").get_day_type():
 				"day","sunset","sunrise":
