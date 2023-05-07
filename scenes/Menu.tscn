@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=1]
 [ext_resource path="res://textures/GUI/Menu/MenuSpace.png" type="Texture" id=2]
@@ -21,41 +21,14 @@
 [ext_resource path="res://scripts/menu/CharacterEdit.gd" type="Script" id=19]
 [ext_resource path="res://fonts/pixelLineEdit.tres" type="DynamicFont" id=20]
 
+[sub_resource type="Curve2D" id=25]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 127, -109.811, 50.8491, 109.811, -50.8491, 113, 51, 0, 0, 0, 0, 279, 21, 0, 0, 0, 0, 286, 157, 0, 0, 0, 0, -15, 158, 0, 0, 0, 0, 0, 127 )
+}
+
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 5 )
 region = Rect2( 34, 38, 31, 31 )
-
-[sub_resource type="Animation" id=2]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 2, 51 ) ]
-}
-
-[sub_resource type="Animation" id=3]
-resource_name = "default"
-length = 8.0
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 2, 2.9, 3.9, 5.3, 6, 7, 8 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 2, 120 ), Vector2( 40, 75 ), Vector2( 60, 65 ), Vector2( 80, 50 ), Vector2( 128, 40 ), Vector2( 150, 73 ), Vector2( 150, 150 ), Vector2( 0, 150 ) ]
-}
 
 [sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 5 )
@@ -425,14 +398,16 @@ anchor_bottom = 1.0
 texture = ExtResource( 4 )
 stretch_mode = 7
 
-[node name="Moon" type="Sprite" parent="."]
-position = Vector2( 2, 51 )
-texture = SubResource( 1 )
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 25 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Moon"]
-playback_speed = 0.05
-anims/RESET = SubResource( 2 )
-anims/default = SubResource( 3 )
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2( 0, 127 )
+rotation = -1.15401
+
+[node name="Moon" type="Sprite" parent="Path2D/PathFollow2D"]
+rotation = 1.15401
+texture = SubResource( 1 )
 
 [node name="Planet" type="TextureRect" parent="."]
 anchor_top = 1.0
@@ -451,10 +426,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -120.0
-margin_top = -64.0
-margin_right = 8.0
-margin_bottom = 64.0
+margin_top = 16.0
+margin_right = 128.0
+margin_bottom = 144.0
 texture = ExtResource( 3 )
 
 [node name="Buttons" type="Control" parent="Main"]
@@ -481,7 +455,7 @@ custom_fonts/font = ExtResource( 1 )
 text = "PLAY"
 align = 1
 
-[node name="Options" type="TextureButton" parent="Main/Buttons"]
+[node name="Credits" type="TextureButton" parent="Main/Buttons"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -492,12 +466,12 @@ margin_right = 32.0
 margin_bottom = 37.5
 texture_normal = SubResource( 5 )
 
-[node name="Label" type="Label" parent="Main/Buttons/Options"]
+[node name="Label" type="Label" parent="Main/Buttons/Credits"]
 margin_top = 4.0
 margin_right = 64.0
 margin_bottom = 12.0
 custom_fonts/font = ExtResource( 1 )
-text = "OPTIONS"
+text = "CREDITS"
 align = 1
 
 [node name="World" type="Control" parent="."]
@@ -813,10 +787,89 @@ anchor_bottom = 1.0
 margin_top = -8.0
 custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
 custom_fonts/font = ExtResource( 1 )
-text = "TU 2 beta 2 (Unstable)"
+text = "Tiny Pixel Planets TU2 (v0.2.0)"
 align = 1
 
+[node name="Credits" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -71.0
+margin_top = -51.0
+margin_right = 71.0
+margin_bottom = 51.0
+
+[node name="BG" type="NinePatchRect" parent="Credits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 9 )
+region_rect = Rect2( 2, 2, 120, 108 )
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="back" type="TextureButton" parent="Credits"]
+margin_left = 3.0
+margin_top = 85.0
+margin_right = 26.0
+margin_bottom = 99.0
+texture_normal = SubResource( 10 )
+
+[node name="Title" type="Label" parent="Credits"]
+anchor_right = 1.0
+margin_bottom = 14.0
+custom_colors/font_color_shadow = Color( 0.219122, 0.510774, 0.660156, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Credits"
+align = 1
+valign = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Credits"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 13.0
+margin_right = -2.0
+margin_bottom = -18.0
+custom_constants/separation = 2
+
+[node name="Ost" type="Label" parent="Credits/VBoxContainer"]
+margin_right = 138.0
+margin_bottom = 8.0
+custom_fonts/font = ExtResource( 1 )
+text = "OST - The_Mad_Duck"
+align = 1
+
+[node name="Art" type="Label" parent="Credits/VBoxContainer"]
+margin_top = 9.0
+margin_right = 138.0
+margin_bottom = 17.0
+custom_fonts/font = ExtResource( 1 )
+text = "Art - SP Possibilities"
+align = 1
+
+[node name="Prog" type="Label" parent="Credits/VBoxContainer"]
+margin_top = 18.0
+margin_right = 138.0
+margin_bottom = 26.0
+custom_fonts/font = ExtResource( 1 )
+text = "Programming - SP Possibilities"
+align = 1
+
+[node name="Prog2" type="Label" parent="Credits/VBoxContainer"]
+margin_top = 27.0
+margin_right = 138.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 1 )
+text = "SFX - Mixkit, Kenny Game Assets"
+align = 1
+autowrap = true
+
 [connection signal="pressed" from="Main/Buttons/Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="Main/Buttons/Credits" to="." method="_on_Credits_pressed"]
 [connection signal="pressed" from="World/loadSave/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="World/character/Female" to="World/character" method="_on_Female_pressed"]
 [connection signal="pressed" from="World/character/Male" to="World/character" method="_on_Male_pressed"]
@@ -829,3 +882,4 @@ align = 1
 [connection signal="pressed" from="World/character/edit/HairSty/right" to="World/character/edit/HairSty" method="_on_right_pressed"]
 [connection signal="pressed" from="World/character/Start" to="World/character" method="_on_Start_pressed"]
 [connection signal="pressed" from="World/character/back" to="World/character" method="_on_back_pressed"]
+[connection signal="pressed" from="Credits/back" to="." method="_on_back_pressed"]

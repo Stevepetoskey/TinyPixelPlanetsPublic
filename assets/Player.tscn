@@ -459,7 +459,7 @@ shape = SubResource( 1 )
 visible = false
 frames = ExtResource( 3 )
 animation = "mine"
-frame = 1
+frame = 2
 playing = true
 
 [node name="coyoteTimer" type="Timer" parent="."]
@@ -484,24 +484,28 @@ vframes = 6
 frame = 16
 
 [node name="pants" type="Sprite" parent="Textures"]
+visible = false
 texture = ExtResource( 6 )
 hframes = 3
 vframes = 6
 frame = 3
 
 [node name="boots" type="Sprite" parent="Textures"]
+visible = false
 texture = ExtResource( 4 )
 hframes = 3
 vframes = 6
 frame = 3
 
 [node name="shirt" type="Sprite" parent="Textures"]
+visible = false
 texture = ExtResource( 7 )
 hframes = 3
 vframes = 6
 frame = 3
 
 [node name="headwear" type="Sprite" parent="Textures"]
+visible = false
 texture = ExtResource( 5 )
 hframes = 3
 vframes = 6

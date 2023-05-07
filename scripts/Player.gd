@@ -26,6 +26,8 @@ var swinging = false
 var swingingWith = 0
 var currentBlocksOn = []
 
+var dead = false
+
 var enemies = []
 
 var maxHealth = 50
@@ -59,60 +61,66 @@ var files = {32:{"folder":"Tops","file":"Shirt.png"},
 
 func _ready():
 	$Textures/body.texture = load("res://textures/player/Body/" + gender + ".png")
+	if health < 0:
+		dead = true
+		effects.death_particles(position)
+		hide()
+		get_node("../CanvasLayer/Dead").popup()
 
 func _physics_process(_delta):
-	#Collision modifiers
-	if Input.is_action_pressed("down"):
-		collision_mask = NO_PLATFORM
-		if checkAllBlocks(30) and motion.y == 0:
-			coyote = false
-			motion.y = 10
-	else:
-		collision_mask = DEFAULT_LAYER
-	
-	if !is_on_floor():
-		if !coyote:
-			motion.y += GRAVITY
-		elif !timerOn:
-			$coyoteTimer.start()
-			timerOn = true
-	else:
-		motion.y = 0
-		jumping = false
-		coyote = true
-	
-	if Input.is_action_pressed("move_left"):
-		if motion.x > -MAX_SPEED:
-			motion.x -= ACCEL
-	elif Input.is_action_pressed("move_right"):
-		if motion.x < MAX_SPEED:
-			motion.x += ACCEL
-	else:
-		motion.x = move_toward(motion.x,0,FRICTION)
-	
-	if !swinging:
-		if motion.x == 0:
-			$Textures/AnimationPlayer.play("idle")
+	if !dead:
+		#Collision modifiers
+		if Input.is_action_pressed("down"):
+			collision_mask = NO_PLATFORM
+			if checkAllBlocks(30) and motion.y == 0:
+				coyote = false
+				motion.y = 10
 		else:
-			$Textures/AnimationPlayer.play("walk")
-	
-	if Input.is_action_just_pressed("jump") and motion.y <= GRAVITY and !jumping:
-		motion.y = -JUMPSPEED
-		jumping = true
-	if get_global_mouse_position().x - position.x < 0:
-		$Textures.set_global_transform(Transform2D(Vector2(-1,0),Vector2(0,1),Vector2(position.x,position.y)))
-	else:
-		$Textures.set_global_transform(Transform2D(Vector2(1,0),Vector2(0,1),Vector2(position.x,position.y)))
-	
-	if inventory.inventory.size() > 0:
-		if Input.is_action_pressed("build"):
-			swing(inventory.inventory[0]["id"])
-		elif Input.is_action_pressed("action1"):
-			swing(inventory.jId)
-		elif Input.is_action_pressed("action2"):
-			swing(inventory.kId)
-	
-	motion = move_and_slide(motion,Vector2(0,-1))
+			collision_mask = DEFAULT_LAYER
+		
+		if !is_on_floor():
+			if !coyote:
+				motion.y += GRAVITY
+			elif !timerOn:
+				$coyoteTimer.start()
+				timerOn = true
+		else:
+			motion.y = 0
+			jumping = false
+			coyote = true
+		
+		if Input.is_action_pressed("move_left"):
+			if motion.x > -MAX_SPEED:
+				motion.x -= ACCEL
+		elif Input.is_action_pressed("move_right"):
+			if motion.x < MAX_SPEED:
+				motion.x += ACCEL
+		else:
+			motion.x = move_toward(motion.x,0,FRICTION)
+		
+		if !swinging:
+			if motion.x == 0:
+				$Textures/AnimationPlayer.play("idle")
+			else:
+				$Textures/AnimationPlayer.play("walk")
+		
+		if Input.is_action_just_pressed("jump") and motion.y <= GRAVITY and !jumping:
+			motion.y = -JUMPSPEED
+			jumping = true
+		if get_global_mouse_position().x - position.x < 0:
+			$Textures.set_global_transform(Transform2D(Vector2(-1,0),Vector2(0,1),Vector2(position.x,position.y)))
+		else:
+			$Textures.set_global_transform(Transform2D(Vector2(1,0),Vector2(0,1),Vector2(position.x,position.y)))
+		
+		if inventory.inventory.size() > 0:
+			if Input.is_action_pressed("build"):
+				swing(inventory.inventory[0]["id"])
+			elif Input.is_action_pressed("action1"):
+				swing(inventory.jId)
+			elif Input.is_action_pressed("action2"):
+				swing(inventory.kId)
+		
+		motion = move_and_slide(motion,Vector2(0,-1))
 
 func swing(item):
 	if world.itemData.has(item) and item > 0 and ["Tool","weapon"].has(world.itemData[item]["type"]) and !swinging:
@@ -128,11 +136,17 @@ func swing(item):
 					enemy.damage(world.itemData[swingingWith]["dmg"])
 
 func damage(hp):
-	modulate = Color("ff5959")
-	effects.floating_text(position, "-" + str(hp), Color.red)
-	health -= hp
-	yield(get_tree().create_timer(0.5),"timeout")
-	modulate = Color.white
+	if !dead:
+		modulate = Color("ff5959")
+		effects.floating_text(position, "-" + str(hp), Color.red)
+		health -= hp
+		yield(get_tree().create_timer(0.5),"timeout")
+		if health < 0:
+			dead = true
+			effects.death_particles(position)
+			hide()
+			get_node("../CanvasLayer/Dead").popup()
+		modulate = Color.white
 
 func _on_coyoteTimer_timeout():
 	coyote = false
@@ -167,11 +181,16 @@ func _on_Armor_updated_armor(armorData):
 				display[set[armorType]] = load("res://textures/player/" + files[id]["folder"]+ "/" + gender + "/" + files[id]["file"])
 	for sheet in display:
 		if display[sheet] == null:
-			if sheet == "headwear":
-				$Textures/headwear.modulate = Global.playerBase["hair_color"]
-				$Textures/headwear.texture = load("res://textures/player/Hair/" + Global.playerBase["hair_style"] + ".png")
-			else:
-				$Textures.get_node(sheet).hide()
+			match sheet:
+				"headwear":
+					$Textures/headwear.modulate = Global.playerBase["hair_color"]
+					$Textures/headwear.texture = load("res://textures/player/Hair/" + Global.playerBase["hair_style"] + ".png")
+				"shirt":
+					$Textures/shirt.texture = load("res://textures/player/Body/underTop-" + gender + ".png")
+				"pants":
+					$Textures/pants.texture = load("res://textures/player/Body/under-" + gender + ".png")
+				_:
+					$Textures.get_node(sheet).hide()
 		else:
 			if sheet == "headwear":
 				$Textures/headwear.modulate = Color.white

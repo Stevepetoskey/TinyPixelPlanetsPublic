@@ -6,12 +6,14 @@ extends Control
 # var b = "text"
 
 
+func _process(delta):
+	$Path2D/PathFollow2D.offset += delta
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#yield(get_tree().create_timer(0.5),"timeout")
 	$Main/Title.modulate = Color(1,1,1,0)
 	$AnimationPlayer.play("zoom")
-	$Moon/AnimationPlayer.play("default")
 	yield($AnimationPlayer,"animation_finished")
 	$blank.hide()
 	$Main/Title.show()
@@ -28,5 +30,10 @@ func _on_Play_pressed():
 	$World.show()
 
 func _on_back_pressed():
+	$Credits.hide()
 	$World.hide()
 	$Main.show()
+
+func _on_Credits_pressed():
+	$Main.hide()
+	$Credits.show()

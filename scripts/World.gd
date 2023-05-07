@@ -126,9 +126,11 @@ func start_world():
 		Global.playerData.erase("pos")
 	if !(Global.gameStart and Global.new):
 		load_player_data()
+		Global.gameStart = Global.playerData["starter_planet"]
 	if Global.new:
 		#StarSystem.visitedPlanets.append(Global.currentPlanet)
 		if Global.gameStart:
+			player.gender = Global.playerBase["sex"]
 			inventory.add_to_inventory(4,1)
 			armor.armor = {"Helmet":{"id":46,"amount":1},"Hat":{},"Chestplate":{"id":47,"amount":1},"Shirt":{},"Leggings":{"id":48,"amount":1},"Pants":{},"Boots":{"id":49,"amount":1},"Shoes":{}}
 			armor.emit_signal("updated_armor",armor.armor)

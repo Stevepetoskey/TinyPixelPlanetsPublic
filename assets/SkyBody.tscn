@@ -91,30 +91,30 @@ source = 1
 [sub_resource type="VisualShaderNodeInput" id=21]
 input_name = "screen_uv"
 
-[sub_resource type="VisualShaderNodeSwitch" id=24]
+[sub_resource type="VisualShaderNodeSwitch" id=22]
 
-[sub_resource type="VisualShaderNodeBooleanUniform" id=25]
+[sub_resource type="VisualShaderNodeBooleanUniform" id=23]
 uniform_name = "isNight"
 default_value_enabled = true
 default_value = true
 
-[sub_resource type="VisualShaderNodeTexture" id=10]
+[sub_resource type="VisualShaderNodeTexture" id=24]
 source = 2
 
-[sub_resource type="VisualShaderNodeVectorOp" id=12]
+[sub_resource type="VisualShaderNodeVectorOp" id=25]
 operator = 2
 
-[sub_resource type="VisualShaderNodeTextureUniform" id=15]
+[sub_resource type="VisualShaderNodeTextureUniform" id=26]
 uniform_name = "planet"
 texture_type = 1
 
-[sub_resource type="VisualShaderNodeVectorFunc" id=22]
+[sub_resource type="VisualShaderNodeVectorFunc" id=27]
 function = 34
 
-[sub_resource type="VisualShaderNodeColorConstant" id=23]
-constant = Color( 0.0352941, 0.0666667, 0.133333, 1 )
+[sub_resource type="VisualShaderNodeColorConstant" id=28]
+constant = Color( 0.00392157, 0.0862745, 0.121569, 1 )
 
-[sub_resource type="VisualShader" id=16]
+[sub_resource type="VisualShader" id=29]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
 uniform sampler2D planet : hint_albedo;
@@ -156,7 +156,7 @@ void fragment() {
 	bool n_out15p0 = isNight;
 
 // Color:9
-	vec3 n_out9p0 = vec3(0.035294, 0.066667, 0.133333);
+	vec3 n_out9p0 = vec3(0.003922, 0.086275, 0.121569);
 	float n_out9p1 = 1.000000;
 
 // Input:13
@@ -199,19 +199,19 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -691.125, 240.75 )
+graph_offset = Vector2( -843.405, 404.56 )
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2( 1240, 280 )
-nodes/fragment/3/node = SubResource( 10 )
+nodes/fragment/3/node = SubResource( 24 )
 nodes/fragment/3/position = Vector2( -600, -100 )
-nodes/fragment/5/node = SubResource( 12 )
+nodes/fragment/5/node = SubResource( 25 )
 nodes/fragment/5/position = Vector2( -280, 220 )
-nodes/fragment/6/node = SubResource( 15 )
+nodes/fragment/6/node = SubResource( 26 )
 nodes/fragment/6/position = Vector2( -860, 260 )
-nodes/fragment/8/node = SubResource( 22 )
+nodes/fragment/8/node = SubResource( 27 )
 nodes/fragment/8/position = Vector2( -20, 500 )
-nodes/fragment/9/node = SubResource( 23 )
+nodes/fragment/9/node = SubResource( 28 )
 nodes/fragment/9/position = Vector2( -400, 660 )
 nodes/fragment/10/node = SubResource( 18 )
 nodes/fragment/10/position = Vector2( 340, 680 )
@@ -221,22 +221,22 @@ nodes/fragment/12/node = SubResource( 20 )
 nodes/fragment/12/position = Vector2( -840, 740 )
 nodes/fragment/13/node = SubResource( 21 )
 nodes/fragment/13/position = Vector2( -1240, 820 )
-nodes/fragment/14/node = SubResource( 24 )
+nodes/fragment/14/node = SubResource( 22 )
 nodes/fragment/14/position = Vector2( -80, 900 )
-nodes/fragment/15/node = SubResource( 25 )
+nodes/fragment/15/node = SubResource( 23 )
 nodes/fragment/15/position = Vector2( -660, 1080 )
 nodes/fragment/connections = PoolIntArray( 3, 1, 0, 1, 6, 0, 5, 1, 5, 0, 8, 0, 8, 0, 10, 0, 5, 0, 11, 0, 10, 0, 11, 1, 11, 0, 0, 0, 13, 0, 12, 0, 12, 0, 14, 2, 15, 0, 14, 0, 3, 0, 5, 0, 14, 0, 10, 1, 9, 0, 14, 1 )
 
 [sub_resource type="ShaderMaterial" id=17]
 resource_local_to_scene = true
-shader = SubResource( 16 )
+shader = SubResource( 29 )
 shader_param/isNight = true
 shader_param/planet = ExtResource( 4 )
 
-[sub_resource type="Environment" id=8]
+[sub_resource type="Environment" id=30]
 
 [sub_resource type="World" id=7]
-environment = SubResource( 8 )
+environment = SubResource( 30 )
 
 [node name="SkyBody" type="Node2D"]
 material = SubResource( 6 )
@@ -259,7 +259,7 @@ margin_bottom = 7.0
 stretch = true
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer"]
-size = Vector2( 64, 64 )
+size = Vector2( 14, 14 )
 own_world = true
 world = SubResource( 7 )
 transparent_bg = true

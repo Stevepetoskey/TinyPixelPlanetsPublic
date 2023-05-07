@@ -22,6 +22,7 @@ func _ready():
 		match planetRef.type["size"]:
 			1:
 				viewPort.rect_size = Vector2(28,28)
+				$ViewportContainer/Viewport
 				viewPort.rect_position = Vector2(-14,-14)
 				#print($ViewportContainer/Viewport.size)
 			2:

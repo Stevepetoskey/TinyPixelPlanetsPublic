@@ -31,4 +31,4 @@ func planet_entered(planet : Object) -> void:
 	$CanvasLayer/Black/AnimationPlayer.play("fadeIn")
 	yield($CanvasLayer/Black/AnimationPlayer,"animation_finished")
 	print("Landed")
-	StarSystem.land(planet.planetRef)
+	StarSystem.land(planet.planetRef.id)

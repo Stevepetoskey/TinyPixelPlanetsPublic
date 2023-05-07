@@ -53,23 +53,24 @@ signal planet_ready
 signal found_system
 
 func start_game():
-	print("start game")
+	print("---start game---")
 	if Global.new:
 		new()
 		yield(self,"found_system")
 		Global.currentPlanet = find_planet("type","terra").id
+		Global.starterPlanetId = Global.currentPlanet
 		print("Current Planet: ", find_planet_id(Global.currentPlanet).pName)
 	planetReady = true
+	print("---Planet Ready---")
 	emit_signal("planet_ready")
-	print("Planet Ready")
 
 func start_space():
 	print("going into space")
 	var _er = get_tree().change_scene("res://scenes/PlanetSelect.tscn")
 
-func land(planet : Object):
-	Global.currentPlanet = planet.id
-	Global.new_planet(planet)
+func land(planet : int):
+	Global.currentPlanet = planet
+	Global.new_planet()
 
 func new():
 	print("new")
@@ -91,18 +92,20 @@ func new():
 		print(planet.pName + " Type: " + planet.type["type"])
 	emit_signal("found_system")
 
-func new_system(systemSeed : int):
+func new_system(systemSeed : int, loaded = false):
 	print("new System")
 	print(systemDat)
 	seed(systemSeed)
 	currentSeed = systemSeed
 	for child in $system.get_children():
 		child.queue_free()
+		$system.remove_child(child)
 	yield(get_tree(),"idle_frame")
 	currentStar = ["M-type","K-type","G-type","B-type"][randi()%4]
 	currentStarName = create_name(currentSeed)
 	currentStarData = starData[currentStar]
 	var amountOfPlanets = randi() % 20 + 1
+	print("Before: ",get_system_bodies())
 	for _i in range(amountOfPlanets):
 		create_planet()
 
@@ -121,7 +124,6 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 	planets.shuffle()
 	planetType = planets[0]
 	planet.type = planetType
-	
 	#Gets orbit data
 	if orbitBody == $stars:
 		var i = 0
@@ -234,9 +236,11 @@ func find_planet(dataType : String, parameter : String) -> Object:
 			return planet
 	return null
 
-func find_planet_id(id : int) -> Object:
+func find_planet_id(id : int, debug = false) -> Object:
 	var planets = get_system_bodies()
 	for planet in planets:
+		if debug:
+			print(planet.id)
 		if planet.id == id:
 			return planet
 	return null
@@ -267,4 +271,5 @@ func get_system_data() -> Dictionary:
 	return data
 
 func get_current_world_size() -> Vector2:
-	return sizeData[find_planet_id(Global.currentPlanet).type["size"]]["world_size"]
+	print("After: ",get_system_bodies())
+	return sizeData[find_planet_id(Global.currentPlanet,true).type["size"]]["world_size"]

@@ -10,6 +10,7 @@ var new = true
 var gameStart = true
 var currentPlanet : int
 var playerData
+var starterPlanetId : int
 
 var playerBase = {"skin":Color("F8DEC3"),"hair_style":"Short","hair_color":Color("debe99"),"sex":"Guy"}
 
@@ -35,7 +36,7 @@ func open_save(saveId : String) -> void:
 			currentPlanet = playerData["current_planet"]
 			StarSystem.systemDat = load_system(playerData["current_system"])
 			StarSystem.visitedPlanets = StarSystem.systemDat["visited"]
-			StarSystem.new_system(playerData["current_system"])
+			StarSystem.new_system(playerData["current_system"],true)
 			new = false
 		else:
 			remove_recursive(save_path + saveId)
@@ -52,7 +53,7 @@ func open_save(saveId : String) -> void:
 		dir.make_dir("planets")
 	currentSave = saveId
 
-func new_planet(_planet : Object) -> void:
+func new_planet() -> void:
 	var _er = get_tree().change_scene("res://scenes/Main.tscn")
 	yield(get_tree(),"idle_frame")
 	new = true
@@ -65,6 +66,7 @@ func save(saveData : Dictionary) -> void:
 	playerData = saveData["player"]
 	playerData["skin"] = playerBase["skin"];playerData["hair_color"] = playerBase["hair_color"];playerData["hair_style"] = playerBase["hair_style"]
 	playerData["sex"] = playerBase["sex"]
+	playerData["starter_planet"] = starterPlanetId
 	savegame.open(save_path + currentSave + "/playerData.dat",File.WRITE)
 	savegame.store_var(saveData["player"])
 	savegame.close()
