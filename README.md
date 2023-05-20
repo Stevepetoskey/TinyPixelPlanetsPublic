@@ -1,5 +1,7 @@
 # Tiny Pixel Planets
 
+![image of Tiny Pixel Planet](https://img.itch.zone/aW1hZ2UvMTY1NzQ3Mi8xMjE1NTQ2Ni5wbmc=/original/sou%2Fzh.png)
+
 Tiny Pixel Planets is a Terraria like sandbox game in space. 
 Tiny Pixel Planet uses Godot 3.5.1
 
