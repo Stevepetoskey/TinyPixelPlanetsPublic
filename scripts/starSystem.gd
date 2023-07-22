@@ -13,6 +13,7 @@ var sizeTypes = {
 var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra.png"),"size":sizeTypes.small,"type":"terra"},
 	"small_desert":{"texture":preload("res://textures/planets/desert.png"),"size":sizeTypes.small,"type":"desert"},
 	"small_mud":{"texture":preload("res://textures/planets/mud.png"),"size":sizeTypes.small,"type":"mud"},
+	"small_exotic":{"texture":preload("res://textures/planets/exotic.png"),"size":sizeTypes.small,"type":"exotic"},
 	"small_stone":{"texture":preload("res://textures/planets/stone.png"),"size":sizeTypes.small,"type":"stone"},
 	"small_snow":{"texture":preload("res://textures/planets/snow.png"),"size":sizeTypes.small,"type":"snow"},
 	"small_snow_terra":{"texture":preload("res://textures/planets/snow_terra.png"),"size":sizeTypes.small,"type":"snow_terra"},
@@ -21,6 +22,7 @@ var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra
 	"earth":{"texture":preload("res://textures/planets/terraMedium.png"),"size":sizeTypes.medium,"type":"terra"},
 	"desert":{"texture":preload("res://textures/planets/desertMedium.png"),"size":sizeTypes.medium,"type":"desert"},
 	"mud":{"texture":preload("res://textures/planets/mudMedium.png"),"size":sizeTypes.medium,"type":"mud"},
+	"exotic":{"texture":preload("res://textures/planets/exoticMedium.png"),"size":sizeTypes.medium,"type":"exotic"},
 	"stone":{"texture":preload("res://textures/planets/StoneMedium.png"),"size":sizeTypes.medium,"type":"stone"},
 	"gas1":{"texture":preload("res://textures/planets/gas1.png"),"size":sizeTypes.large,"type":"gas1"},
 	"gas2":{"texture":preload("res://textures/planets/gas2.png"),"size":sizeTypes.large,"type":"gas2"},
@@ -156,7 +158,10 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 	#Checks if habitable
 	var size = "" if planetType["size"] > sizeTypes.small else "small_"
 	if currentStarData["habital"].has(abs(planet.orbitalDistance-orbitBody.orbitalDistance)) and randi()%5 == 1:
-		planet.type = planetData[size + "earth"]
+		if randi() % 10 < 6:
+			planet.type = planetData[size + "earth"]
+		else:
+			planet.type = planetData[size + "exotic"]
 		planet.hasAtmosphere = true
 	elif !currentStarData["habital"].empty() and abs(planet.orbitalDistance-orbitBody.orbitalDistance) > currentStarData["habital"][currentStarData["habital"].size()-1]:
 		if randi() % 3 ==1:

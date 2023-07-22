@@ -51,6 +51,27 @@ var blockData = {
 	29:{"texture":preload("res://textures/blocks2X/copper_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":29,"amount":1}]},
 	30:{"texture":preload("res://textures/blocks2X/platform_full.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":30,"amount":1}]},
 	55:{"texture":preload("res://textures/blocks2X/silver_ore.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":55,"amount":1}]},
+	69:{"texture":preload("res://textures/blocks2X/exotic_grass_block.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":69,"amount":1}]},
+	70:{"texture":preload("res://textures/blocks2X/exotic_dirt.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":70,"amount":1}]},
+	71:{"texture":preload("res://textures/blocks2X/exotic_stone.png"),"hardness":3,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":71,"amount":1}]},
+	72:{"texture":preload("res://textures/blocks2X/exotic_stone_bricks.png"),"hardness":3.5,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":72,"amount":1}]},
+	73:{"texture":preload("res://textures/blocks2X/rhodonite_ore.png"),"hardness":6,"breakWith":"Pickaxe","canHaverst":4,"drops":[{"id":74,"amount":1}]},
+	75:{"texture":preload("res://textures/blocks2X/carved_exotic_stone.png"),"hardness":3,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":75,"amount":1}]},
+	76:{"texture":preload("res://textures/blocks2X/exotic_sapling.png"),"hardness":7,"breakWith":"Axe","canHaverst":1,"drops":[{"id":77,"amount":[3,6]},{"id":85,"amount":[0,3]}]},
+	77:{"texture":preload("res://textures/blocks2X/exotic_log_front.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":77,"amount":1}]},
+	78:{"texture":preload("res://textures/blocks2X/exotic_planks.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":78,"amount":1}]},
+	79:{"texture":preload("res://textures/blocks2X/exotic_wood_window.png"),"hardness":0.5,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":79,"amount":1}]},
+	80:{"texture":preload("res://textures/blocks2X/wood_window.png"),"hardness":0.5,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":80,"amount":1}]},
+	81:{"texture":preload("res://textures/blocks2X/copper_window.png"),"hardness":0.5,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":81,"amount":1}]},
+	82:{"texture":preload("res://textures/blocks2X/mossy_stone_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":82,"amount":1}]},
+	83:{"texture":preload("res://textures/blocks2X/cracked_stone_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":83,"amount":1}]},
+	84:{"texture":preload("res://textures/blocks2X/mossy_cobblestone.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":84,"amount":1}]},
+	85:{"texture":preload("res://textures/blocks2X/exotic_sapling.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[{"id":85,"amount":1}]},
+	86:{"texture":preload("res://textures/blocks2X/cracked_mud_bricks.png"),"hardness":1.2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":86,"amount":1}]},
+	87:{"texture":preload("res://textures/blocks2X/cracked_sandstone_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":87,"amount":1}]},
+	88:{"texture":preload("res://textures/blocks2X/copper_block.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":88,"amount":1}]},
+	89:{"texture":preload("res://textures/blocks2X/silver_block.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":89,"amount":1}]},
+	90:{"texture":preload("res://textures/blocks2X/rhodonite_block.png"),"hardness":6,"breakWith":"Pickaxe","canHaverst":4,"drops":[{"id":90,"amount":1}]},
 }
 
 var itemData = {
@@ -93,6 +114,7 @@ var itemData = {
 	66:{"texture_loc":preload("res://textures/items/silver_axe.png"),"type":"weapon","weapon_type":"Axe","dmg":12,"speed":2,"range":32,"big_texture":preload("res://textures/weapons/silver_axe.png")},
 	67:{"texture_loc":preload("res://textures/items/silver_dagger.png"),"type":"weapon","weapon_type":"Dagger","dmg":5,"speed":0.1,"range":16,"big_texture":preload("res://textures/weapons/silver_dagger.png")},
 	68:{"texture_loc":preload("res://textures/items/silver_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":8,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/silver_sword.png")},
+	74:{"texture_loc":preload("res://textures/items/rhodonite.png"),"type":"Item"},
 }
 
 signal update_blocks
@@ -113,10 +135,14 @@ func start_world():
 		yield(StarSystem,"planet_ready")
 	#world size stuff
 	worldSize = StarSystem.get_current_world_size()
-	get_node("../Player/Camera2D").limit_right = worldSize.x * BLOCK_SIZE.x - 4
-	get_node("../Player/Camera2D").limit_bottom = (worldSize.y+1) * BLOCK_SIZE.y - 4
-	$StaticBody2D/Right.position.x = worldSize.x * BLOCK_SIZE.x + 2
-	$StaticBody2D/Bottom.position.y = worldSize.y * BLOCK_SIZE.y + 2
+#	get_node("../Player/Camera2D").limit_right = worldSize.x * BLOCK_SIZE.x - 4
+#	get_node("../Player/Camera2D").limit_bottom = (worldSize.y+1) * BLOCK_SIZE.y - 4
+	$StaticBody2D/Right.position = Vector2(worldSize.x * BLOCK_SIZE.x + 2,(worldSize.y * BLOCK_SIZE.y) / 2)
+	$StaticBody2D/Right.shape.extents.y = (worldSize.y * BLOCK_SIZE.y) / 2
+	$StaticBody2D/Left.shape.extents.y = (worldSize.y * BLOCK_SIZE.y) / 2
+	$StaticBody2D/Left.position.y = (worldSize.y * BLOCK_SIZE.y) / 2
+	$StaticBody2D/Bottom.shape.extents.y = (worldSize.x * BLOCK_SIZE.x) / 2
+	$StaticBody2D/Bottom.position = Vector2((worldSize.x * BLOCK_SIZE.x) / 2,worldSize.y * BLOCK_SIZE.y)
 	
 	var worldType = StarSystem.find_planet_id(Global.currentPlanet).type["type"]
 	get_node("../CanvasLayer/Black").show()
@@ -126,7 +152,6 @@ func start_world():
 		Global.playerData.erase("pos")
 	if !(Global.gameStart and Global.new):
 		load_player_data()
-		Global.gameStart = Global.playerData["starter_planet"]
 	if Global.new:
 		#StarSystem.visitedPlanets.append(Global.currentPlanet)
 		if Global.gameStart:
@@ -152,6 +177,10 @@ func start_world():
 func generateWorld(worldType : String):
 	var worldSeed = StarSystem.currentSeed + Global.currentPlanet
 	seed(worldSeed)
+	if worldType == "exotic":
+		worldNoise = load("res://noise/exotic.tres")
+	else:
+		worldNoise = load("res://noise/Main.tres")
 	worldNoise.seed = worldSeed
 	var copperOre = OpenSimplexNoise.new()
 	copperOre.seed = StarSystem.currentSeed;copperOre.period = 2;copperOre.persistence = 0.5;copperOre.lacunarity = 2
@@ -249,6 +278,29 @@ func generateWorld(worldType : String):
 							set_block_all(pos,55)
 						else:
 							set_block_all(pos,3)
+		"exotic":
+			for x in range(worldSize.x):
+				for y in range(worldSize.y):
+					var height = (worldSize.y - (int(worldNoise.get_noise_1d(x) * noiseScale) + worldHeight))
+					if height > worldSize.y - 4:
+						height = worldSize.y - 4
+					var pos = Vector2(x,y)
+					if y == height:
+						set_block_all(pos,69)
+						if get_block(pos - Vector2(0,2),1) == null and randi() % 5 == 1:
+							set_block(pos - Vector2(0,1),1,76)
+#						elif get_block(pos - Vector2(0,1),1) == null:
+#							if randi() % 3 == 1:
+#								set_block(pos - Vector2(0,1),1,6)
+#							elif randi() % 3 == 1:
+#								set_block(pos - Vector2(0,1),1,7)
+					elif y > height and y < height+3:
+						set_block_all(pos,70)
+					elif y >= height+3:
+						if abs(copperOre.get_noise_2d(x,y)) >= 0.4:
+							set_block_all(pos,73)
+						else:
+							set_block_all(pos,71)
 
 func get_world_data(quit = true) -> Dictionary:
 	var data = {}

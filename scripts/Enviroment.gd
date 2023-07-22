@@ -17,14 +17,16 @@ var backTextures = {"terra":preload("res://textures/enviroment/backgrounds/terra
 	"snow":preload("res://textures/enviroment/backgrounds/snow_back.png"),
 	"snow_terra":preload("res://textures/enviroment/backgrounds/snow_back.png"),
 	"mud":preload("res://textures/enviroment/backgrounds/mud_back.png"),
-	"desert":preload("res://textures/enviroment/backgrounds/desert_back.png")
+	"desert":preload("res://textures/enviroment/backgrounds/desert_back.png"),
+	"exotic":preload("res://textures/enviroment/backgrounds/exotic_back.png")
 }
 var frontTextures = {"terra":preload("res://textures/enviroment/backgrounds/terra_front.png"),
 	"stone":preload("res://textures/enviroment/backgrounds/stone_front.png"),
 	"snow":preload("res://textures/enviroment/backgrounds/snow_front.png"),
 	"snow_terra":preload("res://textures/enviroment/backgrounds/snow_terra_front.png"),
 	"mud":preload("res://textures/enviroment/backgrounds/mud_front.png"),
-	"desert":preload("res://textures/enviroment/backgrounds/desert_front.png")
+	"desert":preload("res://textures/enviroment/backgrounds/desert_front.png"),
+	"exotic":preload("res://textures/enviroment/backgrounds/exotic_front.png")
 }
 
 var oldTime = -1.0

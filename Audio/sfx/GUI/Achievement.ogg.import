@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Achievement.ogg-2877dc125db06d7b2499f361b74b7ee1.oggstr"
+
+[deps]
+
+source_file="res://Audio/sfx/GUI/Achievement.ogg"
+dest_files=[ "res://.import/Achievement.ogg-2877dc125db06d7b2499f361b74b7ee1.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

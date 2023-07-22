@@ -50,6 +50,7 @@
 [ext_resource path="res://textures/enviroment/space-2.png" type="Texture" id=48]
 [ext_resource path="res://scripts/Dead.gd" type="Script" id=49]
 [ext_resource path="res://fonts/pixelHeader.tres" type="DynamicFont" id=50]
+[ext_resource path="res://noise/Main.tres" type="OpenSimplexNoise" id=51]
 
 [sub_resource type="VisualShaderNodeScalarOp" id=67]
 output_port_for_preview = 0
@@ -510,8 +511,6 @@ tracks/1/keys = {
 "update": 1,
 "values": [ true, false ]
 }
-
-[sub_resource type="OpenSimplexNoise" id=9]
 
 [sub_resource type="RectangleShape2D" id=14]
 extents = Vector2( 3, 49.625 )
@@ -975,10 +974,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -36.0
-margin_top = -139.0
-margin_right = 36.0
-margin_bottom = -19.0
+margin_left = -34.0
+margin_top = -158.0
+margin_right = 38.0
+margin_bottom = -38.0
 
 [node name="leftBtn" type="TextureButton" parent="CanvasLayer/Crafting"]
 anchor_top = 1.0
@@ -1159,9 +1158,13 @@ custom_fonts/font = ExtResource( 10 )
 text = "TU 2 beta 5 (Unstable)"
 align = 1
 
+[node name="Notification" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
 [node name="World" type="Node2D" parent="."]
 script = ExtResource( 1 )
-worldNoise = SubResource( 9 )
+worldNoise = ExtResource( 51 )
 
 [node name="blocks" type="Node2D" parent="World"]
 
@@ -1208,10 +1211,6 @@ z_index = 2
 [node name="Camera2D" type="Camera2D" parent="Player"]
 offset = Vector2( 0, -30 )
 current = true
-limit_left = -2
-limit_top = -128
-limit_right = 62
-limit_bottom = 94
 limit_smoothed = true
 smoothing_enabled = true
 

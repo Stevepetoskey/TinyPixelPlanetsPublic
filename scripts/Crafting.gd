@@ -16,12 +16,18 @@ var recipes = {
 		{"recipe":[{"id":13,"amount":2}],"result":{"id":30,"amount":4}},
 		{"recipe":[{"id":8,"amount":4}],"result":{"id":16,"amount":1}},
 		{"recipe":[{"id":17,"amount":4}],"result":{"id":19,"amount":4}},
-		{"recipe":[{"id":3,"amount":4}],"result":{"id":15,"amount":4}},
+		{"recipe":[{"id":3,"amount":4}],"result":{"id":15,"amount":4}}, #Stone bricks
 		{"recipe":[{"id":22,"amount":4}],"result":{"id":23,"amount":4}},
 		{"recipe":[{"id":13,"amount":1}],"result":{"id":5,"amount":3}},
 		{"recipe":[{"id":18,"amount":1},{"id":14,"amount":1}],"result":{"id":25,"amount":2}},
 		{"recipe":[{"id":26,"amount":4}],"result":{"id":27,"amount":4}},
 		{"recipe":[{"id":8,"amount":2},{"id":3,"amount":2}],"result":{"id":28,"amount":1}},
+		{"recipe":[{"id":71,"amount":4}],"result":{"id":72,"amount":4}}, #Exotic stone bricks
+		{"recipe":[{"id":72,"amount":2}],"result":{"id":75,"amount":2}}, #Carved exotic stone bricks
+		{"recipe":[{"id":77,"amount":1}],"result":{"id":78,"amount":4}}, #Exotic planks
+		{"recipe":[{"id":78,"amount":1},{"id":20,"amount":2}],"result":{"id":79,"amount":2}}, #Exotic wood window
+		{"recipe":[{"id":13,"amount":1},{"id":20,"amount":2}],"result":{"id":80,"amount":2}}, #Wood window
+		{"recipe":[{"id":52,"amount":1},{"id":20,"amount":2}],"result":{"id":81,"amount":2}}, #Copper wood window
 		{"recipe":[{"id":5,"amount":2},{"id":13,"amount":4}],"result":{"id":58,"amount":1}}, #Wood club
 		{"recipe":[{"id":5,"amount":2},{"id":13,"amount":4}],"result":{"id":59,"amount":1}}, #Wood axe
 		{"recipe":[{"id":5,"amount":2},{"id":13,"amount":3}],"result":{"id":61,"amount":1}}, #Wood sword
@@ -35,8 +41,14 @@ var recipes = {
 		{"recipe":[{"id":25,"amount":1}],"result":{"id":26,"amount":1}},
 		{"recipe":[{"id":29,"amount":1}],"result":{"id":52,"amount":1}},
 		{"recipe":[{"id":55,"amount":1}],"result":{"id":56,"amount":1}},
+		{"recipe":[{"id":15,"amount":1}],"result":{"id":83,"amount":1}}, #Cracked stone bricks
+		{"recipe":[{"id":19,"amount":1}],"result":{"id":86,"amount":1}}, #Cracked mud bricks
+		{"recipe":[{"id":23,"amount":1}],"result":{"id":87,"amount":1}}, #Cracked sandstone bricks
 	],
 	"smithing_table": [
+		{"recipe":[{"id":52,"amount":6}],"result":{"id":88,"amount":1}}, #Copper block
+		{"recipe":[{"id":56,"amount":6}],"result":{"id":89,"amount":1}}, #Silver block
+		{"recipe":[{"id":76,"amount":6}],"result":{"id":90,"amount":1}}, #Rhodonite block
 		{"recipe":[{"id":5,"amount":3},{"id":13,"amount":3}],"result":{"id":4,"amount":1}},
 		{"recipe":[{"id":5,"amount":3},{"id":3,"amount":3}],"result":{"id":31,"amount":1}},
 		{"recipe":[{"id":5,"amount":3},{"id":52,"amount":3}],"result":{"id":53,"amount":1}},
