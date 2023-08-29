@@ -4,6 +4,7 @@ var music = [preload("res://Audio/music/TinyPlanets.ogg"),preload("res://Audio/m
 
 func _ready():
 	$CanvasLayer/Black.show()
+	Global.connect("screenshot",self,"screenshot")
 
 func _process(delta):
 	$CanvasLayer/FPS.text = str(Engine.get_frames_per_second())
@@ -19,3 +20,8 @@ func _on_Timer_timeout():
 
 func _on_World_world_loaded():
 	$Music/Timer.start(rand_range(20,120))
+
+func screenshot():
+	$CanvasLayer.hide()
+	yield(get_tree(),"idle_frame")
+	$CanvasLayer.show()

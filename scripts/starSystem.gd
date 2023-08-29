@@ -121,7 +121,7 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 	var planetType
 	var planets = []# = ["small_desert","small_mud","small_stone","desert","mud","stone","gas1","gas2"]
 	for planetDat in planetData:
-		if (planetData[planetDat]["size"] < maxSize or (maxSize == 0 and planetData[planetDat]["size"] == 0)) and !["terra","snow","snow_terra"].has(planetData[planetDat]["type"]):
+		if (planetData[planetDat]["size"] < maxSize or (maxSize == 0 and planetData[planetDat]["size"] == 0)) and !["terra","snow","snow_terra","exotic"].has(planetData[planetDat]["type"]):
 			planets.append(planetData[planetDat])
 	planets.shuffle()
 	planetType = planets[0]

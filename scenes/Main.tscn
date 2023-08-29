@@ -1161,6 +1161,7 @@ align = 1
 [node name="Notification" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 
 [node name="World" type="Node2D" parent="."]
 script = ExtResource( 1 )

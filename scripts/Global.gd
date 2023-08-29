@@ -15,6 +15,7 @@ var starterPlanetId : int
 var playerBase = {"skin":Color("F8DEC3"),"hair_style":"Short","hair_color":Color("debe99"),"sex":"Guy"}
 
 signal loaded_data
+signal screenshot
 
 func save_exists(saveId : String) -> bool:
 	var dir = Directory.new()
@@ -63,6 +64,11 @@ func new_planet() -> void:
 	emit_signal("loaded_data")
 
 func save(saveData : Dictionary) -> void:
+	emit_signal("screenshot")
+	yield(get_tree(),"idle_frame")
+	var image = get_viewport().get_texture().get_data()
+	image.flip_y()
+	image.save_png(save_path + currentSave + "/icon.png")
 	playerData = saveData["player"]
 	playerData["skin"] = playerBase["skin"];playerData["hair_color"] = playerBase["hair_color"];playerData["hair_style"] = playerBase["hair_style"]
 	playerData["sex"] = playerBase["sex"]
