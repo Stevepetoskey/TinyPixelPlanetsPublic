@@ -6,9 +6,9 @@
 [ext_resource path="res://scripts/InventoryBtn.gd" type="Script" id=4]
 
 [node name="InventoryBtn" type="TextureButton"]
-anchor_right = 0.375
-anchor_bottom = 0.109
-margin_bottom = 0.0479994
+anchor_right = 0.2
+anchor_bottom = 0.087
+margin_bottom = 0.079999
 texture_normal = ExtResource( 2 )
 script = ExtResource( 4 )
 

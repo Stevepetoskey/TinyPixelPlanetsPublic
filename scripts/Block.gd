@@ -63,6 +63,9 @@ func _ready():
 		81:
 			$Sprite.texture = load("res://textures/blocks2X/copper_window_atlas.png")
 			$Sprite.region_enabled = true
+		91:
+			if data.empty():
+				data = []
 
 func world_loaded():
 	on_update()

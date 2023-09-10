@@ -7,6 +7,13 @@ const skyColorDict = {
 	NIGHT = Color("3d1b63")
 }
 
+const lightColorDict = {
+	SUNSET = Color("F6635C"),
+	DAY = Color.white,
+	SUNRISE = Color("ffa948"),
+	NIGHT = Color("6d5e79")
+}
+
 export var defualtColor = Color.white
 export var nightColor = Color(0.43,0.39,0.49)
 
@@ -40,10 +47,12 @@ func _process(delta):
 			get_node("../ParallaxBackground2/Sky").set_atmosphere(time*1)
 			if time == 1.0:
 				change_sounds(-5,0,-1000)
+				Global.lightColor = lightColorDict.DAY
 				sky.modulate = skyColorDict.DAY
 				sky.show()
 			elif time == -1.0:
 				change_sounds(-1000,-1000,-15)
+				Global.lightColor = lightColorDict.NIGHT
 				sky.modulate = skyColorDict.NIGHT * Color(1,1,1,0)
 				sky.hide()
 			elif TOD =="sunset":
@@ -51,15 +60,25 @@ func _process(delta):
 				change_sounds(lerp(-5,-35,1-time),lerp(0,-35,1-time),lerp(-50,-15,1-time))
 				if time >= 0.5:
 					sky.modulate = lerp(skyColorDict.DAY,skyColorDict.SUNSET,1-(time-0.5)*2.0)
+					Global.lightColor = lerp(lightColorDict.DAY,lightColorDict.SUNSET,1-(time-0.5)*2.0)
 				else:
 					sky.modulate = lerp(skyColorDict.SUNSET,skyColorDict.NIGHT * Color(1,1,1,0),1-(time*2.0))
+					Global.lightColor = lerp(lightColorDict.SUNSET,lightColorDict.NIGHT,1-(time*2.0))
 			else:
 				change_sounds(lerp(-5,-35,1-time),lerp(0,-35,1-time),lerp(-50,-15,1-time))
 				sky.show()
 				if time <= 0.5:
+					Global.lightColor = lerp(lightColorDict.NIGHT,lightColorDict.SUNRISE,time*2.0)
 					sky.modulate = lerp(skyColorDict.NIGHT * Color(1,1,1,0),skyColorDict.SUNRISE,time*2.0)
 				else:
+					Global.lightColor = lerp(lightColorDict.SUNRISE,lightColorDict.DAY,(time-.5)*2.0)
 					sky.modulate = lerp(skyColorDict.SUNRISE,skyColorDict.DAY,(time-.5)*2.0)
+			
+			$back.modulate = Global.lightColor
+			$front.modulate = Global.lightColor
+			get_node("../../World/blocks").modulate = Global.lightColor
+			get_node("../../Player").modulate = Global.lightColor
+			get_node("../../Entities").modulate = Global.lightColor
 		oldTime = time
 
 func change_sounds(volume1 : int,volume2 = -1000, volume3 = -1000) -> void:
@@ -92,8 +111,14 @@ func change_sounds(volume1 : int,volume2 = -1000, volume3 = -1000) -> void:
 				get_node("../../sfx/winterWind").volume_db = volume1
 
 func set_background(type : String):
-	$back/Sprite.texture = backTextures[type]
-	$front/Sprite.texture = frontTextures[type]
+	if type == "asteroids":
+		$back/Sprite.hide()
+		$front/Sprite.hide()
+	else:
+		$back/Sprite.show()
+		$front/Sprite.show()
+		$back/Sprite.texture = backTextures[type]
+		$front/Sprite.texture = frontTextures[type]
 
 
 func _on_World_world_loaded():

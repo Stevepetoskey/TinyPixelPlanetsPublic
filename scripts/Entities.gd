@@ -1,6 +1,6 @@
 extends Node2D
 
-var entities = {"Slorg":preload("res://assets/enemies/Slorg.tscn")}
+var entities = {"Slorg":preload("res://assets/enemies/Slorg.tscn"),"Item":preload("res://assets/entities/Item.tscn")}
 
 var loaded = false
 
@@ -21,6 +21,15 @@ func load_entities(data : Array):
 		newE.data = entity["data"]
 		newE.new = false
 		$Hold.add_child(newE)
+
+func spawn_item(item : Dictionary, thrown = false, pos = $"../Player".position):
+	var newI = entities["Item"].instance()
+	newI.position = pos
+	newI.data = item
+	if thrown:
+		newI.canPickup = false
+		newI.motion = Vector2(10*rand_range(-1,1),-5)
+	$Hold.add_child(newI)
 
 func _on_Spawn_timeout():
 	if loaded:

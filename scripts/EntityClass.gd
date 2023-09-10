@@ -1,7 +1,7 @@
 extends KinematicBody2D
 class_name Entity
 
-const GRAVITY = 4
+var GRAVITY = 4
 
 var maxHealth = 20
 var health = 20
@@ -12,6 +12,10 @@ var data = {}
 var type : String
 
 onready var effects = get_node("../../../Effects")
+
+func _ready():
+	if !get_node("../../../World").hasGravity:
+		GRAVITY = 0
 
 func die():
 	print("bruh")

@@ -27,6 +27,7 @@ var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra
 	"gas1":{"texture":preload("res://textures/planets/gas1.png"),"size":sizeTypes.large,"type":"gas1"},
 	"gas2":{"texture":preload("res://textures/planets/gas2.png"),"size":sizeTypes.large,"type":"gas2"},
 	"gas3":{"texture":preload("res://textures/planets/gas3.png"),"size":sizeTypes.large,"type":"gas3"},
+	"asteroids":{"texture":preload("res://textures/planets/asteroids.png"),"size":sizeTypes.small,"type":"asteroids"},
 }
 
 var sizeData = { #Normal moon chance: 10,50,95
@@ -57,6 +58,7 @@ signal found_system
 func start_game():
 	print("---start game---")
 	if Global.new:
+		print("Guhia")
 		new()
 		yield(self,"found_system")
 		Global.currentPlanet = find_planet("type","terra").id
@@ -94,6 +96,33 @@ func new():
 		print(planet.pName + " Type: " + planet.type["type"])
 	emit_signal("found_system")
 
+func load_system():
+	for child in $system.get_children():
+		child.queue_free()
+		$system.remove_child(child)
+	yield(get_tree(),"idle_frame")
+	
+	currentStarName = systemDat["system_name"]
+	currentSeed = systemDat["system_seed"]
+	currentStar = systemDat["star_type"]
+	currentStarData = starData[currentStar]
+	visitedPlanets = systemDat["visited_planets"]
+	for id in systemDat["planets"]:
+		var planetDat = systemDat["planets"][id]
+		var planet = PLANET.instance()
+		planet.id = id
+		planet.hasAtmosphere = planetDat["has_atmosphere"]
+		planet.type = planetData[look_up_planet_data(planetDat["planet_type"],planetDat["planet_size"])]
+		planet.orbitalDistance = planetDat["orbit_distance"]
+		planet.orbitingBody = $stars if planetDat["orbiting_body"] == -1 else find_planet_id(planetDat["orbiting_body"])
+		planet.orbitalSpeed = planetDat["orbit_speed"]
+		planet.rotationSpeed = planetDat["rotation_speed"]
+		planet.currentOrbit = planetDat["current_orbit"]
+		planet.currentRot = planetDat["current_rot"]
+		planet.pName = planetDat["planet_name"]
+		planet.pDesc = planetDat["planet_desc"]
+		$system.add_child(planet)
+
 func new_system(systemSeed : int, loaded = false):
 	print("new System")
 	print(systemDat)
@@ -115,7 +144,6 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 	#randomize()
 	var planet = PLANET.instance()
 	planet.id = get_system_bodies().size()
-	planet.hasAtmosphere = bool(randi() % 2)
 	
 	#Determines planet type
 	var planetType
@@ -126,6 +154,10 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 	planets.shuffle()
 	planetType = planets[0]
 	planet.type = planetType
+	if planet.type["type"] != "asteroids":
+		planet.hasAtmosphere = bool(randi() % 2)
+	else:
+		planet.hasAtmosphere = false
 	#Gets orbit data
 	if orbitBody == $stars:
 		var i = 0
@@ -151,9 +183,6 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 	planet.rotationSpeed = int(rand_range(1,8))
 	planet.currentOrbit = deg2rad(randi() % 360)
 	planet.currentRot = deg2rad(randi() % 360)
-	if !systemDat.empty() and systemDat["planets"].has(planet.id):
-		planet.currentOrbit = systemDat["planets"][planet.id]["current_orbit"]
-		planet.currentRot = systemDat["planets"][planet.id]["current_rot"]
 	
 	#Checks if habitable
 	var size = "" if planetType["size"] > sizeTypes.small else "small_"
@@ -269,12 +298,18 @@ func create_name(systemSeed : int) -> String:
 	return starName
 
 func get_system_data() -> Dictionary:
-	var data = {"star":currentStar,"seed":currentSeed,"planets":{},"visited":visitedPlanets}
+	var data = {"system_name":currentStarName,"star_type":currentStar,"system_seed":currentSeed,"planets":{},"visited_planets":visitedPlanets}
 	var planets = get_system_bodies()
 	for planet in planets:
-		data["planets"][planet.id] = {"current_orbit":planet.currentOrbit,"current_rot":planet.currentRot}
+		data["planets"][planet.id] = {"orbiting_body":-1 if planet.orbitingBody == $stars else planet.orbitingBody.id,"planet_type":planet.type["type"],"planet_size":planet.type["size"],"has_atmosphere":planet.hasAtmosphere,"planet_name":planet.pName,"planet_desc":planet.pDesc,"rotation_speed":planet.rotationSpeed,"orbit_speed":planet.orbitalSpeed,"orbit_distance":planet.orbitalDistance,"current_orbit":planet.currentOrbit,"current_rot":planet.currentRot}
 	return data
 
 func get_current_world_size() -> Vector2:
 	print("After: ",get_system_bodies())
 	return sizeData[find_planet_id(Global.currentPlanet,true).type["size"]]["world_size"]
+
+func look_up_planet_data(type,size):
+	for planetDat in planetData:
+		if planetData[planetDat]["type"] == type and planetData[planetDat]["size"] == size:
+			return planetDat
+	return ""

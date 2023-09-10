@@ -5,6 +5,7 @@ const BLOCK_SIZE = Vector2(8,8)
 
 export var worldSize = Vector2(16,24)
 export var worldNoise : OpenSimplexNoise
+export var asteroidNoise : OpenSimplexNoise
 export var noiseScale = 15
 export var worldHeight = 10
 
@@ -17,8 +18,9 @@ onready var entities = get_node("../Entities")
 var currentPlanet : Object
 
 var worldLoaded = false
+var hasGravity = true
 
-var interactableBlocks = [12,16,28]
+var interactableBlocks = [12,16,28,91]
 
 var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30]
 var blockData = {
@@ -57,10 +59,10 @@ var blockData = {
 	72:{"texture":preload("res://textures/blocks2X/exotic_stone_bricks.png"),"hardness":3.5,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":72,"amount":1}]},
 	73:{"texture":preload("res://textures/blocks2X/rhodonite_ore.png"),"hardness":6,"breakWith":"Pickaxe","canHaverst":4,"drops":[{"id":74,"amount":1}]},
 	75:{"texture":preload("res://textures/blocks2X/carved_exotic_stone.png"),"hardness":3,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":75,"amount":1}]},
-	76:{"texture":preload("res://textures/blocks2X/exotic_sapling.png"),"hardness":7,"breakWith":"Axe","canHaverst":1,"drops":[{"id":77,"amount":[3,6]},{"id":85,"amount":[0,3]}]},
-	77:{"texture":preload("res://textures/blocks2X/exotic_log_front.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":77,"amount":1}]},
-	78:{"texture":preload("res://textures/blocks2X/exotic_planks.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":78,"amount":1}]},
-	79:{"texture":preload("res://textures/blocks2X/exotic_wood_window.png"),"hardness":0.5,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":79,"amount":1}]},
+	76:{"texture":preload("res://textures/blocks2X/exotic_sapling.png"),"hardness":9,"breakWith":"Axe","canHaverst":1,"drops":[{"id":77,"amount":[3,6]},{"id":85,"amount":[0,3]}]},
+	77:{"texture":preload("res://textures/blocks2X/exotic_log_front.png"),"hardness":1.5,"breakWith":"Axe","canHaverst":1,"drops":[{"id":77,"amount":1}]},
+	78:{"texture":preload("res://textures/blocks2X/exotic_planks.png"),"hardness":1.5,"breakWith":"Axe","canHaverst":1,"drops":[{"id":78,"amount":1}]},
+	79:{"texture":preload("res://textures/blocks2X/exotic_wood_window.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":79,"amount":1}]},
 	80:{"texture":preload("res://textures/blocks2X/wood_window.png"),"hardness":0.5,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":80,"amount":1}]},
 	81:{"texture":preload("res://textures/blocks2X/copper_window.png"),"hardness":0.5,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":81,"amount":1}]},
 	82:{"texture":preload("res://textures/blocks2X/mossy_stone_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":82,"amount":1}]},
@@ -72,6 +74,16 @@ var blockData = {
 	88:{"texture":preload("res://textures/blocks2X/copper_block.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":88,"amount":1}]},
 	89:{"texture":preload("res://textures/blocks2X/silver_block.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":89,"amount":1}]},
 	90:{"texture":preload("res://textures/blocks2X/rhodonite_block.png"),"hardness":6,"breakWith":"Pickaxe","canHaverst":4,"drops":[{"id":90,"amount":1}]},
+	91:{"texture":preload("res://textures/blocks2X/chest.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":91,"amount":1}]},
+	104:{"texture":preload("res://textures/blocks2X/quartz_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":100,"amount":[1,3]}]},
+	105:{"texture":preload("res://textures/blocks2X/rose_quartz_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":101,"amount":[1,3]}]},
+	106:{"texture":preload("res://textures/blocks2X/purple_quartz_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":102,"amount":[1,3]}]},
+	107:{"texture":preload("res://textures/blocks2X/blue_quartz_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":103,"amount":[1,3]}]},
+	108:{"texture":preload("res://textures/blocks2X/quartz_block.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":108,"amount":1}]},
+	109:{"texture":preload("res://textures/blocks2X/rose_quartz_block.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":109,"amount":1}]},
+	110:{"texture":preload("res://textures/blocks2X/purple_quartz_block.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":110,"amount":1}]},
+	111:{"texture":preload("res://textures/blocks2X/blue_quartz_block.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":111,"amount":1}]},
+	112:{"texture":preload("res://textures/blocks2X/asteroid_rock.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":112,"amount":1}]},
 }
 
 var itemData = {
@@ -115,6 +127,18 @@ var itemData = {
 	67:{"texture_loc":preload("res://textures/items/silver_dagger.png"),"type":"weapon","weapon_type":"Dagger","dmg":5,"speed":0.1,"range":16,"big_texture":preload("res://textures/weapons/silver_dagger.png")},
 	68:{"texture_loc":preload("res://textures/items/silver_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":8,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/silver_sword.png")},
 	74:{"texture_loc":preload("res://textures/items/rhodonite.png"),"type":"Item"},
+	92:{"texture_loc":preload("res://textures/items/exotic_wood_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":1,"speed":2,"big_texture":preload("res://textures/weapons/exotic_wood_pick.png")},
+	93:{"texture_loc":preload("res://textures/items/exotic_wood_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":3,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/exotic_wood_sword.png")},
+	94:{"texture_loc":preload("res://textures/items/exotic_wood_club.png"),"type":"weapon","weapon_type":"Club","dmg":4,"speed":1,"range":32,"big_texture":preload("res://textures/items/exotic_wood_club.png")},
+	95:{"texture_loc":preload("res://textures/items/exotic_barbed_club.png"),"type":"weapon","weapon_type":"Club","dmg":5,"speed":1,"range":32,"big_texture":preload("res://textures/weapons/exotic_barbed_club.png")},
+	96:{"texture_loc":preload("res://textures/items/rhodonite_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":10,"speed":0.25,"range":32,"big_texture":preload("res://textures/weapons/rhodonite_sword.png")},
+	97:{"texture_loc":preload("res://textures/items/rhodonite_axe.png"),"type":"weapon","weapon_type":"Axe","dmg":16,"speed":3.5,"range":32,"big_texture":preload("res://textures/weapons/rhodonite_axe.png")},
+	98:{"texture_loc":preload("res://textures/items/rhodonite_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":5,"speed":8,"big_texture":preload("res://textures/weapons/rhodonite_pick.png")},
+	99:{"texture_loc":preload("res://textures/items/rhodonite_spear.png"),"type":"weapon","weapon_type":"Spear","dmg":8,"speed":1,"range":96,"big_texture":preload("res://textures/weapons/rhodonite_spear.png")},
+	100:{"texture_loc":preload("res://textures/items/quartz.png"),"type":"Item"},
+	101:{"texture_loc":preload("res://textures/items/rose_quartz.png"),"type":"Item"},
+	102:{"texture_loc":preload("res://textures/items/purple_quartz.png"),"type":"Item"},
+	103:{"texture_loc":preload("res://textures/items/blue_quartz.png"),"type":"Item"},
 }
 
 signal update_blocks
@@ -148,6 +172,8 @@ func start_world():
 	get_node("../CanvasLayer/Black").show()
 	if !StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
 		get_node("../CanvasLayer/ParallaxBackground/SkyLayer").hide()
+	if worldType == "asteroids":
+		hasGravity = false
 	if !Global.gameStart:
 		Global.playerData.erase("pos")
 	if !(Global.gameStart and Global.new):
@@ -301,10 +327,15 @@ func generateWorld(worldType : String):
 							set_block_all(pos,73)
 						else:
 							set_block_all(pos,71)
+		"asteroids":
+			for x in range(worldSize.x):
+				for y in range(worldSize.y):
+					if asteroidNoise.get_noise_2d(x,y) > 0.4:
+						set_block_all(Vector2(x,y),112)
 
 func get_world_data(quit = true) -> Dictionary:
 	var data = {}
-	data["player"] = {"armor":armor.armor,"inventory":inventory.inventory,"inventory_refs":{"j":inventory.jId,"k":inventory.kId},"health":player.health,"max_health":player.maxHealth,"oxygen":player.oxygen,"max_oxygen":player.maxOxygen,"current_planet":Global.currentPlanet,"current_system":StarSystem.currentSeed,"pos":player.position}
+	data["player"] = {"armor":armor.armor,"inventory":inventory.inventory,"inventory_refs":{"j":inventory.jId,"k":inventory.kId},"health":player.health,"max_health":player.maxHealth,"oxygen":player.oxygen,"suit_oxygen":player.suitOxygen,"max_oxygen":player.maxOxygen,"suit_oxygen_max":player.suitOxygenMax,"current_planet":Global.currentPlanet,"current_system":StarSystem.currentSeed,"pos":player.position}
 	data["system"] = StarSystem.get_system_data()
 	data["planet"] = {"blocks":[],"entities":entities.get_entity_data()}
 	for block in $blocks.get_children():
@@ -319,8 +350,10 @@ func load_player_data() -> void:
 	player.gender = playerData["sex"]
 	player.health = playerData["health"]
 	player.oxygen = playerData["oxygen"]
+	player.suitOxygen = playerData["suit_oxygen"]
 	player.maxHealth = playerData["max_health"]
 	player.maxOxygen = playerData["max_oxygen"]
+	player.suitOxygenMax = playerData["suit_oxygen_max"]
 	if playerData.has("pos"):
 		player.position = playerData["pos"]
 	inventory.inventory = playerData["inventory"]
@@ -336,7 +369,7 @@ func load_world_data() -> void:#data : Dictionary) -> void:
 	var planetData = Global.load_planet(StarSystem.currentSeed,Global.currentPlanet)
 	entities.load_entities(planetData["entities"])
 	for block in planetData["blocks"]:
-		set_block(block["position"],block["layer"],block["id"])
+		set_block(block["position"],block["layer"],block["id"],false,block["data"])
 
 func get_item_data(item_id : int) -> Dictionary:
 	if blockData.has(item_id):
@@ -366,7 +399,7 @@ func set_block_all(pos: Vector2, id : int) -> void:
 	set_block(pos,0,id)
 	set_block(pos,1,id)
 
-func set_block(pos : Vector2, layer : int, id : int, update = false) -> void:
+func set_block(pos : Vector2, layer : int, id : int, update = false, data = {}) -> void:
 	if get_block(pos,layer) != null or (id == 0 and get_block(pos,layer) != null):
 		get_block(pos,layer).queue_free()
 		yield(get_tree(),"idle_frame")
@@ -375,6 +408,7 @@ func set_block(pos : Vector2, layer : int, id : int, update = false) -> void:
 		block.position = pos * BLOCK_SIZE
 		block.id = id
 		block.layer = layer
+		block.data = data
 		block.name = str(pos.x) + "," + str(pos.y) + "," + str(layer)
 		block.get_node("Sprite").texture = get_item_texture(id)
 		$blocks.add_child(block)
@@ -395,14 +429,19 @@ func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction 
 			inventory.remove_id_from_inventory(id,1)
 	elif action == "Break" and get_block(pos,layer) != null:
 		var block = get_block(pos,layer).id
+		if block == 91:
+			for item in get_block(pos,layer).data:
+				entities.spawn_item({"id":item["id"],"amount":item["amount"]},false,pos*BLOCK_SIZE)
 		set_block(pos,layer,0,true)
 		if itemAction:
 			var itemsToDrop = blockData[block]["drops"]
 			for i in range(itemsToDrop.size()):
 				if typeof(itemsToDrop[i]["amount"]) != TYPE_ARRAY:
-					inventory.add_to_inventory(itemsToDrop[i]["id"],itemsToDrop[i]["amount"])
+					entities.spawn_item({"id":itemsToDrop[i]["id"],"amount":itemsToDrop[i]["amount"]},false,pos*BLOCK_SIZE)
+					#inventory.add_to_inventory(itemsToDrop[i]["id"],itemsToDrop[i]["amount"])
 				else:
-					inventory.add_to_inventory(itemsToDrop[i]["id"],int(rand_range(itemsToDrop[i]["amount"][0],itemsToDrop[i]["amount"][1] + 1)))
+					entities.spawn_item({"id":itemsToDrop[i]["id"],"amount":int(rand_range(itemsToDrop[i]["amount"][0],itemsToDrop[i]["amount"][1] + 1))},false,pos*BLOCK_SIZE)
+					#inventory.add_to_inventory(itemsToDrop[i]["id"],int(rand_range(itemsToDrop[i]["amount"][0],itemsToDrop[i]["amount"][1] + 1)))
 
 func _on_GoUp_pressed():
 	Global.save(get_world_data(false))

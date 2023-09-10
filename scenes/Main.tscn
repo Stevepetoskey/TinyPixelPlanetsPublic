@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=2]
+[gd_scene load_steps=126 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://textures/enviroment/sky.png" type="Texture" id=2]
@@ -47,10 +47,17 @@
 [ext_resource path="res://textures/weather/rain.png" type="Texture" id=45]
 [ext_resource path="res://textures/weather/Cloud_Large1.png" type="Texture" id=46]
 [ext_resource path="res://scripts/Effects.gd" type="Script" id=47]
-[ext_resource path="res://textures/enviroment/space-2.png" type="Texture" id=48]
+[ext_resource path="res://textures/enviroment/space-3.png" type="Texture" id=48]
 [ext_resource path="res://scripts/Dead.gd" type="Script" id=49]
 [ext_resource path="res://fonts/pixelHeader.tres" type="DynamicFont" id=50]
 [ext_resource path="res://noise/Main.tres" type="OpenSimplexNoise" id=51]
+[ext_resource path="res://scripts/Chest.gd" type="Script" id=52]
+[ext_resource path="res://textures/GUI/main/GUI_chest.png" type="Texture" id=53]
+[ext_resource path="res://textures/GUI/main/hotbar.png" type="Texture" id=54]
+[ext_resource path="res://textures/GUI/main/hotbar1.png" type="Texture" id=55]
+[ext_resource path="res://textures/GUI/main/bigBar.png" type="Texture" id=56]
+[ext_resource path="res://fonts/pixel-outline.tres" type="DynamicFont" id=57]
+[ext_resource path="res://textures/GUI/main/O2-safe.png" type="Texture" id=58]
 
 [sub_resource type="VisualShaderNodeScalarOp" id=67]
 output_port_for_preview = 0
@@ -369,21 +376,25 @@ shader = SubResource( 21 )
 shader_param/StarLight = 1.0
 shader_param/SkyColor = Color( 0, 0, 0, 1 )
 
+[sub_resource type="AtlasTexture" id=80]
+atlas = ExtResource( 56 )
+region = Rect2( 0, 0, 98, 8 )
+
+[sub_resource type="AtlasTexture" id=81]
+atlas = ExtResource( 56 )
+region = Rect2( 0, 8, 98, 8 )
+
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 6 )
 region = Rect2( 0, 0, 150, 18 )
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 4 )
-region = Rect2( 64, 0, 50, 17 )
+[sub_resource type="AtlasTexture" id=78]
+atlas = ExtResource( 54 )
+region = Rect2( 30, 0, 30, 16 )
 
 [sub_resource type="AtlasTexture" id=53]
 atlas = ExtResource( 4 )
 region = Rect2( 176, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=60]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 7, 7 )
 
 [sub_resource type="AtlasTexture" id=54]
 atlas = ExtResource( 17 )
@@ -400,6 +411,46 @@ region = Rect2( 0, 12, 23, 2 )
 [sub_resource type="AtlasTexture" id=57]
 atlas = ExtResource( 17 )
 region = Rect2( 0, 5, 23, 2 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 7, 7 )
+
+[sub_resource type="AtlasTexture" id=82]
+atlas = ExtResource( 4 )
+region = Rect2( 16, 0, 7, 7 )
+
+[sub_resource type="Animation" id=83]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=84]
+resource_name = "blink"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 6 )
@@ -428,6 +479,14 @@ region = Rect2( 173, 110, 16, 16 )
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 14 )
 region = Rect2( 96, 68, 64, 15 )
+
+[sub_resource type="AtlasTexture" id=76]
+atlas = ExtResource( 4 )
+region = Rect2( 143, 93, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=77]
+atlas = ExtResource( 4 )
+region = Rect2( 173, 93, 16, 16 )
 
 [sub_resource type="Animation" id=11]
 length = 0.001
@@ -511,6 +570,10 @@ tracks/1/keys = {
 "update": 1,
 "values": [ true, false ]
 }
+
+[sub_resource type="OpenSimplexNoise" id=79]
+period = 7.0
+persistence = 0.0
 
 [sub_resource type="RectangleShape2D" id=14]
 extents = Vector2( 3, 49.625 )
@@ -617,8 +680,10 @@ texture = ExtResource( 46 )
 
 [node name="Space" type="Sprite" parent="CanvasLayer/ParallaxBackground"]
 position = Vector2( 120, 120 )
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 48 )
 script = ExtResource( 19 )
+starAmount = 0
 
 [node name="SkyLayer" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
 motion_scale = Vector2( 0, 0 )
@@ -662,6 +727,7 @@ expand = true
 stretch_mode = 2
 
 [node name="back" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
+modulate = Color( 1, 0.662745, 0.282353, 1 )
 motion_scale = Vector2( 0.1, 0.1 )
 motion_offset = Vector2( 0, -90 )
 motion_mirroring = Vector2( 640, 0 )
@@ -673,6 +739,7 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 640, 180 )
 
 [node name="front" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
+modulate = Color( 0.427451, 0.368627, 0.47451, 1 )
 motion_scale = Vector2( 0.3, 0.3 )
 motion_offset = Vector2( 0, -90 )
 motion_mirroring = Vector2( 640, 0 )
@@ -682,6 +749,39 @@ texture = ExtResource( 20 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 640, 180 )
+
+[node name="Oxygen" type="Control" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -49.0
+margin_top = -27.0
+margin_right = 49.0
+margin_bottom = -10.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Oxygen"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -26.0
+margin_right = 26.0
+margin_bottom = 8.0
+custom_colors/font_outline_modulate = Color( 0.701961, 0.72549, 0.819608, 1 )
+custom_fonts/font = ExtResource( 57 )
+text = "Suit Oxygen"
+
+[node name="suitOxygen" type="TextureProgress" parent="CanvasLayer/Oxygen"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -49.0
+margin_top = -8.0
+margin_right = 49.0
+max_value = 200.0
+value = 200.0
+texture_under = SubResource( 80 )
+texture_progress = SubResource( 81 )
 
 [node name="Hotbar" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -694,18 +794,19 @@ margin_bottom = 18.0
 texture = SubResource( 1 )
 
 [node name="InventoryBtn" type="TextureButton" parent="CanvasLayer/Hotbar"]
-margin_right = 24.0
-margin_bottom = 8.0
-texture_normal = SubResource( 2 )
+visible = false
+margin_right = 30.0
+margin_bottom = 17.0
+texture_normal = ExtResource( 55 )
 
 [node name="Amount" type="Label" parent="CanvasLayer/Hotbar/InventoryBtn"]
 margin_left = 14.0
 margin_top = 3.0
-margin_right = 49.0
+margin_right = 30.0
 margin_bottom = 15.0
 custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
 custom_fonts/font = ExtResource( 10 )
-text = "*123"
+text = "*33"
 valign = 1
 clip_text = true
 
@@ -713,6 +814,31 @@ clip_text = true
 margin_left = 4.0
 margin_top = 4.0
 margin_right = 12.0
+margin_bottom = 12.0
+texture = ExtResource( 3 )
+
+[node name="InventoryBtn2" type="TextureButton" parent="CanvasLayer/Hotbar"]
+visible = false
+margin_left = 30.0
+margin_right = 60.0
+margin_bottom = 17.0
+texture_normal = SubResource( 78 )
+
+[node name="Amount" type="Label" parent="CanvasLayer/Hotbar/InventoryBtn2"]
+margin_left = 13.0
+margin_top = 3.0
+margin_right = 27.0
+margin_bottom = 15.0
+custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
+custom_fonts/font = ExtResource( 10 )
+text = "*33"
+valign = 1
+clip_text = true
+
+[node name="Item" type="TextureRect" parent="CanvasLayer/Hotbar/InventoryBtn2"]
+margin_left = 3.0
+margin_top = 4.0
+margin_right = 11.0
 margin_bottom = 12.0
 texture = ExtResource( 3 )
 
@@ -750,17 +876,10 @@ margin_right = -2.0
 margin_bottom = 18.0
 texture_normal = SubResource( 53 )
 
-[node name="BGT" type="TextureRect" parent="CanvasLayer/Hotbar"]
-margin_left = 51.0
-margin_top = 9.0
-margin_right = 58.0
-margin_bottom = 16.0
-texture = SubResource( 60 )
-
 [node name="Bars" type="Control" parent="CanvasLayer/Hotbar"]
-margin_left = 51.0
+margin_left = 63.0
 margin_top = 1.0
-margin_right = 86.0
+margin_right = 98.0
 margin_bottom = 8.0
 script = ExtResource( 44 )
 
@@ -780,6 +899,35 @@ max_value = 10.0
 value = 7.0
 texture_under = SubResource( 56 )
 texture_progress = SubResource( 57 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Hotbar"]
+margin_left = 63.0
+margin_top = 9.0
+margin_right = 98.0
+margin_bottom = 16.0
+custom_constants/separation = 0
+
+[node name="BGT" type="TextureRect" parent="CanvasLayer/Hotbar/HBoxContainer"]
+margin_right = 7.0
+margin_bottom = 7.0
+texture = SubResource( 60 )
+
+[node name="O2" type="TextureRect" parent="CanvasLayer/Hotbar/HBoxContainer"]
+margin_left = 7.0
+margin_right = 16.0
+margin_bottom = 7.0
+texture = ExtResource( 58 )
+
+[node name="Warning" type="TextureRect" parent="CanvasLayer/Hotbar/HBoxContainer"]
+visible = false
+margin_left = 16.0
+margin_right = 23.0
+margin_bottom = 7.0
+texture = SubResource( 82 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Hotbar/HBoxContainer/Warning"]
+anims/RESET = SubResource( 83 )
+anims/blink = SubResource( 84 )
 
 [node name="Inventory" type="Control" parent="CanvasLayer"]
 visible = false
@@ -1068,6 +1216,49 @@ custom_fonts/font = ExtResource( 10 )
 text = "CONTINUE"
 align = 1
 
+[node name="Chest" type="Control" parent="CanvasLayer"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -104.0
+script = ExtResource( 52 )
+
+[node name="BG" type="TextureRect" parent="CanvasLayer/Chest"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 53 )
+expand = true
+
+[node name="leftBtn" type="TextureButton" parent="CanvasLayer/Chest"]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -19.0
+margin_right = 18.0
+margin_bottom = -2.0
+texture_normal = SubResource( 76 )
+
+[node name="rightBtn" type="TextureButton" parent="CanvasLayer/Chest"]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -18.0
+margin_top = -19.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture_normal = SubResource( 77 )
+
+[node name="items" type="Control" parent="CanvasLayer/Chest"]
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 4.0
+margin_right = 102.0
+margin_bottom = -76.0
+
 [node name="Black" type="TextureRect" parent="CanvasLayer"]
 modulate = Color( 0, 0, 0, 1 )
 anchor_right = 1.0
@@ -1159,6 +1350,7 @@ text = "TU 2 beta 5 (Unstable)"
 align = 1
 
 [node name="Notification" type="Control" parent="CanvasLayer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
@@ -1166,8 +1358,10 @@ mouse_filter = 2
 [node name="World" type="Node2D" parent="."]
 script = ExtResource( 1 )
 worldNoise = ExtResource( 51 )
+asteroidNoise = SubResource( 79 )
 
 [node name="blocks" type="Node2D" parent="World"]
+modulate = Color( 0.427451, 0.368627, 0.47451, 1 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="World"]
 
@@ -1266,6 +1460,7 @@ texture = ExtResource( 45 )
 script = ExtResource( 47 )
 
 [connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn" to="CanvasLayer/Inventory" method="_on_InventoryBtn_pressed"]
+[connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn2" to="CanvasLayer/Inventory" method="_on_InventoryBtn2_pressed"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/GoUp" to="World" method="_on_GoUp_pressed"]
 [connection signal="pressed" from="CanvasLayer/Inventory/leftBtn" to="CanvasLayer/Inventory" method="_on_leftBtn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Inventory/rightBtn" to="CanvasLayer/Inventory" method="_on_rightBtn_pressed"]

@@ -12,6 +12,8 @@ var currentPlanet : int
 var playerData
 var starterPlanetId : int
 
+var lightColor = Color.white
+
 var playerBase = {"skin":Color("F8DEC3"),"hair_style":"Short","hair_color":Color("debe99"),"sex":"Guy"}
 
 signal loaded_data
@@ -35,9 +37,9 @@ func open_save(saveId : String) -> void:
 			playerData = savegame.get_var()
 			savegame.close()
 			currentPlanet = playerData["current_planet"]
+			starterPlanetId = playerData["starter_planet"]
 			StarSystem.systemDat = load_system(playerData["current_system"])
-			StarSystem.visitedPlanets = StarSystem.systemDat["visited"]
-			StarSystem.new_system(playerData["current_system"],true)
+			StarSystem.load_system()
 			new = false
 		else:
 			remove_recursive(save_path + saveId)

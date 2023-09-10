@@ -7,3 +7,17 @@ func _process(delta):
 	$Health.value = player.health
 	$Oxygen.max_value = player.maxOxygen
 	$Oxygen.value = player.oxygen
+	if player.inSuit:
+		$"../../Oxygen".show()
+		$"../../Oxygen/suitOxygen".value = player.suitOxygen
+		$"../../Oxygen/suitOxygen".max_value = player.suitOxygenMax
+	else:
+		$"../../Oxygen".hide()
+	if player.canBreath:
+		$"../HBoxContainer/O2".texture = load("res://textures/GUI/main/O2-safe.png")
+	else:
+		$"../HBoxContainer/O2".texture = load("res://textures/GUI/main/O2-danger.png")
+		if !player.inSuit:
+			$"../HBoxContainer/Warning/AnimationPlayer".play("blink")
+		else:
+			$"../HBoxContainer/Warning/AnimationPlayer".play("RESET")

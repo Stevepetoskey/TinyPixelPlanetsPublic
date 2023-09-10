@@ -9,6 +9,7 @@ export var currentOrbit = 0
 export var currentRot = 0
 var orbitingBody : Object
 var pName : String
+var pDesc : String
 var systemYPos = 0
 var hasAtmosphere : bool
 export(Dictionary) var type

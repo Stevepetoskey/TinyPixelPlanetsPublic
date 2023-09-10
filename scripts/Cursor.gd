@@ -56,7 +56,7 @@ func _process(_delta):
 
 func _unhandled_input(event):
 	if !pause and cursorPos.x < world.worldSize.x and cursorPos.x >= 0 and cursorPos.y < world.worldSize.y and cursorPos.y >= 0:
-		if Input.is_action_pressed("build"):
+		if Input.is_action_pressed("build") or (Input.is_action_pressed("build2") and inventory.inventory.size() > 1):
 			if canInteract:
 				match world.get_block_id(cursorPos,currentLayer):
 					12:
@@ -65,8 +65,10 @@ func _unhandled_input(event):
 						inventory.inventoryToggle(false,true,"oven")
 					28:
 						inventory.inventoryToggle(false,true,"smithing_table")
+					91:
+						inventory.inventoryToggle(false,true,"chest")
 			elif inventory.inventory.size() > 0:
-				var selectedId = inventory.inventory[0]["id"]
+				var selectedId = inventory.inventory[0 if Input.is_action_pressed("build") or inventory.inventory.size() < 2 else 1]["id"]
 				if (currentLayer == 0 or canPlace) and world.blockData.has(selectedId):
 					world.build_event("Build",cursorPos,currentLayer,selectedId)#Vector2(int(position.x),int(position.y)),1,inventory.inventory[0]["id"])
 				elif world.itemData.has(selectedId):
