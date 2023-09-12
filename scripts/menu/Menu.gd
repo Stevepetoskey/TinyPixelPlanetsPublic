@@ -37,3 +37,6 @@ func _on_back_pressed():
 func _on_Credits_pressed():
 	$Main.hide()
 	$Credits.show()
+
+func _on_Tutorial_pressed():
+	$World/loadSave.start(true)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=126 format=2]
+[gd_scene load_steps=137 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://textures/enviroment/sky.png" type="Texture" id=2]
@@ -58,6 +58,9 @@
 [ext_resource path="res://textures/GUI/main/bigBar.png" type="Texture" id=56]
 [ext_resource path="res://fonts/pixel-outline.tres" type="DynamicFont" id=57]
 [ext_resource path="res://textures/GUI/main/O2-safe.png" type="Texture" id=58]
+[ext_resource path="res://textures/GUI/Menu/MenuCharacter.png" type="Texture" id=59]
+[ext_resource path="res://fonts/pixelLineEdit.tres" type="DynamicFont" id=60]
+[ext_resource path="res://scripts/Commands.gd" type="Script" id=61]
 
 [sub_resource type="VisualShaderNodeScalarOp" id=67]
 output_port_for_preview = 0
@@ -571,6 +574,59 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
+[sub_resource type="StyleBoxTexture" id=20]
+texture = ExtResource( 59 )
+region_rect = Rect2( 31, 18, 88, 11 )
+margin_left = 2.0
+margin_right = 2.0
+margin_top = 2.0
+margin_bottom = 2.0
+
+[sub_resource type="Animation" id=85]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=86]
+resource_name = "fade out"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=87]
+resource_name = "pop up"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
 [sub_resource type="OpenSimplexNoise" id=79]
 period = 7.0
 persistence = 0.0
@@ -583,6 +639,18 @@ extents = Vector2( 3, 48.5 )
 
 [sub_resource type="RectangleShape2D" id=16]
 extents = Vector2( 3, 124 )
+
+[sub_resource type="RectangleShape2D" id=88]
+extents = Vector2( 24.5, 900 )
+
+[sub_resource type="RectangleShape2D" id=89]
+extents = Vector2( 48.5, 900 )
+
+[sub_resource type="RectangleShape2D" id=90]
+extents = Vector2( 12, 900 )
+
+[sub_resource type="RectangleShape2D" id=91]
+extents = Vector2( 12, 900 )
 
 [sub_resource type="RectangleShape2D" id=52]
 extents = Vector2( 2, 2 )
@@ -759,6 +827,7 @@ margin_left = -49.0
 margin_top = -27.0
 margin_right = 49.0
 margin_bottom = -10.0
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/Oxygen"]
 anchor_left = 0.5
@@ -1355,6 +1424,38 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
+[node name="Commands" type="LineEdit" parent="CanvasLayer"]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -10.0
+margin_right = 168.0
+custom_fonts/font = ExtResource( 60 )
+custom_styles/normal = SubResource( 20 )
+placeholder_text = "Type commands here"
+script = ExtResource( 61 )
+
+[node name="Title" type="Label" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -119.0
+margin_top = -30.0
+margin_right = 119.0
+custom_colors/font_outline_modulate = Color( 0.6, 0.639216, 0.752941, 1 )
+custom_fonts/font = ExtResource( 57 )
+text = "If  your ie J or K slot"
+align = 1
+valign = 2
+autowrap = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Title"]
+anims/RESET = SubResource( 85 )
+"anims/fade out" = SubResource( 86 )
+"anims/pop up" = SubResource( 87 )
+
 [node name="World" type="Node2D" parent="."]
 script = ExtResource( 1 )
 worldNoise = ExtResource( 51 )
@@ -1377,6 +1478,40 @@ shape = SubResource( 15 )
 position = Vector2( 120, 66.5003 )
 rotation = 1.5708
 shape = SubResource( 16 )
+
+[node name="TutorialParts" type="Node2D" parent="World"]
+
+[node name="Platforms" type="Area2D" parent="World/TutorialParts"]
+position = Vector2( 143.5, 128 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Platforms"]
+shape = SubResource( 88 )
+
+[node name="Sprint" type="Area2D" parent="World/TutorialParts"]
+position = Vector2( 463.5, 128 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Sprint"]
+shape = SubResource( 89 )
+
+[node name="Chest" type="Area2D" parent="World/TutorialParts"]
+position = Vector2( 843, 128 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Chest"]
+shape = SubResource( 90 )
+
+[node name="Mine" type="Area2D" parent="World/TutorialParts"]
+position = Vector2( 880, 128 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Mine"]
+shape = SubResource( 91 )
 
 [node name="Cursor" type="Sprite" parent="."]
 z_index = 5
@@ -1472,10 +1607,17 @@ script = ExtResource( 47 )
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Continue" to="CanvasLayer/Pause" method="_on_Continue_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Respawn" to="CanvasLayer/Dead" method="_on_Respawn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Quit" to="CanvasLayer/Dead" method="_on_Quit_pressed"]
+[connection signal="text_entered" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_Commands_text_entered"]
 [connection signal="world_loaded" from="World" to="." method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="CanvasLayer/ParallaxBackground/Space" method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="CanvasLayer/Enviroment" method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="Entities" method="_on_World_world_loaded"]
+[connection signal="body_entered" from="World/TutorialParts/Platforms" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="World/TutorialParts/Platforms" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="World/TutorialParts/Sprint" to="." method="_on_Sprint_body_entered"]
+[connection signal="body_exited" from="World/TutorialParts/Sprint" to="." method="_on_Sprint_body_exited"]
+[connection signal="body_entered" from="World/TutorialParts/Chest" to="." method="_on_Chest_body_entered"]
+[connection signal="body_entered" from="World/TutorialParts/Mine" to="." method="_on_Mine_body_entered"]
 [connection signal="body_entered" from="Cursor/playerTest" to="Cursor" method="_on_playerTest_body_entered"]
 [connection signal="body_exited" from="Cursor/playerTest" to="Cursor" method="_on_playerTest_body_exited"]
 [connection signal="animation_finished" from="Cursor/break/AnimationPlayer" to="Cursor" method="_on_AnimationPlayer_animation_finished"]

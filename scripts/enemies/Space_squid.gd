@@ -23,10 +23,7 @@ func _ready():
 func _physics_process(delta):
 	if !Global.pause:
 		$Label.text = state
-		if !is_on_floor() and state != "attack":
-			$AnimatedSprite.playing = false
-			state = "falling"
-		if position.distance_to(player.position) <= 64 and is_on_floor():
+		if position.distance_to(player.position) <= 64:
 			var space_state = get_world_2d().direct_space_state
 			var result = space_state.intersect_ray(global_position, player.global_position,[self],3)
 			if result.collider == player:
@@ -43,11 +40,11 @@ func _physics_process(delta):
 			elif seePlayer and !lostPlayer:
 				lostPlayer = true
 				$seeTimer.start()
-		if !$AnimatedSprite.playing or state == "attack":
+		if !$AnimatedSprite.playing:
 			match state:
 				"roam":
 					if randi()%100 == 1 or seePlayer:
-						$AnimatedSprite.play("hop")
+						$AnimatedSprite.play("thrust")
 				"falling":
 					if is_on_floor():
 						inAir = false

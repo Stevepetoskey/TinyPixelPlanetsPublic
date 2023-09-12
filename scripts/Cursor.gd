@@ -1,13 +1,12 @@
 extends Sprite
 
-const REACH = 5
+var REACH = 5
 
 onready var world = get_node("../World")
 onready var inventory = get_node("../CanvasLayer/Inventory")
 onready var player = get_node("../Player")
 
 var canPlace = true
-var pause = false
 var currentLayer = 1
 var canInteract = false
 var playerPos
@@ -17,10 +16,14 @@ var cursorPos = Vector2(0,0)
 var oldBlockPos = Vector2(0,0)
 
 func _process(_delta):
-	if !pause:
+	if !Global.pause:
 		position = Vector2(int(stepify(get_global_mouse_position().x,world.BLOCK_SIZE.x)),int(stepify(get_global_mouse_position().y,world.BLOCK_SIZE.y)))
 		playerPos = Vector2(int(player.position.x/ world.BLOCK_SIZE.x),int((player.position.y+2)/ world.BLOCK_SIZE.y))
 		var blockPos = position / world.BLOCK_SIZE
+		if Global.godmode:
+			REACH = 10
+		else:
+			REACH = 5
 		if blockPos.x < playerPos.x - REACH:
 			position.x = (playerPos.x - REACH)*world.BLOCK_SIZE.x
 		if blockPos.x < 0:
@@ -55,7 +58,7 @@ func _process(_delta):
 		oldBlockPos = blockPos
 
 func _unhandled_input(event):
-	if !pause and cursorPos.x < world.worldSize.x and cursorPos.x >= 0 and cursorPos.y < world.worldSize.y and cursorPos.y >= 0:
+	if !Global.pause and cursorPos.x < world.worldSize.x and cursorPos.x >= 0 and cursorPos.y < world.worldSize.y and cursorPos.y >= 0:
 		if Input.is_action_pressed("build") or (Input.is_action_pressed("build2") and inventory.inventory.size() > 1):
 			if canInteract:
 				match world.get_block_id(cursorPos,currentLayer):

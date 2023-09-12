@@ -5,12 +5,18 @@ const STABLE = false
 
 var savegame = File.new() #file
 var save_path = "user://" #place of the file
+var tutorial_path = "res://data/Tutorial"
 var currentSave : String
 var new = true
 var gameStart = true
 var currentPlanet : int
 var playerData
 var starterPlanetId : int
+var godmode = false
+var pause = false
+var enemySpawning = true
+var entitySpawning = true
+var inTutorial = false
 
 var lightColor = Color.white
 
@@ -25,7 +31,26 @@ func save_exists(saveId : String) -> bool:
 		return true
 	return false
 
+func open_tutorial():
+	inTutorial = true
+	currentSave = "save4"
+	gameStart = true
+	new = false
+	var dir = Directory.new()
+	if dir.dir_exists(save_path + currentSave):
+		remove_recursive(save_path + currentSave)
+	dir.open(save_path)
+	dir.make_dir(currentSave)
+	copy_directory_recursively("res://data/Tutorial/planets/",save_path + currentSave + "/planets")
+	copy_directory_recursively("res://data/Tutorial/systems/",save_path + currentSave + "/systems")
+	currentPlanet = 2
+	starterPlanetId = 2
+	enemySpawning = false
+	StarSystem.systemDat = load_system(3891944108)
+	StarSystem.load_system()
+
 func open_save(saveId : String) -> void:
+	inTutorial = false
 	currentSave = saveId
 	gameStart = true
 	new = true
@@ -36,8 +61,14 @@ func open_save(saveId : String) -> void:
 			savegame.open(save_path + saveId + "/playerData.dat",File.READ)
 			playerData = savegame.get_var()
 			savegame.close()
+			print(playerData)
 			currentPlanet = playerData["current_planet"]
 			starterPlanetId = playerData["starter_planet"]
+			if playerData.has("enemy_spawning"):
+				enemySpawning = playerData["enemy_spawning"]
+			if playerData.has("entity_spawning"):
+				entitySpawning = playerData["entity_spawning"]
+			godmode = playerData["godmode"]
 			StarSystem.systemDat = load_system(playerData["current_system"])
 			StarSystem.load_system()
 			new = false
@@ -75,6 +106,9 @@ func save(saveData : Dictionary) -> void:
 	playerData["skin"] = playerBase["skin"];playerData["hair_color"] = playerBase["hair_color"];playerData["hair_style"] = playerBase["hair_style"]
 	playerData["sex"] = playerBase["sex"]
 	playerData["starter_planet"] = starterPlanetId
+	playerData["godmode"] = godmode
+	playerData["enemy_spawning"] = enemySpawning
+	playerData["entity_spawning"] = entitySpawning
 	savegame.open(save_path + currentSave + "/playerData.dat",File.WRITE)
 	savegame.store_var(saveData["player"])
 	savegame.close()
@@ -136,3 +170,19 @@ func remove_recursive(path): #Credit to davidepesce.com for this function. It de
 		directory.remove(path)
 	else:
 		print("Error removing " + path)
+
+func copy_directory_recursively(p_from : String, p_to : String) -> void:
+	var directory = Directory.new()
+	if not directory.dir_exists(p_to):
+		directory.make_dir_recursive(p_to)
+	if directory.open(p_from) == OK:
+		directory.list_dir_begin(true)
+		var file_name = directory.get_next()
+		while (file_name != "" and file_name != "." and file_name != ".."):
+			if directory.current_is_dir():
+				copy_directory_recursively(p_from + "/" + file_name, p_to + "/" + file_name)
+			else:
+				directory.copy(p_from + "/" + file_name, p_to + "/" + file_name)
+			file_name = directory.get_next()
+	else:
+		push_warning("Error copying " + p_from + " to " + p_to)

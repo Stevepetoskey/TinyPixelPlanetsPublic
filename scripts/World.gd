@@ -147,6 +147,7 @@ signal world_loaded
 func _ready():
 	StarSystem.connect("planet_ready",self,"start_world")
 	Global.connect("loaded_data",self,"start_world")
+	Global.pause = false
 	if Global.gameStart:
 		StarSystem.start_game()
 
@@ -164,7 +165,7 @@ func start_world():
 	$StaticBody2D/Right.position = Vector2(worldSize.x * BLOCK_SIZE.x + 2,(worldSize.y * BLOCK_SIZE.y) / 2)
 	$StaticBody2D/Right.shape.extents.y = (worldSize.y * BLOCK_SIZE.y) / 2
 	$StaticBody2D/Left.shape.extents.y = (worldSize.y * BLOCK_SIZE.y) / 2
-	$StaticBody2D/Left.position.y = (worldSize.y * BLOCK_SIZE.y) / 2
+	$StaticBody2D/Left.position.y = (worldSize.y * BLOCK_SIZE.y) / 2 - 8
 	$StaticBody2D/Bottom.shape.extents.y = (worldSize.x * BLOCK_SIZE.x) / 2
 	$StaticBody2D/Bottom.position = Vector2((worldSize.x * BLOCK_SIZE.x) / 2,worldSize.y * BLOCK_SIZE.y)
 	
@@ -176,7 +177,11 @@ func start_world():
 		hasGravity = false
 	if !Global.gameStart:
 		Global.playerData.erase("pos")
-	if !(Global.gameStart and Global.new):
+	if Global.inTutorial:
+		player.gender = "Guy"
+		armor.armor = {"Helmet":{},"Hat":{},"Chestplate":{"id":32,"amount":1},"Shirt":{},"Leggings":{"id":33,"amount":1},"Pants":{},"Boots":{"id":34,"amount":1},"Shoes":{}}
+		armor.emit_signal("updated_armor",armor.armor)
+	elif !(Global.gameStart and Global.new):
 		load_player_data()
 	if Global.new:
 		#StarSystem.visitedPlanets.append(Global.currentPlanet)
@@ -331,7 +336,12 @@ func generateWorld(worldType : String):
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
 					if asteroidNoise.get_noise_2d(x,y) > 0.4:
-						set_block_all(Vector2(x,y),112)
+						var pos = Vector2(x,y)
+						if abs(copperOre.get_noise_2d(x,y)) >= 0.4:
+							set_block_all(pos,104 + randi()%4)
+						else:
+							set_block_all(pos,112)
+						
 
 func get_world_data(quit = true) -> Dictionary:
 	var data = {}
@@ -433,7 +443,7 @@ func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction 
 			for item in get_block(pos,layer).data:
 				entities.spawn_item({"id":item["id"],"amount":item["amount"]},false,pos*BLOCK_SIZE)
 		set_block(pos,layer,0,true)
-		if itemAction:
+		if itemAction and !Global.godmode:
 			var itemsToDrop = blockData[block]["drops"]
 			for i in range(itemsToDrop.size()):
 				if typeof(itemsToDrop[i]["amount"]) != TYPE_ARRAY:

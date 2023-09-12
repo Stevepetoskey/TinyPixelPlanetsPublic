@@ -2,7 +2,7 @@ extends Control
 
 const INV_BTN = preload("res://assets/InventoryBtn.tscn")
 const ITEM_PER_PAGE = 8
-const INVENTORY_SIZE = 16
+var INVENTORY_SIZE = 20
 const ITEM_STACK_SIZE = 99
 
 onready var world = get_node("../../World")
@@ -34,55 +34,57 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel") and visible:
 		yield(get_tree(),"idle_frame")
 		inventoryToggle(false,false,"close")
-	if Input.is_action_just_pressed("Inventory"):
+	if Input.is_action_just_pressed("Inventory") and !Global.pause:
 		inventoryToggle()
-	if Input.is_action_just_pressed("background_toggle"):
+	if Input.is_action_just_pressed("background_toggle") and !Global.pause:
 		cursor.currentLayer = int(!bool(cursor.currentLayer))
-		get_node("../Hotbar/BGT").texture.region.position = [Vector2(115,9),Vector2(0,0)][cursor.currentLayer]
+		$"../Hotbar/HBoxContainer/BGT".texture.region.position = [Vector2(115,9),Vector2(0,0)][cursor.currentLayer]
 
 func add_to_inventory(id : int,amount : int,drop = true) -> Dictionary:
-	$collect.play()
-	if amount > 0:
-		for item in range(inventory.size()):
-			if inventory[item]["id"] == id:
-				if inventory[item]["amount"] + amount <= ITEM_STACK_SIZE:
-					inventory[item]["amount"] += amount
-					amount = 0
-				else:
-					amount -= ITEM_STACK_SIZE - inventory[item]["amount"]
-					inventory[item]["amount"] = ITEM_STACK_SIZE
+	if !Global.godmode:
+		$collect.play()
 		if amount > 0:
-			while amount > 0:
-				if inventory.size() >= INVENTORY_SIZE:
-					update_inventory()
-					if drop:
-						entities.spawn_item({"id":id,"amount":amount},true)
-						return {}
+			for item in range(inventory.size()):
+				if inventory[item]["id"] == id:
+					if inventory[item]["amount"] + amount <= ITEM_STACK_SIZE:
+						inventory[item]["amount"] += amount
+						amount = 0
 					else:
-						return {"id":id,"amount":amount}
-				var newAmount = amount
-				if amount > ITEM_STACK_SIZE:
-					newAmount = ITEM_STACK_SIZE
-				inventory.append({"id":id,"amount":newAmount})
-				amount -= ITEM_STACK_SIZE
-	update_inventory()
+						amount -= ITEM_STACK_SIZE - inventory[item]["amount"]
+						inventory[item]["amount"] = ITEM_STACK_SIZE
+			if amount > 0:
+				while amount > 0:
+					if inventory.size() >= INVENTORY_SIZE:
+						update_inventory()
+						if drop:
+							entities.spawn_item({"id":id,"amount":amount},true)
+							return {}
+						else:
+							return {"id":id,"amount":amount}
+					var newAmount = amount
+					if amount > ITEM_STACK_SIZE:
+						newAmount = ITEM_STACK_SIZE
+					inventory.append({"id":id,"amount":newAmount})
+					amount -= ITEM_STACK_SIZE
+		update_inventory()
 	return {}
 
 func remove_loc_from_inventory(loc : int) -> void:
-	if loc < inventory.size():
+	if loc < inventory.size() and !Global.godmode:
 		inventory.remove(loc)
 		update_inventory()
 
 func remove_id_from_inventory(id : int, amount : int) -> void:
-	for item in range(inventory.size()):
-		if inventory[item]["id"] == id:
-			if inventory[item]["amount"] > amount:
-				inventory[item]["amount"] -= amount
-				update_inventory()
-				break
-			else:
-				remove_loc_from_inventory(item)
-				break
+	if !Global.godmode:
+		for item in range(inventory.size()):
+			if inventory[item]["id"] == id:
+				if inventory[item]["amount"] > amount:
+					inventory[item]["amount"] -= amount
+					update_inventory()
+					break
+				else:
+					remove_loc_from_inventory(item)
+					break
 
 func find_item(id : int) -> Dictionary:
 	for item in range(inventory.size()):
@@ -91,6 +93,16 @@ func find_item(id : int) -> Dictionary:
 	return {}
 
 func update_inventory() -> void:
+	
+	if Global.godmode:
+		INVENTORY_SIZE = world.blockData.size() + world.itemData.size() + 5
+		for block in world.blockData:
+			if find_item(block).empty():
+				inventory.append({"id":block,"amount":1})
+		for item in world.itemData:
+			if find_item(item).empty():
+				inventory.append({"id":item,"amount":1})
+	
 	holding = false
 	holdingRef = -1
 	
@@ -210,9 +222,9 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 	if toggle:
 		setValue = !visible
 	visible = setValue
+	Global.pause = setValue
 	if visible:
 		update_inventory()
-	cursor.pause = setValue
 	match mode:
 		"close":
 			crafting.visible = false

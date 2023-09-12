@@ -28,6 +28,7 @@ var swingingWith = 0
 var currentBlocksOn = []
 var canBreath = true
 var inSuit = false
+var flying = false
 
 var dead = false
 
@@ -73,7 +74,7 @@ func _ready():
 		get_node("../CanvasLayer/Dead").popup()
 
 func _physics_process(_delta):
-	if !dead:
+	if !dead and !Global.pause:
 		#Collision modifiers
 		if Input.is_action_pressed("down"):
 			if !world.hasGravity:
@@ -85,7 +86,10 @@ func _physics_process(_delta):
 		else:
 			collision_mask = DEFAULT_LAYER
 		
-		if world.hasGravity:
+		if Input.is_action_just_pressed("fly"):
+			flying = !flying
+			print(flying)
+		if world.hasGravity and (!Global.godmode or !flying):
 			if !is_on_floor():
 				if !coyote:
 					motion.y += GRAVITY
@@ -134,13 +138,14 @@ func _physics_process(_delta):
 				motion.x += ACCEL
 			elif is_on_floor():
 				motion.x = move_toward(motion.x,0,FRICTION)
-			if is_on_floor():
-				if motion.x == 0:
-					$Textures/AnimationPlayer.play("idle")
+			if !swinging:
+				if is_on_floor():
+					if motion.x == 0:
+						$Textures/AnimationPlayer.play("idle")
+					else:
+						$Textures/AnimationPlayer.play("walk")
 				else:
-					$Textures/AnimationPlayer.play("walk")
-			else:
-				$Textures/AnimationPlayer.play("jump")
+					$Textures/AnimationPlayer.play("jump")
 		
 		if get_global_mouse_position().x - position.x < 0:
 			$Textures.set_global_transform(Transform2D(Vector2(-1,0),Vector2(0,1),Vector2(position.x,position.y)))
@@ -150,9 +155,11 @@ func _physics_process(_delta):
 		motion = move_and_slide(motion,Vector2(0,-1),true)
 
 func _unhandled_input(event):
-	if inventory.inventory.size() > 0:
+	if inventory.inventory.size() > 0 and !Global.pause:
 		if Input.is_action_pressed("build"):
 			swing(inventory.inventory[0]["id"])
+		if Input.is_action_pressed("build2"):
+			swing(inventory.inventory[1]["id"])
 		elif Input.is_action_pressed("action1"):
 			swing(inventory.jId)
 		elif Input.is_action_pressed("action2"):
@@ -172,7 +179,7 @@ func swing(item):
 					enemy.damage(world.itemData[swingingWith]["dmg"])
 
 func damage(hp):
-	if !dead:
+	if !dead and !Global.pause:
 		modulate = Color("ff5959")
 		effects.floating_text(position, "-" + str(hp), Color.red)
 		health -= hp

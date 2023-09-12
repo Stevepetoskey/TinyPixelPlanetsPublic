@@ -22,6 +22,18 @@ func load_entities(data : Array):
 		newE.new = false
 		$Hold.add_child(newE)
 
+func find_entity(entity : String) -> String:
+	for ent in entities:
+		if ent.to_lower() == entity:
+			return ent
+	return ""
+
+func summon_entity(entity : String, pos = player.position):
+	var newE = entities[entity].instance()
+	newE.position = pos
+	newE.new = true
+	$Hold.add_child(newE)
+
 func spawn_item(item : Dictionary, thrown = false, pos = $"../Player".position):
 	var newI = entities["Item"].instance()
 	newI.position = pos
@@ -34,7 +46,8 @@ func spawn_item(item : Dictionary, thrown = false, pos = $"../Player".position):
 func _on_Spawn_timeout():
 	if loaded:
 		var hostileCount = 0
-		var maxH = int(5*(world.worldSize.x/128))
+		var maxH = int(5*(world.worldSize.x/128)) if Global.enemySpawning else 0
+		var maxE = int(5*(world.worldSize.x/128)) if Global.entitySpawning else 0
 		for entity in $Hold.get_children():
 			if entity.hostile:
 				hostileCount += 1

@@ -15,6 +15,7 @@ func _process(delta):
 		$"../../Oxygen".hide()
 	if player.canBreath:
 		$"../HBoxContainer/O2".texture = load("res://textures/GUI/main/O2-safe.png")
+		$"../HBoxContainer/Warning/AnimationPlayer".play("RESET")
 	else:
 		$"../HBoxContainer/O2".texture = load("res://textures/GUI/main/O2-danger.png")
 		if !player.inSuit:

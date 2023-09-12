@@ -101,7 +101,6 @@ func load_system():
 		child.queue_free()
 		$system.remove_child(child)
 	yield(get_tree(),"idle_frame")
-	
 	currentStarName = systemDat["system_name"]
 	currentSeed = systemDat["system_seed"]
 	currentStar = systemDat["star_type"]

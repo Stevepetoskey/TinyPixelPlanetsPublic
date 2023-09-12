@@ -8,13 +8,13 @@ onready var player = get_node("../../Player")
 func popup():
 	inventory.inventoryToggle(false)
 	get_node("../Pause").toggle_pause(false)
-	cursor.pause = true
+	Global.pause = true
 	inventory.invPause = true
 	show()
 
 
 func _on_Respawn_pressed():
-	cursor.pause = false
+	Global.pause = false
 	inventory.invPause = false
 	player.health = player.maxHealth
 	player.oxygen = player.maxOxygen
