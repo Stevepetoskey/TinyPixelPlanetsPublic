@@ -29,6 +29,3 @@ custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
 custom_fonts/font = ExtResource( 1 )
 text = "*123"
 clip_text = true
-
-[connection signal="mouse_entered" from="." to="." method="_on_InventoryBtn_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_InventoryBtn_mouse_exited"]
