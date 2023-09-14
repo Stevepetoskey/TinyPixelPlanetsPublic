@@ -7,12 +7,21 @@ const skyColorDict = {
 	NIGHT = Color("3d1b63")
 }
 
-const lightColorDict = {
+const lightColorDictAtmo = {
 	SUNSET = Color("F6635C"),
 	DAY = Color.white,
 	SUNRISE = Color("ffa948"),
 	NIGHT = Color("6d5e79")
 }
+
+const lightColorDictNoAtmo = {
+	SUNSET = Color(0.75,0.75,0.75),
+	DAY = Color.white,
+	SUNRISE = Color(0.75,0.75,0.75),
+	NIGHT = Color(0.5,0.5,0.5)
+}
+
+var lightColorDict = {}
 
 export var defualtColor = Color.white
 export var nightColor = Color(0.43,0.39,0.49)
@@ -123,7 +132,10 @@ func set_background(type : String):
 
 func _on_World_world_loaded():
 	if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
-		active = true
+		lightColorDict = lightColorDictAtmo
+	else:
+		lightColorDict = lightColorDictNoAtmo
+	active = true
 	match StarSystem.find_planet_id(Global.currentPlanet).type["type"]:
 		"terra":
 			get_node("../../sfx/crickets").play()

@@ -5,7 +5,7 @@ const STABLE = false
 
 var savegame = File.new() #file
 var save_path = "user://" #place of the file
-var tutorial_path = "res://data/Tutorial"
+onready var tutorial_path = "res://data/Tutorial"
 var currentSave : String
 var new = true
 var gameStart = true
@@ -41,8 +41,24 @@ func open_tutorial():
 		remove_recursive(save_path + currentSave)
 	dir.open(save_path)
 	dir.make_dir(currentSave)
-	copy_directory_recursively("res://data/Tutorial/planets/",save_path + currentSave + "/planets")
-	copy_directory_recursively("res://data/Tutorial/systems/",save_path + currentSave + "/systems")
+	dir.open(save_path + currentSave)
+	dir.make_dir("systems")
+	dir.make_dir("planets")
+	var file = File.new()
+	file.open("res://data/Tutorial/systems/3891944108.dat",File.READ)
+	var systemDat = file.get_var()
+	file.close()
+	file.open(save_path + currentSave + "/systems/3891944108.dat",File.WRITE)
+	file.store_var(systemDat)
+	file.close()
+	file.open("res://data/Tutorial/planets/3891944108_2.dat",File.READ)
+	var planetData = file.get_var()
+	file.close()
+	file.open(save_path + currentSave + "/planets/3891944108_2.dat",File.WRITE)
+	file.store_var(planetData)
+	file.close()
+#	copy_directory_recursively("res://data/Tutorial/planets/",save_path + currentSave + "/planets")
+#	copy_directory_recursively("res://data/Tutorial/systems/",save_path + currentSave + "/systems")
 	currentPlanet = 2
 	starterPlanetId = 2
 	enemySpawning = false
