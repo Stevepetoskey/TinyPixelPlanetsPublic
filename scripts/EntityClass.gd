@@ -18,12 +18,10 @@ func _ready():
 		GRAVITY = 0
 
 func die():
-	print("bruh")
 	effects.death_particles(position)
 	queue_free()
 
 func damage(hp):
-	print(health)
 	modulate = Color("ff5959")
 	effects.floating_text(position, "-" + str(hp), Color.red)
 	health -= hp

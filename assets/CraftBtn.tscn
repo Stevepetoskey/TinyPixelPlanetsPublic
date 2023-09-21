@@ -80,3 +80,6 @@ margin_bottom = 12.0
 custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
 custom_fonts/font = ExtResource( 1 )
 text = "+"
+
+[connection signal="mouse_entered" from="." to="." method="_on_CraftBtn_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_CraftBtn_mouse_exited"]

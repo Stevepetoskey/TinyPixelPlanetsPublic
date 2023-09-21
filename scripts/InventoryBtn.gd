@@ -23,6 +23,8 @@ func _pressed() -> void:
 
 func _on_InventoryBtn_mouse_entered():
 	mouseIn = true
+	main.mouse_in_btn(loc)
 
 func _on_InventoryBtn_mouse_exited():
 	mouseIn = false
+	main.mouse_out_btn(loc)

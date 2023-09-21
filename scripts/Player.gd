@@ -29,6 +29,7 @@ var currentBlocksOn = []
 var canBreath = true
 var inSuit = false
 var flying = false
+var defPoints = 0
 
 var dead = false
 
@@ -72,6 +73,7 @@ func _ready():
 		effects.death_particles(position)
 		hide()
 		get_node("../CanvasLayer/Dead").popup()
+	_on_Armor_updated_armor(armor.armor)
 
 func _physics_process(_delta):
 	if !dead and !Global.pause:
@@ -147,9 +149,9 @@ func _physics_process(_delta):
 				else:
 					$Textures/AnimationPlayer.play("jump")
 		
-		if get_global_mouse_position().x - position.x < 0:
+		if (get_global_mouse_position().x - position.x < 0 or motion.x < 0) and !motion.x > 0:
 			$Textures.set_global_transform(Transform2D(Vector2(-1,0),Vector2(0,1),Vector2(position.x,position.y)))
-		else:
+		elif get_global_mouse_position().x - position.x > 0 or motion.x > 0:
 			$Textures.set_global_transform(Transform2D(Vector2(1,0),Vector2(0,1),Vector2(position.x,position.y)))
 		
 		motion = move_and_slide(motion,Vector2(0,-1),true)
@@ -178,11 +180,13 @@ func swing(item):
 				if result.empty() and position.distance_to(enemy.position) < world.itemData[swingingWith]["range"] and sign(enemy.position.x - position.x) == sign(get_global_mouse_position().x - position.x):
 					enemy.damage(world.itemData[swingingWith]["dmg"])
 
-func damage(hp):
+func damage(dmg,enemyLevel = 1):
 	if !dead and !Global.pause:
 		modulate = Color("ff5959")
-		effects.floating_text(position, "-" + str(hp), Color.red)
-		health -= hp
+		print(defPoints)
+		var totalDmg = int(round(dmg * max(1-(defPoints/(enemyLevel*25.0)),0)))
+		effects.floating_text(position, "-" + str(totalDmg), Color.red)
+		health -= totalDmg
 		yield(get_tree().create_timer(0.5),"timeout")
 		if health < 0:
 			die()
@@ -215,46 +219,58 @@ func _on_blockTest_body_exited(body):
 		currentBlocksOn.erase(body)
 
 func _on_Armor_updated_armor(armorData):
-	$Textures/body.texture = load("res://textures/player/Body/" + gender + ".png")
-	var set = {"Shirt":"shirt","Chestplate":"shirt","Pants":"pants","Leggings":"pants","Boots":"boots","Shoes":"boots","Hat":"headwear","Helmet":"headwear"}
-	var display = {"pants":null,"shirt":null,"boots":null,"headwear":null}
-	var wearing = {"pants":0,"shirt":0,"boots":0,"headwear":0}
-	for armorType in armorData:
-		if !armorData[armorType].empty():
-			var id = armorData[armorType]["id"]
-			wearing[set[armorType]] = id
-			if !["Shirt","Chestplate"].has(armorType):
-				display[set[armorType]] = load("res://textures/player/" + files[id]["folder"]+ "/" + files[id]["file"])
+	if world != null:
+		$Textures/body.texture = load("res://textures/player/Body/" + gender + ".png")
+		var set = {"Shirt":"shirt","Chestplate":"shirt","Pants":"pants","Leggings":"pants","Boots":"boots","Shoes":"boots","Hat":"headwear","Helmet":"headwear"}
+		var display = {"pants":null,"shirt":null,"boots":null,"headwear":null}
+		var wearing = {"pants":0,"shirt":0,"boots":0,"headwear":0}
+		defPoints = 0
+		for armorType in armorData:
+			if !armorData[armorType].empty():
+				var id = armorData[armorType]["id"]
+				wearing[set[armorType]] = id
+				if ["Chestplate","Leggings","Boots","Helmet"].has(armorType):
+					var def = world.itemData[id]["armor_data"]["def"]
+					if def > 0:
+						defPoints += def
+						armor.get_node(armorType + "Points").show()
+						armor.get_node(armorType + "Points").text = "+" + str(def) + " Def"
+					else:
+						armor.get_node(armorType + "Points").hide()
+				if !["Shirt","Chestplate"].has(armorType):
+					display[set[armorType]] = load("res://textures/player/" + files[id]["folder"]+ "/" + files[id]["file"])
+				else:
+					display[set[armorType]] = load("res://textures/player/" + files[id]["folder"]+ "/" + gender + "/" + files[id]["file"])
+			elif ["Chestplate","Leggings","Boots","Helmet"].has(armorType):
+				$"../CanvasLayer/Inventory/Armor".get_node(armorType + "Points").hide()
+		for sheet in display:
+			if display[sheet] == null:
+				match sheet:
+					"headwear":
+						$Textures/headwear.show()
+						$Textures/headwear.modulate = Global.playerBase["hair_color"]
+						$Textures/headwear.texture = load("res://textures/player/Hair/" + Global.playerBase["hair_style"] + ".png")
+					"shirt":
+						$Textures/shirt.show()
+						$Textures/shirt.texture = load("res://textures/player/Body/underTop-" + gender + ".png")
+					"pants":
+						$Textures/pants.show()
+						$Textures/pants.texture = load("res://textures/player/Body/under-" + gender + ".png")
+					_:
+						$Textures.get_node(sheet).hide()
 			else:
-				display[set[armorType]] = load("res://textures/player/" + files[id]["folder"]+ "/" + gender + "/" + files[id]["file"])
-	for sheet in display:
-		if display[sheet] == null:
-			match sheet:
-				"headwear":
-					$Textures/headwear.show()
-					$Textures/headwear.modulate = Global.playerBase["hair_color"]
-					$Textures/headwear.texture = load("res://textures/player/Hair/" + Global.playerBase["hair_style"] + ".png")
-				"shirt":
-					$Textures/shirt.show()
-					$Textures/shirt.texture = load("res://textures/player/Body/underTop-" + gender + ".png")
-				"pants":
-					$Textures/pants.show()
-					$Textures/pants.texture = load("res://textures/player/Body/under-" + gender + ".png")
-				_:
-					$Textures.get_node(sheet).hide()
+				if sheet == "headwear":
+					$Textures/headwear.modulate = Color.white
+				$Textures.get_node(sheet).show()
+				$Textures.get_node(sheet).texture = display[sheet]
+		var fullSuit = true
+		if wearing.values() != [48,47,49,46]:
+			fullSuit = false
+		if StarSystem.find_planet_id(Global.currentPlanet) != null and StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
+			canBreath = true
 		else:
-			if sheet == "headwear":
-				$Textures/headwear.modulate = Color.white
-			$Textures.get_node(sheet).show()
-			$Textures.get_node(sheet).texture = display[sheet]
-	var fullSuit = true
-	if wearing.values() != [48,47,49,46]:
-		fullSuit = false
-	if StarSystem.find_planet_id(Global.currentPlanet) != null and StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
-		canBreath = true
-	else:
-		canBreath = false
-	inSuit = fullSuit
+			canBreath = false
+		inSuit = fullSuit
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "swing":

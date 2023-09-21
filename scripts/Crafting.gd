@@ -4,6 +4,7 @@ const CRAFT_BTN = preload("res://assets/CraftBtn.tscn")
 
 onready var inventory = get_node("../Inventory")
 onready var ITEM_PER_PAGE = inventory.ITEM_PER_PAGE
+onready var world = $"../../World"
 
 var recipes = {
 	"inventory": [
@@ -146,6 +147,18 @@ func recipe_clicked(recipeRef : Dictionary):
 		if item2 != null:
 			inventory.remove_id_from_inventory(recipe2["id"],recipe2["amount"])
 		inventory.add_to_inventory(recipesSelect["result"]["id"],recipesSelect["result"]["amount"])
+
+func mouse_in_btn(recipeRef : Dictionary):
+	var itemData = world.get_item_data(recipeRef["result"]["id"])
+	if itemData.has("name"):
+		var text = itemData["name"]
+		if itemData.has("desc"):
+			text += "\n" + itemData["desc"]
+		$"../ItemData".show()
+		$"../ItemData".text = text
+
+func mouse_out_btn(_recipeRef : Dictionary):
+	$"../ItemData".hide()
 
 func update_buttons() -> void:
 	for child in $recipes.get_children():

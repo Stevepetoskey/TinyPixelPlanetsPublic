@@ -1,6 +1,6 @@
 # Tiny Pixel Planets Title Update 3 (Unstable branch)
 ## Features roadmap
-- Add a tutorial
+- Add a tutorial (Done)
 - New blocks (Done)
 - New planets (Done)
 - Fixes and improvements (Done)
@@ -27,3 +27,8 @@
 - Added Tutorial 
 - Added commands and a command prompt
 - Added Sprinting
+
+##v0.3.1
+- Added tooltip that is displayed when hovering over items
+- Armor now is functional
+- Added Web Demo version

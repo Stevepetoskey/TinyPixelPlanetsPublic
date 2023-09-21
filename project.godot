@@ -45,7 +45,7 @@ window/stretch/aspect="keep"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/godot_icon/plugin.cfg" )
+enabled=PoolStringArray(  )
 
 [gui]
 

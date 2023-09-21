@@ -24,9 +24,7 @@ func _on_PickupTimer_timeout():
 func _on_Area2D_body_entered(body):
 	if body != self:
 		if body.is_in_group("item"):
-			print("should combine")
 			if body.data["id"] == data["id"]:
-				print("and does")
 				data["amount"] += body.data["amount"]
 				body.free()
 		elif canPickup:

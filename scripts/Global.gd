@@ -77,7 +77,6 @@ func open_save(saveId : String) -> void:
 			savegame.open(save_path + saveId + "/playerData.dat",File.READ)
 			playerData = savegame.get_var()
 			savegame.close()
-			print(playerData)
 			currentPlanet = playerData["current_planet"]
 			starterPlanetId = playerData["starter_planet"]
 			if playerData.has("enemy_spawning"):
@@ -109,7 +108,6 @@ func new_planet() -> void:
 	new = true
 	if savegame.file_exists(save_path + currentSave + "/planets/" + str(StarSystem.currentSeed) + "_" + str(currentPlanet) + ".dat"):
 		new = false
-		print("has file")
 	emit_signal("loaded_data")
 
 func save(saveData : Dictionary) -> void:

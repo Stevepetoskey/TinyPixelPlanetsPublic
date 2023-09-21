@@ -1,4 +1,4 @@
-[gd_scene load_steps=137 format=2]
+[gd_scene load_steps=139 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://textures/enviroment/sky.png" type="Texture" id=2]
@@ -61,6 +61,8 @@
 [ext_resource path="res://textures/GUI/Menu/MenuCharacter.png" type="Texture" id=59]
 [ext_resource path="res://fonts/pixelLineEdit.tres" type="DynamicFont" id=60]
 [ext_resource path="res://scripts/Commands.gd" type="Script" id=61]
+[ext_resource path="res://textures/GUI/main/item-toolbar.png" type="Texture" id=62]
+[ext_resource path="res://scripts/ItemDataShow.gd" type="Script" id=63]
 
 [sub_resource type="VisualShaderNodeScalarOp" id=67]
 output_port_for_preview = 0
@@ -1169,6 +1171,38 @@ type = "shoes"
 position = Vector2( 6, 6 )
 texture = ExtResource( 42 )
 
+[node name="HelmetPoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
+margin_left = 29.5
+margin_top = 7.0
+margin_right = 64.5
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 10 )
+text = "+1 Def"
+
+[node name="ChestplatePoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
+margin_left = 29.5
+margin_top = 20.0
+margin_right = 64.5
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 10 )
+text = "+5 Def"
+
+[node name="LeggingsPoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
+margin_left = 29.5
+margin_top = 33.0
+margin_right = 64.5
+margin_bottom = 41.0
+custom_fonts/font = ExtResource( 10 )
+text = "+2 Def"
+
+[node name="BootsPoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
+margin_left = 29.5
+margin_top = 46.0
+margin_right = 64.5
+margin_bottom = 54.0
+custom_fonts/font = ExtResource( 10 )
+text = "+1 Def"
+
 [node name="Crafting" type="Control" parent="CanvasLayer"]
 visible = false
 anchor_left = 1.0
@@ -1455,6 +1489,30 @@ autowrap = true
 anims/RESET = SubResource( 85 )
 "anims/fade out" = SubResource( 86 )
 "anims/pop up" = SubResource( 87 )
+
+[node name="ItemData" type="Label" parent="CanvasLayer"]
+visible = false
+margin_right = 20.0
+margin_bottom = 8.0
+size_flags_horizontal = 12
+size_flags_vertical = 12
+custom_fonts/font = ExtResource( 10 )
+text = "Coppeickax"
+script = ExtResource( 63 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/ItemData"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -1.0
+margin_right = 2.0
+margin_bottom = 1.0
+texture = ExtResource( 62 )
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
 
 [node name="World" type="Node2D" parent="."]
 script = ExtResource( 1 )

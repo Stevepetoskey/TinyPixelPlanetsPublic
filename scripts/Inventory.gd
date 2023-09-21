@@ -217,6 +217,18 @@ func inv_btn_clicked(loc : int,item : Object):
 			inventory[loc] = new
 			update_inventory()
 
+func mouse_in_btn(loc : int):
+	var itemData = world.get_item_data(inventory[loc]["id"])
+	if itemData.has("name"):
+		var text = itemData["name"]
+		if itemData.has("desc"):
+			text += "\n" + itemData["desc"]
+		$"../ItemData".show()
+		$"../ItemData".text = text
+
+func mouse_out_btn(_loc : int):
+	$"../ItemData".hide()
+
 func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 	holding = false
 	if toggle:

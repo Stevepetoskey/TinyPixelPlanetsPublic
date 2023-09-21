@@ -23,3 +23,9 @@ func init(recipe : Dictionary) -> void:
 
 func _pressed() -> void:
 	crafting.recipe_clicked(recipeRef)
+
+func _on_CraftBtn_mouse_entered():
+	crafting.mouse_in_btn(recipeRef)
+
+func _on_CraftBtn_mouse_exited():
+	crafting.mouse_out_btn(recipeRef)

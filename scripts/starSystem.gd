@@ -58,7 +58,6 @@ signal found_system
 func start_game():
 	print("---start game---")
 	if Global.new:
-		print("Guhia")
 		new()
 		yield(self,"found_system")
 		Global.currentPlanet = find_planet("type","terra").id
