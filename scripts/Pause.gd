@@ -12,7 +12,7 @@ func toggle_pause(toggle = true, setValue = false):
 	if toggle:
 		setValue = !visible
 	visible = setValue
-	cursor.pause = setValue
+	Global.pause = setValue
 	inventory.invPause = setValue
 
 func _on_Quit_pressed():

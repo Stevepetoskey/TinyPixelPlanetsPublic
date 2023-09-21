@@ -28,8 +28,11 @@ func cancel():
 	selectedSave = ""
 	show()
 
-func start():
-	Global.open_save(selectedSave)
+func start(tutorial = false):
+	if tutorial:
+		Global.open_tutorial()
+	else:
+		Global.open_save(selectedSave)
 	get_node("..").hide()
 	get_node("../../blank").show()
 	get_node("../../AnimationPlayer").play("zoom",-1,-1,true)

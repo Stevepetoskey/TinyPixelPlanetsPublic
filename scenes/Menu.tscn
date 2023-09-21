@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=1]
 [ext_resource path="res://textures/GUI/Menu/MenuSpace.png" type="Texture" id=2]
@@ -20,6 +20,7 @@
 [ext_resource path="res://textures/GUI/Menu/armor-Guy.png" type="Texture" id=18]
 [ext_resource path="res://scripts/menu/CharacterEdit.gd" type="Script" id=19]
 [ext_resource path="res://fonts/pixelLineEdit.tres" type="DynamicFont" id=20]
+[ext_resource path="res://textures/GUI/Menu/WebDemo2.png" type="Texture" id=21]
 
 [sub_resource type="Curve2D" id=25]
 _data = {
@@ -403,7 +404,7 @@ curve = SubResource( 25 )
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
 position = Vector2( 0, 127 )
-rotation = -1.15401
+rotation = -1.15402
 
 [node name="Moon" type="Sprite" parent="Path2D/PathFollow2D"]
 rotation = 1.15401
@@ -426,10 +427,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_top = 16.0
-margin_right = 128.0
-margin_bottom = 144.0
+margin_left = -120.0
+margin_top = -64.0
+margin_right = 8.0
+margin_bottom = 64.0
 texture = ExtResource( 3 )
+
+[node name="TextureRect" type="TextureRect" parent="Main/Title"]
+visible = false
+margin_top = 8.0
+margin_right = 512.0
+margin_bottom = 520.0
+rect_scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 21 )
 
 [node name="Buttons" type="Control" parent="Main"]
 modulate = Color( 1, 1, 1, 0 )
@@ -455,15 +465,34 @@ custom_fonts/font = ExtResource( 1 )
 text = "PLAY"
 align = 1
 
+[node name="Tutorial" type="TextureButton" parent="Main/Buttons"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = 10.0
+margin_right = 32.0
+margin_bottom = 25.0
+texture_normal = SubResource( 4 )
+
+[node name="Label" type="Label" parent="Main/Buttons/Tutorial"]
+margin_top = 4.0
+margin_right = 64.0
+margin_bottom = 12.0
+custom_fonts/font = ExtResource( 1 )
+text = "TUTORIAL"
+align = 1
+
 [node name="Credits" type="TextureButton" parent="Main/Buttons"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -32.0
-margin_top = 22.5
+margin_top = 27.0
 margin_right = 32.0
-margin_bottom = 37.5
+margin_bottom = 42.0
 texture_normal = SubResource( 5 )
 
 [node name="Label" type="Label" parent="Main/Buttons/Credits"]
@@ -536,6 +565,17 @@ id = 1
 margin_top = 66.0
 margin_bottom = 93.0
 id = 2
+
+[node name="Label" type="Label" parent="World/loadSave"]
+visible = false
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -107.5
+margin_top = -20.0
+margin_right = 107.5
+margin_bottom = -12.0
+custom_fonts/font = ExtResource( 1 )
+text = "*Worlds are not saved in the web demo version"
 
 [node name="character" type="Control" parent="World"]
 anchor_right = 1.0
@@ -787,7 +827,7 @@ anchor_bottom = 1.0
 margin_top = -8.0
 custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
 custom_fonts/font = ExtResource( 1 )
-text = "Tiny Pixel Planets TU2 (v0.2.0)"
+text = "Tiny Pixel Planets TU3.1 (v0.3.1)"
 align = 1
 
 [node name="Credits" type="Control" parent="."]
@@ -869,6 +909,7 @@ align = 1
 autowrap = true
 
 [connection signal="pressed" from="Main/Buttons/Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="Main/Buttons/Tutorial" to="." method="_on_Tutorial_pressed"]
 [connection signal="pressed" from="Main/Buttons/Credits" to="." method="_on_Credits_pressed"]
 [connection signal="pressed" from="World/loadSave/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="World/character/Female" to="World/character" method="_on_Female_pressed"]

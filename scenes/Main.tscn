@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=2]
+[gd_scene load_steps=139 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://textures/enviroment/sky.png" type="Texture" id=2]
@@ -47,9 +47,22 @@
 [ext_resource path="res://textures/weather/rain.png" type="Texture" id=45]
 [ext_resource path="res://textures/weather/Cloud_Large1.png" type="Texture" id=46]
 [ext_resource path="res://scripts/Effects.gd" type="Script" id=47]
-[ext_resource path="res://textures/enviroment/space-2.png" type="Texture" id=48]
+[ext_resource path="res://textures/enviroment/space-3.png" type="Texture" id=48]
 [ext_resource path="res://scripts/Dead.gd" type="Script" id=49]
 [ext_resource path="res://fonts/pixelHeader.tres" type="DynamicFont" id=50]
+[ext_resource path="res://noise/Main.tres" type="OpenSimplexNoise" id=51]
+[ext_resource path="res://scripts/Chest.gd" type="Script" id=52]
+[ext_resource path="res://textures/GUI/main/GUI_chest.png" type="Texture" id=53]
+[ext_resource path="res://textures/GUI/main/hotbar.png" type="Texture" id=54]
+[ext_resource path="res://textures/GUI/main/hotbar1.png" type="Texture" id=55]
+[ext_resource path="res://textures/GUI/main/bigBar.png" type="Texture" id=56]
+[ext_resource path="res://fonts/pixel-outline.tres" type="DynamicFont" id=57]
+[ext_resource path="res://textures/GUI/main/O2-safe.png" type="Texture" id=58]
+[ext_resource path="res://textures/GUI/Menu/MenuCharacter.png" type="Texture" id=59]
+[ext_resource path="res://fonts/pixelLineEdit.tres" type="DynamicFont" id=60]
+[ext_resource path="res://scripts/Commands.gd" type="Script" id=61]
+[ext_resource path="res://textures/GUI/main/item-toolbar.png" type="Texture" id=62]
+[ext_resource path="res://scripts/ItemDataShow.gd" type="Script" id=63]
 
 [sub_resource type="VisualShaderNodeScalarOp" id=67]
 output_port_for_preview = 0
@@ -368,21 +381,25 @@ shader = SubResource( 21 )
 shader_param/StarLight = 1.0
 shader_param/SkyColor = Color( 0, 0, 0, 1 )
 
+[sub_resource type="AtlasTexture" id=80]
+atlas = ExtResource( 56 )
+region = Rect2( 0, 0, 98, 8 )
+
+[sub_resource type="AtlasTexture" id=81]
+atlas = ExtResource( 56 )
+region = Rect2( 0, 8, 98, 8 )
+
 [sub_resource type="AtlasTexture" id=1]
 atlas = ExtResource( 6 )
 region = Rect2( 0, 0, 150, 18 )
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 4 )
-region = Rect2( 64, 0, 50, 17 )
+[sub_resource type="AtlasTexture" id=78]
+atlas = ExtResource( 54 )
+region = Rect2( 30, 0, 30, 16 )
 
 [sub_resource type="AtlasTexture" id=53]
 atlas = ExtResource( 4 )
 region = Rect2( 176, 0, 16, 16 )
-
-[sub_resource type="AtlasTexture" id=60]
-atlas = ExtResource( 4 )
-region = Rect2( 0, 0, 7, 7 )
 
 [sub_resource type="AtlasTexture" id=54]
 atlas = ExtResource( 17 )
@@ -399,6 +416,46 @@ region = Rect2( 0, 12, 23, 2 )
 [sub_resource type="AtlasTexture" id=57]
 atlas = ExtResource( 17 )
 region = Rect2( 0, 5, 23, 2 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 7, 7 )
+
+[sub_resource type="AtlasTexture" id=82]
+atlas = ExtResource( 4 )
+region = Rect2( 16, 0, 7, 7 )
+
+[sub_resource type="Animation" id=83]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=84]
+resource_name = "blink"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 6 )
@@ -427,6 +484,14 @@ region = Rect2( 173, 110, 16, 16 )
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 14 )
 region = Rect2( 96, 68, 64, 15 )
+
+[sub_resource type="AtlasTexture" id=76]
+atlas = ExtResource( 4 )
+region = Rect2( 143, 93, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=77]
+atlas = ExtResource( 4 )
+region = Rect2( 173, 93, 16, 16 )
 
 [sub_resource type="Animation" id=11]
 length = 0.001
@@ -511,7 +576,62 @@ tracks/1/keys = {
 "values": [ true, false ]
 }
 
-[sub_resource type="OpenSimplexNoise" id=9]
+[sub_resource type="StyleBoxTexture" id=20]
+texture = ExtResource( 59 )
+region_rect = Rect2( 31, 18, 88, 11 )
+margin_left = 2.0
+margin_right = 2.0
+margin_top = 2.0
+margin_bottom = 2.0
+
+[sub_resource type="Animation" id=85]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=86]
+resource_name = "fade out"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=87]
+resource_name = "pop up"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="OpenSimplexNoise" id=79]
+period = 7.0
+persistence = 0.0
 
 [sub_resource type="RectangleShape2D" id=14]
 extents = Vector2( 3, 49.625 )
@@ -521,6 +641,18 @@ extents = Vector2( 3, 48.5 )
 
 [sub_resource type="RectangleShape2D" id=16]
 extents = Vector2( 3, 124 )
+
+[sub_resource type="RectangleShape2D" id=88]
+extents = Vector2( 24.5, 900 )
+
+[sub_resource type="RectangleShape2D" id=89]
+extents = Vector2( 48.5, 900 )
+
+[sub_resource type="RectangleShape2D" id=90]
+extents = Vector2( 12, 900 )
+
+[sub_resource type="RectangleShape2D" id=91]
+extents = Vector2( 12, 900 )
 
 [sub_resource type="RectangleShape2D" id=52]
 extents = Vector2( 2, 2 )
@@ -618,8 +750,10 @@ texture = ExtResource( 46 )
 
 [node name="Space" type="Sprite" parent="CanvasLayer/ParallaxBackground"]
 position = Vector2( 120, 120 )
+scale = Vector2( 0.75, 0.75 )
 texture = ExtResource( 48 )
 script = ExtResource( 19 )
+starAmount = 0
 
 [node name="SkyLayer" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
 motion_scale = Vector2( 0, 0 )
@@ -663,6 +797,7 @@ expand = true
 stretch_mode = 2
 
 [node name="back" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
+modulate = Color( 1, 0.662745, 0.282353, 1 )
 motion_scale = Vector2( 0.1, 0.1 )
 motion_offset = Vector2( 0, -90 )
 motion_mirroring = Vector2( 640, 0 )
@@ -674,6 +809,7 @@ region_enabled = true
 region_rect = Rect2( 0, 0, 640, 180 )
 
 [node name="front" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
+modulate = Color( 0.427451, 0.368627, 0.47451, 1 )
 motion_scale = Vector2( 0.3, 0.3 )
 motion_offset = Vector2( 0, -90 )
 motion_mirroring = Vector2( 640, 0 )
@@ -683,6 +819,40 @@ texture = ExtResource( 20 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 640, 180 )
+
+[node name="Oxygen" type="Control" parent="CanvasLayer"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -49.0
+margin_top = -27.0
+margin_right = 49.0
+margin_bottom = -10.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Oxygen"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -26.0
+margin_right = 26.0
+margin_bottom = 8.0
+custom_colors/font_outline_modulate = Color( 0.701961, 0.72549, 0.819608, 1 )
+custom_fonts/font = ExtResource( 57 )
+text = "Suit Oxygen"
+
+[node name="suitOxygen" type="TextureProgress" parent="CanvasLayer/Oxygen"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -49.0
+margin_top = -8.0
+margin_right = 49.0
+max_value = 200.0
+value = 200.0
+texture_under = SubResource( 80 )
+texture_progress = SubResource( 81 )
 
 [node name="Hotbar" type="Control" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -695,18 +865,19 @@ margin_bottom = 18.0
 texture = SubResource( 1 )
 
 [node name="InventoryBtn" type="TextureButton" parent="CanvasLayer/Hotbar"]
-margin_right = 24.0
-margin_bottom = 8.0
-texture_normal = SubResource( 2 )
+visible = false
+margin_right = 30.0
+margin_bottom = 17.0
+texture_normal = ExtResource( 55 )
 
 [node name="Amount" type="Label" parent="CanvasLayer/Hotbar/InventoryBtn"]
 margin_left = 14.0
 margin_top = 3.0
-margin_right = 49.0
+margin_right = 30.0
 margin_bottom = 15.0
 custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
 custom_fonts/font = ExtResource( 10 )
-text = "*123"
+text = "*33"
 valign = 1
 clip_text = true
 
@@ -714,6 +885,31 @@ clip_text = true
 margin_left = 4.0
 margin_top = 4.0
 margin_right = 12.0
+margin_bottom = 12.0
+texture = ExtResource( 3 )
+
+[node name="InventoryBtn2" type="TextureButton" parent="CanvasLayer/Hotbar"]
+visible = false
+margin_left = 30.0
+margin_right = 60.0
+margin_bottom = 17.0
+texture_normal = SubResource( 78 )
+
+[node name="Amount" type="Label" parent="CanvasLayer/Hotbar/InventoryBtn2"]
+margin_left = 13.0
+margin_top = 3.0
+margin_right = 27.0
+margin_bottom = 15.0
+custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
+custom_fonts/font = ExtResource( 10 )
+text = "*33"
+valign = 1
+clip_text = true
+
+[node name="Item" type="TextureRect" parent="CanvasLayer/Hotbar/InventoryBtn2"]
+margin_left = 3.0
+margin_top = 4.0
+margin_right = 11.0
 margin_bottom = 12.0
 texture = ExtResource( 3 )
 
@@ -751,17 +947,10 @@ margin_right = -2.0
 margin_bottom = 18.0
 texture_normal = SubResource( 53 )
 
-[node name="BGT" type="TextureRect" parent="CanvasLayer/Hotbar"]
-margin_left = 51.0
-margin_top = 9.0
-margin_right = 58.0
-margin_bottom = 16.0
-texture = SubResource( 60 )
-
 [node name="Bars" type="Control" parent="CanvasLayer/Hotbar"]
-margin_left = 51.0
+margin_left = 63.0
 margin_top = 1.0
-margin_right = 86.0
+margin_right = 98.0
 margin_bottom = 8.0
 script = ExtResource( 44 )
 
@@ -781,6 +970,35 @@ max_value = 10.0
 value = 7.0
 texture_under = SubResource( 56 )
 texture_progress = SubResource( 57 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Hotbar"]
+margin_left = 63.0
+margin_top = 9.0
+margin_right = 98.0
+margin_bottom = 16.0
+custom_constants/separation = 0
+
+[node name="BGT" type="TextureRect" parent="CanvasLayer/Hotbar/HBoxContainer"]
+margin_right = 7.0
+margin_bottom = 7.0
+texture = SubResource( 60 )
+
+[node name="O2" type="TextureRect" parent="CanvasLayer/Hotbar/HBoxContainer"]
+margin_left = 7.0
+margin_right = 16.0
+margin_bottom = 7.0
+texture = ExtResource( 58 )
+
+[node name="Warning" type="TextureRect" parent="CanvasLayer/Hotbar/HBoxContainer"]
+visible = false
+margin_left = 16.0
+margin_right = 23.0
+margin_bottom = 7.0
+texture = SubResource( 82 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Hotbar/HBoxContainer/Warning"]
+anims/RESET = SubResource( 83 )
+anims/blink = SubResource( 84 )
 
 [node name="Inventory" type="Control" parent="CanvasLayer"]
 visible = false
@@ -953,6 +1171,38 @@ type = "shoes"
 position = Vector2( 6, 6 )
 texture = ExtResource( 42 )
 
+[node name="HelmetPoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
+margin_left = 29.5
+margin_top = 7.0
+margin_right = 64.5
+margin_bottom = 15.0
+custom_fonts/font = ExtResource( 10 )
+text = "+1 Def"
+
+[node name="ChestplatePoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
+margin_left = 29.5
+margin_top = 20.0
+margin_right = 64.5
+margin_bottom = 28.0
+custom_fonts/font = ExtResource( 10 )
+text = "+5 Def"
+
+[node name="LeggingsPoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
+margin_left = 29.5
+margin_top = 33.0
+margin_right = 64.5
+margin_bottom = 41.0
+custom_fonts/font = ExtResource( 10 )
+text = "+2 Def"
+
+[node name="BootsPoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
+margin_left = 29.5
+margin_top = 46.0
+margin_right = 64.5
+margin_bottom = 54.0
+custom_fonts/font = ExtResource( 10 )
+text = "+1 Def"
+
 [node name="Crafting" type="Control" parent="CanvasLayer"]
 visible = false
 anchor_left = 1.0
@@ -975,10 +1225,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -36.0
-margin_top = -139.0
-margin_right = 36.0
-margin_bottom = -19.0
+margin_left = -34.0
+margin_top = -158.0
+margin_right = 38.0
+margin_bottom = -38.0
 
 [node name="leftBtn" type="TextureButton" parent="CanvasLayer/Crafting"]
 anchor_top = 1.0
@@ -1068,6 +1318,49 @@ theme = ExtResource( 15 )
 custom_fonts/font = ExtResource( 10 )
 text = "CONTINUE"
 align = 1
+
+[node name="Chest" type="Control" parent="CanvasLayer"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -104.0
+script = ExtResource( 52 )
+
+[node name="BG" type="TextureRect" parent="CanvasLayer/Chest"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 53 )
+expand = true
+
+[node name="leftBtn" type="TextureButton" parent="CanvasLayer/Chest"]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -19.0
+margin_right = 18.0
+margin_bottom = -2.0
+texture_normal = SubResource( 76 )
+
+[node name="rightBtn" type="TextureButton" parent="CanvasLayer/Chest"]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -18.0
+margin_top = -19.0
+margin_right = -2.0
+margin_bottom = -2.0
+texture_normal = SubResource( 77 )
+
+[node name="items" type="Control" parent="CanvasLayer/Chest"]
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 4.0
+margin_right = 102.0
+margin_bottom = -76.0
 
 [node name="Black" type="TextureRect" parent="CanvasLayer"]
 modulate = Color( 0, 0, 0, 1 )
@@ -1159,11 +1452,75 @@ custom_fonts/font = ExtResource( 10 )
 text = "TU 2 beta 5 (Unstable)"
 align = 1
 
+[node name="Notification" type="Control" parent="CanvasLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="Commands" type="LineEdit" parent="CanvasLayer"]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -10.0
+margin_right = 168.0
+custom_fonts/font = ExtResource( 60 )
+custom_styles/normal = SubResource( 20 )
+placeholder_text = "Type commands here"
+script = ExtResource( 61 )
+
+[node name="Title" type="Label" parent="CanvasLayer"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -119.0
+margin_top = -30.0
+margin_right = 119.0
+custom_colors/font_outline_modulate = Color( 0.6, 0.639216, 0.752941, 1 )
+custom_fonts/font = ExtResource( 57 )
+text = "If  your ie J or K slot"
+align = 1
+valign = 2
+autowrap = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Title"]
+anims/RESET = SubResource( 85 )
+"anims/fade out" = SubResource( 86 )
+"anims/pop up" = SubResource( 87 )
+
+[node name="ItemData" type="Label" parent="CanvasLayer"]
+visible = false
+margin_right = 20.0
+margin_bottom = 8.0
+size_flags_horizontal = 12
+size_flags_vertical = 12
+custom_fonts/font = ExtResource( 10 )
+text = "Coppeickax"
+script = ExtResource( 63 )
+
+[node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/ItemData"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -2.0
+margin_top = -1.0
+margin_right = 2.0
+margin_bottom = 1.0
+texture = ExtResource( 62 )
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
 [node name="World" type="Node2D" parent="."]
 script = ExtResource( 1 )
-worldNoise = SubResource( 9 )
+worldNoise = ExtResource( 51 )
+asteroidNoise = SubResource( 79 )
 
 [node name="blocks" type="Node2D" parent="World"]
+modulate = Color( 0.427451, 0.368627, 0.47451, 1 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="World"]
 
@@ -1179,6 +1536,40 @@ shape = SubResource( 15 )
 position = Vector2( 120, 66.5003 )
 rotation = 1.5708
 shape = SubResource( 16 )
+
+[node name="TutorialParts" type="Node2D" parent="World"]
+
+[node name="Platforms" type="Area2D" parent="World/TutorialParts"]
+position = Vector2( 143.5, 128 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Platforms"]
+shape = SubResource( 88 )
+
+[node name="Sprint" type="Area2D" parent="World/TutorialParts"]
+position = Vector2( 463.5, 128 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Sprint"]
+shape = SubResource( 89 )
+
+[node name="Chest" type="Area2D" parent="World/TutorialParts"]
+position = Vector2( 843, 128 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Chest"]
+shape = SubResource( 90 )
+
+[node name="Mine" type="Area2D" parent="World/TutorialParts"]
+position = Vector2( 880, 128 )
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Mine"]
+shape = SubResource( 91 )
 
 [node name="Cursor" type="Sprite" parent="."]
 z_index = 5
@@ -1208,10 +1599,6 @@ z_index = 2
 [node name="Camera2D" type="Camera2D" parent="Player"]
 offset = Vector2( 0, -30 )
 current = true
-limit_left = -2
-limit_top = -128
-limit_right = 62
-limit_bottom = 94
 limit_smoothed = true
 smoothing_enabled = true
 
@@ -1266,6 +1653,7 @@ texture = ExtResource( 45 )
 script = ExtResource( 47 )
 
 [connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn" to="CanvasLayer/Inventory" method="_on_InventoryBtn_pressed"]
+[connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn2" to="CanvasLayer/Inventory" method="_on_InventoryBtn2_pressed"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/GoUp" to="World" method="_on_GoUp_pressed"]
 [connection signal="pressed" from="CanvasLayer/Inventory/leftBtn" to="CanvasLayer/Inventory" method="_on_leftBtn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Inventory/rightBtn" to="CanvasLayer/Inventory" method="_on_rightBtn_pressed"]
@@ -1277,10 +1665,17 @@ script = ExtResource( 47 )
 [connection signal="pressed" from="CanvasLayer/Pause/VBoxContainer/Continue" to="CanvasLayer/Pause" method="_on_Continue_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Respawn" to="CanvasLayer/Dead" method="_on_Respawn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Quit" to="CanvasLayer/Dead" method="_on_Quit_pressed"]
+[connection signal="text_entered" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_Commands_text_entered"]
 [connection signal="world_loaded" from="World" to="." method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="CanvasLayer/ParallaxBackground/Space" method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="CanvasLayer/Enviroment" method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="Entities" method="_on_World_world_loaded"]
+[connection signal="body_entered" from="World/TutorialParts/Platforms" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="World/TutorialParts/Platforms" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="World/TutorialParts/Sprint" to="." method="_on_Sprint_body_entered"]
+[connection signal="body_exited" from="World/TutorialParts/Sprint" to="." method="_on_Sprint_body_exited"]
+[connection signal="body_entered" from="World/TutorialParts/Chest" to="." method="_on_Chest_body_entered"]
+[connection signal="body_entered" from="World/TutorialParts/Mine" to="." method="_on_Mine_body_entered"]
 [connection signal="body_entered" from="Cursor/playerTest" to="Cursor" method="_on_playerTest_body_entered"]
 [connection signal="body_exited" from="Cursor/playerTest" to="Cursor" method="_on_playerTest_body_exited"]
 [connection signal="animation_finished" from="Cursor/break/AnimationPlayer" to="Cursor" method="_on_AnimationPlayer_animation_finished"]

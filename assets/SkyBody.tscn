@@ -156,7 +156,7 @@ void fragment() {
 	bool n_out15p0 = isNight;
 
 // Color:9
-	vec3 n_out9p0 = vec3(0.003922, 0.086275, 0.121569);
+	vec3 n_out9p0 = vec3(0.003922, 0.086274, 0.121569);
 	float n_out9p1 = 1.000000;
 
 // Input:13
@@ -190,7 +190,7 @@ void fragment() {
 
 // Output:0
 	COLOR.rgb = n_out11p0;
-	COLOR.a = n_out3p1;
+	COLOR.a = n_out6p1;
 
 }
 
@@ -199,7 +199,7 @@ void light() {
 
 }
 "
-graph_offset = Vector2( -843.405, 404.56 )
+graph_offset = Vector2( -310.669, 42.75 )
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2( 1240, 280 )
@@ -225,7 +225,7 @@ nodes/fragment/14/node = SubResource( 22 )
 nodes/fragment/14/position = Vector2( -80, 900 )
 nodes/fragment/15/node = SubResource( 23 )
 nodes/fragment/15/position = Vector2( -660, 1080 )
-nodes/fragment/connections = PoolIntArray( 3, 1, 0, 1, 6, 0, 5, 1, 5, 0, 8, 0, 8, 0, 10, 0, 5, 0, 11, 0, 10, 0, 11, 1, 11, 0, 0, 0, 13, 0, 12, 0, 12, 0, 14, 2, 15, 0, 14, 0, 3, 0, 5, 0, 14, 0, 10, 1, 9, 0, 14, 1 )
+nodes/fragment/connections = PoolIntArray( 6, 0, 5, 1, 5, 0, 8, 0, 8, 0, 10, 0, 5, 0, 11, 0, 10, 0, 11, 1, 11, 0, 0, 0, 13, 0, 12, 0, 12, 0, 14, 2, 15, 0, 14, 0, 3, 0, 5, 0, 14, 0, 10, 1, 9, 0, 14, 1, 6, 1, 0, 1 )
 
 [sub_resource type="ShaderMaterial" id=17]
 resource_local_to_scene = true

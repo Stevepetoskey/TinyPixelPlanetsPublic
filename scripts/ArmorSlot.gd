@@ -8,6 +8,10 @@ onready var world = get_node("../../../../../World")
 
 signal armor_btn_pressed
 
+func _ready():
+	self.connect("mouse_entered",armor,"mouse_in_btn",[name])
+	self.connect("mouse_exited",armor,"mouse_out_btn",[name])
+
 func _process(delta):
 	if visible:
 		if armor.armor[name].empty():

@@ -11,7 +11,6 @@ signal updated_armor
 func _ready():
 	for armorBtn in $GridContainer.get_children():
 		armorBtn.connect("armor_btn_pressed",self,"armor_btn_pressed")
-	emit_signal("updated_armor",armor)
 
 func armor_btn_pressed(icon : Object):
 	if inventory.holding:
@@ -34,3 +33,16 @@ func armor_btn_pressed(icon : Object):
 		armor[icon.name] = {}
 		inventory.update_inventory()
 		emit_signal("updated_armor",armor)
+
+func mouse_in_btn(armorType : String):
+	if !armor[armorType].empty():
+		var itemData = world.get_item_data(armor[armorType]["id"])
+		if itemData.has("name"):
+			var text = itemData["name"]
+			if itemData.has("desc"):
+				text += "\n" + itemData["desc"]
+			$"../../ItemData".show()
+			$"../../ItemData".text = text
+
+func mouse_out_btn(_armorType : String):
+	$"../../ItemData".hide()
