@@ -3,7 +3,7 @@
 Tiny Pixel Planets is a Terraria like sandbox game in space. 
 Tiny Pixel Planet uses Godot 3.5.1
 
-For release pakages go to https://sp-possibilities.itch.io/tiny-pixel-planets
+For release packages go to https://sp-possibilities.itch.io/tiny-pixel-planets
 
 All features from Title Update 1 can be found here: [TU1 Features](https://sp-possibilities.itch.io/tiny-pixel-planets/devlog/422986/tiny-pixel-planets-major-update)
 
