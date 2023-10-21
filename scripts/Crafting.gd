@@ -45,6 +45,8 @@ var recipes = {
 		{"recipe":[{"id":5,"amount":3},{"id":78,"amount":3}],"result":{"id":92,"amount":1}}, #Exotic pick
 		{"recipe":[{"id":13,"amount":8}],"result":{"id":91,"amount":1}}, #Chest
 		{"recipe":[{"id":13,"amount":78}],"result":{"id":91,"amount":1}}, #Chest (With exotic wood)
+		{"recipe":[{"id":56,"amount":1}],"result":{"id":113,"amount":1}}, #Silver bucket
+		{"recipe":[{"id":52,"amount":1}],"result":{"id":115,"amount":1}}, #Copper bucket
 	],
 	"oven": [
 		{"recipe":[{"id":14,"amount":1}],"result":{"id":20,"amount":1}},

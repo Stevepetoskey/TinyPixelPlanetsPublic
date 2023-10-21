@@ -28,18 +28,20 @@ var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra
 	"gas2":{"texture":preload("res://textures/planets/gas2.png"),"size":sizeTypes.large,"type":"gas2"},
 	"gas3":{"texture":preload("res://textures/planets/gas3.png"),"size":sizeTypes.large,"type":"gas3"},
 	"asteroids":{"texture":preload("res://textures/planets/asteroids.png"),"size":sizeTypes.small,"type":"asteroids"},
+	"small_ocean":{"texture":preload("res://textures/planets/ocean.png"),"size":sizeTypes.small,"type":"ocean"},
+	"ocean":{"texture":preload("res://textures/planets/oceanMedium.png"),"size":sizeTypes.medium,"type":"ocean"},
 }
 
-var sizeData = { #Normal moon chance: 10,50,95
-	sizeTypes.small:{"moon_chance":10,"distance":range(40,80),"radius":7,"world_size":Vector2(128,32)},
-	sizeTypes.medium:{"moon_chance":60,"distance":range(50,150),"radius":14,"world_size":Vector2(256,32)},
-	sizeTypes.large:{"moon_chance":120,"distance":range(60,240),"radius":28},
+var sizeData = { #Normal moon chance: 10,50,95 (40,80), (50,150), (60,240)
+	sizeTypes.small:{"moon_chance":20,"distance":range(40,80),"radius":7,"world_size":Vector2(128,32)},
+	sizeTypes.medium:{"moon_chance":70,"distance":range(50,150),"radius":14,"world_size":Vector2(256,32)},
+	sizeTypes.large:{"moon_chance":150,"distance":range(60,240),"radius":28},
 }
 
 var starData = {"M-type":{"min_distance":100,"habital":[],"max_distance":800},
-	"K-type":{"min_distance":120,"habital":range(350,550),"max_distance":1100},
-	"G-type":{"min_distance":160,"habital":range(600,800),"max_distance":1300},
-	"B-type":{"min_distance":200,"habital":range(700,1000),"max_distance":1600},
+	"K-type":{"min_distance":120,"habital":range(350,800),"max_distance":1100},
+	"G-type":{"min_distance":160,"habital":range(550,900),"max_distance":1300},
+	"B-type":{"min_distance":200,"habital":range(600,1300),"max_distance":1600},
 }
 
 var currentStar
@@ -134,7 +136,6 @@ func new_system(systemSeed : int, loaded = false):
 	currentStarName = create_name(currentSeed)
 	currentStarData = starData[currentStar]
 	var amountOfPlanets = randi() % 20 + 1
-	print("Before: ",get_system_bodies())
 	for _i in range(amountOfPlanets):
 		create_planet()
 
@@ -147,7 +148,7 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 	var planetType
 	var planets = []# = ["small_desert","small_mud","small_stone","desert","mud","stone","gas1","gas2"]
 	for planetDat in planetData:
-		if (planetData[planetDat]["size"] < maxSize or (maxSize == 0 and planetData[planetDat]["size"] == 0)) and !["terra","snow","snow_terra","exotic"].has(planetData[planetDat]["type"]):
+		if (planetData[planetDat]["size"] < maxSize or (maxSize == 0 and planetData[planetDat]["size"] == 0)) and !["terra","snow","snow_terra","exotic","ocean"].has(planetData[planetDat]["type"]):
 			planets.append(planetData[planetDat])
 	planets.shuffle()
 	planetType = planets[0]
@@ -184,11 +185,14 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 	
 	#Checks if habitable
 	var size = "" if planetType["size"] > sizeTypes.small else "small_"
-	if currentStarData["habital"].has(abs(planet.orbitalDistance-orbitBody.orbitalDistance)) and randi()%5 == 1:
-		if randi() % 10 < 6:
-			planet.type = planetData[size + "earth"]
-		else:
-			planet.type = planetData[size + "exotic"]
+	if currentStarData["habital"].has(abs(planet.orbitalDistance-orbitBody.orbitalDistance)) and randi()%2 == 1:
+		var type = "earth"
+		match randi() % 3:
+			1:
+				type = "exotic"
+			2:
+				type = "ocean"
+		planet.type = planetData[size + type]
 		planet.hasAtmosphere = true
 	elif !currentStarData["habital"].empty() and abs(planet.orbitalDistance-orbitBody.orbitalDistance) > currentStarData["habital"][currentStarData["habital"].size()-1]:
 		if randi() % 3 ==1:
@@ -218,7 +222,7 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 func is_clear_space(planetSelf : Object, orbitingBody : Object) -> bool:
 	if !get_orbiting_bodies(orbitingBody).empty():
 		for planet in get_orbiting_bodies(orbitingBody):
-			if planet != self:
+			if planet != planetSelf:
 				var planetMoonArea = sizeData[planet.type["size"]]["distance"]
 				planetMoonArea = planetMoonArea[planetMoonArea.size()-1] / (int(orbitingBody != $stars)*2 + 1)
 				var selfMoonArea = sizeData[planetSelf.type["size"]]["distance"]
@@ -303,7 +307,6 @@ func get_system_data() -> Dictionary:
 	return data
 
 func get_current_world_size() -> Vector2:
-	print("After: ",get_system_bodies())
 	return sizeData[find_planet_id(Global.currentPlanet,true).type["size"]]["world_size"]
 
 func look_up_planet_data(type,size):

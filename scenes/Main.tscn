@@ -1,4 +1,4 @@
-[gd_scene load_steps=139 format=2]
+[gd_scene load_steps=140 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://textures/enviroment/sky.png" type="Texture" id=2]
@@ -632,6 +632,11 @@ tracks/0/keys = {
 [sub_resource type="OpenSimplexNoise" id=79]
 period = 7.0
 persistence = 0.0
+
+[sub_resource type="OpenSimplexNoise" id=92]
+period = 10.0
+persistence = 0.0
+lacunarity = 0.55
 
 [sub_resource type="RectangleShape2D" id=14]
 extents = Vector2( 3, 49.625 )
@@ -1437,7 +1442,6 @@ align = 1
 valign = 1
 
 [node name="FPS" type="Label" parent="CanvasLayer"]
-visible = false
 margin_right = 40.0
 margin_bottom = 14.0
 
@@ -1518,6 +1522,7 @@ patch_margin_bottom = 3
 script = ExtResource( 1 )
 worldNoise = ExtResource( 51 )
 asteroidNoise = SubResource( 79 )
+oceanNoise = SubResource( 92 )
 
 [node name="blocks" type="Node2D" parent="World"]
 modulate = Color( 0.427451, 0.368627, 0.47451, 1 )

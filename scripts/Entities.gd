@@ -54,7 +54,6 @@ func _on_Spawn_timeout():
 		for _i in range(int(rand_range(10,50))):
 			var pos = Vector2(randi()%int(world.worldSize.x),randi()%int(world.worldSize.y))
 			if hostileCount < maxH and world.get_block_id(pos,1) == 0 and world.get_block_id(pos,0) == 0 and world.get_block_id(pos + Vector2(0,1),1) != 0 and pos.distance_to(player.position) > 48:
-				print("spawned at " + str(pos))
 				var slorg = entities["Slorg"].instance()
 				slorg.position = pos * Vector2(8,8)
 				$Hold.add_child(slorg)

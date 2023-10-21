@@ -90,7 +90,6 @@ func _physics_process(_delta):
 		
 		if Input.is_action_just_pressed("fly"):
 			flying = !flying
-			print(flying)
 		if world.hasGravity and (!Global.godmode or !flying):
 			if !is_on_floor():
 				if !coyote:
@@ -183,7 +182,6 @@ func swing(item):
 func damage(dmg,enemyLevel = 1):
 	if !dead and !Global.pause:
 		modulate = Color("ff5959")
-		print(defPoints)
 		var totalDmg = int(round(dmg * max(1-(defPoints/(enemyLevel*25.0)),0)))
 		effects.floating_text(position, "-" + str(totalDmg), Color.red)
 		health -= totalDmg

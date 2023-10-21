@@ -427,10 +427,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -120.0
-margin_top = -64.0
-margin_right = 8.0
-margin_bottom = 64.0
+margin_top = 16.0
+margin_right = 128.0
+margin_bottom = 144.0
 texture = ExtResource( 3 )
 
 [node name="TextureRect" type="TextureRect" parent="Main/Title"]
@@ -827,7 +826,7 @@ anchor_bottom = 1.0
 margin_top = -8.0
 custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
 custom_fonts/font = ExtResource( 1 )
-text = "Tiny Pixel Planets TU3.1 (v0.3.1)"
+text = "Tiny Pixel Planets TU4 Beta 1 (v0.4.0:1)"
 align = 1
 
 [node name="Credits" type="Control" parent="."]

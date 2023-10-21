@@ -59,7 +59,7 @@ func _process(_delta):
 
 func _unhandled_input(event):
 	if !Global.pause and cursorPos.x < world.worldSize.x and cursorPos.x >= 0 and cursorPos.y < world.worldSize.y and cursorPos.y >= 0:
-		if Input.is_action_pressed("build") or (Input.is_action_pressed("build2") and inventory.inventory.size() > 1):
+		if Input.is_action_pressed("build") or Input.is_action_pressed("build2"):
 			if canInteract:
 				match world.get_block_id(cursorPos,currentLayer):
 					12:
@@ -70,7 +70,7 @@ func _unhandled_input(event):
 						inventory.inventoryToggle(false,true,"smithing_table")
 					91:
 						inventory.inventoryToggle(false,true,"chest")
-			elif inventory.inventory.size() > 0:
+			elif (Input.is_action_pressed("build") and inventory.inventory.size() > 0) or (Input.is_action_pressed("build2") and inventory.inventory.size() > 1):
 				var selectedId = inventory.inventory[0 if Input.is_action_pressed("build") or inventory.inventory.size() < 2 else 1]["id"]
 				if (currentLayer == 0 or canPlace) and world.blockData.has(selectedId):
 					world.build_event("Build",cursorPos,currentLayer,selectedId)#Vector2(int(position.x),int(position.y)),1,inventory.inventory[0]["id"])
@@ -88,8 +88,27 @@ func _unhandled_input(event):
 func tool_action(itemId : int) -> void:
 	var itemSelect = world.itemData[itemId]
 	match itemSelect["type"]:
+		"Bucket":
+			match itemId:
+				113,114:
+					if world.get_block_id(cursorPos,currentLayer) == 117 and world.get_block(cursorPos,currentLayer).water_level == 4:
+						inventory.remove_id_from_inventory(itemId,1)
+						world.set_block(cursorPos,currentLayer,0,true)
+						inventory.add_to_inventory(115 if itemId == 113 else 116,1)
+				115,116:
+					var success = false
+					if world.get_block_id(cursorPos,currentLayer) == 0:
+						success = true
+						world.set_block(cursorPos,currentLayer,117,true,{"water_level":4})
+					elif world.get_block_id(cursorPos,currentLayer) == 117:
+						success = true
+						world.get_block(cursorPos,currentLayer).water_level = 4
+						world.get_block(cursorPos,currentLayer).on_update()
+					if success:
+						inventory.remove_id_from_inventory(itemId,1)
+						inventory.add_to_inventory(113 if itemId == 115 else 114,1)
 		"Tool":
-			if !breaking and world.get_block_id(cursorPos,currentLayer) > 0 and itemSelect["strength"] >= world.blockData[world.get_block_id(cursorPos,currentLayer)]["canHaverst"]:
+			if  !breaking and world.get_block_id(cursorPos,currentLayer) > 0 and world.blockData[world.get_block_id(cursorPos,currentLayer)]["breakWith"] != "None" and itemSelect["strength"] >= world.blockData[world.get_block_id(cursorPos,currentLayer)]["canHaverst"]:
 				var hardness = world.blockData[world.get_block_id(cursorPos,currentLayer)]["hardness"]
 				if hardness <= 0:
 					world.build_event("Break",position / world.BLOCK_SIZE,currentLayer)

@@ -24,7 +24,6 @@ func _ready():
 				viewPort.rect_size = Vector2(28,28)
 				$ViewportContainer/Viewport
 				viewPort.rect_position = Vector2(-14,-14)
-				#print($ViewportContainer/Viewport.size)
 			2:
 				viewPort.rect_size = Vector2(56,56)
 				viewPort.rect_position = Vector2(-28,-28)

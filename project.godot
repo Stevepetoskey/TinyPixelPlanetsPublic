@@ -34,6 +34,10 @@ config/windows_native_icon="res://textures/icons/terraMedium.ico"
 Global="*res://scripts/Global.gd"
 StarSystem="*res://scenes/starSystem.tscn"
 
+[debug]
+
+settings/fps/force_fps=60
+
 [display]
 
 window/size/width=240
