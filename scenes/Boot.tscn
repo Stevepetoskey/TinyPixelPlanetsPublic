@@ -2,10 +2,10 @@
 
 [ext_resource path="res://textures/GUI/Menu/SPLogoTrinanium.png" type="Texture" id=1]
 [ext_resource path="res://textures/GUI/Menu/SPLogoPosibilities.png" type="Texture" id=2]
-[ext_resource path="res://textures/GUI/Menu/logoCloud1.png" type="Texture" id=3]
+[ext_resource path="res://textures/GUI/Menu/clouds_mid.png" type="Texture" id=3]
 [ext_resource path="res://textures/GUI/Menu/logoSky.png" type="Texture" id=4]
-[ext_resource path="res://textures/GUI/Menu/logoCloudBack.png" type="Texture" id=5]
-[ext_resource path="res://textures/GUI/Menu/logoCloudFront.png" type="Texture" id=6]
+[ext_resource path="res://textures/GUI/Menu/clouds_back.png" type="Texture" id=5]
+[ext_resource path="res://textures/GUI/Menu/clouds_front.png" type="Texture" id=6]
 [ext_resource path="res://scripts/boot/Boot.gd" type="Script" id=7]
 [ext_resource path="res://textures/GUI/Blank.png" type="Texture" id=8]
 [ext_resource path="res://textures/GUI/Menu/SPLogoCoreR.png" type="Texture" id=9]
@@ -207,19 +207,21 @@ texture = ExtResource( 4 )
 
 [node name="CloudBack" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
 motion_scale = Vector2( 0.1, 0.1 )
+motion_offset = Vector2( 0, 30 )
 
 [node name="Sprite" type="Sprite" parent="CanvasLayer/ParallaxBackground/CloudBack"]
 texture = ExtResource( 5 )
 
 [node name="CloudMid" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
 motion_scale = Vector2( 0.5, 0.5 )
+motion_offset = Vector2( 0, -30 )
 
 [node name="Sprite" type="Sprite" parent="CanvasLayer/ParallaxBackground/CloudMid"]
 texture = ExtResource( 3 )
 
 [node name="CloudFront" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
 motion_scale = Vector2( 0.75, 0.75 )
-motion_offset = Vector2( 0, 10 )
+motion_offset = Vector2( 0, -10 )
 
 [node name="Sprite" type="Sprite" parent="CanvasLayer/ParallaxBackground/CloudFront"]
 texture = ExtResource( 6 )

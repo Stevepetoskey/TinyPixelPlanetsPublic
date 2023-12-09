@@ -35,6 +35,8 @@ func _ready():
 	if layer < 1:
 		modulate = Color(0.68,0.68,0.68)
 		mainCol.disabled = true
+		$LightOccluder2D.queue_free()
+		$Sprite.light_mask = 1
 	z_index = layer
 	pos = position / world.BLOCK_SIZE
 	world.connect("update_blocks",self,"on_update")

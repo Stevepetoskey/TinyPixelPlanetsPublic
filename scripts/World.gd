@@ -168,6 +168,8 @@ func start_world():
 #	get_node("../Player/Camera2D").limit_bottom = (worldSize.y+1) * BLOCK_SIZE.y - 4
 	$StaticBody2D/Right.position = Vector2(worldSize.x * BLOCK_SIZE.x + 2,(worldSize.y * BLOCK_SIZE.y) / 2)
 	$StaticBody2D/Right.shape.extents.y = (worldSize.y * BLOCK_SIZE.y) / 2
+	$"../Player/Camera2D".limit_right = worldSize.x * BLOCK_SIZE.x -4
+	$"../Player/Camera2D".limit_bottom = worldSize.y * BLOCK_SIZE.y
 	$StaticBody2D/Left.shape.extents.y = (worldSize.y * BLOCK_SIZE.y) / 2
 	$StaticBody2D/Left.position.y = (worldSize.y * BLOCK_SIZE.y) / 2 - 8
 	$StaticBody2D/Bottom.shape.extents.y = (worldSize.x * BLOCK_SIZE.x) / 2

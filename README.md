@@ -9,3 +9,5 @@
 - Now can only place saplings and flowers on their appropriate grass and dirt blocks using the new "can_place_on" attribute
 - Modified habitable zone size to allow for more habitable planets in system
 - Player now points in the direction of movement if moving, otherwise points torwards mouse. Aka now your player can't moon walk.
+## TU4 Beta 2 (v0.4.0:2)
+- Fixed women not being able to wear silver armor

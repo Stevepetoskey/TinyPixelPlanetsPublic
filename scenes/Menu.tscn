@@ -24,7 +24,7 @@
 
 [sub_resource type="Curve2D" id=25]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 0, 127, -109.811, 50.8491, 109.811, -50.8491, 113, 51, 0, 0, 0, 0, 279, 21, 0, 0, 0, 0, 286, 157, 0, 0, 0, 0, -15, 158, 0, 0, 0, 0, 0, 127 )
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 127, -109.811, 50.8491, 109.811, -50.8491, 113, 51, 0, 0, 0, 0, 338, 10, 0, 0, 0, 0, 314, 175, 0, 0, 0, 0, -15, 158, 0, 0, 0, 0, 0, 127 )
 }
 
 [sub_resource type="AtlasTexture" id=1]
@@ -303,7 +303,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 56, 16 ), Vector2( 56, 16 ), Vector2( 56, 0 ) ]
+"values": [ Vector2( 78, 16 ), Vector2( 78, 16 ), Vector2( 78, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Main/Title:modulate")
@@ -331,7 +331,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 120, 120 ), Vector2( 120, 80 ) ]
+"values": [ Vector2( 142, 120 ), Vector2( 142, 80 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Camera2D:zoom")
@@ -414,9 +414,9 @@ texture = SubResource( 1 )
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -56.0
+margin_top = -67.0
 texture = SubResource( 12 )
-stretch_mode = 7
+stretch_mode = 6
 
 [node name="Main" type="Control" parent="."]
 anchor_right = 1.0
@@ -444,6 +444,7 @@ texture = ExtResource( 21 )
 modulate = Color( 1, 1, 1, 0 )
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 
 [node name="Play" type="TextureButton" parent="Main/Buttons"]
 anchor_left = 0.5

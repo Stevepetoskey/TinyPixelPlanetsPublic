@@ -1,4 +1,4 @@
-[gd_scene load_steps=140 format=2]
+[gd_scene load_steps=141 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://textures/enviroment/sky.png" type="Texture" id=2]
@@ -63,6 +63,7 @@
 [ext_resource path="res://scripts/Commands.gd" type="Script" id=61]
 [ext_resource path="res://textures/GUI/main/item-toolbar.png" type="Texture" id=62]
 [ext_resource path="res://scripts/ItemDataShow.gd" type="Script" id=63]
+[ext_resource path="res://textures/enviroment/light.png" type="Texture" id=64]
 
 [sub_resource type="VisualShaderNodeScalarOp" id=67]
 output_port_for_preview = 0
@@ -765,7 +766,6 @@ motion_scale = Vector2( 0, 0 )
 
 [node name="sky" type="Sprite" parent="CanvasLayer/ParallaxBackground/SkyLayer"]
 material = SubResource( 65 )
-scale = Vector2( 1.92188, 1.28906 )
 texture = ExtResource( 2 )
 
 [node name="ParallaxBackground2" type="ParallaxBackground" parent="CanvasLayer"]
@@ -1442,6 +1442,7 @@ align = 1
 valign = 1
 
 [node name="FPS" type="Label" parent="CanvasLayer"]
+visible = false
 margin_right = 40.0
 margin_bottom = 14.0
 
@@ -1604,8 +1605,23 @@ z_index = 2
 [node name="Camera2D" type="Camera2D" parent="Player"]
 offset = Vector2( 0, -30 )
 current = true
+limit_left = 0
+limit_bottom = 128
 limit_smoothed = true
 smoothing_enabled = true
+
+[node name="Light" type="Light2D" parent="Player"]
+visible = false
+texture = ExtResource( 64 )
+texture_scale = 2.0
+range_item_cull_mask = 2
+shadow_item_cull_mask = 0
+
+[node name="Shadow" type="Light2D" parent="Player"]
+visible = false
+texture = ExtResource( 64 )
+texture_scale = 2.0
+shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 32 )

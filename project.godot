@@ -40,7 +40,7 @@ settings/fps/force_fps=60
 
 [display]
 
-window/size/width=240
+window/size/width=284
 window/size/height=160
 window/size/test_width=1280
 window/size/test_height=720
