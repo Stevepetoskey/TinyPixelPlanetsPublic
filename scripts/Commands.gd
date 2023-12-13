@@ -2,11 +2,24 @@ extends LineEdit
 
 onready var main = $"../.."
 onready var entities = $"../../Entities"
+onready var world = $"../../World"
+onready var player = $"../../Player"
+
+func _process(delta):
+	$"../Hotbar/Coords".text = "X: " + str(stepify(player.position.x / 4.0,0.01)) + ", Y: " + str(stepify(player.position.y/ 4.0,0.01))
 
 func _unhandled_input(event):
 	if Input.is_key_pressed(KEY_SHIFT) and Input.is_key_pressed(KEY_C):
 		show()
 		Global.pause = true
+
+func to_bool(s: String) -> bool: #Credit to Poobslag
+	var result: bool
+	match s:
+		"True", "TRUE", "true", "1": result = true
+		"False", "FALSE", "false", "0": result = false
+		_: result = false if s.empty() else true
+	return result
 
 func _on_Commands_text_entered(new_text : String):
 	hide()
@@ -25,26 +38,6 @@ func _on_Commands_text_entered(new_text : String):
 					print("The second parameter must be enable or disable")
 			else:
 				print("Incorrect parameters for the godmode command")
-		"enemyspawning":
-			if commands.size() == 2:
-				if commands[1] == "true":
-					Global.enemySpawning = true
-				elif commands[1] == "false":
-					Global.enemySpawning = false
-				else:
-					print("The second parameter must be true or false")
-			else:
-				print("Incorrect parameters for the enemyspawning command")
-		"entityspawning":
-			if commands.size() == 2:
-				if commands[1] == "true":
-					Global.entitySpawning = true
-				elif commands[1] == "false":
-					Global.entitySpawning = false
-				else:
-					print("The second parameter must be true or false")
-			else:
-				print("Incorrect parameters for the entityspawning command")
 		"summon":
 			if commands.size() == 4:
 				var entity = entities.find_entity(commands[1])
@@ -63,3 +56,34 @@ func _on_Commands_text_entered(new_text : String):
 					print("Entity ",commands[1]," does not exist")
 			else:
 				print("Incorrect parameters for the summon command")
+		"worldrule":
+			if commands.size() == 3:
+				var rule = commands[1]
+				var value = commands[2]
+				if world.worldRules.has(rule):
+					match world.worldRules[rule]["type"]:
+						"bool":
+							if ["TRUE","True","true","1","FALSE","False","false","0"].has(value):
+								world.worldRules[rule]["value"] = to_bool(value)
+							else:
+								print("Unexpected value (bool value expected)")
+						"int":
+							if value.is_valid_integer():
+								world.worldRules[rule]["value"] = value.to_int()
+							else:
+								print("Unexpected value (int value expected)")
+						"string":
+							world.worldRules[rule]["value"] = value
+				else:
+					print("Rule " + rule + " does not exist")
+			else:
+				print("Incorrect parameters for the worldrule command")
+		"displaycoordinates":
+			if commands.size() == 2:
+				var value = commands[1]
+				if ["TRUE","True","true","1","FALSE","False","false","0"].has(value):
+					$"../Hotbar/Coords".visible = to_bool(value)
+				else:
+					print("Unexpected value (bool value expected)")
+			else:
+				print("Incorrect parameters for the displaycoordinates command")

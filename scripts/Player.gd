@@ -159,7 +159,7 @@ func _unhandled_input(event):
 	if inventory.inventory.size() > 0 and !Global.pause:
 		if Input.is_action_pressed("build"):
 			swing(inventory.inventory[0]["id"])
-		if Input.is_action_pressed("build2"):
+		if Input.is_action_pressed("build2") and inventory.inventory.size() > 1:
 			swing(inventory.inventory[1]["id"])
 		elif Input.is_action_pressed("action1"):
 			swing(inventory.jId)

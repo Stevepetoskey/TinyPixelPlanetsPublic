@@ -79,10 +79,6 @@ func open_save(saveId : String) -> void:
 			savegame.close()
 			currentPlanet = playerData["current_planet"]
 			starterPlanetId = playerData["starter_planet"]
-			if playerData.has("enemy_spawning"):
-				enemySpawning = playerData["enemy_spawning"]
-			if playerData.has("entity_spawning"):
-				entitySpawning = playerData["entity_spawning"]
 			godmode = playerData["godmode"]
 			StarSystem.systemDat = load_system(playerData["current_system"])
 			StarSystem.load_system()
@@ -121,8 +117,6 @@ func save(saveData : Dictionary) -> void:
 	playerData["sex"] = playerBase["sex"]
 	playerData["starter_planet"] = starterPlanetId
 	playerData["godmode"] = godmode
-	playerData["enemy_spawning"] = enemySpawning
-	playerData["entity_spawning"] = entitySpawning
 	savegame.open(save_path + currentSave + "/playerData.dat",File.WRITE)
 	savegame.store_var(saveData["player"])
 	savegame.close()

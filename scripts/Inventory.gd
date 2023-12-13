@@ -132,6 +132,8 @@ func update_inventory() -> void:
 			slot2.show()
 			slot2.get_node("Amount").text = str(inventory[1]["amount"])
 			slot2.get_node("Item").texture = world.get_item_texture(inventory[1]["id"])
+		else:
+			slot2.hide()
 		
 		#Sets J and K ref's texture
 		if jRef != -1:

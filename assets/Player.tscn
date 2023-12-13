@@ -456,7 +456,6 @@ script = ExtResource( 1 )
 visible = false
 frames = ExtResource( 3 )
 animation = "mine"
-frame = 1
 playing = true
 
 [node name="coyoteTimer" type="Timer" parent="."]
@@ -523,7 +522,7 @@ anims/swing = SubResource( 7 )
 anims/walk = SubResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0.5, 3 )
+position = Vector2( 0, 3 )
 shape = SubResource( 9 )
 
 [node name="Oxygen" type="Timer" parent="."]

@@ -1005,6 +1005,16 @@ texture = SubResource( 82 )
 anims/RESET = SubResource( 83 )
 anims/blink = SubResource( 84 )
 
+[node name="Coords" type="Label" parent="CanvasLayer/Hotbar"]
+visible = false
+margin_left = 2.0
+margin_top = 20.0
+margin_right = 87.0
+margin_bottom = 28.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 57 )
+text = "X: 32, Y: 5"
+
 [node name="Inventory" type="Control" parent="CanvasLayer"]
 visible = false
 margin_top = 18.0

@@ -11,3 +11,9 @@
 - Player now points in the direction of movement if moving, otherwise points torwards mouse. Aka now your player can't moon walk.
 ## TU4 Beta 2 (v0.4.0:2)
 - Fixed women not being able to wear silver armor
+- Game window is now native 16:9
+## TU4 Beta 3 (v0.4.0:3)
+- Added new command: worldrule [place_blocks (bool) | break_blocks (bool) | interact_with_blocks (bool) | entity_spawning (bool) | enemy_spawning (bool) ]
+- Added new command: displaycoordinates [true | false]
+- Removed entityspawning and enemyspawning commands
+- Fixed being able to place blocks from second slot despite no blocks existing which led the game to crash.

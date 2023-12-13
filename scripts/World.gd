@@ -24,6 +24,17 @@ var hasGravity = true
 var interactableBlocks = [12,16,28,91]
 
 var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117]
+
+var worldRules = {
+	"break_blocks":{"value":true,"type":"bool"},
+	"place_blocks":{"value":true,"type":"bool"},
+	"interact_with_blocks":{"value":true,"type":"bool"},
+	"entity_spawning":{"value":true,"type":"bool"},
+	"enemy_spawning":{"value":true,"type":"bool"},
+	"world_spawn_x":{"value":-1,"type":"int"},
+	"world_spawn_y":{"value":-1,"type":"int"}
+}
+
 var blockData = {
 	1:{"texture":preload("res://textures/blocks2X/grass_block.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":1,"amount":1}],"name":"Grass block"},
 	2:{"texture":preload("res://textures/blocks2X/dirt.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":2,"amount":1}],"name":"Dirt"},
@@ -192,6 +203,7 @@ func start_world():
 	if Global.new:
 		#StarSystem.visitedPlanets.append(Global.currentPlanet)
 		if Global.gameStart:
+			player.get_node("Textures/body").modulate = Global.playerBase["skin"]
 			player.gender = Global.playerBase["sex"]
 			inventory.add_to_inventory(4,1)
 			armor.armor = {"Helmet":{"id":46,"amount":1},"Hat":{},"Chestplate":{"id":47,"amount":1},"Shirt":{},"Leggings":{"id":48,"amount":1},"Pants":{},"Boots":{"id":49,"amount":1},"Shoes":{}}
@@ -363,7 +375,7 @@ func get_world_data(quit = true) -> Dictionary:
 	var data = {}
 	data["player"] = {"armor":armor.armor,"inventory":inventory.inventory,"inventory_refs":{"j":inventory.jId,"k":inventory.kId},"health":player.health,"max_health":player.maxHealth,"oxygen":player.oxygen,"suit_oxygen":player.suitOxygen,"max_oxygen":player.maxOxygen,"suit_oxygen_max":player.suitOxygenMax,"current_planet":Global.currentPlanet,"current_system":StarSystem.currentSeed,"pos":player.position}
 	data["system"] = StarSystem.get_system_data()
-	data["planet"] = {"blocks":[],"entities":entities.get_entity_data()}
+	data["planet"] = {"blocks":[],"entities":entities.get_entity_data(),"rules":worldRules}
 	for block in $blocks.get_children():
 		data["planet"]["blocks"].append({"id":block.id,"layer":block.layer,"position":block.pos,"data":block.data})
 	return data
@@ -380,8 +392,6 @@ func load_player_data() -> void:
 	player.maxHealth = playerData["max_health"]
 	player.maxOxygen = playerData["max_oxygen"]
 	player.suitOxygenMax = playerData["suit_oxygen_max"]
-	if playerData.has("pos"):
-		player.position = playerData["pos"]
 	inventory.inventory = playerData["inventory"]
 	armor.armor = playerData["armor"]
 	armor.emit_signal("updated_armor",armor.armor)
@@ -394,6 +404,17 @@ func load_world_data() -> void:#data : Dictionary) -> void:
 	#Loads planet data
 	var planetData = Global.load_planet(StarSystem.currentSeed,Global.currentPlanet)
 	entities.load_entities(planetData["entities"])
+	var setRules = worldRules.duplicate(true)
+	if planetData.has("rules"):
+		setRules = planetData["rules"]
+		for rule in worldRules:
+			if !setRules.has(rule):
+				setRules[rule] = worldRules[rule]
+	worldRules = setRules
+	if Global.playerData.has("pos"):
+		player.position = Global.playerData["pos"]
+	elif worldRules["world_spawn_x"]["value"] >= 0 and worldRules["world_spawn_y"]["value"] >= 0:
+		player.position = Vector2(worldRules["world_spawn_x"]["value"]*4,worldRules["world_spawn_y"]["value"]*4)
 	for block in planetData["blocks"]:
 		set_block(block["position"],block["layer"],block["id"],false,block["data"])
 
