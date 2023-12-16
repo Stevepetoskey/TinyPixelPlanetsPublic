@@ -6,9 +6,12 @@ signal system_loaded
 
 func _ready():
 	load_system()
-	var currentPlanet = StarSystem.find_planet_id(Global.currentPlanet)
-	var radius = StarSystem.sizeData[currentPlanet.type["size"]]["radius"]
-	$ship.position = currentPlanet.position - Vector2(0,radius + 3)
+	if Global.currentPlanet != -1:
+		var currentPlanet = StarSystem.find_planet_id(Global.currentPlanet)
+		var radius = StarSystem.sizeData[currentPlanet.type["size"]]["radius"]
+		$ship.position = currentPlanet.position - Vector2(0,radius + 3)
+	else:
+		$ship.position = Vector2(0,-StarSystem.currentStarData["min_distance"]/2.0)
 	$CanvasLayer/Black/AnimationPlayer.play("fadeOut")
 
 func load_system():
@@ -32,3 +35,6 @@ func planet_entered(planet : Object) -> void:
 	yield($CanvasLayer/Black/AnimationPlayer,"animation_finished")
 	print("Landed")
 	StarSystem.land(planet.planetRef.id)
+
+func _on_Galaxy_pressed():
+	StarSystem.leave_star_system()

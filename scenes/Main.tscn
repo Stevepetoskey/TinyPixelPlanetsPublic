@@ -1616,7 +1616,7 @@ z_index = 2
 offset = Vector2( 0, -30 )
 current = true
 limit_left = 0
-limit_bottom = 128
+limit_bottom = 500
 limit_smoothed = true
 smoothing_enabled = true
 

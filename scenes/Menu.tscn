@@ -3,7 +3,7 @@
 [ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=1]
 [ext_resource path="res://textures/GUI/Menu/MenuSpace.png" type="Texture" id=2]
 [ext_resource path="res://textures/GUI/Menu/title.png" type="Texture" id=3]
-[ext_resource path="res://textures/GUI/Menu/MenuStars.png" type="Texture" id=4]
+[ext_resource path="res://textures/enviroment/stars.png" type="Texture" id=4]
 [ext_resource path="res://textures/GUI/Menu/MenuPlanets.png" type="Texture" id=5]
 [ext_resource path="res://scripts/menu/Menu.gd" type="Script" id=6]
 [ext_resource path="res://textures/GUI/Menu/Buttons.png" type="Texture" id=7]
@@ -827,7 +827,7 @@ anchor_bottom = 1.0
 margin_top = -8.0
 custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
 custom_fonts/font = ExtResource( 1 )
-text = "Tiny Pixel Planets TU4 Beta 1 (v0.4.0:1)"
+text = "Tiny Pixel Planets TU4 Beta 4 (v0.4.0:4)"
 align = 1
 
 [node name="Credits" type="Control" parent="."]

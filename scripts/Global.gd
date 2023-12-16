@@ -10,6 +10,8 @@ var currentSave : String
 var new = true
 var gameStart = true
 var currentPlanet : int
+var currentSystem : int
+var currentSystemId : String
 var playerData
 var starterPlanetId : int
 var godmode = false
@@ -127,6 +129,12 @@ func save(saveData : Dictionary) -> void:
 	savegame.store_var(saveData["system"])
 	savegame.close()
 	print("Saved game!")
+
+func save_system() -> void:
+	savegame.open(save_path + currentSave + "/systems/" + str(StarSystem.currentSeed) + ".dat",File.WRITE)
+	savegame.store_var(StarSystem.get_system_data())
+	savegame.close()
+	print("Saved system!")
 
 func load_player() -> Dictionary:
 	var data : Dictionary

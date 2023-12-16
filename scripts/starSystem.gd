@@ -2,6 +2,9 @@ extends Node2D
 
 const PLANET = preload("res://assets/planetData.tscn")
 const MAX_SPACE_CHECK = 50
+const SECTOR_SIZE = Vector2(568,568)
+const GALAXY_SIZE = Vector2(1000,1000)
+const SECTOR_STAR_RANGE = [40,60]
 
 var sizeTypes = {
 	small = 0,
@@ -9,6 +12,72 @@ var sizeTypes = {
 	large = 2,
 	max_size = 3
 }
+
+var FirstStarName = [
+	"Theta",
+	"Alpha",
+	"Eta",
+	"Zeta",
+	"Epsilon",
+	"Xi",
+	"Beta",
+	"Gamma",
+	"Rho",
+	"Chi",
+	"Sigma",
+	"Nu",
+	"Kappa",
+	"Delta",
+	"Lambda",
+	"Mu",
+	"Iota",
+	"Omicron",
+	"Pi"
+]
+
+var SecondStarName = [
+	"Eridani",
+	"Cassiopeiae",
+	"Crucis",
+	"Cancri",
+	"Leonis",
+	"Canis",
+	"Majoris",
+	"Andromedae",
+	"Tauri",
+	"Aurigae",
+	"Aquarii",
+	"Cygni",
+	"Corvi",
+	"Ursae",
+	"Cephei",
+	"Capricorni",
+	"Pegasi",
+	"Leonis",
+	"Persei",
+	"Geminorum",
+	"Minoris",
+	"Bootis",
+	"Crateris",
+	"Centauri",
+	"Gruis",
+	"Sagittarii",
+	"Orionis",
+	"Scorpii",
+	"Hydrae",
+	"Coronae",
+	"Borealis",
+	"Piscium",
+	"Draconis",
+	"Aquilae",
+	"Serpentis",
+	"Phoenicis",
+	"Trianguli",
+	"Virginis",
+	"Aimunigos",
+	"Suss",
+	"Dulovc"
+]
 
 var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra.png"),"size":sizeTypes.small,"type":"terra"},
 	"small_desert":{"texture":preload("res://textures/planets/desert.png"),"size":sizeTypes.small,"type":"desert"},
@@ -77,16 +146,46 @@ func land(planet : int):
 	Global.currentPlanet = planet
 	Global.new_planet()
 
+func open_star_system(systemSeed : int):
+	Global.currentSystem = systemSeed
+	var dir = Directory.new()
+	if dir.file_exists(Global.save_path + Global.currentSave + "/systems/" + str(systemSeed)):
+		systemDat = Global.load_system(systemSeed)
+		load_system()
+	else:
+		new_system(systemSeed)
+	var _er = get_tree().change_scene("res://scenes/PlanetSelect.tscn")
+	print("Entering system ",systemSeed)
+
+func leave_star_system():
+	Global.currentPlanet = -1
+	Global.save_system()
+	var _er = get_tree().change_scene("res://scenes/Galaxy.tscn")
+	print("Leaving system ",Global.currentSystem)
+
 func new():
-	print("new")
-	randomize()
-	var Seed = randi()
-	new_system(Seed)
-	yield(get_tree(),"idle_frame")
-	while !search_system("type").has("terra"):
-		Seed = randi()
-		new_system(Seed)
-		yield(get_tree(),"idle_frame")
+	var foundSeed = false
+	while !foundSeed:
+		var seedX = str(stepify(int(rand_range(0,SECTOR_SIZE.x*GALAXY_SIZE.x)),SECTOR_SIZE.x))
+		var seedY = str(stepify(int(rand_range(0,SECTOR_SIZE.y*GALAXY_SIZE.y)),SECTOR_SIZE.y))
+		while seedY.length() < 6:
+			seedY = "0" + seedY
+		var sectorSeed = int(seedX + seedY)
+		while seedX.length() < 6:
+			seedX = "0" + seedX
+		seed(sectorSeed)
+		var starAmount = int(rand_range(SECTOR_STAR_RANGE[0],SECTOR_STAR_RANGE[1]))
+		for i in range(starAmount):
+			print("seeds")
+			print(seedX)
+			print(seedY)
+			new_system(int(seedX + seedY + str(i)))
+			yield(get_tree(),"idle_frame")
+			if search_system("type").has("terra"):
+				foundSeed = true
+				Global.currentSystem = currentSeed
+				Global.currentSystemId = seedX + seedY + str(i)
+				break
 	print("--- Star System ", currentStarName, " ---")
 	print("Seed: ", currentSeed)
 	print("Star: ", currentStar)
@@ -98,6 +197,7 @@ func new():
 	emit_signal("found_system")
 
 func load_system():
+	Global.currentSystemId = systemDat["system_id"]
 	for child in $system.get_children():
 		child.queue_free()
 		$system.remove_child(child)
@@ -123,17 +223,37 @@ func load_system():
 		planet.pDesc = planetDat["planet_desc"]
 		$system.add_child(planet)
 
-func new_system(systemSeed : int, loaded = false):
+func quick_system_check(systemSeed : int) -> Dictionary:
+	seed(systemSeed)
+	FirstStarName.shuffle()
+	SecondStarName.shuffle()
+	var starName : String
+	if randi() % 5 < 3:
+		starName = FirstStarName[0] + " "
+	starName +=  SecondStarName[0]
+	if randi() % 5 < 2:
+		starName += " " + SecondStarName[1]
+	var quickData = {"star":["M-type","K-type","G-type","B-type"][randi()%4]}
+	return quickData
+
+func new_system(systemSeed : int):
 	print("new System")
 	print(systemDat)
 	seed(systemSeed)
+	FirstStarName.shuffle()
+	SecondStarName.shuffle()
+	var starName : String
+	if randi() % 5 < 3:
+		starName = FirstStarName[0] + " "
+	starName +=  SecondStarName[0]
+	if randi() % 5 < 2:
+		starName += " " + SecondStarName[1]
 	currentSeed = systemSeed
 	for child in $system.get_children():
 		child.queue_free()
 		$system.remove_child(child)
-	yield(get_tree(),"idle_frame")
 	currentStar = ["M-type","K-type","G-type","B-type"][randi()%4]
-	currentStarName = create_name(currentSeed)
+	currentStarName = starName
 	currentStarData = starData[currentStar]
 	var amountOfPlanets = randi() % 20 + 1
 	for _i in range(amountOfPlanets):
@@ -281,26 +401,8 @@ func find_planet_id(id : int, debug = false) -> Object:
 			return planet
 	return null
 
-func create_name(systemSeed : int) -> String:
-	var beforeLen = int(rand_range(2,6))
-	var convertDic = {"0":"p","1":"a","2":"l","3":"c","4":"d","5":"e","6":"m","7":"g","8":"s","9":"i","10":"o","20":" ","30":"deg","40":"zok"}
-	var string = str(systemSeed)
-	if beforeLen > string.length():
-		beforeLen = string.length()
-	var starName = ""
-	for num in range(beforeLen):
-		if num == beforeLen-1 or !convertDic.has(string[num] + string[num+1]):
-			var letter = convertDic[string[num]]
-			if num == 0:
-				letter = letter.capitalize()
-			starName += letter
-		else:
-			starName += convertDic[string[num]]
-	starName += "-" + string.substr(beforeLen)
-	return starName
-
 func get_system_data() -> Dictionary:
-	var data = {"system_name":currentStarName,"star_type":currentStar,"system_seed":currentSeed,"planets":{},"visited_planets":visitedPlanets}
+	var data = {"system_name":currentStarName,"system_id":Global.currentSystemId,"star_type":currentStar,"system_seed":currentSeed,"planets":{},"visited_planets":visitedPlanets}
 	var planets = get_system_bodies()
 	for planet in planets:
 		data["planets"][planet.id] = {"orbiting_body":-1 if planet.orbitingBody == $stars else planet.orbitingBody.id,"planet_type":planet.type["type"],"planet_size":planet.type["size"],"has_atmosphere":planet.hasAtmosphere,"planet_name":planet.pName,"planet_desc":planet.pDesc,"rotation_speed":planet.rotationSpeed,"orbit_speed":planet.orbitalSpeed,"orbit_distance":planet.orbitalDistance,"current_orbit":planet.currentOrbit,"current_rot":planet.currentRot}

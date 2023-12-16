@@ -153,7 +153,7 @@ script = ExtResource( 2 )
 
 [node name="BG" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.1, 0.1 )
-motion_mirroring = Vector2( 256, 256 )
+motion_mirroring = Vector2( 720, 480 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/BG"]
 texture = ExtResource( 1 )
@@ -162,7 +162,7 @@ region_rect = Rect2( 0, 0, 256, 256 )
 
 [node name="Stars" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.2, 0.2 )
-motion_mirroring = Vector2( 256, 256 )
+motion_mirroring = Vector2( 824, 824 )
 
 [node name="Sprite" type="Sprite" parent="ParallaxBackground/Stars"]
 texture = ExtResource( 3 )
@@ -190,13 +190,12 @@ margin_right = 18.0
 script = ExtResource( 23 )
 
 [node name="Map" type="TextureRect" parent="CanvasLayer/Nav"]
-visible = false
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = 2.0
-margin_top = -41.0
+margin_top = -53.0
 margin_right = 40.0
-margin_bottom = -2.0
+margin_bottom = -14.0
 texture = SubResource( 8 )
 
 [node name="SystemInfoBtn" type="TextureButton" parent="CanvasLayer/Nav"]
@@ -229,7 +228,7 @@ texture_pressed = SubResource( 12 )
 visible = false
 margin_left = 2.0
 margin_top = 1.0
-margin_right = 97.0
+margin_right = 140.0
 margin_bottom = 104.0
 texture = ExtResource( 16 )
 region_rect = Rect2( 2, 2, 38, 82 )
@@ -238,22 +237,52 @@ patch_margin_top = 12
 patch_margin_right = 3
 patch_margin_bottom = 3
 
-[node name="name" type="Label" parent="CanvasLayer/Nav/SystemInfo"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Nav/SystemInfo"]
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 2.0
+margin_top = 13.0
+margin_right = -2.0
+margin_bottom = -2.0
+
+[node name="Planets" type="VBoxContainer" parent="CanvasLayer/Nav/SystemInfo/ScrollContainer"]
+custom_constants/separation = 0
+
+[node name="TitleScroll" type="ScrollContainer" parent="CanvasLayer/Nav/SystemInfo"]
+anchor_right = 1.0
 margin_top = 3.0
-margin_right = 93.0
 margin_bottom = 11.0
+
+[node name="name" type="Label" parent="CanvasLayer/Nav/SystemInfo/TitleScroll"]
+margin_right = 138.0
+margin_bottom = 8.0
+size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 18 )
-text = "SAB-1390"
+text = "SAB-1390fvdiohbdfioghdioghidghigdhigdhi"
 align = 1
 clip_text = true
 
-[node name="Planets" type="VBoxContainer" parent="CanvasLayer/Nav/SystemInfo"]
-margin_left = 2.0
-margin_top = 12.0
-margin_right = 56.0
-margin_bottom = 80.0
-custom_constants/separation = 0
+[node name="GalaxyBtn" type="TextureButton" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -13.0
+margin_right = -2.0
+margin_bottom = -2.0
+toggle_mode = true
+texture_normal = SubResource( 9 )
+texture_pressed = SubResource( 10 )
+
+[node name="Label" type="Label" parent="CanvasLayer/GalaxyBtn"]
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 34.0
+margin_bottom = 10.0
+custom_fonts/font = ExtResource( 18 )
+text = "Galaxy"
+align = 1
 
 [node name="system" type="Node2D" parent="."]
 
@@ -310,3 +339,4 @@ autoplay = true
 
 [connection signal="toggled" from="CanvasLayer/Nav/SystemInfoBtn" to="CanvasLayer/Nav" method="_on_SystemInfoBtn_toggled"]
 [connection signal="toggled" from="CanvasLayer/Nav/Tab" to="CanvasLayer/Nav" method="_on_Tab_toggled"]
+[connection signal="pressed" from="CanvasLayer/GalaxyBtn" to="." method="_on_Galaxy_pressed"]
