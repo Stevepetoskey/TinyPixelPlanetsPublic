@@ -32,6 +32,8 @@ radius = 4.0078
 z_index = 1
 collision_layer = 8
 script = ExtResource( 4 )
+hostile = true
+type = "Space_squid"
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )

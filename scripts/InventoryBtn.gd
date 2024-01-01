@@ -11,7 +11,7 @@ func _ready():
 	elif main.kRef == loc:
 		texture_normal = load("res://textures/GUI/main/inventory_k.png")
 
-func _process(delta):
+func _process(_delta):
 	if main.visible and mouseIn:
 		if Input.is_action_just_pressed("action1"):
 			main.inv_btn_action(loc,"j")

@@ -14,8 +14,6 @@ var inAir = false
 onready var player = get_node("../../../Player")
 
 func _ready():
-	type = "Slorg"
-	hostile = true
 	maxHealth = 10
 	if new:
 		health = 10

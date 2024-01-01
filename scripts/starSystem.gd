@@ -125,6 +125,10 @@ var planetReady = false
 
 signal planet_ready
 signal found_system
+signal leaving_planet
+signal leaving_system
+signal entering_system
+signal landing_planet
 
 func start_game():
 	print("---start game---")
@@ -140,19 +144,26 @@ func start_game():
 
 func start_space():
 	print("going into space")
+	emit_signal("leaving_planet")
 	var _er = get_tree().change_scene("res://scenes/PlanetSelect.tscn")
 
 func land(planet : int):
 	Global.currentPlanet = planet
 	Global.new_planet()
+	emit_signal("landing_planet")
 
-func open_star_system(systemSeed : int):
+func open_star_system(systemSeed : int,systemId : String):
+	emit_signal("entering_system")
 	Global.currentSystem = systemSeed
+	Global.currentSystemId = systemId
 	var dir = Directory.new()
-	if dir.file_exists(Global.save_path + Global.currentSave + "/systems/" + str(systemSeed)):
-		systemDat = Global.load_system(systemSeed)
-		load_system()
+	print("GIVEN SYSTEM ID: ",systemId)
+	if dir.file_exists(Global.save_path + Global.currentSave + "/systems/" + systemId + ".dat"):
+		systemDat = Global.load_system(systemId)
+		print("Loading system")
+		load_system(true)
 	else:
+		print("Creating new system")
 		new_system(systemSeed)
 	var _er = get_tree().change_scene("res://scenes/PlanetSelect.tscn")
 	print("Entering system ",systemSeed)
@@ -160,6 +171,7 @@ func open_star_system(systemSeed : int):
 func leave_star_system():
 	Global.currentPlanet = -1
 	Global.save_system()
+	emit_signal("leaving_system")
 	var _er = get_tree().change_scene("res://scenes/Galaxy.tscn")
 	print("Leaving system ",Global.currentSystem)
 
@@ -196,58 +208,75 @@ func new():
 		print(planet.pName + " Type: " + planet.type["type"])
 	emit_signal("found_system")
 
-func load_system():
+func load_system(entering = false):
 	Global.currentSystemId = systemDat["system_id"]
-	for child in $system.get_children():
-		child.queue_free()
-		$system.remove_child(child)
-	yield(get_tree(),"idle_frame")
-	currentStarName = systemDat["system_name"]
-	currentSeed = systemDat["system_seed"]
-	currentStar = systemDat["star_type"]
-	currentStarData = starData[currentStar]
-	visitedPlanets = systemDat["visited_planets"]
-	for id in systemDat["planets"]:
-		var planetDat = systemDat["planets"][id]
-		var planet = PLANET.instance()
-		planet.id = id
-		planet.hasAtmosphere = planetDat["has_atmosphere"]
-		planet.type = planetData[look_up_planet_data(planetDat["planet_type"],planetDat["planet_size"])]
-		planet.orbitalDistance = planetDat["orbit_distance"]
-		planet.orbitingBody = $stars if planetDat["orbiting_body"] == -1 else find_planet_id(planetDat["orbiting_body"])
-		planet.orbitalSpeed = planetDat["orbit_speed"]
-		planet.rotationSpeed = planetDat["rotation_speed"]
-		planet.currentOrbit = planetDat["current_orbit"]
-		planet.currentRot = planetDat["current_rot"]
-		planet.pName = planetDat["planet_name"]
-		planet.pDesc = planetDat["planet_desc"]
-		$system.add_child(planet)
+	Global.currentSystem = systemDat["system_seed"]
+	if ["planet","system"].has(Global.playerData["save_type"]) or entering:
+		GlobalAudio.currentMusic = "regular"
+		print(Global.currentSystemId)
+		for child in $system.get_children():
+			child.queue_free()
+			$system.remove_child(child)
+		yield(get_tree(),"idle_frame")
+		currentStarName = systemDat["system_name"]
+		currentSeed = systemDat["system_seed"]
+		currentStar = systemDat["star_type"]
+		currentStarData = starData[currentStar]
+		visitedPlanets = systemDat["visited_planets"]
+		for id in systemDat["planets"]:
+			var planetDat = systemDat["planets"][id]
+			var planet = PLANET.instance()
+			planet.id = id
+			planet.hasAtmosphere = planetDat["has_atmosphere"]
+			planet.type = planetData[look_up_planet_data(planetDat["planet_type"],planetDat["planet_size"])]
+			planet.orbitalDistance = planetDat["orbit_distance"]
+			planet.orbitingBody = $stars if planetDat["orbiting_body"] == -1 else find_planet_id(planetDat["orbiting_body"])
+			planet.orbitalSpeed = planetDat["orbit_speed"]
+			planet.rotationSpeed = planetDat["rotation_speed"]
+			planet.currentOrbit = planetDat["current_orbit"]
+			planet.currentRot = planetDat["current_rot"]
+			planet.pName = planetDat["planet_name"]
+			planet.pDesc = planetDat["planet_desc"]
+			$system.add_child(planet)
+		if entering:
+			Global.playerData["save_type"] = "system"
+		match Global.playerData["save_type"]:
+			"planet":
+				var _er = get_tree().change_scene("res://scenes/Main.tscn")
+			"system":
+				print("entering system final")
+				var _er = get_tree().change_scene("res://scenes/PlanetSelect.tscn")
+	else:
+		GlobalAudio.currentMusic = "space"
+		var _er = get_tree().change_scene("res://scenes/Galaxy.tscn")
 
 func quick_system_check(systemSeed : int) -> Dictionary:
 	seed(systemSeed)
-	FirstStarName.shuffle()
-	SecondStarName.shuffle()
+	var FSN = FirstStarName.duplicate()
+	var SSN = SecondStarName.duplicate()
+	FSN.shuffle()
+	SSN.shuffle()
 	var starName : String
 	if randi() % 5 < 3:
-		starName = FirstStarName[0] + " "
-	starName +=  SecondStarName[0]
+		starName = FSN[0] + " "
+	starName +=  SSN[0]
 	if randi() % 5 < 2:
-		starName += " " + SecondStarName[1]
+		starName += " " + SSN[1]
 	var quickData = {"star":["M-type","K-type","G-type","B-type"][randi()%4]}
 	return quickData
 
 func new_system(systemSeed : int):
 	print("new System")
-	print(systemDat)
-	seed(systemSeed)
-	FirstStarName.shuffle()
-	SecondStarName.shuffle()
+	var FSN = FirstStarName.duplicate()
+	var SSN = SecondStarName.duplicate()
+	FSN.shuffle()
+	SSN.shuffle()
 	var starName : String
 	if randi() % 5 < 3:
-		starName = FirstStarName[0] + " "
-	starName +=  SecondStarName[0]
+		starName = FSN[0] + " "
+	starName +=  SSN[0]
 	if randi() % 5 < 2:
-		starName += " " + SecondStarName[1]
+		starName += " " + SSN[1]
 	currentSeed = systemSeed
 	for child in $system.get_children():
 		child.queue_free()

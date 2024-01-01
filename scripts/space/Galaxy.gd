@@ -10,6 +10,7 @@ var moving = false
 
 func _ready():
 	$AnimationPlayer.play("start")
+	print(Global.currentSystemId)
 	var sectorCoords = system_seed_to_pos(Global.currentSystemId)
 	print(sectorCoords)
 	update_sectors(sectorCoords)
@@ -75,6 +76,7 @@ func load_sector(coords : Vector2):
 			var newStar = STAR_ICON.instance()
 			newStar.rect_position = Vector2(rand_range(0,SECTOR_SIZE.x),rand_range(0,SECTOR_SIZE.y))
 			newStar.systemSeed = int(pos_to_seed_str(coords) + str(i))
+			newStar.systemId = pos_to_seed_str(coords) + str(i)
 			var systemData = StarSystem.quick_system_check(newStar.systemSeed)
 			newStar.texture_normal = load("res://textures/GUI/space/star_icon_" + systemData["star"] + ".png")
 			newSector.add_child(newStar)
@@ -84,12 +86,14 @@ func system_pressed(system):
 		if system != selectedSystem:
 			selectedSystem = system
 			$Selected.rect_position = system.rect_global_position
+			$SystemInfo.hover(system.rect_global_position,system.systemId)
 			$Selected.show()
 			$Line.rect_position = $CurrentSelector.rect_position + Vector2(10.5,10.5)
 			$Line.rect_rotation = rad2deg($Line.rect_position.angle_to_point($Selected.rect_position + Vector2(10.5,10.5))) + 90
 			$Line.rect_size.y = $Line.rect_position.distance_to($Selected.rect_position + Vector2(10.5,10.5))
 			$Line.show()
 		else:
+			$SystemInfo.hide()
 			moving = true
 			var oldPos = $CurrentSelector.rect_position
 			for i in range(100):
@@ -103,4 +107,5 @@ func system_pressed(system):
 			$AnimationPlayer.play("selected")
 			moving = false
 			yield($AnimationPlayer,"animation_finished")
-			StarSystem.open_star_system(selectedSystem.systemSeed)
+			print("Selected seed: ",selectedSystem.systemSeed)
+			StarSystem.open_star_system(selectedSystem.systemSeed,selectedSystem.systemId)

@@ -11,6 +11,7 @@ func _process(delta):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GlobalAudio.change_mode("menu")
 	#yield(get_tree().create_timer(0.5),"timeout")
 	$Main/Title.modulate = Color(1,1,1,0)
 	$AnimationPlayer.play("zoom")

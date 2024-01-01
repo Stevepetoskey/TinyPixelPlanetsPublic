@@ -77,6 +77,16 @@ func _ready():
 
 func _physics_process(_delta):
 	if !dead and !Global.pause:
+		#Swinging process
+		if inventory.inventory.size() > 0:
+			if Input.is_action_pressed("build"):
+				swing(inventory.inventory[0]["id"])
+			if Input.is_action_pressed("build2") and inventory.inventory.size() > 1:
+				swing(inventory.inventory[1]["id"])
+			elif Input.is_action_pressed("action1"):
+				swing(inventory.jId)
+			elif Input.is_action_pressed("action2"):
+				swing(inventory.kId)
 		#Collision modifiers
 		if Input.is_action_pressed("down"):
 			if !world.hasGravity:
@@ -90,7 +100,7 @@ func _physics_process(_delta):
 		
 		if Input.is_action_just_pressed("fly"):
 			flying = !flying
-		if world.hasGravity and (!Global.godmode or !flying):
+		if world.hasGravity and (!Global.godmode or !flying) and !checkAllBlocks(117):
 			if !is_on_floor():
 				if !coyote:
 					motion.y += GRAVITY
@@ -154,17 +164,6 @@ func _physics_process(_delta):
 			$Textures.set_global_transform(Transform2D(Vector2(1,0),Vector2(0,1),Vector2(position.x,position.y)))
 		
 		motion = move_and_slide(motion,Vector2(0,-1),true)
-
-func _unhandled_input(event):
-	if inventory.inventory.size() > 0 and !Global.pause:
-		if Input.is_action_pressed("build"):
-			swing(inventory.inventory[0]["id"])
-		if Input.is_action_pressed("build2") and inventory.inventory.size() > 1:
-			swing(inventory.inventory[1]["id"])
-		elif Input.is_action_pressed("action1"):
-			swing(inventory.jId)
-		elif Input.is_action_pressed("action2"):
-			swing(inventory.kId)
 
 func swing(item):
 	if world.itemData.has(item) and item > 0 and ["Tool","weapon"].has(world.itemData[item]["type"]) and !swinging:

@@ -18,7 +18,6 @@ onready var entities = $"../../Entities"
 #{"id":1,"amount",2}
 var inventory = []
 var currentPage = 0
-var invPause = false
 var jRef = -1 #Where the j reference is located in inventory
 var kRef = -1
 var jId = 0
@@ -93,6 +92,9 @@ func find_item(id : int) -> Dictionary:
 	return {}
 
 func update_inventory() -> void:
+	
+	#updates blues amount
+	$Blues/Label.text = "*" + str(Global.blues)
 	
 	if Global.godmode:
 		INVENTORY_SIZE = world.blockData.size() + world.itemData.size() + 5
@@ -232,6 +234,7 @@ func mouse_out_btn(_loc : int):
 	$"../ItemData".hide()
 
 func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
+	$"../ItemData".hide()
 	holding = false
 	if toggle:
 		setValue = !visible

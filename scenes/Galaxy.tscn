@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://scripts/space/Galaxy.gd" type="Script" id=1]
 [ext_resource path="res://textures/enviroment/deep-space.png" type="Texture" id=2]
@@ -18,6 +18,14 @@
 [ext_resource path="res://textures/GUI/Blank.png" type="Texture" id=16]
 [ext_resource path="res://textures/GUI/space/Bookmarks.png" type="Texture" id=17]
 [ext_resource path="res://textures/GUI/space/Space_panel.png" type="Texture" id=18]
+[ext_resource path="res://assets/GUI/Pause.tscn" type="PackedScene" id=19]
+[ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=20]
+[ext_resource path="res://textures/GUI/space/h_bar.png" type="Texture" id=21]
+[ext_resource path="res://textures/GUI/space/h_bar_handle.png" type="Texture" id=22]
+[ext_resource path="res://assets/space/PlanetType.tscn" type="PackedScene" id=23]
+[ext_resource path="res://textures/GUI/space/v_bar_handle.png" type="Texture" id=24]
+[ext_resource path="res://textures/GUI/space/v_bar.png" type="Texture" id=25]
+[ext_resource path="res://scripts/space/SystemInfo.gd" type="Script" id=26]
 
 [sub_resource type="AnimatedTexture" id=1]
 frames = 10
@@ -41,14 +49,6 @@ frame_8/texture = ExtResource( 9 )
 frame_8/delay_sec = 0.0
 frame_9/texture = ExtResource( 6 )
 frame_9/delay_sec = 0.0
-
-[sub_resource type="StyleBoxTexture" id=5]
-texture = ExtResource( 18 )
-region_rect = Rect2( 0, 0, 26, 26 )
-margin_left = 4.0
-margin_right = 4.0
-margin_top = 4.0
-margin_bottom = 4.0
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -156,6 +156,61 @@ tracks/1/keys = {
 "values": [ true, true, false ]
 }
 
+[sub_resource type="StyleBoxTexture" id=6]
+texture = ExtResource( 22 )
+region_rect = Rect2( 0, 0, 8, 4 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 21 )
+region_rect = Rect2( 0, 0, 8, 4 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=8]
+texture = ExtResource( 24 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=9]
+texture = ExtResource( 25 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=10]
+texture = ExtResource( 25 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="Theme" id=11]
+HScrollBar/styles/grabber = SubResource( 6 )
+HScrollBar/styles/scroll = SubResource( 7 )
+VScrollBar/styles/grabber = SubResource( 8 )
+VScrollBar/styles/scroll = SubResource( 9 )
+VSlider/styles/slider = SubResource( 10 )
+
+[sub_resource type="StyleBoxTexture" id=5]
+texture = ExtResource( 18 )
+region_rect = Rect2( 0, 0, 26, 26 )
+margin_left = 4.0
+margin_right = 4.0
+margin_top = 4.0
+margin_bottom = 4.0
+
 [node name="Galaxy" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -225,15 +280,59 @@ anchor_bottom = 1.0
 texture = ExtResource( 16 )
 expand = true
 
-[node name="SystemInfo" type="Panel" parent="CanvasLayer"]
+[node name="Pause" parent="CanvasLayer" instance=ExtResource( 19 )]
 visible = false
-margin_left = 50.0
-margin_top = 14.0
-margin_right = 106.0
-margin_bottom = 83.0
-custom_styles/panel = SubResource( 5 )
+type = "galaxy"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 2 )
 anims/selected = SubResource( 4 )
 anims/start = SubResource( 3 )
+
+[node name="SystemInfo" type="Panel" parent="."]
+visible = false
+margin_right = 79.0
+margin_bottom = 84.0
+theme = SubResource( 11 )
+custom_styles/panel = SubResource( 5 )
+script = ExtResource( 26 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="SystemInfo"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -3.0
+margin_bottom = -3.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SystemInfo/ScrollContainer"]
+margin_right = 79.0
+margin_bottom = 100.0
+
+[node name="SystemName" type="Label" parent="SystemInfo/ScrollContainer/VBoxContainer"]
+margin_right = 79.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 10 )
+custom_fonts/font = ExtResource( 20 )
+text = "Alpha Adromeda 2"
+valign = 2
+
+[node name="PlanetType" parent="SystemInfo/ScrollContainer/VBoxContainer" instance=ExtResource( 23 )]
+margin_top = 14.0
+margin_bottom = 28.0
+
+[node name="PlanetType2" parent="SystemInfo/ScrollContainer/VBoxContainer" instance=ExtResource( 23 )]
+margin_top = 32.0
+margin_bottom = 46.0
+
+[node name="PlanetType3" parent="SystemInfo/ScrollContainer/VBoxContainer" instance=ExtResource( 23 )]
+margin_top = 50.0
+margin_bottom = 64.0
+
+[node name="PlanetType4" parent="SystemInfo/ScrollContainer/VBoxContainer" instance=ExtResource( 23 )]
+margin_top = 68.0
+margin_bottom = 82.0
+
+[node name="PlanetType5" parent="SystemInfo/ScrollContainer/VBoxContainer" instance=ExtResource( 23 )]
+margin_top = 86.0
+margin_bottom = 100.0

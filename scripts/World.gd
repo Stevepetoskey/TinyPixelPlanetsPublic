@@ -163,8 +163,8 @@ signal update_blocks
 signal world_loaded
 
 func _ready():
-	StarSystem.connect("planet_ready",self,"start_world")
-	Global.connect("loaded_data",self,"start_world")
+	var _er = StarSystem.connect("planet_ready",self,"start_world")
+	_er = Global.connect("loaded_data",self,"start_world")
 	Global.pause = false
 	if Global.gameStart:
 		StarSystem.start_game()
@@ -221,10 +221,10 @@ func start_world():
 	emit_signal("update_blocks")
 	Global.gameStart = false
 	inventory.update_inventory()
-	Global.save(get_world_data())
+	Global.save("planet",get_world_data())
 
 func generateWorld(worldType : String):
-	var worldSeed = StarSystem.currentSeed + Global.currentPlanet
+	var worldSeed = int(Global.currentSystemId) + Global.currentPlanet
 	seed(worldSeed)
 	if worldType == "exotic":
 		worldNoise = load("res://noise/exotic.tres")
@@ -232,7 +232,7 @@ func generateWorld(worldType : String):
 		worldNoise = load("res://noise/Main.tres")
 	worldNoise.seed = worldSeed
 	var copperOre = OpenSimplexNoise.new()
-	copperOre.seed = StarSystem.currentSeed;copperOre.period = 2;copperOre.persistence = 0.5;copperOre.lacunarity = 2
+	copperOre.seed = worldSeed;copperOre.period = 2;copperOre.persistence = 0.5;copperOre.lacunarity = 2
 	match worldType:
 		"terra":
 			for x in range(worldSize.x):
@@ -371,9 +371,9 @@ func generateWorld(worldType : String):
 					elif y > 15:
 						set_block(pos,1,117)
 
-func get_world_data(quit = true) -> Dictionary:
+func get_world_data() -> Dictionary:
 	var data = {}
-	data["player"] = {"armor":armor.armor,"inventory":inventory.inventory,"inventory_refs":{"j":inventory.jId,"k":inventory.kId},"health":player.health,"max_health":player.maxHealth,"oxygen":player.oxygen,"suit_oxygen":player.suitOxygen,"max_oxygen":player.maxOxygen,"suit_oxygen_max":player.suitOxygenMax,"current_planet":Global.currentPlanet,"current_system":StarSystem.currentSeed,"pos":player.position}
+	data["player"] = {"armor":armor.armor,"inventory":inventory.inventory,"inventory_refs":{"j":inventory.jId,"k":inventory.kId},"health":player.health,"max_health":player.maxHealth,"oxygen":player.oxygen,"suit_oxygen":player.suitOxygen,"max_oxygen":player.maxOxygen,"suit_oxygen_max":player.suitOxygenMax,"current_planet":Global.currentPlanet,"current_system":Global.currentSystemId,"pos":player.position,"save_type":"planet"}
 	data["system"] = StarSystem.get_system_data()
 	data["planet"] = {"blocks":[],"entities":entities.get_entity_data(),"rules":worldRules}
 	for block in $blocks.get_children():
@@ -402,7 +402,7 @@ func load_player_data() -> void:
 
 func load_world_data() -> void:#data : Dictionary) -> void:
 	#Loads planet data
-	var planetData = Global.load_planet(StarSystem.currentSeed,Global.currentPlanet)
+	var planetData = Global.load_planet(Global.currentSystemId,Global.currentPlanet)
 	entities.load_entities(planetData["entities"])
 	var setRules = worldRules.duplicate(true)
 	if planetData.has("rules"):
@@ -411,7 +411,7 @@ func load_world_data() -> void:#data : Dictionary) -> void:
 			if !setRules.has(rule):
 				setRules[rule] = worldRules[rule]
 	worldRules = setRules
-	if Global.playerData.has("pos"):
+	if Global.playerData.has("pos") and Global.playerData["save_type"] == "planet":
 		player.position = Global.playerData["pos"]
 	elif worldRules["world_spawn_x"]["value"] >= 0 and worldRules["world_spawn_y"]["value"] >= 0:
 		player.position = Vector2(worldRules["world_spawn_x"]["value"]*4,worldRules["world_spawn_y"]["value"]*4)
@@ -492,5 +492,5 @@ func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction 
 					#inventory.add_to_inventory(itemsToDrop[i]["id"],int(rand_range(itemsToDrop[i]["amount"][0],itemsToDrop[i]["amount"][1] + 1)))
 
 func _on_GoUp_pressed():
-	Global.save(get_world_data(false))
+	Global.save("planet",get_world_data())
 	StarSystem.start_space()

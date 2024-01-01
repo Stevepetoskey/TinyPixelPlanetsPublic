@@ -57,7 +57,7 @@ func _process(_delta):
 			stop_breaking()
 		oldBlockPos = blockPos
 
-func _unhandled_input(event):
+func _unhandled_input(_event):
 	if !Global.pause and cursorPos.x < world.worldSize.x and cursorPos.x >= 0 and cursorPos.y < world.worldSize.y and cursorPos.y >= 0:
 		if Input.is_action_pressed("build") or Input.is_action_pressed("build2"):
 			if canInteract and world.worldRules["interact_with_blocks"]["value"]:
@@ -122,10 +122,10 @@ func stop_breaking():
 	breaking = false
 	$break/AnimationPlayer.play("RESET")
 
-func _on_playerTest_body_entered(body):
+func _on_playerTest_body_entered(_body):
 	canPlace = false
 
-func _on_playerTest_body_exited(body):
+func _on_playerTest_body_exited(_body):
 	canPlace = true
 
 func _on_AnimationPlayer_animation_finished(anim_name):

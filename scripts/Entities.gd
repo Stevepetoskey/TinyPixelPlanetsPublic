@@ -1,6 +1,6 @@
 extends Node2D
 
-var entities = {"Slorg":preload("res://assets/enemies/Slorg.tscn"),"Item":preload("res://assets/entities/Item.tscn")}
+var entities = {"Slorg":preload("res://assets/enemies/Slorg.tscn"),"Item":preload("res://assets/entities/Item.tscn"),"Blues":preload("res://assets/entities/Blues.tscn")}
 
 var loaded = false
 
@@ -43,6 +43,15 @@ func spawn_item(item : Dictionary, thrown = false, pos = $"../Player".position):
 		newI.motion = Vector2(10*rand_range(-1,1),-5)
 	$Hold.add_child(newI)
 
+func spawn_blues(amount : int, thrown = false, pos = $"../Player".position):
+	var newB = entities["Blues"].instance()
+	newB.position = pos
+	newB.data = {"amount":amount}
+	if thrown:
+		newB.canPickup = false
+		newB.motion = Vector2(10*rand_range(-1,1),-5)
+	$Hold.add_child(newB)
+
 func _on_Spawn_timeout():
 	if loaded:
 		var hostileCount = 0
@@ -62,5 +71,5 @@ func _on_Spawn_timeout():
 func _on_World_world_loaded():
 	if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
 		$Spawn.start()
-	seed(StarSystem.currentSeed + Global.currentPlanet)
+	seed(int(Global.currentSystemId) + Global.currentPlanet)
 	loaded = true

@@ -6,7 +6,9 @@ signal system_loaded
 
 func _ready():
 	load_system()
-	if Global.currentPlanet != -1:
+	if Global.playerData["save_type"] == "system":
+		$ship.position = Global.playerData["pos"]
+	elif Global.currentPlanet != -1:
 		var currentPlanet = StarSystem.find_planet_id(Global.currentPlanet)
 		var radius = StarSystem.sizeData[currentPlanet.type["size"]]["radius"]
 		$ship.position = currentPlanet.position - Vector2(0,radius + 3)
@@ -35,6 +37,9 @@ func planet_entered(planet : Object) -> void:
 	yield($CanvasLayer/Black/AnimationPlayer,"animation_finished")
 	print("Landed")
 	StarSystem.land(planet.planetRef.id)
+
+func get_save_data() -> Dictionary:
+	return {"player":{"pos":$ship.position},"system":StarSystem.get_system_data()}
 
 func _on_Galaxy_pressed():
 	StarSystem.leave_star_system()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://textures/enviroment/space-2.png" type="Texture" id=1]
 [ext_resource path="res://scripts/PlanetSelect.gd" type="Script" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://scripts/stars.gd" type="Script" id=14]
 [ext_resource path="res://Audio/sfx/Ambience/mixkit-space-ship-hum-2136.wav" type="AudioStream" id=15]
 [ext_resource path="res://textures/GUI/space/Nav.png" type="Texture" id=16]
+[ext_resource path="res://assets/GUI/Pause.tscn" type="PackedScene" id=17]
 [ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=18]
 [ext_resource path="res://scripts/space/Nav.gd" type="Script" id=23]
 
@@ -99,7 +100,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.6 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ false, false ]
 }
 
 [sub_resource type="AtlasTexture" id=8]
@@ -284,6 +285,10 @@ custom_fonts/font = ExtResource( 18 )
 text = "Galaxy"
 align = 1
 
+[node name="Pause" parent="CanvasLayer" instance=ExtResource( 17 )]
+visible = false
+type = "system"
+
 [node name="system" type="Node2D" parent="."]
 
 [node name="stars" type="Node2D" parent="."]
@@ -318,6 +323,7 @@ script = ExtResource( 12 )
 position = Vector2( -0.5, 0 )
 frames = SubResource( 3 )
 animation = "fly"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ship"]

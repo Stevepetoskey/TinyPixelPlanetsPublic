@@ -85,6 +85,8 @@ radius = 8.0
 z_index = 5
 collision_layer = 16
 script = ExtResource( 1 )
+canDie = false
+type = "Item"
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )

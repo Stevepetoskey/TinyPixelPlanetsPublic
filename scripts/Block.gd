@@ -88,7 +88,7 @@ func _ready():
 			$Sprite.modulate = Color("c74fa0ef")
 			if layer == 1:
 				z_index = 10
-			$CollisionShape2D.disabled = true
+			collision_layer = 32
 			if data.has("water_level"):
 				water_level = data["water_level"]
 			if world.get_block_id(pos-Vector2(0,1),layer) == 117:
@@ -204,8 +204,8 @@ func on_update():
 #	if water_level <= 0:
 #		queue_free()
 
-func get_sides(id : int) -> Dictionary:
-	return {"left":world.get_block_id(pos - Vector2(1,0),layer) == id,"right":world.get_block_id(pos + Vector2(1,0),layer) == id,"top":world.get_block_id(pos - Vector2(0,1),layer) == id,"bottom":world.get_block_id(pos + Vector2(0,1),layer) == id,"rightTop":world.get_block_id(pos + Vector2(1,-1),layer) == id,"leftTop":world.get_block_id(pos - Vector2(1,1),layer) == id,"bottomRight":world.get_block_id(pos + Vector2(1,1),layer) == id}
+func get_sides(blockId : int) -> Dictionary:
+	return {"left":world.get_block_id(pos - Vector2(1,0),layer) == blockId,"right":world.get_block_id(pos + Vector2(1,0),layer) == blockId,"top":world.get_block_id(pos - Vector2(0,1),layer) == blockId,"bottom":world.get_block_id(pos + Vector2(0,1),layer) == blockId,"rightTop":world.get_block_id(pos + Vector2(1,-1),layer) == blockId,"leftTop":world.get_block_id(pos - Vector2(1,1),layer) == blockId,"bottomRight":world.get_block_id(pos + Vector2(1,1),layer) == blockId}
 
 func _on_Tick_timeout():
 	match id:

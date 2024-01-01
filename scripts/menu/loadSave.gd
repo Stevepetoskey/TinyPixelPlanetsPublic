@@ -29,12 +29,11 @@ func cancel():
 	show()
 
 func start(tutorial = false):
-	if tutorial:
-		Global.open_tutorial()
-	else:
-		Global.open_save(selectedSave)
 	get_node("..").hide()
 	get_node("../../blank").show()
 	get_node("../../AnimationPlayer").play("zoom",-1,-1,true)
 	yield(get_node("../../AnimationPlayer"),"animation_finished")
-	var _er = get_tree().change_scene("res://scenes/Main.tscn")
+	if tutorial:
+		Global.open_tutorial()
+	else:
+		Global.open_save(selectedSave)

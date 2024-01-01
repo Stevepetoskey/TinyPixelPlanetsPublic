@@ -12,7 +12,8 @@ var gameStart = true
 var currentPlanet : int
 var currentSystem : int
 var currentSystemId : String
-var playerData
+var playerData = {}
+var blues = 0
 var starterPlanetId : int
 var godmode = false
 var pause = false
@@ -34,38 +35,39 @@ func save_exists(saveId : String) -> bool:
 	return false
 
 func open_tutorial():
-	inTutorial = true
-	currentSave = "save4"
-	gameStart = true
-	new = false
-	var dir = Directory.new()
-	if dir.dir_exists(save_path + currentSave):
-		remove_recursive(save_path + currentSave)
-	dir.open(save_path)
-	dir.make_dir(currentSave)
-	dir.open(save_path + currentSave)
-	dir.make_dir("systems")
-	dir.make_dir("planets")
-	var file = File.new()
-	file.open("res://data/Tutorial/systems/3891944108.dat",File.READ)
-	var systemDat = file.get_var()
-	file.close()
-	file.open(save_path + currentSave + "/systems/3891944108.dat",File.WRITE)
-	file.store_var(systemDat)
-	file.close()
-	file.open("res://data/Tutorial/planets/3891944108_2.dat",File.READ)
-	var planetData = file.get_var()
-	file.close()
-	file.open(save_path + currentSave + "/planets/3891944108_2.dat",File.WRITE)
-	file.store_var(planetData)
-	file.close()
-#	copy_directory_recursively("res://data/Tutorial/planets/",save_path + currentSave + "/planets")
-#	copy_directory_recursively("res://data/Tutorial/systems/",save_path + currentSave + "/systems")
-	currentPlanet = 2
-	starterPlanetId = 2
-	enemySpawning = false
-	StarSystem.systemDat = load_system(3891944108)
-	StarSystem.load_system()
+	pass #Broken for now (as of v0.4.0:5)
+#	inTutorial = true
+#	currentSave = "save4"
+#	gameStart = true
+#	new = false
+#	var dir = Directory.new()
+#	if dir.dir_exists(save_path + currentSave):
+#		remove_recursive(save_path + currentSave)
+#	dir.open(save_path)
+#	dir.make_dir(currentSave)
+#	dir.open(save_path + currentSave)
+#	dir.make_dir("systems")
+#	dir.make_dir("planets")
+#	var file = File.new()
+#	file.open("res://data/Tutorial/systems/3891944108.dat",File.READ)
+#	var systemDat = file.get_var()
+#	file.close()
+#	file.open(save_path + currentSave + "/systems/3891944108.dat",File.WRITE)
+#	file.store_var(systemDat)
+#	file.close()
+#	file.open("res://data/Tutorial/planets/3891944108_2.dat",File.READ)
+#	var planetData = file.get_var()
+#	file.close()
+#	file.open(save_path + currentSave + "/planets/3891944108_2.dat",File.WRITE)
+#	file.store_var(planetData)
+#	file.close()
+##	copy_directory_recursively("res://data/Tutorial/planets/",save_path + currentSave + "/planets")
+##	copy_directory_recursively("res://data/Tutorial/systems/",save_path + currentSave + "/systems")
+#	currentPlanet = 2
+#	starterPlanetId = 2
+#	enemySpawning = false
+#	StarSystem.systemDat = load_system(3891944108)
+#	StarSystem.load_system()
 
 func open_save(saveId : String) -> void:
 	inTutorial = false
@@ -79,6 +81,7 @@ func open_save(saveId : String) -> void:
 			savegame.open(save_path + saveId + "/playerData.dat",File.READ)
 			playerData = savegame.get_var()
 			savegame.close()
+			blues = playerData["blues"]
 			currentPlanet = playerData["current_planet"]
 			starterPlanetId = playerData["starter_planet"]
 			godmode = playerData["godmode"]
@@ -92,46 +95,57 @@ func open_save(saveId : String) -> void:
 			dir.open(save_path + saveId)
 			dir.make_dir("systems")
 			dir.make_dir("planets")
+			var _er = get_tree().change_scene("res://scenes/Main.tscn")
 	else:
 		dir.open(save_path)
 		dir.make_dir(saveId)
 		dir.open(save_path + saveId)
 		dir.make_dir("systems")
 		dir.make_dir("planets")
+		var _er = get_tree().change_scene("res://scenes/Main.tscn")
 	currentSave = saveId
 
 func new_planet() -> void:
 	var _er = get_tree().change_scene("res://scenes/Main.tscn")
 	yield(get_tree(),"idle_frame")
 	new = true
-	if savegame.file_exists(save_path + currentSave + "/planets/" + str(StarSystem.currentSeed) + "_" + str(currentPlanet) + ".dat"):
+	if savegame.file_exists(save_path + currentSave + "/planets/" + str(currentSystemId) + "_" + str(currentPlanet) + ".dat"):
 		new = false
 	emit_signal("loaded_data")
 
-func save(saveData : Dictionary) -> void:
-	emit_signal("screenshot")
-	yield(get_tree(),"idle_frame")
-	var image = get_viewport().get_texture().get_data()
-	image.flip_y()
-	image.save_png(save_path + currentSave + "/icon.png")
-	playerData = saveData["player"]
-	playerData["skin"] = playerBase["skin"];playerData["hair_color"] = playerBase["hair_color"];playerData["hair_style"] = playerBase["hair_style"]
-	playerData["sex"] = playerBase["sex"]
-	playerData["starter_planet"] = starterPlanetId
-	playerData["godmode"] = godmode
+func save(saveType : String, saveData : Dictionary) -> void:
+	#emit_signal("screenshot")
+#	yield(get_tree(),"idle_frame")
+#	var image = get_viewport().get_texture().get_data()
+#	image.flip_y()
+#	image.save_png(save_path + currentSave + "/icon.png")
+	playerData["save_type"] = saveType
+	match saveType:
+		"planet":
+			playerData = saveData["player"]
+			playerData["skin"] = playerBase["skin"];playerData["hair_color"] = playerBase["hair_color"];playerData["hair_style"] = playerBase["hair_style"]
+			playerData["sex"] = playerBase["sex"]
+			playerData["starter_planet"] = starterPlanetId
+			playerData["godmode"] = godmode
+			playerData["blues"] = blues
+			savegame.open(save_path + currentSave + "/planets/" + str(currentSystemId) + "_" + str(currentPlanet) + ".dat",File.WRITE)
+			savegame.store_var(saveData["planet"])
+			savegame.close()
+			savegame.open(save_path + currentSave + "/systems/" + str(currentSystemId) + ".dat",File.WRITE)
+			savegame.store_var(saveData["system"])
+			savegame.close()
+		"system":
+			playerData["pos"] = saveData["player"]["pos"]
+			savegame.open(save_path + currentSave + "/systems/" + str(currentSystemId) + ".dat",File.WRITE)
+			savegame.store_var(saveData["system"])
+			savegame.close()
 	savegame.open(save_path + currentSave + "/playerData.dat",File.WRITE)
-	savegame.store_var(saveData["player"])
-	savegame.close()
-	savegame.open(save_path + currentSave + "/planets/" + str(StarSystem.currentSeed) + "_" + str(currentPlanet) + ".dat",File.WRITE)
-	savegame.store_var(saveData["planet"])
-	savegame.close()
-	savegame.open(save_path + currentSave + "/systems/" + str(StarSystem.currentSeed) + ".dat",File.WRITE)
-	savegame.store_var(saveData["system"])
+	savegame.store_var(playerData)
 	savegame.close()
 	print("Saved game!")
 
 func save_system() -> void:
-	savegame.open(save_path + currentSave + "/systems/" + str(StarSystem.currentSeed) + ".dat",File.WRITE)
+	savegame.open(save_path + currentSave + "/systems/" + str(currentSystemId) + ".dat",File.WRITE)
 	savegame.store_var(StarSystem.get_system_data())
 	savegame.close()
 	print("Saved system!")
@@ -141,12 +155,12 @@ func load_player() -> Dictionary:
 	data = load_data(save_path + currentSave + "/playerData.dat")
 	return data
 
-func load_system(systemId : int) -> Dictionary:
+func load_system(systemId : String) -> Dictionary:
 	var data : Dictionary
-	data = load_data(save_path + currentSave + "/systems/" + str(systemId) + ".dat")
+	data = load_data(save_path + currentSave + "/systems/" + systemId + ".dat")
 	return data
 
-func load_planet(systemId : int, planetId : int) -> Dictionary:
+func load_planet(systemId : String, planetId : int) -> Dictionary:
 	var data : Dictionary
 	data = load_data(save_path + currentSave + "/planets/" + str(systemId) + "_" + str(planetId) + ".dat")
 	return data

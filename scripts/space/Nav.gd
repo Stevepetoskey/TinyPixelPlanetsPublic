@@ -10,7 +10,8 @@ var pos = {true:0,false:-40}
 var closest : Object = null
 
 func _process(delta):
-	closest = get_closest_body().planetRef
+	if get_closest_body() != null:
+		closest = get_closest_body().planetRef
 
 func get_closest_body():
 	var closes : Object = get_node("../../system").get_child(0)

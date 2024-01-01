@@ -18,17 +18,8 @@ func _ready():
 func _process(delta):
 	$CanvasLayer/FPS.text = str(Engine.get_frames_per_second())
 
-func play_bg_music():
-	$Music.stream = music[randi()%4]
-	$Music.play()
-	$Music/Timer.start(rand_range(240,720))
-
-func _on_Timer_timeout():
-	if !$Music.playing:
-		play_bg_music()
-
 func _on_World_world_loaded():
-	$Music/Timer.start(rand_range(20,120))
+	GlobalAudio.change_mode("game")
 	yield(get_tree(),"idle_frame")
 	if Global.inTutorial:
 		title.text = "Move left/right with A/D, or with arrow keys"
