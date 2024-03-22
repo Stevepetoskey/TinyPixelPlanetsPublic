@@ -13,7 +13,10 @@ var currentPlanet : int
 var currentSystem : int
 var currentSystemId : String
 var playerData = {}
+var playerName = ""
 var blues = 0
+var killCount = 0
+var scenario = "sandbox"
 var starterPlanetId : int
 var godmode = false
 var pause = false
@@ -21,12 +24,39 @@ var enemySpawning = true
 var entitySpawning = true
 var inTutorial = false
 
+var gamerulesBase = {
+	"can_leave_planet":true,
+	"can_leave_system":true,
+	"max_hp":50,
+	"starting_hp":50,
+	"custom_world_file":"",
+	"custom_generation":"",
+	"can_respawn":true,
+}
+var gamerules = {}
+
 var lightColor = Color.white
 
 var playerBase = {"skin":Color("F8DEC3"),"hair_style":"Short","hair_color":Color("debe99"),"sex":"Guy"}
 
 signal loaded_data
 signal screenshot
+
+func _process(delta):
+	if blues >= 1000 and !GlobalGui.completedAchievements.has("Economist 1"):
+		GlobalGui.complete_achievement("Economist 1")
+	elif blues >= 5000 and !GlobalGui.completedAchievements.has("Economist 2"):
+		GlobalGui.complete_achievement("Economist 2")
+	elif blues >= 10000 and !GlobalGui.completedAchievements.has("Economist 3"):
+		GlobalGui.complete_achievement("Economist 3")
+	if killCount >= 1 and !GlobalGui.completedAchievements.has("Exterminator 1"):
+		GlobalGui.complete_achievement("Exterminator 1")
+	elif killCount >= 10 and !GlobalGui.completedAchievements.has("Exterminator 2"):
+		GlobalGui.complete_achievement("Exterminator 2")
+	elif killCount >= 50 and !GlobalGui.completedAchievements.has("Exterminator 3"):
+		GlobalGui.complete_achievement("Exterminator 3")
+	elif killCount >= 100 and !GlobalGui.completedAchievements.has("Destroyer of worlds"):
+		GlobalGui.complete_achievement("Destroyer of worlds")
 
 func save_exists(saveId : String) -> bool:
 	var dir = Directory.new()
@@ -82,28 +112,51 @@ func open_save(saveId : String) -> void:
 			playerData = savegame.get_var()
 			savegame.close()
 			blues = playerData["blues"]
+			killCount = 0 if !playerData.has("kill_count") else playerData["kill_count"]
 			currentPlanet = playerData["current_planet"]
 			starterPlanetId = playerData["starter_planet"]
+			gamerules = playerData["gamerules"]
+			for rule in gamerulesBase: #Makes sure the gamerules are up to date
+				if !gamerules.has(rule):
+					gamerules[rule] = gamerulesBase[rule]
 			godmode = playerData["godmode"]
+			playerName = "Jerry" if !playerData.has("player_name") else playerData["player_name"]
+			scenario = "sandbox" if !playerData.has("scenario") else  playerData["scenario"]
+			StarSystem.landedPlanetTypes = [] if !playerData.has("landed_planet_types") else playerData["landed_planet_types"]
+			GlobalGui.completedAchievements = [] if !playerData.has("achievements") else playerData["achievements"]
 			StarSystem.systemDat = load_system(playerData["current_system"])
 			StarSystem.load_system()
 			new = false
 		else:
-			remove_recursive(save_path + saveId)
-			dir.open(save_path)
-			dir.make_dir(saveId)
-			dir.open(save_path + saveId)
-			dir.make_dir("systems")
-			dir.make_dir("planets")
-			var _er = get_tree().change_scene("res://scenes/Main.tscn")
+			new_save(saveId)
 	else:
-		dir.open(save_path)
-		dir.make_dir(saveId)
-		dir.open(save_path + saveId)
-		dir.make_dir("systems")
-		dir.make_dir("planets")
-		var _er = get_tree().change_scene("res://scenes/Main.tscn")
+		new_save(saveId)
 	currentSave = saveId
+
+func new_save(saveId : String):
+	gamerules = gamerulesBase.duplicate(true)
+	match scenario:
+		"temple":
+			gamerules["can_leave_planet"] = false
+			gamerules["custom_world_file"] = "temple"
+		"meteor":
+			gamerules["can_leave_planet"] = false
+			gamerules["custom_generation"] = "meteor"
+		"insane":
+			gamerules["max_hp"] = 1
+			gamerules["starting_hp"] = 1
+			gamerules["can_respawn"] = false
+	var dir = Directory.new()
+	blues = 0
+	killCount = 0
+	StarSystem.landedPlanetTypes = []
+	dir.open(save_path)
+	dir.make_dir(saveId)
+	dir.open(save_path + saveId)
+	dir.make_dir("systems")
+	dir.make_dir("planets")
+	GlobalGui.completedAchievements = []
+	var _er = get_tree().change_scene("res://scenes/Main.tscn")
 
 func new_planet() -> void:
 	var _er = get_tree().change_scene("res://scenes/Main.tscn")
@@ -120,14 +173,25 @@ func save(saveType : String, saveData : Dictionary) -> void:
 #	image.flip_y()
 #	image.save_png(save_path + currentSave + "/icon.png")
 	playerData["save_type"] = saveType
+	playerData["achievements"] = GlobalGui.completedAchievements
+	playerData["kill_count"] = killCount
+	playerData["landed_planet_types"] = StarSystem.landedPlanetTypes
+	playerData["scenario"] = scenario
+	playerData["player_name"] = playerName
+	playerData["gamerules"] = gamerules
 	match saveType:
 		"planet":
 			playerData = saveData["player"]
+			playerData["gamerules"] = gamerules
+			playerData["scenario"] = scenario
+			playerData["player_name"] = playerName
 			playerData["skin"] = playerBase["skin"];playerData["hair_color"] = playerBase["hair_color"];playerData["hair_style"] = playerBase["hair_style"]
 			playerData["sex"] = playerBase["sex"]
 			playerData["starter_planet"] = starterPlanetId
 			playerData["godmode"] = godmode
 			playerData["blues"] = blues
+			playerData["kill_count"] = killCount
+			playerData["landed_planet_types"] = StarSystem.landedPlanetTypes
 			savegame.open(save_path + currentSave + "/planets/" + str(currentSystemId) + "_" + str(currentPlanet) + ".dat",File.WRITE)
 			savegame.store_var(saveData["planet"])
 			savegame.close()

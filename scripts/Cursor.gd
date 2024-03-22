@@ -132,4 +132,5 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "break" and breaking:
 		breaking = false
 		$break/AnimationPlayer.play("RESET")
+		GlobalGui.complete_achievement("One small step")
 		world.build_event("Break",position / world.BLOCK_SIZE,currentLayer)

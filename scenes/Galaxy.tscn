@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://scripts/space/Galaxy.gd" type="Script" id=1]
 [ext_resource path="res://textures/enviroment/deep-space.png" type="Texture" id=2]
@@ -26,6 +26,10 @@
 [ext_resource path="res://textures/GUI/space/v_bar_handle.png" type="Texture" id=24]
 [ext_resource path="res://textures/GUI/space/v_bar.png" type="Texture" id=25]
 [ext_resource path="res://scripts/space/SystemInfo.gd" type="Script" id=26]
+[ext_resource path="res://textures/GUI/space/v_bar_handle_hover.png" type="Texture" id=27]
+[ext_resource path="res://textures/GUI/space/h_bar_handle_hover.png" type="Texture" id=28]
+[ext_resource path="res://textures/GUI/space/h_bar_handle_select.png" type="Texture" id=29]
+[ext_resource path="res://textures/GUI/space/v_bar_handle_select.png" type="Texture" id=30]
 
 [sub_resource type="AnimatedTexture" id=1]
 frames = 10
@@ -156,7 +160,7 @@ tracks/1/keys = {
 "values": [ true, true, false ]
 }
 
-[sub_resource type="StyleBoxTexture" id=6]
+[sub_resource type="StyleBoxTexture" id=26]
 texture = ExtResource( 22 )
 region_rect = Rect2( 0, 0, 8, 4 )
 margin_left = 1.0
@@ -164,7 +168,23 @@ margin_right = 1.0
 margin_top = 1.0
 margin_bottom = 1.0
 
-[sub_resource type="StyleBoxTexture" id=7]
+[sub_resource type="StyleBoxTexture" id=27]
+texture = ExtResource( 28 )
+region_rect = Rect2( 0, 0, 8, 4 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=28]
+texture = ExtResource( 29 )
+region_rect = Rect2( 0, 0, 8, 4 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=29]
 texture = ExtResource( 21 )
 region_rect = Rect2( 0, 0, 8, 4 )
 margin_left = 1.0
@@ -172,7 +192,7 @@ margin_right = 1.0
 margin_top = 1.0
 margin_bottom = 1.0
 
-[sub_resource type="StyleBoxTexture" id=8]
+[sub_resource type="StyleBoxTexture" id=30]
 texture = ExtResource( 24 )
 region_rect = Rect2( 0, 0, 4, 8 )
 margin_left = 1.0
@@ -180,7 +200,23 @@ margin_right = 1.0
 margin_top = 1.0
 margin_bottom = 1.0
 
-[sub_resource type="StyleBoxTexture" id=9]
+[sub_resource type="StyleBoxTexture" id=31]
+texture = ExtResource( 27 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=32]
+texture = ExtResource( 30 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=33]
 texture = ExtResource( 25 )
 region_rect = Rect2( 0, 0, 4, 8 )
 margin_left = 1.0
@@ -188,7 +224,7 @@ margin_right = 1.0
 margin_top = 1.0
 margin_bottom = 1.0
 
-[sub_resource type="StyleBoxTexture" id=10]
+[sub_resource type="StyleBoxTexture" id=34]
 texture = ExtResource( 25 )
 region_rect = Rect2( 0, 0, 4, 8 )
 margin_left = 1.0
@@ -196,12 +232,16 @@ margin_right = 1.0
 margin_top = 1.0
 margin_bottom = 1.0
 
-[sub_resource type="Theme" id=11]
-HScrollBar/styles/grabber = SubResource( 6 )
-HScrollBar/styles/scroll = SubResource( 7 )
-VScrollBar/styles/grabber = SubResource( 8 )
-VScrollBar/styles/scroll = SubResource( 9 )
-VSlider/styles/slider = SubResource( 10 )
+[sub_resource type="Theme" id=35]
+HScrollBar/styles/grabber = SubResource( 26 )
+HScrollBar/styles/grabber_highlight = SubResource( 27 )
+HScrollBar/styles/grabber_pressed = SubResource( 28 )
+HScrollBar/styles/scroll = SubResource( 29 )
+VScrollBar/styles/grabber = SubResource( 30 )
+VScrollBar/styles/grabber_highlight = SubResource( 31 )
+VScrollBar/styles/grabber_pressed = SubResource( 32 )
+VScrollBar/styles/scroll = SubResource( 33 )
+VSlider/styles/slider = SubResource( 34 )
 
 [sub_resource type="StyleBoxTexture" id=5]
 texture = ExtResource( 18 )
@@ -267,6 +307,7 @@ anchor_bottom = 1.0
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 28.0
+mouse_filter = 2
 
 [node name="TextureButton" type="TextureButton" parent="CanvasLayer/Sidebar"]
 margin_right = 26.0
@@ -293,7 +334,7 @@ anims/start = SubResource( 3 )
 visible = false
 margin_right = 79.0
 margin_bottom = 84.0
-theme = SubResource( 11 )
+theme = SubResource( 35 )
 custom_styles/panel = SubResource( 5 )
 script = ExtResource( 26 )
 

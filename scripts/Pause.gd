@@ -12,12 +12,14 @@ func _process(_delta):
 				toggle_pause()
 
 func toggle_pause(toggle = true, setValue = false):
+	GlobalGui.close_ach()
 	if toggle:
 		setValue = !visible
 	visible = setValue
 	Global.pause = setValue
 
 func _on_Quit_pressed():
+	GlobalGui.close_ach()
 	match type:
 		"planet":
 			Global.save(type,$"../../World".get_world_data())
@@ -41,3 +43,6 @@ func _on_Save_pressed():
 
 func _on_Continue_pressed():
 	toggle_pause(false)
+
+func _on_Achievements_pressed():
+	GlobalGui.pop_up_ach()

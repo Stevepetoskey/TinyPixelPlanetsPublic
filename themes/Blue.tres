@@ -1,0 +1,41 @@
+[gd_resource type="Theme" load_steps=9 format=2]
+
+[ext_resource path="res://textures/GUI/buttons/blue_btn_normal.png" type="Texture" id=1]
+[ext_resource path="res://textures/GUI/buttons/blue_btn_pressed.png" type="Texture" id=2]
+[ext_resource path="res://textures/GUI/buttons/blue_btn_hover.png" type="Texture" id=3]
+[ext_resource path="res://fonts/pixelButton.tres" type="DynamicFont" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=30]
+
+[sub_resource type="StyleBoxTexture" id=26]
+texture = ExtResource( 3 )
+region_rect = Rect2( 0, 0, 8, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 2.0
+margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id=27]
+texture = ExtResource( 1 )
+region_rect = Rect2( 0, 0, 8, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 2.0
+margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id=28]
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 8, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 3.0
+margin_bottom = 2.0
+
+[resource]
+Button/colors/font_color = Color( 1, 1, 1, 1 )
+Button/colors/font_color_pressed = Color( 0.847059, 0.847059, 0.847059, 1 )
+Button/fonts/font = ExtResource( 4 )
+Button/styles/focus = SubResource( 30 )
+Button/styles/hover = SubResource( 26 )
+Button/styles/normal = SubResource( 27 )
+Button/styles/pressed = SubResource( 28 )

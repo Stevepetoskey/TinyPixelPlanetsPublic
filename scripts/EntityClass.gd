@@ -20,6 +20,8 @@ func _ready():
 		GRAVITY = 0
 
 func die():
+	if hostile:
+		Global.killCount += 1
 	var blueDrop = int(rand_range(bluesDropRange[0],bluesDropRange[1]))
 	if blueDrop > 0:
 		get_node("../..").spawn_blues(blueDrop,false,position)

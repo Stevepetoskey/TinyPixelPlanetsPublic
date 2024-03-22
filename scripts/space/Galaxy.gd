@@ -108,4 +108,5 @@ func system_pressed(system):
 			moving = false
 			yield($AnimationPlayer,"animation_finished")
 			print("Selected seed: ",selectedSystem.systemSeed)
+			GlobalGui.complete_achievement("Interstellar")
 			StarSystem.open_star_system(selectedSystem.systemSeed,selectedSystem.systemId)

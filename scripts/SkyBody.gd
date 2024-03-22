@@ -16,6 +16,10 @@ func _ready():
 		viewPort.queue_free()
 		$Sprite.texture = load("res://textures/stars/" + StarSystem.currentStar + ".png")
 		modulate = Color(2,2,2)
+	elif planetRef.type["type"] == "commet":
+		$Sprite.show()
+		viewPort.queue_free()
+		$Sprite.texture = load("res://textures/planets/commet.png")
 	else:
 		#$Sprite.hide()
 		viewPort.material.set_shader_param("planet",planetRef.type["texture"])
@@ -33,8 +37,9 @@ func _physics_process(_delta):
 		var planetPos = Vector2(0,0)
 		var planetYPos = 0
 		if !isStar:
-			$ViewportContainer/Viewport/Spatial.angle = planetRef.shadeAngle
-			$ViewportContainer/Viewport/Spatial.camAngle = planetRef.position.angle_to_point(mainPlanet.position)
+			if has_node("ViewportContainer"):
+				$ViewportContainer/Viewport/Spatial.angle = planetRef.shadeAngle
+				$ViewportContainer/Viewport/Spatial.camAngle = planetRef.position.angle_to_point(mainPlanet.position)
 			planetPos = planetRef.position
 			planetYPos = planetRef.systemYPos
 		var distance = mainPlanet.position.distance_to(planetPos)
@@ -54,7 +59,7 @@ func _physics_process(_delta):
 			z_index = -int(distance)
 			rot = mainPlanet.position.angle_to_point(planetPos) - mainPlanet.currentRot
 			position = Vector2((cos(rot) * (main.SKY_RADIUS + planetYPos - mainPlanet.systemYPos)),(sin(rot) * (main.SKY_RADIUS + planetYPos - mainPlanet.systemYPos)))
-		if !isStar and mainPlanet.hasAtmosphere:
+		if !isStar and planetRef.type["type"] != "commet" and mainPlanet.hasAtmosphere:
 			match get_node("..").get_day_type():
 				"day","sunset","sunrise":
 					viewPort.material.set_shader_param("isNight",false)

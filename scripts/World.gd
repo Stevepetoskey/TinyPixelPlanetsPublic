@@ -98,6 +98,12 @@ var blockData = {
 	112:{"texture":preload("res://textures/blocks2X/asteroid_rock.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":112,"amount":1}],"name":"Asteroid rock"},
 	117:{"texture":preload("res://textures/blocks2X/water/water_4.png"),"hardness":0,"breakWith":"None","canHaverst":0,"drops":[],"name":"Water"},
 	118:{"texture":preload("res://textures/blocks2X/wet_sand.png"),"hardness":0.4,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":118,"amount":1}],"name":"Wet sand"},
+	119:{"texture":preload("res://textures/blocks2X/farmland_dry.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":2,"amount":1}],"name":"Farmland"},
+	120:{"texture":preload("res://textures/blocks2X/farmland_wet.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":2,"amount":1}],"name":"Wet farmland"},
+	121:{"texture":preload("res://textures/items/wheat_seeds.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":121,"amount":1}],"name":"Wheat seeds","can_place_on":[119,120]},
+	122:{"texture":preload("res://textures/items/tomato_seeds.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":122,"amount":1}],"name":"Tomato seeds","can_place_on":[119,120]},
+	123:{"texture":preload("res://textures/items/corn_seeds.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":123,"amount":1}],"name":"Corn seeds","can_place_on":[119,120]},
+	124:{"texture":preload("res://textures/blocks2X/rhodonite_ore_stone.png"),"hardness":6,"breakWith":"Pickaxe","canHaverst":4,"drops":[{"id":74,"amount":1}],"name":"Rhodonite stone ore"},
 }
 
 var itemData = {
@@ -174,9 +180,11 @@ func start_world():
 	if !StarSystem.planetReady:
 		yield(StarSystem,"planet_ready")
 	#world size stuff
-	worldSize = StarSystem.get_current_world_size()
-#	get_node("../Player/Camera2D").limit_right = worldSize.x * BLOCK_SIZE.x - 4
-#	get_node("../Player/Camera2D").limit_bottom = (worldSize.y+1) * BLOCK_SIZE.y - 4
+	match Global.gamerules["custom_generation"]:
+		"meteor":
+			worldSize = Vector2(256,32)
+		"":
+			worldSize = StarSystem.get_current_world_size()
 	$StaticBody2D/Right.position = Vector2(worldSize.x * BLOCK_SIZE.x + 2,(worldSize.y * BLOCK_SIZE.y) / 2)
 	$StaticBody2D/Right.shape.extents.y = (worldSize.y * BLOCK_SIZE.y) / 2
 	$"../Player/Camera2D".limit_right = worldSize.x * BLOCK_SIZE.x -4
@@ -200,18 +208,19 @@ func start_world():
 		armor.emit_signal("updated_armor",armor.armor)
 	elif !(Global.gameStart and Global.new):
 		load_player_data()
-	if Global.new:
-		#StarSystem.visitedPlanets.append(Global.currentPlanet)
-		if Global.gameStart:
+	if Global.new: #This is if this is a new planet
+		if Global.gameStart: #This is if the game is a new save
+			player.health = Global.gamerules["starting_hp"]
+			player.maxHealth = Global.gamerules["max_hp"]
 			player.get_node("Textures/body").modulate = Global.playerBase["skin"]
 			player.gender = Global.playerBase["sex"]
 			inventory.add_to_inventory(4,1)
 			armor.armor = {"Helmet":{"id":46,"amount":1},"Hat":{},"Chestplate":{"id":47,"amount":1},"Shirt":{},"Leggings":{"id":48,"amount":1},"Pants":{},"Boots":{"id":49,"amount":1},"Shoes":{}}
 			armor.emit_signal("updated_armor",armor.armor)
-		generateWorld(worldType)
-		#Global.save(get_world_data())
+		#Generates like normal, unless specified to generate a custom world
+		generateWorld(worldType if Global.gamerules["custom_generation"] == "" else Global.gamerules["custom_generation"])
 	else:
-		load_world_data()#Global.load_planet(StarSystem.currentSeed,Global.currentPlanet))
+		load_world_data()
 	enviroment.set_background(worldType)
 	emit_signal("world_loaded")
 	get_node("../CanvasLayer/ParallaxBackground2/Sky").init_sky()
@@ -370,10 +379,33 @@ func generateWorld(worldType : String):
 						set_block_all(pos,118)
 					elif y > 15:
 						set_block(pos,1,117)
+		"meteor":
+			for x in range(worldSize.x):
+				for y in range(worldSize.y):
+					var height = (worldSize.y - (int(worldNoise.get_noise_1d(x) * noiseScale) + worldHeight))
+					if height > worldSize.y - 4:
+						height = worldSize.y - 4
+					var pos = Vector2(x,y)
+					if y == height:
+						set_block_all(pos,1)
+						if get_block(pos - Vector2(0,2),1) == null and randi() % 5 == 1:
+							set_block(pos - Vector2(0,1),1,9)
+						elif get_block(pos - Vector2(0,1),1) == null:
+							if randi() % 3 == 1:
+								set_block(pos - Vector2(0,1),1,6)
+							elif randi() % 3 == 1:
+								set_block(pos - Vector2(0,1),1,7)
+					elif y > height and y < height+3:
+						set_block_all(pos,2)
+					elif y >= height+3:
+						if abs(copperOre.get_noise_2d(x,y)) >= 0.4:
+							set_block_all(pos,[29,55,124][randi()%3])
+						else:
+							set_block_all(pos,3)
 
 func get_world_data() -> Dictionary:
 	var data = {}
-	data["player"] = {"armor":armor.armor,"inventory":inventory.inventory,"inventory_refs":{"j":inventory.jId,"k":inventory.kId},"health":player.health,"max_health":player.maxHealth,"oxygen":player.oxygen,"suit_oxygen":player.suitOxygen,"max_oxygen":player.maxOxygen,"suit_oxygen_max":player.suitOxygenMax,"current_planet":Global.currentPlanet,"current_system":Global.currentSystemId,"pos":player.position,"save_type":"planet"}
+	data["player"] = {"armor":armor.armor,"inventory":inventory.inventory,"inventory_refs":{"j":inventory.jId,"k":inventory.kId},"health":player.health,"max_health":player.maxHealth,"oxygen":player.oxygen,"suit_oxygen":player.suitOxygen,"max_oxygen":player.maxOxygen,"suit_oxygen_max":player.suitOxygenMax,"current_planet":Global.currentPlanet,"current_system":Global.currentSystemId,"pos":player.position,"save_type":"planet","achievements":GlobalGui.completedAchievements}
 	data["system"] = StarSystem.get_system_data()
 	data["planet"] = {"blocks":[],"entities":entities.get_entity_data(),"rules":worldRules}
 	for block in $blocks.get_children():

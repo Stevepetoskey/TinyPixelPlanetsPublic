@@ -79,6 +79,18 @@ var SecondStarName = [
 	"Dulovc"
 ]
 
+var weatherEvents = {
+	"terra":["rain","showers"],
+	"desert":["none"],
+	"mud":["none"],
+	"exotic":["rain","showers"],
+	"stone":["none"],
+	"snow":["snow","blizzard"],
+	"snow_terra":["snow","blizzard"],
+	"asteroids":["none"],
+	"ocean":["rain","showers"]
+}
+
 var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra.png"),"size":sizeTypes.small,"type":"terra"},
 	"small_desert":{"texture":preload("res://textures/planets/desert.png"),"size":sizeTypes.small,"type":"desert"},
 	"small_mud":{"texture":preload("res://textures/planets/mud.png"),"size":sizeTypes.small,"type":"mud"},
@@ -99,6 +111,7 @@ var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra
 	"asteroids":{"texture":preload("res://textures/planets/asteroids.png"),"size":sizeTypes.small,"type":"asteroids"},
 	"small_ocean":{"texture":preload("res://textures/planets/ocean.png"),"size":sizeTypes.small,"type":"ocean"},
 	"ocean":{"texture":preload("res://textures/planets/oceanMedium.png"),"size":sizeTypes.medium,"type":"ocean"},
+	#"commet":{"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"},
 }
 
 var sizeData = { #Normal moon chance: 10,50,95 (40,80), (50,150), (60,240)
@@ -120,6 +133,7 @@ var currentStarData
 
 var systemDat = {}
 var visitedPlanets = []
+var landedPlanetTypes = []
 
 var planetReady = false
 
@@ -129,6 +143,7 @@ signal leaving_planet
 signal leaving_system
 signal entering_system
 signal landing_planet
+signal start_meteors
 
 func start_game():
 	print("---start game---")
@@ -137,6 +152,18 @@ func start_game():
 		yield(self,"found_system")
 		Global.currentPlanet = find_planet("type","terra").id
 		Global.starterPlanetId = Global.currentPlanet
+		if Global.scenario == "meteor": #Adds the commet if meteor scenario
+			var commet = PLANET.instance()
+			commet.id = get_system_bodies().size()
+			commet.type = {"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"}
+			commet.hasAtmosphere = false
+			commet.orbitalDistance = 500
+			commet.orbitingBody = find_planet_id(Global.currentPlanet)
+			commet.orbitalSpeed = 0
+			commet.rotationSpeed = 0
+			commet.currentOrbit = deg2rad(randi() % 360)
+			commet.currentRot = deg2rad(randi() % 360)
+			$system.add_child(commet)
 		print("Current Planet: ", find_planet_id(Global.currentPlanet).pName)
 	planetReady = true
 	print("---Planet Ready---")
@@ -144,12 +171,23 @@ func start_game():
 
 func start_space():
 	print("going into space")
+	GlobalGui.complete_achievement("The mechanic")
 	emit_signal("leaving_planet")
 	var _er = get_tree().change_scene("res://scenes/PlanetSelect.tscn")
 
 func land(planet : int):
 	Global.currentPlanet = planet
 	Global.new_planet()
+	var planetType = find_planet_id(planet).type["type"]
+	if !landedPlanetTypes.has(planetType):
+		landedPlanetTypes.append(planetType)
+		if landedPlanetTypes.size() >= 3:
+			GlobalGui.complete_achievement("Explorer 1")
+		elif landedPlanetTypes.size() >= 6:
+			GlobalGui.complete_achievement("Explorer 2")
+		elif landedPlanetTypes.size() >= 9:
+			GlobalGui.complete_achievement("Explorer 3")
+	GlobalGui.complete_achievement("Interplanetary")
 	emit_signal("landing_planet")
 
 func open_star_system(systemSeed : int,systemId : String):
@@ -169,6 +207,7 @@ func open_star_system(systemSeed : int,systemId : String):
 	print("Entering system ",systemSeed)
 
 func leave_star_system():
+	visitedPlanets.clear()
 	Global.currentPlanet = -1
 	Global.save_system()
 	emit_signal("leaving_system")
@@ -176,6 +215,7 @@ func leave_star_system():
 	print("Leaving system ",Global.currentSystem)
 
 func new():
+	visitedPlanets.clear()
 	var foundSeed = false
 	while !foundSeed:
 		var seedX = str(stepify(int(rand_range(0,SECTOR_SIZE.x*GALAXY_SIZE.x)),SECTOR_SIZE.x))
@@ -209,6 +249,7 @@ func new():
 	emit_signal("found_system")
 
 func load_system(entering = false):
+	visitedPlanets.clear()
 	Global.currentSystemId = systemDat["system_id"]
 	Global.currentSystem = systemDat["system_seed"]
 	if ["planet","system"].has(Global.playerData["save_type"]) or entering:
@@ -228,7 +269,11 @@ func load_system(entering = false):
 			var planet = PLANET.instance()
 			planet.id = id
 			planet.hasAtmosphere = planetDat["has_atmosphere"]
-			planet.type = planetData[look_up_planet_data(planetDat["planet_type"],planetDat["planet_size"])]
+			match planetDat["planet_type"]:
+				"commet":
+					planet.type = {"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"}
+				_:
+					planet.type = planetData[look_up_planet_data(planetDat["planet_type"],planetDat["planet_size"])]
 			planet.orbitalDistance = planetDat["orbit_distance"]
 			planet.orbitingBody = $stars if planetDat["orbiting_body"] == -1 else find_planet_id(planetDat["orbiting_body"])
 			planet.orbitalSpeed = planetDat["orbit_speed"]
@@ -267,6 +312,7 @@ func quick_system_check(systemSeed : int) -> Dictionary:
 
 func new_system(systemSeed : int):
 	print("new System")
+	seed(systemSeed)
 	var FSN = FirstStarName.duplicate()
 	var SSN = SecondStarName.duplicate()
 	FSN.shuffle()
@@ -295,7 +341,7 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 	
 	#Determines planet type
 	var planetType
-	var planets = []# = ["small_desert","small_mud","small_stone","desert","mud","stone","gas1","gas2"]
+	var planets = []
 	for planetDat in planetData:
 		if (planetData[planetDat]["size"] < maxSize or (maxSize == 0 and planetData[planetDat]["size"] == 0)) and !["terra","snow","snow_terra","exotic","ocean"].has(planetData[planetDat]["type"]):
 			planets.append(planetData[planetDat])

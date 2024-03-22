@@ -37,3 +37,11 @@
 - Fixed a star system having a different name each time
 - Fixed entering a saved star system from the galaxy view remaking the entire star system again
 - Fixed ship position in a star system not loading when entering a save
+## TU4 Beta 6 (v0.4.0:6)
+- Player can now swim in water
+- Fixed visited planets not reseting upon generating a new system
+- New weather system depending on the planet (rain, showers, snow, blizzards)
+- Fixed blues not reseting when starting a new world
+- Added achievements
+- Made player's name also the name of the save
+- Fixed parallax background not loading when it should

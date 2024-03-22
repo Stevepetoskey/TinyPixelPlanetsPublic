@@ -34,6 +34,7 @@ config/windows_native_icon="res://textures/icons/terraMedium.ico"
 Global="*res://scripts/Global.gd"
 StarSystem="*res://scenes/starSystem.tscn"
 GlobalAudio="*res://scenes/GlobalAudio.tscn"
+GlobalGui="*res://scenes/GlobalGUI.tscn"
 
 [debug]
 
@@ -157,6 +158,11 @@ build2={
 fly={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":70,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ach={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

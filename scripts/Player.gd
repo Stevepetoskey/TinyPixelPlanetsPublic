@@ -100,7 +100,42 @@ func _physics_process(_delta):
 		
 		if Input.is_action_just_pressed("fly"):
 			flying = !flying
-		if world.hasGravity and (!Global.godmode or !flying) and !checkAllBlocks(117):
+		if checkAllBlocks(117): #Swimming movement
+			if !is_on_floor():
+				motion.y += GRAVITY/ 2.0
+			
+			var speed = MAX_SPEED
+			if Input.is_action_pressed("sprint"):
+				speed = SPRINT_SPEED
+			
+			if Input.is_action_pressed("move_left"):
+				if motion.x > -speed:
+					motion.x -= ACCEL
+				else:
+					motion.x = move_toward(motion.x,0,FRICTION / 2.0)
+			elif Input.is_action_pressed("move_right"):
+				if motion.x < speed:
+					motion.x += ACCEL
+				else:
+					motion.x = move_toward(motion.x,0,FRICTION / 2.0)
+			else:
+				motion.x = move_toward(motion.x,0,FRICTION / 2.0)
+			
+			if Input.is_action_pressed("jump"):
+				if motion.y > -speed:
+					motion.y -= ACCEL
+			elif Input.is_action_pressed("down"):
+				if motion.y < speed:
+					motion.y += ACCEL
+			if !swinging:
+				if is_on_floor() or (is_on_wall() and $Textures/AnimationPlayer.current_animation == "idle"):
+					if abs(motion.x) > 0:
+						$Textures/AnimationPlayer.play("walk")
+					else:
+						$Textures/AnimationPlayer.play("idle")
+				else:
+					$Textures/AnimationPlayer.play("swim")
+		elif world.hasGravity and (!Global.godmode or !flying): #Regular movement
 			if !is_on_floor():
 				if !coyote:
 					motion.y += GRAVITY
@@ -138,7 +173,7 @@ func _physics_process(_delta):
 			if Input.is_action_just_pressed("jump") and !jumping:
 				motion.y = -JUMPSPEED
 				jumping = true
-		else:
+		else: # Flying/ no gravity Movement
 			if Input.is_action_pressed("jump") and motion.y > -MAX_SPEED:
 				motion.y -= ACCEL
 			elif Input.is_action_pressed("down") and motion.y < MAX_SPEED:

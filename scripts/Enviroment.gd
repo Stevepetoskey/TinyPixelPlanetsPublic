@@ -87,6 +87,9 @@ func _process(delta):
 			
 			$back.modulate = Global.lightColor
 			$front.modulate = Global.lightColor
+			$"../ParallaxBackground2/StormLayer".modulate = Global.lightColor
+			$"../../weather/Rain".modulate = Global.lightColor
+			$"../../weather/Snow".modulate = Global.lightColor
 			get_node("../../World/blocks").modulate = Global.lightColor
 			get_node("../../Player").modulate = Global.lightColor
 			get_node("../../Entities").modulate = Global.lightColor

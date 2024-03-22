@@ -41,6 +41,13 @@ func _process(_delta):
 
 func add_to_inventory(id : int,amount : int,drop = true) -> Dictionary:
 	if !Global.godmode:
+		match id: #For achievements
+			31:
+				GlobalGui.complete_achievement("An upgrade")
+			98:
+				GlobalGui.complete_achievement("Top of the line")
+		if world.get_item_data(id).has("type") and world.get_item_data(id)["type"] == "weapon":
+			GlobalGui.complete_achievement("Ready for battle")
 		$collect.play()
 		if amount > 0:
 			for item in range(inventory.size()):
@@ -234,6 +241,7 @@ func mouse_out_btn(_loc : int):
 	$"../ItemData".hide()
 
 func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
+	GlobalGui.close_ach()
 	$"../ItemData".hide()
 	holding = false
 	if toggle:

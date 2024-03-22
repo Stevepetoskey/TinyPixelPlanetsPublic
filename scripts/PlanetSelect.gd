@@ -6,6 +6,8 @@ signal system_loaded
 
 func _ready():
 	load_system()
+	if !Global.gamerules["can_leave_system"]:
+		$CanvasLayer/GalaxyBtn.hide()
 	if Global.playerData["save_type"] == "system":
 		$ship.position = Global.playerData["pos"]
 	elif Global.currentPlanet != -1:

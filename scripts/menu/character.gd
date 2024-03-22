@@ -77,6 +77,7 @@ func _on_back_pressed():
 
 func _on_Start_pressed():
 	Global.playerBase = {"skin":skinColors[skinCol],"hair_style":hairStyles[hairSty],"hair_color":hairColors[hairCol],"sex":sex}
+	Global.playerName = charName
 	get_node("../loadSave").start()
 
 func left(type : String):
@@ -126,3 +127,11 @@ func _on_Male_pressed():
 	$Male.disabled = true
 	$Female.disabled = false
 	update_char()
+
+func _on_Scenarios_pressed():
+	hide()
+	$"../../Scenarios".show()
+
+func _on_Done_pressed():
+	$"../../Scenarios".hide()
+	show()
