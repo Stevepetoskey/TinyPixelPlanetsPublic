@@ -23,6 +23,9 @@ var pause = false
 var enemySpawning = true
 var entitySpawning = true
 var inTutorial = false
+var meteorsAttacked = false
+var globalGameTime : int = 0
+var gameTimeTimer : Timer = Timer.new()
 
 var gamerulesBase = {
 	"can_leave_planet":true,
@@ -41,6 +44,11 @@ var playerBase = {"skin":Color("F8DEC3"),"hair_style":"Short","hair_color":Color
 
 signal loaded_data
 signal screenshot
+
+func _ready():
+	gameTimeTimer.connect("timeout",self,"game_time_second")
+	gameTimeTimer.autostart = true
+	add_child(gameTimeTimer)
 
 func _process(delta):
 	if blues >= 1000 and !GlobalGui.completedAchievements.has("Economist 1"):
@@ -122,6 +130,8 @@ func open_save(saveId : String) -> void:
 			godmode = playerData["godmode"]
 			playerName = "Jerry" if !playerData.has("player_name") else playerData["player_name"]
 			scenario = "sandbox" if !playerData.has("scenario") else  playerData["scenario"]
+			globalGameTime = 0 if !playerData.has("game_time") else playerData["game_time"]
+			meteorsAttacked = false if !playerData.has("misc_stats") else playerData["misc_stats"]["meteors_attacked"]
 			StarSystem.landedPlanetTypes = [] if !playerData.has("landed_planet_types") else playerData["landed_planet_types"]
 			GlobalGui.completedAchievements = [] if !playerData.has("achievements") else playerData["achievements"]
 			StarSystem.systemDat = load_system(playerData["current_system"])
@@ -135,6 +145,7 @@ func open_save(saveId : String) -> void:
 
 func new_save(saveId : String):
 	gamerules = gamerulesBase.duplicate(true)
+	meteorsAttacked = false
 	match scenario:
 		"temple":
 			gamerules["can_leave_planet"] = false
@@ -156,6 +167,7 @@ func new_save(saveId : String):
 	dir.make_dir("systems")
 	dir.make_dir("planets")
 	GlobalGui.completedAchievements = []
+	globalGameTime = 0
 	var _er = get_tree().change_scene("res://scenes/Main.tscn")
 
 func new_planet() -> void:
@@ -179,6 +191,7 @@ func save(saveType : String, saveData : Dictionary) -> void:
 	playerData["scenario"] = scenario
 	playerData["player_name"] = playerName
 	playerData["gamerules"] = gamerules
+	playerData["game_time"] = globalGameTime
 	match saveType:
 		"planet":
 			playerData = saveData["player"]
@@ -192,6 +205,8 @@ func save(saveType : String, saveData : Dictionary) -> void:
 			playerData["blues"] = blues
 			playerData["kill_count"] = killCount
 			playerData["landed_planet_types"] = StarSystem.landedPlanetTypes
+			playerData["misc_stats"]["meteors_attacked"] = meteorsAttacked
+			playerData["game_time"] = globalGameTime
 			savegame.open(save_path + currentSave + "/planets/" + str(currentSystemId) + "_" + str(currentPlanet) + ".dat",File.WRITE)
 			savegame.store_var(saveData["planet"])
 			savegame.close()
@@ -280,3 +295,6 @@ func copy_directory_recursively(p_from : String, p_to : String) -> void:
 			file_name = directory.get_next()
 	else:
 		push_warning("Error copying " + p_from + " to " + p_to)
+
+func game_time_second():
+	globalGameTime += 1

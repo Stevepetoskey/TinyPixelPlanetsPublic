@@ -33,7 +33,7 @@ func _ready():
 				viewPort.rect_position = Vector2(-28,-28)
 
 func _physics_process(_delta):
-	if planetRef != null or isStar:
+	if is_instance_valid(planetRef) or isStar:
 		var planetPos = Vector2(0,0)
 		var planetYPos = 0
 		if !isStar:
@@ -65,3 +65,5 @@ func _physics_process(_delta):
 					viewPort.material.set_shader_param("isNight",false)
 				"night":
 					viewPort.material.set_shader_param("isNight",true)
+	elif !is_instance_valid(planetRef):
+		queue_free()

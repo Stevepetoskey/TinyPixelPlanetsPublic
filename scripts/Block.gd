@@ -1,27 +1,10 @@
-extends StaticBody2D
+extends BaseBlock
 
 const SHADE_TEX = preload("res://textures/blocks2X/shade.png")
-const water_textures = {"bottom":preload("res://textures/blocks2X/water/water_bottom.png"),
-0:preload("res://textures/blocks2X/debug.png"),
-1:preload("res://textures/blocks2X/water/water_1.png"),
-2:preload("res://textures/blocks2X/water/water_2.png"),
-3:preload("res://textures/blocks2X/water/water_3.png"),
-4:preload("res://textures/blocks2X/water/water_4.png")
-}
-const FALL_BLOCKS = [0,117]
+const FALL_BLOCKS : Array = [0,117]
 
-export var id = 1
-export var layer = 1
-
-onready var world = get_node("../..")
-
-var data = {}
-var pos : Vector2
-
-var falling = false
+var falling : bool = false
 var fallPos : Vector2
-
-var water_level = 4
 
 func _ready():
 	var mainCol = $CollisionShape2D
@@ -35,8 +18,6 @@ func _ready():
 	if layer < 1:
 		modulate = Color(0.68,0.68,0.68)
 		mainCol.disabled = true
-		$LightOccluder2D.queue_free()
-		$Sprite.light_mask = 1
 	z_index = layer
 	pos = position / world.BLOCK_SIZE
 	world.connect("update_blocks",self,"on_update")
@@ -85,19 +66,45 @@ func _ready():
 			if data.empty():
 				data = []
 		117:
-			$Sprite.modulate = Color("c74fa0ef")
-			if layer == 1:
-				z_index = 10
 			collision_layer = 32
-			if data.has("water_level"):
-				water_level = data["water_level"]
-			if world.get_block_id(pos-Vector2(0,1),layer) == 117:
-				$Sprite.texture = water_textures["bottom"]
+			$Sprite.modulate = Color("bb93ccfe")
+			update_water_texture()
+		119:
+			main.connect("weather_changed",self,"weather_changed")
+			if ["rain","showers","snow","blizzard"].has(main.currentWeather):
+				$check.start(rand_range(10,30))
+		121,122,123:
+			position.y -= 3
+			$CollisionShape2D.disabled = true
+			$Sprite.material = load("res://shaders/tree_shader.tres").duplicate(true)
+			var plant = {121:"wheat",122:"tomato",123:"corn"}[id]
+			if data.has("tick_wait"):
+				$Sprite.texture = load("res://textures/blocks2X/plants/"+ plant +"/" + plant + "_stage_" + str(data["plant_stage"]) + ".png")
+				if data["plant_stage"] < 3:
+					$Tick.start()
 			else:
-				$Sprite.texture = water_textures[water_level]
+				$Sprite.texture = load("res://textures/blocks2X/plants/"+ plant+"/"+ plant+"_stage_0.png")
+				data["tick_wait"] = int(rand_range(600,700))
+				data["plant_stage"] = 0
+				$Tick.start()
+		128:
+			position.y -= 4
+			$CollisionShape2D.disabled = true
+			$Sprite.material = load("res://shaders/tree_shader.tres").duplicate(true)
 
 func world_loaded():
 	on_update()
+
+func weather_changed(weather):
+	if ["rain","showers","snow","blizzard"].has(weather):
+		$check.start(rand_range(10,30))
+
+func update_water_texture(noTop : bool = false):
+	if data["water_level"] > 0:
+		if world.get_block_id(pos-Vector2(0,1),layer) == 117 and !noTop:
+			$Sprite.texture = load("res://textures/blocks2X/water/water_bottom.png")
+		else:
+			$Sprite.texture = load("res://textures/blocks2X/water/water_" + str(data["water_level"]) + ".png")
 
 func on_update():
 	if layer < 1:
@@ -120,6 +127,10 @@ func on_update():
 	
 	if world.worldLoaded and visible:
 		match id:
+			6,7:
+				var bottomBlock = world.get_block_id(pos+Vector2(0,1),layer)
+				if ![1,2].has(bottomBlock):
+					world.build_event("Break", pos, layer)
 			10:
 				if world.get_block_id(pos - Vector2(0,1),layer) == 10 or world.get_block_id(pos + Vector2(0,1),layer) == 10:
 					$Sprite.texture = load("res://textures/blocks2X/log_v.png")
@@ -180,29 +191,34 @@ func on_update():
 				else:
 					$Sprite.region_rect.position = Vector2(0,16)
 			117:
-				if world.get_block_id(pos-Vector2(0,1),layer) == 117:
-					$Sprite.texture = water_textures["bottom"]
-				else:
-					if [0,1,2,3,4].has(water_level):
-						$Sprite.texture = water_textures[water_level]
-					else:
-						$Sprite.texture = water_textures[0]
 				var activate = false
-				var blocks = {Vector2(0,1):world.get_block(pos+Vector2(0,1),layer),Vector2(-1,0):world.get_block(pos-Vector2(1,0),layer),Vector2(1,0):world.get_block(pos+Vector2(1,0),layer)}
-				for aroundPos in blocks:
-					var aroundId = 0 if blocks[aroundPos] == null else blocks[aroundPos].id
-					if (aroundPos != Vector2(-1,0) or pos.x > 0) and (aroundPos != Vector2(0,1) or pos.y < world.worldSize.y - 1) and (aroundPos != Vector2(1,0) or pos.x < world.worldSize.x - 1) and (aroundId == 0 or (aroundId == 117 and blocks[aroundPos].water_level < 4)):
-						activate = true
-						break
-				if activate:
-					if $Tick.time_left <= 0:
+				var moves = [pos+Vector2(0,1),pos+Vector2(1,0),pos-Vector2(1,0)]
+				var id = 0
+				for move in moves:
+					if move.x >= 0 and move.x < world.worldSize.x and move.y < world.worldSize.y:
+						var levelTest = 4 if id == 0 else data["water_level"]
+						var block = world.get_block(move,layer)
+						if block == null or (block.id == 117 and block.data["water_level"] < levelTest) or block.id == 119:
+							activate = true
+					id += 1
+				if activate and !world.waterUpdateList.has(self):
+					world.waterUpdateList.append(self)
+				elif !activate and world.waterUpdateList.has(self):
+					world.waterUpdateList.erase(self)
+				update_water_texture()
+			121,122,123:
+				var bottomBlock = world.get_block(pos+Vector2(0,1),layer)
+				if bottomBlock == null:
+					world.build_event("Break", pos, layer)
+				elif bottomBlock.id == 120:
+					if data["tick_wait"] <= 0 and data["plant_stage"] < 3:
+						data["tick_wait"] = int(rand_range(600,700))
 						$Tick.start()
-				else:
-					$Tick.stop()
-
-#func _process(delta):
-#	if water_level <= 0:
-#		queue_free()
+			128:
+				$Sprite.texture = load("res://textures/blocks2X/plants/fig_tree.png")
+				var bottomBlock = world.get_block_id(pos+Vector2(0,1),layer)
+				if ![1,2].has(bottomBlock):
+					world.build_event("Break", pos, layer)
 
 func get_sides(blockId : int) -> Dictionary:
 	return {"left":world.get_block_id(pos - Vector2(1,0),layer) == blockId,"right":world.get_block_id(pos + Vector2(1,0),layer) == blockId,"top":world.get_block_id(pos - Vector2(0,1),layer) == blockId,"bottom":world.get_block_id(pos + Vector2(0,1),layer) == blockId,"rightTop":world.get_block_id(pos + Vector2(1,-1),layer) == blockId,"leftTop":world.get_block_id(pos - Vector2(1,1),layer) == blockId,"bottomRight":world.get_block_id(pos + Vector2(1,1),layer) == blockId}
@@ -210,7 +226,7 @@ func get_sides(blockId : int) -> Dictionary:
 func _on_Tick_timeout():
 	match id:
 		18,14:
-			if world.get_block(pos+ Vector2(2,0),layer) != null and world.get_block(pos+ Vector2(2,0),layer).falling:
+			if [18,14].has(world.get_block_id(pos+ Vector2(2,0),layer)) and world.get_block(pos+ Vector2(2,0),layer).falling:
 				yield(get_tree(),"idle_frame")
 			match world.get_block_id(fallPos,layer):
 				0:
@@ -218,41 +234,51 @@ func _on_Tick_timeout():
 					world.set_block(pos,layer,0,true)
 				117:
 					world.set_block(pos,layer,0)
-					world.set_block(pos,layer,117,true,{"water_level":world.get_block(fallPos,layer).water_level})
+					world.set_block(pos,layer,117,true,{"water_level":world.get_block(fallPos,layer).data["water_level"]})
 					world.set_block(fallPos,layer,0)
 					world.set_block(fallPos,layer,id,true)
 			falling = false
 		117:
-			if world.get_block_id(pos + Vector2(0,1),layer) == 0 and pos.y < world.worldSize.y-1:
-				world.set_block(pos + Vector2(0,1),layer,117,true,{"water_level":1})
-				water_level -= 1
-			elif world.get_block_id(pos+Vector2(0,1),layer) == 117 and world.get_block(pos+Vector2(0,1),layer).water_level < 4:
-				world.get_block(pos+Vector2(0,1),layer).water_level += 1
-				water_level -= 1
-				world.update_area(pos)
-			else:
-				var leftLevel = 0 if world.get_block_id(pos - Vector2(1,0),layer) == 0 and pos.x > 0 else 4
-				if world.get_block_id(pos-Vector2(1,0),layer) == 117:
-					leftLevel = world.get_block(pos-Vector2(1,0),layer).water_level
-				var rightLevel = 0 if world.get_block_id(pos + Vector2(1,0),layer) == 0 and pos.x < world.worldSize.x-1 else 4
-				if world.get_block_id(pos+Vector2(1,0),layer) == 117:
-					rightLevel = world.get_block(pos+Vector2(1,0),layer).water_level
-				var otherLevel = leftLevel if (leftLevel < rightLevel and leftLevel != rightLevel) or (leftLevel == rightLevel and randi()%2==1) else rightLevel
-				var otherPos = Vector2(-1,0) if (leftLevel < rightLevel and leftLevel != rightLevel) or (leftLevel == rightLevel and randi()%2==1) else Vector2(1,0)
-				if otherLevel < water_level:
-					if otherLevel == 0:
-						world.set_block(pos + otherPos,layer,117,true,{"water_level":1})
-						water_level -= 1
-					elif otherLevel < 4:
-						world.get_block(pos+otherPos,layer).water_level += 1
-						water_level -= 1
-						world.update_area(pos)
-			if water_level <= 0:
-				world.set_block(pos,layer,0,true)
-			elif world.get_block_id(pos-Vector2(0,1),layer) == 117:
-				$Sprite.texture = water_textures["bottom"]
-			else:
-				$Sprite.texture = water_textures[water_level]
+			var moves = [pos+Vector2(1,0),pos-Vector2(1,0)]
+			var changed = false
+			moves.shuffle()
+			moves.insert(0,pos+Vector2(0,1))
+			var changedTo = null
+			for move in moves:
+				if move.x >= 0 and move.x < world.worldSize.x and move.y < world.worldSize.y:
+					var blockAt = world.get_block(move,layer)
+					if blockAt == null:
+						world.set_block(move,layer,117,false,{"water_level":1})
+						changedTo = move
+						data["water_level"] -= 1
+						changed = true
+						break
+					elif blockAt.id == 119:
+						world.set_block(move,layer,120,true)
+						data["water_level"] -= 1
+						changed = true
+						break
+					elif blockAt.id == 117 and ((blockAt.data["water_level"] < data["water_level"]) or (move == pos+Vector2(0,1) and blockAt.data["water_level"] < 4)):
+						blockAt.data["water_level"] += 1
+						data["water_level"] -= 1
+						changed = true
+						changedTo = move
+						blockAt.update_water_texture()
+						break
+			if data["water_level"] <= 0:
+				world.set_block(pos,layer,0)
+				if changedTo != null:
+					world.get_block(changedTo,layer).update_water_texture(true)
+			elif changed:
+				update_water_texture()
+		121,122,123:
+			data["tick_wait"] -= 1
+			if data["tick_wait"] <= 0:
+				data["plant_stage"] += 1
+				world.set_block(pos+Vector2(0,1),layer,119)
+				$Tick.stop()
+				var plant = {121:"wheat",122:"tomato",123:"corn"}[id]
+				$Sprite.texture = load("res://textures/blocks2X/plants/"+ plant+"/"+ plant+"_stage_" + str(data["plant_stage"]) + ".png")
 
 func _on_VisibilityNotifier2D_screen_entered():
 	show()
@@ -279,3 +305,8 @@ func _on_check_timeout():
 			world.set_block(pos,layer,9)
 		85:
 			world.set_block(pos,layer,76)
+		119:
+			if ["rain","showers","snow","blizzard"].has(main.currentWeather):
+				world.set_block(pos,layer,120,true)
+			else:
+				$check.stop()

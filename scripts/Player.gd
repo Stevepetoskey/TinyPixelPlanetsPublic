@@ -32,6 +32,7 @@ var flying = false
 var defPoints = 0
 
 var dead = false
+var flipped = false
 
 var enemies = []
 
@@ -81,12 +82,16 @@ func _physics_process(_delta):
 		if inventory.inventory.size() > 0:
 			if Input.is_action_pressed("build"):
 				swing(inventory.inventory[0]["id"])
-			if Input.is_action_pressed("build2") and inventory.inventory.size() > 1:
+			elif Input.is_action_pressed("build2") and inventory.inventory.size() > 1:
 				swing(inventory.inventory[1]["id"])
 			elif Input.is_action_pressed("action1"):
 				swing(inventory.jId)
 			elif Input.is_action_pressed("action2"):
 				swing(inventory.kId)
+			else:
+				swinging = false
+				if $Textures/AnimationPlayer.current_animation == "water":
+					$Textures/AnimationPlayer.play("idle")
 		#Collision modifiers
 		if Input.is_action_pressed("down"):
 			if !world.hasGravity:
@@ -195,15 +200,21 @@ func _physics_process(_delta):
 		
 		if (get_global_mouse_position().x - position.x < 0 or motion.x < 0) and !motion.x > 0:
 			$Textures.set_global_transform(Transform2D(Vector2(-1,0),Vector2(0,1),Vector2(position.x,position.y)))
+			flipped = true
 		elif get_global_mouse_position().x - position.x > 0 or motion.x > 0:
 			$Textures.set_global_transform(Transform2D(Vector2(1,0),Vector2(0,1),Vector2(position.x,position.y)))
+			flipped = false
 		
 		motion = move_and_slide(motion,Vector2(0,-1),true)
 
 func swing(item):
-	if world.itemData.has(item) and item > 0 and ["Tool","weapon"].has(world.itemData[item]["type"]) and !swinging:
+	if world.itemData.has(item) and item > 0 and ["Tool","weapon","Hoe","Watering_can"].has(world.itemData[item]["type"]) and !swinging:
 		$Textures/Weapon.texture = world.itemData[item]["big_texture"]
-		$Textures/AnimationPlayer.play("swing")
+		if world.itemData[item]["type"] == "Watering_can":
+			if !swinging:
+				$Textures/AnimationPlayer.play("water")
+		else:
+			$Textures/AnimationPlayer.play("swing")
 		swinging = true
 		swingingWith = item
 		if world.itemData[item]["type"] == "weapon":

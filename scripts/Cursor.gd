@@ -71,43 +71,52 @@ func _unhandled_input(_event):
 					91:
 						inventory.inventoryToggle(false,true,"chest")
 			elif (Input.is_action_pressed("build") and inventory.inventory.size() > 0) or (Input.is_action_pressed("build2") and inventory.inventory.size() > 1):
-				var selectedId = inventory.inventory[0 if Input.is_action_pressed("build") or inventory.inventory.size() < 2 else 1]["id"]
+				var slot = 0 if Input.is_action_pressed("build") or inventory.inventory.size() < 2 else 1
+				var selectedId = inventory.inventory[slot]["id"]
 				if (currentLayer == 0 or canPlace) and world.blockData.has(selectedId) and world.worldRules["place_blocks"]["value"]:
 					world.build_event("Build",cursorPos,currentLayer,selectedId)#Vector2(int(position.x),int(position.y)),1,inventory.inventory[0]["id"])
 				elif world.itemData.has(selectedId):
-					tool_action(selectedId)
+					tool_action(selectedId,slot)
 		elif Input.is_action_pressed("action1") or Input.is_action_pressed("action2"):
 			var ref = inventory.jRef
 			if Input.is_action_pressed("action2"):
 				ref = inventory.kRef
 			if ref != -1:
-				tool_action(inventory.inventory[ref]["id"])
+				tool_action(inventory.inventory[ref]["id"],ref)
 		elif breaking:
 			stop_breaking()
 
-func tool_action(itemId : int) -> void:
+func tool_action(itemId : int, ref := 0) -> void:
 	var itemSelect = world.itemData[itemId]
 	match itemSelect["type"]:
-		"Bucket":
-			match itemId:
-				113,114:
-					if world.get_block_id(cursorPos,currentLayer) == 117 and world.get_block(cursorPos,currentLayer).water_level == 4 and world.worldRules["break_blocks"]["value"]:
-						inventory.remove_id_from_inventory(itemId,1)
+		"Bucket","Watering_can":
+			if world.get_block_id(cursorPos,currentLayer) == 117 and world.worldRules["break_blocks"]["value"]:
+				var water = world.get_block(cursorPos,currentLayer)
+				if inventory.inventory[ref].has("data") and inventory.inventory[ref]["data"].has("water"):
+					var bucketWaterLevel = inventory.inventory[ref]["data"]["water"]
+					print("before bucket water: ",bucketWaterLevel)
+					print("water level: ",water.data["water_level"])
+					if bucketWaterLevel + water.data["water_level"] < 4:
+						inventory.inventory[ref]["data"]["water"] += water.data["water_level"]
 						world.set_block(cursorPos,currentLayer,0,true)
-						inventory.add_to_inventory(115 if itemId == 113 else 116,1)
-				115,116:
-					if world.worldRules["place_blocks"]["value"]:
-						var success = false
-						if world.get_block_id(cursorPos,currentLayer) == 0:
-							success = true
-							world.set_block(cursorPos,currentLayer,117,true,{"water_level":4})
-						elif world.get_block_id(cursorPos,currentLayer) == 117:
-							success = true
-							world.get_block(cursorPos,currentLayer).water_level = 4
-							world.get_block(cursorPos,currentLayer).on_update()
-						if success:
-							inventory.remove_id_from_inventory(itemId,1)
-							inventory.add_to_inventory(113 if itemId == 115 else 114,1)
+					else:
+						print("to much water")
+						water.data["water_level"] -= 4 - bucketWaterLevel
+						if water.data["water_level"] <= 0:
+							world.set_block(cursorPos,currentLayer,0,true)
+						water.update_water_texture()
+						water.on_update()
+						inventory.inventory[ref]["data"]["water"] = 4
+				else:
+					inventory.inventory[ref]["data"] = {"water":water.data["water_level"]}
+					world.set_block(cursorPos,currentLayer,0,true)
+			elif itemSelect["type"] != "Watering_can" and world.worldRules["place_blocks"]["value"] and inventory.inventory[ref].has("data") and inventory.inventory[ref]["data"].has("water") and inventory.inventory[ref]["data"]["water"] > 0:
+				world.set_block(cursorPos,currentLayer,117,true,{"water_level":inventory.inventory[ref]["data"]["water"]})
+				inventory.inventory[ref]["data"]["water"] = 0
+			elif itemSelect["type"] == "Watering_can" and inventory.inventory[ref].has("data") and inventory.inventory[ref]["data"].has("water") and inventory.inventory[ref]["data"]["water"] > 0:
+				$"../Effects".spray(player.position,player.flipped)
+				inventory.inventory[ref]["data"]["water"] -= 1
+			inventory.update_inventory()
 		"Tool":
 			if !breaking and world.get_block_id(cursorPos,currentLayer) > 0 and world.blockData[world.get_block_id(cursorPos,currentLayer)]["breakWith"] != "None" and itemSelect["strength"] >= world.blockData[world.get_block_id(cursorPos,currentLayer)]["canHaverst"] and world.worldRules["break_blocks"]["value"]:
 				var hardness = world.blockData[world.get_block_id(cursorPos,currentLayer)]["hardness"]
@@ -117,6 +126,9 @@ func tool_action(itemId : int) -> void:
 					$break/AnimationPlayer.playback_speed = (1 / float(hardness)) * itemSelect["speed"]
 					$break/AnimationPlayer.play("break")
 					breaking = true
+		"Hoe":
+			if [1,2].has(world.get_block_id(cursorPos,currentLayer)):
+				world.set_block(cursorPos,currentLayer,119,true)
 
 func stop_breaking():
 	breaking = false

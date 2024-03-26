@@ -137,9 +137,8 @@ func set_background(type : String):
 			if type == "ocean":
 				$back.motion_scale.y = 0.9
 				$front.motion_scale.y = 0.95
-				$back.motion_offset.y += 30
-				$front.motion_offset.y += 30
-
+				$back.motion_offset.y += 155
+				$front.motion_offset.y += 165
 
 func _on_World_world_loaded():
 	if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:

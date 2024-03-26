@@ -81,7 +81,7 @@ tracks/0/keys = {
 [sub_resource type="CircleShape2D" id=4]
 radius = 8.0
 
-[node name="Blues" type="KinematicBody2D" groups=["item"]]
+[node name="Blues" type="KinematicBody2D"]
 z_index = 5
 collision_layer = 16
 script = ExtResource( 1 )

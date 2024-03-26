@@ -115,8 +115,8 @@ var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra
 }
 
 var sizeData = { #Normal moon chance: 10,50,95 (40,80), (50,150), (60,240)
-	sizeTypes.small:{"moon_chance":20,"distance":range(40,80),"radius":7,"world_size":Vector2(128,32)},
-	sizeTypes.medium:{"moon_chance":70,"distance":range(50,150),"radius":14,"world_size":Vector2(256,32)},
+	sizeTypes.small:{"moon_chance":20,"distance":range(40,80),"radius":7,"world_size":Vector2(128,64)},
+	sizeTypes.medium:{"moon_chance":70,"distance":range(50,150),"radius":14,"world_size":Vector2(256,64)},
 	sizeTypes.large:{"moon_chance":150,"distance":range(60,240),"radius":28},
 }
 

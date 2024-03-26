@@ -39,7 +39,7 @@ func _process(_delta):
 		cursor.currentLayer = int(!bool(cursor.currentLayer))
 		$"../Hotbar/HBoxContainer/BGT".texture.region.position = [Vector2(115,9),Vector2(0,0)][cursor.currentLayer]
 
-func add_to_inventory(id : int,amount : int,drop = true) -> Dictionary:
+func add_to_inventory(id : int,amount : int,drop = true,data := {}) -> Dictionary:
 	if !Global.godmode:
 		match id: #For achievements
 			31:
@@ -63,14 +63,14 @@ func add_to_inventory(id : int,amount : int,drop = true) -> Dictionary:
 					if inventory.size() >= INVENTORY_SIZE:
 						update_inventory()
 						if drop:
-							entities.spawn_item({"id":id,"amount":amount},true)
+							entities.spawn_item({"id":id,"amount":amount,"data":data},true)
 							return {}
 						else:
-							return {"id":id,"amount":amount}
+							return {"id":id,"amount":amount,"data":data}
 					var newAmount = amount
 					if amount > ITEM_STACK_SIZE:
 						newAmount = ITEM_STACK_SIZE
-					inventory.append({"id":id,"amount":newAmount})
+					inventory.append({"id":id,"amount":newAmount,"data":data})
 					amount -= ITEM_STACK_SIZE
 		update_inventory()
 	return {}
@@ -99,7 +99,6 @@ func find_item(id : int) -> Dictionary:
 	return {}
 
 func update_inventory() -> void:
-	
 	#updates blues amount
 	$Blues/Label.text = "*" + str(Global.blues)
 	
@@ -135,12 +134,12 @@ func update_inventory() -> void:
 		#Sets first slot's texture
 		slot1.show()
 		slot1.get_node("Amount").text = str(inventory[0]["amount"])
-		slot1.get_node("Item").texture = world.get_item_texture(inventory[0]["id"])
+		slot1.get_node("Item").texture = get_item_texture(inventory[0]["id"],0)
 		#Sets second slot's texture
 		if inventory.size() > 1:
 			slot2.show()
 			slot2.get_node("Amount").text = str(inventory[1]["amount"])
-			slot2.get_node("Item").texture = world.get_item_texture(inventory[1]["id"])
+			slot2.get_node("Item").texture = get_item_texture(inventory[1]["id"],1)
 		else:
 			slot2.hide()
 		
@@ -174,7 +173,7 @@ func update_inventory() -> void:
 			var itemNode = INV_BTN.instance()
 			itemNode.rect_position = Vector2(x*50,y*16)
 			itemNode.loc = item
-			itemNode.get_node("Sprite").texture = world.get_item_texture(inventory[item]["id"])
+			itemNode.get_node("Sprite").texture = get_item_texture(inventory[item]["id"],item)
 			itemNode.get_node("Amount").text = str(inventory[item]["amount"])
 			$items.get_node(str(int((item-1) / float(ITEM_PER_PAGE)))).add_child(itemNode)
 			loc += 1
@@ -187,6 +186,15 @@ func update_inventory() -> void:
 		currentPage = int((inventory.size()-2) / float(ITEM_PER_PAGE))
 	update_buttons()
 	crafting.update_crafting()
+
+func get_item_texture(id : int, loc : int):
+	match id:
+		113:
+			return load("res://textures/items/" +("water_" if inventory[loc].has("data") and inventory[loc]["data"].has("water") and inventory[loc]["data"]["water"] > 0 else "")+ "bucket.png")
+		114:
+			return load("res://textures/items/" +("water_" if inventory[loc].has("data") and inventory[loc]["data"].has("water") and inventory[loc]["data"]["water"] > 0 else "")+ "copper_bucket.png")
+		_:
+			return world.get_item_texture(id)
 
 func update_buttons() -> void:
 	for child in $items.get_children():
@@ -263,7 +271,7 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 
 func inv_btn_action(location : int,action : String) -> void:
 	var item = inventory[location]["id"]
-	if world.itemData.has(item) and ["Tool","weapon"].has(world.itemData[item]["type"]):
+	if world.itemData.has(item) and ["Tool","weapon","Hoe"].has(world.itemData[item]["type"]):
 		$equip.play()
 		match action:
 			"j":

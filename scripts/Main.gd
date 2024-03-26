@@ -12,6 +12,10 @@ var tutorialStage = 0
 var currentWeather = "none"
 var worldType : String
 
+var weatherStartData = {}
+
+signal weather_changed
+
 func _ready():
 	StarSystem.connect("start_meteors",self,"start_meteors")
 	$CanvasLayer/Black.show()
@@ -22,15 +26,19 @@ func _ready():
 func _process(delta):
 	$CanvasLayer/FPS.text = str(Engine.get_frames_per_second())
 
-func weather_event(random = true,time = [200,500], set = "none"):
+func weather_event(random = true,time = [200,500], set = "none",start = true):
 	var weatherRandom = RandomNumberGenerator.new()
 	weatherRandom.seed = randi()
 	if random:
 		set = StarSystem.weatherEvents[worldType][weatherRandom.randi()%StarSystem.weatherEvents[worldType].size()]
 	print("starting weather: ",set)
 	currentWeather = set
-	weatherAnimation.play(set)
+	emit_signal("weather_changed",set)
+	weatherAnimation.play(set + ("" if start else "_no_start"))
 	weatherTimer.start(weatherRandom.randf_range(time[0],time[1]))
+
+func set_weather(random = true,time = [200,500], set = "none",start = true):
+	weatherStartData = {"random":random,"time":time,"set":set,"start":start}
 
 func _on_World_world_loaded():
 	worldType = StarSystem.find_planet_id(Global.currentPlanet).type["type"]
@@ -53,7 +61,10 @@ func _on_World_world_loaded():
 		$World/TutorialParts/Sprint/CollisionShape2D.shape = null
 		$World/TutorialParts/Chest/CollisionShape2D.shape = null
 		$World/TutorialParts/Mine/CollisionShape2D.shape = null
-	weather_event(false,[0,500])
+	if weatherStartData.empty():
+		weather_event(false,[0,500])
+	else:
+		weather_event(weatherStartData["random"],weatherStartData["time"],weatherStartData["set"],weatherStartData["start"])
 
 func screenshot():
 	$CanvasLayer.hide()

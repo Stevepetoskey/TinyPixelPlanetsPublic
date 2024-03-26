@@ -15,17 +15,26 @@ var meteorTypes = {
 	10:{"radius":30,"amount":100},
 }
 
-export var meteorSpawnTime = [5,10]
+export var meteorSpawnTime : Array = [5,10]
+export var StageProgressTime = 60
+
+var savedProgressTime = 0
 
 var stage = 2
 
 func _ready():
-	pass
-	#start_meteors()
+	StarSystem.connect("start_meteors",self,"start_meteors")
+	if Global.meteorsAttacked:
+		meteorSpawnTime[0] -= stage/2.0
+		meteorSpawnTime[1] -= stage/2.0
+		start_meteors(true)
+		$StageProgress.start(savedProgressTime)
 
-func start_meteors():
-	stage = 2
+func start_meteors(saved : bool = false):
+	Global.meteorsAttacked = true
 	$MeteorTimer.start(rand_range(meteorSpawnTime[0],meteorSpawnTime[1]))
+	if !saved:
+		$StageProgress.start(StageProgressTime)
 
 func _on_MeteorTimer_timeout():
 	var meteor = METEOR.instance()
@@ -36,3 +45,10 @@ func _on_MeteorTimer_timeout():
 	meteor.texture = load("res://textures/enviroment/meteors/meteor" + str(meteorType) + ".png")
 	add_child(meteor)
 	$MeteorTimer.start(rand_range(meteorSpawnTime[0],meteorSpawnTime[1]))
+
+func _on_StageProgress_timeout():
+	stage += 2
+	meteorSpawnTime[0] -= 1; meteorSpawnTime[1] -= 1
+	if stage > 10:
+		$MeteorTimer.stop()
+		$StageProgress.stop()

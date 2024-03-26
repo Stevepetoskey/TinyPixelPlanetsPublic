@@ -45,3 +45,19 @@
 - Added achievements
 - Made player's name also the name of the save
 - Fixed parallax background not loading when it should
+## TU4 Beta 7 (v0.4.0:7)
+- Made improvements to the water system (No more infinite water bugs)
+- Removed scenario gui (Scenarios are no longer planned for TU4)
+- Added wheat that grows and can be harvested
+- Water now makes dry farmland wet
+- Rain now makes dry farmland wet
+- Added new command: weather [rain | showers | snow | blizzards]
+- Weather now saves
+- Added Fig tree that has a chance to drop wheat, tomato, and corn seeds
+- Fixed duplicated chest recipe costing 78 wood planks
+- Added stone and silver hoes
+- Doubled world height (64 blocks now)
+- Made some block optimizations
+- Added Silver and Copper watering cans
+- Water buckets can now hold less than a full block of water 
+- Added data property to items

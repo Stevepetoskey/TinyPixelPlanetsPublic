@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://textures/player/Body/Guy.png" type="Texture" id=2]
@@ -7,7 +7,7 @@
 [ext_resource path="res://textures/player/Hair/Beard.png" type="Texture" id=5]
 [ext_resource path="res://textures/player/Bottoms/Space.png" type="Texture" id=6]
 [ext_resource path="res://textures/player/Tops/Guy/Space.png" type="Texture" id=7]
-[ext_resource path="res://textures/weapons/wood_pick.png" type="Texture" id=8]
+[ext_resource path="res://textures/weapons/silver_watering_can.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 1, 0.5 )
@@ -581,6 +581,119 @@ tracks/6/keys = {
 "values": [ 0.0 ]
 }
 
+[sub_resource type="Animation" id=11]
+resource_name = "water"
+length = 0.75
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("Textures/body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 15, 16 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Textures/pants:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 15, 16 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Textures/boots:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 15, 16 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Textures/shirt:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 15, 16 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Textures/headwear:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 15, 16 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Textures/Weapon:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Textures/Weapon:position")
+tracks/6/interp = 0
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 13, 0 ), Vector2( 10, 9 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Textures/Weapon:rotation_degrees")
+tracks/7/interp = 0
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 45.0 ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("CollisionShape2D:rotation_degrees")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
 [sub_resource type="CapsuleShape2D" id=9]
 radius = 3.5
 height = 15.0
@@ -660,6 +773,7 @@ anims/jump = SubResource( 6 )
 anims/swim = SubResource( 10 )
 anims/swing = SubResource( 7 )
 anims/walk = SubResource( 8 )
+anims/water = SubResource( 11 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 3 )

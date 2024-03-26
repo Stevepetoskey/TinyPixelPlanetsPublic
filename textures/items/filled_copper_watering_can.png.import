@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tomate_stage_3.png-5ea47a9e11859925d3ef340de5f640ee.stex"
+path="res://.import/filled_copper_watering_can.png-65bdf5adf42b729a6c0d80765e432aee.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/blocks2X/plants/tomato/tomate_stage_3.png"
-dest_files=[ "res://.import/tomate_stage_3.png-5ea47a9e11859925d3ef340de5f640ee.stex" ]
+source_file="res://textures/items/filled_copper_watering_can.png"
+dest_files=[ "res://.import/filled_copper_watering_can.png-65bdf5adf42b729a6c0d80765e432aee.stex" ]
 
 [params]
 

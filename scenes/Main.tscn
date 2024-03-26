@@ -1,4 +1,4 @@
-[gd_scene load_steps=158 format=2]
+[gd_scene load_steps=162 format=2]
 
 [ext_resource path="res://scripts/World.gd" type="Script" id=1]
 [ext_resource path="res://textures/enviroment/sky.png" type="Texture" id=2]
@@ -986,6 +986,106 @@ tracks/7/keys = {
 "values": [ 5.0 ]
 }
 
+[sub_resource type="Animation" id=107]
+resource_name = "blizzard_no_start"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.8, 0.8, 0.8, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Rain:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Snow:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Snow:amount")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 200 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Snow:process_material:initial_velocity")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 50.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Snow:process_material:direction")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.5, 1, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Snow:lifetime")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 5.0 ]
+}
+
 [sub_resource type="Animation" id=95]
 resource_name = "blizzard_stop"
 length = 1.5
@@ -1103,6 +1203,94 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Rain:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Rain:amount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 100 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Rain:process_material:direction")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.5, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Rain:process_material:initial_velocity")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 200.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Snow:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=108]
+resource_name = "rain_no_start"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Rain:emitting")
@@ -1305,6 +1493,94 @@ tracks/6/keys = {
 "values": [ false ]
 }
 
+[sub_resource type="Animation" id=109]
+resource_name = "showers_no_start"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.752941, 0.752941, 0.752941, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Rain:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Rain:amount")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 200 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Rain:process_material:direction")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0.75, 1, 0 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Rain:process_material:initial_velocity")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 350.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Snow:emitting")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
 [sub_resource type="Animation" id=100]
 resource_name = "showers_stop"
 length = 1.5
@@ -1383,6 +1659,106 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Rain:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Snow:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Snow:amount")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 100 ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Snow:process_material:initial_velocity")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 20.0 ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Snow:process_material:direction")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 1, 0 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Snow:lifetime")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 10.0 ]
+}
+
+[sub_resource type="Animation" id=110]
+resource_name = "snow_no_start"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Rain:emitting")
@@ -1616,10 +1992,12 @@ script = ExtResource( 67 )
 [node name="MeteorTimer" type="Timer" parent="CanvasLayer/Enviroment/Meteors"]
 one_shot = true
 
+[node name="StageProgress" type="Timer" parent="CanvasLayer/Enviroment/Meteors"]
+
 [node name="back" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
 modulate = Color( 1, 0.662745, 0.282353, 1 )
 motion_scale = Vector2( 0.1, 0.1 )
-motion_offset = Vector2( 0, -26 )
+motion_offset = Vector2( 0, 10 )
 motion_mirroring = Vector2( 640, 0 )
 
 [node name="Sprite" type="Sprite" parent="CanvasLayer/Enviroment/back"]
@@ -1631,7 +2009,7 @@ region_rect = Rect2( 0, 0, 640, 180 )
 [node name="front" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
 modulate = Color( 0.427451, 0.368627, 0.47451, 1 )
 motion_scale = Vector2( 0.3, 0.3 )
-motion_offset = Vector2( 0, -26 )
+motion_offset = Vector2( 0, 35 )
 motion_mirroring = Vector2( 640, 0 )
 
 [node name="Sprite" type="Sprite" parent="CanvasLayer/Enviroment/front"]
@@ -2309,7 +2687,7 @@ anchor_bottom = 1.0
 margin_top = -13.0
 custom_colors/font_outline_modulate = Color( 0.278431, 0.278431, 0.278431, 1 )
 custom_fonts/font = ExtResource( 57 )
-text = "Tiny Pixel Planets TU4 Beta 6 (Development Build)"
+text = "Tiny Pixel Planets TU4 Beta 7 (Development Build)"
 align = 1
 valign = 1
 
@@ -2318,6 +2696,7 @@ script = ExtResource( 1 )
 worldNoise = ExtResource( 51 )
 asteroidNoise = SubResource( 79 )
 oceanNoise = SubResource( 92 )
+noiseScale = 25
 
 [node name="blocks" type="Node2D" parent="World"]
 modulate = Color( 0.427451, 0.368627, 0.47451, 1 )
@@ -2370,6 +2749,12 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Mine"]
 shape = SubResource( 91 )
+
+[node name="GlobalTick" type="Timer" parent="World"]
+wait_time = 0.1
+autostart = true
+
+[node name="Deleting" type="Node2D" parent="World"]
 
 [node name="Cursor" type="Sprite" parent="."]
 z_index = 5
@@ -2460,13 +2845,17 @@ texture = ExtResource( 45 )
 [node name="WeatherAnimation" type="AnimationPlayer" parent="weather"]
 anims/RESET = SubResource( 93 )
 anims/blizzard = SubResource( 94 )
+anims/blizzard_no_start = SubResource( 107 )
 anims/blizzard_stop = SubResource( 95 )
 anims/none = SubResource( 96 )
 anims/rain = SubResource( 97 )
+anims/rain_no_start = SubResource( 108 )
 anims/rain_stop = SubResource( 98 )
 anims/showers = SubResource( 99 )
+anims/showers_no_start = SubResource( 109 )
 anims/showers_stop = SubResource( 100 )
 anims/snow = SubResource( 101 )
+anims/snow_no_start = SubResource( 110 )
 anims/snow_stop = SubResource( 102 )
 
 [node name="WeatherTimer" type="Timer" parent="weather"]
@@ -2485,6 +2874,7 @@ texture = ExtResource( 66 )
 script = ExtResource( 47 )
 
 [connection signal="timeout" from="CanvasLayer/Enviroment/Meteors/MeteorTimer" to="CanvasLayer/Enviroment/Meteors" method="_on_MeteorTimer_timeout"]
+[connection signal="timeout" from="CanvasLayer/Enviroment/Meteors/StageProgress" to="CanvasLayer/Enviroment/Meteors" method="_on_StageProgress_timeout"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn" to="CanvasLayer/Inventory" method="_on_InventoryBtn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn2" to="CanvasLayer/Inventory" method="_on_InventoryBtn2_pressed"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/GoUp" to="World" method="_on_GoUp_pressed"]
@@ -2506,6 +2896,7 @@ script = ExtResource( 47 )
 [connection signal="body_exited" from="World/TutorialParts/Sprint" to="." method="_on_Sprint_body_exited"]
 [connection signal="body_entered" from="World/TutorialParts/Chest" to="." method="_on_Chest_body_entered"]
 [connection signal="body_entered" from="World/TutorialParts/Mine" to="." method="_on_Mine_body_entered"]
+[connection signal="timeout" from="World/GlobalTick" to="World" method="_on_GlobalTick_timeout"]
 [connection signal="body_entered" from="Cursor/playerTest" to="Cursor" method="_on_playerTest_body_entered"]
 [connection signal="body_exited" from="Cursor/playerTest" to="Cursor" method="_on_playerTest_body_exited"]
 [connection signal="animation_finished" from="Cursor/break/AnimationPlayer" to="Cursor" method="_on_AnimationPlayer_animation_finished"]

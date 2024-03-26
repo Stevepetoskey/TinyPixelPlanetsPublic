@@ -19,11 +19,13 @@ func update_save_list() -> void:
 				else:
 					save.get_node("Icon").texture = scenarios.scenarios["sandbox"]["icon"]
 			else:
+				save.get_node("Label").text = "Save " + str(save.id + 1)
 				save.get_node("Icon").texture = scenarios.scenarios["empty"]["icon"]
 			save.get_node("stats").hide()
 			save.get_node("delete").show()
 		else:
 			save.get_node("stats").show()
+			save.get_node("Label").text = "Save " + str(save.id + 1)
 			save.get_node("Icon").texture = scenarios.scenarios["empty"]["icon"]
 			save.get_node("delete").hide()
 

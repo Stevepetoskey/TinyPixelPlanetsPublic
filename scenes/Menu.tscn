@@ -526,10 +526,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -142.0
-margin_top = -64.0
-margin_right = 50.0
-margin_bottom = 128.0
+margin_top = 16.0
+margin_right = 192.0
+margin_bottom = 208.0
 texture = ExtResource( 3 )
 expand = true
 stretch_mode = 6
@@ -892,6 +891,7 @@ margin_bottom = 131.5
 texture_normal = SubResource( 10 )
 
 [node name="Scenarios" type="Button" parent="World/character"]
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -903,6 +903,7 @@ margin_bottom = 26.5
 text = "Scenarios"
 
 [node name="CurrentScenario" type="HBoxContainer" parent="World/character"]
+visible = false
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -955,7 +956,7 @@ anchor_bottom = 1.0
 margin_top = -8.0
 custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
 custom_fonts/font = ExtResource( 1 )
-text = "Tiny Pixel Planets TU4 Beta 6 (v0.4.0:6)"
+text = "Tiny Pixel Planets TU4 Beta 7 (v0.4.0:7)"
 align = 1
 
 [node name="Credits" type="Control" parent="."]

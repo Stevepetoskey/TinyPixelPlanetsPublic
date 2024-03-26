@@ -1,6 +1,7 @@
 extends Node2D
 
 const BLOCK = preload("res://assets/Block.tscn")
+const SIMPLE_BLOCK = preload("res://assets/blocks/SimpleBlock.tscn")
 const BLOCK_SIZE = Vector2(8,8)
 
 export var worldSize = Vector2(16,24)
@@ -8,22 +9,25 @@ export var worldNoise : OpenSimplexNoise
 export var asteroidNoise : OpenSimplexNoise
 export var oceanNoise : OpenSimplexNoise
 export var noiseScale = 15
-export var worldHeight = 10
+export var worldHeight = 20
 
-onready var inventory = get_node("../CanvasLayer/Inventory")
-onready var enviroment = get_node("../CanvasLayer/Enviroment")
-onready var armor = get_node("../CanvasLayer/Inventory/Armor")
-onready var player = get_node("../Player")
-onready var entities = get_node("../Entities")
+onready var inventory = $"../CanvasLayer/Inventory"
+onready var enviroment = $"../CanvasLayer/Enviroment"
+onready var armor = $"../CanvasLayer/Inventory/Armor"
+onready var player = $"../Player"
+onready var entities = $"../Entities"
+onready var meteors = $"../CanvasLayer/Enviroment/Meteors"
 
 var currentPlanet : Object
 
 var worldLoaded = false
 var hasGravity = true
 
+var waterUpdateList = []
+
 var interactableBlocks = [12,16,28,91]
 
-var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117]
+var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123]
 
 var worldRules = {
 	"break_blocks":{"value":true,"type":"bool"},
@@ -36,74 +40,75 @@ var worldRules = {
 }
 
 var blockData = {
-	1:{"texture":preload("res://textures/blocks2X/grass_block.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":1,"amount":1}],"name":"Grass block"},
-	2:{"texture":preload("res://textures/blocks2X/dirt.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":2,"amount":1}],"name":"Dirt"},
-	3:{"texture":preload("res://textures/blocks2X/stone.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":8,"amount":1}],"name":"Stone"},
-	6:{"texture":preload("res://textures/blocks2X/flower1.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Flower 1","can_place_on":[1,2]},
-	7:{"texture":preload("res://textures/blocks2X/flower2.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Flower 2","can_place_on":[1,2]},
-	8:{"texture":preload("res://textures/blocks2X/Cobble.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":8,"amount":1}],"name":"Cobble"},
-	9:{"texture":preload("res://textures/blocks/tree_small.png"),"hardness":7,"breakWith":"Axe","canHaverst":1,"drops":[{"id":10,"amount":[3,6]},{"id":11,"amount":[0,3]}],"name":"Tree"},
-	10:{"texture":preload("res://textures/blocks2X/log_front.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":10,"amount":1}],"name":"Log"},
-	11:{"texture":preload("res://textures/items/pinecone.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[{"id":11,"amount":1}],"name":"Pinecone","can_place_on":[1,2]},
-	12:{"texture":preload("res://textures/blocks2X/crafting_table.png"),"hardness":2,"breakWith":"Axe","canHaverst":1,"drops":[{"id":12,"amount":1}],"name":"Workbench"},
-	13:{"texture":preload("res://textures/blocks2X/planks.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":13,"amount":1}],"name":"Planks"},
-	14:{"texture":preload("res://textures/blocks2X/sand.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":14,"amount":1}],"name":"Sand"},
-	15:{"texture":preload("res://textures/blocks2X/stone_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":15,"amount":1}],"name":"Stone bricks"},
-	16:{"texture":preload("res://textures/blocks2X/oven.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":16,"amount":1}],"name":"Oven"},
-	17:{"texture":preload("res://textures/blocks2X/mud_stone.png"),"hardness":1.2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":17,"amount":1}],"name":"Mud stone"},
-	18:{"texture":preload("res://textures/blocks2X/mud_stone_dust.png"),"hardness":0.5,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":18,"amount":1}],"name":"Mud stone dust"},
-	19:{"texture":preload("res://textures/blocks2X/mud_stone_bricks.png"),"hardness":1.4,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":19,"amount":1}],"name":"Mud stone bricks"},
-	20:{"texture":preload("res://textures/blocks2X/glass_icon.png"),"hardness":0.1,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":20,"amount":1}],"name":"Glass"},
-	21:{"texture":preload("res://textures/blocks2X/snow_block.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":21,"amount":1}],"name":"Snow block"},
-	22:{"texture":preload("res://textures/blocks2X/sandstone.png"),"hardness":1.3,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":22,"amount":1}],"name":"Sandstone"},
-	23:{"texture":preload("res://textures/blocks2X/sandstone_bricks.png"),"hardness":2.2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":23,"amount":1}],"name":"Sandstone bricks"},
-	24:{"texture":preload("res://textures/blocks2X/grass_snow.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":24,"amount":1}],"name":"Grass snow"},
-	25:{"texture":preload("res://textures/blocks2X/clay.png"),"hardness":0.4,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":25,"amount":1}],"name":"Clay"},
-	26:{"texture":preload("res://textures/blocks2X/bricks.png"),"hardness":1.5,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":26,"amount":1}],"name":"Bricks"},
-	27:{"texture":preload("res://textures/blocks2X/brick_shingles.png"),"hardness":1.5,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":27,"amount":1}],"name":"Brick shingles"},
-	28:{"texture":preload("res://textures/blocks2X/smithing_table.png"),"hardness":2.5,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":28,"amount":1}],"name":"Smithing table"},
-	29:{"texture":preload("res://textures/blocks2X/copper_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":29,"amount":1}],"name":"Copper ore"},
-	30:{"texture":preload("res://textures/blocks2X/platform_full.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":30,"amount":1}],"name":"Wood platform"},
-	55:{"texture":preload("res://textures/blocks2X/silver_ore.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":55,"amount":1}],"name":"Silver ore"},
-	69:{"texture":preload("res://textures/blocks2X/exotic_grass_block.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":69,"amount":1}],"name":"Exotic grass block"},
-	70:{"texture":preload("res://textures/blocks2X/exotic_dirt.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":70,"amount":1}],"name":"Exotic dirt"},
-	71:{"texture":preload("res://textures/blocks2X/exotic_stone.png"),"hardness":3,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":71,"amount":1}],"name":"Exotic stone"},
-	72:{"texture":preload("res://textures/blocks2X/exotic_stone_bricks.png"),"hardness":3.5,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":72,"amount":1}],"name":"Exotic stone bricks"},
-	73:{"texture":preload("res://textures/blocks2X/rhodonite_ore.png"),"hardness":6,"breakWith":"Pickaxe","canHaverst":4,"drops":[{"id":74,"amount":1}],"name":"Rhodonite ore"},
-	75:{"texture":preload("res://textures/blocks2X/carved_exotic_stone.png"),"hardness":3,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":75,"amount":1}],"name":"Carved exotic stone"},
-	76:{"texture":preload("res://textures/blocks2X/exotic_sapling.png"),"hardness":9,"breakWith":"Axe","canHaverst":1,"drops":[{"id":77,"amount":[3,6]},{"id":85,"amount":[0,3]}],"name":"Exotic tree"},
-	77:{"texture":preload("res://textures/blocks2X/exotic_log_front.png"),"hardness":1.5,"breakWith":"Axe","canHaverst":1,"drops":[{"id":77,"amount":1}],"name":"Exotic log"},
-	78:{"texture":preload("res://textures/blocks2X/exotic_planks.png"),"hardness":1.5,"breakWith":"Axe","canHaverst":1,"drops":[{"id":78,"amount":1}],"name":"Exotic planks"},
-	79:{"texture":preload("res://textures/blocks2X/exotic_wood_window.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":79,"amount":1}],"name":"Exotic wood window"},
-	80:{"texture":preload("res://textures/blocks2X/wood_window.png"),"hardness":0.5,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":80,"amount":1}],"name":"Wood window"},
-	81:{"texture":preload("res://textures/blocks2X/copper_window.png"),"hardness":0.5,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":81,"amount":1}],"name":"Copper window"},
-	82:{"texture":preload("res://textures/blocks2X/mossy_stone_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":82,"amount":1}],"name":"Mossy stone bricks"},
-	83:{"texture":preload("res://textures/blocks2X/cracked_stone_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":83,"amount":1}],"name":"Cracked stone bricks"},
-	84:{"texture":preload("res://textures/blocks2X/mossy_cobblestone.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":84,"amount":1}],"name":"Mossy cobble"},
-	85:{"texture":preload("res://textures/blocks2X/exotic_sapling.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[{"id":85,"amount":1}],"name":"Exotic sapling","can_place_on":[69,70]},
-	86:{"texture":preload("res://textures/blocks2X/cracked_mud_bricks.png"),"hardness":1.2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":86,"amount":1}],"name":"Cracked mud bricks"},
-	87:{"texture":preload("res://textures/blocks2X/cracked_sandstone_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":87,"amount":1}],"name":"Cracked sandstone bricks"},
-	88:{"texture":preload("res://textures/blocks2X/copper_block.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":88,"amount":1}],"name":"Copper block"},
-	89:{"texture":preload("res://textures/blocks2X/silver_block.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":89,"amount":1}],"name":"Silver block"},
-	90:{"texture":preload("res://textures/blocks2X/rhodonite_block.png"),"hardness":6,"breakWith":"Pickaxe","canHaverst":4,"drops":[{"id":90,"amount":1}],"name":"Rhodonite block"},
-	91:{"texture":preload("res://textures/blocks2X/chest.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":91,"amount":1}],"name":"Chest"},
-	104:{"texture":preload("res://textures/blocks2X/quartz_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":100,"amount":[1,3]}],"name":"Quartz ore"},
-	105:{"texture":preload("res://textures/blocks2X/rose_quartz_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":101,"amount":[1,3]}],"name":"Rose quartz ore"},
-	106:{"texture":preload("res://textures/blocks2X/purple_quartz_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":102,"amount":[1,3]}],"name":"Purple quartz ore"},
-	107:{"texture":preload("res://textures/blocks2X/blue_quartz_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":103,"amount":[1,3]}],"name":"Blue quartz ore"},
-	108:{"texture":preload("res://textures/blocks2X/quartz_block.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":108,"amount":1}],"name":"Quartz block"},
-	109:{"texture":preload("res://textures/blocks2X/rose_quartz_block.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":109,"amount":1}],"name":"Rose quartz block"},
-	110:{"texture":preload("res://textures/blocks2X/purple_quartz_block.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":110,"amount":1}],"name":"Purple quartz block"},
-	111:{"texture":preload("res://textures/blocks2X/blue_quartz_block.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":111,"amount":1}],"name":"Blue quartz block"},
-	112:{"texture":preload("res://textures/blocks2X/asteroid_rock.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":112,"amount":1}],"name":"Asteroid rock"},
-	117:{"texture":preload("res://textures/blocks2X/water/water_4.png"),"hardness":0,"breakWith":"None","canHaverst":0,"drops":[],"name":"Water"},
-	118:{"texture":preload("res://textures/blocks2X/wet_sand.png"),"hardness":0.4,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":118,"amount":1}],"name":"Wet sand"},
-	119:{"texture":preload("res://textures/blocks2X/farmland_dry.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":2,"amount":1}],"name":"Farmland"},
-	120:{"texture":preload("res://textures/blocks2X/farmland_wet.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":2,"amount":1}],"name":"Wet farmland"},
-	121:{"texture":preload("res://textures/items/wheat_seeds.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":121,"amount":1}],"name":"Wheat seeds","can_place_on":[119,120]},
-	122:{"texture":preload("res://textures/items/tomato_seeds.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":122,"amount":1}],"name":"Tomato seeds","can_place_on":[119,120]},
-	123:{"texture":preload("res://textures/items/corn_seeds.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":123,"amount":1}],"name":"Corn seeds","can_place_on":[119,120]},
-	124:{"texture":preload("res://textures/blocks2X/rhodonite_ore_stone.png"),"hardness":6,"breakWith":"Pickaxe","canHaverst":4,"drops":[{"id":74,"amount":1}],"name":"Rhodonite stone ore"},
+	1:{"texture":preload("res://textures/blocks2X/grass_block.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":1,"amount":1}],"name":"Grass block","type":"block"},
+	2:{"texture":preload("res://textures/blocks2X/dirt.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":2,"amount":1}],"name":"Dirt","type":"simple"},
+	3:{"texture":preload("res://textures/blocks2X/stone.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":8,"amount":1}],"name":"Stone","type":"simple"},
+	6:{"texture":preload("res://textures/blocks2X/flower1.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Flower 1","can_place_on":[1,2],"type":"block"},
+	7:{"texture":preload("res://textures/blocks2X/flower2.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Flower 2","can_place_on":[1,2],"type":"block"},
+	8:{"texture":preload("res://textures/blocks2X/Cobble.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":8,"amount":1}],"name":"Cobble","type":"simple"},
+	9:{"texture":preload("res://textures/blocks/tree_small.png"),"hardness":7,"breakWith":"Axe","canHaverst":1,"drops":[{"id":10,"amount":[3,6]},{"id":11,"amount":[0,3]}],"name":"Tree","type":"block"},
+	10:{"texture":preload("res://textures/blocks2X/log_front.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":10,"amount":1}],"name":"Log","type":"block"},
+	11:{"texture":preload("res://textures/items/pinecone.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[{"id":11,"amount":1}],"name":"Pinecone","can_place_on":[1,2],"type":"block"},
+	12:{"texture":preload("res://textures/blocks2X/crafting_table.png"),"hardness":2,"breakWith":"Axe","canHaverst":1,"drops":[{"id":12,"amount":1}],"name":"Workbench","type":"simple"},
+	13:{"texture":preload("res://textures/blocks2X/planks.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":13,"amount":1}],"name":"Planks","type":"simple"},
+	14:{"texture":preload("res://textures/blocks2X/sand.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":14,"amount":1}],"name":"Sand","type":"block"},
+	15:{"texture":preload("res://textures/blocks2X/stone_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":15,"amount":1}],"name":"Stone bricks","type":"simple"},
+	16:{"texture":preload("res://textures/blocks2X/oven.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":16,"amount":1}],"name":"Oven","type":"simple"},
+	17:{"texture":preload("res://textures/blocks2X/mud_stone.png"),"hardness":1.2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":17,"amount":1}],"name":"Mud stone","type":"simple"},
+	18:{"texture":preload("res://textures/blocks2X/mud_stone_dust.png"),"hardness":0.5,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":18,"amount":1}],"name":"Mud stone dust","type":"block"},
+	19:{"texture":preload("res://textures/blocks2X/mud_stone_bricks.png"),"hardness":1.4,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":19,"amount":1}],"name":"Mud stone bricks","type":"simple"},
+	20:{"texture":preload("res://textures/blocks2X/glass_icon.png"),"hardness":0.1,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":20,"amount":1}],"name":"Glass","type":"block"},
+	21:{"texture":preload("res://textures/blocks2X/snow_block.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":21,"amount":1}],"name":"Snow block","type":"simple"},
+	22:{"texture":preload("res://textures/blocks2X/sandstone.png"),"hardness":1.3,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":22,"amount":1}],"name":"Sandstone","type":"simple"},
+	23:{"texture":preload("res://textures/blocks2X/sandstone_bricks.png"),"hardness":2.2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":23,"amount":1}],"name":"Sandstone bricks","type":"simple"},
+	24:{"texture":preload("res://textures/blocks2X/grass_snow.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":24,"amount":1}],"name":"Grass snow","type":"block"},
+	25:{"texture":preload("res://textures/blocks2X/clay.png"),"hardness":0.4,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":25,"amount":1}],"name":"Clay","type":"simple"},
+	26:{"texture":preload("res://textures/blocks2X/bricks.png"),"hardness":1.5,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":26,"amount":1}],"name":"Bricks","type":"simple"},
+	27:{"texture":preload("res://textures/blocks2X/brick_shingles.png"),"hardness":1.5,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":27,"amount":1}],"name":"Brick shingles","type":"simple"},
+	28:{"texture":preload("res://textures/blocks2X/smithing_table.png"),"hardness":2.5,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":28,"amount":1}],"name":"Smithing table","type":"simple"},
+	29:{"texture":preload("res://textures/blocks2X/copper_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":29,"amount":1}],"name":"Copper ore","type":"simple"},
+	30:{"texture":preload("res://textures/blocks2X/platform_full.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":30,"amount":1}],"name":"Wood platform","type":"block"},
+	55:{"texture":preload("res://textures/blocks2X/silver_ore.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":55,"amount":1}],"name":"Silver ore","type":"simple"},
+	69:{"texture":preload("res://textures/blocks2X/exotic_grass_block.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":69,"amount":1}],"name":"Exotic grass block","type":"simple"},
+	70:{"texture":preload("res://textures/blocks2X/exotic_dirt.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":70,"amount":1}],"name":"Exotic dirt","type":"simple"},
+	71:{"texture":preload("res://textures/blocks2X/exotic_stone.png"),"hardness":3,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":71,"amount":1}],"name":"Exotic stone","type":"simple"},
+	72:{"texture":preload("res://textures/blocks2X/exotic_stone_bricks.png"),"hardness":3.5,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":72,"amount":1}],"name":"Exotic stone bricks","type":"simple"},
+	73:{"texture":preload("res://textures/blocks2X/rhodonite_ore.png"),"hardness":6,"breakWith":"Pickaxe","canHaverst":4,"drops":[{"id":74,"amount":1}],"name":"Rhodonite ore","type":"simple"},
+	75:{"texture":preload("res://textures/blocks2X/carved_exotic_stone.png"),"hardness":3,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":75,"amount":1}],"name":"Carved exotic stone","type":"simple"},
+	76:{"texture":preload("res://textures/blocks2X/exotic_sapling.png"),"hardness":9,"breakWith":"Axe","canHaverst":1,"drops":[{"id":77,"amount":[3,6]},{"id":85,"amount":[0,3]}],"name":"Exotic tree","type":"block"},
+	77:{"texture":preload("res://textures/blocks2X/exotic_log_front.png"),"hardness":1.5,"breakWith":"Axe","canHaverst":1,"drops":[{"id":77,"amount":1}],"name":"Exotic log","type":"block"},
+	78:{"texture":preload("res://textures/blocks2X/exotic_planks.png"),"hardness":1.5,"breakWith":"Axe","canHaverst":1,"drops":[{"id":78,"amount":1}],"name":"Exotic planks","type":"simple"},
+	79:{"texture":preload("res://textures/blocks2X/exotic_wood_window.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":79,"amount":1}],"name":"Exotic wood window","type":"block"},
+	80:{"texture":preload("res://textures/blocks2X/wood_window.png"),"hardness":0.5,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":80,"amount":1}],"name":"Wood window","type":"block"},
+	81:{"texture":preload("res://textures/blocks2X/copper_window.png"),"hardness":0.5,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":81,"amount":1}],"name":"Copper window","type":"block"},
+	82:{"texture":preload("res://textures/blocks2X/mossy_stone_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":82,"amount":1}],"name":"Mossy stone bricks","type":"simple"},
+	83:{"texture":preload("res://textures/blocks2X/cracked_stone_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":83,"amount":1}],"name":"Cracked stone bricks","type":"simple"},
+	84:{"texture":preload("res://textures/blocks2X/mossy_cobblestone.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":84,"amount":1}],"name":"Mossy cobble","type":"simple"},
+	85:{"texture":preload("res://textures/blocks2X/exotic_sapling.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[{"id":85,"amount":1}],"name":"Exotic sapling","can_place_on":[69,70],"type":"block"},
+	86:{"texture":preload("res://textures/blocks2X/cracked_mud_bricks.png"),"hardness":1.2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":86,"amount":1}],"name":"Cracked mud bricks","type":"simple"},
+	87:{"texture":preload("res://textures/blocks2X/cracked_sandstone_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":87,"amount":1}],"name":"Cracked sandstone bricks","type":"simple"},
+	88:{"texture":preload("res://textures/blocks2X/copper_block.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":88,"amount":1}],"name":"Copper block","type":"simple"},
+	89:{"texture":preload("res://textures/blocks2X/silver_block.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":89,"amount":1}],"name":"Silver block","type":"simple"},
+	90:{"texture":preload("res://textures/blocks2X/rhodonite_block.png"),"hardness":6,"breakWith":"Pickaxe","canHaverst":4,"drops":[{"id":90,"amount":1}],"name":"Rhodonite block","type":"simple"},
+	91:{"texture":preload("res://textures/blocks2X/chest.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":91,"amount":1}],"name":"Chest","type":"block"},
+	104:{"texture":preload("res://textures/blocks2X/quartz_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":100,"amount":[1,3]}],"name":"Quartz ore","type":"simple"},
+	105:{"texture":preload("res://textures/blocks2X/rose_quartz_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":101,"amount":[1,3]}],"name":"Rose quartz ore","type":"simple"},
+	106:{"texture":preload("res://textures/blocks2X/purple_quartz_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":102,"amount":[1,3]}],"name":"Purple quartz ore","type":"simple"},
+	107:{"texture":preload("res://textures/blocks2X/blue_quartz_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":103,"amount":[1,3]}],"name":"Blue quartz ore","type":"simple"},
+	108:{"texture":preload("res://textures/blocks2X/quartz_block.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":108,"amount":1}],"name":"Quartz block","type":"simple"},
+	109:{"texture":preload("res://textures/blocks2X/rose_quartz_block.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":109,"amount":1}],"name":"Rose quartz block","type":"simple"},
+	110:{"texture":preload("res://textures/blocks2X/purple_quartz_block.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":110,"amount":1}],"name":"Purple quartz block","type":"simple"},
+	111:{"texture":preload("res://textures/blocks2X/blue_quartz_block.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":111,"amount":1}],"name":"Blue quartz block","type":"simple"},
+	112:{"texture":preload("res://textures/blocks2X/asteroid_rock.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":112,"amount":1}],"name":"Asteroid rock","type":"simple"},
+	117:{"texture":preload("res://textures/blocks2X/water/water_4.png"),"hardness":0,"breakWith":"None","canHaverst":0,"drops":[],"name":"Water","type":"block"},
+	118:{"texture":preload("res://textures/blocks2X/wet_sand.png"),"hardness":0.4,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":118,"amount":1}],"name":"Wet sand","type":"simple"},
+	119:{"texture":preload("res://textures/blocks2X/farmland_dry.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":2,"amount":1}],"name":"Farmland","type":"block"},
+	120:{"texture":preload("res://textures/blocks2X/farmland_wet.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":2,"amount":1}],"name":"Wet farmland","type":"simple"},
+	121:{"texture":preload("res://textures/items/wheat_seeds.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":121,"amount":1}],"name":"Wheat seeds","can_place_on":[119,120],"type":"block"},
+	122:{"texture":preload("res://textures/items/tomato_seeds.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":122,"amount":1}],"name":"Tomato seeds","can_place_on":[119,120],"type":"block"},
+	123:{"texture":preload("res://textures/items/corn_seeds.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":123,"amount":1}],"name":"Corn seeds","can_place_on":[119,120],"type":"block"},
+	124:{"texture":preload("res://textures/blocks2X/rhodonite_ore_stone.png"),"hardness":6,"breakWith":"Pickaxe","canHaverst":4,"drops":[{"id":74,"amount":1}],"name":"Rhodonite stone ore","type":"simple"},
+	128:{"texture":preload("res://textures/items/fig_tree.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":121,"amount":[0,1]},{"id":122,"amount":[0,1]},{"id":123,"amount":[0,1]}],"name":"Fig tree","can_place_on":[1,2],"type":"block"},
 }
 
 var itemData = {
@@ -163,6 +168,19 @@ var itemData = {
 	114:{"texture_loc":preload("res://textures/items/copper_bucket.png"),"type":"Bucket","name":"Copper bucket"},
 	115:{"texture_loc":preload("res://textures/items/water_bucket.png"),"type":"Bucket","name":"Silver bucket of water"},
 	116:{"texture_loc":preload("res://textures/items/water_copper_bucket.png"),"type":"Bucket","name":"Copper bucket of water"},
+	125:{"texture_loc":preload("res://textures/items/wheat.png"),"type":"Item","name":"Wheat"},
+	126:{"texture_loc":preload("res://textures/items/tomato.png"),"type":"Food","name":"Tomato","regen":2},
+	127:{"texture_loc":preload("res://textures/items/corn.png"),"type":"Food","name":"Corn","regen":4},
+	129:{"texture_loc":preload("res://textures/items/stone_hoe.png"),"type":"Hoe","name":"Stone hoe","big_texture":preload("res://textures/weapons/stone_hoe.png")},
+	130:{"texture_loc":preload("res://textures/items/silver_hoe.png"),"type":"Hoe","name":"Silver hoe","big_texture":preload("res://textures/weapons/silver_hoe.png")},
+	131:{"texture_loc":preload("res://textures/items/copper_watering_can.png"),"type":"Watering_can","name":"Copper watering can","big_texture":preload("res://textures/weapons/copper_watering_can.png")},
+	132:{"texture_loc":preload("res://textures/items/silver_watering_can.png"),"type":"Watering_can","name":"Silver watering can","big_texture":preload("res://textures/weapons/silver_watering_can.png")},
+}
+
+var fullGrownItemDrops = {
+	121:[{"id":121,"amount":[0,3]},{"id":125,"amount":[1,2]}],
+	122:[{"id":122,"amount":[0,3]},{"id":126,"amount":[1,2]}],
+	123:[{"id":123,"amount":[0,3]},{"id":127,"amount":[1,2]}]
 }
 
 signal update_blocks
@@ -244,21 +262,29 @@ func generateWorld(worldType : String):
 	copperOre.seed = worldSeed;copperOre.period = 2;copperOre.persistence = 0.5;copperOre.lacunarity = 2
 	match worldType:
 		"terra":
+			var seaLevel = 50
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
 					var height = (worldSize.y - (int(worldNoise.get_noise_1d(x) * noiseScale) + worldHeight))
 					if height > worldSize.y - 4:
 						height = worldSize.y - 4
 					var pos = Vector2(x,y)
-					if y == height:
-						set_block_all(pos,1)
-						if get_block(pos - Vector2(0,2),1) == null and randi() % 5 == 1:
-							set_block(pos - Vector2(0,1),1,9)
-						elif get_block(pos - Vector2(0,1),1) == null:
-							if randi() % 3 == 1:
-								set_block(pos - Vector2(0,1),1,6)
-							elif randi() % 3 == 1:
-								set_block(pos - Vector2(0,1),1,7)
+					if y >= seaLevel and y < height:
+						set_block(pos,1,117,false,{"water_level":4})
+					elif y == height:
+						if y <= seaLevel:
+							set_block_all(pos,1)
+							if get_block(pos - Vector2(0,2),1) == null and randi() % 5 == 1:
+								set_block(pos - Vector2(0,1),1,9)
+							elif get_block(pos - Vector2(0,1),1) == null:
+								if randi() % 3 == 1:
+									set_block(pos - Vector2(0,1),1,6)
+								elif randi() % 3 == 1:
+									set_block(pos - Vector2(0,1),1,7)
+								elif randi() % 6 == 1:
+									set_block(pos - Vector2(0,1),1,128)
+						else:
+							set_block_all(pos,2)
 					elif y > height and y < height+3:
 						set_block_all(pos,2)
 					elif y >= height+3:
@@ -377,8 +403,8 @@ func generateWorld(worldType : String):
 					var pos = Vector2(x,y)
 					if y >= height:
 						set_block_all(pos,118)
-					elif y > 15:
-						set_block(pos,1,117)
+					elif y > 40:
+						set_block(pos,1,117,false,{"water_level":4})
 		"meteor":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -405,9 +431,12 @@ func generateWorld(worldType : String):
 
 func get_world_data() -> Dictionary:
 	var data = {}
-	data["player"] = {"armor":armor.armor,"inventory":inventory.inventory,"inventory_refs":{"j":inventory.jId,"k":inventory.kId},"health":player.health,"max_health":player.maxHealth,"oxygen":player.oxygen,"suit_oxygen":player.suitOxygen,"max_oxygen":player.maxOxygen,"suit_oxygen_max":player.suitOxygenMax,"current_planet":Global.currentPlanet,"current_system":Global.currentSystemId,"pos":player.position,"save_type":"planet","achievements":GlobalGui.completedAchievements}
+	data["player"] = {
+		"armor":armor.armor,"inventory":inventory.inventory,"inventory_refs":{"j":inventory.jId,"k":inventory.kId},"health":player.health,"max_health":player.maxHealth,"oxygen":player.oxygen,"suit_oxygen":player.suitOxygen,"max_oxygen":player.maxOxygen,"suit_oxygen_max":player.suitOxygenMax,"current_planet":Global.currentPlanet,"current_system":Global.currentSystemId,"pos":player.position,"save_type":"planet","achievements":GlobalGui.completedAchievements,
+		"misc_stats":{"meteor_stage":meteors.stage,"meteor_progress_time_left":$"../CanvasLayer/Enviroment/Meteors/StageProgress".time_left}
+	}
 	data["system"] = StarSystem.get_system_data()
-	data["planet"] = {"blocks":[],"entities":entities.get_entity_data(),"rules":worldRules}
+	data["planet"] = {"blocks":[],"entities":entities.get_entity_data(),"rules":worldRules,"left_at_time":Global.globalGameTime,"current_weather":$"..".currentWeather,"weather_time_left":$"../weather/WeatherTimer".time_left}
 	for block in $blocks.get_children():
 		data["planet"]["blocks"].append({"id":block.id,"layer":block.layer,"position":block.pos,"data":block.data})
 	return data
@@ -443,6 +472,12 @@ func load_world_data() -> void:#data : Dictionary) -> void:
 			if !setRules.has(rule):
 				setRules[rule] = worldRules[rule]
 	worldRules = setRules
+	meteors.stage = 0 if !Global.playerData.has("misc_stats") or !Global.playerData["misc_stats"].has("meteor_stage") else Global.playerData["misc_stats"]["meteor_stage"]
+	meteors.savedProgressTime = 60 if !Global.playerData.has("misc_stats") or !Global.playerData["misc_stats"].has("meteor_progress_time_left") else Global.playerData["misc_stats"]["meteor_progress_time_left"]
+	if planetData.has("weather_time_left"):
+		var timeElapsed = Global.globalGameTime - planetData["left_at_time"]
+		if planetData["current_weather"] != "none" and timeElapsed < planetData["weather_time_left"]: #Sets weather to what it was if not enough time has passed
+			$"..".set_weather(false,[planetData["weather_time_left"]-timeElapsed,planetData["weather_time_left"]-timeElapsed],planetData["current_weather"],false)
 	if Global.playerData.has("pos") and Global.playerData["save_type"] == "planet":
 		player.position = Global.playerData["pos"]
 	elif worldRules["world_spawn_x"]["value"] >= 0 and worldRules["world_spawn_y"]["value"] >= 0:
@@ -479,11 +514,12 @@ func set_block_all(pos: Vector2, id : int) -> void:
 	set_block(pos,1,id)
 
 func set_block(pos : Vector2, layer : int, id : int, update = false, data = {}) -> void:
-	if get_block(pos,layer) != null or (id == 0 and get_block(pos,layer) != null):
-		get_block(pos,layer).queue_free()
-		yield(get_tree(),"idle_frame")
+	var blockAtPos = get_block(pos,layer)
+	if blockAtPos != null or (id == 0 and blockAtPos != null):
+		$blocks.remove_child(blockAtPos)
+		blockAtPos.queue_free()
 	if id > 0:
-		var block = BLOCK.instance()
+		var block = BLOCK.instance() if blockData[id]["type"] == "block" else SIMPLE_BLOCK.instance()
 		block.position = pos * BLOCK_SIZE
 		block.id = id
 		block.layer = layer
@@ -515,6 +551,10 @@ func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction 
 		set_block(pos,layer,0,true)
 		if itemAction and !Global.godmode:
 			var itemsToDrop = blockData[block]["drops"]
+			match block:
+				121,122,123:
+					if get_block(pos,layer).data["plant_stage"] >= 3:
+						itemsToDrop = fullGrownItemDrops[block]
 			for i in range(itemsToDrop.size()):
 				if typeof(itemsToDrop[i]["amount"]) != TYPE_ARRAY:
 					entities.spawn_item({"id":itemsToDrop[i]["id"],"amount":itemsToDrop[i]["amount"]},false,pos*BLOCK_SIZE)
@@ -526,3 +566,29 @@ func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction 
 func _on_GoUp_pressed():
 	Global.save("planet",get_world_data())
 	StarSystem.start_space()
+
+func _on_GlobalTick_timeout():
+	var toRemove = []
+	for water in waterUpdateList:
+		if is_instance_valid(water):
+			water._on_Tick_timeout()
+		else:
+			toRemove.append(water)
+	for remove in toRemove:
+		waterUpdateList.erase(remove)
+	var updatedPos = []
+	for water in waterUpdateList:
+		if is_instance_valid(water):
+			water.update_water_texture()
+			water.on_update()
+			updatedPos.append({"pos":water.pos,"layer":water.layer})
+			for x in range(water.pos.x-1,water.pos.x+2):
+				for y in range(water.pos.y-1,water.pos.y+2):
+					var blockLayer1 = get_block(Vector2(x,y),1)
+					var blockLayer2 = get_block(Vector2(x,y),0)
+					if !updatedPos.has({"pos":Vector2(x,y),"layer":1}) and blockLayer1 != null:
+						blockLayer1.on_update()
+						updatedPos.append({"pos":Vector2(x,y),"layer":1})
+					if !updatedPos.has({"pos":Vector2(x,y),"layer":0}) and blockLayer2 != null:
+						blockLayer2.on_update()
+						updatedPos.append({"pos":Vector2(x,y),"layer":0})

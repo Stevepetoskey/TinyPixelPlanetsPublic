@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/tomate_stage_0.png-740e0a74c47e3c344e492e0b4df1cb47.stex"
+path="res://.import/Beard_bald.png-6c15dc3b75f2b50f5fe72581a1f4e411.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/blocks2X/plants/tomato/tomate_stage_0.png"
-dest_files=[ "res://.import/tomate_stage_0.png-740e0a74c47e3c344e492e0b4df1cb47.stex" ]
+source_file="res://textures/player/Hair/Beard_bald.png"
+dest_files=[ "res://.import/Beard_bald.png-6c15dc3b75f2b50f5fe72581a1f4e411.stex" ]
 
 [params]
 

@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "StaticBody2D",
+"class": "BaseBlock",
+"language": "GDScript",
+"path": "res://scripts/blocks/base_block.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "Entity",
 "language": "GDScript",
 "path": "res://scripts/EntityClass.gd"
 } ]
 _global_script_class_icons={
+"BaseBlock": "",
 "Entity": ""
 }
 

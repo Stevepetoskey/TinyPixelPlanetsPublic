@@ -44,7 +44,7 @@ var recipes = {
 		{"recipe":[{"id":58,"amount":1},{"id":78,"amount":3}],"result":{"id":95,"amount":1}}, #Exotic Barbed club
 		{"recipe":[{"id":5,"amount":3},{"id":78,"amount":3}],"result":{"id":92,"amount":1}}, #Exotic pick
 		{"recipe":[{"id":13,"amount":8}],"result":{"id":91,"amount":1}}, #Chest
-		{"recipe":[{"id":13,"amount":78}],"result":{"id":91,"amount":1}}, #Chest (With exotic wood)
+		{"recipe":[{"id":78,"amount":8}],"result":{"id":91,"amount":1}}, #Chest (With exotic wood)
 		{"recipe":[{"id":56,"amount":1}],"result":{"id":113,"amount":1}}, #Silver bucket
 		{"recipe":[{"id":52,"amount":1}],"result":{"id":115,"amount":1}}, #Copper bucket
 	],
@@ -89,6 +89,10 @@ var recipes = {
 		{"recipe":[{"id":5,"amount":3},{"id":74,"amount":1}],"result":{"id":99,"amount":1}}, #Rhodonite spear
 		{"recipe":[{"id":5,"amount":2},{"id":74,"amount":2}],"result":{"id":96,"amount":1}}, #Rhodonite sword
 		{"recipe":[{"id":5,"amount":3},{"id":74,"amount":3}],"result":{"id":98,"amount":1}}, #Rhodonite pick
+		{"recipe":[{"id":5,"amount":3},{"id":3,"amount":2}],"result":{"id":129,"amount":1}}, #Stone Hoe
+		{"recipe":[{"id":5,"amount":3},{"id":56,"amount":2}],"result":{"id":130,"amount":1}}, #Silver Hoe
+		{"recipe":[{"id":56,"amount":3}],"result":{"id":132,"amount":1}}, #Silver Watering Can
+		{"recipe":[{"id":52,"amount":3}],"result":{"id":131,"amount":1}}, #Copper Watering Can
 	]
 }
 

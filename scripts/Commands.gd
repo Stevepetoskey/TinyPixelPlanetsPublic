@@ -87,3 +87,12 @@ func _on_Commands_text_entered(new_text : String):
 					print("Unexpected value (bool value expected)")
 			else:
 				print("Incorrect parameters for the displaycoordinates command")
+		"weather":
+			if commands.size() == 2:
+				var weather = commands[1]
+				if ["rain","showers","snow","blizzard","none"].has(weather):
+					$"../..".weather_event(false,[200,500], weather)
+				else:
+					print("Unkown weather event " + weather)
+			else:
+				print("Incorrect parameters for the weather command")
