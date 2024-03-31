@@ -1,7 +1,7 @@
 extends TextureButton
 
-onready var world = get_node("../../../../../World")
-onready var crafting = get_node("../../..")
+onready var world = $"../../../../../World"
+onready var crafting = $"../../.."
 
 var loc = 0
 var recipeRef : Dictionary

@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://scripts/space/Galaxy.gd" type="Script" id=1]
 [ext_resource path="res://textures/enviroment/deep-space.png" type="Texture" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://textures/GUI/space/h_bar_handle_hover.png" type="Texture" id=28]
 [ext_resource path="res://textures/GUI/space/h_bar_handle_select.png" type="Texture" id=29]
 [ext_resource path="res://textures/GUI/space/v_bar_handle_select.png" type="Texture" id=30]
+[ext_resource path="res://scripts/space/Bookmarks.gd" type="Script" id=31]
 
 [sub_resource type="AnimatedTexture" id=1]
 frames = 10
@@ -53,6 +54,97 @@ frame_8/texture = ExtResource( 9 )
 frame_8/delay_sec = 0.0
 frame_9/texture = ExtResource( 6 )
 frame_9/delay_sec = 0.0
+
+[sub_resource type="StyleBoxTexture" id=26]
+texture = ExtResource( 22 )
+region_rect = Rect2( 0, 0, 8, 4 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=27]
+texture = ExtResource( 28 )
+region_rect = Rect2( 0, 0, 8, 4 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=28]
+texture = ExtResource( 29 )
+region_rect = Rect2( 0, 0, 8, 4 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=29]
+texture = ExtResource( 21 )
+region_rect = Rect2( 0, 0, 8, 4 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=30]
+texture = ExtResource( 24 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=31]
+texture = ExtResource( 27 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=32]
+texture = ExtResource( 30 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=33]
+texture = ExtResource( 25 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=34]
+texture = ExtResource( 25 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="Theme" id=35]
+HScrollBar/styles/grabber = SubResource( 26 )
+HScrollBar/styles/grabber_highlight = SubResource( 27 )
+HScrollBar/styles/grabber_pressed = SubResource( 28 )
+HScrollBar/styles/scroll = SubResource( 29 )
+VScrollBar/styles/grabber = SubResource( 30 )
+VScrollBar/styles/grabber_highlight = SubResource( 31 )
+VScrollBar/styles/grabber_pressed = SubResource( 32 )
+VScrollBar/styles/scroll = SubResource( 33 )
+VSlider/styles/slider = SubResource( 34 )
+
+[sub_resource type="StyleBoxTexture" id=5]
+texture = ExtResource( 18 )
+region_rect = Rect2( 0, 0, 26, 26 )
+margin_left = 4.0
+margin_right = 4.0
+margin_top = 4.0
+margin_bottom = 4.0
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -160,97 +252,6 @@ tracks/1/keys = {
 "values": [ true, true, false ]
 }
 
-[sub_resource type="StyleBoxTexture" id=26]
-texture = ExtResource( 22 )
-region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
-
-[sub_resource type="StyleBoxTexture" id=27]
-texture = ExtResource( 28 )
-region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
-
-[sub_resource type="StyleBoxTexture" id=28]
-texture = ExtResource( 29 )
-region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
-
-[sub_resource type="StyleBoxTexture" id=29]
-texture = ExtResource( 21 )
-region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
-
-[sub_resource type="StyleBoxTexture" id=30]
-texture = ExtResource( 24 )
-region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
-
-[sub_resource type="StyleBoxTexture" id=31]
-texture = ExtResource( 27 )
-region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
-
-[sub_resource type="StyleBoxTexture" id=32]
-texture = ExtResource( 30 )
-region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
-
-[sub_resource type="StyleBoxTexture" id=33]
-texture = ExtResource( 25 )
-region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
-
-[sub_resource type="StyleBoxTexture" id=34]
-texture = ExtResource( 25 )
-region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
-
-[sub_resource type="Theme" id=35]
-HScrollBar/styles/grabber = SubResource( 26 )
-HScrollBar/styles/grabber_highlight = SubResource( 27 )
-HScrollBar/styles/grabber_pressed = SubResource( 28 )
-HScrollBar/styles/scroll = SubResource( 29 )
-VScrollBar/styles/grabber = SubResource( 30 )
-VScrollBar/styles/grabber_highlight = SubResource( 31 )
-VScrollBar/styles/grabber_pressed = SubResource( 32 )
-VScrollBar/styles/scroll = SubResource( 33 )
-VSlider/styles/slider = SubResource( 34 )
-
-[sub_resource type="StyleBoxTexture" id=5]
-texture = ExtResource( 18 )
-region_rect = Rect2( 0, 0, 26, 26 )
-margin_left = 4.0
-margin_right = 4.0
-margin_top = 4.0
-margin_bottom = 4.0
-
 [node name="Galaxy" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -309,9 +310,10 @@ margin_top = 2.0
 margin_right = 28.0
 mouse_filter = 2
 
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/Sidebar"]
+[node name="BookmarkBtn" type="TextureButton" parent="CanvasLayer/Sidebar"]
 margin_right = 26.0
 margin_bottom = 26.0
+toggle_mode = true
 texture_normal = ExtResource( 17 )
 
 [node name="Black" type="TextureRect" parent="CanvasLayer"]
@@ -324,6 +326,30 @@ expand = true
 [node name="Pause" parent="CanvasLayer" instance=ExtResource( 19 )]
 visible = false
 type = "galaxy"
+
+[node name="Bookmarks" type="Panel" parent="CanvasLayer"]
+visible = false
+margin_left = 29.0
+margin_top = 2.0
+margin_right = 147.0
+margin_bottom = 97.0
+theme = SubResource( 35 )
+custom_styles/panel = SubResource( 5 )
+script = ExtResource( 31 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Bookmarks"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 4.0
+margin_right = -3.0
+margin_bottom = -3.0
+scroll_horizontal_enabled = false
+
+[node name="BookmarkContainer" type="VBoxContainer" parent="CanvasLayer/Bookmarks/ScrollContainer"]
+margin_right = 111.0
+size_flags_horizontal = 3
+custom_constants/separation = 0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 2 )
@@ -377,3 +403,9 @@ margin_bottom = 82.0
 [node name="PlanetType5" parent="SystemInfo/ScrollContainer/VBoxContainer" instance=ExtResource( 23 )]
 margin_top = 86.0
 margin_bottom = 100.0
+
+[node name="Tweens" type="Node" parent="."]
+
+[node name="Warp" type="Tween" parent="Tweens"]
+
+[connection signal="toggled" from="CanvasLayer/Sidebar/BookmarkBtn" to="." method="_on_BookmarkBtn_toggled"]

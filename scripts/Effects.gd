@@ -17,9 +17,9 @@ func death_particles(pos : Vector2):
 	add_child(death)
 
 func spray(pos : Vector2, flipped : bool):
-	for dir in range(-10,20,10):
+	for dir in range(-20,40,10):
 		var sprayObj = SPRAY.instance()
 		var actualDir = dir if !flipped else (dir + 180)
-		sprayObj.motion = Vector2(cos(deg2rad(actualDir))*2,sin(deg2rad(actualDir))*4)
+		sprayObj.motion = Vector2(cos(deg2rad(actualDir))*4,sin(deg2rad(actualDir))*8)
 		sprayObj.position = pos + Vector2(-10 if flipped else 10,0)
 		add_child(sprayObj)

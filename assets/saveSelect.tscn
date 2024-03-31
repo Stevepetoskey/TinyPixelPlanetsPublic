@@ -43,6 +43,7 @@ margin_bottom = 24.0
 custom_colors/font_color = Color( 0.768627, 0.768627, 0.768627, 1 )
 custom_fonts/font = ExtResource( 2 )
 text = "EMPTY"
+uppercase = true
 
 [node name="Icon" type="TextureRect" parent="."]
 anchor_top = 0.5

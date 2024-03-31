@@ -91,6 +91,27 @@ var weatherEvents = {
 	"ocean":["rain","showers"]
 }
 
+var typeNames = {
+	"terra":"Terra",
+	"desert":"Desert",
+	"mud":"Mud",
+	"exotic":"Exotic",
+	"stone":"Stone",
+	"snow":"Snow",
+	"snow_terra":"Snowy terra",
+	"gas1":"Gas giant",
+	"gas2":"Gas giant",
+	"gas3":"Gas giant",
+	"asteroids":"Asteroids",
+	"ocean":"Ocean"
+}
+var sizeNames = {
+	0:"Small",
+	1:"Medium",
+	2:"Large",
+	3:"Giant"
+}
+
 var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra.png"),"size":sizeTypes.small,"type":"terra"},
 	"small_desert":{"texture":preload("res://textures/planets/desert.png"),"size":sizeTypes.small,"type":"desert"},
 	"small_mud":{"texture":preload("res://textures/planets/mud.png"),"size":sizeTypes.small,"type":"mud"},
@@ -203,8 +224,8 @@ func open_star_system(systemSeed : int,systemId : String):
 	else:
 		print("Creating new system")
 		new_system(systemSeed)
-	var _er = get_tree().change_scene("res://scenes/PlanetSelect.tscn")
-	print("Entering system ",systemSeed)
+		var _er = get_tree().change_scene("res://scenes/PlanetSelect.tscn")
+		print("Entering system ",systemSeed)
 
 func leave_star_system():
 	visitedPlanets.clear()
@@ -283,12 +304,10 @@ func load_system(entering = false):
 			planet.pName = planetDat["planet_name"]
 			planet.pDesc = planetDat["planet_desc"]
 			$system.add_child(planet)
-		if entering:
-			Global.playerData["save_type"] = "system"
 		match Global.playerData["save_type"]:
 			"planet":
 				var _er = get_tree().change_scene("res://scenes/Main.tscn")
-			"system":
+			"system","galaxy":
 				print("entering system final")
 				var _er = get_tree().change_scene("res://scenes/PlanetSelect.tscn")
 	else:

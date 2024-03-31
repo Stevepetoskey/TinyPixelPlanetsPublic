@@ -61,3 +61,16 @@
 - Added Silver and Copper watering cans
 - Water buckets can now hold less than a full block of water 
 - Added data property to items
+## TU4 Beta 8 (v0.4.0:8)
+- Added new blocks (Copper plate, Copper bricks, Cracked copper bricks, Silver plate, Silver bricks, and Cracked Silver bricks)
+- Save version now shows on the save in the menu
+- Now unable to load saves from TU3 and prior (All star systems prior to TU4 don't exists anymore and would completely break the Galaxy generation)
+- Updated inventory and other important GUI textures to look more readable
+- Inventory, crafting, and chest now are scrollable as opposed to the old page system
+- Chests can now store up to 24 items
+- Hotbar inventory slots no longer open and close the inventory but instead act as normal inventory slots, making the GUI much more fluent
+- Added bookmarks (Able to warp to bookmarked planets)
+- Added Versitalis (Shop Center) and made it auto bookmark on new saves
+- Now able to view planet stats in the planet select
+- Now able to change planet names
+- Began work on fixing a major gui issue from how text reacts to changing the game window (Maybe bitmap fonts can work?)

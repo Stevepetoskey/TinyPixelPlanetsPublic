@@ -2,14 +2,14 @@ extends TextureButton
 
 var loc = 0
 
-onready var main = get_node("../..")
+onready var chest_gui = $"../../.."
 
 func _pressed() -> void:
-	main.chest_btn_clicked(loc,self)
+	chest_gui.chest_btn_clicked(loc,self)
 
 
 func _on_ChestBtn_mouse_entered():
-	main.mouse_in_btn(loc)
+	chest_gui.mouse_in_btn(loc)
 
 func _on_ChestBtn_mouse_exited():
-	main.mouse_out_btn(loc)
+	chest_gui.mouse_out_btn(loc)

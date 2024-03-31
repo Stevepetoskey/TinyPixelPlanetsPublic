@@ -8,7 +8,10 @@ const SECTOR_STAR_RANGE = [40,60]
 var selectedSystem = null
 var moving = false
 
+onready var warp: Tween = $Tweens/Warp
+
 func _ready():
+	Global.playerData["save_type"] = "galaxy"
 	$AnimationPlayer.play("start")
 	print(Global.currentSystemId)
 	var sectorCoords = system_seed_to_pos(Global.currentSystemId)
@@ -51,6 +54,13 @@ func find_system(systemSeed : int, sector : Vector2) -> Object:
 				return system
 	return null
 
+func find_system_id(systemId : String, sector : Vector2) -> Object:
+	if $Sectors.has_node(str(sector.x) + "," + str(sector.y)):
+		for system in $Sectors.get_node(str(sector.x) + "," + str(sector.y)).get_children():
+			if system.systemId == systemId:
+				return system
+	return null
+
 func update_sectors(newMid : Vector2):
 	var toLoad = []
 	for x in range(newMid.x-SECTOR_SIZE.x,newMid.x+SECTOR_SIZE.x*2,SECTOR_SIZE.x):
@@ -60,9 +70,8 @@ func update_sectors(newMid : Vector2):
 		if !$Sectors.has_node(str(sector.x) + "," + str(sector.y)):
 			load_sector(sector)
 	for sector in $Sectors.get_children():
-		if !toLoad.has(sector.position):
+		if !toLoad.has(sector.position) and !sector.get_children().has(selectedSystem):
 			sector.queue_free()
-	print($Sectors.get_child_count())
 
 func load_sector(coords : Vector2):
 	if coords.x >= 0 and coords.x < GALAXY_SIZE.x*SECTOR_SIZE.x and coords.y >= 0 and coords.y < GALAXY_SIZE.y*SECTOR_SIZE.y:
@@ -80,6 +89,21 @@ func load_sector(coords : Vector2):
 			var systemData = StarSystem.quick_system_check(newStar.systemSeed)
 			newStar.texture_normal = load("res://textures/GUI/space/star_icon_" + systemData["star"] + ".png")
 			newSector.add_child(newStar)
+
+func warp(systemId : String, planetId : int):
+	moving = true
+	var sectorCoords = system_seed_to_pos(systemId)
+	load_sector(sectorCoords)
+	warp.interpolate_property($GalaxyView, "position",
+		$GalaxyView.position, find_system_id(systemId,sectorCoords).get_global_rect().position, 2,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	warp.start()
+	yield(warp,"tween_completed")
+	$AnimationPlayer.play("selected")
+	yield($AnimationPlayer,"animation_finished")
+	GlobalGui.complete_achievement("Interstellar")
+	Global.currentPlanet = planetId
+	StarSystem.open_star_system(find_system_id(systemId,sectorCoords).systemSeed,systemId)
 
 func system_pressed(system):
 	if !moving:
@@ -110,3 +134,8 @@ func system_pressed(system):
 			print("Selected seed: ",selectedSystem.systemSeed)
 			GlobalGui.complete_achievement("Interstellar")
 			StarSystem.open_star_system(selectedSystem.systemSeed,selectedSystem.systemId)
+
+func _on_BookmarkBtn_toggled(button_pressed: bool) -> void:
+	if button_pressed:
+		$CanvasLayer/Bookmarks.pop_up()
+	$CanvasLayer/Bookmarks.visible = button_pressed

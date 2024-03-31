@@ -1,5 +1,8 @@
 extends Control
 
+const O2_SAFE_TEXTURE = preload("res://textures/GUI/main/hotbar/O2-safe.png")
+const O2_DANGER_TEXTURE = preload("res://textures/GUI/main/hotbar/O2-danger.png")
+
 onready var player = get_node("../../../Player")
 
 func _process(delta):
@@ -14,10 +17,10 @@ func _process(delta):
 	else:
 		$"../../Oxygen".hide()
 	if player.canBreath:
-		$"../HBoxContainer/O2".texture = load("res://textures/GUI/main/O2-safe.png")
+		$"../HBoxContainer/O2".texture = O2_SAFE_TEXTURE
 		$"../HBoxContainer/Warning/AnimationPlayer".play("RESET")
 	else:
-		$"../HBoxContainer/O2".texture = load("res://textures/GUI/main/O2-danger.png")
+		$"../HBoxContainer/O2".texture = O2_DANGER_TEXTURE
 		if !player.inSuit:
 			$"../HBoxContainer/Warning/AnimationPlayer".play("blink")
 		else:

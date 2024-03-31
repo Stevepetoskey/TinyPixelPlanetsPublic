@@ -1,6 +1,10 @@
 extends Node
 
-const CURRENTVER = "TU 2 Beta 2"
+const CURRENTVER = "TU 4 Beta 8 (v0.4.0:8)"
+const VER_NUMS = [0,4,0,8]
+const ALLOW_VERSIONS = [
+	[0,4,0,8]
+]
 const STABLE = false
 
 var savegame = File.new() #file
@@ -26,6 +30,10 @@ var inTutorial = false
 var meteorsAttacked = false
 var globalGameTime : int = 0
 var gameTimeTimer : Timer = Timer.new()
+var default_bookmarks = [
+	{"name":"Shop center","icon":"star","color":Color(0.39,0.58,0.92),"system_id":"3680641011042","planet_id":0}
+	]
+var bookmarks : Array= []
 
 var gamerulesBase = {
 	"can_leave_planet":true,
@@ -121,6 +129,7 @@ func open_save(saveId : String) -> void:
 			savegame.close()
 			blues = playerData["blues"]
 			killCount = 0 if !playerData.has("kill_count") else playerData["kill_count"]
+			bookmarks = default_bookmarks.duplicate(true) if !playerData.has("bookmarks") else playerData["bookmarks"]
 			currentPlanet = playerData["current_planet"]
 			starterPlanetId = playerData["starter_planet"]
 			gamerules = playerData["gamerules"]
@@ -145,6 +154,7 @@ func open_save(saveId : String) -> void:
 
 func new_save(saveId : String):
 	gamerules = gamerulesBase.duplicate(true)
+	bookmarks = default_bookmarks.duplicate(true)
 	meteorsAttacked = false
 	match scenario:
 		"temple":
@@ -166,6 +176,8 @@ func new_save(saveId : String):
 	dir.open(save_path + saveId)
 	dir.make_dir("systems")
 	dir.make_dir("planets")
+	copy_directory_recursively("res://data/pre_made_planets/",save_path + saveId + "/planets")
+	copy_directory_recursively("res://data/pre_made_systems/",save_path + saveId + "/systems")
 	GlobalGui.completedAchievements = []
 	globalGameTime = 0
 	var _er = get_tree().change_scene("res://scenes/Main.tscn")
@@ -192,6 +204,8 @@ func save(saveType : String, saveData : Dictionary) -> void:
 	playerData["player_name"] = playerName
 	playerData["gamerules"] = gamerules
 	playerData["game_time"] = globalGameTime
+	playerData["version"] = VER_NUMS
+	playerData["bookmarks"] = bookmarks
 	match saveType:
 		"planet":
 			playerData = saveData["player"]
@@ -207,6 +221,8 @@ func save(saveType : String, saveData : Dictionary) -> void:
 			playerData["landed_planet_types"] = StarSystem.landedPlanetTypes
 			playerData["misc_stats"]["meteors_attacked"] = meteorsAttacked
 			playerData["game_time"] = globalGameTime
+			playerData["version"] = VER_NUMS
+			playerData["bookmarks"] = bookmarks
 			savegame.open(save_path + currentSave + "/planets/" + str(currentSystemId) + "_" + str(currentPlanet) + ".dat",File.WRITE)
 			savegame.store_var(saveData["planet"])
 			savegame.close()
@@ -258,6 +274,12 @@ func delete(dir : String) -> void:
 	var directory = Directory.new()
 	if directory.dir_exists(save_path + dir):
 		remove_recursive(save_path + dir)
+
+func find_bookmark(systemId : String, planetId : int) -> int:
+	for bookmark in bookmarks:
+		if bookmark["system_id"] == systemId and bookmark["planet_id"] == planetId:
+			return bookmarks.find(bookmark)
+	return -1
 
 func remove_recursive(path): #Credit to davidepesce.com for this function. It deletes all the files in the main file, which allows it to delete the main one safely
 	var directory = Directory.new()

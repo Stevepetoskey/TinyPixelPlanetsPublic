@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://themes/space.tres" type="Theme" id=1]
+[ext_resource path="res://fonts/pixel-outline.tres" type="DynamicFont" id=2]
+[ext_resource path="res://textures/GUI/space/bookmark_icons/star.png" type="Texture" id=3]
+[ext_resource path="res://scripts/space/Bookmark.gd" type="Script" id=4]
+
+[node name="Bookmark" type="Button"]
+margin_right = 111.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 0, 16 )
+theme = ExtResource( 1 )
+script = ExtResource( 4 )
+
+[node name="Bookmark" type="TextureRect" parent="."]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 14.0
+margin_bottom = 14.0
+mouse_filter = 2
+texture = ExtResource( 3 )
+
+[node name="Title" type="Label" parent="."]
+margin_left = 16.0
+margin_top = 5.0
+margin_right = 109.0
+margin_bottom = 13.0
+custom_colors/font_color = Color( 0.239216, 0.607843, 0.980392, 1 )
+custom_colors/font_outline_modulate = Color( 0.156863, 0.360784, 0.768627, 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "MMMMMMMMMMMMM"
+clip_text = true

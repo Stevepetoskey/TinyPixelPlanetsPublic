@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://textures/NPCs/Buildings/skips_stones_back.png" type="Texture" id=1]
 [ext_resource path="res://textures/NPCs/stoneworker.png" type="Texture" id=2]
 [ext_resource path="res://textures/NPCs/Buildings/skips_stones_front.png" type="Texture" id=3]
+[ext_resource path="res://scripts/blocks/SkipsStones.gd" type="Script" id=4]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -36,7 +37,13 @@ tracks/0/keys = {
 "values": [ 3, 4, 5, 4, 3 ]
 }
 
-[node name="SkipsStones" type="Node2D"]
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 48, 36.5 )
+
+[node name="SkipsStones" type="StaticBody2D"]
+collision_layer = 64
+collision_mask = 0
+script = ExtResource( 4 )
 
 [node name="Back" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -55,3 +62,10 @@ texture = ExtResource( 3 )
 playback_speed = 0.5
 anims/RESET = SubResource( 1 )
 anims/idle = SubResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 7.5 )
+shape = SubResource( 3 )

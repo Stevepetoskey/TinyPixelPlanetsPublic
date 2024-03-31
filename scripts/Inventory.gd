@@ -1,5 +1,7 @@
 extends Control
 
+const BACKGROUND_TEXTURE = preload("res://textures/GUI/main/hotbar/background.png")
+const FOREGROUND_TEXTURE = preload("res://textures/GUI/main/hotbar/forground.png")
 const INV_BTN = preload("res://assets/InventoryBtn.tscn")
 const ITEM_PER_PAGE = 8
 var INVENTORY_SIZE = 20
@@ -14,10 +16,11 @@ onready var cursor = get_node("../../Cursor")
 onready var crafting = get_node("../Crafting")
 onready var chest = get_node("../Chest")
 onready var entities = $"../../Entities"
+onready var item_container = $ItemScroll/ItemContainer
+onready var shop: Control = $"../Shop"
 
 #{"id":1,"amount",2}
 var inventory = []
-var currentPage = 0
 var jRef = -1 #Where the j reference is located in inventory
 var kRef = -1
 var jId = 0
@@ -37,7 +40,7 @@ func _process(_delta):
 		inventoryToggle()
 	if Input.is_action_just_pressed("background_toggle") and !Global.pause:
 		cursor.currentLayer = int(!bool(cursor.currentLayer))
-		$"../Hotbar/HBoxContainer/BGT".texture.region.position = [Vector2(115,9),Vector2(0,0)][cursor.currentLayer]
+		$"../Hotbar/HBoxContainer/BGT".texture = [BACKGROUND_TEXTURE,FOREGROUND_TEXTURE][cursor.currentLayer]
 
 func add_to_inventory(id : int,amount : int,drop = true,data := {}) -> Dictionary:
 	if !Global.godmode:
@@ -81,22 +84,34 @@ func remove_loc_from_inventory(loc : int) -> void:
 		update_inventory()
 
 func remove_id_from_inventory(id : int, amount : int) -> void:
+	var toRemove = []
 	if !Global.godmode:
 		for item in range(inventory.size()):
 			if inventory[item]["id"] == id:
 				if inventory[item]["amount"] > amount:
 					inventory[item]["amount"] -= amount
-					update_inventory()
 					break
 				else:
-					remove_loc_from_inventory(item)
-					break
+					amount -= inventory[item]["amount"]
+					toRemove.append(item)
+					if amount <= 0:
+						break
+	for remove in toRemove:
+		remove_loc_from_inventory(remove)
+	update_inventory()
 
 func find_item(id : int) -> Dictionary:
 	for item in range(inventory.size()):
 		if inventory[item]["id"] == id:
 			return inventory[item]
 	return {}
+
+func count_id(id : int) -> int:
+	var count : int = 0
+	for item in inventory:
+		if item["id"] == id:
+			count += item["amount"]
+	return count
 
 func update_inventory() -> void:
 	#updates blues amount
@@ -128,18 +143,29 @@ func update_inventory() -> void:
 	
 	if !inventory.empty():
 		#clears all items
-		for page in $items.get_children():
-			for item in page.get_children():
-				item.queue_free()
+		for item in item_container.get_children():
+			item.queue_free()
 		#Sets first slot's texture
 		slot1.show()
 		slot1.get_node("Amount").text = str(inventory[0]["amount"])
 		slot1.get_node("Item").texture = get_item_texture(inventory[0]["id"],0)
+		if jRef == 0:
+			slot1.texture_normal = load("res://textures/GUI/main/hotbar/hotbar1_j.png")
+		elif kRef == 0:
+			slot1.texture_normal = load("res://textures/GUI/main/hotbar/hotbar1_k.png")
+		else:
+			slot1.texture_normal = load("res://textures/GUI/main/hotbar/hotbar1.png")
 		#Sets second slot's texture
 		if inventory.size() > 1:
 			slot2.show()
 			slot2.get_node("Amount").text = str(inventory[1]["amount"])
 			slot2.get_node("Item").texture = get_item_texture(inventory[1]["id"],1)
+			if jRef == 1:
+				slot2.texture_normal = load("res://textures/GUI/main/hotbar/hotbar2_j.png")
+			elif kRef == 1:
+				slot2.texture_normal = load("res://textures/GUI/main/hotbar/hotbar2_k.png")
+			else:
+				slot2.texture_normal = load("res://textures/GUI/main/hotbar/hotbar2.png")
 		else:
 			slot2.hide()
 		
@@ -154,37 +180,14 @@ func update_inventory() -> void:
 			kAction.get_node("Item").texture = null
 		
 		#Creates items
-		if !$items.has_node("0"):
-			var page0 = Control.new()
-			page0.name = "0"
-			$items.add_child(page0)
-		
-		var loc = 0
-		var x = 0
-		var y = 0
-		
-		for item in range(2,inventory.size()):
-			if (item-1) % ITEM_PER_PAGE == 0:
-				if !$items.has_node(str((item-1) / ITEM_PER_PAGE)):
-					var page = Control.new()
-					page.name = str((item-1) / ITEM_PER_PAGE)
-					$items.add_child(page)
-				loc = 0;x = 0;y = 0
+		for itemLoc in range(2,inventory.size()):
 			var itemNode = INV_BTN.instance()
-			itemNode.rect_position = Vector2(x*50,y*16)
-			itemNode.loc = item
-			itemNode.get_node("Sprite").texture = get_item_texture(inventory[item]["id"],item)
-			itemNode.get_node("Amount").text = str(inventory[item]["amount"])
-			$items.get_node(str(int((item-1) / float(ITEM_PER_PAGE)))).add_child(itemNode)
-			loc += 1
-			x += 1
-			if x > 1:
-				x = 0;y += 1
+			itemNode.loc = itemLoc
+			itemNode.get_node("Sprite").texture = get_item_texture(inventory[itemLoc]["id"],itemLoc)
+			itemNode.get_node("Amount").text = str(inventory[itemLoc]["amount"])
+			item_container.add_child(itemNode)
 	else:
 		slot1.hide()
-	if currentPage > int((inventory.size()-2) / float(ITEM_PER_PAGE)):
-		currentPage = int((inventory.size()-2) / float(ITEM_PER_PAGE))
-	update_buttons()
 	crafting.update_crafting()
 
 func get_item_texture(id : int, loc : int):
@@ -195,21 +198,6 @@ func get_item_texture(id : int, loc : int):
 			return load("res://textures/items/" +("water_" if inventory[loc].has("data") and inventory[loc]["data"].has("water") and inventory[loc]["data"]["water"] > 0 else "")+ "copper_bucket.png")
 		_:
 			return world.get_item_texture(id)
-
-func update_buttons() -> void:
-	for child in $items.get_children():
-		if child.name == str(currentPage):
-			child.show()
-		else:
-			child.hide()
-	if currentPage > 0:
-		$leftBtn.show()
-	else:
-		$leftBtn.hide()
-	if currentPage < int((inventory.size() -2) / float(ITEM_PER_PAGE)):
-		$rightBtn.show()
-	else:
-		$rightBtn.hide()
 
 func inv_btn_clicked(loc : int,item : Object):
 	if chest.visible:
@@ -224,26 +212,35 @@ func inv_btn_clicked(loc : int,item : Object):
 			chest.update_chest()
 		else:
 			add_to_inventory(leftover["id"],leftover["amount"])
-	elif loc != jRef and loc != kRef:
+	else:
 		if !holding:
 			holding = true
 			holdingRef = loc
-			item.texture_normal = load("res://textures/GUI/main/inventory_holding.png")
+			item.texture_normal = load("res://textures/GUI/main/inventory/inventory_holding.png")
 		else:
 			$change.play()
 			var new = inventory[holdingRef].duplicate(true)
+			if holdingRef == jRef:
+				jRef = loc
+			elif holdingRef == kRef:
+				kRef = loc
+			elif loc == jRef:
+				jRef == holdingRef
+			elif loc == kRef:
+				kRef == holdingRef
 			inventory[holdingRef] = inventory[loc].duplicate(true)
 			inventory[loc] = new
 			update_inventory()
 
 func mouse_in_btn(loc : int):
-	var itemData = world.get_item_data(inventory[loc]["id"])
-	if itemData.has("name"):
-		var text = itemData["name"]
-		if itemData.has("desc"):
-			text += "\n" + itemData["desc"]
-		$"../ItemData".show()
-		$"../ItemData".text = text
+	if inventory.has(loc):
+		var itemData = world.get_item_data(inventory[loc]["id"])
+		if itemData.has("name"):
+			var text = itemData["name"]
+			if itemData.has("desc"):
+				text += "\n" + itemData["desc"]
+			$"../ItemData".show()
+			$"../ItemData".text = text
 
 func mouse_out_btn(_loc : int):
 	$"../ItemData".hide()
@@ -260,14 +257,17 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 		update_inventory()
 	match mode:
 		"close":
-			crafting.visible = false
-			chest.visible = false
+			crafting.hide()
+			chest.hide()
+			shop.hide()
 		"inventory","crafting_table","oven","smithing_table":
 			crafting.visible = setValue
 			crafting.update_crafting(mode)
 		"chest":
 			chest.visible = setValue
 			chest.update_chest(world.get_block(cursor.cursorPos,cursor.currentLayer))
+		"lily_mart","skips_stones":
+			shop.pop_up(mode)
 
 func inv_btn_action(location : int,action : String) -> void:
 	var item = inventory[location]["id"]
@@ -287,37 +287,69 @@ func inv_btn_action(location : int,action : String) -> void:
 	update_inventory()
 
 func _on_InventoryBtn_pressed():
-	if !holding:
-		if visible:
-			inventoryToggle(false,false,"close")
+	if visible:
+		if chest.visible:
+			var leftover = chest.add_to_chest(inventory[0]["id"],inventory[0]["amount"])
+			if jRef == 0:
+				jId = 0
+			if kRef == 0:
+				kId = 0
+			inventory.remove(0)
+			if leftover.empty():
+				update_inventory()
+				chest.update_chest()
+			else:
+				add_to_inventory(leftover["id"],leftover["amount"])
 		else:
-			inventoryToggle()
-	else:
-		$change.play()
-		var new = inventory[holdingRef].duplicate(true)
-		inventory[holdingRef] = inventory[0].duplicate(true)
-		inventory[0] = new
-		update_inventory()
+			if !holding:
+				holding = true
+				holdingRef = 0
+				slot1.texture_normal = load("res://textures/GUI/main/hotbar/hotbar1_selected.png")
+			else:
+				$change.play()
+				var new = inventory[holdingRef].duplicate(true)
+				if holdingRef == jRef:
+					jRef = 0
+				elif holdingRef == kRef:
+					kRef = 0
+				elif 0 == jRef:
+					jRef == holdingRef
+				elif 0 == kRef:
+					kRef == holdingRef
+				inventory[holdingRef] = inventory[0].duplicate(true)
+				inventory[0] = new
+				update_inventory()
 
 func _on_InventoryBtn2_pressed():
-	if !holding:
-		if visible:
-			inventoryToggle(false,false,"close")
+	if visible:
+		if chest.visible:
+			var leftover = chest.add_to_chest(inventory[1]["id"],inventory[1]["amount"])
+			if jRef == 1:
+				jId = 1
+			if kRef == 1:
+				kId = 1
+			inventory.remove(1)
+			if leftover.empty():
+				update_inventory()
+				chest.update_chest()
+			else:
+				add_to_inventory(leftover["id"],leftover["amount"])
 		else:
-			inventoryToggle()
-	else:
-		$change.play()
-		var new = inventory[holdingRef].duplicate(true)
-		inventory[holdingRef] = inventory[1].duplicate(true)
-		inventory[1] = new
-		update_inventory()
-
-func _on_leftBtn_pressed():
-	if currentPage > 0:
-		currentPage -= 1
-		update_buttons()
-
-func _on_rightBtn_pressed():
-	if currentPage < int(inventory.size()-2 / float(ITEM_PER_PAGE)):
-		currentPage += 1
-		update_buttons()
+			if !holding:
+				holding = true
+				holdingRef = 1
+				slot2.texture_normal = load("res://textures/GUI/main/hotbar/hotbar2_selected.png")
+			else:
+				$change.play()
+				var new = inventory[holdingRef].duplicate(true)
+				if holdingRef == jRef:
+					jRef = 1
+				elif holdingRef == kRef:
+					kRef = 1
+				elif 1 == jRef:
+					jRef == holdingRef
+				elif 1 == kRef:
+					kRef == holdingRef
+				inventory[holdingRef] = inventory[1].duplicate(true)
+				inventory[1] = new
+				update_inventory()

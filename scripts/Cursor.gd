@@ -12,6 +12,8 @@ var canInteract = false
 var playerPos
 var breaking = false
 
+var currentShop = null
+
 var cursorPos = Vector2(0,0)
 var oldBlockPos = Vector2(0,0)
 
@@ -44,7 +46,7 @@ func _process(_delta):
 		elif blockPos.y > world.worldSize.y-1 :
 			position.y = (world.worldSize.y-1)*world.BLOCK_SIZE.y
 		
-		if world.interactableBlocks.has(world.get_block_id(position / world.BLOCK_SIZE,currentLayer)):
+		if world.interactableBlocks.has(world.get_block_id(position / world.BLOCK_SIZE,currentLayer)) or currentShop != null:
 			texture = load("res://textures/GUI/main/interactable_cursor.png")
 			canInteract = true
 		else:
@@ -60,7 +62,14 @@ func _process(_delta):
 func _unhandled_input(_event):
 	if !Global.pause and cursorPos.x < world.worldSize.x and cursorPos.x >= 0 and cursorPos.y < world.worldSize.y and cursorPos.y >= 0:
 		if Input.is_action_pressed("build") or Input.is_action_pressed("build2"):
-			if canInteract and world.worldRules["interact_with_blocks"]["value"]:
+			if currentShop != null:
+				print("in a shop")
+				match currentShop.id:
+					139:
+						inventory.inventoryToggle(false,true,"lily_mart")
+					141:
+						inventory.inventoryToggle(false,true,"skips_stones")
+			elif canInteract and world.worldRules["interact_with_blocks"]["value"]:
 				match world.get_block_id(cursorPos,currentLayer):
 					12:
 						inventory.inventoryToggle(false,true,"crafting_table")
@@ -94,13 +103,10 @@ func tool_action(itemId : int, ref := 0) -> void:
 				var water = world.get_block(cursorPos,currentLayer)
 				if inventory.inventory[ref].has("data") and inventory.inventory[ref]["data"].has("water"):
 					var bucketWaterLevel = inventory.inventory[ref]["data"]["water"]
-					print("before bucket water: ",bucketWaterLevel)
-					print("water level: ",water.data["water_level"])
 					if bucketWaterLevel + water.data["water_level"] < 4:
 						inventory.inventory[ref]["data"]["water"] += water.data["water_level"]
 						world.set_block(cursorPos,currentLayer,0,true)
 					else:
-						print("to much water")
 						water.data["water_level"] -= 4 - bucketWaterLevel
 						if water.data["water_level"] <= 0:
 							world.set_block(cursorPos,currentLayer,0,true)
@@ -115,7 +121,7 @@ func tool_action(itemId : int, ref := 0) -> void:
 				inventory.inventory[ref]["data"]["water"] = 0
 			elif itemSelect["type"] == "Watering_can" and inventory.inventory[ref].has("data") and inventory.inventory[ref]["data"].has("water") and inventory.inventory[ref]["data"]["water"] > 0:
 				$"../Effects".spray(player.position,player.flipped)
-				inventory.inventory[ref]["data"]["water"] -= 1
+				inventory.inventory[ref]["data"]["water"] -= 0.25
 			inventory.update_inventory()
 		"Tool":
 			if !breaking and world.get_block_id(cursorPos,currentLayer) > 0 and world.blockData[world.get_block_id(cursorPos,currentLayer)]["breakWith"] != "None" and itemSelect["strength"] >= world.blockData[world.get_block_id(cursorPos,currentLayer)]["canHaverst"] and world.worldRules["break_blocks"]["value"]:
@@ -146,3 +152,10 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		$break/AnimationPlayer.play("RESET")
 		GlobalGui.complete_achievement("One small step")
 		world.build_event("Break",position / world.BLOCK_SIZE,currentLayer)
+
+func _on_ShopTest_body_entered(body):
+	currentShop = body
+
+func _on_ShopTest_body_exited(body):
+	if body == currentShop:
+		currentShop = null

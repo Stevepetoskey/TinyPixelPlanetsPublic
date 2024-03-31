@@ -18,6 +18,11 @@ onready var player = $"../Player"
 onready var entities = $"../Entities"
 onready var meteors = $"../CanvasLayer/Enviroment/Meteors"
 
+var shops = {
+	"lily_mart":preload("res://assets/shops/LilyMart.tscn"),
+	"skips_stones":preload("res://assets/shops/SkipsStones.tscn")
+}
+
 var currentPlanet : Object
 
 var worldLoaded = false
@@ -109,6 +114,14 @@ var blockData = {
 	123:{"texture":preload("res://textures/items/corn_seeds.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":123,"amount":1}],"name":"Corn seeds","can_place_on":[119,120],"type":"block"},
 	124:{"texture":preload("res://textures/blocks2X/rhodonite_ore_stone.png"),"hardness":6,"breakWith":"Pickaxe","canHaverst":4,"drops":[{"id":74,"amount":1}],"name":"Rhodonite stone ore","type":"simple"},
 	128:{"texture":preload("res://textures/items/fig_tree.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":121,"amount":[0,1]},{"id":122,"amount":[0,1]},{"id":123,"amount":[0,1]}],"name":"Fig tree","can_place_on":[1,2],"type":"block"},
+	133:{"texture":preload("res://textures/blocks2X/copper_plate.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":133,"amount":1}],"name":"Copper plate","type":"simple"},
+	134:{"texture":preload("res://textures/blocks2X/copper_bricks.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":134,"amount":1}],"name":"Copper bricks","type":"simple"},
+	135:{"texture":preload("res://textures/blocks2X/cracked_copper_bricks.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":135,"amount":1}],"name":"Cracked copper bricks","type":"simple"},
+	136:{"texture":preload("res://textures/blocks2X/silver_plate.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":136,"amount":1}],"name":"Silver plate","type":"simple"},
+	137:{"texture":preload("res://textures/blocks2X/silver_bricks.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":137,"amount":1}],"name":"Silver bricks","type":"simple"},
+	138:{"texture":preload("res://textures/blocks2X/cracked_silver_bricks.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":138,"amount":1}],"name":"Silver bricks","type":"simple"},
+	139:{"texture":preload("res://textures/blocks2X/lily_mart.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Lily Mart","type":"shop","shop_type":"lily_mart"},
+	141:{"texture":preload("res://textures/blocks2X/skips_stones.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Skip's stones","type":"shop","shop_type":"skips_stones"},
 }
 
 var itemData = {
@@ -175,6 +188,7 @@ var itemData = {
 	130:{"texture_loc":preload("res://textures/items/silver_hoe.png"),"type":"Hoe","name":"Silver hoe","big_texture":preload("res://textures/weapons/silver_hoe.png")},
 	131:{"texture_loc":preload("res://textures/items/copper_watering_can.png"),"type":"Watering_can","name":"Copper watering can","big_texture":preload("res://textures/weapons/copper_watering_can.png")},
 	132:{"texture_loc":preload("res://textures/items/silver_watering_can.png"),"type":"Watering_can","name":"Silver watering can","big_texture":preload("res://textures/weapons/silver_watering_can.png")},
+	140:{"texture_loc":preload("res://textures/items/bread.png"),"type":"Food","name":"Bread","regen":8},
 }
 
 var fullGrownItemDrops = {
@@ -519,8 +533,16 @@ func set_block(pos : Vector2, layer : int, id : int, update = false, data = {}) 
 		$blocks.remove_child(blockAtPos)
 		blockAtPos.queue_free()
 	if id > 0:
-		var block = BLOCK.instance() if blockData[id]["type"] == "block" else SIMPLE_BLOCK.instance()
+		var block
+		match blockData[id]["type"]:
+			"block":
+				block = BLOCK.instance()
+			"simple":
+				block = SIMPLE_BLOCK.instance()
+			"shop":
+				block = shops[blockData[id]["shop_type"]].instance()
 		block.position = pos * BLOCK_SIZE
+		block.pos = pos
 		block.id = id
 		block.layer = layer
 		block.data = data
@@ -548,7 +570,6 @@ func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction 
 		if block == 91:
 			for item in get_block(pos,layer).data:
 				entities.spawn_item({"id":item["id"],"amount":item["amount"]},false,pos*BLOCK_SIZE)
-		set_block(pos,layer,0,true)
 		if itemAction and !Global.godmode:
 			var itemsToDrop = blockData[block]["drops"]
 			match block:
@@ -562,6 +583,7 @@ func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction 
 				else:
 					entities.spawn_item({"id":itemsToDrop[i]["id"],"amount":int(rand_range(itemsToDrop[i]["amount"][0],itemsToDrop[i]["amount"][1] + 1))},false,pos*BLOCK_SIZE)
 					#inventory.add_to_inventory(itemsToDrop[i]["id"],int(rand_range(itemsToDrop[i]["amount"][0],itemsToDrop[i]["amount"][1] + 1)))
+		set_block(pos,layer,0,true)
 
 func _on_GoUp_pressed():
 	Global.save("planet",get_world_data())

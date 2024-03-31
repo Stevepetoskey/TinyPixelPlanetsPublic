@@ -1,32 +1,26 @@
 extends Control
 
 const CHEST_BTN = preload("res://assets/ChestBtn.tscn")
-const CHEST_SIZE = 8
+const CHEST_SIZE = 24
 
 var currentChest = null
 
 onready var world = $"../../World"
 onready var inventory = $"../Inventory"
 onready var ITEM_STACK_SIZE = inventory.ITEM_STACK_SIZE
+onready var item_container = $ItemScroll/ItemContainer
 
 func update_chest(chest = currentChest):
 	currentChest = chest
 	var chestData = currentChest.data
-	for child in $items.get_children():
+	for child in item_container.get_children():
 		child.queue_free()
-	var loc = 0
-	var x = 0; var y = 0
 	for item in range(0,chestData.size()):
 		var itemNode = CHEST_BTN.instance()
-		itemNode.rect_position = Vector2(x*50,y*16)
 		itemNode.loc = item
 		itemNode.get_node("Sprite").texture = world.get_item_texture(chestData[item]["id"])
 		itemNode.get_node("Amount").text = str(chestData[item]["amount"])
-		$items.add_child(itemNode)
-		loc += 1
-		x += 1
-		if x > 1:
-			x = 0;y += 1
+		item_container.add_child(itemNode)
 
 func add_to_chest(id:int,amount:int) -> Dictionary:
 	var chestData = currentChest.data
