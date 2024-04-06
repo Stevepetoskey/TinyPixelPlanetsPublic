@@ -2,14 +2,41 @@ extends Control
 
 var selectedSave = ""
 
+onready var scenarios = $"../../Scenarios"
+
 func update_save_list() -> void:
 	for save in $saves.get_children():
 		var dir = Directory.new()
 		if dir.dir_exists(Global.save_path + save.name):
-			save.get_node("stats").hide()
+			var savegame = File.new()
+			if savegame.file_exists(Global.save_path + save.name + "/playerData.dat"): #Gets save data
+				savegame.open(Global.save_path + save.name + "/playerData.dat",File.READ)
+				var playerData = savegame.get_var()
+				savegame.close()
+				save.get_node("Label").text = "Player" if !playerData.has("player_name") else playerData["player_name"]
+				if playerData.has("version") and Global.ALLOW_VERSIONS.has(playerData["version"]):
+					save.disabled = false
+					save.get_node("stats").text = "Ver: " + str(playerData["version"][0]) + "." + str(playerData["version"][1]) + "." + str(playerData["version"][2]) + ((":" + str(playerData["version"][3]) if playerData["version"][3] > 0 else ""))
+					save.get_node("stats").set("custom_colors/font_color",Color("c4c4c4"))
+				else:
+					save.disabled = true
+					save.get_node("stats").text = "Ver: Unkown" if !playerData.has("version") else ("Ver: " + str(playerData["version"][0]) + "." + str(playerData["version"][1]) + "." + str(playerData["version"][2]) + ":" + str(playerData["version"][3]))
+					save.get_node("stats").set("custom_colors/font_color",Color.red)
+				if playerData.has("scenario"): #Loads scenario icon
+					save.get_node("Icon").texture = scenarios.scenarios[playerData["scenario"]]["icon"]
+				else:
+					save.get_node("Icon").texture = scenarios.scenarios["sandbox"]["icon"]
+			else:
+				save.disabled = false
+				save.get_node("Label").text = "Save " + str(save.id + 1)
+				save.get_node("Icon").texture = scenarios.scenarios["empty"]["icon"]
 			save.get_node("delete").show()
 		else:
-			save.get_node("stats").show()
+			save.disabled = false
+			save.get_node("stats").text = "empty"
+			save.get_node("stats").set("custom_colors/font_color",Color("c4c4c4"))
+			save.get_node("Label").text = "Save " + str(save.id + 1)
+			save.get_node("Icon").texture = scenarios.scenarios["empty"]["icon"]
 			save.get_node("delete").hide()
 
 func save_clicked(save : Object) -> void:
@@ -19,6 +46,7 @@ func save_clicked(save : Object) -> void:
 	else:
 		hide()
 		get_node("../character").open()
+		$"../../Scenarios".scenario_btn_pressed("sandbox")
 
 func delete_file(save : Object) -> void:
 	Global.delete(save.name)
@@ -29,12 +57,11 @@ func cancel():
 	show()
 
 func start(tutorial = false):
-	if tutorial:
-		Global.open_tutorial()
-	else:
-		Global.open_save(selectedSave)
 	get_node("..").hide()
 	get_node("../../blank").show()
 	get_node("../../AnimationPlayer").play("zoom",-1,-1,true)
 	yield(get_node("../../AnimationPlayer"),"animation_finished")
-	var _er = get_tree().change_scene("res://scenes/Main.tscn")
+	if tutorial:
+		Global.open_tutorial()
+	else:
+		Global.open_save(selectedSave)

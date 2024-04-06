@@ -1,0 +1,200 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/Pause.gd" type="Script" id=2]
+[ext_resource path="res://textures/GUI/Blank.png" type="Texture" id=3]
+[ext_resource path="res://textures/GUI/Menu/Buttons.png" type="Texture" id=4]
+[ext_resource path="res://fonts/default_theme.tres" type="Theme" id=5]
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 4 )
+region = Rect2( 96, 68, 64, 15 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 4 )
+region = Rect2( 96, 87, 64, 15 )
+
+[sub_resource type="Animation" id=11]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=12]
+resource_name = "fadeIn"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=13]
+resource_name = "fadeOut"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[node name="Pause" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color( 0.411765, 0.411765, 0.411765, 0.505882 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+stretch_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -32.0
+margin_right = 32.0
+custom_constants/separation = 3
+alignment = 1
+
+[node name="Quit" type="TextureButton" parent="VBoxContainer"]
+margin_top = 45.0
+margin_right = 64.0
+margin_bottom = 60.0
+texture_normal = SubResource( 10 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Quit"]
+margin_top = 4.0
+margin_right = 64.0
+margin_bottom = 15.0
+theme = ExtResource( 5 )
+custom_fonts/font = ExtResource( 1 )
+text = "QUIT"
+align = 1
+
+[node name="Save" type="TextureButton" parent="VBoxContainer"]
+margin_top = 63.0
+margin_right = 64.0
+margin_bottom = 78.0
+texture_normal = SubResource( 10 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Save"]
+margin_left = 1.0
+margin_top = 4.0
+margin_right = 63.0
+margin_bottom = 12.0
+theme = ExtResource( 5 )
+custom_fonts/font = ExtResource( 1 )
+text = "SAVE"
+align = 1
+
+[node name="Continue" type="TextureButton" parent="VBoxContainer"]
+margin_top = 81.0
+margin_right = 64.0
+margin_bottom = 96.0
+texture_normal = SubResource( 10 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Continue"]
+margin_left = 1.0
+margin_top = 4.0
+margin_right = 63.0
+margin_bottom = 12.0
+theme = ExtResource( 5 )
+custom_fonts/font = ExtResource( 1 )
+text = "CONTINUE"
+align = 1
+
+[node name="Achievements" type="TextureButton" parent="VBoxContainer"]
+margin_top = 99.0
+margin_right = 64.0
+margin_bottom = 114.0
+texture_normal = SubResource( 14 )
+
+[node name="Label" type="Label" parent="VBoxContainer/Achievements"]
+margin_left = 1.0
+margin_top = 4.0
+margin_right = 63.0
+margin_bottom = 12.0
+theme = ExtResource( 5 )
+custom_fonts/font = ExtResource( 1 )
+text = "ACHIEVEMENTS"
+align = 1
+
+[node name="Black" type="TextureRect" parent="."]
+visible = false
+modulate = Color( 0, 0, 0, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 3 )
+stretch_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Black"]
+anims/RESET = SubResource( 11 )
+anims/fadeIn = SubResource( 12 )
+anims/fadeOut = SubResource( 13 )
+
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
+[connection signal="pressed" from="VBoxContainer/Save" to="." method="_on_Save_pressed"]
+[connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_Continue_pressed"]
+[connection signal="pressed" from="VBoxContainer/Achievements" to="." method="_on_Achievements_pressed"]

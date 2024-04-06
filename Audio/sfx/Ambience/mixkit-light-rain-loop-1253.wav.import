@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/mixkit-light-rain-loop-1253.wav-805d088894af01c1191b2dba2a084ddf.sample"
+
+[deps]
+
+source_file="res://Audio/sfx/Ambience/mixkit-light-rain-loop-1253.wav"
+dest_files=[ "res://.import/mixkit-light-rain-loop-1253.wav-805d088894af01c1191b2dba2a084ddf.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=2
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

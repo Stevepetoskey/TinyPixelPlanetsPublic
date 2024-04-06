@@ -2,12 +2,127 @@ extends Node2D
 
 const PLANET = preload("res://assets/planetData.tscn")
 const MAX_SPACE_CHECK = 50
+const SECTOR_SIZE = Vector2(568,568)
+const GALAXY_SIZE = Vector2(1000,1000)
+const SECTOR_STAR_RANGE = [40,60]
 
 var sizeTypes = {
 	small = 0,
 	medium = 1,
 	large = 2,
 	max_size = 3
+}
+
+var FirstStarName = [
+	"Theta",
+	"Alpha",
+	"Eta",
+	"Zeta",
+	"Epsilon",
+	"Xi",
+	"Beta",
+	"Gamma",
+	"Rho",
+	"Chi",
+	"Sigma",
+	"Nu",
+	"Kappa",
+	"Delta",
+	"Lambda",
+	"Mu",
+	"Iota",
+	"Omicron",
+	"Pi"
+]
+
+var SecondStarName = [
+	"Eridani",
+	"Cassiopeiae",
+	"Crucis",
+	"Cancri",
+	"Leonis",
+	"Canis",
+	"Majoris",
+	"Andromedae",
+	"Tauri",
+	"Aurigae",
+	"Aquarii",
+	"Cygni",
+	"Corvi",
+	"Ursae",
+	"Cephei",
+	"Capricorni",
+	"Pegasi",
+	"Leonis",
+	"Persei",
+	"Geminorum",
+	"Minoris",
+	"Bootis",
+	"Crateris",
+	"Centauri",
+	"Gruis",
+	"Sagittarii",
+	"Orionis",
+	"Scorpii",
+	"Hydrae",
+	"Coronae",
+	"Borealis",
+	"Piscium",
+	"Draconis",
+	"Aquilae",
+	"Serpentis",
+	"Phoenicis",
+	"Trianguli",
+	"Virginis",
+	"Aimunigos",
+	"Suss",
+	"Dulovc"
+]
+
+var weatherEvents = {
+	"terra":["rain","showers"],
+	"desert":["none"],
+	"mud":["none"],
+	"exotic":["rain","showers"],
+	"stone":["none"],
+	"snow":["snow","blizzard"],
+	"snow_terra":["snow","blizzard"],
+	"asteroids":["none"],
+	"ocean":["rain","showers"]
+}
+
+var typeNames = {
+	"terra":"Terra",
+	"desert":"Desert",
+	"mud":"Mud",
+	"exotic":"Exotic",
+	"stone":"Stone",
+	"snow":"Snow",
+	"snow_terra":"Snowy terra",
+	"gas1":"Gas giant",
+	"gas2":"Gas giant",
+	"gas3":"Gas giant",
+	"asteroids":"Asteroids",
+	"ocean":"Ocean"
+}
+
+var hostileSpawn = {
+	"terra":["slorg"],
+	"desert":["slorg"],
+	"mud":[],
+	"exotic":[],
+	"stone":["rockius"],
+	"snow":[],
+	"snow_terra":["slorg"],
+	"asteroids":["space_squid"],
+	"ocean":[]
+}
+
+var sizeNames = {
+	0:"Small",
+	1:"Medium",
+	2:"Large",
+	3:"Giant"
 }
 
 var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra.png"),"size":sizeTypes.small,"type":"terra"},
@@ -28,18 +143,21 @@ var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra
 	"gas2":{"texture":preload("res://textures/planets/gas2.png"),"size":sizeTypes.large,"type":"gas2"},
 	"gas3":{"texture":preload("res://textures/planets/gas3.png"),"size":sizeTypes.large,"type":"gas3"},
 	"asteroids":{"texture":preload("res://textures/planets/asteroids.png"),"size":sizeTypes.small,"type":"asteroids"},
+	"small_ocean":{"texture":preload("res://textures/planets/ocean.png"),"size":sizeTypes.small,"type":"ocean"},
+	"ocean":{"texture":preload("res://textures/planets/oceanMedium.png"),"size":sizeTypes.medium,"type":"ocean"},
+	#"commet":{"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"},
 }
 
-var sizeData = { #Normal moon chance: 10,50,95
-	sizeTypes.small:{"moon_chance":10,"distance":range(40,80),"radius":7,"world_size":Vector2(128,32)},
-	sizeTypes.medium:{"moon_chance":60,"distance":range(50,150),"radius":14,"world_size":Vector2(256,32)},
-	sizeTypes.large:{"moon_chance":120,"distance":range(60,240),"radius":28},
+var sizeData = { #Normal moon chance: 10,50,95 (40,80), (50,150), (60,240)
+	sizeTypes.small:{"moon_chance":20,"distance":range(40,80),"radius":7,"world_size":Vector2(128,64)},
+	sizeTypes.medium:{"moon_chance":70,"distance":range(50,150),"radius":14,"world_size":Vector2(256,64)},
+	sizeTypes.large:{"moon_chance":150,"distance":range(60,240),"radius":28},
 }
 
 var starData = {"M-type":{"min_distance":100,"habital":[],"max_distance":800},
-	"K-type":{"min_distance":120,"habital":range(350,550),"max_distance":1100},
-	"G-type":{"min_distance":160,"habital":range(600,800),"max_distance":1300},
-	"B-type":{"min_distance":200,"habital":range(700,1000),"max_distance":1600},
+	"K-type":{"min_distance":120,"habital":range(350,800),"max_distance":1100},
+	"G-type":{"min_distance":160,"habital":range(550,900),"max_distance":1300},
+	"B-type":{"min_distance":200,"habital":range(600,1300),"max_distance":1600},
 }
 
 var currentStar
@@ -49,11 +167,17 @@ var currentStarData
 
 var systemDat = {}
 var visitedPlanets = []
+var landedPlanetTypes = []
 
 var planetReady = false
 
 signal planet_ready
 signal found_system
+signal leaving_planet
+signal leaving_system
+signal entering_system
+signal landing_planet
+signal start_meteors
 
 func start_game():
 	print("---start game---")
@@ -62,6 +186,18 @@ func start_game():
 		yield(self,"found_system")
 		Global.currentPlanet = find_planet("type","terra").id
 		Global.starterPlanetId = Global.currentPlanet
+		if Global.scenario == "meteor": #Adds the commet if meteor scenario
+			var commet = PLANET.instance()
+			commet.id = get_system_bodies().size()
+			commet.type = {"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"}
+			commet.hasAtmosphere = false
+			commet.orbitalDistance = 500
+			commet.orbitingBody = find_planet_id(Global.currentPlanet)
+			commet.orbitalSpeed = 0
+			commet.rotationSpeed = 0
+			commet.currentOrbit = deg2rad(randi() % 360)
+			commet.currentRot = deg2rad(randi() % 360)
+			$system.add_child(commet)
 		print("Current Planet: ", find_planet_id(Global.currentPlanet).pName)
 	planetReady = true
 	print("---Planet Ready---")
@@ -69,22 +205,73 @@ func start_game():
 
 func start_space():
 	print("going into space")
+	GlobalGui.complete_achievement("The mechanic")
+	emit_signal("leaving_planet")
 	var _er = get_tree().change_scene("res://scenes/PlanetSelect.tscn")
 
 func land(planet : int):
 	Global.currentPlanet = planet
 	Global.new_planet()
+	var planetType = find_planet_id(planet).type["type"]
+	if !landedPlanetTypes.has(planetType):
+		landedPlanetTypes.append(planetType)
+		if landedPlanetTypes.size() >= 3:
+			GlobalGui.complete_achievement("Explorer 1")
+		elif landedPlanetTypes.size() >= 6:
+			GlobalGui.complete_achievement("Explorer 2")
+		elif landedPlanetTypes.size() >= 9:
+			GlobalGui.complete_achievement("Explorer 3")
+	GlobalGui.complete_achievement("Interplanetary")
+	emit_signal("landing_planet")
+
+func open_star_system(systemSeed : int,systemId : String):
+	emit_signal("entering_system")
+	Global.currentSystem = systemSeed
+	Global.currentSystemId = systemId
+	var dir = Directory.new()
+	print("GIVEN SYSTEM ID: ",systemId)
+	if dir.file_exists(Global.save_path + Global.currentSave + "/systems/" + systemId + ".dat"):
+		systemDat = Global.load_system(systemId)
+		print("Loading system")
+		load_system(true)
+	else:
+		print("Creating new system")
+		new_system(systemSeed)
+		var _er = get_tree().change_scene("res://scenes/PlanetSelect.tscn")
+		print("Entering system ",systemSeed)
+
+func leave_star_system():
+	visitedPlanets.clear()
+	Global.currentPlanet = -1
+	Global.save_system()
+	emit_signal("leaving_system")
+	var _er = get_tree().change_scene("res://scenes/Galaxy.tscn")
+	print("Leaving system ",Global.currentSystem)
 
 func new():
-	print("new")
-	randomize()
-	var Seed = randi()
-	new_system(Seed)
-	yield(get_tree(),"idle_frame")
-	while !search_system("type").has("terra"):
-		Seed = randi()
-		new_system(Seed)
-		yield(get_tree(),"idle_frame")
+	visitedPlanets.clear()
+	var foundSeed = false
+	while !foundSeed:
+		var seedX = str(stepify(int(rand_range(0,SECTOR_SIZE.x*GALAXY_SIZE.x)),SECTOR_SIZE.x))
+		var seedY = str(stepify(int(rand_range(0,SECTOR_SIZE.y*GALAXY_SIZE.y)),SECTOR_SIZE.y))
+		while seedY.length() < 6:
+			seedY = "0" + seedY
+		var sectorSeed = int(seedX + seedY)
+		while seedX.length() < 6:
+			seedX = "0" + seedX
+		seed(sectorSeed)
+		var starAmount = int(rand_range(SECTOR_STAR_RANGE[0],SECTOR_STAR_RANGE[1]))
+		for i in range(starAmount):
+			print("seeds")
+			print(seedX)
+			print(seedY)
+			new_system(int(seedX + seedY + str(i)))
+			yield(get_tree(),"idle_frame")
+			if search_system("type").has("terra"):
+				foundSeed = true
+				Global.currentSystem = currentSeed
+				Global.currentSystemId = seedX + seedY + str(i)
+				break
 	print("--- Star System ", currentStarName, " ---")
 	print("Seed: ", currentSeed)
 	print("Star: ", currentStar)
@@ -95,46 +282,87 @@ func new():
 		print(planet.pName + " Type: " + planet.type["type"])
 	emit_signal("found_system")
 
-func load_system():
-	for child in $system.get_children():
-		child.queue_free()
-		$system.remove_child(child)
-	yield(get_tree(),"idle_frame")
-	currentStarName = systemDat["system_name"]
-	currentSeed = systemDat["system_seed"]
-	currentStar = systemDat["star_type"]
-	currentStarData = starData[currentStar]
-	visitedPlanets = systemDat["visited_planets"]
-	for id in systemDat["planets"]:
-		var planetDat = systemDat["planets"][id]
-		var planet = PLANET.instance()
-		planet.id = id
-		planet.hasAtmosphere = planetDat["has_atmosphere"]
-		planet.type = planetData[look_up_planet_data(planetDat["planet_type"],planetDat["planet_size"])]
-		planet.orbitalDistance = planetDat["orbit_distance"]
-		planet.orbitingBody = $stars if planetDat["orbiting_body"] == -1 else find_planet_id(planetDat["orbiting_body"])
-		planet.orbitalSpeed = planetDat["orbit_speed"]
-		planet.rotationSpeed = planetDat["rotation_speed"]
-		planet.currentOrbit = planetDat["current_orbit"]
-		planet.currentRot = planetDat["current_rot"]
-		planet.pName = planetDat["planet_name"]
-		planet.pDesc = planetDat["planet_desc"]
-		$system.add_child(planet)
+func load_system(entering = false):
+	visitedPlanets.clear()
+	Global.currentSystemId = systemDat["system_id"]
+	Global.currentSystem = systemDat["system_seed"]
+	if ["planet","system"].has(Global.playerData["save_type"]) or entering:
+		GlobalAudio.currentMusic = "regular"
+		print(Global.currentSystemId)
+		for child in $system.get_children():
+			child.queue_free()
+			$system.remove_child(child)
+		yield(get_tree(),"idle_frame")
+		currentStarName = systemDat["system_name"]
+		currentSeed = systemDat["system_seed"]
+		currentStar = systemDat["star_type"]
+		currentStarData = starData[currentStar]
+		visitedPlanets = systemDat["visited_planets"]
+		for id in systemDat["planets"]:
+			var planetDat = systemDat["planets"][id]
+			var planet = PLANET.instance()
+			planet.id = id
+			planet.hasAtmosphere = planetDat["has_atmosphere"]
+			match planetDat["planet_type"]:
+				"commet":
+					planet.type = {"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"}
+				_:
+					planet.type = planetData[look_up_planet_data(planetDat["planet_type"],planetDat["planet_size"])]
+			planet.orbitalDistance = planetDat["orbit_distance"]
+			planet.orbitingBody = $stars if planetDat["orbiting_body"] == -1 else find_planet_id(planetDat["orbiting_body"])
+			planet.orbitalSpeed = planetDat["orbit_speed"]
+			planet.rotationSpeed = planetDat["rotation_speed"]
+			planet.currentOrbit = planetDat["current_orbit"]
+			planet.currentRot = planetDat["current_rot"]
+			planet.pName = planetDat["planet_name"]
+			planet.pDesc = planetDat["planet_desc"]
+			$system.add_child(planet)
+		match Global.playerData["save_type"]:
+			"planet":
+				var _er = get_tree().change_scene("res://scenes/Main.tscn")
+			"system","galaxy":
+				print("entering system final")
+				var _er = get_tree().change_scene("res://scenes/PlanetSelect.tscn")
+	else:
+		GlobalAudio.currentMusic = "space"
+		var _er = get_tree().change_scene("res://scenes/Galaxy.tscn")
 
-func new_system(systemSeed : int, loaded = false):
-	print("new System")
-	print(systemDat)
+func quick_system_check(systemSeed : int) -> Dictionary:
 	seed(systemSeed)
+	var FSN = FirstStarName.duplicate()
+	var SSN = SecondStarName.duplicate()
+	FSN.shuffle()
+	SSN.shuffle()
+	var starName : String
+	if randi() % 5 < 3:
+		starName = FSN[0] + " "
+	starName +=  SSN[0]
+	if randi() % 5 < 2:
+		starName += " " + SSN[1]
+	var quickData = {"star":["M-type","K-type","G-type","B-type"][randi()%4]}
+	return quickData
+
+func new_system(systemSeed : int):
+	print("new System")
+	seed(systemSeed)
+	var FSN = FirstStarName.duplicate()
+	var SSN = SecondStarName.duplicate()
+	FSN.shuffle()
+	SSN.shuffle()
+	var starName : String
+	if randi() % 5 < 3:
+		starName = FSN[0] + " "
+	starName +=  SSN[0]
+	if randi() % 5 < 2:
+		starName += " " + SSN[1]
 	currentSeed = systemSeed
 	for child in $system.get_children():
 		child.queue_free()
 		$system.remove_child(child)
-	yield(get_tree(),"idle_frame")
 	currentStar = ["M-type","K-type","G-type","B-type"][randi()%4]
-	currentStarName = create_name(currentSeed)
+	currentStarName = starName
 	currentStarData = starData[currentStar]
 	var amountOfPlanets = randi() % 20 + 1
-	print("Before: ",get_system_bodies())
 	for _i in range(amountOfPlanets):
 		create_planet()
 
@@ -145,9 +373,9 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 	
 	#Determines planet type
 	var planetType
-	var planets = []# = ["small_desert","small_mud","small_stone","desert","mud","stone","gas1","gas2"]
+	var planets = []
 	for planetDat in planetData:
-		if (planetData[planetDat]["size"] < maxSize or (maxSize == 0 and planetData[planetDat]["size"] == 0)) and !["terra","snow","snow_terra","exotic"].has(planetData[planetDat]["type"]):
+		if (planetData[planetDat]["size"] < maxSize or (maxSize == 0 and planetData[planetDat]["size"] == 0)) and !["terra","snow","snow_terra","exotic","ocean"].has(planetData[planetDat]["type"]):
 			planets.append(planetData[planetDat])
 	planets.shuffle()
 	planetType = planets[0]
@@ -184,11 +412,14 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 	
 	#Checks if habitable
 	var size = "" if planetType["size"] > sizeTypes.small else "small_"
-	if currentStarData["habital"].has(abs(planet.orbitalDistance-orbitBody.orbitalDistance)) and randi()%5 == 1:
-		if randi() % 10 < 6:
-			planet.type = planetData[size + "earth"]
-		else:
-			planet.type = planetData[size + "exotic"]
+	if currentStarData["habital"].has(abs(planet.orbitalDistance-orbitBody.orbitalDistance)) and randi()%2 == 1:
+		var type = "earth"
+		match randi() % 3:
+			1:
+				type = "exotic"
+			2:
+				type = "ocean"
+		planet.type = planetData[size + type]
 		planet.hasAtmosphere = true
 	elif !currentStarData["habital"].empty() and abs(planet.orbitalDistance-orbitBody.orbitalDistance) > currentStarData["habital"][currentStarData["habital"].size()-1]:
 		if randi() % 3 ==1:
@@ -218,7 +449,7 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 func is_clear_space(planetSelf : Object, orbitingBody : Object) -> bool:
 	if !get_orbiting_bodies(orbitingBody).empty():
 		for planet in get_orbiting_bodies(orbitingBody):
-			if planet != self:
+			if planet != planetSelf:
 				var planetMoonArea = sizeData[planet.type["size"]]["distance"]
 				planetMoonArea = planetMoonArea[planetMoonArea.size()-1] / (int(orbitingBody != $stars)*2 + 1)
 				var selfMoonArea = sizeData[planetSelf.type["size"]]["distance"]
@@ -277,33 +508,14 @@ func find_planet_id(id : int, debug = false) -> Object:
 			return planet
 	return null
 
-func create_name(systemSeed : int) -> String:
-	var beforeLen = int(rand_range(2,6))
-	var convertDic = {"0":"p","1":"a","2":"l","3":"c","4":"d","5":"e","6":"m","7":"g","8":"s","9":"i","10":"o","20":" ","30":"deg","40":"zok"}
-	var string = str(systemSeed)
-	if beforeLen > string.length():
-		beforeLen = string.length()
-	var starName = ""
-	for num in range(beforeLen):
-		if num == beforeLen-1 or !convertDic.has(string[num] + string[num+1]):
-			var letter = convertDic[string[num]]
-			if num == 0:
-				letter = letter.capitalize()
-			starName += letter
-		else:
-			starName += convertDic[string[num]]
-	starName += "-" + string.substr(beforeLen)
-	return starName
-
 func get_system_data() -> Dictionary:
-	var data = {"system_name":currentStarName,"star_type":currentStar,"system_seed":currentSeed,"planets":{},"visited_planets":visitedPlanets}
+	var data = {"system_name":currentStarName,"system_id":Global.currentSystemId,"star_type":currentStar,"system_seed":currentSeed,"planets":{},"visited_planets":visitedPlanets}
 	var planets = get_system_bodies()
 	for planet in planets:
 		data["planets"][planet.id] = {"orbiting_body":-1 if planet.orbitingBody == $stars else planet.orbitingBody.id,"planet_type":planet.type["type"],"planet_size":planet.type["size"],"has_atmosphere":planet.hasAtmosphere,"planet_name":planet.pName,"planet_desc":planet.pDesc,"rotation_speed":planet.rotationSpeed,"orbit_speed":planet.orbitalSpeed,"orbit_distance":planet.orbitalDistance,"current_orbit":planet.currentOrbit,"current_rot":planet.currentRot}
 	return data
 
 func get_current_world_size() -> Vector2:
-	print("After: ",get_system_bodies())
 	return sizeData[find_planet_id(Global.currentPlanet,true).type["size"]]["world_size"]
 
 func look_up_planet_data(type,size):

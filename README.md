@@ -74,3 +74,69 @@ Since I decided to open a new public repository instead of opening my private re
 - Added Web Demo
 - Added tooltip that is displayed when hovering over items
 - Armor now is functional
+
+## Tiny Pixel Planets Title Update 4
+### Features
+- Added water system
+- Added silver and copper buckets with and without water
+- Foliage now sways in the wind
+- Added ocean planets
+- Fixed blocks not showing behind glass and windows
+- Added wet sand
+- Now can only place saplings and flowers on their appropriate grass and dirt blocks using the new "can_place_on" attribute
+- Added new command: worldrule [place_blocks (bool) | break_blocks (bool) | interact_with_blocks (bool) | entity_spawning (bool) | enemy_spawning (bool) | world_spawn_x (int) | world_spawn_y (int) ]
+- Added new command: displaycoordinates [true | false]
+- Added Galaxy navigation
+- Now able to travel between star systems
+- Reworked the naming system for stars to be more realistic
+- Systems are now refered to by their system id (String) and no longer by their seed (int)
+- Can now save and quit at any point even in space
+- Added blues (Currency)
+- Slorgs now drop blues when killed
+- Added panel in galaxy view that shows what type of planets are in the star system
+- New weather system depending on the planet (rain, showers, snow, blizzards)
+- Added achievements
+- Added tomato, wheat, and corn seeds
+- Added new command: weather [rain | showers | snow | blizzards]
+- Added Fig tree that has a chance to drop wheat, tomato, and corn seeds
+- Added stone and silver hoes
+- Doubled world height (64 blocks now)
+- Added Silver and Copper watering cans
+- Added data property to items
+- Added new blocks (Copper plate, Copper bricks, Cracked copper bricks, Silver plate, Silver bricks, and Cracked Silver bricks)
+- Save version now shows on the save in the menu
+- Now unable to load saves from TU3 and prior (All star systems prior to TU4 don't exists anymore and would completely break the Galaxy generation)
+- Added bookmarks (Able to warp to bookmarked planets)
+- Added Versitalis (Shop Center) and made it auto bookmark on new saves
+- Now able to view planet stats in the planet select
+- Now able to change planet names
+- Added Space squids
+- Added Rockius
+- Now able to restore health by eating food items
+- Added settings menu
+- Now able to change music volume
+- Now able to set keybinds
+- Added a new block: Bottom rock (Unbreakable and generates at the bottom of the world)
+### Improvements
+- Modified habitable zone size to allow for more habitable planets in system
+- Player now points in the direction of movement if moving, otherwise points torwards mouse. Aka now your player can't moon walk.
+- Removed entityspawning and enemyspawning commands
+- Game window is now native 16:9
+- Changed how space looks in the star system navigation
+- Changed how seeds are generated for star systems (Breaking all previous saves)
+- Reworked sound engine, now doesn't end a track when leaving a planet
+- Made player's name also the name of the save
+- Made some block optimizations
+- Updated inventory and other important GUI textures to look more readable
+- Inventory, crafting, and chest now are scrollable as opposed to the old page system
+- Chests can now store up to 24 items
+- Hotbar inventory slots no longer open and close the inventory but instead act as normal inventory slots, making the GUI much more fluent
+### Fixes
+- Fixed women not being able to wear silver armor
+- Fixed being able to place blocks from second slot despite no blocks existing which led the game to crash.
+- Fixed Swinging animation
+- Fixed being able to kill items
+- Fixed Item data showing even after closing the inventory
+- Fixed parallax background not loading when it should
+- Fixed duplicated chest recipe costing 78 wood planks
+- Fixed camera limit preventing the player from viewing the bottom two block layers

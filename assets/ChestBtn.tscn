@@ -1,24 +1,21 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=1]
-[ext_resource path="res://textures/GUI/main/GUI_buttons.png" type="Texture" id=2]
-[ext_resource path="res://textures/blocks/Cobble.png" type="Texture" id=3]
+[ext_resource path="res://textures/items/bucket.png" type="Texture" id=2]
+[ext_resource path="res://textures/GUI/main/storage/item.png" type="Texture" id=3]
 [ext_resource path="res://scripts/ChestBtn.gd" type="Script" id=4]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 2 )
-region = Rect2( 143, 36, 48, 14 )
-
 [node name="ChestBtn" type="TextureButton"]
-anchor_right = 0.2
+anchor_right = 0.169
 anchor_bottom = 0.087
-margin_bottom = 0.079999
-texture_normal = SubResource( 1 )
+margin_right = 0.00399399
+margin_bottom = 0.0799999
+texture_normal = ExtResource( 3 )
 script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 6, 7 )
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 
 [node name="Amount" type="Label" parent="."]
 margin_left = 11.0

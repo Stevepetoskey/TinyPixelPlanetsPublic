@@ -39,6 +39,9 @@ radius = 4.0078
 z_index = 1
 collision_layer = 8
 script = ExtResource( 6 )
+hostile = true
+bluesDropRange = [ 2, 7 ]
+type = "slorg"
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )

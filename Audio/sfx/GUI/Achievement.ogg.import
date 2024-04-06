@@ -11,5 +11,5 @@ dest_files=[ "res://.import/Achievement.ogg-2877dc125db06d7b2499f361b74b7ee1.ogg
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

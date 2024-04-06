@@ -34,7 +34,8 @@ var backTextures = {"terra":preload("res://textures/enviroment/backgrounds/terra
 	"snow_terra":preload("res://textures/enviroment/backgrounds/snow_back.png"),
 	"mud":preload("res://textures/enviroment/backgrounds/mud_back.png"),
 	"desert":preload("res://textures/enviroment/backgrounds/desert_back.png"),
-	"exotic":preload("res://textures/enviroment/backgrounds/exotic_back.png")
+	"exotic":preload("res://textures/enviroment/backgrounds/exotic_back.png"),
+	"ocean":preload("res://textures/enviroment/backgrounds/ocean_back.png")
 }
 var frontTextures = {"terra":preload("res://textures/enviroment/backgrounds/terra_front.png"),
 	"stone":preload("res://textures/enviroment/backgrounds/stone_front.png"),
@@ -42,7 +43,8 @@ var frontTextures = {"terra":preload("res://textures/enviroment/backgrounds/terr
 	"snow_terra":preload("res://textures/enviroment/backgrounds/snow_terra_front.png"),
 	"mud":preload("res://textures/enviroment/backgrounds/mud_front.png"),
 	"desert":preload("res://textures/enviroment/backgrounds/desert_front.png"),
-	"exotic":preload("res://textures/enviroment/backgrounds/exotic_front.png")
+	"exotic":preload("res://textures/enviroment/backgrounds/exotic_front.png"),
+	"ocean":preload("res://textures/enviroment/backgrounds/ocean_front.png")
 }
 
 var oldTime = -1.0
@@ -85,6 +87,9 @@ func _process(delta):
 			
 			$back.modulate = Global.lightColor
 			$front.modulate = Global.lightColor
+			$"../ParallaxBackground2/StormLayer".modulate = Global.lightColor
+			$"../../weather/Rain".modulate = Global.lightColor
+			$"../../weather/Snow".modulate = Global.lightColor
 			get_node("../../World/blocks").modulate = Global.lightColor
 			get_node("../../Player").modulate = Global.lightColor
 			get_node("../../Entities").modulate = Global.lightColor
@@ -118,17 +123,29 @@ func change_sounds(volume1 : int,volume2 = -1000, volume3 = -1000) -> void:
 				if !get_node("../../sfx/winterWind").playing:
 					get_node("../../sfx/winterWind").play()
 				get_node("../../sfx/winterWind").volume_db = volume1
+		"ocean":
+			if volume1 == -1000:
+				$"../../sfx/Ocean".stop()
+			else:
+				if !$"../../sfx/Ocean".playing:
+					$"../../sfx/Ocean".play()
+				$"../../sfx/Ocean".volume_db = volume1
 
 func set_background(type : String):
-	if type == "asteroids":
-		$back/Sprite.hide()
-		$front/Sprite.hide()
-	else:
-		$back/Sprite.show()
-		$front/Sprite.show()
-		$back/Sprite.texture = backTextures[type]
-		$front/Sprite.texture = frontTextures[type]
-
+	match type:
+		"asteroids":
+			$back/Sprite.hide()
+			$front/Sprite.hide()
+		_:
+			$back/Sprite.show()
+			$front/Sprite.show()
+			$back/Sprite.texture = backTextures[type]
+			$front/Sprite.texture = frontTextures[type]
+			if type == "ocean":
+				$back.motion_scale.y = 0.9
+				$front.motion_scale.y = 0.95
+				$back.motion_offset.y += 170
+				$front.motion_offset.y += 157
 
 func _on_World_world_loaded():
 	if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
@@ -143,3 +160,5 @@ func _on_World_world_loaded():
 			get_node("../../sfx/wind").play()
 		"snow_terra","snow":
 			get_node("../../sfx/winterWind").play()
+		"ocean":
+			$"../../sfx/Ocean".play()

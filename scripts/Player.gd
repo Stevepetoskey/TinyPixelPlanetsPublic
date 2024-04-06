@@ -30,8 +30,10 @@ var canBreath = true
 var inSuit = false
 var flying = false
 var defPoints = 0
+var inWater = false
 
 var dead = false
+var flipped = false
 
 var enemies = []
 
@@ -77,6 +79,20 @@ func _ready():
 
 func _physics_process(_delta):
 	if !dead and !Global.pause:
+		#Swinging process
+		if inventory.inventory.size() > 0:
+			if Input.is_action_pressed("build"):
+				swing(inventory.inventory[0]["id"])
+			elif Input.is_action_pressed("build2") and inventory.inventory.size() > 1:
+				swing(inventory.inventory[1]["id"])
+			elif Input.is_action_pressed("action1"):
+				swing(inventory.jId)
+			elif Input.is_action_pressed("action2"):
+				swing(inventory.kId)
+			else:
+				swinging = false
+				if $Textures/AnimationPlayer.current_animation == "water":
+					$Textures/AnimationPlayer.play("idle")
 		#Collision modifiers
 		if Input.is_action_pressed("down"):
 			if !world.hasGravity:
@@ -90,8 +106,47 @@ func _physics_process(_delta):
 		
 		if Input.is_action_just_pressed("fly"):
 			flying = !flying
-			print(flying)
-		if world.hasGravity and (!Global.godmode or !flying):
+		if checkAllBlocks(117): #Swimming movement
+			inWater = true
+			if !is_on_floor():
+				motion.y += GRAVITY/ 2.0
+			
+			var speed = MAX_SPEED
+			if Input.is_action_pressed("sprint"):
+				speed = SPRINT_SPEED
+			
+			if Input.is_action_pressed("move_left"):
+				if motion.x > -speed:
+					motion.x -= ACCEL
+				else:
+					motion.x = move_toward(motion.x,0,FRICTION / 2.0)
+			elif Input.is_action_pressed("move_right"):
+				if motion.x < speed:
+					motion.x += ACCEL
+				else:
+					motion.x = move_toward(motion.x,0,FRICTION / 2.0)
+			else:
+				motion.x = move_toward(motion.x,0,FRICTION / 2.0)
+			
+			if Input.is_action_pressed("jump"):
+				if motion.y > -speed:
+					motion.y -= ACCEL
+			elif Input.is_action_pressed("down"):
+				if motion.y < speed:
+					motion.y += ACCEL
+			if !swinging:
+				if is_on_floor() or (is_on_wall() and $Textures/AnimationPlayer.current_animation == "idle"):
+					if abs(motion.x) > 0:
+						$Textures/AnimationPlayer.play("walk")
+					else:
+						$Textures/AnimationPlayer.play("idle")
+				else:
+					$Textures/AnimationPlayer.play("swim")
+		elif world.hasGravity and (!Global.godmode or !flying): #Regular movement
+			if inWater:
+				inWater = false
+				motion.y = -JUMPSPEED
+				jumping = true
 			if !is_on_floor():
 				if !coyote:
 					motion.y += GRAVITY
@@ -129,7 +184,11 @@ func _physics_process(_delta):
 			if Input.is_action_just_pressed("jump") and !jumping:
 				motion.y = -JUMPSPEED
 				jumping = true
-		else:
+		else: # Flying/ no gravity Movement
+			if inWater:
+				inWater = false
+				motion.y = -JUMPSPEED
+				jumping = true
 			if Input.is_action_pressed("jump") and motion.y > -MAX_SPEED:
 				motion.y -= ACCEL
 			elif Input.is_action_pressed("down") and motion.y < MAX_SPEED:
@@ -151,26 +210,21 @@ func _physics_process(_delta):
 		
 		if (get_global_mouse_position().x - position.x < 0 or motion.x < 0) and !motion.x > 0:
 			$Textures.set_global_transform(Transform2D(Vector2(-1,0),Vector2(0,1),Vector2(position.x,position.y)))
+			flipped = true
 		elif get_global_mouse_position().x - position.x > 0 or motion.x > 0:
 			$Textures.set_global_transform(Transform2D(Vector2(1,0),Vector2(0,1),Vector2(position.x,position.y)))
+			flipped = false
 		
 		motion = move_and_slide(motion,Vector2(0,-1),true)
 
-func _unhandled_input(event):
-	if inventory.inventory.size() > 0 and !Global.pause:
-		if Input.is_action_pressed("build"):
-			swing(inventory.inventory[0]["id"])
-		if Input.is_action_pressed("build2"):
-			swing(inventory.inventory[1]["id"])
-		elif Input.is_action_pressed("action1"):
-			swing(inventory.jId)
-		elif Input.is_action_pressed("action2"):
-			swing(inventory.kId)
-
 func swing(item):
-	if world.itemData.has(item) and item > 0 and ["Tool","weapon"].has(world.itemData[item]["type"]) and !swinging:
+	if world.itemData.has(item) and item > 0 and ["Tool","weapon","Hoe","Watering_can"].has(world.itemData[item]["type"]) and !swinging:
 		$Textures/Weapon.texture = world.itemData[item]["big_texture"]
-		$Textures/AnimationPlayer.play("swing")
+		if world.itemData[item]["type"] == "Watering_can":
+			if !swinging:
+				$Textures/AnimationPlayer.play("water")
+		else:
+			$Textures/AnimationPlayer.play("swing")
 		swinging = true
 		swingingWith = item
 		if world.itemData[item]["type"] == "weapon":
@@ -183,7 +237,6 @@ func swing(item):
 func damage(dmg,enemyLevel = 1):
 	if !dead and !Global.pause:
 		modulate = Color("ff5959")
-		print(defPoints)
 		var totalDmg = int(round(dmg * max(1-(defPoints/(enemyLevel*25.0)),0)))
 		effects.floating_text(position, "-" + str(totalDmg), Color.red)
 		health -= totalDmg

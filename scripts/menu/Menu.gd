@@ -11,6 +11,7 @@ func _process(delta):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	GlobalAudio.change_mode("menu")
 	#yield(get_tree().create_timer(0.5),"timeout")
 	$Main/Title.modulate = Color(1,1,1,0)
 	$AnimationPlayer.play("zoom")
@@ -40,3 +41,11 @@ func _on_Credits_pressed():
 
 func _on_Tutorial_pressed():
 	$World/loadSave.start(true)
+
+func _on_Settings_pressed() -> void:
+	$Main.hide()
+	$Settings.show()
+
+func _on_Back_pressed() -> void:
+	$Settings.hide()
+	$Main.show()

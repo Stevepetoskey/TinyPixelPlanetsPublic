@@ -2,14 +2,16 @@ extends Control
 
 const ICON = preload("res://assets/planetNavIcon.tscn")
 
-onready var planetIcons = $SystemInfo/Planets
+onready var planetIcons = $SystemInfo/ScrollContainer/Planets
+onready var systemName = $SystemInfo/TitleScroll/name
 
 var pos = {true:0,false:-40}
 
 var closest : Object = null
 
 func _process(delta):
-	closest = get_closest_body().planetRef
+	if get_closest_body() != null:
+		closest = get_closest_body().planetRef
 
 func get_closest_body():
 	var closes : Object = get_node("../../system").get_child(0)
@@ -24,18 +26,18 @@ func get_closest_body():
 func update_nav():
 	#--- System Info tab---
 	#Clears icons
-	for child in $SystemInfo/Planets.get_children():
+	for child in planetIcons.get_children():
 		child.name = "deleting" #Do this otherwise messes up the name of new icons
 		child.queue_free()
 	#Sets system name
-	$SystemInfo/name.text = StarSystem.currentStarName
+	systemName.text = StarSystem.currentStarName
 	var currentHierarchy : Object
 	#Adds each planet
 	for planet in StarSystem.get_system_bodies():
 		var icon = ICON.instance()
 		if StarSystem.visitedPlanets.has(planet.id): #or ["gas1","gas2","gas3"].has(planet.type["type"]):
 			icon.get_node("Icon").texture = load("res://textures/planets/" + planet.type["type"] + "_icon.png")
-			icon.get_node("Name").text = planet.pName
+			icon.get_node("Name").text = planet.pName.to_upper()
 		else:
 			icon.get_node("Icon").texture = load("res://textures/planets/unkown_icon.png")
 			icon.get_node("Name").text = "???"

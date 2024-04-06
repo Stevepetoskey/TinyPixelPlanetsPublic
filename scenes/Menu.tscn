@@ -1,9 +1,9 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=1]
 [ext_resource path="res://textures/GUI/Menu/MenuSpace.png" type="Texture" id=2]
-[ext_resource path="res://textures/GUI/Menu/title.png" type="Texture" id=3]
-[ext_resource path="res://textures/GUI/Menu/MenuStars.png" type="Texture" id=4]
+[ext_resource path="res://textures/GUI/Menu/TinyPixelTitle.png" type="Texture" id=3]
+[ext_resource path="res://textures/enviroment/stars.png" type="Texture" id=4]
 [ext_resource path="res://textures/GUI/Menu/MenuPlanets.png" type="Texture" id=5]
 [ext_resource path="res://scripts/menu/Menu.gd" type="Script" id=6]
 [ext_resource path="res://textures/GUI/Menu/Buttons.png" type="Texture" id=7]
@@ -21,10 +21,28 @@
 [ext_resource path="res://scripts/menu/CharacterEdit.gd" type="Script" id=19]
 [ext_resource path="res://fonts/pixelLineEdit.tres" type="DynamicFont" id=20]
 [ext_resource path="res://textures/GUI/Menu/WebDemo2.png" type="Texture" id=21]
+[ext_resource path="res://textures/GUI/Menu/scenario_gui.png" type="Texture" id=22]
+[ext_resource path="res://scripts/menu/ScenarioBtn.gd" type="Script" id=23]
+[ext_resource path="res://textures/GUI/space/h_bar_handle.png" type="Texture" id=24]
+[ext_resource path="res://textures/GUI/space/v_bar.png" type="Texture" id=25]
+[ext_resource path="res://textures/GUI/space/h_bar.png" type="Texture" id=26]
+[ext_resource path="res://textures/GUI/space/v_bar_handle.png" type="Texture" id=27]
+[ext_resource path="res://textures/GUI/space/h_bar_handle_hover.png" type="Texture" id=28]
+[ext_resource path="res://textures/GUI/space/h_bar_handle_select.png" type="Texture" id=29]
+[ext_resource path="res://textures/GUI/space/v_bar_handle_select.png" type="Texture" id=30]
+[ext_resource path="res://textures/GUI/Menu/sandbox_icon.png" type="Texture" id=31]
+[ext_resource path="res://themes/Blue.tres" type="Theme" id=32]
+[ext_resource path="res://textures/GUI/space/v_bar_handle_hover.png" type="Texture" id=33]
+[ext_resource path="res://textures/GUI/Menu/scenario_btn.png" type="Texture" id=34]
+[ext_resource path="res://themes/Gray.tres" type="Theme" id=35]
+[ext_resource path="res://scripts/menu/Scenarios.gd" type="Script" id=36]
+[ext_resource path="res://textures/GUI/Menu/meteor_icon.png" type="Texture" id=37]
+[ext_resource path="res://scripts/menu/Settings.gd" type="Script" id=38]
+[ext_resource path="res://fonts/pixel-outline.tres" type="DynamicFont" id=39]
 
 [sub_resource type="Curve2D" id=25]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 0, 127, -109.811, 50.8491, 109.811, -50.8491, 113, 51, 0, 0, 0, 0, 279, 21, 0, 0, 0, 0, 286, 157, 0, 0, 0, 0, -15, 158, 0, 0, 0, 0, 0, 127 )
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 127, -109.811, 50.8491, 109.811, -50.8491, 113, 51, 0, 0, 0, 0, 338, 10, 0, 0, 0, 0, 314, 175, 0, 0, 0, 0, -15, 158, 0, 0, 0, 0, 0, 127 )
 }
 
 [sub_resource type="AtlasTexture" id=1]
@@ -42,6 +60,10 @@ region = Rect2( 96, 68, 64, 15 )
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 7 )
 region = Rect2( 96, 87, 64, 15 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 7 )
+region = Rect2( 73, 52, 23, 14 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 7 )
@@ -238,7 +260,7 @@ tracks/4/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Main/Buttons:modulate")
+tracks/5/path = NodePath("AudioStreamPlayer:autoplay")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -247,10 +269,10 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
+"values": [ false ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("AudioStreamPlayer:autoplay")
+tracks/6/path = NodePath("AudioStreamPlayer:playing")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -262,7 +284,7 @@ tracks/6/keys = {
 "values": [ false ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("AudioStreamPlayer:playing")
+tracks/7/path = NodePath("Main/Buttons:modulate")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -271,7 +293,7 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ false ]
+"values": [ Color( 1, 1, 1, 0 ) ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -303,7 +325,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 1, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 56, 16 ), Vector2( 56, 16 ), Vector2( 56, 0 ) ]
+"values": [ Vector2( 46, 32 ), Vector2( 46, 32 ), Vector2( 46, 0 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Main/Title:modulate")
@@ -331,7 +353,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 120, 120 ), Vector2( 120, 80 ) ]
+"values": [ Vector2( 142, 120 ), Vector2( 142, 80 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Camera2D:zoom")
@@ -382,6 +404,89 @@ tracks/4/keys = {
 "values": [ false, true ]
 }
 
+[sub_resource type="StyleBoxTexture" id=26]
+texture = ExtResource( 24 )
+region_rect = Rect2( 0, 0, 8, 4 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=27]
+texture = ExtResource( 28 )
+region_rect = Rect2( 0, 0, 8, 4 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=28]
+texture = ExtResource( 29 )
+region_rect = Rect2( 0, 0, 8, 4 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=29]
+texture = ExtResource( 26 )
+region_rect = Rect2( 0, 0, 8, 4 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=30]
+texture = ExtResource( 27 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=31]
+texture = ExtResource( 33 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=32]
+texture = ExtResource( 30 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=33]
+texture = ExtResource( 25 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=34]
+texture = ExtResource( 25 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="Theme" id=35]
+HScrollBar/styles/grabber = SubResource( 26 )
+HScrollBar/styles/grabber_highlight = SubResource( 27 )
+HScrollBar/styles/grabber_pressed = SubResource( 28 )
+HScrollBar/styles/scroll = SubResource( 29 )
+VScrollBar/styles/grabber = SubResource( 30 )
+VScrollBar/styles/grabber_highlight = SubResource( 31 )
+VScrollBar/styles/grabber_pressed = SubResource( 32 )
+VScrollBar/styles/scroll = SubResource( 33 )
+VSlider/styles/slider = SubResource( 34 )
+
 [node name="Menu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -414,9 +519,9 @@ texture = SubResource( 1 )
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -56.0
+margin_top = -67.0
 texture = SubResource( 12 )
-stretch_mode = 7
+stretch_mode = 6
 
 [node name="Main" type="Control" parent="."]
 anchor_right = 1.0
@@ -427,11 +532,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -120.0
-margin_top = -64.0
-margin_right = 8.0
-margin_bottom = 64.0
+margin_top = 16.0
+margin_right = 192.0
+margin_bottom = 208.0
 texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
 
 [node name="TextureRect" type="TextureRect" parent="Main/Title"]
 visible = false
@@ -441,20 +547,21 @@ margin_bottom = 520.0
 rect_scale = Vector2( 0.25, 0.25 )
 texture = ExtResource( 21 )
 
-[node name="Buttons" type="Control" parent="Main"]
+[node name="Buttons" type="VBoxContainer" parent="Main"]
 modulate = Color( 1, 1, 1, 0 )
-anchor_right = 1.0
+anchor_left = 0.5
+anchor_right = 0.5
 anchor_bottom = 1.0
+margin_left = -32.0
+margin_top = 58.0
+margin_right = 32.0
+custom_constants/separation = 1
+alignment = 1
 
 [node name="Play" type="TextureButton" parent="Main/Buttons"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -32.0
-margin_top = -7.5
-margin_right = 32.0
-margin_bottom = 7.5
+margin_top = 19.0
+margin_right = 64.0
+margin_bottom = 34.0
 texture_normal = SubResource( 4 )
 
 [node name="Label" type="Label" parent="Main/Buttons/Play"]
@@ -466,14 +573,9 @@ text = "PLAY"
 align = 1
 
 [node name="Tutorial" type="TextureButton" parent="Main/Buttons"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -32.0
-margin_top = 10.0
-margin_right = 32.0
-margin_bottom = 25.0
+margin_top = 35.0
+margin_right = 64.0
+margin_bottom = 50.0
 texture_normal = SubResource( 4 )
 
 [node name="Label" type="Label" parent="Main/Buttons/Tutorial"]
@@ -484,15 +586,24 @@ custom_fonts/font = ExtResource( 1 )
 text = "TUTORIAL"
 align = 1
 
+[node name="Settings" type="TextureButton" parent="Main/Buttons"]
+margin_top = 51.0
+margin_right = 64.0
+margin_bottom = 66.0
+texture_normal = SubResource( 5 )
+
+[node name="Label" type="Label" parent="Main/Buttons/Settings"]
+margin_top = 4.0
+margin_right = 64.0
+margin_bottom = 12.0
+custom_fonts/font = ExtResource( 1 )
+text = "SETTINGS"
+align = 1
+
 [node name="Credits" type="TextureButton" parent="Main/Buttons"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -32.0
-margin_top = 27.0
-margin_right = 32.0
-margin_bottom = 42.0
+margin_top = 67.0
+margin_right = 64.0
+margin_bottom = 82.0
 texture_normal = SubResource( 5 )
 
 [node name="Label" type="Label" parent="Main/Buttons/Credits"]
@@ -502,6 +613,259 @@ margin_bottom = 12.0
 custom_fonts/font = ExtResource( 1 )
 text = "CREDITS"
 align = 1
+
+[node name="Settings" type="NinePatchRect" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -71.0
+margin_top = -60.0
+margin_right = 71.0
+margin_bottom = 60.0
+theme = ExtResource( 32 )
+texture = ExtResource( 9 )
+region_rect = Rect2( 2, 2, 120, 108 )
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+script = ExtResource( 38 )
+
+[node name="Title" type="Label" parent="Settings"]
+anchor_right = 1.0
+margin_top = 2.0
+margin_bottom = 16.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.470588, 0.470588, 0.470588, 1 )
+custom_fonts/font = ExtResource( 39 )
+text = "Settings"
+align = 1
+valign = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Settings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 16.0
+margin_right = -2.0
+margin_bottom = -2.0
+theme = ExtResource( 32 )
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/ScrollContainer"]
+margin_right = 138.0
+margin_bottom = 111.0
+size_flags_horizontal = 3
+custom_constants/separation = 1
+
+[node name="MusicVol" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
+margin_right = 134.0
+margin_bottom = 8.0
+text = "Music Volume:"
+align = 1
+
+[node name="MusicSlider" type="HSlider" parent="Settings/ScrollContainer/VBoxContainer"]
+margin_top = 9.0
+margin_right = 134.0
+margin_bottom = 17.0
+max_value = 10.0
+value = 10.0
+
+[node name="KeyBinds" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 134.0
+margin_bottom = 26.0
+text = "Keybinds:"
+align = 1
+
+[node name="KeybindContainer" type="VBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
+margin_top = 27.0
+margin_right = 134.0
+margin_bottom = 111.0
+custom_constants/separation = 0
+
+[node name="build" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
+margin_right = 134.0
+margin_bottom = 12.0
+custom_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build"]
+margin_right = 100.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+theme = ExtResource( 35 )
+
+[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build/Action"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Slot 1"
+align = 1
+valign = 2
+
+[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build"]
+margin_left = 100.0
+margin_right = 134.0
+margin_bottom = 12.0
+text = "> LMB <"
+
+[node name="build2" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
+margin_top = 12.0
+margin_right = 134.0
+margin_bottom = 24.0
+custom_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build2"]
+margin_right = 100.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+theme = ExtResource( 35 )
+
+[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build2/Action"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Slot 2"
+align = 1
+valign = 2
+
+[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build2"]
+margin_left = 100.0
+margin_right = 134.0
+margin_bottom = 12.0
+text = "> RMB <"
+
+[node name="action1" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
+margin_top = 24.0
+margin_right = 134.0
+margin_bottom = 36.0
+custom_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action1"]
+margin_right = 111.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+theme = ExtResource( 35 )
+
+[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action1/Action"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Action 1"
+align = 1
+valign = 2
+
+[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action1"]
+margin_left = 111.0
+margin_right = 134.0
+margin_bottom = 12.0
+text = "> J <"
+
+[node name="action2" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
+margin_top = 36.0
+margin_right = 134.0
+margin_bottom = 48.0
+custom_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action2"]
+margin_right = 111.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+theme = ExtResource( 35 )
+
+[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action2/Action"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Action 2"
+align = 1
+valign = 2
+
+[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action2"]
+margin_left = 111.0
+margin_right = 134.0
+margin_bottom = 12.0
+text = "> K <"
+
+[node name="background_toggle" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
+margin_top = 48.0
+margin_right = 134.0
+margin_bottom = 60.0
+custom_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/background_toggle"]
+margin_right = 111.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+theme = ExtResource( 35 )
+
+[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/background_toggle/Action"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Background Toggle"
+align = 1
+valign = 2
+
+[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/background_toggle"]
+margin_left = 111.0
+margin_right = 134.0
+margin_bottom = 12.0
+text = "> B <"
+
+[node name="ach" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
+margin_top = 60.0
+margin_right = 134.0
+margin_bottom = 72.0
+custom_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/ach"]
+margin_right = 111.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+theme = ExtResource( 35 )
+
+[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/ach/Action"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Achievements"
+align = 1
+valign = 2
+
+[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/ach"]
+margin_left = 111.0
+margin_right = 134.0
+margin_bottom = 12.0
+text = "> Z <"
+
+[node name="fly" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
+margin_top = 72.0
+margin_right = 134.0
+margin_bottom = 84.0
+custom_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/fly"]
+margin_right = 111.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+theme = ExtResource( 35 )
+
+[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/fly/Action"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Fly"
+align = 1
+valign = 2
+
+[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/fly"]
+margin_left = 111.0
+margin_right = 134.0
+margin_bottom = 12.0
+text = "> F <"
+
+[node name="Back" type="TextureButton" parent="Settings"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 25.0
+margin_bottom = 16.0
+texture_normal = SubResource( 36 )
 
 [node name="World" type="Control" parent="."]
 visible = false
@@ -525,7 +889,6 @@ patch_margin_right = 5
 patch_margin_bottom = 5
 
 [node name="loadSave" type="Control" parent="World"]
-visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -54.5
@@ -578,8 +941,10 @@ custom_fonts/font = ExtResource( 1 )
 text = "*Worlds are not saved in the web demo version"
 
 [node name="character" type="Control" parent="World"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 32 )
 script = ExtResource( 15 )
 
 [node name="Char" type="TextureRect" parent="World/character"]
@@ -798,6 +1163,43 @@ margin_right = 27.5
 margin_bottom = 131.5
 texture_normal = SubResource( 10 )
 
+[node name="Scenarios" type="Button" parent="World/character"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -57.5
+margin_top = 13.5
+margin_right = 57.5
+margin_bottom = 26.5
+text = "Scenarios"
+
+[node name="CurrentScenario" type="HBoxContainer" parent="World/character"]
+visible = false
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = -40.0
+margin_right = -1.0
+margin_bottom = -21.0
+alignment = 1
+
+[node name="Icon" type="TextureRect" parent="World/character/CurrentScenario"]
+margin_left = 13.0
+margin_right = 32.0
+margin_bottom = 19.0
+texture = ExtResource( 37 )
+
+[node name="Title" type="Label" parent="World/character/CurrentScenario"]
+margin_left = 36.0
+margin_top = 5.0
+margin_right = 102.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 1 )
+text = "Meteor shower"
+
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 32, 48 )
 current = true
@@ -827,7 +1229,7 @@ anchor_bottom = 1.0
 margin_top = -8.0
 custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
 custom_fonts/font = ExtResource( 1 )
-text = "Tiny Pixel Planets TU3.1 (v0.3.1)"
+text = "Tiny Pixel Planets TU4 (v0.4.0)"
 align = 1
 
 [node name="Credits" type="Control" parent="."]
@@ -878,39 +1280,218 @@ custom_constants/separation = 2
 
 [node name="Ost" type="Label" parent="Credits/VBoxContainer"]
 margin_right = 138.0
-margin_bottom = 8.0
+margin_bottom = 19.0
 custom_fonts/font = ExtResource( 1 )
-text = "OST - The_Mad_Duck"
+text = "OST - The_Mad_Duck, Starlight Boy"
 align = 1
+autowrap = true
 
 [node name="Art" type="Label" parent="Credits/VBoxContainer"]
-margin_top = 9.0
+margin_top = 21.0
 margin_right = 138.0
-margin_bottom = 17.0
+margin_bottom = 29.0
 custom_fonts/font = ExtResource( 1 )
 text = "Art - SP Possibilities"
 align = 1
 
 [node name="Prog" type="Label" parent="Credits/VBoxContainer"]
-margin_top = 18.0
+margin_top = 31.0
 margin_right = 138.0
-margin_bottom = 26.0
+margin_bottom = 39.0
 custom_fonts/font = ExtResource( 1 )
 text = "Programming - SP Possibilities"
 align = 1
 
 [node name="Prog2" type="Label" parent="Credits/VBoxContainer"]
-margin_top = 27.0
+margin_top = 41.0
 margin_right = 138.0
-margin_bottom = 46.0
+margin_bottom = 60.0
 custom_fonts/font = ExtResource( 1 )
 text = "SFX - Mixkit, Kenny Game Assets"
 align = 1
 autowrap = true
 
+[node name="Scenarios" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 22 )
+script = ExtResource( 36 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Scenarios"]
+margin_left = 12.0
+margin_top = 10.0
+margin_right = 138.0
+margin_bottom = 150.0
+theme = SubResource( 35 )
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Scenarios/ScrollContainer"]
+margin_right = 126.0
+margin_bottom = 115.0
+custom_constants/separation = 0
+
+[node name="Sandbox" type="TextureButton" parent="Scenarios/ScrollContainer/VBoxContainer"]
+margin_right = 126.0
+margin_bottom = 23.0
+texture_normal = ExtResource( 34 )
+script = ExtResource( 23 )
+scenarioId = "sandbox"
+
+[node name="TextureRect" type="TextureRect" parent="Scenarios/ScrollContainer/VBoxContainer/Sandbox"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -9.5
+margin_right = 19.0
+margin_bottom = 9.5
+texture = ExtResource( 31 )
+
+[node name="Label" type="Label" parent="Scenarios/ScrollContainer/VBoxContainer/Sandbox"]
+margin_left = 20.0
+margin_top = 3.0
+margin_right = 73.0
+margin_bottom = 11.0
+custom_fonts/font = ExtResource( 1 )
+text = "Sandbox"
+
+[node name="Temple" type="TextureButton" parent="Scenarios/ScrollContainer/VBoxContainer"]
+margin_top = 23.0
+margin_right = 126.0
+margin_bottom = 46.0
+texture_normal = ExtResource( 34 )
+script = ExtResource( 23 )
+scenarioId = "temple"
+
+[node name="TextureRect" type="TextureRect" parent="Scenarios/ScrollContainer/VBoxContainer/Temple"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -9.5
+margin_right = 19.0
+margin_bottom = 9.5
+texture = ExtResource( 31 )
+
+[node name="Label" type="Label" parent="Scenarios/ScrollContainer/VBoxContainer/Temple"]
+margin_left = 20.0
+margin_top = 3.0
+margin_right = 73.0
+margin_bottom = 11.0
+custom_fonts/font = ExtResource( 1 )
+text = "Sandbox"
+
+[node name="Meteor" type="TextureButton" parent="Scenarios/ScrollContainer/VBoxContainer"]
+margin_top = 46.0
+margin_right = 126.0
+margin_bottom = 69.0
+texture_normal = ExtResource( 34 )
+script = ExtResource( 23 )
+scenarioId = "meteor"
+
+[node name="TextureRect" type="TextureRect" parent="Scenarios/ScrollContainer/VBoxContainer/Meteor"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -9.5
+margin_right = 19.0
+margin_bottom = 9.5
+texture = ExtResource( 31 )
+
+[node name="Label" type="Label" parent="Scenarios/ScrollContainer/VBoxContainer/Meteor"]
+margin_left = 20.0
+margin_top = 3.0
+margin_right = 73.0
+margin_bottom = 11.0
+custom_fonts/font = ExtResource( 1 )
+text = "Sandbox"
+
+[node name="Planatius" type="TextureButton" parent="Scenarios/ScrollContainer/VBoxContainer"]
+margin_top = 69.0
+margin_right = 126.0
+margin_bottom = 92.0
+texture_normal = ExtResource( 34 )
+script = ExtResource( 23 )
+scenarioId = "planatius"
+
+[node name="TextureRect" type="TextureRect" parent="Scenarios/ScrollContainer/VBoxContainer/Planatius"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -9.5
+margin_right = 19.0
+margin_bottom = 9.5
+texture = ExtResource( 31 )
+
+[node name="Label" type="Label" parent="Scenarios/ScrollContainer/VBoxContainer/Planatius"]
+margin_left = 20.0
+margin_top = 3.0
+margin_right = 73.0
+margin_bottom = 11.0
+custom_fonts/font = ExtResource( 1 )
+text = "Sandbox"
+
+[node name="Insane" type="TextureButton" parent="Scenarios/ScrollContainer/VBoxContainer"]
+margin_top = 92.0
+margin_right = 126.0
+margin_bottom = 115.0
+texture_normal = ExtResource( 34 )
+script = ExtResource( 23 )
+scenarioId = "insane"
+
+[node name="TextureRect" type="TextureRect" parent="Scenarios/ScrollContainer/VBoxContainer/Insane"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_top = -9.5
+margin_right = 19.0
+margin_bottom = 9.5
+texture = ExtResource( 31 )
+
+[node name="Label" type="Label" parent="Scenarios/ScrollContainer/VBoxContainer/Insane"]
+margin_left = 20.0
+margin_top = 3.0
+margin_right = 73.0
+margin_bottom = 11.0
+custom_fonts/font = ExtResource( 1 )
+text = "Sandbox"
+
+[node name="Title" type="Label" parent="Scenarios"]
+margin_left = 141.0
+margin_top = 9.0
+margin_right = 278.0
+margin_bottom = 27.0
+custom_fonts/font = ExtResource( 1 )
+text = "Sandbox"
+align = 1
+valign = 1
+
+[node name="Desc" type="Label" parent="Scenarios"]
+margin_left = 142.0
+margin_top = 29.0
+margin_right = 278.0
+margin_bottom = 153.0
+custom_fonts/font = ExtResource( 1 )
+text = "Planatius has awoken, and is coming for you. Don’t stay on any one planet for too long, or else it will find you. You must craft a rare weapon that will allow you to destroy it. The longer you take to complete this task, the more powerful Planatius becomes."
+autowrap = true
+
+[node name="Done" type="Button" parent="Scenarios"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 142.0
+margin_top = -21.0
+margin_right = -13.0
+margin_bottom = -8.0
+theme = ExtResource( 35 )
+text = "Done"
+
+[node name="DisableControls" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 0
+
 [connection signal="pressed" from="Main/Buttons/Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="Main/Buttons/Tutorial" to="." method="_on_Tutorial_pressed"]
+[connection signal="pressed" from="Main/Buttons/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="pressed" from="Main/Buttons/Credits" to="." method="_on_Credits_pressed"]
+[connection signal="value_changed" from="Settings/ScrollContainer/VBoxContainer/MusicSlider" to="Settings" method="_on_MusicSlider_value_changed"]
+[connection signal="pressed" from="Settings/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="World/loadSave/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="World/character/Female" to="World/character" method="_on_Female_pressed"]
 [connection signal="pressed" from="World/character/Male" to="World/character" method="_on_Male_pressed"]
@@ -923,4 +1504,7 @@ autowrap = true
 [connection signal="pressed" from="World/character/edit/HairSty/right" to="World/character/edit/HairSty" method="_on_right_pressed"]
 [connection signal="pressed" from="World/character/Start" to="World/character" method="_on_Start_pressed"]
 [connection signal="pressed" from="World/character/back" to="World/character" method="_on_back_pressed"]
+[connection signal="pressed" from="World/character/Scenarios" to="World/character" method="_on_Scenarios_pressed"]
 [connection signal="pressed" from="Credits/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Scenarios/Done" to="World/character" method="_on_Done_pressed"]
+[connection signal="gui_input" from="DisableControls" to="Settings" method="_on_DisableControls_gui_input"]

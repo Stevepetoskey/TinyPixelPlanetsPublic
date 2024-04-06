@@ -5,6 +5,7 @@ const CRAFT_BTN = preload("res://assets/CraftBtn.tscn")
 onready var inventory = get_node("../Inventory")
 onready var ITEM_PER_PAGE = inventory.ITEM_PER_PAGE
 onready var world = $"../../World"
+onready var recipes_container = $RecipesScroll/RecipesContainer
 
 var recipes = {
 	"inventory": [
@@ -44,7 +45,9 @@ var recipes = {
 		{"recipe":[{"id":58,"amount":1},{"id":78,"amount":3}],"result":{"id":95,"amount":1}}, #Exotic Barbed club
 		{"recipe":[{"id":5,"amount":3},{"id":78,"amount":3}],"result":{"id":92,"amount":1}}, #Exotic pick
 		{"recipe":[{"id":13,"amount":8}],"result":{"id":91,"amount":1}}, #Chest
-		{"recipe":[{"id":13,"amount":78}],"result":{"id":91,"amount":1}}, #Chest (With exotic wood)
+		{"recipe":[{"id":78,"amount":8}],"result":{"id":91,"amount":1}}, #Chest (With exotic wood)
+		{"recipe":[{"id":56,"amount":1}],"result":{"id":113,"amount":1}}, #Silver bucket
+		{"recipe":[{"id":52,"amount":1}],"result":{"id":115,"amount":1}}, #Copper bucket
 	],
 	"oven": [
 		{"recipe":[{"id":14,"amount":1}],"result":{"id":20,"amount":1}},
@@ -56,10 +59,17 @@ var recipes = {
 		{"recipe":[{"id":15,"amount":1}],"result":{"id":83,"amount":1}}, #Cracked stone bricks
 		{"recipe":[{"id":19,"amount":1}],"result":{"id":86,"amount":1}}, #Cracked mud bricks
 		{"recipe":[{"id":23,"amount":1}],"result":{"id":87,"amount":1}}, #Cracked sandstone bricks
+		{"recipe":[{"id":134,"amount":1}],"result":{"id":135,"amount":1}}, #Cracked copper bricks
+		{"recipe":[{"id":137,"amount":1}],"result":{"id":138,"amount":1}}, #Cracked silver bricks
+		{"recipe":[{"id":125,"amount":2}],"result":{"id":140,"amount":1}}, #Bread
 	],
 	"smithing_table": [
 		{"recipe":[{"id":52,"amount":6}],"result":{"id":88,"amount":1}}, #Copper block
 		{"recipe":[{"id":56,"amount":6}],"result":{"id":89,"amount":1}}, #Silver block
+		{"recipe":[{"id":88,"amount":1}],"result":{"id":133,"amount":2}}, #Copper plate
+		{"recipe":[{"id":88,"amount":4}],"result":{"id":134,"amount":4}}, #Copper bricks
+		{"recipe":[{"id":89,"amount":1}],"result":{"id":136,"amount":2}}, #Silver plate
+		{"recipe":[{"id":89,"amount":4}],"result":{"id":137,"amount":4}}, #Silver bricks
 		{"recipe":[{"id":76,"amount":6}],"result":{"id":90,"amount":1}}, #Rhodonite block
 		{"recipe":[{"id":100,"amount":4}],"result":{"id":108,"amount":1}}, #Quartz block
 		{"recipe":[{"id":101,"amount":4}],"result":{"id":109,"amount":1}}, #Rose quartz block
@@ -87,36 +97,28 @@ var recipes = {
 		{"recipe":[{"id":5,"amount":3},{"id":74,"amount":1}],"result":{"id":99,"amount":1}}, #Rhodonite spear
 		{"recipe":[{"id":5,"amount":2},{"id":74,"amount":2}],"result":{"id":96,"amount":1}}, #Rhodonite sword
 		{"recipe":[{"id":5,"amount":3},{"id":74,"amount":3}],"result":{"id":98,"amount":1}}, #Rhodonite pick
+		{"recipe":[{"id":5,"amount":3},{"id":3,"amount":2}],"result":{"id":129,"amount":1}}, #Stone Hoe
+		{"recipe":[{"id":5,"amount":3},{"id":56,"amount":2}],"result":{"id":130,"amount":1}}, #Silver Hoe
+		{"recipe":[{"id":56,"amount":3}],"result":{"id":132,"amount":1}}, #Silver Watering Can
+		{"recipe":[{"id":52,"amount":3}],"result":{"id":131,"amount":1}}, #Copper Watering Can
 	]
 }
 
-var currentPage = 0
 var currentMenu = "null"
 
-func update_crafting(menu = "null") -> void:
+func update_crafting(menu := "null") -> void:
 	if menu != "null":
-		currentPage = 0
 		currentMenu = menu
 	if currentMenu != "null":
-		for page in $recipes.get_children():
-			for recipe in page.get_children():
-				recipe.queue_free()
+		#Removes recipes
+		for recipe in recipes_container.get_children():
+			recipe.queue_free()
 		var recipesSelect = get_available_recipes(currentMenu)
-		var loc = 0
 		for recipeID in range(recipesSelect.size()):
-			if recipeID % ITEM_PER_PAGE == 0:
-				if !$recipes.has_node(str(recipeID / ITEM_PER_PAGE)):
-					var page = Control.new()
-					page.name = str(recipeID / ITEM_PER_PAGE)
-					$recipes.add_child(page)
-				loc = 0
 			var item = CRAFT_BTN.instance()
-			item.rect_position.y = loc * 18
 			item.loc = recipeID
-			loc += 1
-			$recipes.get_node(str(int(recipeID / ITEM_PER_PAGE))).add_child(item)
+			recipes_container.add_child(item)
 			item.init(recipesSelect[recipeID])
-		update_buttons()
 
 func get_available_recipes(menu : String) -> Array:
 	var availableRecipes = []
@@ -159,28 +161,3 @@ func mouse_in_btn(recipeRef : Dictionary):
 
 func mouse_out_btn(_recipeRef : Dictionary):
 	$"../ItemData".hide()
-
-func update_buttons() -> void:
-	for child in $recipes.get_children():
-		if child.name == str(currentPage):
-			child.show()
-		else:
-			child.hide()
-	if currentPage > 0:
-		$leftBtn.show()
-	else:
-		$leftBtn.hide()
-	if currentPage < (get_available_recipes(currentMenu).size()-1) / inventory.ITEM_PER_PAGE:
-		$rightBtn.show()
-	else:
-		$rightBtn.hide()
-
-func _on_leftBtn2_pressed():
-	if currentPage > 0:
-		currentPage -= 1
-		update_buttons()
-
-func _on_rightBtn2_pressed():
-	if currentPage < (get_available_recipes(currentMenu).size()-1) / inventory.ITEM_PER_PAGE:
-		currentPage += 1
-		update_buttons()

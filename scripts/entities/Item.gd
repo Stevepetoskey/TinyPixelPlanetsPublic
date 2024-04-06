@@ -8,7 +8,6 @@ onready var inventory = get_node("../../../CanvasLayer/Inventory")
 onready var world = get_node("../../../World")
 
 func _ready():
-	type = "Item"
 	$Sprite.texture = world.get_item_texture(data["id"])
 	$AnimationPlayer.play("idle")
 

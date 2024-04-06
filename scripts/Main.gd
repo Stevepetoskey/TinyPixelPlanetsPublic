@@ -4,49 +4,69 @@ onready var armor = $CanvasLayer/Inventory/Armor
 onready var inventory = $CanvasLayer/Inventory
 onready var title = $CanvasLayer/Title
 onready var titleAnim = $CanvasLayer/Title/AnimationPlayer
-
-var music = [preload("res://Audio/music/TinyPlanets.ogg"),preload("res://Audio/music/Alpha-Andromedae.ogg"),preload("res://Audio/music/Cosmic-Wonders.wav"),preload("res://Audio/music/The-Edge-of-Time.wav")]
+onready var weatherAnimation = $weather/WeatherAnimation
+onready var weatherTimer = $weather/WeatherTimer
 
 var tutorialStage = 0
 
+var currentWeather = "none"
+var worldType : String
+
+var weatherStartData = {}
+
+signal weather_changed
+
 func _ready():
+	StarSystem.connect("start_meteors",self,"start_meteors")
 	$CanvasLayer/Black.show()
-	if Global.inTutorial:
+	if !Global.gamerules["can_leave_planet"]:
 		$CanvasLayer/Hotbar/GoUp.hide()
 	Global.connect("screenshot",self,"screenshot")
 
 func _process(delta):
 	$CanvasLayer/FPS.text = str(Engine.get_frames_per_second())
 
-func play_bg_music():
-	$Music.stream = music[randi()%4]
-	$Music.play()
-	$Music/Timer.start(rand_range(240,720))
+func weather_event(random = true,time = [200,500], set = "none",start = true):
+	if !is_instance_valid(weatherAnimation):
+		yield(self,"ready")
+	var weatherRandom = RandomNumberGenerator.new()
+	weatherRandom.seed = randi()
+	if random:
+		set = StarSystem.weatherEvents[worldType][weatherRandom.randi()%StarSystem.weatherEvents[worldType].size()]
+	print("starting weather: ",set)
+	currentWeather = set
+	emit_signal("weather_changed",set)
+	weatherAnimation.play(set + ("" if start else "_no_start"))
+	weatherTimer.start(weatherRandom.randf_range(time[0],time[1]))
 
-func _on_Timer_timeout():
-	if !$Music.playing:
-		play_bg_music()
+func set_weather(random = true,time = [200,500], set = "none",start = true):
+	weatherStartData = {"random":random,"time":time,"set":set,"start":start}
 
 func _on_World_world_loaded():
-	$Music/Timer.start(rand_range(20,120))
-	yield(get_tree(),"idle_frame")
-	if Global.inTutorial:
-		title.text = "Move left/right with A/D, or with arrow keys"
-		titleAnim.play("pop up")
-		yield(get_tree().create_timer(5),"timeout")
-		if tutorialStage == 0:
-			titleAnim.play("fade out")
-			yield(titleAnim,"animation_finished")
-			title.text = "Jump with the SPACE key or up arrow"
-			titleAnim.play("pop up")
-			yield(get_tree().create_timer(5),"timeout")
-			if tutorialStage == 0:
-				titleAnim.play("fade out")
+	worldType = StarSystem.find_planet_id(Global.currentPlanet).type["type"]
+#	GlobalAudio.change_mode("game")
+#	yield(get_tree(),"idle_frame")
+#	if Global.inTutorial:
+#		title.text = "Move left/right with A/D, or with arrow keys"
+#		titleAnim.play("pop up")
+#		yield(get_tree().create_timer(5),"timeout")
+#		if tutorialStage == 0:
+#			titleAnim.play("fade out")
+#			yield(titleAnim,"animation_finished")
+#			title.text = "Jump with the SPACE key or up arrow"
+#			titleAnim.play("pop up")
+#			yield(get_tree().create_timer(5),"timeout")
+#			if tutorialStage == 0:
+#				titleAnim.play("fade out")
+#	else:
+	$World/TutorialParts/Platforms/CollisionShape2D.shape = null
+	$World/TutorialParts/Sprint/CollisionShape2D.shape = null
+	$World/TutorialParts/Chest/CollisionShape2D.shape = null
+	$World/TutorialParts/Mine/CollisionShape2D.shape = null
+	if weatherStartData.empty():
+		weather_event(false,[0,500])
 	else:
-		$World/TutorialParts/Platforms/CollisionShape2D.shape = null
-		$World/TutorialParts/Sprint/CollisionShape2D.shape = null
-		$World/TutorialParts/Chest/CollisionShape2D.shape = null
-		$World/TutorialParts/Mine/CollisionShape2D.shape = null
+		weather_event(weatherStartData["random"],weatherStartData["time"],weatherStartData["set"],weatherStartData["start"])
 
 func screenshot():
 	$CanvasLayer.hide()
@@ -66,6 +86,9 @@ func disable_godmode():
 	inventory.INVENTORY_SIZE = 20
 	armor.armor = {"Helmet":{"id":46,"amount":1},"Hat":{},"Chestplate":{"id":47,"amount":1},"Shirt":{},"Leggings":{"id":48,"amount":1},"Pants":{},"Boots":{"id":49,"amount":1},"Shoes":{}}
 	armor.emit_signal("updated_armor",armor.armor)
+
+func start_meteors():
+	pass
 
 func _on_Area2D_body_entered(body):
 	tutorialStage = 1
@@ -109,3 +132,11 @@ func _on_Mine_body_entered(body):
 		yield(get_tree().create_timer(10),"timeout")
 		if tutorialStage == 3:
 			titleAnim.play("fade out")
+
+func _on_WeatherTimer_timeout():
+	if currentWeather == "none":
+		weather_event()
+	else:
+		weatherAnimation.play(currentWeather + "_stop")
+		yield(weatherAnimation,"animation_finished")
+		weather_event(false)

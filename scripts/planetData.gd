@@ -21,6 +21,11 @@ var shadeAngle = 0
 onready var main = get_node("../..")
 
 func _process(delta):
+	if type["type"] == "commet":
+		orbitalDistance -= delta * 10
+		if orbitalDistance <= 0:
+			main.emit_signal("start_meteors")
+			queue_free()
 	if rad2deg(currentOrbit) < 359:
 		currentOrbit += deg2rad((delta * (orbitalSpeed / float(orbitalDistance))) / TIME_FACTOR)
 	else:
