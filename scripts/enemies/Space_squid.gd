@@ -1,22 +1,24 @@
 extends Entity
 
-const MAX_SPEED = 30
+const MAX_SPEED = 300
 const JUMPSPEED = 75
+const FRICTION = 0.05
 
 var seePlayer = false
 var lostPlayer = false
 var seenPos = Vector2(0,0)
 
 var state = "roam"
-var motion = Vector2(0,0)
-var inAir = false
+var motion := Vector2(0,0)
+var animating = false
+var canDamage = true
 
 onready var player = get_node("../../../Player")
 
 func _ready():
-	maxHealth = 10
+	maxHealth = 50
 	if new:
-		health = 10
+		health = 50
 
 func _physics_process(delta):
 	if !Global.pause:
@@ -38,65 +40,32 @@ func _physics_process(delta):
 			elif seePlayer and !lostPlayer:
 				lostPlayer = true
 				$seeTimer.start()
-		if !$AnimatedSprite.playing:
-			match state:
-				"roam":
-					if randi()%100 == 1 or seePlayer:
-						$AnimatedSprite.play("thrust")
-				"falling":
-					if is_on_floor():
-						inAir = false
-						$AnimatedSprite.play("land")
-						motion = Vector2(0,0)
-					else:
-						motion.y += GRAVITY
-						inAir = true
-				"jump":
-					state = "falling"
-				"attack":
-					if !is_on_floor():
-						motion.y += GRAVITY
-						inAir = true
-					elif inAir:
-						inAir = false
-						$AnimatedSprite.play("land")
-						motion = Vector2(0,0)
-						state = "roam"
-					else:
-						state = "roam"
-			if motion.y < 0 or ["jump","attack"].has(state):
-				motion.y = move_and_slide(motion,Vector2(0,-1)).y
-			else:
-				motion = move_and_slide(motion,Vector2(0,-1))
-
-
-func _on_AnimatedSprite_animation_finished():
-	$AnimatedSprite.playing = false
-	if state != "attack":
-		match $AnimatedSprite.animation:
-			"hop":
-				var dir
-				var nextState = "jump" if position.distance_to(player.position) >= MAX_SPEED else "attack"
-				if !seePlayer:
-					dir = 1 if randi()%2 == 1 else -1
-				else:
-					dir = 1 * sign(player.position.x - position.x)
-				motion = Vector2(MAX_SPEED * dir,-JUMPSPEED)
-				inAir = true
-				state = nextState
-				if state == "attack":
-					$AnimatedSprite.play("attack")
-					motion.y -= JUMPSPEED/2.0
-					motion.y = move_and_slide(motion,Vector2(0,-1)).y
-			"land":
-				state = "roam"
+		match state:
+			"roam":
+				if randi()%100 == 1 or seePlayer:
+					var dir = deg2rad(rand_range(0,360))
+					if seePlayer:
+						dir = position.angle_to_point(player.position) + deg2rad(180)
+					rotation = dir + deg2rad(90)
+					$AnimatedSprite.play("thrust")
+					state = "in_motion"
+					animating = true
+					yield(get_tree().create_timer(0.5),"timeout")
+					animating = false
+					motion = Vector2(cos(dir)*MAX_SPEED,sin(dir)*MAX_SPEED)
+		if motion.length() > 0.5:
+			motion -= motion * FRICTION
+		elif !animating:
+			motion = Vector2(0,0)
+			state = "roam"
+		motion = move_and_slide(motion)
 
 func _on_seeTimer_timeout():
 	seePlayer = false
 	lostPlayer = false
 
 func _on_HitBox_body_entered(body):
-	if state == "attack":
+	if canDamage:
 		body.damage(2)
 		$HurtTimer.start()
 
@@ -106,3 +75,8 @@ func _on_HurtTimer_timeout():
 
 func _on_HitBox_body_exited(body):
 	$HurtTimer.stop()
+
+func _on_AnimatedSprite_animation_finished() -> void:
+	match $AnimatedSprite.animation:
+		"thrust","hurt":
+			$AnimatedSprite.play("idle")

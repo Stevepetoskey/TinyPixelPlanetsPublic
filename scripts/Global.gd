@@ -1,9 +1,9 @@
 extends Node
 
-const CURRENTVER = "TU 4 Beta 8 (v0.4.0:8)"
-const VER_NUMS = [0,4,0,8]
+const CURRENTVER = "TU 4 (v0.4.0)"
+const VER_NUMS = [0,4,0,0]
 const ALLOW_VERSIONS = [
-	[0,4,0,8]
+	[0,4,0,8],[0,4,0,0]
 ]
 const STABLE = false
 
@@ -33,7 +33,12 @@ var gameTimeTimer : Timer = Timer.new()
 var default_bookmarks = [
 	{"name":"Shop center","icon":"star","color":Color(0.39,0.58,0.92),"system_id":"3680641011042","planet_id":0}
 	]
+var default_settings = {
+	"music":10,
+	"keybinds":{"build":{"event_type":"mouse","id":1},"build2":{"event_type":"mouse","id":2},"action1":{"event_type":"key","id":74},"action2":{"event_type":"key","id":75},"background_toggle":{"event_type":"key","id":66},"ach":{"event_type":"key","id":90},"fly":{"event_type":"key","id":70}}
+}
 var bookmarks : Array= []
+var settings : Dictionary
 
 var gamerulesBase = {
 	"can_leave_planet":true,
@@ -52,8 +57,18 @@ var playerBase = {"skin":Color("F8DEC3"),"hair_style":"Short","hair_color":Color
 
 signal loaded_data
 signal screenshot
+signal saved_settings
 
 func _ready():
+	var dir = Directory.new()
+	if dir.file_exists(save_path + "settings.dat"):
+		var file = File.new()
+		file.open(save_path + "settings.dat",File.READ)
+		settings = file.get_var()
+		file.close()
+	else:
+		settings = default_settings.duplicate(true)
+		save_settings()
 	gameTimeTimer.connect("timeout",self,"game_time_second")
 	gameTimeTimer.autostart = true
 	add_child(gameTimeTimer)
@@ -81,39 +96,37 @@ func save_exists(saveId : String) -> bool:
 	return false
 
 func open_tutorial():
-	pass #Broken for now (as of v0.4.0:5)
-#	inTutorial = true
-#	currentSave = "save4"
-#	gameStart = true
-#	new = false
-#	var dir = Directory.new()
-#	if dir.dir_exists(save_path + currentSave):
-#		remove_recursive(save_path + currentSave)
-#	dir.open(save_path)
-#	dir.make_dir(currentSave)
-#	dir.open(save_path + currentSave)
-#	dir.make_dir("systems")
-#	dir.make_dir("planets")
-#	var file = File.new()
-#	file.open("res://data/Tutorial/systems/3891944108.dat",File.READ)
-#	var systemDat = file.get_var()
-#	file.close()
-#	file.open(save_path + currentSave + "/systems/3891944108.dat",File.WRITE)
-#	file.store_var(systemDat)
-#	file.close()
-#	file.open("res://data/Tutorial/planets/3891944108_2.dat",File.READ)
-#	var planetData = file.get_var()
-#	file.close()
-#	file.open(save_path + currentSave + "/planets/3891944108_2.dat",File.WRITE)
-#	file.store_var(planetData)
-#	file.close()
+	inTutorial = true
+	currentSave = "save4"
+	gameStart = true
+	new = false
+	var dir = Directory.new()
+	if dir.dir_exists(save_path + currentSave):
+		remove_recursive(save_path + currentSave)
+	dir.open(save_path)
+	dir.make_dir(currentSave)
+	dir.open(save_path + currentSave)
+	dir.make_dir("systems")
+	dir.make_dir("planets")
+	copy_directory_recursively("res://data/Tutorial",save_path + currentSave)
 ##	copy_directory_recursively("res://data/Tutorial/planets/",save_path + currentSave + "/planets")
 ##	copy_directory_recursively("res://data/Tutorial/systems/",save_path + currentSave + "/systems")
-#	currentPlanet = 2
-#	starterPlanetId = 2
-#	enemySpawning = false
-#	StarSystem.systemDat = load_system(3891944108)
-#	StarSystem.load_system()
+	currentPlanet = 8
+	starterPlanetId = 8
+	currentSystemId = "3106964004403"
+	godmode = false
+	gamerules = gamerulesBase.duplicate(true)
+	bookmarks = default_bookmarks.duplicate(true)
+	meteorsAttacked = false
+	blues = 0
+	killCount = 0
+	GlobalGui.completedAchievements = []
+	globalGameTime = 0
+	playerData.clear()
+	playerData["save_type"] = "planet"
+	StarSystem.landedPlanetTypes = []
+	StarSystem.systemDat = load_system(currentSystemId)
+	StarSystem.load_system()
 
 func open_save(saveId : String) -> void:
 	inTutorial = false
@@ -153,6 +166,8 @@ func open_save(saveId : String) -> void:
 	currentSave = saveId
 
 func new_save(saveId : String):
+	playerData.clear()
+	godmode = false
 	gamerules = gamerulesBase.duplicate(true)
 	bookmarks = default_bookmarks.duplicate(true)
 	meteorsAttacked = false
@@ -189,6 +204,14 @@ func new_planet() -> void:
 	if savegame.file_exists(save_path + currentSave + "/planets/" + str(currentSystemId) + "_" + str(currentPlanet) + ".dat"):
 		new = false
 	emit_signal("loaded_data")
+
+func save_settings():
+	var file = File.new()
+	file.open(save_path + "settings.dat",File.WRITE)
+	file.store_var(settings)
+	file.close()
+	print("Saved settings")
+	emit_signal("saved_settings")
 
 func save(saveType : String, saveData : Dictionary) -> void:
 	#emit_signal("screenshot")

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/The2.mp3-9a8a2f258a3f1488305da42ed45f41b8.mp3str"
+
+[deps]
+
+source_file="res://Audio/sfx/Ambience/The2.mp3"
+dest_files=[ "res://.import/The2.mp3-9a8a2f258a3f1488305da42ed45f41b8.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

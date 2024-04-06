@@ -5,6 +5,7 @@ var REACH = 5
 onready var world = get_node("../World")
 onready var inventory = get_node("../CanvasLayer/Inventory")
 onready var player = get_node("../Player")
+onready var effects: Node2D = $"../Effects"
 
 var canPlace = true
 var currentLayer = 1
@@ -62,8 +63,7 @@ func _process(_delta):
 func _unhandled_input(_event):
 	if !Global.pause and cursorPos.x < world.worldSize.x and cursorPos.x >= 0 and cursorPos.y < world.worldSize.y and cursorPos.y >= 0:
 		if Input.is_action_pressed("build") or Input.is_action_pressed("build2"):
-			if currentShop != null:
-				print("in a shop")
+			if currentShop != null: #Tests if cursor is in a shop
 				match currentShop.id:
 					139:
 						inventory.inventoryToggle(false,true,"lily_mart")
@@ -87,9 +87,7 @@ func _unhandled_input(_event):
 				elif world.itemData.has(selectedId):
 					tool_action(selectedId,slot)
 		elif Input.is_action_pressed("action1") or Input.is_action_pressed("action2"):
-			var ref = inventory.jRef
-			if Input.is_action_pressed("action2"):
-				ref = inventory.kRef
+			var ref = inventory.jRef	if Input.is_action_pressed("action1") else inventory.kRef
 			if ref != -1:
 				tool_action(inventory.inventory[ref]["id"],ref)
 		elif breaking:
@@ -135,6 +133,11 @@ func tool_action(itemId : int, ref := 0) -> void:
 		"Hoe":
 			if [1,2].has(world.get_block_id(cursorPos,currentLayer)):
 				world.set_block(cursorPos,currentLayer,119,true)
+		"Food":
+			if player.health < player.maxHealth:
+				inventory.remove_amount_at_loc(ref,1)
+				player.health += itemSelect["regen"]
+				effects.floating_text(player.position, "+" + str(itemSelect["regen"]), Color.green)
 
 func stop_breaking():
 	breaking = false

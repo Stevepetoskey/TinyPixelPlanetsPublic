@@ -105,6 +105,19 @@ var typeNames = {
 	"asteroids":"Asteroids",
 	"ocean":"Ocean"
 }
+
+var hostileSpawn = {
+	"terra":["slorg"],
+	"desert":["slorg"],
+	"mud":[],
+	"exotic":[],
+	"stone":["rockius"],
+	"snow":[],
+	"snow_terra":["slorg"],
+	"asteroids":["space_squid"],
+	"ocean":[]
+}
+
 var sizeNames = {
 	0:"Small",
 	1:"Medium",

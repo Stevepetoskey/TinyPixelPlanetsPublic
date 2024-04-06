@@ -122,6 +122,9 @@ var blockData = {
 	138:{"texture":preload("res://textures/blocks2X/cracked_silver_bricks.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":138,"amount":1}],"name":"Silver bricks","type":"simple"},
 	139:{"texture":preload("res://textures/blocks2X/lily_mart.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Lily Mart","type":"shop","shop_type":"lily_mart"},
 	141:{"texture":preload("res://textures/blocks2X/skips_stones.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Skip's stones","type":"shop","shop_type":"skips_stones"},
+	142:{"texture":preload("res://textures/blocks2X/posters/poster_icon.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[{"id":142,"amount":1}],"name":"Poster 1","type":"block"},
+	143:{"texture":preload("res://textures/blocks2X/posters/poster_icon.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[{"id":143,"amount":1}],"name":"Poster 2","type":"block"},
+	144:{"texture":preload("res://textures/blocks2X/bottom_rock.png"),"hardness":0,"breakWith":"Pickaxe","canHaverst":100,"drops":[{"id":144,"amount":1}],"name":"Bottom rock","type":"simple"},
 }
 
 var itemData = {
@@ -220,7 +223,7 @@ func start_world():
 	$StaticBody2D/Right.position = Vector2(worldSize.x * BLOCK_SIZE.x + 2,(worldSize.y * BLOCK_SIZE.y) / 2)
 	$StaticBody2D/Right.shape.extents.y = (worldSize.y * BLOCK_SIZE.y) / 2
 	$"../Player/Camera2D".limit_right = worldSize.x * BLOCK_SIZE.x -4
-	$"../Player/Camera2D".limit_bottom = worldSize.y * BLOCK_SIZE.y
+	$"../Player/Camera2D".limit_bottom = worldSize.y * BLOCK_SIZE.y + 24
 	$StaticBody2D/Left.shape.extents.y = (worldSize.y * BLOCK_SIZE.y) / 2
 	$StaticBody2D/Left.position.y = (worldSize.y * BLOCK_SIZE.y) / 2 - 8
 	$StaticBody2D/Bottom.shape.extents.y = (worldSize.x * BLOCK_SIZE.x) / 2
@@ -301,11 +304,13 @@ func generateWorld(worldType : String):
 							set_block_all(pos,2)
 					elif y > height and y < height+3:
 						set_block_all(pos,2)
-					elif y >= height+3:
+					elif y >= height+3 and y < worldSize.y-1:
 						if abs(copperOre.get_noise_2d(x,y)) >= 0.4:
 							set_block_all(pos,29)
 						else:
 							set_block_all(pos,3)
+					elif y == worldSize.y-1:
+						set_block_all(pos,144)
 		"stone":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -315,11 +320,13 @@ func generateWorld(worldType : String):
 					var pos = Vector2(x,y)
 					if y >= height and y < height+3:
 						set_block_all(pos,8)
-					elif y >= height+3:
+					elif y >= height+3 and y < worldSize.y-1:
 						if abs(copperOre.get_noise_2d(x,y)) >= 0.3:
 							set_block_all(pos,29)
 						else:
 							set_block_all(pos,3)
+					elif y == worldSize.y-1:
+						set_block_all(pos,144)
 		"desert":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -329,8 +336,10 @@ func generateWorld(worldType : String):
 					var pos = Vector2(x,y)
 					if y >= height and y < height+3:
 						set_block_all(pos,14)
-					elif y >= height+3:
+					elif y >= height+3 and y < worldSize.y-1:
 						set_block_all(pos,22)
+					elif y == worldSize.y-1:
+						set_block_all(pos,144)
 		"mud":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -342,8 +351,10 @@ func generateWorld(worldType : String):
 						set_block_all(pos,18)
 					elif y > height and y < height+4:
 						set_block_all(pos,17)
-					elif y >= height+4:
+					elif y >= height+4 and y < worldSize.y-1:
 						set_block_all(pos,3)
+					elif y == worldSize.y-1:
+						set_block_all(pos,144)
 		"snow":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -353,11 +364,13 @@ func generateWorld(worldType : String):
 					var pos = Vector2(x,y)
 					if y >= height and y < height+3:
 						set_block_all(pos,21)
-					elif y >= height+3:
+					elif y >= height+3 and y < worldSize.y-1:
 						if abs(copperOre.get_noise_2d(x,y)) >= 0.3:
 							set_block_all(pos,55)
 						else:
 							set_block_all(pos,3)
+					elif y == worldSize.y-1:
+						set_block_all(pos,144)
 		"snow_terra":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -371,11 +384,13 @@ func generateWorld(worldType : String):
 							set_block(pos - Vector2(0,1),1,9)
 					elif y > height and y < height+3:
 						set_block_all(pos,2)
-					elif y >= height+3:
+					elif y >= height+3 and y < worldSize.y-1:
 						if abs(copperOre.get_noise_2d(x,y)) >= 0.3:
 							set_block_all(pos,55)
 						else:
 							set_block_all(pos,3)
+					elif y == worldSize.y-1:
+						set_block_all(pos,144)
 		"exotic":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -394,11 +409,13 @@ func generateWorld(worldType : String):
 #								set_block(pos - Vector2(0,1),1,7)
 					elif y > height and y < height+3:
 						set_block_all(pos,70)
-					elif y >= height+3:
+					elif y >= height+3 and y < worldSize.y-1:
 						if abs(copperOre.get_noise_2d(x,y)) >= 0.4:
 							set_block_all(pos,73)
 						else:
 							set_block_all(pos,71)
+					elif y == worldSize.y-1:
+						set_block_all(pos,144)
 		"asteroids":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -415,7 +432,9 @@ func generateWorld(worldType : String):
 					if height > worldSize.y - 4:
 						height = worldSize.y - 4
 					var pos = Vector2(x,y)
-					if y >= height:
+					if y == worldSize.y-1:
+						set_block_all(pos,144)
+					elif y >= height:
 						set_block_all(pos,118)
 					elif y > 40:
 						set_block(pos,1,117,false,{"water_level":4})

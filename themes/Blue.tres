@@ -1,9 +1,21 @@
-[gd_resource type="Theme" load_steps=9 format=2]
+[gd_resource type="Theme" load_steps=31 format=2]
 
 [ext_resource path="res://textures/GUI/buttons/blue_btn_normal.png" type="Texture" id=1]
 [ext_resource path="res://textures/GUI/buttons/blue_btn_pressed.png" type="Texture" id=2]
 [ext_resource path="res://textures/GUI/buttons/blue_btn_hover.png" type="Texture" id=3]
 [ext_resource path="res://fonts/pixelButton.tres" type="DynamicFont" id=4]
+[ext_resource path="res://textures/GUI/space/h_bar_handle_hover.png" type="Texture" id=5]
+[ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=6]
+[ext_resource path="res://textures/GUI/Menu/slider_back.png" type="Texture" id=7]
+[ext_resource path="res://textures/GUI/Menu/slider_grabber.png" type="Texture" id=8]
+[ext_resource path="res://textures/GUI/space/h_bar_handle.png" type="Texture" id=9]
+[ext_resource path="res://textures/GUI/space/v_bar.png" type="Texture" id=10]
+[ext_resource path="res://textures/GUI/space/h_bar.png" type="Texture" id=11]
+[ext_resource path="res://textures/GUI/space/v_bar_handle.png" type="Texture" id=12]
+[ext_resource path="res://textures/GUI/space/v_bar_handle_hover.png" type="Texture" id=13]
+[ext_resource path="res://textures/GUI/space/h_bar_handle_select.png" type="Texture" id=14]
+[ext_resource path="res://textures/GUI/space/v_bar_handle_select.png" type="Texture" id=15]
+[ext_resource path="res://textures/GUI/Menu/slider_progress.png" type="Texture" id=16]
 
 [sub_resource type="StyleBoxEmpty" id=30]
 
@@ -31,6 +43,86 @@ margin_right = 1.0
 margin_top = 3.0
 margin_bottom = 2.0
 
+[sub_resource type="StyleBoxTexture" id=4]
+texture = ExtResource( 9 )
+region_rect = Rect2( 0, 0, 8, 4 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=5]
+texture = ExtResource( 5 )
+region_rect = Rect2( 0, 0, 8, 4 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=6]
+texture = ExtResource( 14 )
+region_rect = Rect2( 0, 0, 8, 4 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 11 )
+region_rect = Rect2( 0, 0, 8, 4 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=112]
+texture = ExtResource( 16 )
+region_rect = Rect2( 0, 0, 12, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 2.0
+margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id=113]
+texture = ExtResource( 7 )
+region_rect = Rect2( 0, 0, 12, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 2.0
+margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id=111]
+texture = ExtResource( 12 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=14]
+texture = ExtResource( 13 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=15]
+texture = ExtResource( 15 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id=20]
+texture = ExtResource( 10 )
+region_rect = Rect2( 0, 0, 4, 8 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
 [resource]
 Button/colors/font_color = Color( 1, 1, 1, 1 )
 Button/colors/font_color_pressed = Color( 0.847059, 0.847059, 0.847059, 1 )
@@ -39,3 +131,18 @@ Button/styles/focus = SubResource( 30 )
 Button/styles/hover = SubResource( 26 )
 Button/styles/normal = SubResource( 27 )
 Button/styles/pressed = SubResource( 28 )
+HScrollBar/styles/grabber = SubResource( 4 )
+HScrollBar/styles/grabber_highlight = SubResource( 5 )
+HScrollBar/styles/grabber_pressed = SubResource( 6 )
+HScrollBar/styles/scroll = SubResource( 7 )
+HSlider/icons/grabber = ExtResource( 8 )
+HSlider/icons/grabber_disabled = ExtResource( 8 )
+HSlider/icons/grabber_highlight = ExtResource( 8 )
+HSlider/icons/tick = null
+HSlider/styles/grabber_area = SubResource( 112 )
+HSlider/styles/slider = SubResource( 113 )
+Label/fonts/font = ExtResource( 6 )
+VScrollBar/styles/grabber = SubResource( 111 )
+VScrollBar/styles/grabber_highlight = SubResource( 14 )
+VScrollBar/styles/grabber_pressed = SubResource( 15 )
+VScrollBar/styles/scroll = SubResource( 20 )

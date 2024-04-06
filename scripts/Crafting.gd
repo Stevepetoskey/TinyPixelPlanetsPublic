@@ -61,6 +61,7 @@ var recipes = {
 		{"recipe":[{"id":23,"amount":1}],"result":{"id":87,"amount":1}}, #Cracked sandstone bricks
 		{"recipe":[{"id":134,"amount":1}],"result":{"id":135,"amount":1}}, #Cracked copper bricks
 		{"recipe":[{"id":137,"amount":1}],"result":{"id":138,"amount":1}}, #Cracked silver bricks
+		{"recipe":[{"id":125,"amount":2}],"result":{"id":140,"amount":1}}, #Bread
 	],
 	"smithing_table": [
 		{"recipe":[{"id":52,"amount":6}],"result":{"id":88,"amount":1}}, #Copper block

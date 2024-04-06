@@ -27,6 +27,8 @@ func _process(delta):
 	$CanvasLayer/FPS.text = str(Engine.get_frames_per_second())
 
 func weather_event(random = true,time = [200,500], set = "none",start = true):
+	if !is_instance_valid(weatherAnimation):
+		yield(self,"ready")
 	var weatherRandom = RandomNumberGenerator.new()
 	weatherRandom.seed = randi()
 	if random:
@@ -42,25 +44,25 @@ func set_weather(random = true,time = [200,500], set = "none",start = true):
 
 func _on_World_world_loaded():
 	worldType = StarSystem.find_planet_id(Global.currentPlanet).type["type"]
-	GlobalAudio.change_mode("game")
-	yield(get_tree(),"idle_frame")
-	if Global.inTutorial:
-		title.text = "Move left/right with A/D, or with arrow keys"
-		titleAnim.play("pop up")
-		yield(get_tree().create_timer(5),"timeout")
-		if tutorialStage == 0:
-			titleAnim.play("fade out")
-			yield(titleAnim,"animation_finished")
-			title.text = "Jump with the SPACE key or up arrow"
-			titleAnim.play("pop up")
-			yield(get_tree().create_timer(5),"timeout")
-			if tutorialStage == 0:
-				titleAnim.play("fade out")
-	else:
-		$World/TutorialParts/Platforms/CollisionShape2D.shape = null
-		$World/TutorialParts/Sprint/CollisionShape2D.shape = null
-		$World/TutorialParts/Chest/CollisionShape2D.shape = null
-		$World/TutorialParts/Mine/CollisionShape2D.shape = null
+#	GlobalAudio.change_mode("game")
+#	yield(get_tree(),"idle_frame")
+#	if Global.inTutorial:
+#		title.text = "Move left/right with A/D, or with arrow keys"
+#		titleAnim.play("pop up")
+#		yield(get_tree().create_timer(5),"timeout")
+#		if tutorialStage == 0:
+#			titleAnim.play("fade out")
+#			yield(titleAnim,"animation_finished")
+#			title.text = "Jump with the SPACE key or up arrow"
+#			titleAnim.play("pop up")
+#			yield(get_tree().create_timer(5),"timeout")
+#			if tutorialStage == 0:
+#				titleAnim.play("fade out")
+#	else:
+	$World/TutorialParts/Platforms/CollisionShape2D.shape = null
+	$World/TutorialParts/Sprint/CollisionShape2D.shape = null
+	$World/TutorialParts/Chest/CollisionShape2D.shape = null
+	$World/TutorialParts/Mine/CollisionShape2D.shape = null
 	if weatherStartData.empty():
 		weather_event(false,[0,500])
 	else:

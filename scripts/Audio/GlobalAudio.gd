@@ -14,6 +14,13 @@ func _ready():
 	musicRng.seed = randi()
 	StarSystem.connect("leaving_system",self,"leaving_system")
 	StarSystem.connect("entering_system",self,"entering_system")
+	Global.connect("saved_settings",self,"update_volume")
+
+func update_volume():
+	print("volume change", Global.settings["music"])
+	$Music.volume_db = (Global.settings["music"]*5) - 50
+	if Global.settings["music"] == 0:
+		$Music.volume_db = -100
 
 func update_music():
 	match mode:

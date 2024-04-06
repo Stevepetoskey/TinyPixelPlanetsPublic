@@ -1,6 +1,12 @@
 extends Node2D
 
-var entities = {"Slorg":preload("res://assets/enemies/Slorg.tscn"),"Item":preload("res://assets/entities/Item.tscn"),"Blues":preload("res://assets/entities/Blues.tscn")}
+var entities = {
+	"slorg":preload("res://assets/enemies/Slorg.tscn"),
+	"item":preload("res://assets/entities/Item.tscn"),
+	"blues":preload("res://assets/entities/Blues.tscn"),
+	"space_squid":preload("res://assets/enemies/Space_squid.tscn"),
+	"rockius":preload("res://assets/enemies/Rockius.tscn")
+	}
 
 var loaded = false
 
@@ -35,7 +41,7 @@ func summon_entity(entity : String, pos = player.position):
 	$Hold.add_child(newE)
 
 func spawn_item(item : Dictionary, thrown = false, pos = $"../Player".position):
-	var newI = entities["Item"].instance()
+	var newI = entities["item"].instance()
 	newI.position = pos
 	newI.data = item
 	if thrown:
@@ -44,7 +50,7 @@ func spawn_item(item : Dictionary, thrown = false, pos = $"../Player".position):
 	$Hold.add_child(newI)
 
 func spawn_blues(amount : int, thrown = false, pos = $"../Player".position):
-	var newB = entities["Blues"].instance()
+	var newB = entities["blues"].instance()
 	newB.position = pos
 	newB.data = {"amount":amount}
 	if thrown:
@@ -60,16 +66,21 @@ func _on_Spawn_timeout():
 		for entity in $Hold.get_children():
 			if entity.hostile:
 				hostileCount += 1
+		print("SPAWNING")
 		for _i in range(int(rand_range(10,50))):
 			var pos = Vector2(randi()%int(world.worldSize.x),randi()%int(world.worldSize.y))
-			if hostileCount < maxH and world.get_block_id(pos,1) == 0 and world.get_block_id(pos,0) == 0 and world.get_block_id(pos + Vector2(0,1),1) != 0 and pos.distance_to(player.position) > 48:
-				var slorg = entities["Slorg"].instance()
+			var hostileSpawns = StarSystem.hostileSpawn[StarSystem.find_planet_id(Global.currentPlanet).type["type"]]
+			if !hostileSpawns.empty() and hostileCount < maxH and world.get_block_id(pos,1) == 0 and world.get_block_id(pos,0) == 0 and world.get_block_id(pos + Vector2(0,1),1) != 0 and pos.distance_to(player.position) > 48:
+				var enemy = hostileSpawns[randi() %hostileSpawns.size()]
+				print("Spawning: ",enemy)
+				var slorg = entities[enemy].instance()
 				slorg.position = pos * Vector2(8,8)
 				$Hold.add_child(slorg)
 				hostileCount += 1
 
 func _on_World_world_loaded():
-	if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
+	if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere or StarSystem.find_planet_id(Global.currentPlanet).type["type"] == "asteroids":
+		print("Start spawning")
 		$Spawn.start()
 	seed(int(Global.currentSystemId) + Global.currentPlanet)
 	loaded = true

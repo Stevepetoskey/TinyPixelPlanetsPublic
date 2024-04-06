@@ -16,7 +16,7 @@ func update_save_list() -> void:
 				save.get_node("Label").text = "Player" if !playerData.has("player_name") else playerData["player_name"]
 				if playerData.has("version") and Global.ALLOW_VERSIONS.has(playerData["version"]):
 					save.disabled = false
-					save.get_node("stats").text = "Ver: " + str(playerData["version"][0]) + "." + str(playerData["version"][1]) + "." + str(playerData["version"][2]) + ":" + str(playerData["version"][3])
+					save.get_node("stats").text = "Ver: " + str(playerData["version"][0]) + "." + str(playerData["version"][1]) + "." + str(playerData["version"][2]) + ((":" + str(playerData["version"][3]) if playerData["version"][3] > 0 else ""))
 					save.get_node("stats").set("custom_colors/font_color",Color("c4c4c4"))
 				else:
 					save.disabled = true

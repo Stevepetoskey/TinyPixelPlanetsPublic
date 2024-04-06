@@ -83,6 +83,14 @@ func remove_loc_from_inventory(loc : int) -> void:
 		inventory.remove(loc)
 		update_inventory()
 
+func remove_amount_at_loc(loc : int,amount : int) -> void:
+	if loc < inventory.size() and !Global.godmode:
+		inventory[loc]["amount"] -= amount
+		if inventory[loc]["amount"] <= 0:
+			remove_loc_from_inventory(loc)
+		else:
+			update_inventory()
+
 func remove_id_from_inventory(id : int, amount : int) -> void:
 	var toRemove = []
 	if !Global.godmode:

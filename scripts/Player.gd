@@ -30,6 +30,7 @@ var canBreath = true
 var inSuit = false
 var flying = false
 var defPoints = 0
+var inWater = false
 
 var dead = false
 var flipped = false
@@ -106,6 +107,7 @@ func _physics_process(_delta):
 		if Input.is_action_just_pressed("fly"):
 			flying = !flying
 		if checkAllBlocks(117): #Swimming movement
+			inWater = true
 			if !is_on_floor():
 				motion.y += GRAVITY/ 2.0
 			
@@ -141,6 +143,10 @@ func _physics_process(_delta):
 				else:
 					$Textures/AnimationPlayer.play("swim")
 		elif world.hasGravity and (!Global.godmode or !flying): #Regular movement
+			if inWater:
+				inWater = false
+				motion.y = -JUMPSPEED
+				jumping = true
 			if !is_on_floor():
 				if !coyote:
 					motion.y += GRAVITY
@@ -179,6 +185,10 @@ func _physics_process(_delta):
 				motion.y = -JUMPSPEED
 				jumping = true
 		else: # Flying/ no gravity Movement
+			if inWater:
+				inWater = false
+				motion.y = -JUMPSPEED
+				jumping = true
 			if Input.is_action_pressed("jump") and motion.y > -MAX_SPEED:
 				motion.y -= ACCEL
 			elif Input.is_action_pressed("down") and motion.y < MAX_SPEED:

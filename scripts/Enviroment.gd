@@ -123,6 +123,13 @@ func change_sounds(volume1 : int,volume2 = -1000, volume3 = -1000) -> void:
 				if !get_node("../../sfx/winterWind").playing:
 					get_node("../../sfx/winterWind").play()
 				get_node("../../sfx/winterWind").volume_db = volume1
+		"ocean":
+			if volume1 == -1000:
+				$"../../sfx/Ocean".stop()
+			else:
+				if !$"../../sfx/Ocean".playing:
+					$"../../sfx/Ocean".play()
+				$"../../sfx/Ocean".volume_db = volume1
 
 func set_background(type : String):
 	match type:
@@ -137,8 +144,8 @@ func set_background(type : String):
 			if type == "ocean":
 				$back.motion_scale.y = 0.9
 				$front.motion_scale.y = 0.95
-				$back.motion_offset.y += 155
-				$front.motion_offset.y += 165
+				$back.motion_offset.y += 170
+				$front.motion_offset.y += 157
 
 func _on_World_world_loaded():
 	if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
@@ -153,3 +160,5 @@ func _on_World_world_loaded():
 			get_node("../../sfx/wind").play()
 		"snow_terra","snow":
 			get_node("../../sfx/winterWind").play()
+		"ocean":
+			$"../../sfx/Ocean".play()

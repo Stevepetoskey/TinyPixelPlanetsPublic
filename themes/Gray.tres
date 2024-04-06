@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=15 format=2]
+[gd_resource type="Theme" load_steps=17 format=2]
 
 [ext_resource path="res://textures/GUI/buttons/gray_btn_normal.png" type="Texture" id=1]
 [ext_resource path="res://textures/GUI/buttons/gray_btn_hover.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://textures/GUI/main/shop/tab_selected.png" type="Texture" id=5]
 [ext_resource path="res://textures/GUI/main/shop/tab.png" type="Texture" id=6]
 [ext_resource path="res://fonts/pixelLineEdit.tres" type="DynamicFont" id=7]
+[ext_resource path="res://textures/GUI/GlobalGUI/Ach_completed.png" type="Texture" id=8]
 
 [sub_resource type="StyleBoxEmpty" id=30]
 
@@ -32,6 +33,14 @@ region_rect = Rect2( 0, 0, 8, 8 )
 margin_left = 1.0
 margin_right = 1.0
 margin_top = 3.0
+margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id=37]
+texture = ExtResource( 8 )
+region_rect = Rect2( 0, 0, 16, 16 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 2.0
 margin_bottom = 2.0
 
 [sub_resource type="StyleBoxEmpty" id=34]
@@ -60,6 +69,7 @@ Button/styles/focus = SubResource( 30 )
 Button/styles/hover = SubResource( 31 )
 Button/styles/normal = SubResource( 32 )
 Button/styles/pressed = SubResource( 33 )
+Panel/styles/panel = SubResource( 37 )
 TabContainer/fonts/font = ExtResource( 7 )
 TabContainer/icons/decrement = null
 TabContainer/icons/decrement_highlight = null

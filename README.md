@@ -74,3 +74,16 @@
 - Now able to view planet stats in the planet select
 - Now able to change planet names
 - Began work on fixing a major gui issue from how text reacts to changing the game window (Maybe bitmap fonts can work?)
+## TU4 Beta 9 (v0.4.0:9) LAST BETA
+- Fixed Versitalis not being named Versitalis
+- Added Space squids
+- Added Rockius
+- Added rain sound effects and ocean ambiance
+- Now able to restore health by eating food items
+- Added settings menu
+- Now able to change music volume
+- Now able to set keybinds
+- Added updated tutorial (Not great but I will update it in a future update)
+- Added a new block: Bottom rock (Unbreakable and generates at the bottom of the world)
+- Fixed camera limit preventing the player from viewing the bottom two block layers
+- Finished and released TU4 packages.

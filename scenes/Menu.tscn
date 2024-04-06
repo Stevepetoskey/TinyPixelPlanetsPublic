@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=2]
+[gd_scene load_steps=74 format=2]
 
 [ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=1]
 [ext_resource path="res://textures/GUI/Menu/MenuSpace.png" type="Texture" id=2]
@@ -37,6 +37,8 @@
 [ext_resource path="res://themes/Gray.tres" type="Theme" id=35]
 [ext_resource path="res://scripts/menu/Scenarios.gd" type="Script" id=36]
 [ext_resource path="res://textures/GUI/Menu/meteor_icon.png" type="Texture" id=37]
+[ext_resource path="res://scripts/menu/Settings.gd" type="Script" id=38]
+[ext_resource path="res://fonts/pixel-outline.tres" type="DynamicFont" id=39]
 
 [sub_resource type="Curve2D" id=25]
 _data = {
@@ -58,6 +60,10 @@ region = Rect2( 96, 68, 64, 15 )
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 7 )
 region = Rect2( 96, 87, 64, 15 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 7 )
+region = Rect2( 73, 52, 23, 14 )
 
 [sub_resource type="AtlasTexture" id=10]
 atlas = ExtResource( 7 )
@@ -553,9 +559,9 @@ custom_constants/separation = 1
 alignment = 1
 
 [node name="Play" type="TextureButton" parent="Main/Buttons"]
-margin_top = 27.0
+margin_top = 19.0
 margin_right = 64.0
-margin_bottom = 42.0
+margin_bottom = 34.0
 texture_normal = SubResource( 4 )
 
 [node name="Label" type="Label" parent="Main/Buttons/Play"]
@@ -567,9 +573,9 @@ text = "PLAY"
 align = 1
 
 [node name="Tutorial" type="TextureButton" parent="Main/Buttons"]
-margin_top = 43.0
+margin_top = 35.0
 margin_right = 64.0
-margin_bottom = 58.0
+margin_bottom = 50.0
 texture_normal = SubResource( 4 )
 
 [node name="Label" type="Label" parent="Main/Buttons/Tutorial"]
@@ -580,10 +586,24 @@ custom_fonts/font = ExtResource( 1 )
 text = "TUTORIAL"
 align = 1
 
-[node name="Credits" type="TextureButton" parent="Main/Buttons"]
-margin_top = 59.0
+[node name="Settings" type="TextureButton" parent="Main/Buttons"]
+margin_top = 51.0
 margin_right = 64.0
-margin_bottom = 74.0
+margin_bottom = 66.0
+texture_normal = SubResource( 5 )
+
+[node name="Label" type="Label" parent="Main/Buttons/Settings"]
+margin_top = 4.0
+margin_right = 64.0
+margin_bottom = 12.0
+custom_fonts/font = ExtResource( 1 )
+text = "SETTINGS"
+align = 1
+
+[node name="Credits" type="TextureButton" parent="Main/Buttons"]
+margin_top = 67.0
+margin_right = 64.0
+margin_bottom = 82.0
 texture_normal = SubResource( 5 )
 
 [node name="Label" type="Label" parent="Main/Buttons/Credits"]
@@ -593,6 +613,259 @@ margin_bottom = 12.0
 custom_fonts/font = ExtResource( 1 )
 text = "CREDITS"
 align = 1
+
+[node name="Settings" type="NinePatchRect" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -71.0
+margin_top = -60.0
+margin_right = 71.0
+margin_bottom = 60.0
+theme = ExtResource( 32 )
+texture = ExtResource( 9 )
+region_rect = Rect2( 2, 2, 120, 108 )
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+script = ExtResource( 38 )
+
+[node name="Title" type="Label" parent="Settings"]
+anchor_right = 1.0
+margin_top = 2.0
+margin_bottom = 16.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.470588, 0.470588, 0.470588, 1 )
+custom_fonts/font = ExtResource( 39 )
+text = "Settings"
+align = 1
+valign = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Settings"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 2.0
+margin_top = 16.0
+margin_right = -2.0
+margin_bottom = -2.0
+theme = ExtResource( 32 )
+scroll_horizontal_enabled = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/ScrollContainer"]
+margin_right = 138.0
+margin_bottom = 111.0
+size_flags_horizontal = 3
+custom_constants/separation = 1
+
+[node name="MusicVol" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
+margin_right = 134.0
+margin_bottom = 8.0
+text = "Music Volume:"
+align = 1
+
+[node name="MusicSlider" type="HSlider" parent="Settings/ScrollContainer/VBoxContainer"]
+margin_top = 9.0
+margin_right = 134.0
+margin_bottom = 17.0
+max_value = 10.0
+value = 10.0
+
+[node name="KeyBinds" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 134.0
+margin_bottom = 26.0
+text = "Keybinds:"
+align = 1
+
+[node name="KeybindContainer" type="VBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
+margin_top = 27.0
+margin_right = 134.0
+margin_bottom = 111.0
+custom_constants/separation = 0
+
+[node name="build" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
+margin_right = 134.0
+margin_bottom = 12.0
+custom_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build"]
+margin_right = 100.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+theme = ExtResource( 35 )
+
+[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build/Action"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Slot 1"
+align = 1
+valign = 2
+
+[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build"]
+margin_left = 100.0
+margin_right = 134.0
+margin_bottom = 12.0
+text = "> LMB <"
+
+[node name="build2" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
+margin_top = 12.0
+margin_right = 134.0
+margin_bottom = 24.0
+custom_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build2"]
+margin_right = 100.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+theme = ExtResource( 35 )
+
+[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build2/Action"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Slot 2"
+align = 1
+valign = 2
+
+[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build2"]
+margin_left = 100.0
+margin_right = 134.0
+margin_bottom = 12.0
+text = "> RMB <"
+
+[node name="action1" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
+margin_top = 24.0
+margin_right = 134.0
+margin_bottom = 36.0
+custom_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action1"]
+margin_right = 111.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+theme = ExtResource( 35 )
+
+[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action1/Action"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Action 1"
+align = 1
+valign = 2
+
+[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action1"]
+margin_left = 111.0
+margin_right = 134.0
+margin_bottom = 12.0
+text = "> J <"
+
+[node name="action2" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
+margin_top = 36.0
+margin_right = 134.0
+margin_bottom = 48.0
+custom_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action2"]
+margin_right = 111.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+theme = ExtResource( 35 )
+
+[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action2/Action"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Action 2"
+align = 1
+valign = 2
+
+[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action2"]
+margin_left = 111.0
+margin_right = 134.0
+margin_bottom = 12.0
+text = "> K <"
+
+[node name="background_toggle" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
+margin_top = 48.0
+margin_right = 134.0
+margin_bottom = 60.0
+custom_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/background_toggle"]
+margin_right = 111.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+theme = ExtResource( 35 )
+
+[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/background_toggle/Action"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Background Toggle"
+align = 1
+valign = 2
+
+[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/background_toggle"]
+margin_left = 111.0
+margin_right = 134.0
+margin_bottom = 12.0
+text = "> B <"
+
+[node name="ach" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
+margin_top = 60.0
+margin_right = 134.0
+margin_bottom = 72.0
+custom_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/ach"]
+margin_right = 111.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+theme = ExtResource( 35 )
+
+[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/ach/Action"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Achievements"
+align = 1
+valign = 2
+
+[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/ach"]
+margin_left = 111.0
+margin_right = 134.0
+margin_bottom = 12.0
+text = "> Z <"
+
+[node name="fly" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
+margin_top = 72.0
+margin_right = 134.0
+margin_bottom = 84.0
+custom_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/fly"]
+margin_right = 111.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+theme = ExtResource( 35 )
+
+[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/fly/Action"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Fly"
+align = 1
+valign = 2
+
+[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/fly"]
+margin_left = 111.0
+margin_right = 134.0
+margin_bottom = 12.0
+text = "> F <"
+
+[node name="Back" type="TextureButton" parent="Settings"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 25.0
+margin_bottom = 16.0
+texture_normal = SubResource( 36 )
 
 [node name="World" type="Control" parent="."]
 visible = false
@@ -956,7 +1229,7 @@ anchor_bottom = 1.0
 margin_top = -8.0
 custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
 custom_fonts/font = ExtResource( 1 )
-text = "Tiny Pixel Planets TU4 Beta 8 (v0.4.0:7)"
+text = "Tiny Pixel Planets TU4 (v0.4.0)"
 align = 1
 
 [node name="Credits" type="Control" parent="."]
@@ -1207,9 +1480,18 @@ margin_bottom = -8.0
 theme = ExtResource( 35 )
 text = "Done"
 
+[node name="DisableControls" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 0
+
 [connection signal="pressed" from="Main/Buttons/Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="Main/Buttons/Tutorial" to="." method="_on_Tutorial_pressed"]
+[connection signal="pressed" from="Main/Buttons/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="pressed" from="Main/Buttons/Credits" to="." method="_on_Credits_pressed"]
+[connection signal="value_changed" from="Settings/ScrollContainer/VBoxContainer/MusicSlider" to="Settings" method="_on_MusicSlider_value_changed"]
+[connection signal="pressed" from="Settings/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="World/loadSave/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="World/character/Female" to="World/character" method="_on_Female_pressed"]
 [connection signal="pressed" from="World/character/Male" to="World/character" method="_on_Male_pressed"]
@@ -1225,3 +1507,4 @@ text = "Done"
 [connection signal="pressed" from="World/character/Scenarios" to="World/character" method="_on_Scenarios_pressed"]
 [connection signal="pressed" from="Credits/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Scenarios/Done" to="World/character" method="_on_Done_pressed"]
+[connection signal="gui_input" from="DisableControls" to="Settings" method="_on_DisableControls_gui_input"]

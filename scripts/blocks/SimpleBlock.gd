@@ -35,7 +35,6 @@ func on_update():
 
 func _on_VisibilityNotifier2D_screen_entered():
 	show()
-	on_update()
 
 func _on_VisibilityNotifier2D_screen_exited():
 	hide()

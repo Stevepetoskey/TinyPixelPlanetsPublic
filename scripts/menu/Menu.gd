@@ -41,3 +41,11 @@ func _on_Credits_pressed():
 
 func _on_Tutorial_pressed():
 	$World/loadSave.start(true)
+
+func _on_Settings_pressed() -> void:
+	$Main.hide()
+	$Settings.show()
+
+func _on_Back_pressed() -> void:
+	$Settings.hide()
+	$Main.show()

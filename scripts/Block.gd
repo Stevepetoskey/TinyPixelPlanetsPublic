@@ -91,6 +91,12 @@ func _ready():
 			position.y -= 4
 			$CollisionShape2D.disabled = true
 			$Sprite.material = load("res://shaders/tree_shader.tres").duplicate(true)
+		142:
+			$CollisionShape2D.disabled = true
+			$Sprite.texture = load("res://textures/blocks2X/posters/propaganda_poster1.png")
+		143:
+			$CollisionShape2D.disabled = true
+			$Sprite.texture = load("res://textures/blocks2X/posters/propaganda_poster2.png")
 
 func world_loaded():
 	on_update()

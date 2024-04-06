@@ -193,6 +193,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
-2d/snapping/use_gpu_pixel_snap=true
 2d/options/ninepatch_mode=0
 environment/default_environment="res://default_env.tres"
