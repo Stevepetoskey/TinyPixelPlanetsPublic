@@ -1,31 +1,31 @@
-extends Sprite
+extends Sprite2D
 
 var planetRef : Object
 
-onready var main = get_node("../..")
-onready var viewPort = $ViewportContainer
+@onready var main = get_node("../..")
+@onready var viewPort = $SubViewportContainer
 
 func _ready():
 	$Area2D/CollisionShape2D.shape.radius = StarSystem.sizeData[planetRef.type["size"]]["radius"]
-	viewPort.material.set_shader_param("planet",planetRef.type["texture"])
+	viewPort.material.set_shader_parameter("planet",planetRef.type["texture"])
 	#texture = planetRef.type["texture"]
 	match planetRef.type["size"]:
 		0:
-			viewPort.rect_size = Vector2(14,14)
-			viewPort.rect_position = Vector2(-7,-7)
-			$ViewportContainer/Viewport.size = Vector2(14,14)
+			viewPort.size = Vector2(14,14)
+			viewPort.position = Vector2(-7,-7)
+			$SubViewportContainer/SubViewport.size = Vector2(14,14)
 		1:
-			viewPort.rect_size = Vector2(28,28)
-			viewPort.rect_position = Vector2(-14,-14)
-			$ViewportContainer/Viewport.size = Vector2(28,28)
+			viewPort.size = Vector2(28,28)
+			viewPort.position = Vector2(-14,-14)
+			$SubViewportContainer/SubViewport.size = Vector2(28,28)
 		2:
-			viewPort.rect_size = Vector2(56,56)
-			viewPort.rect_position = Vector2(-28,-28)
-			$ViewportContainer/Viewport.size = Vector2(56,56)
+			viewPort.size = Vector2(56,56)
+			viewPort.position = Vector2(-28,-28)
+			$SubViewportContainer/SubViewport.size = Vector2(56,56)
 
 func _process(delta):
 	position = planetRef.position
-	$ViewportContainer/Viewport/Spatial.angle = planetRef.shadeAngle
+	$SubViewportContainer/SubViewport/Node3D.angle = planetRef.shadeAngle
 
 func _on_Area2D_body_entered(body):
 	if !["gas1","gas2","gas3"].has(planetRef.type["type"]):

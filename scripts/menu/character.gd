@@ -115,7 +115,7 @@ func right(type : String):
 func _on_Female_pressed():
 	sex = "Woman"
 	genCharacter(sex)
-	$Male.pressed = false
+	$Male.button_pressed = false
 	$Female.disabled = true
 	$Male.disabled = false
 	update_char()
@@ -123,7 +123,7 @@ func _on_Female_pressed():
 func _on_Male_pressed():
 	sex = "Guy"
 	genCharacter(sex)
-	$Female.pressed = false
+	$Female.button_pressed = false
 	$Male.disabled = true
 	$Female.disabled = false
 	update_char()

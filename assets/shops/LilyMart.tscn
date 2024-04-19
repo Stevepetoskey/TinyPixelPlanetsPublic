@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://textures/NPCs/farmer.png" type="Texture" id=1]
-[ext_resource path="res://textures/NPCs/Buildings/lily_market_back.png" type="Texture" id=2]
-[ext_resource path="res://textures/NPCs/Buildings/lily_market_front.png" type="Texture" id=3]
+[ext_resource path="res://textures/NPCs/farmer.png" type="Texture2D" id=1]
+[ext_resource path="res://textures/NPCs/Buildings/lily_market_back.png" type="Texture2D" id=2]
+[ext_resource path="res://textures/NPCs/Buildings/lily_market_front.png" type="Texture2D" id=3]
 [ext_resource path="res://scripts/blocks/LilyMart.gd" type="Script" id=4]
 
 [sub_resource type="Animation" id=1]
@@ -14,8 +14,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ 3 ]
 }
@@ -31,8 +31,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5, 0.75, 1 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"times": PackedFloat32Array( 0, 0.25, 0.5, 0.75, 1 ),
+"transitions": PackedFloat32Array( 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 3, 4, 5, 4, 3 ]
 }
@@ -45,17 +45,17 @@ collision_layer = 64
 collision_mask = 0
 script = ExtResource( 4 )
 
-[node name="Back" type="Sprite" parent="."]
+[node name="Back" type="Sprite2D" parent="."]
 texture = ExtResource( 2 )
 
-[node name="Lily" type="Sprite" parent="."]
+[node name="Lily" type="Sprite2D" parent="."]
 position = Vector2( 3, 9 )
 texture = ExtResource( 1 )
 hframes = 3
 vframes = 6
 frame = 3
 
-[node name="Front" type="Sprite" parent="."]
+[node name="Front" type="Sprite2D" parent="."]
 texture = ExtResource( 3 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -63,7 +63,7 @@ playback_speed = 0.5
 anims/RESET = SubResource( 1 )
 anims/idle = SubResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

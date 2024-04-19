@@ -2,7 +2,7 @@ extends Area2D
 
 const GRAVITY : float = 1.0
 
-onready var world = $"../../World"
+@onready var world = $"../../World"
 
 var motion : Vector2
 

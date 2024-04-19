@@ -1,16 +1,16 @@
 extends Panel
 
-onready var icon: TextureRect = $HBoxContainer/Icon
-onready var planet_info: Panel = $"../PlanetInfo"
-onready var title: Label = $Title
-onready var line_edit: LineEdit = $LineEdit
+@onready var icon: TextureRect = $HBoxContainer/Icon
+@onready var planet_info: Panel = $"../PlanetInfo"
+@onready var title: Label = $Title
+@onready var line_edit: LineEdit = $LineEdit
 
 var icons = ["circle","square","star","triangle","house","pickaxe"]
 var currentIcon : int
 
 func _ready() -> void:
 	for color in $HBoxContainer/GridContainer.get_children():
-		color.connect("pressed",self,"color_pressed",[color.modulate])
+		color.connect("pressed", Callable(self, "color_pressed").bind(color.modulate))
 
 func pop_up() -> void:
 	var foundBookmark = Global.find_bookmark(Global.currentSystemId,planet_info.currentPlanet.id)

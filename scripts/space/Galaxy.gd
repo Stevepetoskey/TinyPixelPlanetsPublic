@@ -8,7 +8,7 @@ const SECTOR_STAR_RANGE = [40,60]
 var selectedSystem = null
 var moving = false
 
-onready var warp: Tween = $Tweens/Warp
+@onready var warp: Tween = $Tweens/Warp
 
 func _ready():
 	Global.playerData["save_type"] = "galaxy"
@@ -19,11 +19,11 @@ func _ready():
 	update_sectors(sectorCoords)
 	if find_system(Global.currentSystem,sectorCoords) != null:
 		var system = find_system(Global.currentSystem,sectorCoords)
-		$GalaxyView.position = system.rect_global_position
-		$CurrentSelector.rect_position = system.rect_global_position
+		$GalaxyView.position = system.global_position
+		$CurrentSelector.position = system.global_position
 	else:
 		$GalaxyView.position = sectorCoords
-		$CurrentSelector.rect_position = sectorCoords
+		$CurrentSelector.position = sectorCoords
 
 func pos_to_seed(pos : Vector2) -> int:
 	var strSeed = str(int(pos.y))
@@ -80,10 +80,10 @@ func load_sector(coords : Vector2):
 		newSector.name = str(coords.x) + "," + str(coords.y)
 		newSector.position = coords
 		$Sectors.add_child(newSector)
-		var starAmount = int(rand_range(SECTOR_STAR_RANGE[0],SECTOR_STAR_RANGE[1]))
+		var starAmount = int(randf_range(SECTOR_STAR_RANGE[0],SECTOR_STAR_RANGE[1]))
 		for i in range(starAmount):
-			var newStar = STAR_ICON.instance()
-			newStar.rect_position = Vector2(rand_range(0,SECTOR_SIZE.x),rand_range(0,SECTOR_SIZE.y))
+			var newStar = STAR_ICON.instantiate()
+			newStar.position = Vector2(randf_range(0,SECTOR_SIZE.x),randf_range(0,SECTOR_SIZE.y))
 			newStar.systemSeed = int(pos_to_seed_str(coords) + str(i))
 			newStar.systemId = pos_to_seed_str(coords) + str(i)
 			var systemData = StarSystem.quick_system_check(newStar.systemSeed)
@@ -98,9 +98,9 @@ func warp(systemId : String, planetId : int):
 		$GalaxyView.position, find_system_id(systemId,sectorCoords).get_global_rect().position, 2,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	warp.start()
-	yield(warp,"tween_completed")
+	await warp.tween_completed
 	$AnimationPlayer.play("selected")
-	yield($AnimationPlayer,"animation_finished")
+	await $AnimationPlayer.animation_finished
 	GlobalGui.complete_achievement("Interstellar")
 	Global.currentPlanet = planetId
 	StarSystem.open_star_system(find_system_id(systemId,sectorCoords).systemSeed,systemId)
@@ -109,28 +109,28 @@ func system_pressed(system):
 	if !moving:
 		if system != selectedSystem:
 			selectedSystem = system
-			$Selected.rect_position = system.rect_global_position
-			$SystemInfo.hover(system.rect_global_position,system.systemId)
+			$Selected.position = system.global_position
+			$SystemInfo.hover(system.global_position,system.systemId)
 			$Selected.show()
-			$Line.rect_position = $CurrentSelector.rect_position + Vector2(10.5,10.5)
-			$Line.rect_rotation = rad2deg($Line.rect_position.angle_to_point($Selected.rect_position + Vector2(10.5,10.5))) + 90
-			$Line.rect_size.y = $Line.rect_position.distance_to($Selected.rect_position + Vector2(10.5,10.5))
+			$Line.position = $CurrentSelector.position + Vector2(10.5,10.5)
+			$Line.rotation = rad_to_deg($Line.position.angle_to_point($Selected.position + Vector2(10.5,10.5))) + 90
+			$Line.size.y = $Line.position.distance_to($Selected.position + Vector2(10.5,10.5))
 			$Line.show()
 		else:
 			$SystemInfo.hide()
 			moving = true
-			var oldPos = $CurrentSelector.rect_position
+			var oldPos = $CurrentSelector.position
 			for i in range(100):
-				$CurrentSelector.rect_position = lerp(oldPos,$Selected.rect_position,i/100.0)
-				$Line.rect_position = $CurrentSelector.rect_position + Vector2(10.5,10.5)
-				$Line.rect_rotation = rad2deg($Line.rect_position.angle_to_point($Selected.rect_position + Vector2(10.5,10.5))) + 90
-				$Line.rect_size.y = $Line.rect_position.distance_to($Selected.rect_position + Vector2(10.5,10.5))
-				$GalaxyView.position = $Line.rect_position
-				yield(get_tree(),"idle_frame")
-			$CurrentSelector.rect_position = $Selected.rect_position
+				$CurrentSelector.position = lerp(oldPos,$Selected.position,i/100.0)
+				$Line.position = $CurrentSelector.position + Vector2(10.5,10.5)
+				$Line.rotation = rad_to_deg($Line.position.angle_to_point($Selected.position + Vector2(10.5,10.5))) + 90
+				$Line.size.y = $Line.position.distance_to($Selected.position + Vector2(10.5,10.5))
+				$GalaxyView.position = $Line.position
+				await get_tree().idle_frame
+			$CurrentSelector.position = $Selected.position
 			$AnimationPlayer.play("selected")
 			moving = false
-			yield($AnimationPlayer,"animation_finished")
+			await $AnimationPlayer.animation_finished
 			print("Selected seed: ",selectedSystem.systemSeed)
 			GlobalGui.complete_achievement("Interstellar")
 			StarSystem.open_star_system(selectedSystem.systemSeed,selectedSystem.systemId)

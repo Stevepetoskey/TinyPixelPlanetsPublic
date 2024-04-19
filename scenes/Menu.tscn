@@ -1,1487 +1,1458 @@
-[gd_scene load_steps=74 format=2]
+[gd_scene load_steps=79 format=3 uid="uid://cishymc2t8s6j"]
 
-[ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=1]
-[ext_resource path="res://textures/GUI/Menu/MenuSpace.png" type="Texture" id=2]
-[ext_resource path="res://textures/GUI/Menu/TinyPixelTitle.png" type="Texture" id=3]
-[ext_resource path="res://textures/enviroment/stars.png" type="Texture" id=4]
-[ext_resource path="res://textures/GUI/Menu/MenuPlanets.png" type="Texture" id=5]
-[ext_resource path="res://scripts/menu/Menu.gd" type="Script" id=6]
-[ext_resource path="res://textures/GUI/Menu/Buttons.png" type="Texture" id=7]
-[ext_resource path="res://textures/GUI/Blank.png" type="Texture" id=8]
-[ext_resource path="res://textures/GUI/Menu/save_bg.png" type="Texture" id=9]
-[ext_resource path="res://assets/saveSelect.tscn" type="PackedScene" id=10]
-[ext_resource path="res://scripts/menu/loadSave.gd" type="Script" id=11]
-[ext_resource path="res://Audio/music/TinyPlanets.ogg" type="AudioStream" id=12]
-[ext_resource path="res://textures/GUI/Menu/MenuCharacter.png" type="Texture" id=13]
-[ext_resource path="res://textures/player/Body/Guy.png" type="Texture" id=14]
-[ext_resource path="res://scripts/menu/character.gd" type="Script" id=15]
-[ext_resource path="res://textures/player/Hair/Beard.png" type="Texture" id=16]
-[ext_resource path="res://textures/GUI/Menu/MenuBtns1.png" type="Texture" id=17]
-[ext_resource path="res://textures/GUI/Menu/armor-Guy.png" type="Texture" id=18]
-[ext_resource path="res://scripts/menu/CharacterEdit.gd" type="Script" id=19]
-[ext_resource path="res://fonts/pixelLineEdit.tres" type="DynamicFont" id=20]
-[ext_resource path="res://textures/GUI/Menu/WebDemo2.png" type="Texture" id=21]
-[ext_resource path="res://textures/GUI/Menu/scenario_gui.png" type="Texture" id=22]
-[ext_resource path="res://scripts/menu/ScenarioBtn.gd" type="Script" id=23]
-[ext_resource path="res://textures/GUI/space/h_bar_handle.png" type="Texture" id=24]
-[ext_resource path="res://textures/GUI/space/v_bar.png" type="Texture" id=25]
-[ext_resource path="res://textures/GUI/space/h_bar.png" type="Texture" id=26]
-[ext_resource path="res://textures/GUI/space/v_bar_handle.png" type="Texture" id=27]
-[ext_resource path="res://textures/GUI/space/h_bar_handle_hover.png" type="Texture" id=28]
-[ext_resource path="res://textures/GUI/space/h_bar_handle_select.png" type="Texture" id=29]
-[ext_resource path="res://textures/GUI/space/v_bar_handle_select.png" type="Texture" id=30]
-[ext_resource path="res://textures/GUI/Menu/sandbox_icon.png" type="Texture" id=31]
-[ext_resource path="res://themes/Blue.tres" type="Theme" id=32]
-[ext_resource path="res://textures/GUI/space/v_bar_handle_hover.png" type="Texture" id=33]
-[ext_resource path="res://textures/GUI/Menu/scenario_btn.png" type="Texture" id=34]
-[ext_resource path="res://themes/Gray.tres" type="Theme" id=35]
-[ext_resource path="res://scripts/menu/Scenarios.gd" type="Script" id=36]
-[ext_resource path="res://textures/GUI/Menu/meteor_icon.png" type="Texture" id=37]
-[ext_resource path="res://scripts/menu/Settings.gd" type="Script" id=38]
-[ext_resource path="res://fonts/pixel-outline.tres" type="DynamicFont" id=39]
+[ext_resource type="FontFile" path="res://fonts/pixel.tres" id="1"]
+[ext_resource type="Texture2D" uid="uid://bdmee6lphakkb" path="res://textures/GUI/Menu/MenuSpace.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://b7hykydguok1o" path="res://textures/GUI/Menu/TinyPixelTitle.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://j3emyaxoa1jb" path="res://textures/enviroment/stars.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://bwseuqypsewq1" path="res://textures/GUI/Menu/MenuPlanets.png" id="5"]
+[ext_resource type="Script" path="res://scripts/menu/Menu.gd" id="6"]
+[ext_resource type="Texture2D" uid="uid://dwo74loecao6y" path="res://textures/GUI/Menu/Buttons.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://docmqdn1y13fp" path="res://textures/GUI/Blank.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://ctqqpunkiehke" path="res://textures/GUI/Menu/save_bg.png" id="9"]
+[ext_resource type="PackedScene" path="res://assets/saveSelect.tscn" id="10"]
+[ext_resource type="Script" path="res://scripts/menu/loadSave.gd" id="11"]
+[ext_resource type="AudioStream" uid="uid://cpmnltfnbjm8v" path="res://Audio/music/TinyPlanets.ogg" id="12"]
+[ext_resource type="Texture2D" uid="uid://fvhpuf5gfvjs" path="res://textures/GUI/Menu/MenuCharacter.png" id="13"]
+[ext_resource type="Texture2D" uid="uid://srw85n8vkiy2" path="res://textures/player/Body/Guy.png" id="14"]
+[ext_resource type="Script" path="res://scripts/menu/character.gd" id="15"]
+[ext_resource type="Texture2D" uid="uid://5bipb0lg58vg" path="res://textures/player/Hair/Beard.png" id="16"]
+[ext_resource type="Texture2D" uid="uid://t1421louhmg" path="res://textures/GUI/Menu/MenuBtns1.png" id="17"]
+[ext_resource type="Texture2D" uid="uid://4xavei1uhdk7" path="res://textures/GUI/Menu/armor-Guy.png" id="18"]
+[ext_resource type="Script" path="res://scripts/menu/CharacterEdit.gd" id="19"]
+[ext_resource type="FontFile" path="res://fonts/pixelLineEdit.tres" id="20"]
+[ext_resource type="Texture2D" uid="uid://dr1mnlpstams1" path="res://textures/GUI/Menu/WebDemo2.png" id="21"]
+[ext_resource type="Texture2D" uid="uid://cjknemkmo2qse" path="res://textures/GUI/Menu/scenario_gui.png" id="22"]
+[ext_resource type="Script" path="res://scripts/menu/ScenarioBtn.gd" id="23"]
+[ext_resource type="Texture2D" uid="uid://cy2kr64p5herf" path="res://textures/GUI/space/h_bar_handle.png" id="24"]
+[ext_resource type="Texture2D" uid="uid://dqkgujgjvgj5g" path="res://textures/GUI/space/v_bar.png" id="25"]
+[ext_resource type="Texture2D" uid="uid://45o7v1dsk3yx" path="res://textures/GUI/space/h_bar.png" id="26"]
+[ext_resource type="Texture2D" uid="uid://cn76yxyfhxg3v" path="res://textures/GUI/space/v_bar_handle.png" id="27"]
+[ext_resource type="Texture2D" uid="uid://cgfxdpw0sxxxi" path="res://textures/GUI/space/h_bar_handle_hover.png" id="28"]
+[ext_resource type="Texture2D" uid="uid://im3ftx86mtc3" path="res://textures/GUI/space/h_bar_handle_select.png" id="29"]
+[ext_resource type="Texture2D" uid="uid://cg77ke3bvhhcj" path="res://textures/GUI/space/v_bar_handle_select.png" id="30"]
+[ext_resource type="Texture2D" uid="uid://cu2cnqmen3gna" path="res://textures/GUI/Menu/sandbox_icon.png" id="31"]
+[ext_resource type="Theme" uid="uid://bpq1cob8cyjn" path="res://themes/Blue.tres" id="32"]
+[ext_resource type="Texture2D" uid="uid://cs2ptrjg2ll5k" path="res://textures/GUI/space/v_bar_handle_hover.png" id="33"]
+[ext_resource type="Texture2D" uid="uid://cc7n0wca345u0" path="res://textures/GUI/Menu/scenario_btn.png" id="34"]
+[ext_resource type="Theme" uid="uid://bvlk5mt2axnwa" path="res://themes/Gray.tres" id="35"]
+[ext_resource type="Script" path="res://scripts/menu/Scenarios.gd" id="36"]
+[ext_resource type="Texture2D" uid="uid://k5uwh53rco4k" path="res://textures/GUI/Menu/meteor_icon.png" id="37"]
+[ext_resource type="Script" path="res://scripts/menu/Settings.gd" id="38"]
+[ext_resource type="FontFile" path="res://fonts/pixel-outline.tres" id="39"]
 
-[sub_resource type="Curve2D" id=25]
+[sub_resource type="Curve2D" id="25"]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 0, 127, -109.811, 50.8491, 109.811, -50.8491, 113, 51, 0, 0, 0, 0, 338, 10, 0, 0, 0, 0, 314, 175, 0, 0, 0, 0, -15, 158, 0, 0, 0, 0, 0, 127 )
+"points": PackedVector2Array(0, 0, 0, 0, 0, 127, -109.811, 50.8491, 109.811, -50.8491, 113, 51, 0, 0, 0, 0, 338, 10, 0, 0, 0, 0, 314, 175, 0, 0, 0, 0, -15, 158, 0, 0, 0, 0, 0, 127)
 }
+point_count = 6
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 5 )
-region = Rect2( 34, 38, 31, 31 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("5")
+region = Rect2(34, 38, 31, 31)
 
-[sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 5 )
-region = Rect2( 0, 104, 240, 56 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 7 )
-region = Rect2( 96, 68, 64, 15 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 7 )
-region = Rect2( 96, 87, 64, 15 )
-
-[sub_resource type="AtlasTexture" id=36]
-atlas = ExtResource( 7 )
-region = Rect2( 73, 52, 23, 14 )
-
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 7 )
-region = Rect2( 73, 52, 23, 14 )
-
-[sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 7 )
-region = Rect2( 13, 14, 33, 8 )
-
-[sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 13 )
-region = Rect2( 8, 9, 21, 28 )
-
-[sub_resource type="Animation" id=18]
+[sub_resource type="Animation" id="Animation_yxdbv"]
 length = 0.001
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_10he4"]
+resource_name = "default"
+length = 240.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 240),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oond0"]
+_data = {
+"RESET": SubResource("Animation_yxdbv"),
+"default": SubResource("Animation_10he4")
+}
+
+[sub_resource type="AtlasTexture" id="12"]
+atlas = ExtResource("5")
+region = Rect2(0, 104, 240, 56)
+
+[sub_resource type="AtlasTexture" id="4"]
+atlas = ExtResource("7")
+region = Rect2(96, 68, 64, 15)
+
+[sub_resource type="AtlasTexture" id="5"]
+atlas = ExtResource("7")
+region = Rect2(96, 87, 64, 15)
+
+[sub_resource type="AtlasTexture" id="36"]
+atlas = ExtResource("7")
+region = Rect2(73, 52, 23, 14)
+
+[sub_resource type="AtlasTexture" id="10"]
+atlas = ExtResource("7")
+region = Rect2(73, 52, 23, 14)
+
+[sub_resource type="AtlasTexture" id="11"]
+atlas = ExtResource("7")
+region = Rect2(13, 14, 33, 8)
+
+[sub_resource type="AtlasTexture" id="13"]
+atlas = ExtResource("13")
+region = Rect2(8, 9, 21, 28)
+
+[sub_resource type="Animation" id="18"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Body:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 4 ]
+"values": [4]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Armor:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 3 ]
+"values": [3]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Hair:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 3 ]
+"values": [3]
 }
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id="19"]
 resource_name = "idle"
-loop = true
+loop_mode = 1
 step = 0.25
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Body:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [ 3, 4, 5, 4 ]
+"values": [3, 4, 5, 4]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Armor:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [ 3, 4, 5, 4 ]
+"values": [3, 4, 5, 4]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Hair:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [ 3, 4, 5, 4 ]
+"values": [3, 4, 5, 4]
 }
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 13 )
-region = Rect2( 8, 37, 11, 12 )
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vos1u"]
+_data = {
+"RESET": SubResource("18"),
+"idle": SubResource("19")
+}
 
-[sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 13 )
-region = Rect2( 30, 37, 11, 12 )
+[sub_resource type="AtlasTexture" id="14"]
+atlas = ExtResource("13")
+region = Rect2(8, 37, 11, 12)
 
-[sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 13 )
-region = Rect2( 18, 37, 11, 12 )
+[sub_resource type="AtlasTexture" id="15"]
+atlas = ExtResource("13")
+region = Rect2(30, 37, 11, 12)
 
-[sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 13 )
-region = Rect2( 40, 37, 11, 12 )
+[sub_resource type="AtlasTexture" id="16"]
+atlas = ExtResource("13")
+region = Rect2(18, 37, 11, 12)
 
-[sub_resource type="StyleBoxTexture" id=20]
-texture = ExtResource( 13 )
-region_rect = Rect2( 31, 18, 88, 11 )
-margin_left = 2.0
-margin_right = 2.0
-margin_top = 2.0
-margin_bottom = 2.0
+[sub_resource type="AtlasTexture" id="17"]
+atlas = ExtResource("13")
+region = Rect2(40, 37, 11, 12)
 
-[sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 13 )
-region = Rect2( 5, 51, 114, 11 )
+[sub_resource type="StyleBoxTexture" id="20"]
+texture = ExtResource("13")
+region_rect = Rect2(31, 18, 88, 11)
 
-[sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 13 )
-region = Rect2( 6, 62, 6, 9 )
+[sub_resource type="AtlasTexture" id="21"]
+atlas = ExtResource("13")
+region = Rect2(5, 51, 114, 11)
 
-[sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 13 )
-region = Rect2( 112, 62, 6, 9 )
+[sub_resource type="AtlasTexture" id="22"]
+atlas = ExtResource("13")
+region = Rect2(6, 62, 6, 9)
 
-[sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 17 )
-region = Rect2( 83, 103, 64, 15 )
+[sub_resource type="AtlasTexture" id="23"]
+atlas = ExtResource("13")
+region = Rect2(112, 62, 6, 9)
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="AtlasTexture" id="24"]
+atlas = ExtResource("17")
+region = Rect2(83, 103, 64, 15)
+
+[sub_resource type="Animation" id="6"]
 length = 0.001
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Camera2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 32, 48 ) ]
+"values": [Vector2(32, 48)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Camera2D:zoom")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 0.5, 0.5 ) ]
+"values": [Vector2(0.5, 0.5)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("blank:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Main/Title:rect_position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
+tracks/3/path = NodePath("Main/Title:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 0, 16 ) ]
+"values": [Vector2(0, 16)]
 }
 tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("Main/Title:modulate")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
 tracks/5/path = NodePath("AudioStreamPlayer:autoplay")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ false ]
+"values": [false]
 }
 tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
 tracks/6/path = NodePath("AudioStreamPlayer:playing")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ false ]
+"values": [false]
 }
 tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
 tracks/7/path = NodePath("Main/Buttons:modulate")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
-tracks/7/imported = false
-tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
+"values": [Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id="9"]
 resource_name = "buttons"
 length = 0.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Main/Buttons:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id="8"]
 resource_name = "title"
 length = 1.5
 tracks/0/type = "value"
-tracks/0/path = NodePath("Main/Title:rect_position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
+tracks/0/path = NodePath("Main/Title:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PackedFloat32Array(0, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [ Vector2( 46, 32 ), Vector2( 46, 32 ), Vector2( 46, 0 ) ]
+"values": [Vector2(46, 32), Vector2(46, 32), Vector2(46, 0)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Main/Title:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id="7"]
 resource_name = "zoom"
 length = 0.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Camera2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 142, 120 ), Vector2( 142, 80 ) ]
+"values": [Vector2(142, 100), Vector2(142, 80)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Camera2D:zoom")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 0.5, 0.5 ), Vector2( 1, 1 ) ]
+"values": [Vector2(2.5, 2.5), Vector2(1, 1)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("blank:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("AudioStreamPlayer:autoplay")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [false]
 }
 tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("AudioStreamPlayer:playing")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ false, true ]
+"values": [false, true]
 }
 
-[sub_resource type="StyleBoxTexture" id=26]
-texture = ExtResource( 24 )
-region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_58khl"]
+_data = {
+"RESET": SubResource("6"),
+"buttons": SubResource("9"),
+"title": SubResource("8"),
+"zoom": SubResource("7")
+}
 
-[sub_resource type="StyleBoxTexture" id=27]
-texture = ExtResource( 28 )
-region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="26"]
+texture = ExtResource("24")
+region_rect = Rect2(0, 0, 8, 4)
 
-[sub_resource type="StyleBoxTexture" id=28]
-texture = ExtResource( 29 )
-region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="27"]
+texture = ExtResource("28")
+region_rect = Rect2(0, 0, 8, 4)
 
-[sub_resource type="StyleBoxTexture" id=29]
-texture = ExtResource( 26 )
-region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="28"]
+texture = ExtResource("29")
+region_rect = Rect2(0, 0, 8, 4)
 
-[sub_resource type="StyleBoxTexture" id=30]
-texture = ExtResource( 27 )
-region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="29"]
+texture = ExtResource("26")
+region_rect = Rect2(0, 0, 8, 4)
 
-[sub_resource type="StyleBoxTexture" id=31]
-texture = ExtResource( 33 )
-region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="30"]
+texture = ExtResource("27")
+region_rect = Rect2(0, 0, 4, 8)
 
-[sub_resource type="StyleBoxTexture" id=32]
-texture = ExtResource( 30 )
-region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="31"]
+texture = ExtResource("33")
+region_rect = Rect2(0, 0, 4, 8)
 
-[sub_resource type="StyleBoxTexture" id=33]
-texture = ExtResource( 25 )
-region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="32"]
+texture = ExtResource("30")
+region_rect = Rect2(0, 0, 4, 8)
 
-[sub_resource type="StyleBoxTexture" id=34]
-texture = ExtResource( 25 )
-region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="33"]
+texture = ExtResource("25")
+region_rect = Rect2(0, 0, 4, 8)
 
-[sub_resource type="Theme" id=35]
-HScrollBar/styles/grabber = SubResource( 26 )
-HScrollBar/styles/grabber_highlight = SubResource( 27 )
-HScrollBar/styles/grabber_pressed = SubResource( 28 )
-HScrollBar/styles/scroll = SubResource( 29 )
-VScrollBar/styles/grabber = SubResource( 30 )
-VScrollBar/styles/grabber_highlight = SubResource( 31 )
-VScrollBar/styles/grabber_pressed = SubResource( 32 )
-VScrollBar/styles/scroll = SubResource( 33 )
-VSlider/styles/slider = SubResource( 34 )
+[sub_resource type="StyleBoxTexture" id="34"]
+texture = ExtResource("25")
+region_rect = Rect2(0, 0, 4, 8)
+
+[sub_resource type="Theme" id="35"]
+HScrollBar/styles/grabber = SubResource("26")
+HScrollBar/styles/grabber_highlight = SubResource("27")
+HScrollBar/styles/grabber_pressed = SubResource("28")
+HScrollBar/styles/scroll = SubResource("29")
+VScrollBar/styles/grabber = SubResource("30")
+VScrollBar/styles/grabber_highlight = SubResource("31")
+VScrollBar/styles/grabber_pressed = SubResource("32")
+VScrollBar/styles/scroll = SubResource("33")
+VSlider/styles/slider = SubResource("34")
 
 [node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 6 )
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6")
 
 [node name="Space" type="TextureRect" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 2 )
-stretch_mode = 7
+texture = ExtResource("2")
 
 [node name="Stars" type="TextureRect" parent="."]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 4 )
-stretch_mode = 7
+texture = ExtResource("4")
 
 [node name="Path2D" type="Path2D" parent="."]
-curve = SubResource( 25 )
+curve = SubResource("25")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2( 0, 127 )
-rotation = -1.15402
+position = Vector2(0, 127)
+rotation = -0.592076
 
-[node name="Moon" type="Sprite" parent="Path2D/PathFollow2D"]
+[node name="Moon" type="Sprite2D" parent="Path2D/PathFollow2D"]
 rotation = 1.15401
-texture = SubResource( 1 )
+texture = SubResource("1")
+
+[node name="MoonMove" type="AnimationPlayer" parent="Path2D/PathFollow2D"]
+libraries = {
+"": SubResource("AnimationLibrary_oond0")
+}
 
 [node name="Planet" type="TextureRect" parent="."]
+layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -67.0
-texture = SubResource( 12 )
+offset_top = -67.0
+texture = SubResource("12")
 stretch_mode = 6
 
 [node name="Main" type="Control" parent="."]
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="Title" type="TextureRect" parent="Main"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_top = 16.0
-margin_right = 192.0
-margin_bottom = 208.0
-texture = ExtResource( 3 )
-expand = true
+offset_top = 16.0
+offset_right = 192.0
+offset_bottom = 208.0
+texture = ExtResource("3")
+expand_mode = 1
 stretch_mode = 6
 
 [node name="TextureRect" type="TextureRect" parent="Main/Title"]
 visible = false
-margin_top = 8.0
-margin_right = 512.0
-margin_bottom = 520.0
-rect_scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 21 )
+layout_mode = 0
+offset_top = 8.0
+offset_right = 512.0
+offset_bottom = 520.0
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("21")
 
 [node name="Buttons" type="VBoxContainer" parent="Main"]
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -32.0
-margin_top = 58.0
-margin_right = 32.0
-custom_constants/separation = 1
+offset_left = -32.0
+offset_top = 58.0
+offset_right = 32.0
+theme_override_constants/separation = 1
 alignment = 1
 
 [node name="Play" type="TextureButton" parent="Main/Buttons"]
-margin_top = 19.0
-margin_right = 64.0
-margin_bottom = 34.0
-texture_normal = SubResource( 4 )
+layout_mode = 2
+texture_normal = SubResource("4")
 
 [node name="Label" type="Label" parent="Main/Buttons/Play"]
-margin_top = 4.0
-margin_right = 64.0
-margin_bottom = 12.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_top = 4.0
+offset_right = 64.0
+offset_bottom = 12.0
+theme_override_fonts/font = ExtResource("1")
 text = "PLAY"
-align = 1
 
 [node name="Tutorial" type="TextureButton" parent="Main/Buttons"]
-margin_top = 35.0
-margin_right = 64.0
-margin_bottom = 50.0
-texture_normal = SubResource( 4 )
+layout_mode = 2
+texture_normal = SubResource("4")
 
 [node name="Label" type="Label" parent="Main/Buttons/Tutorial"]
-margin_top = 4.0
-margin_right = 64.0
-margin_bottom = 12.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_top = 4.0
+offset_right = 64.0
+offset_bottom = 12.0
+theme_override_fonts/font = ExtResource("1")
 text = "TUTORIAL"
-align = 1
 
 [node name="Settings" type="TextureButton" parent="Main/Buttons"]
-margin_top = 51.0
-margin_right = 64.0
-margin_bottom = 66.0
-texture_normal = SubResource( 5 )
+layout_mode = 2
+texture_normal = SubResource("5")
 
 [node name="Label" type="Label" parent="Main/Buttons/Settings"]
-margin_top = 4.0
-margin_right = 64.0
-margin_bottom = 12.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_top = 4.0
+offset_right = 64.0
+offset_bottom = 12.0
+theme_override_fonts/font = ExtResource("1")
 text = "SETTINGS"
-align = 1
 
 [node name="Credits" type="TextureButton" parent="Main/Buttons"]
-margin_top = 67.0
-margin_right = 64.0
-margin_bottom = 82.0
-texture_normal = SubResource( 5 )
+layout_mode = 2
+texture_normal = SubResource("5")
 
 [node name="Label" type="Label" parent="Main/Buttons/Credits"]
-margin_top = 4.0
-margin_right = 64.0
-margin_bottom = 12.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_top = 4.0
+offset_right = 64.0
+offset_bottom = 12.0
+theme_override_fonts/font = ExtResource("1")
 text = "CREDITS"
-align = 1
 
 [node name="Settings" type="NinePatchRect" parent="."]
 visible = false
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -71.0
-margin_top = -60.0
-margin_right = 71.0
-margin_bottom = 60.0
-theme = ExtResource( 32 )
-texture = ExtResource( 9 )
-region_rect = Rect2( 2, 2, 120, 108 )
+offset_left = -71.0
+offset_top = -60.0
+offset_right = 71.0
+offset_bottom = 60.0
+theme = ExtResource("32")
+texture = ExtResource("9")
+region_rect = Rect2(2, 2, 120, 108)
 patch_margin_left = 5
 patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
-script = ExtResource( 38 )
+script = ExtResource("38")
 
 [node name="Title" type="Label" parent="Settings"]
+layout_mode = 0
 anchor_right = 1.0
-margin_top = 2.0
-margin_bottom = 16.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_outline_modulate = Color( 0.470588, 0.470588, 0.470588, 1 )
-custom_fonts/font = ExtResource( 39 )
+offset_top = 2.0
+offset_bottom = 16.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.470588, 0.470588, 0.470588, 1)
+theme_override_fonts/font = ExtResource("39")
 text = "Settings"
-align = 1
-valign = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Settings"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 16.0
-margin_right = -2.0
-margin_bottom = -2.0
-theme = ExtResource( 32 )
-scroll_horizontal_enabled = false
+offset_left = 2.0
+offset_top = 16.0
+offset_right = -2.0
+offset_bottom = -2.0
+theme = ExtResource("32")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Settings/ScrollContainer"]
-margin_right = 138.0
-margin_bottom = 111.0
+layout_mode = 2
 size_flags_horizontal = 3
-custom_constants/separation = 1
+theme_override_constants/separation = 1
 
 [node name="MusicVol" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
-margin_right = 134.0
-margin_bottom = 8.0
+layout_mode = 2
 text = "Music Volume:"
-align = 1
 
 [node name="MusicSlider" type="HSlider" parent="Settings/ScrollContainer/VBoxContainer"]
-margin_top = 9.0
-margin_right = 134.0
-margin_bottom = 17.0
+layout_mode = 2
 max_value = 10.0
 value = 10.0
 
 [node name="KeyBinds" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
-margin_top = 18.0
-margin_right = 134.0
-margin_bottom = 26.0
+layout_mode = 2
 text = "Keybinds:"
-align = 1
 
 [node name="KeybindContainer" type="VBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
-margin_top = 27.0
-margin_right = 134.0
-margin_bottom = 111.0
-custom_constants/separation = 0
+layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="build" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
-margin_right = 134.0
-margin_bottom = 12.0
-custom_constants/separation = 0
+layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build"]
-margin_right = 100.0
-margin_bottom = 12.0
+layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource( 35 )
+theme = ExtResource("35")
 
 [node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build/Action"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Slot 1"
-align = 1
-valign = 2
 
 [node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build"]
-margin_left = 100.0
-margin_right = 134.0
-margin_bottom = 12.0
+layout_mode = 2
 text = "> LMB <"
 
 [node name="build2" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
-margin_top = 12.0
-margin_right = 134.0
-margin_bottom = 24.0
-custom_constants/separation = 0
+layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build2"]
-margin_right = 100.0
-margin_bottom = 12.0
+layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource( 35 )
+theme = ExtResource("35")
 
 [node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build2/Action"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Slot 2"
-align = 1
-valign = 2
 
 [node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build2"]
-margin_left = 100.0
-margin_right = 134.0
-margin_bottom = 12.0
+layout_mode = 2
 text = "> RMB <"
 
 [node name="action1" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
-margin_top = 24.0
-margin_right = 134.0
-margin_bottom = 36.0
-custom_constants/separation = 0
+layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action1"]
-margin_right = 111.0
-margin_bottom = 12.0
+layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource( 35 )
+theme = ExtResource("35")
 
 [node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action1/Action"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Action 1"
-align = 1
-valign = 2
 
 [node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action1"]
-margin_left = 111.0
-margin_right = 134.0
-margin_bottom = 12.0
+layout_mode = 2
 text = "> J <"
 
 [node name="action2" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
-margin_top = 36.0
-margin_right = 134.0
-margin_bottom = 48.0
-custom_constants/separation = 0
+layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action2"]
-margin_right = 111.0
-margin_bottom = 12.0
+layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource( 35 )
+theme = ExtResource("35")
 
 [node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action2/Action"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Action 2"
-align = 1
-valign = 2
 
 [node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action2"]
-margin_left = 111.0
-margin_right = 134.0
-margin_bottom = 12.0
+layout_mode = 2
 text = "> K <"
 
 [node name="background_toggle" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
-margin_top = 48.0
-margin_right = 134.0
-margin_bottom = 60.0
-custom_constants/separation = 0
+layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/background_toggle"]
-margin_right = 111.0
-margin_bottom = 12.0
+layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource( 35 )
+theme = ExtResource("35")
 
 [node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/background_toggle/Action"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Background Toggle"
-align = 1
-valign = 2
 
 [node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/background_toggle"]
-margin_left = 111.0
-margin_right = 134.0
-margin_bottom = 12.0
+layout_mode = 2
 text = "> B <"
 
 [node name="ach" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
-margin_top = 60.0
-margin_right = 134.0
-margin_bottom = 72.0
-custom_constants/separation = 0
+layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/ach"]
-margin_right = 111.0
-margin_bottom = 12.0
+layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource( 35 )
+theme = ExtResource("35")
 
 [node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/ach/Action"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Achievements"
-align = 1
-valign = 2
 
 [node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/ach"]
-margin_left = 111.0
-margin_right = 134.0
-margin_bottom = 12.0
+layout_mode = 2
 text = "> Z <"
 
 [node name="fly" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
-margin_top = 72.0
-margin_right = 134.0
-margin_bottom = 84.0
-custom_constants/separation = 0
+layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/fly"]
-margin_right = 111.0
-margin_bottom = 12.0
+layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource( 35 )
+theme = ExtResource("35")
 
 [node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/fly/Action"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 text = "Fly"
-align = 1
-valign = 2
 
 [node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/fly"]
-margin_left = 111.0
-margin_right = 134.0
-margin_bottom = 12.0
+layout_mode = 2
 text = "> F <"
 
 [node name="Back" type="TextureButton" parent="Settings"]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 25.0
-margin_bottom = 16.0
-texture_normal = SubResource( 36 )
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 25.0
+offset_bottom = 16.0
+texture_normal = SubResource("36")
 
 [node name="World" type="Control" parent="."]
 visible = false
+anchors_preset = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -59.5
-margin_top = -67.5
-margin_right = 59.5
-margin_bottom = 67.5
+offset_left = -59.5
+offset_top = -67.5
+offset_right = 59.5
+offset_bottom = 67.5
 
 [node name="BG" type="NinePatchRect" parent="World"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 9 )
-region_rect = Rect2( 2, 2, 120, 108 )
+texture = ExtResource("9")
+region_rect = Rect2(2, 2, 120, 108)
 patch_margin_left = 5
 patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
 
 [node name="loadSave" type="Control" parent="World"]
+anchors_preset = 0
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -54.5
-margin_top = 10.0
-margin_right = 54.0
-margin_bottom = 96.0
-script = ExtResource( 11 )
+offset_left = -54.5
+offset_top = 10.0
+offset_right = 54.0
+offset_bottom = 96.0
+script = ExtResource("11")
 
 [node name="back" type="TextureButton" parent="World/loadSave"]
-margin_left = -1.5
-margin_top = 107.5
-margin_right = 21.5
-margin_bottom = 121.5
-texture_normal = SubResource( 10 )
+layout_mode = 0
+offset_left = -1.5
+offset_top = 107.5
+offset_right = 21.5
+offset_bottom = 121.5
+texture_normal = SubResource("10")
 
 [node name="new" type="TextureButton" parent="World/loadSave"]
 visible = false
-margin_left = 17.0
-margin_top = 44.0
-margin_right = 57.0
-margin_bottom = 84.0
-texture_normal = SubResource( 11 )
+layout_mode = 0
+offset_left = 17.0
+offset_top = 44.0
+offset_right = 57.0
+offset_bottom = 84.0
+texture_normal = SubResource("11")
 
 [node name="saves" type="VBoxContainer" parent="World/loadSave"]
-margin_right = 79.0
-margin_bottom = 85.0
-custom_constants/separation = 6
+layout_mode = 0
+offset_right = 79.0
+offset_bottom = 85.0
+theme_override_constants/separation = 6
 
-[node name="save1" parent="World/loadSave/saves" instance=ExtResource( 10 )]
+[node name="save1" parent="World/loadSave/saves" instance=ExtResource("10")]
+layout_mode = 2
 
-[node name="save2" parent="World/loadSave/saves" instance=ExtResource( 10 )]
-margin_top = 33.0
-margin_bottom = 60.0
+[node name="save2" parent="World/loadSave/saves" instance=ExtResource("10")]
+layout_mode = 2
 id = 1
 
-[node name="save3" parent="World/loadSave/saves" instance=ExtResource( 10 )]
-margin_top = 66.0
-margin_bottom = 93.0
+[node name="save3" parent="World/loadSave/saves" instance=ExtResource("10")]
+layout_mode = 2
 id = 2
 
 [node name="Label" type="Label" parent="World/loadSave"]
 visible = false
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -107.5
-margin_top = -20.0
-margin_right = 107.5
-margin_bottom = -12.0
-custom_fonts/font = ExtResource( 1 )
+offset_left = -107.5
+offset_top = -20.0
+offset_right = 107.5
+offset_bottom = -12.0
+theme_override_fonts/font = ExtResource("1")
 text = "*Worlds are not saved in the web demo version"
 
 [node name="character" type="Control" parent="World"]
 visible = false
+anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 32 )
-script = ExtResource( 15 )
+theme = ExtResource("32")
+script = ExtResource("15")
 
 [node name="Char" type="TextureRect" parent="World/character"]
-margin_left = 3.5
-margin_top = 3.5
-margin_right = 25.5
-margin_bottom = 32.5
-texture = SubResource( 13 )
+layout_mode = 0
+offset_left = 3.5
+offset_top = 3.5
+offset_right = 25.5
+offset_bottom = 32.5
+texture = SubResource("13")
 
-[node name="Body" type="Sprite" parent="World/character/Char"]
-position = Vector2( 11, 13 )
-texture = ExtResource( 14 )
+[node name="Body" type="Sprite2D" parent="World/character/Char"]
+position = Vector2(11, 13)
+texture = ExtResource("14")
 hframes = 3
 vframes = 6
 frame = 4
 
-[node name="Armor" type="Sprite" parent="World/character/Char"]
-position = Vector2( 11, 13 )
-texture = ExtResource( 18 )
+[node name="Armor" type="Sprite2D" parent="World/character/Char"]
+position = Vector2(11, 13)
+texture = ExtResource("18")
 hframes = 3
 vframes = 6
 frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="World/character/Char"]
-anims/RESET = SubResource( 18 )
-anims/idle = SubResource( 19 )
+libraries = {
+"": SubResource("AnimationLibrary_vos1u")
+}
 
-[node name="Hair" type="Sprite" parent="World/character/Char"]
-position = Vector2( 11, 13 )
-texture = ExtResource( 16 )
+[node name="Hair" type="Sprite2D" parent="World/character/Char"]
+position = Vector2(11, 13)
+texture = ExtResource("16")
 hframes = 3
 vframes = 6
 frame = 3
 
 [node name="Female" type="TextureButton" parent="World/character"]
-margin_left = 4.0
-margin_top = 32.0
-margin_right = 16.0
-margin_bottom = 45.0
+layout_mode = 0
+offset_left = 4.0
+offset_top = 32.0
+offset_right = 16.0
+offset_bottom = 45.0
 toggle_mode = true
-texture_normal = SubResource( 14 )
-texture_pressed = SubResource( 15 )
-texture_disabled = SubResource( 15 )
+texture_normal = SubResource("14")
+texture_pressed = SubResource("15")
+texture_disabled = SubResource("15")
 
 [node name="Male" type="TextureButton" parent="World/character"]
-margin_left = 13.5
-margin_top = 31.5
-margin_right = 25.5
-margin_bottom = 44.5
+layout_mode = 0
+offset_left = 13.5
+offset_top = 31.5
+offset_right = 25.5
+offset_bottom = 44.5
 toggle_mode = true
-texture_normal = SubResource( 16 )
-texture_pressed = SubResource( 17 )
-texture_disabled = SubResource( 17 )
+texture_normal = SubResource("16")
+texture_pressed = SubResource("17")
+texture_disabled = SubResource("17")
 
 [node name="Name" type="LineEdit" parent="World/character"]
-margin_left = 29.0
-margin_top = 12.0
-margin_right = 106.0
-margin_bottom = 21.0
-custom_fonts/font = ExtResource( 20 )
-custom_styles/normal = SubResource( 20 )
+layout_mode = 0
+offset_left = 29.0
+offset_top = 12.0
+offset_right = 106.0
+offset_bottom = 21.0
+theme_override_fonts/font = ExtResource("20")
+theme_override_styles/normal = SubResource("20")
 text = "hello"
 max_length = 14
 context_menu_enabled = false
 
 [node name="Label" type="Label" parent="World/character/Name"]
-margin_left = 1.0
-margin_top = -7.0
-margin_right = 25.0
-margin_bottom = 1.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_left = 1.0
+offset_top = -7.0
+offset_right = 25.0
+offset_bottom = 1.0
+theme_override_fonts/font = ExtResource("1")
 text = "Name:"
 
 [node name="edit" type="VBoxContainer" parent="World/character"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 46.0
-margin_right = -2.0
-margin_bottom = -4.0
-custom_constants/separation = -1
+offset_left = 2.0
+offset_top = 46.0
+offset_right = -2.0
+offset_bottom = -4.0
+theme_override_constants/separation = -1
 
 [node name="SkinCol" type="TextureRect" parent="World/character/edit"]
-margin_right = 115.0
-margin_bottom = 11.0
-texture = SubResource( 21 )
+layout_mode = 2
+texture = SubResource("21")
 stretch_mode = 1
-script = ExtResource( 19 )
+script = ExtResource("19")
 
 [node name="Label" type="Label" parent="World/character/edit/SkinCol"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 0.5
-margin_top = 0.5
-margin_right = 0.5
-margin_bottom = 0.5
-custom_fonts/font = ExtResource( 1 )
+offset_left = 0.5
+offset_top = 0.5
+offset_right = 0.5
+offset_bottom = 0.5
+theme_override_fonts/font = ExtResource("1")
 text = "Skin Color"
-align = 1
-valign = 1
 
 [node name="left" type="TextureButton" parent="World/character/edit/SkinCol"]
+layout_mode = 0
 anchor_bottom = 1.0
-margin_left = 0.5
-margin_top = 0.5
-margin_right = 6.5
-margin_bottom = 0.5
-texture_normal = SubResource( 22 )
+offset_left = 0.5
+offset_top = 0.5
+offset_right = 6.5
+offset_bottom = 0.5
+texture_normal = SubResource("22")
 
 [node name="right" type="TextureButton" parent="World/character/edit/SkinCol"]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -7.0
-margin_top = 1.0
-margin_right = -1.0
-texture_normal = SubResource( 23 )
+offset_left = -7.0
+offset_top = 1.0
+offset_right = -1.0
+texture_normal = SubResource("23")
 
 [node name="HairCol" type="TextureRect" parent="World/character/edit"]
-margin_top = 10.0
-margin_right = 115.0
-margin_bottom = 21.0
-texture = SubResource( 21 )
+layout_mode = 2
+texture = SubResource("21")
 stretch_mode = 1
-script = ExtResource( 19 )
+script = ExtResource("19")
 
 [node name="Label" type="Label" parent="World/character/edit/HairCol"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 0.5
-margin_top = 0.5
-margin_right = 0.5
-margin_bottom = 0.5
-custom_fonts/font = ExtResource( 1 )
+offset_left = 0.5
+offset_top = 0.5
+offset_right = 0.5
+offset_bottom = 0.5
+theme_override_fonts/font = ExtResource("1")
 text = "Hair Color"
-align = 1
-valign = 1
 
 [node name="left" type="TextureButton" parent="World/character/edit/HairCol"]
+layout_mode = 0
 anchor_bottom = 1.0
-margin_left = 0.5
-margin_top = 0.5
-margin_right = 6.5
-margin_bottom = 0.5
-texture_normal = SubResource( 22 )
+offset_left = 0.5
+offset_top = 0.5
+offset_right = 6.5
+offset_bottom = 0.5
+texture_normal = SubResource("22")
 
 [node name="right" type="TextureButton" parent="World/character/edit/HairCol"]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -7.0
-margin_top = 1.0
-margin_right = -1.0
-texture_normal = SubResource( 23 )
+offset_left = -7.0
+offset_top = 1.0
+offset_right = -1.0
+texture_normal = SubResource("23")
 
 [node name="HairSty" type="TextureRect" parent="World/character/edit"]
-margin_top = 20.0
-margin_right = 115.0
-margin_bottom = 31.0
-texture = SubResource( 21 )
+layout_mode = 2
+texture = SubResource("21")
 stretch_mode = 1
-script = ExtResource( 19 )
+script = ExtResource("19")
 
 [node name="Label" type="Label" parent="World/character/edit/HairSty"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 0.5
-margin_top = 0.5
-margin_right = 0.5
-margin_bottom = 0.5
-custom_fonts/font = ExtResource( 1 )
+offset_left = 0.5
+offset_top = 0.5
+offset_right = 0.5
+offset_bottom = 0.5
+theme_override_fonts/font = ExtResource("1")
 text = "Hair Style"
-align = 1
-valign = 1
 
 [node name="left" type="TextureButton" parent="World/character/edit/HairSty"]
+layout_mode = 0
 anchor_bottom = 1.0
-margin_left = 0.5
-margin_top = 0.5
-margin_right = 6.5
-margin_bottom = 0.5
-texture_normal = SubResource( 22 )
+offset_left = 0.5
+offset_top = 0.5
+offset_right = 6.5
+offset_bottom = 0.5
+texture_normal = SubResource("22")
 
 [node name="right" type="TextureButton" parent="World/character/edit/HairSty"]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -7.0
-margin_top = 1.0
-margin_right = -1.0
-texture_normal = SubResource( 23 )
+offset_left = -7.0
+offset_top = 1.0
+offset_right = -1.0
+texture_normal = SubResource("23")
 
 [node name="Start" type="TextureButton" parent="World/character"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -32.5
-margin_top = -18.0
-margin_right = 32.5
-margin_bottom = -2.0
-texture_normal = SubResource( 24 )
+offset_left = -32.5
+offset_top = -18.0
+offset_right = 32.5
+offset_bottom = -2.0
+texture_normal = SubResource("24")
 
 [node name="Label" type="Label" parent="World/character/Start"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = ExtResource( 1 )
+theme_override_fonts/font = ExtResource("1")
 text = "Start!"
-align = 1
-valign = 1
 
 [node name="back" type="TextureButton" parent="World/character"]
-margin_left = 4.5
-margin_top = 117.5
-margin_right = 27.5
-margin_bottom = 131.5
-texture_normal = SubResource( 10 )
+layout_mode = 0
+offset_left = 4.5
+offset_top = 117.5
+offset_right = 27.5
+offset_bottom = 131.5
+texture_normal = SubResource("10")
 
 [node name="Scenarios" type="Button" parent="World/character"]
 visible = false
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -57.5
-margin_top = 13.5
-margin_right = 57.5
-margin_bottom = 26.5
+offset_left = -57.5
+offset_top = 13.5
+offset_right = 57.5
+offset_bottom = 26.5
 text = "Scenarios"
 
 [node name="CurrentScenario" type="HBoxContainer" parent="World/character"]
 visible = false
+layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = -40.0
-margin_right = -1.0
-margin_bottom = -21.0
+offset_left = 2.0
+offset_top = -40.0
+offset_right = -1.0
+offset_bottom = -21.0
 alignment = 1
 
 [node name="Icon" type="TextureRect" parent="World/character/CurrentScenario"]
-margin_left = 13.0
-margin_right = 32.0
-margin_bottom = 19.0
-texture = ExtResource( 37 )
+layout_mode = 2
+texture = ExtResource("37")
 
 [node name="Title" type="Label" parent="World/character/CurrentScenario"]
-margin_left = 36.0
-margin_top = 5.0
-margin_right = 102.0
-margin_bottom = 13.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1")
 text = "Meteor shower"
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 32, 48 )
-current = true
-zoom = Vector2( 0.5, 0.5 )
+position = Vector2(32, 48)
+zoom = Vector2(0.5, 0.5)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 6 )
-anims/buttons = SubResource( 9 )
-anims/title = SubResource( 8 )
-anims/zoom = SubResource( 7 )
+libraries = {
+"": SubResource("AnimationLibrary_58khl")
+}
 
 [node name="blank" type="TextureRect" parent="."]
 visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 8 )
+texture = ExtResource("8")
 stretch_mode = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 12 )
+stream = ExtResource("12")
 volume_db = -10.0
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -8.0
-custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
-custom_fonts/font = ExtResource( 1 )
+offset_top = -8.0
+theme_override_colors/font_shadow_color = Color(0.415686, 0.415686, 0.415686, 1)
+theme_override_fonts/font = ExtResource("1")
 text = "Tiny Pixel Planets TU4 (v0.4.0)"
-align = 1
+horizontal_alignment = 1
 
 [node name="Credits" type="Control" parent="."]
 visible = false
+anchors_preset = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -71.0
-margin_top = -51.0
-margin_right = 71.0
-margin_bottom = 51.0
+offset_left = -71.0
+offset_top = -51.0
+offset_right = 71.0
+offset_bottom = 51.0
 
 [node name="BG" type="NinePatchRect" parent="Credits"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 9 )
-region_rect = Rect2( 2, 2, 120, 108 )
+texture = ExtResource("9")
+region_rect = Rect2(2, 2, 120, 108)
 patch_margin_left = 5
 patch_margin_top = 5
 patch_margin_right = 5
 patch_margin_bottom = 5
 
 [node name="back" type="TextureButton" parent="Credits"]
-margin_left = 3.0
-margin_top = 85.0
-margin_right = 26.0
-margin_bottom = 99.0
-texture_normal = SubResource( 10 )
+layout_mode = 0
+offset_left = 3.0
+offset_top = 85.0
+offset_right = 26.0
+offset_bottom = 99.0
+texture_normal = SubResource("10")
 
 [node name="Title" type="Label" parent="Credits"]
+layout_mode = 0
 anchor_right = 1.0
-margin_bottom = 14.0
-custom_colors/font_color_shadow = Color( 0.219122, 0.510774, 0.660156, 1 )
-custom_fonts/font = ExtResource( 1 )
+offset_bottom = 14.0
+theme_override_colors/font_shadow_color = Color(0.219122, 0.510774, 0.660156, 1)
+theme_override_fonts/font = ExtResource("1")
 text = "Credits"
-align = 1
-valign = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Credits"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 13.0
-margin_right = -2.0
-margin_bottom = -18.0
-custom_constants/separation = 2
+offset_left = 2.0
+offset_top = 13.0
+offset_right = -2.0
+offset_bottom = -18.0
+theme_override_constants/separation = 2
 
 [node name="Ost" type="Label" parent="Credits/VBoxContainer"]
-margin_right = 138.0
-margin_bottom = 19.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1")
 text = "OST - The_Mad_Duck, Starlight Boy"
-align = 1
-autowrap = true
 
 [node name="Art" type="Label" parent="Credits/VBoxContainer"]
-margin_top = 21.0
-margin_right = 138.0
-margin_bottom = 29.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1")
 text = "Art - SP Possibilities"
-align = 1
 
 [node name="Prog" type="Label" parent="Credits/VBoxContainer"]
-margin_top = 31.0
-margin_right = 138.0
-margin_bottom = 39.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1")
 text = "Programming - SP Possibilities"
-align = 1
 
 [node name="Prog2" type="Label" parent="Credits/VBoxContainer"]
-margin_top = 41.0
-margin_right = 138.0
-margin_bottom = 60.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1")
 text = "SFX - Mixkit, Kenny Game Assets"
-align = 1
-autowrap = true
 
 [node name="Scenarios" type="TextureRect" parent="."]
 visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 22 )
-script = ExtResource( 36 )
+texture = ExtResource("22")
+script = ExtResource("36")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Scenarios"]
-margin_left = 12.0
-margin_top = 10.0
-margin_right = 138.0
-margin_bottom = 150.0
-theme = SubResource( 35 )
-scroll_horizontal_enabled = false
+layout_mode = 0
+offset_left = 12.0
+offset_top = 10.0
+offset_right = 138.0
+offset_bottom = 150.0
+theme = SubResource("35")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Scenarios/ScrollContainer"]
-margin_right = 126.0
-margin_bottom = 115.0
-custom_constants/separation = 0
+layout_mode = 2
+theme_override_constants/separation = 0
 
 [node name="Sandbox" type="TextureButton" parent="Scenarios/ScrollContainer/VBoxContainer"]
-margin_right = 126.0
-margin_bottom = 23.0
-texture_normal = ExtResource( 34 )
-script = ExtResource( 23 )
+layout_mode = 2
+texture_normal = ExtResource("34")
+script = ExtResource("23")
 scenarioId = "sandbox"
 
 [node name="TextureRect" type="TextureRect" parent="Scenarios/ScrollContainer/VBoxContainer/Sandbox"]
+layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_top = -9.5
-margin_right = 19.0
-margin_bottom = 9.5
-texture = ExtResource( 31 )
+offset_top = -9.5
+offset_right = 19.0
+offset_bottom = 9.5
+texture = ExtResource("31")
 
 [node name="Label" type="Label" parent="Scenarios/ScrollContainer/VBoxContainer/Sandbox"]
-margin_left = 20.0
-margin_top = 3.0
-margin_right = 73.0
-margin_bottom = 11.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_left = 20.0
+offset_top = 3.0
+offset_right = 73.0
+offset_bottom = 11.0
+theme_override_fonts/font = ExtResource("1")
 text = "Sandbox"
 
 [node name="Temple" type="TextureButton" parent="Scenarios/ScrollContainer/VBoxContainer"]
-margin_top = 23.0
-margin_right = 126.0
-margin_bottom = 46.0
-texture_normal = ExtResource( 34 )
-script = ExtResource( 23 )
+layout_mode = 2
+texture_normal = ExtResource("34")
+script = ExtResource("23")
 scenarioId = "temple"
 
 [node name="TextureRect" type="TextureRect" parent="Scenarios/ScrollContainer/VBoxContainer/Temple"]
+layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_top = -9.5
-margin_right = 19.0
-margin_bottom = 9.5
-texture = ExtResource( 31 )
+offset_top = -9.5
+offset_right = 19.0
+offset_bottom = 9.5
+texture = ExtResource("31")
 
 [node name="Label" type="Label" parent="Scenarios/ScrollContainer/VBoxContainer/Temple"]
-margin_left = 20.0
-margin_top = 3.0
-margin_right = 73.0
-margin_bottom = 11.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_left = 20.0
+offset_top = 3.0
+offset_right = 73.0
+offset_bottom = 11.0
+theme_override_fonts/font = ExtResource("1")
 text = "Sandbox"
 
 [node name="Meteor" type="TextureButton" parent="Scenarios/ScrollContainer/VBoxContainer"]
-margin_top = 46.0
-margin_right = 126.0
-margin_bottom = 69.0
-texture_normal = ExtResource( 34 )
-script = ExtResource( 23 )
+layout_mode = 2
+texture_normal = ExtResource("34")
+script = ExtResource("23")
 scenarioId = "meteor"
 
 [node name="TextureRect" type="TextureRect" parent="Scenarios/ScrollContainer/VBoxContainer/Meteor"]
+layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_top = -9.5
-margin_right = 19.0
-margin_bottom = 9.5
-texture = ExtResource( 31 )
+offset_top = -9.5
+offset_right = 19.0
+offset_bottom = 9.5
+texture = ExtResource("31")
 
 [node name="Label" type="Label" parent="Scenarios/ScrollContainer/VBoxContainer/Meteor"]
-margin_left = 20.0
-margin_top = 3.0
-margin_right = 73.0
-margin_bottom = 11.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_left = 20.0
+offset_top = 3.0
+offset_right = 73.0
+offset_bottom = 11.0
+theme_override_fonts/font = ExtResource("1")
 text = "Sandbox"
 
 [node name="Planatius" type="TextureButton" parent="Scenarios/ScrollContainer/VBoxContainer"]
-margin_top = 69.0
-margin_right = 126.0
-margin_bottom = 92.0
-texture_normal = ExtResource( 34 )
-script = ExtResource( 23 )
+layout_mode = 2
+texture_normal = ExtResource("34")
+script = ExtResource("23")
 scenarioId = "planatius"
 
 [node name="TextureRect" type="TextureRect" parent="Scenarios/ScrollContainer/VBoxContainer/Planatius"]
+layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_top = -9.5
-margin_right = 19.0
-margin_bottom = 9.5
-texture = ExtResource( 31 )
+offset_top = -9.5
+offset_right = 19.0
+offset_bottom = 9.5
+texture = ExtResource("31")
 
 [node name="Label" type="Label" parent="Scenarios/ScrollContainer/VBoxContainer/Planatius"]
-margin_left = 20.0
-margin_top = 3.0
-margin_right = 73.0
-margin_bottom = 11.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_left = 20.0
+offset_top = 3.0
+offset_right = 73.0
+offset_bottom = 11.0
+theme_override_fonts/font = ExtResource("1")
 text = "Sandbox"
 
 [node name="Insane" type="TextureButton" parent="Scenarios/ScrollContainer/VBoxContainer"]
-margin_top = 92.0
-margin_right = 126.0
-margin_bottom = 115.0
-texture_normal = ExtResource( 34 )
-script = ExtResource( 23 )
+layout_mode = 2
+texture_normal = ExtResource("34")
+script = ExtResource("23")
 scenarioId = "insane"
 
 [node name="TextureRect" type="TextureRect" parent="Scenarios/ScrollContainer/VBoxContainer/Insane"]
+layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_top = -9.5
-margin_right = 19.0
-margin_bottom = 9.5
-texture = ExtResource( 31 )
+offset_top = -9.5
+offset_right = 19.0
+offset_bottom = 9.5
+texture = ExtResource("31")
 
 [node name="Label" type="Label" parent="Scenarios/ScrollContainer/VBoxContainer/Insane"]
-margin_left = 20.0
-margin_top = 3.0
-margin_right = 73.0
-margin_bottom = 11.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_left = 20.0
+offset_top = 3.0
+offset_right = 73.0
+offset_bottom = 11.0
+theme_override_fonts/font = ExtResource("1")
 text = "Sandbox"
 
 [node name="Title" type="Label" parent="Scenarios"]
-margin_left = 141.0
-margin_top = 9.0
-margin_right = 278.0
-margin_bottom = 27.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_left = 141.0
+offset_top = 9.0
+offset_right = 278.0
+offset_bottom = 27.0
+theme_override_fonts/font = ExtResource("1")
 text = "Sandbox"
-align = 1
-valign = 1
 
 [node name="Desc" type="Label" parent="Scenarios"]
-margin_left = 142.0
-margin_top = 29.0
-margin_right = 278.0
-margin_bottom = 153.0
-custom_fonts/font = ExtResource( 1 )
+layout_mode = 0
+offset_left = 142.0
+offset_top = 29.0
+offset_right = 278.0
+offset_bottom = 153.0
+theme_override_fonts/font = ExtResource("1")
 text = "Planatius has awoken, and is coming for you. Don’t stay on any one planet for too long, or else it will find you. You must craft a rare weapon that will allow you to destroy it. The longer you take to complete this task, the more powerful Planatius becomes."
-autowrap = true
 
 [node name="Done" type="Button" parent="Scenarios"]
+layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 142.0
-margin_top = -21.0
-margin_right = -13.0
-margin_bottom = -8.0
-theme = ExtResource( 35 )
+offset_left = 142.0
+offset_top = -21.0
+offset_right = -13.0
+offset_bottom = -8.0
+theme = ExtResource("35")
 text = "Done"
 
 [node name="DisableControls" type="TextureRect" parent="."]
 visible = false
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 0

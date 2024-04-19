@@ -5,10 +5,10 @@ const CHEST_SIZE = 24
 
 var currentChest = null
 
-onready var world = $"../../World"
-onready var inventory = $"../Inventory"
-onready var ITEM_STACK_SIZE = inventory.ITEM_STACK_SIZE
-onready var item_container = $ItemScroll/ItemContainer
+@onready var world = $"../../World"
+@onready var inventory = $"../Inventory"
+@onready var ITEM_STACK_SIZE = inventory.ITEM_STACK_SIZE
+@onready var item_container = $ItemScroll/ItemContainer
 
 func update_chest(chest = currentChest):
 	currentChest = chest
@@ -16,9 +16,9 @@ func update_chest(chest = currentChest):
 	for child in item_container.get_children():
 		child.queue_free()
 	for item in range(0,chestData.size()):
-		var itemNode = CHEST_BTN.instance()
+		var itemNode = CHEST_BTN.instantiate()
 		itemNode.loc = item
-		itemNode.get_node("Sprite").texture = world.get_item_texture(chestData[item]["id"])
+		itemNode.get_node("Sprite2D").texture = world.get_item_texture(chestData[item]["id"])
 		itemNode.get_node("Amount").text = str(chestData[item]["amount"])
 		item_container.add_child(itemNode)
 
@@ -50,7 +50,7 @@ func chest_btn_clicked(loc,item):
 	var itemData = currentChest.data[loc]
 	currentChest.data.remove(loc)
 	var leftover = inventory.add_to_inventory(itemData["id"],itemData["amount"])
-	if !leftover.empty():
+	if !leftover.is_empty():
 		add_to_chest(leftover["id"],leftover["amount"])
 	else:
 		update_chest()

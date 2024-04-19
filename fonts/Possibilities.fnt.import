@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://bxtfayo61vwb2"
+path="res://.godot/imported/Possibilities.fnt-1683bb80919f8ac819134fc73e747557.fontdata"
+
+[deps]
+
+source_file="res://fonts/Possibilities.fnt"
+dest_files=["res://.godot/imported/Possibilities.fnt-1683bb80919f8ac819134fc73e747557.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2

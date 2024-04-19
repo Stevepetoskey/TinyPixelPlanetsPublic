@@ -1,14 +1,14 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=1]
+[ext_resource path="res://fonts/pixel.tres" type="FontFile" id=1]
 [ext_resource path="res://scripts/effects/Text.gd" type="Script" id=2]
 
 [node name="Text" type="Label"]
-margin_left = 117.0
-margin_top = 81.0
-margin_right = 126.0
-margin_bottom = 89.0
-custom_fonts/font = ExtResource( 1 )
+offset_left = 117.0
+offset_top = 81.0
+offset_right = 126.0
+offset_bottom = 89.0
+theme_override_fonts/font = ExtResource( 1 )
 text = "-5"
 script = ExtResource( 2 )
 

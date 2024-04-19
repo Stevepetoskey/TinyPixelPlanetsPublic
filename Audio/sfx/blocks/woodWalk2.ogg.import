@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/woodWalk2.ogg-af9c108e6f5a73d60118c0a308b8cadd.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://botd5qvxtsfuy"
+path="res://.godot/imported/woodWalk2.ogg-af9c108e6f5a73d60118c0a308b8cadd.oggvorbisstr"
 
 [deps]
 
 source_file="res://Audio/sfx/blocks/woodWalk2.ogg"
-dest_files=[ "res://.import/woodWalk2.ogg-af9c108e6f5a73d60118c0a308b8cadd.oggstr" ]
+dest_files=["res://.godot/imported/woodWalk2.ogg-af9c108e6f5a73d60118c0a308b8cadd.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

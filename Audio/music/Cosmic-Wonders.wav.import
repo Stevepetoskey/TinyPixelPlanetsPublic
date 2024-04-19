@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Cosmic-Wonders.wav-d61a7f5ff1c2fccfe005eae06d8ba4c9.sample"
+type="AudioStreamWAV"
+uid="uid://c7t71epg7rho"
+path="res://.godot/imported/Cosmic-Wonders.wav-d61a7f5ff1c2fccfe005eae06d8ba4c9.sample"
 
 [deps]
 
 source_file="res://Audio/music/Cosmic-Wonders.wav"
-dest_files=[ "res://.import/Cosmic-Wonders.wav-d61a7f5ff1c2fccfe005eae06d8ba4c9.sample" ]
+dest_files=["res://.godot/imported/Cosmic-Wonders.wav-d61a7f5ff1c2fccfe005eae06d8ba4c9.sample"]
 
 [params]
 

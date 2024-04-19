@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/mixkit-sea-waves-loop-1196.wav-15dba1e5a6b845b09e09e4cb8df06093.sample"
+type="AudioStreamWAV"
+uid="uid://cjeky6rbgpg1r"
+path="res://.godot/imported/mixkit-sea-waves-loop-1196.wav-15dba1e5a6b845b09e09e4cb8df06093.sample"
 
 [deps]
 
 source_file="res://Audio/sfx/Ambience/mixkit-sea-waves-loop-1196.wav"
-dest_files=[ "res://.import/mixkit-sea-waves-loop-1196.wav-15dba1e5a6b845b09e09e4cb8df06093.sample" ]
+dest_files=["res://.godot/imported/mixkit-sea-waves-loop-1196.wav-15dba1e5a6b845b09e09e4cb8df06093.sample"]
 
 [params]
 

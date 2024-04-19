@@ -1,12 +1,12 @@
 extends LineEdit
 
-onready var main = $"../.."
-onready var entities = $"../../Entities"
-onready var world = $"../../World"
-onready var player = $"../../Player"
+@onready var main = $"../.."
+@onready var entities = $"../../Entities"
+@onready var world = $"../../World"
+@onready var player = $"../../Player"
 
 func _process(delta):
-	$"../Hotbar/Coords".text = "X: " + str(stepify(player.position.x / 4.0,0.01)) + ", Y: " + str(stepify(player.position.y/ 4.0,0.01))
+	$"../Hotbar/Coords".text = "X: " + str(snapped(player.position.x / 4.0,0.01)) + ", Y: " + str(snapped(player.position.y/ 4.0,0.01))
 
 func _unhandled_input(event):
 	if Input.is_key_pressed(KEY_SHIFT) and Input.is_key_pressed(KEY_C):
@@ -18,7 +18,7 @@ func to_bool(s: String) -> bool: #Credit to Poobslag
 	match s:
 		"True", "TRUE", "true", "1": result = true
 		"False", "FALSE", "false", "0": result = false
-		_: result = false if s.empty() else true
+		_: result = false if s.is_empty() else true
 	return result
 
 func _on_Commands_text_entered(new_text : String):
@@ -68,7 +68,7 @@ func _on_Commands_text_entered(new_text : String):
 							else:
 								print("Unexpected value (bool value expected)")
 						"int":
-							if value.is_valid_integer():
+							if value.is_valid_int():
 								world.worldRules[rule]["value"] = value.to_int()
 							else:
 								print("Unexpected value (int value expected)")

@@ -1,11 +1,11 @@
 extends Node2D
 
-onready var armor = $CanvasLayer/Inventory/Armor
-onready var inventory = $CanvasLayer/Inventory
-onready var title = $CanvasLayer/Title
-onready var titleAnim = $CanvasLayer/Title/AnimationPlayer
-onready var weatherAnimation = $weather/WeatherAnimation
-onready var weatherTimer = $weather/WeatherTimer
+@onready var armor = $CanvasLayer/Inventory/Armor
+@onready var inventory = $CanvasLayer/Inventory
+@onready var title = $CanvasLayer/Title
+@onready var titleAnim = $CanvasLayer/Title/AnimationPlayer
+@onready var weatherAnimation = $weather/WeatherAnimation
+@onready var weatherTimer = $weather/WeatherTimer
 
 var tutorialStage = 0
 
@@ -17,18 +17,18 @@ var weatherStartData = {}
 signal weather_changed
 
 func _ready():
-	StarSystem.connect("start_meteors",self,"start_meteors")
+	StarSystem.connect("start_meteors", Callable(self, "start_meteors"))
 	$CanvasLayer/Black.show()
 	if !Global.gamerules["can_leave_planet"]:
 		$CanvasLayer/Hotbar/GoUp.hide()
-	Global.connect("screenshot",self,"screenshot")
+	Global.connect("screenshot", Callable(self, "screenshot"))
 
 func _process(delta):
 	$CanvasLayer/FPS.text = str(Engine.get_frames_per_second())
 
 func weather_event(random = true,time = [200,500], set = "none",start = true):
 	if !is_instance_valid(weatherAnimation):
-		yield(self,"ready")
+		await self.ready
 	var weatherRandom = RandomNumberGenerator.new()
 	weatherRandom.seed = randi()
 	if random:
@@ -63,14 +63,14 @@ func _on_World_world_loaded():
 	$World/TutorialParts/Sprint/CollisionShape2D.shape = null
 	$World/TutorialParts/Chest/CollisionShape2D.shape = null
 	$World/TutorialParts/Mine/CollisionShape2D.shape = null
-	if weatherStartData.empty():
+	if weatherStartData.is_empty():
 		weather_event(false,[0,500])
 	else:
 		weather_event(weatherStartData["random"],weatherStartData["time"],weatherStartData["set"],weatherStartData["start"])
 
 func screenshot():
 	$CanvasLayer.hide()
-	yield(get_tree(),"idle_frame")
+	await get_tree().idle_frame
 	$CanvasLayer.show()
 
 func enable_godmode():
@@ -109,13 +109,13 @@ func _on_Chest_body_entered(body):
 	tutorialStage = 2
 	title.text = "To interact with blocks that make your cursor blue, left click"
 	titleAnim.play("pop up")
-	yield(get_tree().create_timer(5),"timeout")
+	await get_tree().create_timer(5).timeout
 	if tutorialStage == 2:
 		titleAnim.play("fade out")
-		yield(titleAnim,"animation_finished")
+		await titleAnim.animation_finished
 		title.text = "Press 'E' or click on the hotbar slot to open your inventory" 
 		titleAnim.play("pop up")
-		yield(get_tree().create_timer(5),"timeout")
+		await get_tree().create_timer(5).timeout
 		if tutorialStage == 2:
 			titleAnim.play("fade out")
 
@@ -123,13 +123,13 @@ func _on_Mine_body_entered(body):
 	tutorialStage = 3
 	title.text = "To use items in the dark grey slot, left click. Right click for light grey slot"
 	titleAnim.play("pop up")
-	yield(get_tree().create_timer(7),"timeout")
+	await get_tree().create_timer(7).timeout
 	if tutorialStage == 3:
 		titleAnim.play("fade out")
-		yield(titleAnim,"animation_finished")
+		await titleAnim.animation_finished
 		title.text = "If you press J or K over a slot in your inventory (not the hotbar), it will be added to the J or K slot" 
 		titleAnim.play("pop up")
-		yield(get_tree().create_timer(10),"timeout")
+		await get_tree().create_timer(10).timeout
 		if tutorialStage == 3:
 			titleAnim.play("fade out")
 
@@ -138,5 +138,5 @@ func _on_WeatherTimer_timeout():
 		weather_event()
 	else:
 		weatherAnimation.play(currentWeather + "_stop")
-		yield(weatherAnimation,"animation_finished")
+		await weatherAnimation.animation_finished
 		weather_event(false)

@@ -1,11 +1,11 @@
-extends Sprite
+extends Sprite2D
 
 var REACH = 5
 
-onready var world = get_node("../World")
-onready var inventory = get_node("../CanvasLayer/Inventory")
-onready var player = get_node("../Player")
-onready var effects: Node2D = $"../Effects"
+@onready var world = get_node("../World")
+@onready var inventory = get_node("../CanvasLayer/Inventory")
+@onready var player = get_node("../Player")
+@onready var effects: Node2D = $"../Effects"
 
 var canPlace = true
 var currentLayer = 1
@@ -20,7 +20,7 @@ var oldBlockPos = Vector2(0,0)
 
 func _process(_delta):
 	if !Global.pause:
-		position = Vector2(int(stepify(get_global_mouse_position().x,world.BLOCK_SIZE.x)),int(stepify(get_global_mouse_position().y,world.BLOCK_SIZE.y)))
+		position = Vector2(int(snapped(get_global_mouse_position().x,world.BLOCK_SIZE.x)),int(snapped(get_global_mouse_position().y,world.BLOCK_SIZE.y)))
 		playerPos = Vector2(int(player.position.x/ world.BLOCK_SIZE.x),int((player.position.y+2)/ world.BLOCK_SIZE.y))
 		var blockPos = position / world.BLOCK_SIZE
 		if Global.godmode:
@@ -137,7 +137,7 @@ func tool_action(itemId : int, ref := 0) -> void:
 			if player.health < player.maxHealth:
 				inventory.remove_amount_at_loc(ref,1)
 				player.health += itemSelect["regen"]
-				effects.floating_text(player.position, "+" + str(itemSelect["regen"]), Color.green)
+				effects.floating_text(player.position, "+" + str(itemSelect["regen"]), Color.GREEN)
 
 func stop_breaking():
 	breaking = false

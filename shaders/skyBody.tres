@@ -8,7 +8,7 @@ operator = 1
 [sub_resource type="VisualShaderNodeVectorOp" id=3]
 operator = 2
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=4]
+[sub_resource type="VisualShaderNodeFloatParameter" id=4]
 uniform_name = "atmoPressure"
 hint = 1
 max = 10.0
@@ -16,9 +16,9 @@ default_value_enabled = true
 
 [sub_resource type="VisualShaderNodeVectorDecompose" id=5]
 
-[sub_resource type="VisualShaderNodeVectorClamp" id=16]
+[sub_resource type="VisualShaderNodeClamp" id=16]
 
-[sub_resource type="VisualShaderNodeVectorInterp" id=17]
+[sub_resource type="VisualShaderNodeMix" id=17]
 
 [sub_resource type="VisualShaderNodeTexture" id=9]
 source = 1
@@ -27,7 +27,7 @@ source = 1
 default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 2, 2, 2 ) ]
 operator = 3
 
-[sub_resource type="VisualShaderNodeVectorClamp" id=19]
+[sub_resource type="VisualShaderNodeClamp" id=19]
 
 [sub_resource type="VisualShaderNodeInput" id=10]
 input_name = "screen_uv"
@@ -170,7 +170,7 @@ nodes/fragment/20/node = SubResource( 18 )
 nodes/fragment/20/position = Vector2( -80, 480 )
 nodes/fragment/21/node = SubResource( 19 )
 nodes/fragment/21/position = Vector2( -720, 640 )
-nodes/fragment/connections = PoolIntArray( 5, 0, 4, 0, 3, 0, 2, 0, 4, 0, 6, 0, 2, 0, 8, 0, 8, 0, 10, 1, 10, 0, 13, 0, 12, 0, 13, 1, 15, 0, 12, 0, 15, 0, 12, 1, 15, 0, 12, 2, 13, 0, 16, 0, 4, 1, 0, 1, 13, 0, 17, 0, 4, 0, 19, 0, 2, 0, 19, 1, 17, 0, 19, 2, 19, 0, 0, 0, 6, 0, 20, 0, 20, 0, 21, 0, 21, 0, 10, 0 )
+nodes/fragment/connections = PackedInt32Array( 5, 0, 4, 0, 3, 0, 2, 0, 4, 0, 6, 0, 2, 0, 8, 0, 8, 0, 10, 1, 10, 0, 13, 0, 12, 0, 13, 1, 15, 0, 12, 0, 15, 0, 12, 1, 15, 0, 12, 2, 13, 0, 16, 0, 4, 1, 0, 1, 13, 0, 17, 0, 4, 0, 19, 0, 2, 0, 19, 1, 17, 0, 19, 2, 19, 0, 0, 0, 6, 0, 20, 0, 20, 0, 21, 0, 21, 0, 10, 0 )
 
 [resource]
 shader = SubResource( 15 )

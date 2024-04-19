@@ -2,8 +2,8 @@ extends Control
 
 const ICON = preload("res://assets/planetNavIcon.tscn")
 
-onready var planetIcons = $SystemInfo/ScrollContainer/Planets
-onready var systemName = $SystemInfo/TitleScroll/name
+@onready var planetIcons = $SystemInfo/ScrollContainer/Planets
+@onready var systemName = $SystemInfo/TitleScroll/name
 
 var pos = {true:0,false:-40}
 
@@ -34,7 +34,7 @@ func update_nav():
 	var currentHierarchy : Object
 	#Adds each planet
 	for planet in StarSystem.get_system_bodies():
-		var icon = ICON.instance()
+		var icon = ICON.instantiate()
 		if StarSystem.visitedPlanets.has(planet.id): #or ["gas1","gas2","gas3"].has(planet.type["type"]):
 			icon.get_node("Icon").texture = load("res://textures/planets/" + planet.type["type"] + "_icon.png")
 			icon.get_node("Name").text = planet.pName.to_upper()
@@ -56,10 +56,10 @@ func _on_SystemInfoBtn_toggled(button_pressed):
 
 func _on_Tab_toggled(button_pressed):
 	$SystemInfo.hide()
-	$SystemInfoBtn.pressed = false
+	$SystemInfoBtn.button_pressed = false
 	$Tab.disabled = true
 	for x in range(pos[!button_pressed],pos[button_pressed],1 if button_pressed else -1):
-		rect_position.x = x
-		yield(get_tree(),"idle_frame")
-	rect_position.x = pos[button_pressed]
+		position.x = x
+		await get_tree().idle_frame
+	position.x = pos[button_pressed]
 	$Tab.disabled = false

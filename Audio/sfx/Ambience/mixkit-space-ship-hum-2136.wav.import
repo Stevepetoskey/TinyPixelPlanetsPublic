@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/mixkit-space-ship-hum-2136.wav-08d449163223a8ba8b48dce9779247bd.sample"
+type="AudioStreamWAV"
+uid="uid://b6oh1yma17adb"
+path="res://.godot/imported/mixkit-space-ship-hum-2136.wav-08d449163223a8ba8b48dce9779247bd.sample"
 
 [deps]
 
 source_file="res://Audio/sfx/Ambience/mixkit-space-ship-hum-2136.wav"
-dest_files=[ "res://.import/mixkit-space-ship-hum-2136.wav-08d449163223a8ba8b48dce9779247bd.sample" ]
+dest_files=["res://.godot/imported/mixkit-space-ship-hum-2136.wav-08d449163223a8ba8b48dce9779247bd.sample"]
 
 [params]
 

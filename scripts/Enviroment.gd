@@ -2,31 +2,31 @@ extends ParallaxBackground
 
 const skyColorDict = {
 	SUNSET = Color("ff462d"),
-	DAY = Color.white,
+	DAY = Color.WHITE,
 	SUNRISE = Color("ffd190"),
 	NIGHT = Color("3d1b63")
 }
 
 const lightColorDictAtmo = {
 	SUNSET = Color("F6635C"),
-	DAY = Color.white,
+	DAY = Color.WHITE,
 	SUNRISE = Color("ffa948"),
 	NIGHT = Color("6d5e79")
 }
 
 const lightColorDictNoAtmo = {
 	SUNSET = Color(0.75,0.75,0.75),
-	DAY = Color.white,
+	DAY = Color.WHITE,
 	SUNRISE = Color(0.75,0.75,0.75),
 	NIGHT = Color(0.5,0.5,0.5)
 }
 
 var lightColorDict = {}
 
-export var defualtColor = Color.white
-export var nightColor = Color(0.43,0.39,0.49)
+@export var defualtColor = Color.WHITE
+@export var nightColor = Color(0.43,0.39,0.49)
 
-onready var sky = get_node("../ParallaxBackground/SkyLayer/sky")
+@onready var sky = get_node("../ParallaxBackground/SkyLayer/sky")
 
 var backTextures = {"terra":preload("res://textures/enviroment/backgrounds/terra_back.png"),
 	"stone":preload("res://textures/enviroment/backgrounds/stone_back.png"),
@@ -134,13 +134,13 @@ func change_sounds(volume1 : int,volume2 = -1000, volume3 = -1000) -> void:
 func set_background(type : String):
 	match type:
 		"asteroids":
-			$back/Sprite.hide()
-			$front/Sprite.hide()
+			$back/Sprite2D.hide()
+			$front/Sprite2D.hide()
 		_:
-			$back/Sprite.show()
-			$front/Sprite.show()
-			$back/Sprite.texture = backTextures[type]
-			$front/Sprite.texture = frontTextures[type]
+			$back/Sprite2D.show()
+			$front/Sprite2D.show()
+			$back/Sprite2D.texture = backTextures[type]
+			$front/Sprite2D.texture = frontTextures[type]
 			if type == "ocean":
 				$back.motion_scale.y = 0.9
 				$front.motion_scale.y = 0.95

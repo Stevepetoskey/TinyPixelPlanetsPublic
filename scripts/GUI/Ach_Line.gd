@@ -4,13 +4,13 @@ const COMPLETED = preload("res://textures/GUI/GlobalGUI/Ach_line_completed.png")
 const UNLOCKED = preload("res://textures/GUI/GlobalGUI/Ach_line_shown.png")
 const LOCKED = preload("res://textures/GUI/GlobalGUI/Ach_line_unkown.png")
 
-export var from : String
-export var to : String
+@export var from : String
+@export var to : String
 
-onready var main = $"../../../../.."
+@onready var main = $"../../../../.."
 
 func _ready():
-	main.connect("update_achievements",self,"update_ach")
+	main.connect("update_achievements", Callable(self, "update_ach"))
 
 func update_ach(list):
 	if list.has(from):

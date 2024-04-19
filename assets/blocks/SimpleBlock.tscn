@@ -1,25 +1,25 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://bbnxjoxoprltr"]
 
-[ext_resource path="res://scripts/blocks/SimpleBlock.gd" type="Script" id=1]
-[ext_resource path="res://textures/blocks2X/dirt.png" type="Texture" id=2]
+[ext_resource type="Script" path="res://scripts/blocks/SimpleBlock.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://v8b2cxyd5six" path="res://textures/blocks/dirt.png" id="2_387jr"]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 4, 4 )
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(8, 8)
 
 [node name="SimpleBlock" type="StaticBody2D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 2 )
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_387jr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="shade" type="Node2D" parent="."]
-modulate = Color( 1, 1, 1, 0.521569 )
+modulate = Color(1, 1, 1, 0.521569)
 
-[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
-rect = Rect2( -4, -4, 8, 8 )
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+rect = Rect2(-4, -4, 8, 8)
 
-[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
-[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

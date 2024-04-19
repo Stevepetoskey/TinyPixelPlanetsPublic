@@ -1,25 +1,19 @@
 extends Control
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-func _process(delta):
-	$Path2D/PathFollow2D.offset += delta
+@onready var moon_move: AnimationPlayer = $Path2D/PathFollow2D/MoonMove
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	moon_move.play("default")
 	GlobalAudio.change_mode("menu")
 	#yield(get_tree().create_timer(0.5),"timeout")
 	$Main/Title.modulate = Color(1,1,1,0)
 	$AnimationPlayer.play("zoom")
-	yield($AnimationPlayer,"animation_finished")
+	await $AnimationPlayer.animation_finished
 	$blank.hide()
 	$Main/Title.show()
 	$AnimationPlayer.play("title")
-	yield($AnimationPlayer,"animation_finished")
+	await $AnimationPlayer.animation_finished
 	$Main/Buttons.show()
 	$AnimationPlayer.play("buttons")
 

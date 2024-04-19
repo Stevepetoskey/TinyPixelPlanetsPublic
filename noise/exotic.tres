@@ -1,4 +1,4 @@
-[gd_resource type="OpenSimplexNoise" format=2]
+[gd_resource type="FastNoiseLite" format=2]
 
 [resource]
 period = 86.0

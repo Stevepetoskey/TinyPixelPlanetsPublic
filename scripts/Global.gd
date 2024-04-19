@@ -7,9 +7,8 @@ const ALLOW_VERSIONS = [
 ]
 const STABLE = false
 
-var savegame = File.new() #file
 var save_path = "user://" #place of the file
-onready var tutorial_path = "res://data/Tutorial"
+@onready var tutorial_path = "res://data/Tutorial"
 var currentSave : String
 var new = true
 var gameStart = true
@@ -51,7 +50,7 @@ var gamerulesBase = {
 }
 var gamerules = {}
 
-var lightColor = Color.white
+var lightColor = Color.WHITE
 
 var playerBase = {"skin":Color("F8DEC3"),"hair_style":"Short","hair_color":Color("debe99"),"sex":"Guy"}
 
@@ -60,16 +59,13 @@ signal screenshot
 signal saved_settings
 
 func _ready():
-	var dir = Directory.new()
-	if dir.file_exists(save_path + "settings.dat"):
-		var file = File.new()
-		file.open(save_path + "settings.dat",File.READ)
+	if FileAccess.file_exists(save_path + "settings.dat"):
+		var file = FileAccess.open(save_path + "settings.dat",FileAccess.READ)
 		settings = file.get_var()
-		file.close()
 	else:
 		settings = default_settings.duplicate(true)
 		save_settings()
-	gameTimeTimer.connect("timeout",self,"game_time_second")
+	gameTimeTimer.connect("timeout", Callable(self, "game_time_second"))
 	gameTimeTimer.autostart = true
 	add_child(gameTimeTimer)
 
@@ -90,8 +86,7 @@ func _process(delta):
 		GlobalGui.complete_achievement("Destroyer of worlds")
 
 func save_exists(saveId : String) -> bool:
-	var dir = Directory.new()
-	if dir.dir_exists(save_path + saveId):
+	if DirAccess.dir_exists_absolute(save_path + saveId):
 		return true
 	return false
 
@@ -100,15 +95,16 @@ func open_tutorial():
 	currentSave = "save4"
 	gameStart = true
 	new = false
-	var dir = Directory.new()
-	if dir.dir_exists(save_path + currentSave):
-		remove_recursive(save_path + currentSave)
-	dir.open(save_path)
+	if DirAccess.dir_exists_absolute(save_path + currentSave):
+		DirAccess.remove_absolute(save_path + currentSave)
+		#remove_recursive(save_path + currentSave)
+	var dir = DirAccess.open(save_path)
 	dir.make_dir(currentSave)
 	dir.open(save_path + currentSave)
 	dir.make_dir("systems")
 	dir.make_dir("planets")
-	copy_directory_recursively("res://data/Tutorial",save_path + currentSave)
+	DirAccess.copy_absolute("res://data/Tutorial",save_path + currentSave)
+	#copy_directory_recursively("res://data/Tutorial",save_path + currentSave)
 ##	copy_directory_recursively("res://data/Tutorial/planets/",save_path + currentSave + "/planets")
 ##	copy_directory_recursively("res://data/Tutorial/systems/",save_path + currentSave + "/systems")
 	currentPlanet = 8
@@ -133,13 +129,10 @@ func open_save(saveId : String) -> void:
 	currentSave = saveId
 	gameStart = true
 	new = true
-	var dir = Directory.new()
-	var file = File.new()
-	if dir.dir_exists(save_path + saveId):
-		if file.file_exists(save_path + saveId + "/playerData.dat"):
-			savegame.open(save_path + saveId + "/playerData.dat",File.READ)
+	if DirAccess.dir_exists_absolute(save_path + saveId):
+		if FileAccess.file_exists(save_path + saveId + "/playerData.dat"):
+			var savegame = FileAccess.open(save_path + saveId + "/playerData.dat",FileAccess.READ)
 			playerData = savegame.get_var()
-			savegame.close()
 			blues = playerData["blues"]
 			killCount = 0 if !playerData.has("kill_count") else playerData["kill_count"]
 			bookmarks = default_bookmarks.duplicate(true) if !playerData.has("bookmarks") else playerData["bookmarks"]
@@ -182,43 +175,35 @@ func new_save(saveId : String):
 			gamerules["max_hp"] = 1
 			gamerules["starting_hp"] = 1
 			gamerules["can_respawn"] = false
-	var dir = Directory.new()
 	blues = 0
 	killCount = 0
 	StarSystem.landedPlanetTypes = []
-	dir.open(save_path)
+	var dir = DirAccess.open(save_path)
 	dir.make_dir(saveId)
 	dir.open(save_path + saveId)
 	dir.make_dir("systems")
 	dir.make_dir("planets")
-	copy_directory_recursively("res://data/pre_made_planets/",save_path + saveId + "/planets")
-	copy_directory_recursively("res://data/pre_made_systems/",save_path + saveId + "/systems")
+	DirAccess.copy_absolute("res://data/pre_made_planets/",save_path + saveId + "/planets")
+	DirAccess.copy_absolute("res://data/pre_made_systems/",save_path + saveId + "/systems")
 	GlobalGui.completedAchievements = []
 	globalGameTime = 0
-	var _er = get_tree().change_scene("res://scenes/Main.tscn")
+	var _er = get_tree().change_scene_to_file("res://scenes/Main.tscn")
 
 func new_planet() -> void:
-	var _er = get_tree().change_scene("res://scenes/Main.tscn")
-	yield(get_tree(),"idle_frame")
+	var _er = get_tree().change_scene_to_file("res://scenes/Main.tscn")
+	await get_tree().idle_frame
 	new = true
-	if savegame.file_exists(save_path + currentSave + "/planets/" + str(currentSystemId) + "_" + str(currentPlanet) + ".dat"):
+	if FileAccess.file_exists(save_path + currentSave + "/planets/" + str(currentSystemId) + "_" + str(currentPlanet) + ".dat"):
 		new = false
 	emit_signal("loaded_data")
 
 func save_settings():
-	var file = File.new()
-	file.open(save_path + "settings.dat",File.WRITE)
+	var file = FileAccess.open(save_path + "settings.dat",FileAccess.WRITE)
 	file.store_var(settings)
-	file.close()
 	print("Saved settings")
 	emit_signal("saved_settings")
 
 func save(saveType : String, saveData : Dictionary) -> void:
-	#emit_signal("screenshot")
-#	yield(get_tree(),"idle_frame")
-#	var image = get_viewport().get_texture().get_data()
-#	image.flip_y()
-#	image.save_png(save_path + currentSave + "/icon.png")
 	playerData["save_type"] = saveType
 	playerData["achievements"] = GlobalGui.completedAchievements
 	playerData["kill_count"] = killCount
@@ -246,26 +231,22 @@ func save(saveType : String, saveData : Dictionary) -> void:
 			playerData["game_time"] = globalGameTime
 			playerData["version"] = VER_NUMS
 			playerData["bookmarks"] = bookmarks
-			savegame.open(save_path + currentSave + "/planets/" + str(currentSystemId) + "_" + str(currentPlanet) + ".dat",File.WRITE)
+			var savegame = FileAccess.open(save_path + currentSave + "/planets/" + str(currentSystemId) + "_" + str(currentPlanet) + ".dat",FileAccess.WRITE)
 			savegame.store_var(saveData["planet"])
-			savegame.close()
-			savegame.open(save_path + currentSave + "/systems/" + str(currentSystemId) + ".dat",File.WRITE)
+			savegame.open(save_path + currentSave + "/systems/" + str(currentSystemId) + ".dat",FileAccess.WRITE)
 			savegame.store_var(saveData["system"])
 			savegame.close()
 		"system":
 			playerData["pos"] = saveData["player"]["pos"]
-			savegame.open(save_path + currentSave + "/systems/" + str(currentSystemId) + ".dat",File.WRITE)
+			var savegame = FileAccess.open(save_path + currentSave + "/systems/" + str(currentSystemId) + ".dat",FileAccess.WRITE)
 			savegame.store_var(saveData["system"])
-			savegame.close()
-	savegame.open(save_path + currentSave + "/playerData.dat",File.WRITE)
+	var savegame = FileAccess.open(save_path + currentSave + "/playerData.dat",FileAccess.WRITE)
 	savegame.store_var(playerData)
-	savegame.close()
 	print("Saved game!")
 
 func save_system() -> void:
-	savegame.open(save_path + currentSave + "/systems/" + str(currentSystemId) + ".dat",File.WRITE)
+	var savegame = FileAccess.open(save_path + currentSave + "/systems/" + str(currentSystemId) + ".dat",FileAccess.WRITE)
 	savegame.store_var(StarSystem.get_system_data())
-	savegame.close()
 	print("Saved system!")
 
 func load_player() -> Dictionary:
@@ -285,18 +266,17 @@ func load_planet(systemId : String, planetId : int) -> Dictionary:
 
 func load_data(path : String) -> Dictionary:
 	var lData : Dictionary
-	if savegame.file_exists(path):
-		savegame.open(path,File.READ)
+	if FileAccess.file_exists(path):
+		var savegame = FileAccess.open(path,FileAccess.READ)
 		lData = savegame.get_var()
-		savegame.close()
 	else:
 		lData = {}
 	return lData
 
 func delete(dir : String) -> void:
-	var directory = Directory.new()
-	if directory.dir_exists(save_path + dir):
-		remove_recursive(save_path + dir)
+	if DirAccess.dir_exists_absolute(save_path + dir):
+		DirAccess.remove_absolute(save_path + dir)
+		#remove_recursive(save_path + dir)
 
 func find_bookmark(systemId : String, planetId : int) -> int:
 	for bookmark in bookmarks:
@@ -304,42 +284,42 @@ func find_bookmark(systemId : String, planetId : int) -> int:
 			return bookmarks.find(bookmark)
 	return -1
 
-func remove_recursive(path): #Credit to davidepesce.com for this function. It deletes all the files in the main file, which allows it to delete the main one safely
-	var directory = Directory.new()
-	
-	# Open directory
-	var error = directory.open(path)
-	if error == OK:
-		# List directory content
-		directory.list_dir_begin(true)
-		var file_name = directory.get_next()
-		while file_name != "":
-			if directory.current_is_dir():
-				remove_recursive(path + "/" + file_name)
-			else:
-				directory.remove(file_name)
-			file_name = directory.get_next()
-		
-		# Remove current path
-		directory.remove(path)
-	else:
-		print("Error removing " + path)
+#func remove_recursive(path): #Credit to davidepesce.com for this function. It deletes all the files in the main file, which allows it to delete the main one safely
+	#var directory = DirAccess.new()
+	#
+	## Open directory
+	#var error = directory.open(path)
+	#if error == OK:
+		## List directory content
+		#directory.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+		#var file_name = directory.get_next()
+		#while file_name != "":
+			#if directory.current_is_dir():
+				#remove_recursive(path + "/" + file_name)
+			#else:
+				#directory.remove(file_name)
+			#file_name = directory.get_next()
+		#
+		## Remove current path
+		#directory.remove(path)
+	#else:
+		#print("Error removing " + path)
 
-func copy_directory_recursively(p_from : String, p_to : String) -> void:
-	var directory = Directory.new()
-	if not directory.dir_exists(p_to):
-		directory.make_dir_recursive(p_to)
-	if directory.open(p_from) == OK:
-		directory.list_dir_begin(true)
-		var file_name = directory.get_next()
-		while (file_name != "" and file_name != "." and file_name != ".."):
-			if directory.current_is_dir():
-				copy_directory_recursively(p_from + "/" + file_name, p_to + "/" + file_name)
-			else:
-				directory.copy(p_from + "/" + file_name, p_to + "/" + file_name)
-			file_name = directory.get_next()
-	else:
-		push_warning("Error copying " + p_from + " to " + p_to)
+#func copy_directory_recursively(p_from : String, p_to : String) -> void:
+	#var directory = DirAccess.new()
+	#if not directory.dir_exists(p_to):
+		#directory.make_dir_recursive(p_to)
+	#if directory.open(p_from) == OK:
+		#directory.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+		#var file_name = directory.get_next()
+		#while (file_name != "" and file_name != "." and file_name != ".."):
+			#if directory.current_is_dir():
+				#copy_directory_recursively(p_from + "/" + file_name, p_to + "/" + file_name)
+			#else:
+				#directory.copy(p_from + "/" + file_name, p_to + "/" + file_name)
+			#file_name = directory.get_next()
+	#else:
+		#push_warning("Error copying " + p_from + " to " + p_to)
 
 func game_time_second():
 	globalGameTime += 1

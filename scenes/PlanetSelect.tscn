@@ -1,53 +1,53 @@
 [gd_scene load_steps=72 format=2]
 
-[ext_resource path="res://textures/enviroment/space-2.png" type="Texture" id=1]
+[ext_resource path="res://textures/enviroment/space-2.png" type="Texture2D" id=1]
 [ext_resource path="res://scripts/PlanetSelect.gd" type="Script" id=2]
-[ext_resource path="res://textures/enviroment/stars.png" type="Texture" id=3]
-[ext_resource path="res://textures/stars/B-type.png" type="Texture" id=4]
-[ext_resource path="res://textures/stars/M-type.png" type="Texture" id=5]
-[ext_resource path="res://textures/stars/G-type.png" type="Texture" id=6]
-[ext_resource path="res://textures/stars/K-type.png" type="Texture" id=7]
-[ext_resource path="res://textures/GUI/Blank.png" type="Texture" id=8]
-[ext_resource path="res://textures/ships/blue_ship2.png" type="Texture" id=9]
-[ext_resource path="res://textures/ships/blue_ship1.png" type="Texture" id=10]
-[ext_resource path="res://textures/ships/blue_ship3.png" type="Texture" id=11]
+[ext_resource path="res://textures/enviroment/stars.png" type="Texture2D" id=3]
+[ext_resource path="res://textures/stars/B-type.png" type="Texture2D" id=4]
+[ext_resource path="res://textures/stars/M-type.png" type="Texture2D" id=5]
+[ext_resource path="res://textures/stars/G-type.png" type="Texture2D" id=6]
+[ext_resource path="res://textures/stars/K-type.png" type="Texture2D" id=7]
+[ext_resource path="res://textures/GUI/Blank.png" type="Texture2D" id=8]
+[ext_resource path="res://textures/ships/blue_ship2.png" type="Texture2D" id=9]
+[ext_resource path="res://textures/ships/blue_ship1.png" type="Texture2D" id=10]
+[ext_resource path="res://textures/ships/blue_ship3.png" type="Texture2D" id=11]
 [ext_resource path="res://scripts/ship.gd" type="Script" id=12]
-[ext_resource path="res://textures/ships/pointer.png" type="Texture" id=13]
+[ext_resource path="res://textures/ships/pointer.png" type="Texture2D" id=13]
 [ext_resource path="res://scripts/stars.gd" type="Script" id=14]
 [ext_resource path="res://Audio/sfx/Ambience/mixkit-space-ship-hum-2136.wav" type="AudioStream" id=15]
-[ext_resource path="res://textures/GUI/space/Nav.png" type="Texture" id=16]
+[ext_resource path="res://textures/GUI/space/Nav.png" type="Texture2D" id=16]
 [ext_resource path="res://assets/GUI/Pause.tscn" type="PackedScene" id=17]
-[ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=18]
-[ext_resource path="res://textures/GUI/space/v_bar_handle_hover.png" type="Texture" id=19]
-[ext_resource path="res://textures/GUI/space/h_bar_handle.png" type="Texture" id=20]
-[ext_resource path="res://textures/GUI/space/h_bar_handle_hover.png" type="Texture" id=21]
-[ext_resource path="res://textures/GUI/space/v_bar.png" type="Texture" id=22]
+[ext_resource path="res://fonts/pixel.tres" type="FontFile" id=18]
+[ext_resource path="res://textures/GUI/space/v_bar_handle_hover.png" type="Texture2D" id=19]
+[ext_resource path="res://textures/GUI/space/h_bar_handle.png" type="Texture2D" id=20]
+[ext_resource path="res://textures/GUI/space/h_bar_handle_hover.png" type="Texture2D" id=21]
+[ext_resource path="res://textures/GUI/space/v_bar.png" type="Texture2D" id=22]
 [ext_resource path="res://scripts/space/Nav.gd" type="Script" id=23]
-[ext_resource path="res://textures/GUI/space/h_bar.png" type="Texture" id=24]
-[ext_resource path="res://textures/GUI/space/h_bar_handle_select.png" type="Texture" id=25]
-[ext_resource path="res://textures/GUI/space/v_bar_handle.png" type="Texture" id=26]
-[ext_resource path="res://textures/GUI/space/v_bar_handle_select.png" type="Texture" id=27]
-[ext_resource path="res://textures/GUI/space/buttons/left_btn_hover.png" type="Texture" id=28]
-[ext_resource path="res://textures/GUI/space/buttons/right_btn.png" type="Texture" id=29]
-[ext_resource path="res://textures/GUI/space/weather_icons/snow.png" type="Texture" id=30]
-[ext_resource path="res://textures/GUI/space/edit_btn.png" type="Texture" id=31]
-[ext_resource path="res://textures/GUI/space/edit_btn_selected.png" type="Texture" id=32]
-[ext_resource path="res://textures/GUI/space/buttons/right_btn_hover.png" type="Texture" id=33]
-[ext_resource path="res://textures/GUI/space/buttons/right_btn_pressed.png" type="Texture" id=34]
-[ext_resource path="res://textures/GUI/space/buttons/left_btn_pressed.png" type="Texture" id=35]
+[ext_resource path="res://textures/GUI/space/h_bar.png" type="Texture2D" id=24]
+[ext_resource path="res://textures/GUI/space/h_bar_handle_select.png" type="Texture2D" id=25]
+[ext_resource path="res://textures/GUI/space/v_bar_handle.png" type="Texture2D" id=26]
+[ext_resource path="res://textures/GUI/space/v_bar_handle_select.png" type="Texture2D" id=27]
+[ext_resource path="res://textures/GUI/space/buttons/left_btn_hover.png" type="Texture2D" id=28]
+[ext_resource path="res://textures/GUI/space/buttons/right_btn.png" type="Texture2D" id=29]
+[ext_resource path="res://textures/GUI/space/weather_icons/snow.png" type="Texture2D" id=30]
+[ext_resource path="res://textures/GUI/space/edit_btn.png" type="Texture2D" id=31]
+[ext_resource path="res://textures/GUI/space/edit_btn_selected.png" type="Texture2D" id=32]
+[ext_resource path="res://textures/GUI/space/buttons/right_btn_hover.png" type="Texture2D" id=33]
+[ext_resource path="res://textures/GUI/space/buttons/right_btn_pressed.png" type="Texture2D" id=34]
+[ext_resource path="res://textures/GUI/space/buttons/left_btn_pressed.png" type="Texture2D" id=35]
 [ext_resource path="res://themes/space.tres" type="Theme" id=36]
-[ext_resource path="res://textures/GUI/space/bookmark_icons/house.png" type="Texture" id=37]
-[ext_resource path="res://textures/GUI/space/bookmark_btn.png" type="Texture" id=38]
-[ext_resource path="res://textures/GUI/space/buttons/left_btn.png" type="Texture" id=39]
-[ext_resource path="res://textures/GUI/space/weather_icons/rain.png" type="Texture" id=40]
-[ext_resource path="res://textures/GUI/space/bookmark_btn_selected.png" type="Texture" id=41]
-[ext_resource path="res://textures/GUI/space/buttons/color_btn.png" type="Texture" id=42]
-[ext_resource path="res://textures/GUI/space/weather_icons/showers.png" type="Texture" id=43]
-[ext_resource path="res://textures/GUI/space/weather_icons/blizzard.png" type="Texture" id=44]
+[ext_resource path="res://textures/GUI/space/bookmark_icons/house.png" type="Texture2D" id=37]
+[ext_resource path="res://textures/GUI/space/bookmark_btn.png" type="Texture2D" id=38]
+[ext_resource path="res://textures/GUI/space/buttons/left_btn.png" type="Texture2D" id=39]
+[ext_resource path="res://textures/GUI/space/weather_icons/rain.png" type="Texture2D" id=40]
+[ext_resource path="res://textures/GUI/space/bookmark_btn_selected.png" type="Texture2D" id=41]
+[ext_resource path="res://textures/GUI/space/buttons/color_btn.png" type="Texture2D" id=42]
+[ext_resource path="res://textures/GUI/space/weather_icons/showers.png" type="Texture2D" id=43]
+[ext_resource path="res://textures/GUI/space/weather_icons/blizzard.png" type="Texture2D" id=44]
 [ext_resource path="res://scripts/space/PlanetInfo.gd" type="Script" id=45]
-[ext_resource path="res://textures/GUI/space/buttons/exit_btn_hover.png" type="Texture" id=46]
-[ext_resource path="res://textures/GUI/space/buttons/exit_btn.png" type="Texture" id=47]
-[ext_resource path="res://fonts/pixelFix.tres" type="DynamicFont" id=48]
+[ext_resource path="res://textures/GUI/space/buttons/exit_btn_hover.png" type="Texture2D" id=46]
+[ext_resource path="res://textures/GUI/space/buttons/exit_btn.png" type="Texture2D" id=47]
+[ext_resource path="res://fonts/pixelFix.tres" type="FontFile" id=48]
 [ext_resource path="res://scripts/GUI/NewBookmark.gd" type="Script" id=49]
 
 [sub_resource type="Animation" id=5]
@@ -59,8 +59,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ Color( 0, 0, 0, 1 ) ]
 }
@@ -71,8 +71,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ false ]
 }
@@ -87,8 +87,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.6 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
 }
@@ -99,8 +99,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 1,
 "values": [ true ]
 }
@@ -115,8 +115,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.6 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
 }
@@ -127,8 +127,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.6 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
 }
@@ -156,74 +156,74 @@ region = Rect2( 51, 122, 8, 16 )
 [sub_resource type="StyleBoxTexture" id=16]
 texture = ExtResource( 20 )
 region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=17]
 texture = ExtResource( 21 )
 region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=13]
 texture = ExtResource( 25 )
 region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=18]
 texture = ExtResource( 24 )
 region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=111]
 texture = ExtResource( 26 )
 region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=14]
 texture = ExtResource( 19 )
 region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=15]
 texture = ExtResource( 27 )
 region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=20]
 texture = ExtResource( 22 )
 region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=112]
 texture = ExtResource( 22 )
 region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="Theme" id=113]
 HScrollBar/styles/grabber = SubResource( 16 )
@@ -272,7 +272,7 @@ script = ExtResource( 2 )
 motion_scale = Vector2( 0.1, 0.1 )
 motion_mirroring = Vector2( 720, 480 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/BG"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/BG"]
 texture = ExtResource( 1 )
 centered = false
 region_rect = Rect2( 0, 0, 256, 256 )
@@ -281,7 +281,7 @@ region_rect = Rect2( 0, 0, 256, 256 )
 motion_scale = Vector2( 0.2, 0.2 )
 motion_mirroring = Vector2( 824, 824 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/Stars"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Stars"]
 texture = ExtResource( 3 )
 centered = false
 region_rect = Rect2( 0, 0, 256, 256 )
@@ -304,51 +304,51 @@ anims/fadeOut = SubResource( 7 )
 
 [node name="Nav" type="Control" parent="CanvasLayer"]
 anchor_bottom = 1.0
-margin_left = -40.0
-margin_right = 18.0
+offset_left = -40.0
+offset_right = 18.0
 script = ExtResource( 23 )
 
 [node name="Map" type="TextureRect" parent="CanvasLayer/Nav"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = -53.0
-margin_right = 40.0
-margin_bottom = -14.0
+offset_left = 2.0
+offset_top = -53.0
+offset_right = 40.0
+offset_bottom = -14.0
 texture = SubResource( 8 )
 
 [node name="SystemInfoBtn" type="TextureButton" parent="CanvasLayer/Nav"]
-margin_left = 2.0
-margin_top = 147.0
-margin_right = 40.0
-margin_bottom = 158.0
+offset_left = 2.0
+offset_top = 147.0
+offset_right = 40.0
+offset_bottom = 158.0
 toggle_mode = true
 texture_normal = SubResource( 9 )
 texture_pressed = SubResource( 10 )
 
 [node name="Label" type="Label" parent="CanvasLayer/Nav/SystemInfoBtn"]
-margin_left = 3.0
-margin_top = 2.0
-margin_right = 34.0
-margin_bottom = 10.0
-custom_fonts/font = ExtResource( 18 )
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 34.0
+offset_bottom = 10.0
+theme_override_fonts/font = ExtResource( 18 )
 text = "System"
 
 [node name="Tab" type="TextureButton" parent="CanvasLayer/Nav"]
-margin_left = 42.0
-margin_top = 142.0
-margin_right = 50.0
-margin_bottom = 158.0
+offset_left = 42.0
+offset_top = 142.0
+offset_right = 50.0
+offset_bottom = 158.0
 toggle_mode = true
 texture_normal = SubResource( 11 )
 texture_pressed = SubResource( 12 )
 
 [node name="SystemInfo" type="NinePatchRect" parent="CanvasLayer/Nav"]
 visible = false
-margin_left = 2.0
-margin_top = 1.0
-margin_right = 140.0
-margin_bottom = 104.0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 140.0
+offset_bottom = 104.0
 texture = ExtResource( 16 )
 region_rect = Rect2( 2, 2, 38, 82 )
 patch_margin_left = 3
@@ -359,25 +359,25 @@ patch_margin_bottom = 3
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Nav/SystemInfo"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 13.0
-margin_right = -2.0
-margin_bottom = -2.0
+offset_left = 2.0
+offset_top = 13.0
+offset_right = -2.0
+offset_bottom = -2.0
 theme = SubResource( 113 )
 
 [node name="Planets" type="VBoxContainer" parent="CanvasLayer/Nav/SystemInfo/ScrollContainer"]
-custom_constants/separation = 0
+theme_override_constants/separation = 0
 
 [node name="TitleScroll" type="ScrollContainer" parent="CanvasLayer/Nav/SystemInfo"]
 anchor_right = 1.0
-margin_top = 3.0
-margin_bottom = 11.0
+offset_top = 3.0
+offset_bottom = 11.0
 
 [node name="name" type="Label" parent="CanvasLayer/Nav/SystemInfo/TitleScroll"]
-margin_right = 138.0
-margin_bottom = 8.0
+offset_right = 138.0
+offset_bottom = 8.0
 size_flags_horizontal = 3
-custom_fonts/font = ExtResource( 18 )
+theme_override_fonts/font = ExtResource( 18 )
 text = "SAB-1390fvdiohbdfioghdioghidghigdhigdhi"
 align = 1
 clip_text = true
@@ -387,20 +387,20 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -40.0
-margin_top = -13.0
-margin_right = -2.0
-margin_bottom = -2.0
+offset_left = -40.0
+offset_top = -13.0
+offset_right = -2.0
+offset_bottom = -2.0
 toggle_mode = true
 texture_normal = SubResource( 9 )
 texture_pressed = SubResource( 10 )
 
 [node name="Label" type="Label" parent="CanvasLayer/GalaxyBtn"]
-margin_left = 3.0
-margin_top = 2.0
-margin_right = 34.0
-margin_bottom = 10.0
-custom_fonts/font = ExtResource( 18 )
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 34.0
+offset_bottom = 10.0
+theme_override_fonts/font = ExtResource( 18 )
 text = "Galaxy"
 align = 1
 
@@ -410,53 +410,53 @@ type = "system"
 
 [node name="PlanetInfo" type="Panel" parent="CanvasLayer"]
 visible = false
-margin_right = 139.0
-margin_bottom = 72.0
+offset_right = 139.0
+offset_bottom = 72.0
 theme = ExtResource( 36 )
 script = ExtResource( 45 )
 
 [node name="Top" type="HBoxContainer" parent="CanvasLayer/PlanetInfo"]
 anchor_right = 1.0
-margin_left = 4.0
-margin_top = 4.0
-margin_right = -4.0
-margin_bottom = 16.0
-custom_constants/separation = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 16.0
+theme_override_constants/separation = 0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/PlanetInfo/Top"]
-margin_right = 95.0
-margin_bottom = 12.0
+offset_right = 95.0
+offset_bottom = 12.0
 size_flags_horizontal = 3
 scroll_vertical_enabled = false
 
 [node name="PlanetName" type="Label" parent="CanvasLayer/PlanetInfo/Top/ScrollContainer"]
-margin_right = 105.0
-margin_bottom = 8.0
-rect_min_size = Vector2( 0, 8 )
+offset_right = 105.0
+offset_bottom = 8.0
+custom_minimum_size = Vector2( 0, 8 )
 size_flags_vertical = 1
 text = "Alpha adromeda 1.b grg"
 valign = 1
 
 [node name="Bookmark" type="TextureButton" parent="CanvasLayer/PlanetInfo/Top"]
-margin_left = 95.0
-margin_right = 107.0
-margin_bottom = 12.0
+offset_left = 95.0
+offset_right = 107.0
+offset_bottom = 12.0
 texture_normal = ExtResource( 38 )
 texture_pressed = ExtResource( 41 )
 texture_hover = ExtResource( 41 )
 
 [node name="Edit" type="TextureButton" parent="CanvasLayer/PlanetInfo/Top"]
-margin_left = 107.0
-margin_right = 119.0
-margin_bottom = 12.0
+offset_left = 107.0
+offset_right = 119.0
+offset_bottom = 12.0
 texture_normal = ExtResource( 31 )
 texture_pressed = ExtResource( 32 )
 texture_hover = ExtResource( 32 )
 
 [node name="Exit" type="TextureButton" parent="CanvasLayer/PlanetInfo/Top"]
-margin_left = 119.0
-margin_right = 131.0
-margin_bottom = 12.0
+offset_left = 119.0
+offset_right = 131.0
+offset_bottom = 12.0
 texture_normal = ExtResource( 47 )
 texture_pressed = ExtResource( 46 )
 texture_hover = ExtResource( 46 )
@@ -464,68 +464,68 @@ texture_hover = ExtResource( 46 )
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/PlanetInfo"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 17.0
-margin_right = -4.0
-margin_bottom = -3.0
+offset_left = 4.0
+offset_top = 17.0
+offset_right = -4.0
+offset_bottom = -3.0
 scroll_horizontal_enabled = false
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PlanetInfo/ScrollContainer"]
-margin_right = 131.0
-margin_bottom = 44.0
+offset_right = 131.0
+offset_bottom = 44.0
 size_flags_horizontal = 3
-custom_constants/separation = 1
+theme_override_constants/separation = 1
 alignment = 1
 
 [node name="Type" type="Label" parent="CanvasLayer/PlanetInfo/ScrollContainer/VBoxContainer"]
-margin_right = 131.0
-margin_bottom = 13.0
-custom_fonts/font = ExtResource( 48 )
+offset_right = 131.0
+offset_bottom = 13.0
+theme_override_fonts/font = ExtResource( 48 )
 text = "Type: Terra"
 align = 1
 
 [node name="Size" type="Label" parent="CanvasLayer/PlanetInfo/ScrollContainer/VBoxContainer"]
-margin_top = 14.0
-margin_right = 131.0
-margin_bottom = 22.0
+offset_top = 14.0
+offset_right = 131.0
+offset_bottom = 22.0
 text = "Size: Small"
 align = 1
 
 [node name="Weather" type="Label" parent="CanvasLayer/PlanetInfo/ScrollContainer/VBoxContainer"]
-margin_top = 23.0
-margin_right = 131.0
-margin_bottom = 31.0
+offset_top = 23.0
+offset_right = 131.0
+offset_bottom = 31.0
 text = "Weather Events"
 align = 1
 
 [node name="WeatherEvents" type="HBoxContainer" parent="CanvasLayer/PlanetInfo/ScrollContainer/VBoxContainer"]
-margin_top = 32.0
-margin_right = 131.0
-margin_bottom = 44.0
+offset_top = 32.0
+offset_right = 131.0
+offset_bottom = 44.0
 alignment = 1
 
 [node name="rain" type="TextureRect" parent="CanvasLayer/PlanetInfo/ScrollContainer/VBoxContainer/WeatherEvents"]
-margin_left = 35.0
-margin_right = 47.0
-margin_bottom = 12.0
+offset_left = 35.0
+offset_right = 47.0
+offset_bottom = 12.0
 texture = ExtResource( 40 )
 
 [node name="showers" type="TextureRect" parent="CanvasLayer/PlanetInfo/ScrollContainer/VBoxContainer/WeatherEvents"]
-margin_left = 51.0
-margin_right = 63.0
-margin_bottom = 12.0
+offset_left = 51.0
+offset_right = 63.0
+offset_bottom = 12.0
 texture = ExtResource( 43 )
 
 [node name="snow" type="TextureRect" parent="CanvasLayer/PlanetInfo/ScrollContainer/VBoxContainer/WeatherEvents"]
-margin_left = 67.0
-margin_right = 79.0
-margin_bottom = 12.0
+offset_left = 67.0
+offset_right = 79.0
+offset_bottom = 12.0
 texture = ExtResource( 30 )
 
 [node name="blizzard" type="TextureRect" parent="CanvasLayer/PlanetInfo/ScrollContainer/VBoxContainer/WeatherEvents"]
-margin_left = 83.0
-margin_right = 95.0
-margin_bottom = 12.0
+offset_left = 83.0
+offset_right = 95.0
+offset_bottom = 12.0
 texture = ExtResource( 44 )
 
 [node name="RenamePlanet" type="Panel" parent="CanvasLayer"]
@@ -534,18 +534,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -49.0
-margin_top = -24.5
-margin_right = 49.0
-margin_bottom = 24.5
+offset_left = -49.0
+offset_top = -24.5
+offset_right = 49.0
+offset_bottom = 24.5
 theme = ExtResource( 36 )
 
 [node name="Title" type="Label" parent="CanvasLayer/RenamePlanet"]
 anchor_right = 1.0
-margin_left = 4.0
-margin_top = 4.0
-margin_right = -4.0
-margin_bottom = 12.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 12.0
 text = "Rename Planet:"
 align = 1
 
@@ -553,10 +553,10 @@ align = 1
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 5.0
-margin_top = -4.5
-margin_right = -5.0
-margin_bottom = 5.5
+offset_left = 5.0
+offset_top = -4.5
+offset_right = -5.0
+offset_bottom = 5.5
 placeholder_text = "New name"
 
 [node name="Ok" type="Button" parent="CanvasLayer/RenamePlanet"]
@@ -564,10 +564,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -49.0
-margin_top = -15.0
-margin_right = -1.0
-margin_bottom = -1.0
+offset_left = -49.0
+offset_top = -15.0
+offset_right = -1.0
+offset_bottom = -1.0
 text = "OK!"
 
 [node name="Back" type="Button" parent="CanvasLayer/RenamePlanet"]
@@ -575,10 +575,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -97.0
-margin_top = -15.0
-margin_right = -50.0
-margin_bottom = -1.0
+offset_left = -97.0
+offset_top = -15.0
+offset_right = -50.0
+offset_bottom = -1.0
 text = "Cancel"
 
 [node name="NewBookmark" type="Panel" parent="CanvasLayer"]
@@ -587,19 +587,19 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -49.0
-margin_top = -31.0
-margin_right = 49.0
-margin_bottom = 31.0
+offset_left = -49.0
+offset_top = -31.0
+offset_right = 49.0
+offset_bottom = 31.0
 theme = ExtResource( 36 )
 script = ExtResource( 49 )
 
 [node name="Title" type="Label" parent="CanvasLayer/NewBookmark"]
 anchor_right = 1.0
-margin_left = 4.0
-margin_top = 4.0
-margin_right = -4.0
-margin_bottom = 12.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = 12.0
 text = "New Marker"
 align = 1
 
@@ -608,10 +608,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -40.5
-margin_top = -14.5
-margin_right = 40.5
-margin_bottom = -4.5
+offset_left = -40.5
+offset_top = -14.5
+offset_right = 40.5
+offset_bottom = -4.5
 max_length = 13
 placeholder_text = "Marker Name"
 
@@ -620,10 +620,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -49.0
-margin_top = -15.0
-margin_right = -1.0
-margin_bottom = -1.0
+offset_left = -49.0
+offset_top = -15.0
+offset_right = -1.0
+offset_bottom = -1.0
 text = "OK!"
 
 [node name="Back" type="Button" parent="CanvasLayer/NewBookmark"]
@@ -631,135 +631,135 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -97.0
-margin_top = -15.0
-margin_right = -50.0
-margin_bottom = -1.0
+offset_left = -97.0
+offset_top = -15.0
+offset_right = -50.0
+offset_bottom = -1.0
 text = "Cancel"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/NewBookmark"]
-margin_left = 9.0
-margin_top = 29.0
-margin_right = 90.0
-margin_bottom = 41.0
-custom_constants/separation = 0
+offset_left = 9.0
+offset_top = 29.0
+offset_right = 90.0
+offset_bottom = 41.0
+theme_override_constants/separation = 0
 alignment = 1
 
 [node name="Left" type="TextureButton" parent="CanvasLayer/NewBookmark/HBoxContainer"]
-margin_left = 8.0
-margin_right = 16.0
-margin_bottom = 12.0
+offset_left = 8.0
+offset_right = 16.0
+offset_bottom = 12.0
 texture_normal = ExtResource( 39 )
 texture_pressed = ExtResource( 35 )
 texture_hover = ExtResource( 28 )
 
 [node name="Icon" type="TextureRect" parent="CanvasLayer/NewBookmark/HBoxContainer"]
-margin_left = 16.0
-margin_right = 28.0
-margin_bottom = 12.0
+offset_left = 16.0
+offset_right = 28.0
+offset_bottom = 12.0
 texture = ExtResource( 37 )
 
 [node name="Right" type="TextureButton" parent="CanvasLayer/NewBookmark/HBoxContainer"]
-margin_left = 28.0
-margin_right = 36.0
-margin_bottom = 12.0
+offset_left = 28.0
+offset_right = 36.0
+offset_bottom = 12.0
 texture_normal = ExtResource( 29 )
 texture_pressed = ExtResource( 34 )
 texture_hover = ExtResource( 33 )
 
 [node name="GridContainer" type="GridContainer" parent="CanvasLayer/NewBookmark/HBoxContainer"]
-margin_left = 36.0
-margin_right = 72.0
-margin_bottom = 12.0
-custom_constants/vseparation = 0
-custom_constants/hseparation = 0
+offset_left = 36.0
+offset_right = 72.0
+offset_bottom = 12.0
+theme_override_constants/v_separation = 0
+theme_override_constants/h_separation = 0
 columns = 6
 
 [node name="Red" type="TextureButton" parent="CanvasLayer/NewBookmark/HBoxContainer/GridContainer"]
 modulate = Color( 1, 0, 0, 1 )
-margin_right = 6.0
-margin_bottom = 6.0
+offset_right = 6.0
+offset_bottom = 6.0
 texture_normal = ExtResource( 42 )
 
 [node name="Orange" type="TextureButton" parent="CanvasLayer/NewBookmark/HBoxContainer/GridContainer"]
 modulate = Color( 1, 0.501961, 0, 1 )
-margin_left = 6.0
-margin_right = 12.0
-margin_bottom = 6.0
+offset_left = 6.0
+offset_right = 12.0
+offset_bottom = 6.0
 texture_normal = ExtResource( 42 )
 
 [node name="Yellow" type="TextureButton" parent="CanvasLayer/NewBookmark/HBoxContainer/GridContainer"]
 modulate = Color( 1, 1, 0, 1 )
-margin_left = 12.0
-margin_right = 18.0
-margin_bottom = 6.0
+offset_left = 12.0
+offset_right = 18.0
+offset_bottom = 6.0
 texture_normal = ExtResource( 42 )
 
 [node name="YellowGreen" type="TextureButton" parent="CanvasLayer/NewBookmark/HBoxContainer/GridContainer"]
 modulate = Color( 0.501961, 1, 0, 1 )
-margin_left = 18.0
-margin_right = 24.0
-margin_bottom = 6.0
+offset_left = 18.0
+offset_right = 24.0
+offset_bottom = 6.0
 texture_normal = ExtResource( 42 )
 
 [node name="Green" type="TextureButton" parent="CanvasLayer/NewBookmark/HBoxContainer/GridContainer"]
 modulate = Color( 0, 1, 0, 1 )
-margin_left = 24.0
-margin_right = 30.0
-margin_bottom = 6.0
+offset_left = 24.0
+offset_right = 30.0
+offset_bottom = 6.0
 texture_normal = ExtResource( 42 )
 
 [node name="BlueGreen" type="TextureButton" parent="CanvasLayer/NewBookmark/HBoxContainer/GridContainer"]
 modulate = Color( 0, 1, 0.501961, 1 )
-margin_left = 30.0
-margin_right = 36.0
-margin_bottom = 6.0
+offset_left = 30.0
+offset_right = 36.0
+offset_bottom = 6.0
 texture_normal = ExtResource( 42 )
 
 [node name="Cornflower" type="TextureButton" parent="CanvasLayer/NewBookmark/HBoxContainer/GridContainer"]
 modulate = Color( 0.388235, 0.580392, 0.929412, 1 )
-margin_top = 6.0
-margin_right = 6.0
-margin_bottom = 12.0
+offset_top = 6.0
+offset_right = 6.0
+offset_bottom = 12.0
 texture_normal = ExtResource( 42 )
 
 [node name="Blue" type="TextureButton" parent="CanvasLayer/NewBookmark/HBoxContainer/GridContainer"]
 modulate = Color( 0, 0, 1, 1 )
-margin_left = 6.0
-margin_top = 6.0
-margin_right = 12.0
-margin_bottom = 12.0
+offset_left = 6.0
+offset_top = 6.0
+offset_right = 12.0
+offset_bottom = 12.0
 texture_normal = ExtResource( 42 )
 
 [node name="Purple" type="TextureButton" parent="CanvasLayer/NewBookmark/HBoxContainer/GridContainer"]
 modulate = Color( 0.501961, 0, 1, 1 )
-margin_left = 12.0
-margin_top = 6.0
-margin_right = 18.0
-margin_bottom = 12.0
+offset_left = 12.0
+offset_top = 6.0
+offset_right = 18.0
+offset_bottom = 12.0
 texture_normal = ExtResource( 42 )
 
 [node name="Magenta" type="TextureButton" parent="CanvasLayer/NewBookmark/HBoxContainer/GridContainer"]
 modulate = Color( 1, 0, 1, 1 )
-margin_left = 18.0
-margin_top = 6.0
-margin_right = 24.0
-margin_bottom = 12.0
+offset_left = 18.0
+offset_top = 6.0
+offset_right = 24.0
+offset_bottom = 12.0
 texture_normal = ExtResource( 42 )
 
 [node name="White" type="TextureButton" parent="CanvasLayer/NewBookmark/HBoxContainer/GridContainer"]
-margin_left = 24.0
-margin_top = 6.0
-margin_right = 30.0
-margin_bottom = 12.0
+offset_left = 24.0
+offset_top = 6.0
+offset_right = 30.0
+offset_bottom = 12.0
 texture_normal = ExtResource( 42 )
 
 [node name="Black" type="TextureButton" parent="CanvasLayer/NewBookmark/HBoxContainer/GridContainer"]
 modulate = Color( 0.0784314, 0.0784314, 0.0862745, 1 )
-margin_left = 30.0
-margin_top = 6.0
-margin_right = 36.0
-margin_bottom = 12.0
+offset_left = 30.0
+offset_top = 6.0
+offset_right = 36.0
+offset_bottom = 12.0
 texture_normal = ExtResource( 42 )
 
 [node name="system" type="Node2D" parent="."]
@@ -767,21 +767,21 @@ texture_normal = ExtResource( 42 )
 [node name="stars" type="Node2D" parent="."]
 script = ExtResource( 14 )
 
-[node name="B-type" type="Sprite" parent="stars"]
+[node name="B-type" type="Sprite2D" parent="stars"]
 modulate = Color( 0.8, 0.9, 1.1, 1 )
 texture = ExtResource( 4 )
 
-[node name="G-type" type="Sprite" parent="stars"]
+[node name="G-type" type="Sprite2D" parent="stars"]
 visible = false
 modulate = Color( 1.05, 1.05, 1, 1 )
 texture = ExtResource( 6 )
 
-[node name="K-type" type="Sprite" parent="stars"]
+[node name="K-type" type="Sprite2D" parent="stars"]
 visible = false
 modulate = Color( 1.1, 1.02, 1, 1 )
 texture = ExtResource( 7 )
 
-[node name="M-type" type="Sprite" parent="stars"]
+[node name="M-type" type="Sprite2D" parent="stars"]
 visible = false
 modulate = Color( 1.1, 1, 1, 1 )
 texture = ExtResource( 5 )
@@ -789,12 +789,12 @@ texture = ExtResource( 5 )
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
 
-[node name="ship" type="KinematicBody2D" parent="."]
+[node name="ship" type="CharacterBody2D" parent="."]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 12 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="ship"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ship"]
 position = Vector2( -0.5, 0 )
 frames = SubResource( 3 )
 animation = "fly"
@@ -809,7 +809,7 @@ disabled = true
 [node name="Camera2D" type="Camera2D" parent="ship"]
 current = true
 
-[node name="pointer" type="Sprite" parent="ship"]
+[node name="pointer" type="Sprite2D" parent="ship"]
 position = Vector2( 6, 0 )
 texture = ExtResource( 13 )
 

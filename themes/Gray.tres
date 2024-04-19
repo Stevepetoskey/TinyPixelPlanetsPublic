@@ -1,79 +1,55 @@
-[gd_resource type="Theme" load_steps=17 format=2]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://bvlk5mt2axnwa"]
 
-[ext_resource path="res://textures/GUI/buttons/gray_btn_normal.png" type="Texture" id=1]
-[ext_resource path="res://textures/GUI/buttons/gray_btn_hover.png" type="Texture" id=2]
-[ext_resource path="res://textures/GUI/buttons/gray_btn_pressed.png" type="Texture" id=3]
-[ext_resource path="res://fonts/pixelButton.tres" type="DynamicFont" id=4]
-[ext_resource path="res://textures/GUI/main/shop/tab_selected.png" type="Texture" id=5]
-[ext_resource path="res://textures/GUI/main/shop/tab.png" type="Texture" id=6]
-[ext_resource path="res://fonts/pixelLineEdit.tres" type="DynamicFont" id=7]
-[ext_resource path="res://textures/GUI/GlobalGUI/Ach_completed.png" type="Texture" id=8]
+[ext_resource type="Texture2D" uid="uid://bfwm7q7ex0to6" path="res://textures/GUI/buttons/gray_btn_normal.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://cnobb6cmehhf4" path="res://textures/GUI/buttons/gray_btn_hover.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://7no752ox63d" path="res://textures/GUI/buttons/gray_btn_pressed.png" id="3"]
+[ext_resource type="FontFile" path="res://fonts/pixelButton.tres" id="4"]
+[ext_resource type="Texture2D" uid="uid://yt38gkuyx7oq" path="res://textures/GUI/main/shop/tab_selected.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://bc3ncctygtmi" path="res://textures/GUI/main/shop/tab.png" id="6"]
+[ext_resource type="FontFile" path="res://fonts/pixelLineEdit.tres" id="7"]
+[ext_resource type="Texture2D" uid="uid://gnk4eoow4bqh" path="res://textures/GUI/GlobalGUI/Ach_completed.png" id="8"]
 
-[sub_resource type="StyleBoxEmpty" id=30]
+[sub_resource type="StyleBoxEmpty" id="30"]
 
-[sub_resource type="StyleBoxTexture" id=31]
-texture = ExtResource( 2 )
-region_rect = Rect2( 0, 0, 8, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 2.0
-margin_bottom = 3.0
+[sub_resource type="StyleBoxTexture" id="31"]
+texture = ExtResource("2")
+region_rect = Rect2(0, 0, 8, 8)
 
-[sub_resource type="StyleBoxTexture" id=32]
-texture = ExtResource( 1 )
-region_rect = Rect2( 0, 0, 8, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 2.0
-margin_bottom = 3.0
+[sub_resource type="StyleBoxTexture" id="32"]
+texture = ExtResource("1")
+region_rect = Rect2(0, 0, 8, 8)
 
-[sub_resource type="StyleBoxTexture" id=33]
-texture = ExtResource( 3 )
-region_rect = Rect2( 0, 0, 8, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 3.0
-margin_bottom = 2.0
+[sub_resource type="StyleBoxTexture" id="33"]
+texture = ExtResource("3")
+region_rect = Rect2(0, 0, 8, 8)
 
-[sub_resource type="StyleBoxTexture" id=37]
-texture = ExtResource( 8 )
-region_rect = Rect2( 0, 0, 16, 16 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 2.0
-margin_bottom = 2.0
+[sub_resource type="StyleBoxTexture" id="37"]
+texture = ExtResource("8")
+region_rect = Rect2(0, 0, 16, 16)
 
-[sub_resource type="StyleBoxEmpty" id=34]
+[sub_resource type="StyleBoxEmpty" id="34"]
 
-[sub_resource type="StyleBoxTexture" id=35]
-texture = ExtResource( 6 )
-region_rect = Rect2( 0, 0, 21, 9 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 2.0
+[sub_resource type="StyleBoxTexture" id="35"]
+texture = ExtResource("6")
+region_rect = Rect2(0, 0, 21, 9)
 
-[sub_resource type="StyleBoxTexture" id=36]
-texture = ExtResource( 5 )
-region_rect = Rect2( 0, 0, 21, 9 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 2.0
-margin_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="36"]
+texture = ExtResource("5")
+region_rect = Rect2(0, 0, 21, 9)
 
 [resource]
-Button/colors/font_color = Color( 1, 1, 1, 1 )
-Button/colors/font_color_pressed = Color( 0.847059, 0.847059, 0.847059, 1 )
-Button/fonts/font = ExtResource( 4 )
-Button/styles/focus = SubResource( 30 )
-Button/styles/hover = SubResource( 31 )
-Button/styles/normal = SubResource( 32 )
-Button/styles/pressed = SubResource( 33 )
-Panel/styles/panel = SubResource( 37 )
-TabContainer/fonts/font = ExtResource( 7 )
+Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_color_pressed = Color(0.847059, 0.847059, 0.847059, 1)
+Button/fonts/font = ExtResource("4")
+Button/styles/focus = SubResource("30")
+Button/styles/hover = SubResource("31")
+Button/styles/normal = SubResource("32")
+Button/styles/pressed = SubResource("33")
+Panel/styles/panel = SubResource("37")
+TabContainer/fonts/font = ExtResource("7")
 TabContainer/icons/decrement = null
 TabContainer/icons/decrement_highlight = null
 TabContainer/icons/increment = null
-TabContainer/styles/panel = SubResource( 34 )
-TabContainer/styles/tab_bg = SubResource( 35 )
-TabContainer/styles/tab_fg = SubResource( 36 )
+TabContainer/styles/panel = SubResource("34")
+TabContainer/styles/tab_bg = SubResource("35")
+TabContainer/styles/tab_fg = SubResource("36")

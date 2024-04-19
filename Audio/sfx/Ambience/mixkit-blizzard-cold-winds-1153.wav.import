@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/mixkit-blizzard-cold-winds-1153.wav-81393082a913d9c4ff286be0f3a953f6.sample"
+type="AudioStreamWAV"
+uid="uid://cqhncywyj01ki"
+path="res://.godot/imported/mixkit-blizzard-cold-winds-1153.wav-81393082a913d9c4ff286be0f3a953f6.sample"
 
 [deps]
 
 source_file="res://Audio/sfx/Ambience/mixkit-blizzard-cold-winds-1153.wav"
-dest_files=[ "res://.import/mixkit-blizzard-cold-winds-1153.wav-81393082a913d9c4ff286be0f3a953f6.sample" ]
+dest_files=["res://.godot/imported/mixkit-blizzard-cold-winds-1153.wav-81393082a913d9c4ff286be0f3a953f6.sample"]
 
 [params]
 

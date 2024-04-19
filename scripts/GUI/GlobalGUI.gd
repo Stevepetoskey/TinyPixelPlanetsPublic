@@ -27,13 +27,13 @@ var backedUpRequest = []
 
 signal update_achievements
 
-onready var achievementPnl = $Achievement
+@onready var achievementPnl = $Achievement
 
 func _process(delta):
 	if GlobalAudio.mode != "menu":
 		if Input.is_action_just_pressed("ach") and !Global.pause:
 			pop_up_ach()
-		if !backedUpRequest.empty() and !$Achievement/AnimationPlayer.is_playing():
+		if !backedUpRequest.is_empty() and !$Achievement/AnimationPlayer.is_playing():
 			$Achievement/Icon.texture = achievements[backedUpRequest[0]]["icon"]
 			$Achievement/Text.text = backedUpRequest[0]
 			$Achievement/AnimationPlayer.play("pop_up")

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/mixkit-summer-crickets-loop-1788.wav-2a164647c5ff79c94f7042d3f96596a6.sample"
+type="AudioStreamWAV"
+uid="uid://b423pej6t5txt"
+path="res://.godot/imported/mixkit-summer-crickets-loop-1788.wav-2a164647c5ff79c94f7042d3f96596a6.sample"
 
 [deps]
 
 source_file="res://Audio/sfx/Ambience/mixkit-summer-crickets-loop-1788.wav"
-dest_files=[ "res://.import/mixkit-summer-crickets-loop-1788.wav-2a164647c5ff79c94f7042d3f96596a6.sample" ]
+dest_files=["res://.godot/imported/mixkit-summer-crickets-loop-1788.wav-2a164647c5ff79c94f7042d3f96596a6.sample"]
 
 [params]
 

@@ -1,35 +1,35 @@
 [gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://scripts/space/Galaxy.gd" type="Script" id=1]
-[ext_resource path="res://textures/enviroment/deep-space.png" type="Texture" id=2]
+[ext_resource path="res://textures/enviroment/deep-space.png" type="Texture2D" id=2]
 [ext_resource path="res://scripts/space/GalaxyView.gd" type="Script" id=3]
-[ext_resource path="res://textures/GUI/space/blue_selector.png" type="Texture" id=4]
-[ext_resource path="res://textures/GUI/space/green_selector.png" type="Texture" id=5]
-[ext_resource path="res://textures/GUI/space/green_line/green_line10.png" type="Texture" id=6]
-[ext_resource path="res://textures/GUI/space/green_line/green_line6.png" type="Texture" id=7]
-[ext_resource path="res://textures/GUI/space/green_line/green_line1.png" type="Texture" id=8]
-[ext_resource path="res://textures/GUI/space/green_line/green_line9.png" type="Texture" id=9]
-[ext_resource path="res://textures/GUI/space/green_line/green_line3.png" type="Texture" id=10]
-[ext_resource path="res://textures/GUI/space/green_line/green_line5.png" type="Texture" id=11]
-[ext_resource path="res://textures/GUI/space/green_line/green_line2.png" type="Texture" id=12]
-[ext_resource path="res://textures/GUI/space/green_line/green_line4.png" type="Texture" id=13]
-[ext_resource path="res://textures/GUI/space/green_line/green_line7.png" type="Texture" id=14]
-[ext_resource path="res://textures/GUI/space/green_line/green_line8.png" type="Texture" id=15]
-[ext_resource path="res://textures/GUI/Blank.png" type="Texture" id=16]
-[ext_resource path="res://textures/GUI/space/Bookmarks.png" type="Texture" id=17]
-[ext_resource path="res://textures/GUI/space/Space_panel.png" type="Texture" id=18]
+[ext_resource path="res://textures/GUI/space/blue_selector.png" type="Texture2D" id=4]
+[ext_resource path="res://textures/GUI/space/green_selector.png" type="Texture2D" id=5]
+[ext_resource path="res://textures/GUI/space/green_line/green_line10.png" type="Texture2D" id=6]
+[ext_resource path="res://textures/GUI/space/green_line/green_line6.png" type="Texture2D" id=7]
+[ext_resource path="res://textures/GUI/space/green_line/green_line1.png" type="Texture2D" id=8]
+[ext_resource path="res://textures/GUI/space/green_line/green_line9.png" type="Texture2D" id=9]
+[ext_resource path="res://textures/GUI/space/green_line/green_line3.png" type="Texture2D" id=10]
+[ext_resource path="res://textures/GUI/space/green_line/green_line5.png" type="Texture2D" id=11]
+[ext_resource path="res://textures/GUI/space/green_line/green_line2.png" type="Texture2D" id=12]
+[ext_resource path="res://textures/GUI/space/green_line/green_line4.png" type="Texture2D" id=13]
+[ext_resource path="res://textures/GUI/space/green_line/green_line7.png" type="Texture2D" id=14]
+[ext_resource path="res://textures/GUI/space/green_line/green_line8.png" type="Texture2D" id=15]
+[ext_resource path="res://textures/GUI/Blank.png" type="Texture2D" id=16]
+[ext_resource path="res://textures/GUI/space/Bookmarks.png" type="Texture2D" id=17]
+[ext_resource path="res://textures/GUI/space/Space_panel.png" type="Texture2D" id=18]
 [ext_resource path="res://assets/GUI/Pause.tscn" type="PackedScene" id=19]
-[ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=20]
-[ext_resource path="res://textures/GUI/space/h_bar.png" type="Texture" id=21]
-[ext_resource path="res://textures/GUI/space/h_bar_handle.png" type="Texture" id=22]
+[ext_resource path="res://fonts/pixel.tres" type="FontFile" id=20]
+[ext_resource path="res://textures/GUI/space/h_bar.png" type="Texture2D" id=21]
+[ext_resource path="res://textures/GUI/space/h_bar_handle.png" type="Texture2D" id=22]
 [ext_resource path="res://assets/space/PlanetType.tscn" type="PackedScene" id=23]
-[ext_resource path="res://textures/GUI/space/v_bar_handle.png" type="Texture" id=24]
-[ext_resource path="res://textures/GUI/space/v_bar.png" type="Texture" id=25]
+[ext_resource path="res://textures/GUI/space/v_bar_handle.png" type="Texture2D" id=24]
+[ext_resource path="res://textures/GUI/space/v_bar.png" type="Texture2D" id=25]
 [ext_resource path="res://scripts/space/SystemInfo.gd" type="Script" id=26]
-[ext_resource path="res://textures/GUI/space/v_bar_handle_hover.png" type="Texture" id=27]
-[ext_resource path="res://textures/GUI/space/h_bar_handle_hover.png" type="Texture" id=28]
-[ext_resource path="res://textures/GUI/space/h_bar_handle_select.png" type="Texture" id=29]
-[ext_resource path="res://textures/GUI/space/v_bar_handle_select.png" type="Texture" id=30]
+[ext_resource path="res://textures/GUI/space/v_bar_handle_hover.png" type="Texture2D" id=27]
+[ext_resource path="res://textures/GUI/space/h_bar_handle_hover.png" type="Texture2D" id=28]
+[ext_resource path="res://textures/GUI/space/h_bar_handle_select.png" type="Texture2D" id=29]
+[ext_resource path="res://textures/GUI/space/v_bar_handle_select.png" type="Texture2D" id=30]
 [ext_resource path="res://scripts/space/Bookmarks.gd" type="Script" id=31]
 
 [sub_resource type="AnimatedTexture" id=1]
@@ -58,74 +58,74 @@ frame_9/delay_sec = 0.0
 [sub_resource type="StyleBoxTexture" id=26]
 texture = ExtResource( 22 )
 region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=27]
 texture = ExtResource( 28 )
 region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=28]
 texture = ExtResource( 29 )
 region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=29]
 texture = ExtResource( 21 )
 region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=30]
 texture = ExtResource( 24 )
 region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=31]
 texture = ExtResource( 27 )
 region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=32]
 texture = ExtResource( 30 )
 region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=33]
 texture = ExtResource( 25 )
 region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id=34]
 texture = ExtResource( 25 )
 region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+offset_left = 1.0
+offset_right = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
 
 [sub_resource type="Theme" id=35]
 HScrollBar/styles/grabber = SubResource( 26 )
@@ -141,10 +141,10 @@ VSlider/styles/slider = SubResource( 34 )
 [sub_resource type="StyleBoxTexture" id=5]
 texture = ExtResource( 18 )
 region_rect = Rect2( 0, 0, 26, 26 )
-margin_left = 4.0
-margin_right = 4.0
-margin_top = 4.0
-margin_bottom = 4.0
+offset_left = 4.0
+offset_right = 4.0
+offset_top = 4.0
+offset_bottom = 4.0
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -155,8 +155,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ Color( 0, 0, 0, 1 ) ]
 }
@@ -167,8 +167,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ true ]
 }
@@ -179,8 +179,8 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ) ]
 }
@@ -194,8 +194,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.7 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.7 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 0.1, 0.1 ) ]
 }
@@ -206,8 +206,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.7 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.7 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
 }
@@ -218,8 +218,8 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 1,
 "values": [ true ]
 }
@@ -234,8 +234,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.1, 1.7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PackedFloat32Array( 0, 1.1, 1.7 ),
+"transitions": PackedFloat32Array( 1, 1, 1 ),
 "update": 0,
 "values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
 }
@@ -246,8 +246,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.1, 1.7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PackedFloat32Array( 0, 1.1, 1.7 ),
+"transitions": PackedFloat32Array( 1, 1, 1 ),
 "update": 1,
 "values": [ true, true, false ]
 }
@@ -261,15 +261,15 @@ script = ExtResource( 1 )
 motion_scale = Vector2( 0.25, 0.25 )
 motion_mirroring = Vector2( 568, 320 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/space"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/space"]
 texture = ExtResource( 2 )
 
 [node name="Line" type="TextureRect" parent="."]
 visible = false
-margin_top = -28.0
-margin_right = 2.0
-margin_bottom = 10.0
-rect_pivot_offset = Vector2( 1, 0 )
+offset_top = -28.0
+offset_right = 2.0
+offset_bottom = 10.0
+pivot_offset = Vector2( 1, 0 )
 mouse_filter = 2
 texture = SubResource( 1 )
 expand = true
@@ -279,14 +279,14 @@ stretch_mode = 2
 
 [node name="GalaxyView" type="Camera2D" parent="."]
 current = true
-smoothing_enabled = true
+position_smoothing_enabled = true
 script = ExtResource( 3 )
 
 [node name="Selected" type="TextureRect" parent="."]
 visible = false
 anchor_right = 0.25
-margin_right = 21.0
-margin_bottom = 21.0
+offset_right = 21.0
+offset_bottom = 21.0
 mouse_filter = 2
 texture = ExtResource( 5 )
 expand = true
@@ -294,8 +294,8 @@ stretch_mode = 4
 
 [node name="CurrentSelector" type="TextureRect" parent="."]
 anchor_right = 0.25
-margin_right = 21.0
-margin_bottom = 21.0
+offset_right = 21.0
+offset_bottom = 21.0
 mouse_filter = 2
 texture = ExtResource( 4 )
 expand = true
@@ -305,14 +305,14 @@ stretch_mode = 4
 
 [node name="Sidebar" type="VBoxContainer" parent="CanvasLayer"]
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 28.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 28.0
 mouse_filter = 2
 
 [node name="BookmarkBtn" type="TextureButton" parent="CanvasLayer/Sidebar"]
-margin_right = 26.0
-margin_bottom = 26.0
+offset_right = 26.0
+offset_bottom = 26.0
 toggle_mode = true
 texture_normal = ExtResource( 17 )
 
@@ -329,27 +329,27 @@ type = "galaxy"
 
 [node name="Bookmarks" type="Panel" parent="CanvasLayer"]
 visible = false
-margin_left = 29.0
-margin_top = 2.0
-margin_right = 147.0
-margin_bottom = 97.0
+offset_left = 29.0
+offset_top = 2.0
+offset_right = 147.0
+offset_bottom = 97.0
 theme = SubResource( 35 )
-custom_styles/panel = SubResource( 5 )
+theme_override_styles/panel = SubResource( 5 )
 script = ExtResource( 31 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Bookmarks"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 4.0
-margin_right = -3.0
-margin_bottom = -3.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -3.0
+offset_bottom = -3.0
 scroll_horizontal_enabled = false
 
 [node name="BookmarkContainer" type="VBoxContainer" parent="CanvasLayer/Bookmarks/ScrollContainer"]
-margin_right = 111.0
+offset_right = 111.0
 size_flags_horizontal = 3
-custom_constants/separation = 0
+theme_override_constants/separation = 0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 2 )
@@ -358,51 +358,51 @@ anims/start = SubResource( 3 )
 
 [node name="SystemInfo" type="Panel" parent="."]
 visible = false
-margin_right = 79.0
-margin_bottom = 84.0
+offset_right = 79.0
+offset_bottom = 84.0
 theme = SubResource( 35 )
-custom_styles/panel = SubResource( 5 )
+theme_override_styles/panel = SubResource( 5 )
 script = ExtResource( 26 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="SystemInfo"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 4.0
-margin_right = -3.0
-margin_bottom = -3.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -3.0
+offset_bottom = -3.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SystemInfo/ScrollContainer"]
-margin_right = 79.0
-margin_bottom = 100.0
+offset_right = 79.0
+offset_bottom = 100.0
 
 [node name="SystemName" type="Label" parent="SystemInfo/ScrollContainer/VBoxContainer"]
-margin_right = 79.0
-margin_bottom = 10.0
-rect_min_size = Vector2( 0, 10 )
-custom_fonts/font = ExtResource( 20 )
+offset_right = 79.0
+offset_bottom = 10.0
+custom_minimum_size = Vector2( 0, 10 )
+theme_override_fonts/font = ExtResource( 20 )
 text = "Alpha Adromeda 2"
 valign = 2
 
 [node name="PlanetType" parent="SystemInfo/ScrollContainer/VBoxContainer" instance=ExtResource( 23 )]
-margin_top = 14.0
-margin_bottom = 28.0
+offset_top = 14.0
+offset_bottom = 28.0
 
 [node name="PlanetType2" parent="SystemInfo/ScrollContainer/VBoxContainer" instance=ExtResource( 23 )]
-margin_top = 32.0
-margin_bottom = 46.0
+offset_top = 32.0
+offset_bottom = 46.0
 
 [node name="PlanetType3" parent="SystemInfo/ScrollContainer/VBoxContainer" instance=ExtResource( 23 )]
-margin_top = 50.0
-margin_bottom = 64.0
+offset_top = 50.0
+offset_bottom = 64.0
 
 [node name="PlanetType4" parent="SystemInfo/ScrollContainer/VBoxContainer" instance=ExtResource( 23 )]
-margin_top = 68.0
-margin_bottom = 82.0
+offset_top = 68.0
+offset_bottom = 82.0
 
 [node name="PlanetType5" parent="SystemInfo/ScrollContainer/VBoxContainer" instance=ExtResource( 23 )]
-margin_top = 86.0
-margin_bottom = 100.0
+offset_top = 86.0
+offset_bottom = 100.0
 
 [node name="Tweens" type="Node" parent="."]
 

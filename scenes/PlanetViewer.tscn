@@ -1,22 +1,22 @@
 [gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://scripts/PlanetSelect.gd" type="Script" id=1]
-[ext_resource path="res://textures/GUI/space/Nav.png" type="Texture" id=2]
+[ext_resource path="res://textures/GUI/space/Nav.png" type="Texture2D" id=2]
 [ext_resource path="res://scripts/stars.gd" type="Script" id=3]
-[ext_resource path="res://textures/GUI/Blank.png" type="Texture" id=4]
-[ext_resource path="res://textures/enviroment/space-2.png" type="Texture" id=5]
-[ext_resource path="res://textures/ships/ship3.png" type="Texture" id=6]
-[ext_resource path="res://textures/stars/B-type.png" type="Texture" id=7]
-[ext_resource path="res://textures/ships/ship2.png" type="Texture" id=8]
+[ext_resource path="res://textures/GUI/Blank.png" type="Texture2D" id=4]
+[ext_resource path="res://textures/enviroment/space-2.png" type="Texture2D" id=5]
+[ext_resource path="res://textures/ships/ship3.png" type="Texture2D" id=6]
+[ext_resource path="res://textures/stars/B-type.png" type="Texture2D" id=7]
+[ext_resource path="res://textures/ships/ship2.png" type="Texture2D" id=8]
 [ext_resource path="res://scripts/ship.gd" type="Script" id=9]
-[ext_resource path="res://textures/ships/pointer.png" type="Texture" id=10]
+[ext_resource path="res://textures/ships/pointer.png" type="Texture2D" id=10]
 [ext_resource path="res://Audio/sfx/Ambience/mixkit-space-ship-hum-2136.wav" type="AudioStream" id=11]
-[ext_resource path="res://textures/stars/M-type.png" type="Texture" id=12]
-[ext_resource path="res://textures/ships/ship1.png" type="Texture" id=13]
-[ext_resource path="res://textures/stars/G-type.png" type="Texture" id=14]
-[ext_resource path="res://textures/stars/K-type.png" type="Texture" id=15]
-[ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=16]
-[ext_resource path="res://textures/enviroment/stars.png" type="Texture" id=17]
+[ext_resource path="res://textures/stars/M-type.png" type="Texture2D" id=12]
+[ext_resource path="res://textures/ships/ship1.png" type="Texture2D" id=13]
+[ext_resource path="res://textures/stars/G-type.png" type="Texture2D" id=14]
+[ext_resource path="res://textures/stars/K-type.png" type="Texture2D" id=15]
+[ext_resource path="res://fonts/pixel.tres" type="FontFile" id=16]
+[ext_resource path="res://textures/enviroment/stars.png" type="Texture2D" id=17]
 [ext_resource path="res://scripts/space/Nav.gd" type="Script" id=18]
 
 [sub_resource type="Animation" id=5]
@@ -28,8 +28,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ Color( 0, 0, 0, 1 ) ]
 }
@@ -40,8 +40,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 0,
 "values": [ true ]
 }
@@ -56,8 +56,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.6 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
 }
@@ -68,8 +68,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array( 0 ),
+"transitions": PackedFloat32Array( 1 ),
 "update": 1,
 "values": [ true ]
 }
@@ -84,8 +84,8 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.6 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 0,
 "values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
 }
@@ -96,8 +96,8 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array( 0, 0.6 ),
+"transitions": PackedFloat32Array( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
 }
@@ -155,7 +155,7 @@ script = ExtResource( 1 )
 motion_scale = Vector2( 0.1, 0.1 )
 motion_mirroring = Vector2( 256, 256 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/BG"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/BG"]
 texture = ExtResource( 5 )
 centered = false
 region_rect = Rect2( 0, 0, 256, 256 )
@@ -164,7 +164,7 @@ region_rect = Rect2( 0, 0, 256, 256 )
 motion_scale = Vector2( 0.2, 0.2 )
 motion_mirroring = Vector2( 256, 256 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/Stars"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Stars"]
 texture = ExtResource( 17 )
 centered = false
 region_rect = Rect2( 0, 0, 256, 256 )
@@ -185,51 +185,51 @@ anims/fadeOut = SubResource( 7 )
 
 [node name="Nav" type="Control" parent="CanvasLayer"]
 anchor_bottom = 1.0
-margin_left = -40.0
-margin_right = 18.0
+offset_left = -40.0
+offset_right = 18.0
 script = ExtResource( 18 )
 
 [node name="Map" type="TextureRect" parent="CanvasLayer/Nav"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = -41.0
-margin_right = 40.0
-margin_bottom = -2.0
+offset_left = 2.0
+offset_top = -41.0
+offset_right = 40.0
+offset_bottom = -2.0
 texture = SubResource( 8 )
 
 [node name="SystemInfoBtn" type="TextureButton" parent="CanvasLayer/Nav"]
-margin_left = 2.0
-margin_top = 106.0
-margin_right = 40.0
-margin_bottom = 117.0
+offset_left = 2.0
+offset_top = 106.0
+offset_right = 40.0
+offset_bottom = 117.0
 toggle_mode = true
 texture_normal = SubResource( 9 )
 texture_pressed = SubResource( 10 )
 
 [node name="Label" type="Label" parent="CanvasLayer/Nav/SystemInfoBtn"]
-margin_left = 3.0
-margin_top = 2.0
-margin_right = 34.0
-margin_bottom = 10.0
-custom_fonts/font = ExtResource( 16 )
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 34.0
+offset_bottom = 10.0
+theme_override_fonts/font = ExtResource( 16 )
 text = "System"
 
 [node name="Tab" type="TextureButton" parent="CanvasLayer/Nav"]
-margin_left = 42.0
-margin_top = 142.0
-margin_right = 50.0
-margin_bottom = 158.0
+offset_left = 42.0
+offset_top = 142.0
+offset_right = 50.0
+offset_bottom = 158.0
 toggle_mode = true
 texture_normal = SubResource( 11 )
 texture_pressed = SubResource( 12 )
 
 [node name="SystemInfo" type="NinePatchRect" parent="CanvasLayer/Nav"]
 visible = false
-margin_left = 2.0
-margin_top = 1.0
-margin_right = 97.0
-margin_bottom = 104.0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 97.0
+offset_bottom = 104.0
 texture = ExtResource( 2 )
 region_rect = Rect2( 2, 2, 38, 82 )
 patch_margin_left = 3
@@ -238,41 +238,41 @@ patch_margin_right = 3
 patch_margin_bottom = 3
 
 [node name="name" type="Label" parent="CanvasLayer/Nav/SystemInfo"]
-margin_left = 2.0
-margin_top = 3.0
-margin_right = 93.0
-margin_bottom = 11.0
-custom_fonts/font = ExtResource( 16 )
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 93.0
+offset_bottom = 11.0
+theme_override_fonts/font = ExtResource( 16 )
 text = "SAB-1390"
 align = 1
 clip_text = true
 
 [node name="Planets" type="VBoxContainer" parent="CanvasLayer/Nav/SystemInfo"]
-margin_left = 2.0
-margin_top = 12.0
-margin_right = 56.0
-margin_bottom = 80.0
-custom_constants/separation = 0
+offset_left = 2.0
+offset_top = 12.0
+offset_right = 56.0
+offset_bottom = 80.0
+theme_override_constants/separation = 0
 
 [node name="Galaxy" type="TextureButton" parent="CanvasLayer"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -40.0
-margin_top = -13.0
-margin_right = -2.0
-margin_bottom = -2.0
+offset_left = -40.0
+offset_top = -13.0
+offset_right = -2.0
+offset_bottom = -2.0
 toggle_mode = true
 texture_normal = SubResource( 9 )
 texture_pressed = SubResource( 10 )
 
 [node name="Label" type="Label" parent="CanvasLayer/Galaxy"]
-margin_left = 3.0
-margin_top = 2.0
-margin_right = 34.0
-margin_bottom = 10.0
-custom_fonts/font = ExtResource( 16 )
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 34.0
+offset_bottom = 10.0
+theme_override_fonts/font = ExtResource( 16 )
 text = "Galaxy"
 align = 1
 
@@ -281,21 +281,21 @@ align = 1
 [node name="stars" type="Node2D" parent="."]
 script = ExtResource( 3 )
 
-[node name="B-type" type="Sprite" parent="stars"]
+[node name="B-type" type="Sprite2D" parent="stars"]
 modulate = Color( 0.8, 0.9, 1.1, 1 )
 texture = ExtResource( 7 )
 
-[node name="G-type" type="Sprite" parent="stars"]
+[node name="G-type" type="Sprite2D" parent="stars"]
 visible = false
 modulate = Color( 1.05, 1.05, 1, 1 )
 texture = ExtResource( 14 )
 
-[node name="K-type" type="Sprite" parent="stars"]
+[node name="K-type" type="Sprite2D" parent="stars"]
 visible = false
 modulate = Color( 1.1, 1.02, 1, 1 )
 texture = ExtResource( 15 )
 
-[node name="M-type" type="Sprite" parent="stars"]
+[node name="M-type" type="Sprite2D" parent="stars"]
 visible = false
 modulate = Color( 1.1, 1, 1, 1 )
 texture = ExtResource( 12 )
@@ -303,10 +303,10 @@ texture = ExtResource( 12 )
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 2 )
 
-[node name="ship" type="KinematicBody2D" parent="."]
+[node name="ship" type="CharacterBody2D" parent="."]
 script = ExtResource( 9 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="ship"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ship"]
 position = Vector2( -0.5, 0 )
 frames = SubResource( 3 )
 animation = "fly"
@@ -321,7 +321,7 @@ disabled = true
 [node name="Camera2D" type="Camera2D" parent="ship"]
 current = true
 
-[node name="pointer" type="Sprite" parent="ship"]
+[node name="pointer" type="Sprite2D" parent="ship"]
 position = Vector2( 6, 0 )
 texture = ExtResource( 10 )
 

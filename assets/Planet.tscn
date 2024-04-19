@@ -1,6 +1,6 @@
 [gd_scene load_steps=21 format=2]
 
-[ext_resource path="res://textures/planets/exotic.png" type="Texture" id=1]
+[ext_resource path="res://textures/planets/exotic.png" type="Texture2D" id=1]
 [ext_resource path="res://scripts/planet.gd" type="Script" id=2]
 [ext_resource path="res://assets/PlanetShadeTop.tscn" type="PackedScene" id=3]
 
@@ -24,7 +24,7 @@ input_name = "screen_uv"
 
 [sub_resource type="VisualShaderNodeSwitch" id=24]
 
-[sub_resource type="VisualShaderNodeBooleanUniform" id=25]
+[sub_resource type="VisualShaderNodeBooleanParameter" id=25]
 uniform_name = "isNight"
 default_value_enabled = true
 default_value = true
@@ -35,7 +35,7 @@ source = 2
 [sub_resource type="VisualShaderNodeVectorOp" id=12]
 operator = 2
 
-[sub_resource type="VisualShaderNodeTextureUniform" id=15]
+[sub_resource type="VisualShaderNodeTexture2DParameter" id=15]
 uniform_name = "planet"
 texture_type = 1
 
@@ -48,7 +48,7 @@ constant = Color( 0.00392157, 0.0862745, 0.121569, 1 )
 [sub_resource type="VisualShader" id=16]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
-uniform sampler2D planet : hint_albedo;
+uniform sampler2D planet : source_color;
 uniform bool isNight = true;
 
 
@@ -156,7 +156,7 @@ nodes/fragment/14/node = SubResource( 24 )
 nodes/fragment/14/position = Vector2( -80, 900 )
 nodes/fragment/15/node = SubResource( 25 )
 nodes/fragment/15/position = Vector2( -660, 1080 )
-nodes/fragment/connections = PoolIntArray( 6, 0, 5, 1, 5, 0, 8, 0, 8, 0, 10, 0, 5, 0, 11, 0, 10, 0, 11, 1, 11, 0, 0, 0, 13, 0, 12, 0, 12, 0, 14, 2, 15, 0, 14, 0, 3, 0, 5, 0, 14, 0, 10, 1, 9, 0, 14, 1, 6, 1, 0, 1 )
+nodes/fragment/connections = PackedInt32Array( 6, 0, 5, 1, 5, 0, 8, 0, 8, 0, 10, 0, 5, 0, 11, 0, 10, 0, 11, 1, 11, 0, 0, 0, 13, 0, 12, 0, 12, 0, 14, 2, 15, 0, 14, 0, 3, 0, 5, 0, 14, 0, 10, 1, 9, 0, 14, 1, 6, 1, 0, 1 )
 
 [sub_resource type="ShaderMaterial" id=26]
 resource_local_to_scene = true
@@ -169,7 +169,7 @@ shader_param/planet = ExtResource( 1 )
 [sub_resource type="World" id=27]
 environment = SubResource( 8 )
 
-[node name="Planet" type="Sprite"]
+[node name="Planet" type="Sprite2D"]
 material = SubResource( 3 )
 script = ExtResource( 2 )
 
@@ -179,20 +179,20 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
 
-[node name="ViewportContainer" type="ViewportContainer" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 material = SubResource( 26 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -7.0
-margin_top = -7.0
-margin_right = 7.0
-margin_bottom = 7.0
+offset_left = -7.0
+offset_top = -7.0
+offset_right = 7.0
+offset_bottom = 7.0
 mouse_filter = 2
 stretch = true
 
-[node name="Viewport" type="Viewport" parent="ViewportContainer"]
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 size = Vector2( 14, 14 )
 own_world = true
 world = SubResource( 27 )
@@ -200,6 +200,6 @@ transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
 
-[node name="Spatial" parent="ViewportContainer/Viewport" instance=ExtResource( 3 )]
+[node name="Node3D" parent="SubViewportContainer/SubViewport" instance=ExtResource( 3 )]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/mixkit-spring-forest-with-woodpeckers-1217.wav-4e88b05939a932169d477a868b42798f.sample"
+type="AudioStreamWAV"
+uid="uid://05eoqqltljlt"
+path="res://.godot/imported/mixkit-spring-forest-with-woodpeckers-1217.wav-4e88b05939a932169d477a868b42798f.sample"
 
 [deps]
 
 source_file="res://Audio/sfx/Ambience/mixkit-spring-forest-with-woodpeckers-1217.wav"
-dest_files=[ "res://.import/mixkit-spring-forest-with-woodpeckers-1217.wav-4e88b05939a932169d477a868b42798f.sample" ]
+dest_files=["res://.godot/imported/mixkit-spring-forest-with-woodpeckers-1217.wav-4e88b05939a932169d477a868b42798f.sample"]
 
 [params]
 

@@ -1,15 +1,15 @@
 [gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://textures/enemies/big_slorg/big_slorg1.png" type="Texture" id=1]
-[ext_resource path="res://textures/enemies/big_slorg/big_slorg7.png" type="Texture" id=2]
-[ext_resource path="res://textures/enemies/big_slorg/big_slorg5.png" type="Texture" id=3]
-[ext_resource path="res://textures/enemies/big_slorg/big_slorg6.png" type="Texture" id=4]
-[ext_resource path="res://textures/enemies/big_slorg/big_slorg4.png" type="Texture" id=5]
+[ext_resource path="res://textures/enemies/big_slorg/big_slorg1.png" type="Texture2D" id=1]
+[ext_resource path="res://textures/enemies/big_slorg/big_slorg7.png" type="Texture2D" id=2]
+[ext_resource path="res://textures/enemies/big_slorg/big_slorg5.png" type="Texture2D" id=3]
+[ext_resource path="res://textures/enemies/big_slorg/big_slorg6.png" type="Texture2D" id=4]
+[ext_resource path="res://textures/enemies/big_slorg/big_slorg4.png" type="Texture2D" id=5]
 [ext_resource path="res://scripts/enemies/Slorg.gd" type="Script" id=6]
-[ext_resource path="res://textures/enemies/big_slorg/big_slorg2.png" type="Texture" id=7]
-[ext_resource path="res://textures/enemies/big_slorg/big_slorg3.png" type="Texture" id=8]
-[ext_resource path="res://textures/enemies/seen.png" type="Texture" id=9]
-[ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=10]
+[ext_resource path="res://textures/enemies/big_slorg/big_slorg2.png" type="Texture2D" id=7]
+[ext_resource path="res://textures/enemies/big_slorg/big_slorg3.png" type="Texture2D" id=8]
+[ext_resource path="res://textures/enemies/seen.png" type="Texture2D" id=9]
+[ext_resource path="res://fonts/pixel.tres" type="FontFile" id=10]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -35,7 +35,7 @@ extents = Vector2( 3, 3 )
 [sub_resource type="CircleShape2D" id=3]
 radius = 4.0078
 
-[node name="Slorg" type="KinematicBody2D" groups=["enemy"]]
+[node name="Slorg" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
 collision_layer = 8
 script = ExtResource( 6 )
@@ -43,7 +43,7 @@ hostile = true
 bluesDropRange = [ 2, 7 ]
 type = "slorg"
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 frames = SubResource( 1 )
 animation = "attack"
 frame = 6
@@ -53,7 +53,7 @@ playing = true
 position = Vector2( 0, 3.5 )
 shape = SubResource( 2 )
 
-[node name="Seen" type="Sprite" parent="."]
+[node name="Seen" type="Sprite2D" parent="."]
 visible = false
 position = Vector2( 0, -7 )
 texture = ExtResource( 9 )
@@ -75,15 +75,15 @@ shape = SubResource( 3 )
 
 [node name="Label" type="Label" parent="."]
 visible = false
-margin_left = -11.0
-margin_top = -6.0
-margin_right = 12.0
-margin_bottom = 8.0
-custom_fonts/font = ExtResource( 10 )
+offset_left = -11.0
+offset_top = -6.0
+offset_right = 12.0
+offset_bottom = 8.0
+theme_override_fonts/font = ExtResource( 10 )
 text = "state"
 align = 1
 
-[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="seeTimer" to="." method="_on_seeTimer_timeout"]
 [connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]
 [connection signal="body_exited" from="HitBox" to="." method="_on_HitBox_body_exited"]

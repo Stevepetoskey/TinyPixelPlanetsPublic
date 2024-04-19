@@ -11,7 +11,7 @@ var state = "roam"
 var motion = Vector2(0,0)
 var inAir = false
 
-onready var player = get_node("../../../Player")
+@onready var player = get_node("../../../Player")
 
 func _ready():
 	maxHealth = 10
@@ -22,7 +22,7 @@ func _physics_process(delta):
 	if !Global.pause:
 		$Label.text = state
 		if !is_on_floor() and state != "attack":
-			$AnimatedSprite.playing = false
+			$AnimatedSprite2D.playing = false
 			state = "falling"
 		if position.distance_to(player.position) <= 64 and is_on_floor():
 			var space_state = get_world_2d().direct_space_state
@@ -34,22 +34,22 @@ func _physics_process(delta):
 	#				seePlayer = true
 	#				seenPos = player.position
 					$Seen.show()
-					yield(get_tree().create_timer(1),"timeout")
+					await get_tree().create_timer(1).timeout
 					$Seen.hide()
 				seePlayer = true
 				seenPos = player.position
 			elif seePlayer and !lostPlayer:
 				lostPlayer = true
 				$seeTimer.start()
-		if !$AnimatedSprite.playing or state == "attack":
+		if !$AnimatedSprite2D.playing or state == "attack":
 			match state:
 				"roam":
 					if randi()%100 == 1 or seePlayer:
-						$AnimatedSprite.play("hop")
+						$AnimatedSprite2D.play("hop")
 				"falling":
 					if is_on_floor():
 						inAir = false
-						$AnimatedSprite.play("land")
+						$AnimatedSprite2D.play("land")
 						motion = Vector2(0,0)
 					else:
 						motion.y += GRAVITY
@@ -62,21 +62,27 @@ func _physics_process(delta):
 						inAir = true
 					elif inAir:
 						inAir = false
-						$AnimatedSprite.play("land")
+						$AnimatedSprite2D.play("land")
 						motion = Vector2(0,0)
 						state = "roam"
 					else:
 						state = "roam"
 			if motion.y < 0 or ["jump","attack"].has(state):
-				motion.y = move_and_slide(motion,Vector2(0,-1)).y
+				set_velocity(motion)
+				set_up_direction(Vector2(0,-1))
+				move_and_slide()
+				motion.y = velocity.y
 			else:
-				motion = move_and_slide(motion,Vector2(0,-1))
+				set_velocity(motion)
+				set_up_direction(Vector2(0,-1))
+				move_and_slide()
+				motion = velocity
 
 
 func _on_AnimatedSprite_animation_finished():
-	$AnimatedSprite.playing = false
+	$AnimatedSprite2D.playing = false
 	if state != "attack":
-		match $AnimatedSprite.animation:
+		match $AnimatedSprite2D.animation:
 			"hop":
 				var dir
 				var nextState = "jump" if position.distance_to(player.position) >= MAX_SPEED else "attack"
@@ -88,9 +94,12 @@ func _on_AnimatedSprite_animation_finished():
 				inAir = true
 				state = nextState
 				if state == "attack":
-					$AnimatedSprite.play("attack")
+					$AnimatedSprite2D.play("attack")
 					motion.y -= JUMPSPEED/2.0
-					motion.y = move_and_slide(motion,Vector2(0,-1)).y
+					set_velocity(motion)
+					set_up_direction(Vector2(0,-1))
+					move_and_slide()
+					motion.y = velocity.y
 			"land":
 				state = "roam"
 

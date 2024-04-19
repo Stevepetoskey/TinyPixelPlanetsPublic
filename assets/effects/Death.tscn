@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://textures/particles/puff.png" type="Texture" id=1]
+[ext_resource path="res://textures/particles/puff.png" type="Texture2D" id=1]
 [ext_resource path="res://scripts/effects/Death.gd" type="Script" id=2]
 
 [sub_resource type="CanvasItemMaterial" id=1]
@@ -9,7 +9,7 @@ particles_anim_h_frames = 2
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="ParticlesMaterial" id=2]
+[sub_resource type="ParticleProcessMaterial" id=2]
 lifetime_randomness = 1.0
 emission_shape = 1
 emission_sphere_radius = 1.0
@@ -22,7 +22,7 @@ orbit_velocity_random = 0.0
 anim_offset = 1.0
 anim_offset_random = 1.0
 
-[node name="Particles2D" type="Particles2D"]
+[node name="GPUParticles2D" type="GPUParticles2D"]
 material = SubResource( 1 )
 z_index = 10
 emitting = false

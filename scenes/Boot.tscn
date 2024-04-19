@@ -1,252 +1,259 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=3 uid="uid://dhodwvt3h0pjb"]
 
-[ext_resource path="res://textures/GUI/Menu/SPLogoTrinanium.png" type="Texture" id=1]
-[ext_resource path="res://textures/GUI/Menu/SPLogoPosibilities.png" type="Texture" id=2]
-[ext_resource path="res://textures/GUI/Menu/clouds_mid.png" type="Texture" id=3]
-[ext_resource path="res://textures/GUI/Menu/logoSky.png" type="Texture" id=4]
-[ext_resource path="res://textures/GUI/Menu/clouds_back.png" type="Texture" id=5]
-[ext_resource path="res://textures/GUI/Menu/clouds_front.png" type="Texture" id=6]
-[ext_resource path="res://scripts/boot/Boot.gd" type="Script" id=7]
-[ext_resource path="res://textures/GUI/Blank.png" type="Texture" id=8]
-[ext_resource path="res://textures/GUI/Menu/SPLogoCoreR.png" type="Texture" id=9]
+[ext_resource type="Texture2D" uid="uid://ccauc7twchxbh" path="res://textures/GUI/Menu/SPLogoTrinanium.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://c0hsrod1f3knr" path="res://textures/GUI/Menu/SPLogoPosibilities.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bghwnru4rsyf" path="res://textures/GUI/Menu/clouds_mid.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://bw10j887nvuj4" path="res://textures/GUI/Menu/logoSky.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://dudi8m5q1mumg" path="res://textures/GUI/Menu/clouds_back.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://maw0gdwbwa7p" path="res://textures/GUI/Menu/clouds_front.png" id="6"]
+[ext_resource type="Script" path="res://scripts/boot/Boot.gd" id="7"]
+[ext_resource type="Texture2D" uid="uid://docmqdn1y13fp" path="res://textures/GUI/Blank.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://42ht6fsfva3r" path="res://textures/GUI/Menu/SPLogoCoreR.png" id="9"]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id="1"]
 length = 0.001
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Camera2D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 0, -160 ) ]
+"values": [Vector2(0, -160)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Camera2D:zoom")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("CanvasLayer/blank:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("logo:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("Core:scale")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1)]
 }
 tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
 tracks/5/path = NodePath("Core:texture")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ ExtResource( 1 ) ]
+"values": [ExtResource("1")]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id="2"]
 resource_name = "down"
 length = 2.0
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Camera2D:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 0, -160 ), Vector2( 0, 0 ) ]
+"values": [Vector2(0, -160), Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id="4"]
 resource_name = "fadeIn"
 length = 0.6
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("logo:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("CanvasLayer/blank:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.3, 0.6 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 5, 5, 5, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [Color(1, 1, 1, 0), Color(5, 5, 5, 1), Color(1, 1, 1, 0)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Core:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.3, 0.4 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 2, 2 ), Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1), Vector2(2, 2), Vector2(1, 1)]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Core:texture")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.3 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ ExtResource( 1 ), ExtResource( 9 ) ]
+"values": [ExtResource("1"), ExtResource("9")]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id="3"]
 resource_name = "zoom"
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Camera2D:zoom")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 1, 1 ), Vector2( 1, 1 ) ]
+"values": [Vector2(1, 1), Vector2(1, 1)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Camera2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, -160 ) ]
+"values": [Vector2(0, 0), Vector2(0, -160)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("CanvasLayer/blank:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0.4, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0.4, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x5uad"]
+_data = {
+"RESET": SubResource("1"),
+"down": SubResource("2"),
+"fadeIn": SubResource("4"),
+"zoom": SubResource("3")
 }
 
 [node name="Boot" type="Node2D"]
-script = ExtResource( 7 )
+script = ExtResource("7")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
 
 [node name="Sky" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
-motion_scale = Vector2( 0, 0 )
+motion_scale = Vector2(0, 0)
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/ParallaxBackground/Sky"]
-texture = ExtResource( 4 )
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/ParallaxBackground/Sky"]
+texture = ExtResource("4")
 
 [node name="CloudBack" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
-motion_scale = Vector2( 0.1, 0.1 )
-motion_offset = Vector2( 0, 30 )
+motion_scale = Vector2(0.1, 0.1)
+motion_offset = Vector2(0, 30)
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/ParallaxBackground/CloudBack"]
-texture = ExtResource( 5 )
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/ParallaxBackground/CloudBack"]
+texture = ExtResource("5")
 
 [node name="CloudMid" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
-motion_scale = Vector2( 0.5, 0.5 )
-motion_offset = Vector2( 0, -30 )
+motion_scale = Vector2(0.5, 0.5)
+motion_offset = Vector2(0, -30)
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/ParallaxBackground/CloudMid"]
-texture = ExtResource( 3 )
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/ParallaxBackground/CloudMid"]
+texture = ExtResource("3")
 
 [node name="CloudFront" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
-motion_scale = Vector2( 0.75, 0.75 )
-motion_offset = Vector2( 0, -10 )
+motion_scale = Vector2(0.75, 0.75)
+motion_offset = Vector2(0, -10)
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/ParallaxBackground/CloudFront"]
-texture = ExtResource( 6 )
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/ParallaxBackground/CloudFront"]
+texture = ExtResource("6")
 
 [node name="blank" type="TextureRect" parent="CanvasLayer"]
-modulate = Color( 1, 1, 1, 0 )
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 8 )
+texture = ExtResource("8")
 stretch_mode = 1
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 0, -160 )
-current = true
+position = Vector2(0, -160)
 
-[node name="Core" type="Sprite" parent="."]
-texture = ExtResource( 1 )
+[node name="Core" type="Sprite2D" parent="."]
+texture = ExtResource("1")
 
-[node name="logo" type="Sprite" parent="."]
+[node name="logo" type="Sprite2D" parent="."]
 visible = false
-modulate = Color( 1, 1, 1, 0 )
-texture = ExtResource( 2 )
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/RESET = SubResource( 1 )
-anims/down = SubResource( 2 )
-anims/fadeIn = SubResource( 4 )
-anims/zoom = SubResource( 3 )
+libraries = {
+"": SubResource("AnimationLibrary_x5uad")
+}

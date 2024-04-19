@@ -1,6 +1,6 @@
 extends TextureRect
 
-onready var main = get_node("../..")
+@onready var main = get_node("../..")
 
 func _on_left_pressed():
 	main.left(name)

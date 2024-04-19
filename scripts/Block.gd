@@ -1,6 +1,6 @@
 extends BaseBlock
 
-const SHADE_TEX = preload("res://textures/blocks2X/shade.png")
+const SHADE_TEX = preload("res://textures/blocks/shade.png")
 const FALL_BLOCKS : Array = [0,117]
 
 var falling : bool = false
@@ -20,97 +20,97 @@ func _ready():
 		mainCol.disabled = true
 	z_index = layer
 	pos = position / world.BLOCK_SIZE
-	world.connect("update_blocks",self,"on_update")
-	world.connect("world_loaded",self,"world_loaded")
+	world.connect("update_blocks", Callable(self, "on_update"))
+	world.connect("world_loaded", Callable(self, "world_loaded"))
 	match id:
 		1,24:
-			$check.start(rand_range(10,60))
+			$check.start(randf_range(10,60))
 		9:
 			var isSnow = ""
 			if ["snow","snow_terra"].has(StarSystem.find_planet_id(Global.currentPlanet).type["type"]):
 				isSnow = "_snow"
 			$CollisionShape2D.disabled = true
-			$Sprite.texture = load("res://textures/blocks2X/big_tree"+ isSnow+".png")
-			$Sprite.material = load("res://shaders/tree_shader.tres").duplicate(true)
-			$Sprite.material.set_shader_param("offset",position.x/8.0)
+			$Sprite2D.texture = load("res://textures/blocks/big_tree"+ isSnow+".png")
+			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
+			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
 			position.x += 0.5
 			position.y -= 23
 		6,7:
 			$CollisionShape2D.disabled = true
-			$Sprite.material = load("res://shaders/tree_shader.tres").duplicate(true)
-			$Sprite.material.set_shader_param("offset",position.x/8.0)
+			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
+			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
 		76:
 			$CollisionShape2D.disabled = true
-			$Sprite.texture = load("res://textures/blocks2X/exotic_tree1.png")
-			$Sprite.material = load("res://shaders/tree_shader.tres").duplicate(true)
-			$Sprite.material.set_shader_param("offset",position.x/8.0)
+			$Sprite2D.texture = load("res://textures/blocks/exotic_tree1.png")
+			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
+			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
 			position.y -= 21
 		11:
 			$CollisionShape2D.disabled = true
-			$Sprite.texture = load("res://textures/blocks2X/sapling.png")
-			$check.start(rand_range(120,600))
+			$Sprite2D.texture = load("res://textures/blocks/sapling.png")
+			$check.start(randf_range(120,600))
 		85:
 			$CollisionShape2D.disabled = true
-			$Sprite.texture = load("res://textures/blocks2X/exotic_sapling.png")
-			$check.start(rand_range(120,600))
+			$Sprite2D.texture = load("res://textures/blocks/exotic_sapling.png")
+			$check.start(randf_range(120,600))
 		20:
-			$Sprite.texture = load("res://textures/blocks2X/glass_atlas.png")
-			$Sprite.region_enabled = true
+			$Sprite2D.texture = load("res://textures/blocks/glass_atlas.png")
+			$Sprite2D.region_enabled = true
 		80:
-			$Sprite.texture = load("res://textures/blocks2X/wood_window_atlas.png")
-			$Sprite.region_enabled = true
+			$Sprite2D.texture = load("res://textures/blocks/wood_window_atlas.png")
+			$Sprite2D.region_enabled = true
 		81:
-			$Sprite.texture = load("res://textures/blocks2X/copper_window_atlas.png")
-			$Sprite.region_enabled = true
+			$Sprite2D.texture = load("res://textures/blocks/copper_window_atlas.png")
+			$Sprite2D.region_enabled = true
 		91:
-			if data.empty():
+			if data.is_empty():
 				data = []
 		117:
 			collision_layer = 32
-			$Sprite.modulate = Color("bb93ccfe")
+			$Sprite2D.modulate = Color("#93ccfebb")
 			update_water_texture()
 		119:
-			main.connect("weather_changed",self,"weather_changed")
+			main.connect("weather_changed", Callable(self, "weather_changed"))
 			if ["rain","showers","snow","blizzard"].has(main.currentWeather):
-				$check.start(rand_range(10,30))
+				$check.start(randf_range(10,30))
 		121,122,123:
 			position.y -= 3
 			$CollisionShape2D.disabled = true
-			$Sprite.material = load("res://shaders/tree_shader.tres").duplicate(true)
+			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 			var plant = {121:"wheat",122:"tomato",123:"corn"}[id]
 			if data.has("tick_wait"):
-				$Sprite.texture = load("res://textures/blocks2X/plants/"+ plant +"/" + plant + "_stage_" + str(data["plant_stage"]) + ".png")
+				$Sprite2D.texture = load("res://textures/blocks/plants/"+ plant +"/" + plant + "_stage_" + str(data["plant_stage"]) + ".png")
 				if data["plant_stage"] < 3:
 					$Tick.start()
 			else:
-				$Sprite.texture = load("res://textures/blocks2X/plants/"+ plant+"/"+ plant+"_stage_0.png")
-				data["tick_wait"] = int(rand_range(600,700))
+				$Sprite2D.texture = load("res://textures/blocks/plants/"+ plant+"/"+ plant+"_stage_0.png")
+				data["tick_wait"] = int(randf_range(600,700))
 				data["plant_stage"] = 0
 				$Tick.start()
 		128:
 			position.y -= 4
 			$CollisionShape2D.disabled = true
-			$Sprite.material = load("res://shaders/tree_shader.tres").duplicate(true)
+			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 		142:
 			$CollisionShape2D.disabled = true
-			$Sprite.texture = load("res://textures/blocks2X/posters/propaganda_poster1.png")
+			$Sprite2D.texture = load("res://textures/blocks/posters/propaganda_poster1.png")
 		143:
 			$CollisionShape2D.disabled = true
-			$Sprite.texture = load("res://textures/blocks2X/posters/propaganda_poster2.png")
+			$Sprite2D.texture = load("res://textures/blocks/posters/propaganda_poster2.png")
 
 func world_loaded():
 	on_update()
 
 func weather_changed(weather):
 	if ["rain","showers","snow","blizzard"].has(weather):
-		$check.start(rand_range(10,30))
+		$check.start(randf_range(10,30))
 
 func update_water_texture(noTop : bool = false):
 	if data["water_level"] > 0:
 		if world.get_block_id(pos-Vector2(0,1),layer) == 117 and !noTop:
-			$Sprite.texture = load("res://textures/blocks2X/water/water_bottom.png")
+			$Sprite2D.texture = load("res://textures/blocks/water/water_bottom.png")
 		else:
-			$Sprite.texture = load("res://textures/blocks2X/water/water_" + str(data["water_level"]) + ".png")
+			$Sprite2D.texture = load("res://textures/blocks/water/water_" + str(data["water_level"]) + ".png")
 
 func on_update():
 	if layer < 1:
@@ -123,10 +123,10 @@ func on_update():
 				for y in range(-1,2):
 					if abs(x) != abs(y):
 						if ![0,6,7,9,30].has(world.get_block_id(pos + Vector2(x,y),1)) and !$shade.has_node(str(x) + str(y)):
-							var shade = Sprite.new()
+							var shade = Sprite2D.new()
 							shade.texture = SHADE_TEX
 							shade.name = str(x) + str(y)
-							shade.rotation = deg2rad({Vector2(0,1):0,Vector2(-1,0):90,Vector2(0,-1):180,Vector2(1,0):270}[Vector2(x,y)])
+							shade.rotation = deg_to_rad({Vector2(0,1):0,Vector2(-1,0):90,Vector2(0,-1):180,Vector2(1,0):270}[Vector2(x,y)])
 							$shade.add_child(shade)
 						elif world.get_block_id(pos + Vector2(x,y),1) == 0 and $shade.has_node(str(x) + str(y)):
 							$shade.get_node(str(x) + str(y)).queue_free()
@@ -139,18 +139,18 @@ func on_update():
 					world.build_event("Break", pos, layer)
 			10:
 				if world.get_block_id(pos - Vector2(0,1),layer) == 10 or world.get_block_id(pos + Vector2(0,1),layer) == 10:
-					$Sprite.texture = load("res://textures/blocks2X/log_v.png")
+					$Sprite2D.texture = load("res://textures/blocks/log_v.png")
 				elif world.get_block_id(pos - Vector2(1,0),layer) == 10 or world.get_block_id(pos + Vector2(1,0),layer) == 10:
-					$Sprite.texture = load("res://textures/blocks2X/log_h.png")
+					$Sprite2D.texture = load("res://textures/blocks/log_h.png")
 				else:
-					$Sprite.texture = load("res://textures/blocks2X/log_front.png")
+					$Sprite2D.texture = load("res://textures/blocks/log_front.png")
 			77:
 				if world.get_block_id(pos - Vector2(0,1),layer) == 77 or world.get_block_id(pos + Vector2(0,1),layer) == 77:
-					$Sprite.texture = load("res://textures/blocks2X/exotic_log_v.png")
+					$Sprite2D.texture = load("res://textures/blocks/exotic_log_v.png")
 				elif world.get_block_id(pos - Vector2(1,0),layer) == 77 or world.get_block_id(pos + Vector2(1,0),layer) == 77:
-					$Sprite.texture = load("res://textures/blocks2X/exotic_log_h.png")
+					$Sprite2D.texture = load("res://textures/blocks/exotic_log_h.png")
 				else:
-					$Sprite.texture = load("res://textures/blocks2X/exotic_log_front.png")
+					$Sprite2D.texture = load("res://textures/blocks/exotic_log_front.png")
 			18,14:
 				if !falling and pos.y < world.worldSize.y -1:
 					if pos.y < world.worldSize.y - 1 and FALL_BLOCKS.has(world.get_block_id(pos + Vector2(0,1),layer)):
@@ -167,35 +167,35 @@ func on_update():
 							fallPos = pos + Vector2(-1,1)
 							$Tick.start()
 			30:
-				var textures = {[false,false]:"res://textures/blocks2X/platform_full.png",[false,true]:"res://textures/blocks2X/platform_left.png",[true,false]:"res://textures/blocks2X/platform_right.png",[true,true]:"res://textures/blocks2X/platform_mid.png"}
+				var textures = {[false,false]:"res://textures/blocks/platform_full.png",[false,true]:"res://textures/blocks/platform_left.png",[true,false]:"res://textures/blocks/platform_right.png",[true,true]:"res://textures/blocks/platform_mid.png"}
 				var around = [world.get_block_id(pos - Vector2(1,0),layer) == 30,world.get_block_id(pos + Vector2(1,0),layer) == 30]
-				$Sprite.texture = load(textures[around])
+				$Sprite2D.texture = load(textures[around])
 			20:
 				var sides = {"left":world.get_block_id(pos - Vector2(1,0),layer) == 20,"right":world.get_block_id(pos + Vector2(1,0),layer) == 20,"top":world.get_block_id(pos - Vector2(0,1),layer) == 20,"bottom":world.get_block_id(pos + Vector2(0,1),layer) == 20}
 				var sideEqual = {[true,true,true,true]:Vector2(16,8),[true,false,true,true]:Vector2(24,8),[false,true,true,true]:Vector2(8,8),[true,true,false,true]:Vector2(16,0),[true,true,true,false]:Vector2(16,16),[false,true,false,true]:Vector2(8,0),[false,true,true,false]:Vector2(8,16),[true,false,false,true]:Vector2(24,0),[true,false,true,false]:Vector2(24,16)}
 				if sideEqual.has(sides.values()):
-					$Sprite.region_rect.position = sideEqual[sides.values()]
+					$Sprite2D.region_rect.position = sideEqual[sides.values()]
 				else:
-					$Sprite.region_rect.position = Vector2(0,16)
+					$Sprite2D.region_rect.position = Vector2(0,16)
 			79,80:
 				var sides = get_sides(id)
 				if sides["top"] and sides["right"] and sides["rightTop"]:
-					$Sprite.region_rect.position = Vector2(0,8)
+					$Sprite2D.region_rect.position = Vector2(0,8)
 				elif sides["top"] and sides["left"] and sides["leftTop"] and !sides["right"]:
-					$Sprite.region_rect.position = Vector2(8,8)
+					$Sprite2D.region_rect.position = Vector2(8,8)
 				elif sides["right"] and sides["bottom"] and sides["bottomRight"] and !sides["top"]:
-					$Sprite.region_rect.position = Vector2(0,0)
+					$Sprite2D.region_rect.position = Vector2(0,0)
 				else:
-					$Sprite.region_rect.position = Vector2(8,0)
+					$Sprite2D.region_rect.position = Vector2(8,0)
 			81:
 				var sides = get_sides(81)
 				var sideToCheck = [sides["bottom"],sides["right"],sides["top"]]
 				var sideCheck = {[false,true,true]:Vector2(8,16),[true,true,true]:Vector2(8,8),[true,true,false]:Vector2(8,0),
 				[true,false,false]:Vector2(16,0),[true,false,true]:Vector2(16,8),[false,false,true]:Vector2(16,16)}
 				if sideCheck.has(sideToCheck):
-					$Sprite.region_rect.position = sideCheck[sideToCheck]
+					$Sprite2D.region_rect.position = sideCheck[sideToCheck]
 				else:
-					$Sprite.region_rect.position = Vector2(0,16)
+					$Sprite2D.region_rect.position = Vector2(0,16)
 			117:
 				var activate = false
 				var moves = [pos+Vector2(0,1),pos+Vector2(1,0),pos-Vector2(1,0)]
@@ -218,10 +218,10 @@ func on_update():
 					world.build_event("Break", pos, layer)
 				elif bottomBlock.id == 120:
 					if data["tick_wait"] <= 0 and data["plant_stage"] < 3:
-						data["tick_wait"] = int(rand_range(600,700))
+						data["tick_wait"] = int(randf_range(600,700))
 						$Tick.start()
 			128:
-				$Sprite.texture = load("res://textures/blocks2X/plants/fig_tree.png")
+				$Sprite2D.texture = load("res://textures/blocks/plants/fig_tree.png")
 				var bottomBlock = world.get_block_id(pos+Vector2(0,1),layer)
 				if ![1,2].has(bottomBlock):
 					world.build_event("Break", pos, layer)
@@ -233,7 +233,7 @@ func _on_Tick_timeout():
 	match id:
 		18,14:
 			if [18,14].has(world.get_block_id(pos+ Vector2(2,0),layer)) and world.get_block(pos+ Vector2(2,0),layer).falling:
-				yield(get_tree(),"idle_frame")
+				await get_tree().idle_frame
 			match world.get_block_id(fallPos,layer):
 				0:
 					world.set_block(fallPos,layer,id)
@@ -284,7 +284,7 @@ func _on_Tick_timeout():
 				world.set_block(pos+Vector2(0,1),layer,119)
 				$Tick.stop()
 				var plant = {121:"wheat",122:"tomato",123:"corn"}[id]
-				$Sprite.texture = load("res://textures/blocks2X/plants/"+ plant+"/"+ plant+"_stage_" + str(data["plant_stage"]) + ".png")
+				$Sprite2D.texture = load("res://textures/blocks/plants/"+ plant+"/"+ plant+"_stage_" + str(data["plant_stage"]) + ".png")
 
 func _on_VisibilityNotifier2D_screen_entered():
 	show()

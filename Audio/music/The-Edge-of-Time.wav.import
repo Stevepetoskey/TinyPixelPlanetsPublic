@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/The-Edge-of-Time.wav-7d700463a0cced4717e9b4065f5b3666.sample"
+type="AudioStreamWAV"
+uid="uid://b3txvqvkiih45"
+path="res://.godot/imported/The-Edge-of-Time.wav-7d700463a0cced4717e9b4065f5b3666.sample"
 
 [deps]
 
 source_file="res://Audio/music/The-Edge-of-Time.wav"
-dest_files=[ "res://.import/The-Edge-of-Time.wav-7d700463a0cced4717e9b4065f5b3666.sample" ]
+dest_files=["res://.godot/imported/The-Edge-of-Time.wav-7d700463a0cced4717e9b4065f5b3666.sample"]
 
 [params]
 

@@ -14,10 +14,10 @@ var inAir = false
 
 var goInDir = 0
 
-onready var player = get_node("../../../Player")
+@onready var player = get_node("../../../Player")
 
 func _ready():
-	$AnimatedSprite.play("Idle")
+	$AnimatedSprite2D.play("Idle")
 	maxHealth = 20
 	if new:
 		health = 20
@@ -31,16 +31,16 @@ func _physics_process(delta):
 		if position.distance_to(player.position) <= 64:
 			var space_state = get_world_2d().direct_space_state
 			var result = space_state.intersect_ray(global_position, player.global_position,[self],3)
-			if !result.empty() and result.collider == player:
+			if !result.is_empty() and result.collider == player:
 				if !seePlayer:
 					$seeTimer.stop()
 					lostPlayer = false
 	#				seePlayer = true
 	#				seenPos = player.position
 					$Seen.show()
-					$AnimatedSprite.play("Seen")
-					yield(get_tree().create_timer(1),"timeout")
-					$AnimatedSprite.play("Chasing")
+					$AnimatedSprite2D.play("Seen")
+					await get_tree().create_timer(1).timeout
+					$AnimatedSprite2D.play("Chasing")
 					$Seen.hide()
 				seePlayer = true
 				seenPos = player.position
@@ -60,13 +60,16 @@ func _physics_process(delta):
 					motion.x = move_toward(motion.x,MAX_SPEED*goInDir,ACCEL)
 				else:
 					motion.x = move_toward(motion.x,0,ACCEL/2.0)
-		$AnimatedSprite.rotation_degrees += goInDir * 4
-		motion = move_and_slide(motion,Vector2(0,-1))
+		$AnimatedSprite2D.rotation_degrees += goInDir * 4
+		set_velocity(motion)
+		set_up_direction(Vector2(0,-1))
+		move_and_slide()
+		motion = velocity
 
 func _on_seeTimer_timeout():
 	seePlayer = false
 	lostPlayer = false
-	$AnimatedSprite.play("Idle")
+	$AnimatedSprite2D.play("Idle")
 
 func _on_HitBox_body_entered(body):
 	body.damage(2)

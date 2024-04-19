@@ -4,12 +4,12 @@ const COMPLETED = preload("res://textures/GUI/GlobalGUI/Ach_completed.png")
 const UNLOCKED = preload("res://textures/GUI/GlobalGUI/Ach_shown.png")
 const LOCKED = preload("res://textures/GUI/GlobalGUI/Ach_unkown.png")
 
-export var id : String
+@export var id : String
 
-onready var main = $"../../../.."
+@onready var main = $"../../../.."
 
 func _ready():
-	main.connect("update_achievements",self,"update_ach")
+	main.connect("update_achievements", Callable(self, "update_ach"))
 
 func update_ach(list):
 	$Icon.show()

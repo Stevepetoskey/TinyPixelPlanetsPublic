@@ -12,9 +12,9 @@ var musicRng = RandomNumberGenerator.new()
 
 func _ready():
 	musicRng.seed = randi()
-	StarSystem.connect("leaving_system",self,"leaving_system")
-	StarSystem.connect("entering_system",self,"entering_system")
-	Global.connect("saved_settings",self,"update_volume")
+	StarSystem.connect("leaving_system", Callable(self, "leaving_system"))
+	StarSystem.connect("entering_system", Callable(self, "entering_system"))
+	Global.connect("saved_settings", Callable(self, "update_volume"))
 
 func update_volume():
 	print("volume change", Global.settings["music"])
@@ -38,14 +38,14 @@ func change_mode(type : String):
 
 func leaving_system():
 	$Music/AnimationPlayer.play("vol_down")
-	yield($Music/AnimationPlayer,"animation_finished")
+	await $Music/AnimationPlayer.animation_finished
 	currentMusic = "space"
 	update_music()
 	$Music/AnimationPlayer.play("vol_up")
 
 func entering_system():
 	$Music/AnimationPlayer.play("vol_down")
-	yield($Music/AnimationPlayer,"animation_finished")
+	await $Music/AnimationPlayer.animation_finished
 	currentMusic = "regular"
 	update_music()
 	$Music/AnimationPlayer.play("vol_up")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://textures/planets/desertMedium.png" type="Texture" id=1]
+[ext_resource path="res://textures/planets/desertMedium.png" type="Texture2D" id=1]
 [ext_resource path="res://scripts/enviroment/PlanetShadeTop.gd" type="Script" id=2]
 
 [sub_resource type="VisualShaderNodeTexture" id=1]
@@ -51,7 +51,7 @@ material = SubResource( 5 )
 radius = 0.5
 height = 1.0
 
-[sub_resource type="SpatialMaterial" id=8]
+[sub_resource type="StandardMaterial3D" id=8]
 flags_transparent = true
 flags_unshaded = true
 params_billboard_mode = 1
@@ -60,20 +60,20 @@ albedo_texture = ExtResource( 1 )
 [sub_resource type="QuadMesh" id=9]
 material = SubResource( 8 )
 
-[node name="Spatial" type="Spatial"]
+[node name="Node3D" type="Node3D"]
 script = ExtResource( 2 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource( 6 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.06626 )
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.06626 )
 light_energy = 5.0
 
-[node name="MeshInstance2" type="MeshInstance" parent="."]
+[node name="MeshInstance2" type="MeshInstance3D" parent="."]
 visible = false
 mesh = SubResource( 9 )
 
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( -1, 8.74228e-08, 0, 3.82137e-15, 4.37114e-08, 1, 8.74228e-08, 1, -4.37114e-08, 0, 0.883, 0 )
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D( -1, 8.74228e-08, 0, 3.82137e-15, 4.37114e-08, 1, 8.74228e-08, 1, -4.37114e-08, 0, 0.883, 0 )
 current = true
