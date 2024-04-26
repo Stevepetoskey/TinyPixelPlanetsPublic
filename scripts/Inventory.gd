@@ -34,7 +34,7 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel") and visible:
-		await get_tree().idle_frame
+		await get_tree().process_frame
 		inventoryToggle(false,false,"close")
 	if Input.is_action_just_pressed("Inventory") and !Global.pause:
 		inventoryToggle()

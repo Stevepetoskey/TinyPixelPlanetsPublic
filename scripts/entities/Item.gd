@@ -39,6 +39,6 @@ func _on_Area2D_body_entered(body):
 			for i in range(time):
 				position = lerp(ogPos,body.position,i/time)
 				modulate = lerp(Color(1,1,1,1),Color(1,1,1,0),i/time)
-				await get_tree().idle_frame
+				await get_tree().process_frame
 			inventory.add_to_inventory(data["id"],data["amount"])
 			queue_free()

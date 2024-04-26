@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dwo74loecao6y" path="res://textures/GUI/Menu/Buttons.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://docmqdn1y13fp" path="res://textures/GUI/Blank.png" id="8"]
 [ext_resource type="Texture2D" uid="uid://ctqqpunkiehke" path="res://textures/GUI/Menu/save_bg.png" id="9"]
-[ext_resource type="PackedScene" path="res://assets/saveSelect.tscn" id="10"]
+[ext_resource type="PackedScene" uid="uid://b7dx4acdm24vr" path="res://assets/saveSelect.tscn" id="10"]
 [ext_resource type="Script" path="res://scripts/menu/loadSave.gd" id="11"]
 [ext_resource type="AudioStream" uid="uid://cpmnltfnbjm8v" path="res://Audio/music/TinyPlanets.ogg" id="12"]
 [ext_resource type="Texture2D" uid="uid://fvhpuf5gfvjs" path="res://textures/GUI/Menu/MenuCharacter.png" id="13"]

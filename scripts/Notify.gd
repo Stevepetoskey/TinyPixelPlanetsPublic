@@ -18,7 +18,7 @@ func move(x):
 	var smooth : float = 50.0
 	for i in range(smooth):
 		position.x = lerp(og,x,i/smooth)
-		await get_tree().idle_frame
+		await get_tree().process_frame
 	position.x = x
 
 func _on_Timer_timeout():

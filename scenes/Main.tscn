@@ -1,4 +1,4 @@
-[gd_scene load_steps=187 format=3 uid="uid://2c07adgn0vow"]
+[gd_scene load_steps=186 format=3 uid="uid://2c07adgn0vow"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c3rmyuwb7gd3m" path="res://textures/enviroment/sky.png" id="2"]
@@ -15,14 +15,13 @@
 [ext_resource type="Texture2D" uid="uid://docmqdn1y13fp" path="res://textures/GUI/Blank.png" id="13"]
 [ext_resource type="Texture2D" uid="uid://dwo74loecao6y" path="res://textures/GUI/Menu/Buttons.png" id="14"]
 [ext_resource type="Texture2D" uid="uid://bdy3c4crcwfy1" path="res://textures/GUI/main/Blues.png" id="15"]
-[ext_resource type="PackedScene" path="res://assets/Player.tscn" id="16"]
+[ext_resource type="PackedScene" uid="uid://c0cgbwp6g0r8h" path="res://assets/Player.tscn" id="16"]
 [ext_resource type="Texture2D" uid="uid://b54ippjho2bff" path="res://textures/GUI/main/hotbar/bars.png" id="17"]
 [ext_resource type="Script" path="res://scripts/Sky.gd" id="18"]
 [ext_resource type="Script" path="res://scripts/enviroment/Space.gd" id="19"]
 [ext_resource type="Texture2D" uid="uid://dhnnswc6ucpvg" path="res://textures/enviroment/backgrounds/terra_front.png" id="20"]
 [ext_resource type="Script" path="res://scripts/Enviroment.gd" id="21"]
 [ext_resource type="Texture2D" uid="uid://kusgl6ud38f6" path="res://textures/enviroment/backgrounds/terra_back.png" id="22"]
-[ext_resource type="Texture2D" uid="uid://dmo7103cohqqo" path="res://textures/planets/gas3.png" id="23"]
 [ext_resource type="Texture2D" uid="uid://cg77ke3bvhhcj" path="res://textures/GUI/space/v_bar_handle_select.png" id="24"]
 [ext_resource type="Script" path="res://scripts/ArmorSlot.gd" id="25"]
 [ext_resource type="AudioStream" uid="uid://05eoqqltljlt" path="res://Audio/sfx/Ambience/mixkit-spring-forest-with-woodpeckers-1217.wav" id="26"]
@@ -50,7 +49,7 @@
 [ext_resource type="Texture2D" uid="uid://bu4jjvitxquwi" path="res://textures/enviroment/space-3.png" id="48"]
 [ext_resource type="Script" path="res://scripts/Dead.gd" id="49"]
 [ext_resource type="FontFile" path="res://fonts/pixelHeader.tres" id="50"]
-[ext_resource type="FastNoiseLite" path="res://noise/Main.tres" id="51"]
+[ext_resource type="FastNoiseLite" uid="uid://bp77i8xjxs5di" path="res://noise/Main.tres" id="51"]
 [ext_resource type="Script" path="res://scripts/Chest.gd" id="52"]
 [ext_resource type="PackedScene" path="res://assets/ChestBtn.tscn" id="53"]
 [ext_resource type="Texture2D" uid="uid://d380irrpct8nn" path="res://textures/GUI/main/hotbar/hotbar2.png" id="54"]
@@ -2145,7 +2144,6 @@ position = Vector2(120, 120)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("48")
 script = ExtResource("19")
-starAmount = 0
 
 [node name="SkyLayer" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
 motion_scale = Vector2(0, 0)
@@ -2160,12 +2158,6 @@ layer = -90
 [node name="Sky" type="Node2D" parent="CanvasLayer/ParallaxBackground2"]
 position = Vector2(120, 120)
 script = ExtResource("18")
-
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/ParallaxBackground2/Sky"]
-visible = false
-modulate = Color(2, 2, 2, 1)
-position = Vector2(-48, -156)
-texture = ExtResource("23")
 
 [node name="StormLayer" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground2"]
 z_index = 1
@@ -2239,6 +2231,8 @@ offset_left = -49.0
 offset_top = -27.0
 offset_right = 49.0
 offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 0
 mouse_filter = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/Oxygen"]
@@ -2665,6 +2659,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -116.0
 offset_top = -141.0
+grow_horizontal = 0
+grow_vertical = 0
 script = ExtResource("11")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Crafting"]
@@ -2714,6 +2710,8 @@ layout_mode = 2
 visible = false
 layout_mode = 3
 anchors_preset = 15
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Chest" type="Control" parent="CanvasLayer"]
 visible = false
@@ -2725,6 +2723,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -116.0
 offset_top = -141.0
+grow_horizontal = 0
+grow_vertical = 0
 script = ExtResource("52")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Chest"]
@@ -2775,6 +2775,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -116.0
 offset_top = -141.0
+grow_horizontal = 0
+grow_vertical = 0
 script = ExtResource("86")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Shop"]
@@ -2893,6 +2895,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("49")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Dead"]
@@ -2969,6 +2973,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 
 [node name="Commands" type="LineEdit" parent="CanvasLayer"]

@@ -1,75 +1,64 @@
-[gd_resource type="ShaderMaterial" load_steps=7 format=2]
+[gd_resource type="ShaderMaterial" load_steps=7 format=3 uid="uid://b0cfwt3adu6m2"]
 
-[ext_resource path="res://textures/planets/desertMedium.png" type="Texture2D" id=1]
+[ext_resource type="Texture2D" uid="uid://dqf4raeij36ws" path="res://textures/planets/desertMedium.png" id="1"]
 
-[sub_resource type="VisualShaderNodeTexture" id=1]
-texture = ExtResource( 1 )
+[sub_resource type="VisualShaderNodeTexture" id="1"]
+texture = ExtResource("1")
 
-[sub_resource type="VisualShaderNodeTexture" id=2]
+[sub_resource type="VisualShaderNodeTexture" id="2"]
 source = 1
 
-[sub_resource type="VisualShaderNodeInput" id=3]
+[sub_resource type="VisualShaderNodeInput" id="3"]
 input_name = "screen_uv"
 
-[sub_resource type="VisualShaderNodeVectorOp" id=4]
+[sub_resource type="VisualShaderNodeVectorOp" id="4"]
 operator = 2
 
-[sub_resource type="VisualShader" id=5]
+[sub_resource type="VisualShader" id="5"]
 code = "shader_type spatial;
-render_mode specular_schlick_ggx, async_visible;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
 
 uniform sampler2D tex_frg_2;
+uniform sampler2D screen_tex_frg_3 : hint_screen_texture;
 
 
-
-void vertex() {
-// Output:0
-
-}
 
 void fragment() {
-// Texture:2
-	vec4 tex_frg_2_read = texture(tex_frg_2, UV.xy);
-	vec3 n_out2p0 = tex_frg_2_read.rgb;
-	float n_out2p1 = tex_frg_2_read.a;
+// Texture2D:2
+	vec4 n_out2p0 = texture(tex_frg_2, UV);
+
 
 // Input:4
-	vec3 n_out4p0 = vec3(SCREEN_UV, 0.0);
+	vec2 n_out4p0 = SCREEN_UV;
 
-// Texture:3
-	vec3 n_out3p0;
-	float n_out3p1;
-	{
-		vec4 _tex_read = textureLod(SCREEN_TEXTURE, n_out4p0.xy, 0.0);
-		n_out3p0 = _tex_read.rgb;
-		n_out3p1 = _tex_read.a;
-	}
+
+	vec4 n_out3p0;
+// Texture2D:3
+	n_out3p0 = texture(screen_tex_frg_3, n_out4p0);
+
 
 // VectorOp:5
-	vec3 n_out5p0 = n_out2p0 * n_out3p0;
+	vec3 n_out5p0 = vec3(n_out2p0.xyz) * vec3(n_out3p0.xyz);
+
 
 // Output:0
 	ALBEDO = n_out5p0;
-	ALPHA = n_out2p1;
 
-}
-
-void light() {
-// Output:0
 
 }
 "
-graph_offset = Vector2( -582.55, 58.475 )
-nodes/vertex/0/position = Vector2( 400, 160 )
-nodes/fragment/2/node = SubResource( 1 )
-nodes/fragment/2/position = Vector2( -340, 100 )
-nodes/fragment/3/node = SubResource( 2 )
-nodes/fragment/3/position = Vector2( -340, 560 )
-nodes/fragment/4/node = SubResource( 3 )
-nodes/fragment/4/position = Vector2( -760, 660 )
-nodes/fragment/5/node = SubResource( 4 )
-nodes/fragment/5/position = Vector2( 26.8999, 584.95 )
-nodes/fragment/connections = PackedInt32Array( 2, 1, 0, 1, 4, 0, 3, 0, 2, 0, 5, 0, 3, 0, 5, 1, 5, 0, 0, 0 )
+graph_offset = Vector2(-290.08, -54.5418)
+nodes/vertex/0/position = Vector2(400, 160)
+nodes/fragment/2/node = SubResource("1")
+nodes/fragment/2/position = Vector2(-680, 20)
+nodes/fragment/3/node = SubResource("2")
+nodes/fragment/3/position = Vector2(-340, 560)
+nodes/fragment/4/node = SubResource("3")
+nodes/fragment/4/position = Vector2(-760, 660)
+nodes/fragment/5/node = SubResource("4")
+nodes/fragment/5/position = Vector2(26.8999, 584.95)
+nodes/fragment/connections = PackedInt32Array(4, 0, 3, 0, 2, 0, 5, 0, 3, 0, 5, 1, 5, 0, 0, 0)
 
 [resource]
-shader = SubResource( 5 )
+render_priority = 0
+shader = SubResource("5")

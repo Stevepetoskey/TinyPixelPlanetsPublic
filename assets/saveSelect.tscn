@@ -1,57 +1,61 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://b7dx4acdm24vr"]
 
-[ext_resource path="res://textures/GUI/Menu/Buttons.png" type="Texture2D" id=1]
-[ext_resource path="res://fonts/pixelSmall.tres" type="FontFile" id=2]
-[ext_resource path="res://scripts/menu/saveSelect.gd" type="Script" id=3]
-[ext_resource path="res://fonts/pixel.tres" type="FontFile" id=4]
-[ext_resource path="res://textures/GUI/Menu/empty_icon.png" type="Texture2D" id=5]
+[ext_resource type="Texture2D" uid="uid://dwo74loecao6y" path="res://textures/GUI/Menu/Buttons.png" id="1"]
+[ext_resource type="FontFile" path="res://fonts/pixelSmall.tres" id="2"]
+[ext_resource type="Script" path="res://scripts/menu/saveSelect.gd" id="3"]
+[ext_resource type="FontFile" path="res://fonts/pixel.tres" id="4"]
+[ext_resource type="Texture2D" uid="uid://dh3bsb5krtaop" path="res://textures/GUI/Menu/empty_icon.png" id="5"]
 
-[sub_resource type="AtlasTexture" id=1]
-atlas = ExtResource( 1 )
-region = Rect2( 73, 24, 79, 27 )
+[sub_resource type="AtlasTexture" id="1"]
+atlas = ExtResource("1")
+region = Rect2(73, 24, 79, 27)
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 1 )
-region = Rect2( 152, 24, 29, 27 )
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("1")
+region = Rect2(152, 24, 29, 27)
 
 [node name="saveSelect" type="TextureButton"]
 offset_right = 79.0
 offset_bottom = 27.0
-texture_normal = SubResource( 1 )
-script = ExtResource( 3 )
+texture_normal = SubResource("1")
+script = ExtResource("3")
 
 [node name="delete" type="TextureButton" parent="."]
+layout_mode = 0
 offset_left = 79.0
 offset_right = 108.0
 offset_bottom = 27.0
-texture_normal = SubResource( 2 )
+texture_normal = SubResource("2")
 
 [node name="Label" type="Label" parent="."]
+layout_mode = 0
 offset_left = 22.0
 offset_top = 3.0
 offset_right = 79.0
 offset_bottom = 11.0
-theme_override_fonts/font = ExtResource( 4 )
+theme_override_fonts/font = ExtResource("4")
 text = "SAVE 1"
 clip_text = true
 
 [node name="stats" type="Label" parent="."]
+layout_mode = 0
 offset_left = 22.0
 offset_top = 10.0
 offset_right = 78.0
 offset_bottom = 24.0
-theme_override_colors/font_color = Color( 0.768627, 0.768627, 0.768627, 1 )
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_colors/font_color = Color(0.768627, 0.768627, 0.768627, 1)
+theme_override_fonts/font = ExtResource("2")
 text = "EMPTY"
 uppercase = true
 
 [node name="Icon" type="TextureRect" parent="."]
+layout_mode = 0
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 2.0
 offset_top = -9.5
 offset_right = 21.0
 offset_bottom = 9.5
-texture = ExtResource( 5 )
+texture = ExtResource("5")
 
 [connection signal="pressed" from="delete" to="." method="_on_delete_pressed"]

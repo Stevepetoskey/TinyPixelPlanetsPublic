@@ -27,7 +27,7 @@ func _on_Quit_pressed():
 			Global.save(type,$"../..".get_save_data())
 		"galaxy":
 			Global.save(type,{})
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	$Black/AnimationPlayer.play("fadeIn")
 	await $Black/AnimationPlayer.animation_finished
 	var _er = get_tree().change_scene_to_file("res://scenes/Menu.tscn")

@@ -233,8 +233,9 @@ func swing(item):
 		swingingWith = item
 		if world.itemData[item]["type"] == "weapon":
 			for enemy in entities.get_node("Hold").get_children():
-				var space_state = get_world_2d().direct_space_state
-				var result = space_state.intersect_ray(position, enemy.position, [self], 1)
+				var space_state = get_world_2d().direct_space_state #Ray to make sure no blocks in the way
+				var params = PhysicsRayQueryParameters2D.create(position,enemy.position,1,[self])
+				var result = space_state.intersect_ray(params)
 				if result.is_empty() and position.distance_to(enemy.position) < world.itemData[swingingWith]["range"] and sign(enemy.position.x - position.x) == sign(get_global_mouse_position().x - position.x):
 					enemy.damage(world.itemData[swingingWith]["dmg"])
 

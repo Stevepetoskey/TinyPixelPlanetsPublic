@@ -15,7 +15,7 @@ func _ready():
 	if Global.playerData["save_type"] == "system":
 		$ship.position = Global.playerData["pos"]
 	elif Global.currentPlanet != -1:
-		await get_tree().idle_frame
+		await get_tree().process_frame
 		print("currentPlanet: ",Global.currentPlanet)
 		var currentPlanet = StarSystem.find_planet_id(Global.currentPlanet,true)
 		var radius = StarSystem.sizeData[currentPlanet.type["size"]]["radius"]
@@ -37,7 +37,7 @@ func load_system():
 		child.queue_free()
 	for child in $stars.get_children():
 		child.hide()
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	$stars.get_node(StarSystem.currentStar).show()
 	var planets = StarSystem.get_system_bodies()
 	for planet in planets:

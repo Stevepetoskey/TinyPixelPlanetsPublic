@@ -22,7 +22,7 @@ func _on_Respawn_pressed():
 	player.health = player.maxHealth
 	player.oxygen = player.maxOxygen
 	Global.save("planet",world.get_world_data())
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	StarSystem.land(Global.starterPlanetId)
 
 func _on_Quit_pressed():

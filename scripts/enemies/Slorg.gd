@@ -12,6 +12,7 @@ var motion = Vector2(0,0)
 var inAir = false
 
 @onready var player = get_node("../../../Player")
+@onready var body: AnimatedSprite2D = $Body
 
 func _ready():
 	maxHealth = 10
@@ -22,11 +23,12 @@ func _physics_process(delta):
 	if !Global.pause:
 		$Label.text = state
 		if !is_on_floor() and state != "attack":
-			$AnimatedSprite2D.playing = false
+			body.stop()
 			state = "falling"
 		if position.distance_to(player.position) <= 64 and is_on_floor():
 			var space_state = get_world_2d().direct_space_state
-			var result = space_state.intersect_ray(global_position, player.global_position,[self],3)
+			var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self])
+			var result = space_state.intersect_ray(params)
 			if result.collider == player:
 				if !seePlayer:
 					$seeTimer.stop()
@@ -41,15 +43,15 @@ func _physics_process(delta):
 			elif seePlayer and !lostPlayer:
 				lostPlayer = true
 				$seeTimer.start()
-		if !$AnimatedSprite2D.playing or state == "attack":
+		if !body.is_playing() or state == "attack":
 			match state:
 				"roam":
 					if randi()%100 == 1 or seePlayer:
-						$AnimatedSprite2D.play("hop")
+						body.play("hop")
 				"falling":
 					if is_on_floor():
 						inAir = false
-						$AnimatedSprite2D.play("land")
+						body.play("land")
 						motion = Vector2(0,0)
 					else:
 						motion.y += GRAVITY
@@ -62,7 +64,7 @@ func _physics_process(delta):
 						inAir = true
 					elif inAir:
 						inAir = false
-						$AnimatedSprite2D.play("land")
+						body.play("land")
 						motion = Vector2(0,0)
 						state = "roam"
 					else:
@@ -80,9 +82,9 @@ func _physics_process(delta):
 
 
 func _on_AnimatedSprite_animation_finished():
-	$AnimatedSprite2D.playing = false
+	body.stop()
 	if state != "attack":
-		match $AnimatedSprite2D.animation:
+		match body.animation:
 			"hop":
 				var dir
 				var nextState = "jump" if position.distance_to(player.position) >= MAX_SPEED else "attack"
@@ -94,7 +96,7 @@ func _on_AnimatedSprite_animation_finished():
 				inAir = true
 				state = nextState
 				if state == "attack":
-					$AnimatedSprite2D.play("attack")
+					body.play("attack")
 					motion.y -= JUMPSPEED/2.0
 					set_velocity(motion)
 					set_up_direction(Vector2(0,-1))

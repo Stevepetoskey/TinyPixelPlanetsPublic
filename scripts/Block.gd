@@ -233,7 +233,7 @@ func _on_Tick_timeout():
 	match id:
 		18,14:
 			if [18,14].has(world.get_block_id(pos+ Vector2(2,0),layer)) and world.get_block(pos+ Vector2(2,0),layer).falling:
-				await get_tree().idle_frame
+				await get_tree().process_frame
 			match world.get_block_id(fallPos,layer):
 				0:
 					world.set_block(fallPos,layer,id)

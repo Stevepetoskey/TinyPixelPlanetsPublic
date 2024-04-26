@@ -1,79 +1,19 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://dptelr8pr6kt6"]
 
-[ext_resource path="res://textures/planets/desertMedium.png" type="Texture2D" id=1]
-[ext_resource path="res://scripts/PlanetShade.gd" type="Script" id=2]
+[ext_resource type="Script" path="res://scripts/PlanetShade.gd" id="2"]
 
-[sub_resource type="VisualShaderNodeTexture" id=1]
-source = 1
-
-[sub_resource type="VisualShaderNodeTexture" id=2]
-source = 5
-
-[sub_resource type="VisualShaderNodeInput" id=3]
-input_name = "uv"
-
-[sub_resource type="VisualShader" id=4]
-code = "shader_type spatial;
-render_mode specular_schlick_ggx, async_visible;
-
-
-
-
-void vertex() {
-// Output:0
-
-}
-
-void fragment() {
-// Output:0
-
-}
-
-void light() {
-// Output:0
-
-}
-"
-graph_offset = Vector2( -470.275, -18.7375 )
-nodes/fragment/0/position = Vector2( 640, 20 )
-nodes/fragment/2/node = SubResource( 1 )
-nodes/fragment/2/position = Vector2( -460, 240 )
-nodes/fragment/3/node = SubResource( 2 )
-nodes/fragment/3/position = Vector2( -360, 500 )
-nodes/fragment/4/node = SubResource( 3 )
-nodes/fragment/4/position = Vector2( -220, 80 )
-
-[sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 4 )
-
-[sub_resource type="SphereMesh" id=6]
-material = SubResource( 5 )
-radius = 0.5
-height = 1.0
-
-[sub_resource type="StandardMaterial3D" id=8]
-flags_transparent = true
-flags_unshaded = true
-params_billboard_mode = 1
-albedo_texture = ExtResource( 1 )
-
-[sub_resource type="QuadMesh" id=9]
-material = SubResource( 8 )
+[sub_resource type="SphereMesh" id="6"]
 
 [node name="Node3D" type="Node3D"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource( 6 )
+mesh = SubResource("6")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.06626 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.06626)
 light_energy = 5.0
 
-[node name="MeshInstance2" type="MeshInstance3D" parent="."]
-visible = false
-mesh = SubResource( 9 )
-
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.883, 0, 0 )
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.883, 0, 0)
 current = true

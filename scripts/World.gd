@@ -261,7 +261,7 @@ func start_world():
 	get_node("../CanvasLayer/ParallaxBackground2/Sky").init_sky()
 	worldLoaded = true
 	get_node("../CanvasLayer/Black/AnimationPlayer").play("fadeOut")
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	emit_signal("update_blocks")
 	Global.gameStart = false
 	inventory.update_inventory()
@@ -276,7 +276,7 @@ func generateWorld(worldType : String):
 		worldNoise = load("res://noise/Main.tres")
 	worldNoise.seed = worldSeed
 	var copperOre = FastNoiseLite.new()
-	copperOre.seed = worldSeed;copperOre.period = 2;copperOre.persistence = 0.5;copperOre.lacunarity = 2
+	copperOre.seed = worldSeed
 	match worldType:
 		"terra":
 			var seaLevel = 50

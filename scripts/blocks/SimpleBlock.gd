@@ -34,6 +34,7 @@ func on_update():
 							$shade.get_node(str(x) + str(y)).queue_free()
 
 func _on_VisibilityNotifier2D_screen_entered():
+	print("Show thyself")
 	show()
 
 func _on_VisibilityNotifier2D_screen_exited():

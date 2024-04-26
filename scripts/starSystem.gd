@@ -182,7 +182,7 @@ signal start_meteors
 func start_game():
 	print("---start game---")
 	if Global.new:
-		new()
+		new_game()
 		await self.found_system
 		Global.currentPlanet = find_planet("type","terra").id
 		Global.starterPlanetId = Global.currentPlanet
@@ -247,7 +247,7 @@ func leave_star_system():
 	var _er = get_tree().change_scene_to_file("res://scenes/Galaxy.tscn")
 	print("Leaving system ",Global.currentSystem)
 
-func new():
+func new_game():
 	visitedPlanets.clear()
 	var foundSeed = false
 	while !foundSeed:
@@ -265,7 +265,7 @@ func new():
 			print(seedX)
 			print(seedY)
 			new_system(int(seedX + seedY + str(i)))
-			await get_tree().idle_frame
+			await get_tree().process_frame
 			if search_system("type").has("terra"):
 				foundSeed = true
 				Global.currentSystem = currentSeed
@@ -291,7 +291,7 @@ func load_system(entering = false):
 		for child in $system.get_children():
 			child.queue_free()
 			$system.remove_child(child)
-		await get_tree().idle_frame
+		await get_tree().process_frame
 		currentStarName = systemDat["system_name"]
 		currentSeed = systemDat["system_seed"]
 		currentStar = systemDat["star_type"]

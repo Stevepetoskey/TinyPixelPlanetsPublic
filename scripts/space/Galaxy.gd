@@ -8,7 +8,6 @@ const SECTOR_STAR_RANGE = [40,60]
 var selectedSystem = null
 var moving = false
 
-@onready var warp: Tween = $Tweens/Warp
 
 func _ready():
 	Global.playerData["save_type"] = "galaxy"
@@ -94,11 +93,9 @@ func warp(systemId : String, planetId : int):
 	moving = true
 	var sectorCoords = system_seed_to_pos(systemId)
 	load_sector(sectorCoords)
-	warp.interpolate_property($GalaxyView, "position",
-		$GalaxyView.position, find_system_id(systemId,sectorCoords).get_global_rect().position, 2,
-		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	warp.start()
-	await warp.tween_completed
+	var tween = get_tree().create_tween()
+	tween.tween_property($GalaxyView,"position",find_system_id(systemId,sectorCoords).get_global_rect().position,2).set_ease(Tween.EASE_IN_OUT)
+	await tween.finished
 	$AnimationPlayer.play("selected")
 	await $AnimationPlayer.animation_finished
 	GlobalGui.complete_achievement("Interstellar")
@@ -126,7 +123,7 @@ func system_pressed(system):
 				$Line.rotation = rad_to_deg($Line.position.angle_to_point($Selected.position + Vector2(10.5,10.5))) + 90
 				$Line.size.y = $Line.position.distance_to($Selected.position + Vector2(10.5,10.5))
 				$GalaxyView.position = $Line.position
-				await get_tree().idle_frame
+				await get_tree().process_frame
 			$CurrentSelector.position = $Selected.position
 			$AnimationPlayer.play("selected")
 			moving = false

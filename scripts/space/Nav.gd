@@ -60,6 +60,6 @@ func _on_Tab_toggled(button_pressed):
 	$Tab.disabled = true
 	for x in range(pos[!button_pressed],pos[button_pressed],1 if button_pressed else -1):
 		position.x = x
-		await get_tree().idle_frame
+		await get_tree().process_frame
 	position.x = pos[button_pressed]
 	$Tab.disabled = false

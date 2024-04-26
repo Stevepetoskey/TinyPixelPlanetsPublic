@@ -15,9 +15,11 @@ var inAir = false
 var goInDir = 0
 
 @onready var player = get_node("../../../Player")
+@onready var body: AnimatedSprite2D = $Body
+@onready var seen: Sprite2D = $Seen
 
 func _ready():
-	$AnimatedSprite2D.play("Idle")
+	body.play("Idle")
 	maxHealth = 20
 	if new:
 		health = 20
@@ -30,18 +32,19 @@ func _physics_process(delta):
 			motion.y += GRAVITY
 		if position.distance_to(player.position) <= 64:
 			var space_state = get_world_2d().direct_space_state
-			var result = space_state.intersect_ray(global_position, player.global_position,[self],3)
+			var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self])
+			var result = space_state.intersect_ray(params)
 			if !result.is_empty() and result.collider == player:
 				if !seePlayer:
 					$seeTimer.stop()
 					lostPlayer = false
 	#				seePlayer = true
 	#				seenPos = player.position
-					$Seen.show()
-					$AnimatedSprite2D.play("Seen")
+					seen.show()
+					body.play("Seen")
 					await get_tree().create_timer(1).timeout
-					$AnimatedSprite2D.play("Chasing")
-					$Seen.hide()
+					body.play("Chasing")
+					seen.hide()
 				seePlayer = true
 				seenPos = player.position
 			elif seePlayer and !lostPlayer:
@@ -60,7 +63,7 @@ func _physics_process(delta):
 					motion.x = move_toward(motion.x,MAX_SPEED*goInDir,ACCEL)
 				else:
 					motion.x = move_toward(motion.x,0,ACCEL/2.0)
-		$AnimatedSprite2D.rotation_degrees += goInDir * 4
+		body.rotation_degrees += goInDir * 4
 		set_velocity(motion)
 		set_up_direction(Vector2(0,-1))
 		move_and_slide()
@@ -69,7 +72,7 @@ func _physics_process(delta):
 func _on_seeTimer_timeout():
 	seePlayer = false
 	lostPlayer = false
-	$AnimatedSprite2D.play("Idle")
+	body.play("Idle")
 
 func _on_HitBox_body_entered(body):
 	body.damage(2)

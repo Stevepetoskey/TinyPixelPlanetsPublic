@@ -1,73 +1,97 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=13 format=3 uid="uid://ci6okejt3egym"]
 
-[ext_resource path="res://textures/enemies/space_squid/space_squid5.png" type="Texture2D" id=1]
-[ext_resource path="res://textures/enemies/space_squid/space_squid2.png" type="Texture2D" id=2]
-[ext_resource path="res://textures/enemies/space_squid/space_squid1.png" type="Texture2D" id=3]
-[ext_resource path="res://scripts/enemies/Space_squid.gd" type="Script" id=4]
-[ext_resource path="res://textures/enemies/space_squid/space_squid4.png" type="Texture2D" id=5]
-[ext_resource path="res://textures/enemies/space_squid/space_squid3.png" type="Texture2D" id=6]
-[ext_resource path="res://textures/enemies/space_squid/space_squid_hurt.png" type="Texture2D" id=7]
-[ext_resource path="res://textures/enemies/seen.png" type="Texture2D" id=9]
-[ext_resource path="res://fonts/pixel.tres" type="FontFile" id=10]
+[ext_resource type="Texture2D" uid="uid://bm72ub6427d3o" path="res://textures/enemies/space_squid/space_squid5.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://duw31gkcqvtrn" path="res://textures/enemies/space_squid/space_squid2.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://by8wpbbkwn4pt" path="res://textures/enemies/space_squid/space_squid1.png" id="3"]
+[ext_resource type="Script" path="res://scripts/enemies/Space_squid.gd" id="4"]
+[ext_resource type="Texture2D" uid="uid://lh02o1i8oedy" path="res://textures/enemies/space_squid/space_squid4.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://covoiqpesvn76" path="res://textures/enemies/space_squid/space_squid3.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://bafs376oakgih" path="res://textures/enemies/space_squid/space_squid_hurt.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://bgfht1wwsrhc6" path="res://textures/enemies/seen.png" id="9"]
+[ext_resource type="FontFile" path="res://fonts/pixel.tres" id="10"]
 
-[sub_resource type="SpriteFrames" id=4]
-animations = [ {
-"frames": [ ExtResource( 7 ) ],
+[sub_resource type="SpriteFrames" id="4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7")
+}],
 "loop": false,
-"name": "hurt",
+"name": &"hurt",
 "speed": 2.0
 }, {
-"frames": [ ExtResource( 3 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3")
+}],
 "loop": true,
-"name": "idle",
+"name": &"idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ), ExtResource( 2 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 1 ), ExtResource( 3 ) ],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3")
+}],
 "loop": false,
-"name": "thrust",
+"name": &"thrust",
 "speed": 8.0
-} ]
+}]
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 3, 7.5 )
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(6, 15)
 
-[sub_resource type="CapsuleShape2D" id=5]
+[sub_resource type="CapsuleShape2D" id="5"]
 radius = 4.0
 height = 12.0
 
 [node name="Space Squid" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
 collision_layer = 8
-script = ExtResource( 4 )
+script = ExtResource("4")
 hostile = true
 type = "space_squid"
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-frames = SubResource( 4 )
-animation = "thrust"
+[node name="Body" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("4")
+animation = &"thrust"
 frame = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -5.5 )
-shape = SubResource( 2 )
+position = Vector2(0, -5.5)
+shape = SubResource("2")
 
 [node name="Seen" type="Sprite2D" parent="."]
 visible = false
-position = Vector2( 0, -22 )
-texture = ExtResource( 9 )
+position = Vector2(0, -22)
+texture = ExtResource("9")
 
 [node name="seeTimer" type="Timer" parent="."]
 wait_time = 5.0
 one_shot = true
 
 [node name="HitBox" type="Area2D" parent="."]
-position = Vector2( 0, 3 )
+position = Vector2(0, 3)
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2( 0, -8 )
-shape = SubResource( 5 )
+position = Vector2(0, -8)
+shape = SubResource("5")
 
 [node name="HurtTimer" type="Timer" parent="."]
 
@@ -77,11 +101,10 @@ offset_left = -11.0
 offset_top = -6.0
 offset_right = 12.0
 offset_bottom = 8.0
-theme_override_fonts/font = ExtResource( 10 )
+theme_override_fonts/font = ExtResource("10")
 text = "state"
-align = 1
 
-[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="animation_finished" from="Body" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="seeTimer" to="." method="_on_seeTimer_timeout"]
 [connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]
 [connection signal="body_exited" from="HitBox" to="." method="_on_HitBox_body_exited"]

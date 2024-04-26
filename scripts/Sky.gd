@@ -2,7 +2,7 @@ extends Node2D
 
 const SKY_RADIUS = 75
 #const RAISED = 16
-const PLANET = preload("res://assets/SkyBody.tscn")
+const PLANET = preload("res://assets/enviroment/SkyBody.tscn")
 
 func init_sky():
 	var mainPlanet = StarSystem.find_planet_id(Global.currentPlanet)

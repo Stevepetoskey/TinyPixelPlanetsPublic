@@ -14,6 +14,7 @@ var animating = false
 var canDamage = true
 
 @onready var player = get_node("../../../Player")
+@onready var body: AnimatedSprite2D = $Body
 
 func _ready():
 	maxHealth = 50
@@ -25,7 +26,8 @@ func _physics_process(delta):
 		$Label.text = state
 		if position.distance_to(player.position) <= 64:
 			var space_state = get_world_2d().direct_space_state
-			var result = space_state.intersect_ray(global_position, player.global_position,[self],3)
+			var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self])
+			var result = space_state.intersect_ray(params)
 			if result.collider == player:
 				if !seePlayer:
 					$seeTimer.stop()
@@ -47,7 +49,7 @@ func _physics_process(delta):
 					if seePlayer:
 						dir = position.angle_to_point(player.position) + deg_to_rad(180)
 					rotation = dir + deg_to_rad(90)
-					$AnimatedSprite2D.play("thrust")
+					body.play("thrust")
 					state = "in_motion"
 					animating = true
 					await get_tree().create_timer(0.5).timeout
@@ -79,6 +81,6 @@ func _on_HitBox_body_exited(body):
 	$HurtTimer.stop()
 
 func _on_AnimatedSprite_animation_finished() -> void:
-	match $AnimatedSprite2D.animation:
+	match body.animation:
 		"thrust","hurt":
-			$AnimatedSprite2D.play("idle")
+			body.play("idle")

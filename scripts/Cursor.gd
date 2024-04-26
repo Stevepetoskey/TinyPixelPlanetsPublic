@@ -127,7 +127,7 @@ func tool_action(itemId : int, ref := 0) -> void:
 				if hardness <= 0:
 					world.build_event("Break",position / world.BLOCK_SIZE,currentLayer)
 				else:
-					$break/AnimationPlayer.playback_speed = (1 / float(hardness)) * itemSelect["speed"]
+					$break/AnimationPlayer.speed_scale = (1 / float(hardness)) * itemSelect["speed"]
 					$break/AnimationPlayer.play("break")
 					breaking = true
 		"Hoe":

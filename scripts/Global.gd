@@ -183,15 +183,15 @@ func new_save(saveId : String):
 	dir.open(save_path + saveId)
 	dir.make_dir("systems")
 	dir.make_dir("planets")
-	DirAccess.copy_absolute("res://data/pre_made_planets/",save_path + saveId + "/planets")
-	DirAccess.copy_absolute("res://data/pre_made_systems/",save_path + saveId + "/systems")
+	copy_directory_recursively("res://data/pre_made_planets/",save_path + saveId + "/planets")
+	copy_directory_recursively("res://data/pre_made_systems/",save_path + saveId + "/systems")
 	GlobalGui.completedAchievements = []
 	globalGameTime = 0
 	var _er = get_tree().change_scene_to_file("res://scenes/Main.tscn")
 
 func new_planet() -> void:
 	var _er = get_tree().change_scene_to_file("res://scenes/Main.tscn")
-	await get_tree().idle_frame
+	await get_tree().process_frame
 	new = true
 	if FileAccess.file_exists(save_path + currentSave + "/planets/" + str(currentSystemId) + "_" + str(currentPlanet) + ".dat"):
 		new = false
@@ -275,8 +275,8 @@ func load_data(path : String) -> Dictionary:
 
 func delete(dir : String) -> void:
 	if DirAccess.dir_exists_absolute(save_path + dir):
-		DirAccess.remove_absolute(save_path + dir)
-		#remove_recursive(save_path + dir)
+		#DirAccess.remove_absolute(save_path + dir)
+		remove_recursive(save_path + dir)
 
 func find_bookmark(systemId : String, planetId : int) -> int:
 	for bookmark in bookmarks:
@@ -284,42 +284,36 @@ func find_bookmark(systemId : String, planetId : int) -> int:
 			return bookmarks.find(bookmark)
 	return -1
 
-#func remove_recursive(path): #Credit to davidepesce.com for this function. It deletes all the files in the main file, which allows it to delete the main one safely
-	#var directory = DirAccess.new()
-	#
-	## Open directory
-	#var error = directory.open(path)
-	#if error == OK:
-		## List directory content
-		#directory.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-		#var file_name = directory.get_next()
-		#while file_name != "":
-			#if directory.current_is_dir():
-				#remove_recursive(path + "/" + file_name)
-			#else:
-				#directory.remove(file_name)
-			#file_name = directory.get_next()
-		#
-		## Remove current path
-		#directory.remove(path)
-	#else:
-		#print("Error removing " + path)
+func remove_recursive(path): #Credit to davidepesce.com for this function. It deletes all the files in the main file, which allows it to delete the main one safely
+	if DirAccess.dir_exists_absolute(path):
+		# List directory content
+		var dir = DirAccess.open(path)
+		dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+		var file_name = dir.get_next()
+		while file_name != "":
+			if dir.current_is_dir():
+				remove_recursive(path + "/" + file_name)
+			else:
+				dir.remove(file_name)
+			file_name = dir.get_next()
+		
+		# Remove current path
+		dir.remove(path)
+	else:
+		print("Error removing " + path)
 
-#func copy_directory_recursively(p_from : String, p_to : String) -> void:
-	#var directory = DirAccess.new()
-	#if not directory.dir_exists(p_to):
-		#directory.make_dir_recursive(p_to)
-	#if directory.open(p_from) == OK:
-		#directory.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
-		#var file_name = directory.get_next()
-		#while (file_name != "" and file_name != "." and file_name != ".."):
-			#if directory.current_is_dir():
-				#copy_directory_recursively(p_from + "/" + file_name, p_to + "/" + file_name)
-			#else:
-				#directory.copy(p_from + "/" + file_name, p_to + "/" + file_name)
-			#file_name = directory.get_next()
-	#else:
-		#push_warning("Error copying " + p_from + " to " + p_to)
+func copy_directory_recursively(p_from : String, p_to : String) -> void:
+	if not DirAccess.dir_exists_absolute(p_to):
+		DirAccess.make_dir_absolute(p_to)
+	var dir = DirAccess.open(p_from)
+	dir.list_dir_begin()
+	var file_name = dir.get_next()
+	while (file_name != "" and file_name != "." and file_name != ".."):
+		if dir.current_is_dir():
+			copy_directory_recursively(p_from + "/" + file_name, p_to + "/" + file_name)
+		else:
+			dir.copy_absolute(p_from + "/" + file_name, p_to + "/" + file_name)
+		file_name = dir.get_next()
 
 func game_time_second():
 	globalGameTime += 1
