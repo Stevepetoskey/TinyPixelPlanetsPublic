@@ -25,7 +25,6 @@ shape = SubResource("1")
 wait_time = 0.1
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-visible = false
 position = Vector2(-2, -2)
 scale = Vector2(0.2, 0.2)
 rect = Rect2(-10, -10, 40, 40)

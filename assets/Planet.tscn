@@ -1,186 +1,186 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=21 format=3 uid="uid://by6x42xgfebsy"]
 
-[ext_resource path="res://textures/planets/exotic.png" type="Texture2D" id=1]
-[ext_resource path="res://scripts/planet.gd" type="Script" id=2]
-[ext_resource path="res://assets/PlanetShadeTop.tscn" type="PackedScene" id=3]
+[ext_resource type="Script" path="res://scripts/planet.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://bshuttnryx0hn" path="res://textures/planets/asteroids.png" id="2_8vcxx"]
+[ext_resource type="PackedScene" uid="uid://oi0g2jnmc5f1" path="res://assets/PlanetShadeTop.tscn" id="3"]
 
-[sub_resource type="ShaderMaterial" id=3]
-
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id="1"]
 resource_local_to_scene = true
 radius = 3.5
 
-[sub_resource type="VisualShaderNodeVectorOp" id=18]
+[sub_resource type="VisualShaderNodeVectorOp" id="18"]
 operator = 2
 
-[sub_resource type="VisualShaderNodeVectorOp" id=19]
-output_port_for_preview = 0
+[sub_resource type="VisualShaderNodeVectorOp" id="19"]
 
-[sub_resource type="VisualShaderNodeTexture" id=20]
+[sub_resource type="VisualShaderNodeTexture" id="20"]
 source = 1
 
-[sub_resource type="VisualShaderNodeInput" id=21]
+[sub_resource type="VisualShaderNodeInput" id="21"]
 input_name = "screen_uv"
 
-[sub_resource type="VisualShaderNodeSwitch" id=24]
+[sub_resource type="VisualShaderNodeSwitch" id="24"]
 
-[sub_resource type="VisualShaderNodeBooleanParameter" id=25]
-uniform_name = "isNight"
+[sub_resource type="VisualShaderNodeBooleanParameter" id="25"]
+parameter_name = "isNight"
 default_value_enabled = true
 default_value = true
 
-[sub_resource type="VisualShaderNodeTexture" id=10]
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_4d0h1"]
+source = 5
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_vx4ej"]
+default_input_values = [0, Quaternion(0, 0, 0, 0)]
+op_type = 2
+
+[sub_resource type="VisualShaderNodeVectorCompose" id="VisualShaderNodeVectorCompose_rncgk"]
+
+[sub_resource type="VisualShaderNodeTexture" id="10"]
 source = 2
 
-[sub_resource type="VisualShaderNodeVectorOp" id=12]
+[sub_resource type="VisualShaderNodeVectorOp" id="12"]
 operator = 2
 
-[sub_resource type="VisualShaderNodeTexture2DParameter" id=15]
-uniform_name = "planet"
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="15"]
+parameter_name = "planet"
 texture_type = 1
+texture_filter = 1
 
-[sub_resource type="VisualShaderNodeVectorFunc" id=22]
-function = 34
+[sub_resource type="VisualShaderNodeVectorFunc" id="22"]
 
-[sub_resource type="VisualShaderNodeColorConstant" id=23]
-constant = Color( 0.00392157, 0.0862745, 0.121569, 1 )
+[sub_resource type="VisualShaderNodeColorConstant" id="23"]
+constant = Color(0.00392157, 0.0862745, 0.121569, 1)
 
-[sub_resource type="VisualShader" id=16]
+[sub_resource type="VisualShader" id="16"]
 resource_local_to_scene = true
 code = "shader_type canvas_item;
-uniform sampler2D planet : source_color;
+render_mode blend_mix;
+
+uniform sampler2D planet : source_color, filter_nearest;
 uniform bool isNight = true;
+uniform sampler2D screen_tex_frg_12 : hint_screen_texture;
 
 
-
-void vertex() {
-// Output:0
-
-}
 
 void fragment() {
-// Texture:3
-	vec3 n_out3p0;
-	float n_out3p1;
-	{
-		vec4 _tex_read = texture(TEXTURE , UV.xy);
-		n_out3p0 = _tex_read.rgb;
-		n_out3p1 = _tex_read.a;
-	}
+	vec4 n_out3p0;
+// Texture2D:3
+	n_out3p0 = texture(TEXTURE, UV);
 
-// TextureUniform:6
-	vec3 n_out6p0;
-	float n_out6p1;
-	{
-		vec4 n_tex_read = texture(planet, UV.xy);
-		n_out6p0 = n_tex_read.rgb;
-		n_out6p1 = n_tex_read.a;
-	}
+
+	vec4 n_out16p0;
+// Texture2D:16
+	n_out16p0 = texture(planet, UV);
+
+
+// VectorDecompose:17
+	float n_out17p0 = n_out16p0.x;
+	float n_out17p1 = n_out16p0.y;
+	float n_out17p2 = n_out16p0.z;
+	float n_out17p3 = n_out16p0.w;
+
+
+// VectorCompose:18
+	vec3 n_out18p0 = vec3(n_out17p0, n_out17p1, n_out17p2);
+
 
 // VectorOp:5
-	vec3 n_out5p0 = n_out3p0 * n_out6p0;
+	vec3 n_out5p0 = vec3(n_out3p0.xyz) * n_out18p0;
+
 
 // VectorFunc:8
-	vec3 n_out8p0 = vec3(1.0, 1.0, 1.0) - n_out5p0;
+	vec3 n_out8p0 = normalize(n_out5p0);
 
-// BooleanUniform:15
+
+// BooleanParameter:15
 	bool n_out15p0 = isNight;
 
-// Color:9
-	vec3 n_out9p0 = vec3(0.003922, 0.086274, 0.121569);
-	float n_out9p1 = 1.000000;
+
+// ColorConstant:9
+	vec4 n_out9p0 = vec4(0.003922, 0.086274, 0.121569, 1.000000);
+
 
 // Input:13
-	vec3 n_out13p0 = vec3(SCREEN_UV, 0.0);
+	vec2 n_out13p0 = SCREEN_UV;
 
-// Texture:12
-	vec3 n_out12p0;
-	float n_out12p1;
-	{
-		vec4 _tex_read = textureLod(SCREEN_TEXTURE, n_out13p0.xy, 0.0);
-		n_out12p0 = _tex_read.rgb;
-		n_out12p1 = _tex_read.a;
-	}
 
-// VectorSwitch:14
-	vec3 n_out14p0;
-	if(n_out15p0)
-	{
-		n_out14p0 = n_out9p0;
-	}
-	else
-	{
-		n_out14p0 = n_out12p0;
-	}
+	vec4 n_out12p0;
+// Texture2D:12
+	n_out12p0 = texture(screen_tex_frg_12, n_out13p0);
+
+
+	float n_out14p0;
+// Switch:14
+	n_out14p0 = mix(n_out12p0.x, n_out9p0.x, float(n_out15p0));
+
 
 // VectorOp:10
-	vec3 n_out10p0 = n_out8p0 * n_out14p0;
+	vec3 n_out10p0 = n_out8p0 * vec3(n_out14p0);
+
 
 // VectorOp:11
 	vec3 n_out11p0 = n_out5p0 + n_out10p0;
 
+
 // Output:0
 	COLOR.rgb = n_out11p0;
-	COLOR.a = n_out6p1;
+	COLOR.a = n_out17p3;
 
-}
-
-void light() {
-// Output:0
 
 }
 "
-graph_offset = Vector2( -266.287, 58.5 )
+graph_offset = Vector2(-439.631, -109.817)
 mode = 1
 flags/light_only = false
-nodes/fragment/0/position = Vector2( 1240, 280 )
-nodes/fragment/3/node = SubResource( 10 )
-nodes/fragment/3/position = Vector2( -600, -100 )
-nodes/fragment/5/node = SubResource( 12 )
-nodes/fragment/5/position = Vector2( -280, 220 )
-nodes/fragment/6/node = SubResource( 15 )
-nodes/fragment/6/position = Vector2( -860, 260 )
-nodes/fragment/8/node = SubResource( 22 )
-nodes/fragment/8/position = Vector2( -20, 500 )
-nodes/fragment/9/node = SubResource( 23 )
-nodes/fragment/9/position = Vector2( -400, 660 )
-nodes/fragment/10/node = SubResource( 18 )
-nodes/fragment/10/position = Vector2( 340, 680 )
-nodes/fragment/11/node = SubResource( 19 )
-nodes/fragment/11/position = Vector2( 400, 200 )
-nodes/fragment/12/node = SubResource( 20 )
-nodes/fragment/12/position = Vector2( -840, 740 )
-nodes/fragment/13/node = SubResource( 21 )
-nodes/fragment/13/position = Vector2( -1240, 820 )
-nodes/fragment/14/node = SubResource( 24 )
-nodes/fragment/14/position = Vector2( -80, 900 )
-nodes/fragment/15/node = SubResource( 25 )
-nodes/fragment/15/position = Vector2( -660, 1080 )
-nodes/fragment/connections = PackedInt32Array( 6, 0, 5, 1, 5, 0, 8, 0, 8, 0, 10, 0, 5, 0, 11, 0, 10, 0, 11, 1, 11, 0, 0, 0, 13, 0, 12, 0, 12, 0, 14, 2, 15, 0, 14, 0, 3, 0, 5, 0, 14, 0, 10, 1, 9, 0, 14, 1, 6, 1, 0, 1 )
+nodes/fragment/0/position = Vector2(1540, 380)
+nodes/fragment/3/node = SubResource("10")
+nodes/fragment/3/position = Vector2(-600, -100)
+nodes/fragment/5/node = SubResource("12")
+nodes/fragment/5/position = Vector2(540, 100)
+nodes/fragment/6/node = SubResource("15")
+nodes/fragment/6/position = Vector2(-1260, 140)
+nodes/fragment/8/node = SubResource("22")
+nodes/fragment/8/position = Vector2(600, 460)
+nodes/fragment/9/node = SubResource("23")
+nodes/fragment/9/position = Vector2(-400, 660)
+nodes/fragment/10/node = SubResource("18")
+nodes/fragment/10/position = Vector2(840, 680)
+nodes/fragment/11/node = SubResource("19")
+nodes/fragment/11/position = Vector2(1220, 100)
+nodes/fragment/12/node = SubResource("20")
+nodes/fragment/12/position = Vector2(-840, 740)
+nodes/fragment/13/node = SubResource("21")
+nodes/fragment/13/position = Vector2(-1240, 820)
+nodes/fragment/14/node = SubResource("24")
+nodes/fragment/14/position = Vector2(-80, 900)
+nodes/fragment/15/node = SubResource("25")
+nodes/fragment/15/position = Vector2(-660, 1080)
+nodes/fragment/16/node = SubResource("VisualShaderNodeTexture_4d0h1")
+nodes/fragment/16/position = Vector2(-640, 220)
+nodes/fragment/17/node = SubResource("VisualShaderNodeVectorDecompose_vx4ej")
+nodes/fragment/17/position = Vector2(-200, 240)
+nodes/fragment/18/node = SubResource("VisualShaderNodeVectorCompose_rncgk")
+nodes/fragment/18/position = Vector2(140, 120)
+nodes/fragment/connections = PackedInt32Array(5, 0, 8, 0, 8, 0, 10, 0, 5, 0, 11, 0, 10, 0, 11, 1, 11, 0, 0, 0, 13, 0, 12, 0, 12, 0, 14, 2, 15, 0, 14, 0, 3, 0, 5, 0, 14, 0, 10, 1, 9, 0, 14, 1, 6, 0, 16, 2, 16, 0, 17, 0, 17, 0, 18, 0, 17, 1, 18, 1, 17, 2, 18, 2, 18, 0, 5, 1, 17, 3, 0, 1)
 
-[sub_resource type="ShaderMaterial" id=26]
+[sub_resource type="ShaderMaterial" id="26"]
 resource_local_to_scene = true
-shader = SubResource( 16 )
-shader_param/isNight = true
-shader_param/planet = ExtResource( 1 )
-
-[sub_resource type="Environment" id=8]
-
-[sub_resource type="World" id=27]
-environment = SubResource( 8 )
+shader = SubResource("16")
+shader_parameter/isNight = true
+shader_parameter/planet = ExtResource("2_8vcxx")
 
 [node name="Planet" type="Sprite2D"]
-material = SubResource( 3 )
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource( 1 )
+shape = SubResource("1")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-material = SubResource( 26 )
+material = SubResource("26")
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -193,13 +193,11 @@ mouse_filter = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
-size = Vector2( 14, 14 )
-own_world = true
-world = SubResource( 27 )
 transparent_bg = true
 handle_input_locally = false
-render_target_update_mode = 3
+size = Vector2i(14, 14)
+render_target_update_mode = 4
 
-[node name="Node3D" parent="SubViewportContainer/SubViewport" instance=ExtResource( 3 )]
+[node name="Node3D" parent="SubViewportContainer/SubViewport" instance=ExtResource("3")]
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

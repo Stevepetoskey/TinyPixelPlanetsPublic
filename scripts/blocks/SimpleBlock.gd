@@ -3,6 +3,7 @@ extends BaseBlock
 const SHADE_TEX = preload("res://textures/blocks/shade.png")
 
 @onready var mainCol : CollisionShape2D = $CollisionShape2D
+@onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 
 func _ready():
 	if layer < 1:
@@ -20,7 +21,7 @@ func on_update():
 			show()
 		else:
 			hide()
-		if world.worldLoaded and visible:
+		if world.worldLoaded and visible_on_screen_notifier_2d.is_on_screen():
 			for x in range(-1,2):
 				for y in range(-1,2):
 					if abs(x) != abs(y):
@@ -34,8 +35,7 @@ func on_update():
 							$shade.get_node(str(x) + str(y)).queue_free()
 
 func _on_VisibilityNotifier2D_screen_entered():
-	print("Show thyself")
-	show()
+	on_update()
 
 func _on_VisibilityNotifier2D_screen_exited():
-	hide()
+	pass

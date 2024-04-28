@@ -22,6 +22,8 @@ var hairStyles = ["Short","Long","Beard","Farmer","Bald","Beard_bald"]
 var fHair = [0,1,3,4]
 var mHair = [0,2,4,5]
 
+@onready var load_save: Control = $"../loadSave"
+
 func open():
 	randomize()
 	if randi()%3 == 1:
@@ -73,12 +75,12 @@ func _on_Name_text_changed(new_text):
 
 func _on_back_pressed():
 	hide()
-	get_node("../loadSave").cancel()
+	load_save.cancel()
 
 func _on_Start_pressed():
 	Global.playerBase = {"skin":skinColors[skinCol],"hair_style":hairStyles[hairSty],"hair_color":hairColors[hairCol],"sex":sex}
 	Global.playerName = charName
-	get_node("../loadSave").start()
+	load_save.start()
 
 func left(type : String):
 	match type:

@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://c4nuc5bd0kohq"]
+
+[ext_resource type="FontFile" uid="uid://diwuxgjxhgb06" path="res://fonts/PixelPossibilities.ttf" id="1_7sbnt"]
+
+[resource]
+base_font = ExtResource("1_7sbnt")
+spacing_top = -3

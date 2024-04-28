@@ -7,6 +7,7 @@ var selectedSave = ""
 func update_save_list() -> void:
 	for save in $saves.get_children():
 		if DirAccess.dir_exists_absolute(Global.save_path + save.name):
+			print("dir exists")
 			if FileAccess.file_exists(Global.save_path + save.name + "/playerData.dat"): #Gets save data
 				var savegame = FileAccess.open(Global.save_path + save.name + "/playerData.dat",FileAccess.READ)
 				var playerData = savegame.get_var()
@@ -24,6 +25,7 @@ func update_save_list() -> void:
 				else:
 					save.get_node("Icon").texture = scenarios.scenarios["sandbox"]["icon"]
 			else:
+				print("file does not")
 				save.disabled = false
 				save.get_node("Label").text = "Save " + str(save.id + 1)
 				save.get_node("Icon").texture = scenarios.scenarios["empty"]["icon"]

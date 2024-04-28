@@ -1,260 +1,252 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=40 format=3 uid="uid://c835dpghcbrun"]
 
-[ext_resource path="res://textures/GUI/GlobalGUI/Ach_completed.png" type="Texture2D" id=1]
-[ext_resource path="res://fonts/pixel.tres" type="FontFile" id=2]
-[ext_resource path="res://Audio/sfx/GUI/Achievement.ogg" type="AudioStream" id=3]
-[ext_resource path="res://textures/GUI/GlobalGUI/Ach_GUI_back.png" type="Texture2D" id=4]
-[ext_resource path="res://textures/GUI/main/GUI_Ach.png" type="Texture2D" id=5]
-[ext_resource path="res://textures/GUI/main/all_planets_icon.png" type="Texture2D" id=6]
-[ext_resource path="res://textures/GUI/GlobalGUI/Ach_GUI_front.png" type="Texture2D" id=7]
-[ext_resource path="res://scripts/GUI/GlobalGUI.gd" type="Script" id=8]
-[ext_resource path="res://textures/GUI/space/star_icon_K-type.png" type="Texture2D" id=9]
-[ext_resource path="res://scripts/GUI/AchievementBtn.gd" type="Script" id=10]
-[ext_resource path="res://textures/GUI/GlobalGUI/Ach_line_completed.png" type="Texture2D" id=11]
-[ext_resource path="res://scripts/GUI/Ach_Line.gd" type="Script" id=12]
-[ext_resource path="res://textures/GUI/GlobalGUI/Ach_back_btn.png" type="Texture2D" id=13]
-[ext_resource path="res://textures/GUI/space/h_bar_handle.png" type="Texture2D" id=14]
-[ext_resource path="res://textures/GUI/space/v_bar.png" type="Texture2D" id=15]
-[ext_resource path="res://textures/GUI/space/h_bar.png" type="Texture2D" id=16]
-[ext_resource path="res://textures/GUI/space/v_bar_handle.png" type="Texture2D" id=17]
-[ext_resource path="res://textures/GUI/space/v_bar_handle_hover.png" type="Texture2D" id=18]
-[ext_resource path="res://textures/GUI/space/h_bar_handle_hover.png" type="Texture2D" id=19]
-[ext_resource path="res://textures/GUI/space/h_bar_handle_select.png" type="Texture2D" id=20]
-[ext_resource path="res://textures/GUI/space/v_bar_handle_select.png" type="Texture2D" id=21]
-[ext_resource path="res://textures/GUI/Blank.png" type="Texture2D" id=22]
-[ext_resource path="res://textures/GUI/GlobalGUI/Ach_Desc.png" type="Texture2D" id=23]
+[ext_resource type="Texture2D" uid="uid://gnk4eoow4bqh" path="res://textures/GUI/GlobalGUI/Ach_completed.png" id="1"]
+[ext_resource type="AudioStream" uid="uid://dudy73cxuvlnr" path="res://Audio/sfx/GUI/Achievement.ogg" id="3"]
+[ext_resource type="Texture2D" uid="uid://ck48ufykh8f2m" path="res://textures/GUI/GlobalGUI/Ach_GUI_back.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://c8lgbb3h1m83y" path="res://textures/GUI/main/GUI_Ach.png" id="5"]
+[ext_resource type="FontFile" uid="uid://diwuxgjxhgb06" path="res://fonts/PixelPossibilities.ttf" id="5_vv7ui"]
+[ext_resource type="Texture2D" uid="uid://ccpskdvf7mnft" path="res://textures/GUI/main/all_planets_icon.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://dakls7ojejoqb" path="res://textures/GUI/GlobalGUI/Ach_GUI_front.png" id="7"]
+[ext_resource type="Script" path="res://scripts/GUI/GlobalGUI.gd" id="8"]
+[ext_resource type="Texture2D" uid="uid://32jxo6v3nuu1" path="res://textures/GUI/space/star_icon_K-type.png" id="9"]
+[ext_resource type="Script" path="res://scripts/GUI/AchievementBtn.gd" id="10"]
+[ext_resource type="Texture2D" uid="uid://bff38od274g0r" path="res://textures/GUI/GlobalGUI/Ach_line_completed.png" id="11"]
+[ext_resource type="Script" path="res://scripts/GUI/Ach_Line.gd" id="12"]
+[ext_resource type="Texture2D" uid="uid://o4nh36p1lb17" path="res://textures/GUI/GlobalGUI/Ach_back_btn.png" id="13"]
+[ext_resource type="Texture2D" uid="uid://cy2kr64p5herf" path="res://textures/GUI/space/h_bar_handle.png" id="14"]
+[ext_resource type="Texture2D" uid="uid://dqkgujgjvgj5g" path="res://textures/GUI/space/v_bar.png" id="15"]
+[ext_resource type="Texture2D" uid="uid://45o7v1dsk3yx" path="res://textures/GUI/space/h_bar.png" id="16"]
+[ext_resource type="Texture2D" uid="uid://cn76yxyfhxg3v" path="res://textures/GUI/space/v_bar_handle.png" id="17"]
+[ext_resource type="Texture2D" uid="uid://cs2ptrjg2ll5k" path="res://textures/GUI/space/v_bar_handle_hover.png" id="18"]
+[ext_resource type="Texture2D" uid="uid://cgfxdpw0sxxxi" path="res://textures/GUI/space/h_bar_handle_hover.png" id="19"]
+[ext_resource type="Texture2D" uid="uid://im3ftx86mtc3" path="res://textures/GUI/space/h_bar_handle_select.png" id="20"]
+[ext_resource type="Texture2D" uid="uid://cg77ke3bvhhcj" path="res://textures/GUI/space/v_bar_handle_select.png" id="21"]
+[ext_resource type="Texture2D" uid="uid://docmqdn1y13fp" path="res://textures/GUI/Blank.png" id="22"]
+[ext_resource type="Texture2D" uid="uid://408gg2awh54e" path="res://textures/GUI/GlobalGUI/Ach_Desc.png" id="23"]
 
-[sub_resource type="StyleBoxTexture" id=1]
-texture = ExtResource( 5 )
-region_rect = Rect2( 160, 0, 100, 20 )
-offset_left = 44.0
-offset_right = 45.0
-offset_bottom = 2.0
+[sub_resource type="StyleBoxTexture" id="1"]
+texture = ExtResource("5")
+region_rect = Rect2(160, 0, 100, 20)
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 5 )
-region = Rect2( 161, 20, 98, 1 )
+[sub_resource type="FontFile" id="FontFile_70c0w"]
+fallbacks = Array[Font]([ExtResource("5_vv7ui")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/50/0 = Vector2(0, 0)
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+cache/0/50/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/50/0/kerning_overrides/50/0 = Vector2(0, 0)
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="AtlasTexture" id="2"]
+atlas = ExtResource("5")
+region = Rect2(161, 20, 98, 1)
+
+[sub_resource type="Animation" id="3"]
 length = 0.001
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 284, 0 ) ]
+"values": [Vector2(284, 0)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("TextureProgressBar:value")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 129.0 ]
+"values": [129.0]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id="4"]
 resource_name = "pop_up"
 length = 4.0
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.5, 3.5, 4 ),
-"transitions": PackedFloat32Array( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.5, 3.5, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [ Vector2( 284, 0 ), Vector2( 153, 0 ), Vector2( 153, 0 ), Vector2( 284, 0 ) ]
+"values": [Vector2(284, 0), Vector2(153, 0), Vector2(153, 0), Vector2(284, 0)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("TextureProgressBar:value")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 0.5, 3.5 ),
-"transitions": PackedFloat32Array( 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.5, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [ 129.0, 129.0, 0.0 ]
+"values": [129.0, 129.0, 0.0]
 }
 tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Get")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
-"values": [ {
-"args": [ 0.0 ],
-"method": "play"
-} ]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
 }
 
-[sub_resource type="StyleBoxTexture" id=16]
-texture = ExtResource( 14 )
-region_rect = Rect2( 0, 0, 8, 4 )
-offset_left = 1.0
-offset_right = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dqy6b"]
+_data = {
+"RESET": SubResource("3"),
+"pop_up": SubResource("4")
+}
 
-[sub_resource type="StyleBoxTexture" id=17]
-texture = ExtResource( 19 )
-region_rect = Rect2( 0, 0, 8, 4 )
-offset_left = 1.0
-offset_right = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="16"]
+texture = ExtResource("14")
+region_rect = Rect2(0, 0, 8, 4)
 
-[sub_resource type="StyleBoxTexture" id=13]
-texture = ExtResource( 20 )
-region_rect = Rect2( 0, 0, 8, 4 )
-offset_left = 1.0
-offset_right = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="17"]
+texture = ExtResource("19")
+region_rect = Rect2(0, 0, 8, 4)
 
-[sub_resource type="StyleBoxTexture" id=18]
-texture = ExtResource( 16 )
-region_rect = Rect2( 0, 0, 8, 4 )
-offset_left = 1.0
-offset_right = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="13"]
+texture = ExtResource("20")
+region_rect = Rect2(0, 0, 8, 4)
 
-[sub_resource type="StyleBoxTexture" id=19]
-texture = ExtResource( 17 )
-region_rect = Rect2( 0, 0, 4, 8 )
-offset_left = 1.0
-offset_right = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="18"]
+texture = ExtResource("16")
+region_rect = Rect2(0, 0, 8, 4)
 
-[sub_resource type="StyleBoxTexture" id=14]
-texture = ExtResource( 18 )
-region_rect = Rect2( 0, 0, 4, 8 )
-offset_left = 1.0
-offset_right = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="19"]
+texture = ExtResource("17")
+region_rect = Rect2(0, 0, 4, 8)
 
-[sub_resource type="StyleBoxTexture" id=15]
-texture = ExtResource( 21 )
-region_rect = Rect2( 0, 0, 4, 8 )
-offset_left = 1.0
-offset_right = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="14"]
+texture = ExtResource("18")
+region_rect = Rect2(0, 0, 4, 8)
 
-[sub_resource type="StyleBoxTexture" id=20]
-texture = ExtResource( 15 )
-region_rect = Rect2( 0, 0, 4, 8 )
-offset_left = 1.0
-offset_right = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="15"]
+texture = ExtResource("21")
+region_rect = Rect2(0, 0, 4, 8)
 
-[sub_resource type="StyleBoxTexture" id=21]
-texture = ExtResource( 15 )
-region_rect = Rect2( 0, 0, 4, 8 )
-offset_left = 1.0
-offset_right = 1.0
-offset_top = 1.0
-offset_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="20"]
+texture = ExtResource("15")
+region_rect = Rect2(0, 0, 4, 8)
 
-[sub_resource type="Theme" id=22]
-HScrollBar/styles/grabber = SubResource( 16 )
-HScrollBar/styles/grabber_highlight = SubResource( 17 )
-HScrollBar/styles/grabber_pressed = SubResource( 13 )
-HScrollBar/styles/scroll = SubResource( 18 )
-VScrollBar/styles/grabber = SubResource( 19 )
-VScrollBar/styles/grabber_highlight = SubResource( 14 )
-VScrollBar/styles/grabber_pressed = SubResource( 15 )
-VScrollBar/styles/scroll = SubResource( 20 )
-VSlider/styles/slider = SubResource( 21 )
+[sub_resource type="StyleBoxTexture" id="21"]
+texture = ExtResource("15")
+region_rect = Rect2(0, 0, 4, 8)
+
+[sub_resource type="Theme" id="22"]
+HScrollBar/styles/grabber = SubResource("16")
+HScrollBar/styles/grabber_highlight = SubResource("17")
+HScrollBar/styles/grabber_pressed = SubResource("13")
+HScrollBar/styles/scroll = SubResource("18")
+VScrollBar/styles/grabber = SubResource("19")
+VScrollBar/styles/grabber_highlight = SubResource("14")
+VScrollBar/styles/grabber_pressed = SubResource("15")
+VScrollBar/styles/scroll = SubResource("20")
+VSlider/styles/slider = SubResource("21")
 
 [node name="GlobalGUI" type="CanvasLayer"]
 layer = 100
-script = ExtResource( 8 )
+script = ExtResource("8")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 visible = false
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 22 )
-expand = true
+texture = ExtResource("22")
+expand_mode = 1
 
 [node name="Achievement" type="Panel" parent="."]
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = 284.0
 offset_right = 414.996
 offset_bottom = 20.0
-theme_override_styles/panel = SubResource( 1 )
+theme_override_styles/panel = SubResource("1")
 
 [node name="Icon" type="TextureRect" parent="Achievement"]
+layout_mode = 0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = 17.0
 offset_bottom = 17.0
-texture = ExtResource( 9 )
+texture = ExtResource("9")
 stretch_mode = 4
 
 [node name="Text" type="Label" parent="Achievement"]
+layout_mode = 0
 offset_left = 19.0
 offset_top = 2.0
 offset_right = 131.0
 offset_bottom = 16.0
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "Destroyer of worlds"
 clip_text = true
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="Achievement"]
+layout_mode = 0
 offset_left = 1.0
 offset_top = 18.0
 offset_right = 130.0
 offset_bottom = 19.0
 max_value = 129.0
 value = 129.0
-texture_progress = SubResource( 2 )
 nine_patch_stretch = true
 stretch_margin_left = 14
 stretch_margin_right = 14
+texture_progress = SubResource("2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Achievement"]
-anims/RESET = SubResource( 3 )
-anims/pop_up = SubResource( 4 )
+libraries = {
+"": SubResource("AnimationLibrary_dqy6b")
+}
 
 [node name="Get" type="AudioStreamPlayer" parent="Achievement"]
-stream = ExtResource( 3 )
+stream = ExtResource("3")
 
 [node name="AchievementMenu" type="TextureRect" parent="."]
 visible = false
 offset_right = 284.0
 offset_bottom = 160.0
-texture = ExtResource( 4 )
+texture = ExtResource("4")
 
 [node name="Front" type="TextureRect" parent="AchievementMenu"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 7 )
+texture = ExtResource("7")
 stretch_mode = 4
 
 [node name="ScrollContainer" type="ScrollContainer" parent="AchievementMenu"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -263,665 +255,717 @@ offset_left = -89.0
 offset_top = -48.0
 offset_right = 89.0
 offset_bottom = 48.0
-theme = SubResource( 22 )
+theme = SubResource("22")
 scroll_horizontal = 67
 
 [node name="Control" type="Control" parent="AchievementMenu/ScrollContainer"]
-offset_left = -67.0
-offset_right = 233.0
-offset_bottom = 300.0
-custom_minimum_size = Vector2( 300, 300 )
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 2
 
 [node name="Lines" type="Control" parent="AchievementMenu/ScrollContainer/Control"]
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Line" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 150.0
 offset_top = 23.0
 offset_right = 158.0
 offset_bottom = 25.0
 rotation = 90.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "One small step"
 to = "The mechanic"
 
 [node name="Line9" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 182.0
 offset_top = 39.0
 offset_right = 190.0
 offset_bottom = 41.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "Ready for battle"
 to = "Exterminator 1"
 
 [node name="Line10" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 198.0
 offset_top = 47.0
 offset_right = 206.0
 offset_bottom = 49.0
 rotation = 90.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "Exterminator 1"
 to = "Exterminator 2"
 
 [node name="Line16" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 222.0
 offset_top = 23.0
 offset_right = 230.0
 offset_bottom = 25.0
 rotation = 90.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "Economist 1"
 to = "Economist 2"
 
 [node name="Line17" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 222.0
 offset_top = 47.0
 offset_right = 230.0
 offset_bottom = 49.0
 rotation = 90.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "Economist 2"
 to = "Economist 3"
 
 [node name="Line13" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 102.0
 offset_top = 47.0
 offset_right = 110.0
 offset_bottom = 49.0
 rotation = 90.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "Top of the line"
 to = "Exotic wear"
 
 [node name="Line14" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 166.0
 offset_top = 95.0
 offset_right = 174.0
 offset_bottom = 97.0
 rotation = 90.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "Explorer 1"
 to = "Explorer 2"
 
 [node name="Line15" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 166.0
 offset_top = 119.0
 offset_right = 174.0
 offset_bottom = 121.0
 rotation = 90.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "Explorer 2"
 to = "Explorer 3"
 
 [node name="Line11" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 198.0
 offset_top = 71.0
 offset_right = 206.0
 offset_bottom = 73.0
 rotation = 90.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "Exterminator 2"
 to = "Exterminator 3"
 
 [node name="Line12" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 198.0
 offset_top = 95.0
 offset_right = 206.0
 offset_bottom = 97.0
 rotation = 90.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "Exterminator 3"
 to = "Destroyer of worlds"
 
 [node name="Line8" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 158.0
 offset_top = 15.0
 offset_right = 214.0
 offset_bottom = 17.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "One small step"
 to = "Economist 1"
 
 [node name="Line7" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 118.0
 offset_top = 39.0
 offset_right = 126.0
 offset_bottom = 41.0
 rotation = -180.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "An upgrade"
 to = "Top of the line"
 
 [node name="Line2" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 126.0
 offset_top = 32.0
 offset_right = 152.0
 offset_bottom = 34.0
 rotation = -23.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "One small step"
 to = "An upgrade"
 
 [node name="Line3" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 174.0
 offset_top = 32.0
 offset_right = 200.0
 offset_bottom = 34.0
 rotation = 203.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "One small step"
 to = "Ready for battle"
 
 [node name="Line4" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 150.0
 offset_top = 47.0
 offset_right = 158.0
 offset_bottom = 49.0
 rotation = 90.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "The mechanic"
 to = "Interplanetary"
 
 [node name="Line5" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 150.0
 offset_top = 70.0
 offset_right = 169.0
 offset_bottom = 72.0
 rotation = 32.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "Interplanetary"
 to = "Explorer 1"
 
 [node name="Line6" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
 offset_left = 150.0
 offset_top = 70.0
 offset_right = 169.0
 offset_bottom = 72.0
 rotation = 148.0
-pivot_offset = Vector2( 0, 1 )
-texture = ExtResource( 11 )
-expand = true
-script = ExtResource( 12 )
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
 from = "Interplanetary"
 to = "Interstellar"
 
 [node name="OneSmallStep" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -8.0
 offset_top = 8.0
 offset_right = 8.0
 offset_bottom = 24.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "One small step"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/OneSmallStep"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="TheMechanic" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -8.0
 offset_top = 32.0
 offset_right = 8.0
 offset_bottom = 48.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "The mechanic"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/TheMechanic"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="Interplanetary" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -8.0
 offset_top = 56.0
 offset_right = 8.0
 offset_bottom = 72.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "Interplanetary"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Interplanetary"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="Interstellar" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -24.0
 offset_top = 80.0
 offset_right = -8.0
 offset_bottom = 96.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "Interstellar"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Interstellar"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="Explorer1" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = 8.0
 offset_top = 80.0
 offset_right = 24.0
 offset_bottom = 96.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "Explorer 1"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Explorer1"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="Explorer2" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = 8.0
 offset_top = 104.0
 offset_right = 24.0
 offset_bottom = 120.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "Explorer 2"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Explorer2"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="Explorer3" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = 8.0
 offset_top = 128.0
 offset_right = 24.0
 offset_bottom = 144.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "Explorer 3"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Explorer3"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="AnUpgrade" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -32.0
 offset_top = 32.0
 offset_right = -16.0
 offset_bottom = 48.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "An upgrade"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/AnUpgrade"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="TopOfTheLine" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -56.0
 offset_top = 32.0
 offset_right = -40.0
 offset_bottom = 48.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "Top of the line"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/TopOfTheLine"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="ExoticWear" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -56.0
 offset_top = 56.0
 offset_right = -40.0
 offset_bottom = 72.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "Exotic wear"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/ExoticWear"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="ReadyForBattle" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = 16.0
 offset_top = 32.0
 offset_right = 32.0
 offset_bottom = 48.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "Ready for battle"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/ReadyForBattle"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="Exterminator1" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = 40.0
 offset_top = 32.0
 offset_right = 56.0
 offset_bottom = 48.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "Exterminator 1"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Exterminator1"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="Exterminator2" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = 40.0
 offset_top = 56.0
 offset_right = 56.0
 offset_bottom = 72.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "Exterminator 2"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Exterminator2"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="Exterminator3" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = 40.0
 offset_top = 80.0
 offset_right = 56.0
 offset_bottom = 96.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "Exterminator 3"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Exterminator3"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="DestroyerOfWorlds" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = 40.0
 offset_top = 104.0
 offset_right = 56.0
 offset_bottom = 120.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "Destroyer of worlds"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/DestroyerOfWorlds"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="Economist1" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = 64.0
 offset_top = 8.0
 offset_right = 80.0
 offset_bottom = 24.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "Economist 1"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Economist1"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="Economist2" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = 64.0
 offset_top = 32.0
 offset_right = 80.0
 offset_bottom = 48.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "Economist 2"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Economist2"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="Economist3" type="TextureButton" parent="AchievementMenu/ScrollContainer/Control"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = 64.0
 offset_top = 56.0
 offset_right = 80.0
 offset_bottom = 72.0
-texture_normal = ExtResource( 1 )
-script = ExtResource( 10 )
+texture_normal = ExtResource("1")
+script = ExtResource("10")
 id = "Economist 3"
 
 [node name="Icon" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Economist3"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
 offset_bottom = -1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 stretch_mode = 4
 
 [node name="BackBtn" type="TextureButton" parent="AchievementMenu"]
+layout_mode = 0
 offset_left = 100.0
 offset_top = 130.0
 offset_right = 184.0
 offset_bottom = 150.0
-texture_normal = ExtResource( 13 )
+texture_normal = ExtResource("13")
 
 [node name="Label" type="Label" parent="AchievementMenu/BackBtn"]
+layout_mode = 0
 offset_left = 1.0
 offset_top = 2.0
 offset_right = 83.0
 offset_bottom = 18.0
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "Back"
-align = 1
-valign = 1
 
 [node name="Title" type="Label" parent="AchievementMenu"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -41.0
 offset_top = 15.0
 offset_right = 41.0
 offset_bottom = 31.0
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "Achievements"
-align = 1
-valign = 1
 
 [node name="Desc" type="TextureRect" parent="AchievementMenu"]
 visible = false
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -931,9 +975,10 @@ offset_top = -80.0
 offset_right = 142.0
 offset_bottom = 80.0
 mouse_filter = 2
-texture = ExtResource( 23 )
+texture = ExtResource("23")
 
 [node name="Title" type="Label" parent="AchievementMenu/Desc"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -942,12 +987,11 @@ offset_left = -89.0
 offset_top = -47.0
 offset_right = 89.0
 offset_bottom = -33.0
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "One small step"
-align = 1
-valign = 1
 
 [node name="Desc" type="Label" parent="AchievementMenu/Desc"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -956,8 +1000,7 @@ offset_left = -87.0
 offset_top = -29.0
 offset_right = 87.0
 offset_bottom = 48.0
-theme_override_fonts/font = ExtResource( 2 )
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "One small step"
-autowrap = true
 
 [connection signal="pressed" from="AchievementMenu/BackBtn" to="." method="_on_BackBtn_pressed"]

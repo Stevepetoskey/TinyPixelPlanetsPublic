@@ -1,4 +1,4 @@
-extends TextureRect
+extends NinePatchRect
 
 @onready var main = get_node("../..")
 

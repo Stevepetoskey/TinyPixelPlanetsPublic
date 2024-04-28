@@ -6,6 +6,8 @@ const FALL_BLOCKS : Array = [0,117]
 var falling : bool = false
 var fallPos : Vector2
 
+@onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
+
 func _ready():
 	var mainCol = $CollisionShape2D
 	if id != 30:
@@ -118,7 +120,7 @@ func on_update():
 			show()
 		else:
 			hide()
-		if world.worldLoaded and visible:
+		if world.worldLoaded and visible_on_screen_notifier_2d.is_on_screen():
 			for x in range(-1,2):
 				for y in range(-1,2):
 					if abs(x) != abs(y):
@@ -131,7 +133,7 @@ func on_update():
 						elif world.get_block_id(pos + Vector2(x,y),1) == 0 and $shade.has_node(str(x) + str(y)):
 							$shade.get_node(str(x) + str(y)).queue_free()
 	
-	if world.worldLoaded and visible:
+	if world.worldLoaded and visible_on_screen_notifier_2d.is_on_screen():
 		match id:
 			6,7:
 				var bottomBlock = world.get_block_id(pos+Vector2(0,1),layer)
@@ -287,11 +289,10 @@ func _on_Tick_timeout():
 				$Sprite2D.texture = load("res://textures/blocks/plants/"+ plant+"/"+ plant+"_stage_" + str(data["plant_stage"]) + ".png")
 
 func _on_VisibilityNotifier2D_screen_entered():
-	show()
 	on_update()
 
 func _on_VisibilityNotifier2D_screen_exited():
-	hide()
+	pass
 
 func _on_check_timeout():
 	match id:

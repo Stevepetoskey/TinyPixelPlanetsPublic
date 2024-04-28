@@ -1,31 +1,64 @@
-[gd_resource type="Theme" load_steps=17 format=3 uid="uid://bvlk5mt2axnwa"]
+[gd_resource type="Theme" load_steps=18 format=3 uid="uid://bvlk5mt2axnwa"]
 
 [ext_resource type="Texture2D" uid="uid://bfwm7q7ex0to6" path="res://textures/GUI/buttons/gray_btn_normal.png" id="1"]
+[ext_resource type="FontFile" uid="uid://diwuxgjxhgb06" path="res://fonts/PixelPossibilities.ttf" id="1_f8887"]
 [ext_resource type="Texture2D" uid="uid://cnobb6cmehhf4" path="res://textures/GUI/buttons/gray_btn_hover.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://7no752ox63d" path="res://textures/GUI/buttons/gray_btn_pressed.png" id="3"]
-[ext_resource type="FontFile" path="res://fonts/pixelButton.tres" id="4"]
 [ext_resource type="Texture2D" uid="uid://yt38gkuyx7oq" path="res://textures/GUI/main/shop/tab_selected.png" id="5"]
 [ext_resource type="Texture2D" uid="uid://bc3ncctygtmi" path="res://textures/GUI/main/shop/tab.png" id="6"]
-[ext_resource type="FontFile" path="res://fonts/pixelLineEdit.tres" id="7"]
 [ext_resource type="Texture2D" uid="uid://gnk4eoow4bqh" path="res://textures/GUI/GlobalGUI/Ach_completed.png" id="8"]
+
+[sub_resource type="FontFile" id="FontFile_0u4l3"]
+fallbacks = Array[Font]([ExtResource("1_f8887")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
 [sub_resource type="StyleBoxEmpty" id="30"]
 
 [sub_resource type="StyleBoxTexture" id="31"]
 texture = ExtResource("2")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 1.0
+texture_margin_bottom = 3.0
 region_rect = Rect2(0, 0, 8, 8)
 
 [sub_resource type="StyleBoxTexture" id="32"]
 texture = ExtResource("1")
+texture_margin_left = 1.0
+texture_margin_top = 2.0
+texture_margin_right = 1.0
+texture_margin_bottom = 3.0
 region_rect = Rect2(0, 0, 8, 8)
 
 [sub_resource type="StyleBoxTexture" id="33"]
 texture = ExtResource("3")
+texture_margin_left = 1.0
+texture_margin_top = 3.0
+texture_margin_right = 1.0
+texture_margin_bottom = 2.0
 region_rect = Rect2(0, 0, 8, 8)
 
 [sub_resource type="StyleBoxTexture" id="37"]
 texture = ExtResource("8")
+texture_margin_left = 1.0
+texture_margin_top = 2.0
+texture_margin_right = 1.0
+texture_margin_bottom = 2.0
 region_rect = Rect2(0, 0, 16, 16)
+
+[sub_resource type="FontFile" id="FontFile_wb0pa"]
+fallbacks = Array[Font]([ExtResource("1_f8887")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
 [sub_resource type="StyleBoxEmpty" id="34"]
 
@@ -40,13 +73,13 @@ region_rect = Rect2(0, 0, 21, 9)
 [resource]
 Button/colors/font_color = Color(1, 1, 1, 1)
 Button/colors/font_color_pressed = Color(0.847059, 0.847059, 0.847059, 1)
-Button/fonts/font = ExtResource("4")
+Button/fonts/font = SubResource("FontFile_0u4l3")
 Button/styles/focus = SubResource("30")
 Button/styles/hover = SubResource("31")
 Button/styles/normal = SubResource("32")
 Button/styles/pressed = SubResource("33")
 Panel/styles/panel = SubResource("37")
-TabContainer/fonts/font = ExtResource("7")
+TabContainer/fonts/font = SubResource("FontFile_wb0pa")
 TabContainer/icons/decrement = null
 TabContainer/icons/decrement_highlight = null
 TabContainer/icons/increment = null

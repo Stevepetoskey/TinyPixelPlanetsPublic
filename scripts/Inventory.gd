@@ -20,7 +20,7 @@ const ITEM_STACK_SIZE = 99
 @onready var shop: Control = $"../Shop"
 
 #{"id":1,"amount",2}
-var inventory = []
+var inventory : Array = []
 var jRef = -1 #Where the j reference is located in inventory
 var kRef = -1
 var jId = 0
@@ -80,7 +80,7 @@ func add_to_inventory(id : int,amount : int,drop = true,data := {}) -> Dictionar
 
 func remove_loc_from_inventory(loc : int) -> void:
 	if loc < inventory.size() and !Global.godmode:
-		inventory.remove(loc)
+		inventory.remove_at(loc)
 		update_inventory()
 
 func remove_amount_at_loc(loc : int,amount : int) -> void:
@@ -214,7 +214,7 @@ func inv_btn_clicked(loc : int,item : Object):
 			jId = 0
 		if loc == kRef:
 			kId = 0
-		inventory.remove(loc)
+		inventory.remove_at(loc)
 		if leftover.is_empty():
 			update_inventory()
 			chest.update_chest()
@@ -302,7 +302,7 @@ func _on_InventoryBtn_pressed():
 				jId = 0
 			if kRef == 0:
 				kId = 0
-			inventory.remove(0)
+			inventory.remove_at(0)
 			if leftover.is_empty():
 				update_inventory()
 				chest.update_chest()
@@ -336,7 +336,7 @@ func _on_InventoryBtn2_pressed():
 				jId = 1
 			if kRef == 1:
 				kId = 1
-			inventory.remove(1)
+			inventory.remove_at(1)
 			if leftover.is_empty():
 				update_inventory()
 				chest.update_chest()

@@ -30,7 +30,8 @@ var meteorsAttacked = false
 var globalGameTime : int = 0
 var gameTimeTimer : Timer = Timer.new()
 var default_bookmarks = [
-	{"name":"Shop center","icon":"star","color":Color(0.39,0.58,0.92),"system_id":"3680641011042","planet_id":0}
+	{"name":"Shop center","icon":"star","color":Color(0.39,0.58,0.92),"system_id":"3680641011042","planet_id":0},
+	{"name":"Test","icon":"circle","color":Color(1,1,1),"system_id":"1260962067520","planet_id":4}
 	]
 var default_settings = {
 	"music":10,
@@ -233,9 +234,9 @@ func save(saveType : String, saveData : Dictionary) -> void:
 			playerData["bookmarks"] = bookmarks
 			var savegame = FileAccess.open(save_path + currentSave + "/planets/" + str(currentSystemId) + "_" + str(currentPlanet) + ".dat",FileAccess.WRITE)
 			savegame.store_var(saveData["planet"])
-			savegame.open(save_path + currentSave + "/systems/" + str(currentSystemId) + ".dat",FileAccess.WRITE)
-			savegame.store_var(saveData["system"])
-			savegame.close()
+			print("saving system")
+			var savegame2 = FileAccess.open(save_path + currentSave + "/systems/" + str(currentSystemId) + ".dat",FileAccess.WRITE)
+			savegame2.store_var(saveData["system"])
 		"system":
 			playerData["pos"] = saveData["player"]["pos"]
 			var savegame = FileAccess.open(save_path + currentSave + "/systems/" + str(currentSystemId) + ".dat",FileAccess.WRITE)
@@ -245,6 +246,7 @@ func save(saveType : String, saveData : Dictionary) -> void:
 	print("Saved game!")
 
 func save_system() -> void:
+	print("Saving system!")
 	var savegame = FileAccess.open(save_path + currentSave + "/systems/" + str(currentSystemId) + ".dat",FileAccess.WRITE)
 	savegame.store_var(StarSystem.get_system_data())
 	print("Saved system!")
@@ -287,18 +289,17 @@ func find_bookmark(systemId : String, planetId : int) -> int:
 func remove_recursive(path): #Credit to davidepesce.com for this function. It deletes all the files in the main file, which allows it to delete the main one safely
 	if DirAccess.dir_exists_absolute(path):
 		# List directory content
-		var dir = DirAccess.open(path)
+		var dir : DirAccess = DirAccess.open(path)
 		dir.list_dir_begin() # TODOConverter3To4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var file_name = dir.get_next()
 		while file_name != "":
 			if dir.current_is_dir():
 				remove_recursive(path + "/" + file_name)
 			else:
-				dir.remove(file_name)
+				DirAccess.remove_absolute(path + "/" + file_name)
 			file_name = dir.get_next()
-		
 		# Remove current path
-		dir.remove(path)
+		DirAccess.remove_absolute(path)
 	else:
 		print("Error removing " + path)
 

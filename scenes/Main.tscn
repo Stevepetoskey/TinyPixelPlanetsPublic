@@ -1,15 +1,13 @@
-[gd_scene load_steps=186 format=3 uid="uid://2c07adgn0vow"]
+[gd_scene load_steps=187 format=3 uid="uid://2c07adgn0vow"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c3rmyuwb7gd3m" path="res://textures/enviroment/sky.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://cxlf6mt32br23" path="res://textures/blocks/bricks.png" id="3"]
-[ext_resource type="Texture2D" uid="uid://dlyi3qspsiw37" path="res://textures/GUI/main/GUI_buttons.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://bolugbajn3c14" path="res://textures/GUI/main/cursor.png" id="5"]
 [ext_resource type="Texture2D" uid="uid://bmf2svqxergrd" path="res://textures/GUI/main/inventory/inventory_bg.png" id="6"]
 [ext_resource type="Script" path="res://scripts/Cursor.gd" id="7"]
 [ext_resource type="Texture2D" uid="uid://tdqh6int0j64" path="res://textures/GUI/main/storage/storage_bg.png" id="8"]
 [ext_resource type="Script" path="res://scripts/Inventory.gd" id="9"]
-[ext_resource type="FontFile" path="res://fonts/pixel.tres" id="10"]
 [ext_resource type="Script" path="res://scripts/Crafting.gd" id="11"]
 [ext_resource type="PackedScene" path="res://assets/GUI/Pause.tscn" id="12"]
 [ext_resource type="Texture2D" uid="uid://docmqdn1y13fp" path="res://textures/GUI/Blank.png" id="13"]
@@ -48,17 +46,15 @@
 [ext_resource type="Script" path="res://scripts/Effects.gd" id="47"]
 [ext_resource type="Texture2D" uid="uid://bu4jjvitxquwi" path="res://textures/enviroment/space-3.png" id="48"]
 [ext_resource type="Script" path="res://scripts/Dead.gd" id="49"]
-[ext_resource type="FontFile" path="res://fonts/pixelHeader.tres" id="50"]
 [ext_resource type="FastNoiseLite" uid="uid://bp77i8xjxs5di" path="res://noise/Main.tres" id="51"]
 [ext_resource type="Script" path="res://scripts/Chest.gd" id="52"]
 [ext_resource type="PackedScene" path="res://assets/ChestBtn.tscn" id="53"]
 [ext_resource type="Texture2D" uid="uid://d380irrpct8nn" path="res://textures/GUI/main/hotbar/hotbar2.png" id="54"]
 [ext_resource type="Texture2D" uid="uid://bueaebvbfj4jw" path="res://textures/GUI/main/hotbar/hotbar1.png" id="55"]
 [ext_resource type="Texture2D" uid="uid://u27t1xjmaq7" path="res://textures/GUI/main/bigBar.png" id="56"]
-[ext_resource type="FontFile" path="res://fonts/pixel-outline.tres" id="57"]
+[ext_resource type="FontFile" uid="uid://boiyd3n1keevx" path="res://fonts/upheavtt.ttf" id="56_wca64"]
 [ext_resource type="Texture2D" uid="uid://bom5ygsohqxmw" path="res://textures/GUI/main/hotbar/O2-safe.png" id="58"]
 [ext_resource type="Texture2D" uid="uid://fvhpuf5gfvjs" path="res://textures/GUI/Menu/MenuCharacter.png" id="59"]
-[ext_resource type="FontFile" path="res://fonts/pixelLineEdit.tres" id="60"]
 [ext_resource type="Script" path="res://scripts/Commands.gd" id="61"]
 [ext_resource type="Texture2D" uid="uid://dpqpaobomk0g" path="res://textures/GUI/main/inventory/item-toolbar.png" id="62"]
 [ext_resource type="Script" path="res://scripts/ItemDataShow.gd" id="63"]
@@ -389,6 +385,23 @@ shader = SubResource("21")
 shader_parameter/StarLight = 1.0
 shader_parameter/SkyColor = Color(0, 0, 0, 1)
 
+[sub_resource type="FontFile" id="FontFile_653sy"]
+fallbacks = Array[Font]([ExtResource("79")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/50/0 = Vector2(0, 0)
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+cache/0/50/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/50/0/kerning_overrides/50/0 = Vector2(0, 0)
+
 [sub_resource type="AtlasTexture" id="80"]
 atlas = ExtResource("56")
 region = Rect2(0, 0, 98, 8)
@@ -397,8 +410,28 @@ region = Rect2(0, 0, 98, 8)
 atlas = ExtResource("56")
 region = Rect2(0, 8, 98, 8)
 
+[sub_resource type="FontFile" id="FontFile_70c0w"]
+fallbacks = Array[Font]([ExtResource("79")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/50/0 = Vector2(0, 0)
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+cache/0/50/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/50/0/kerning_overrides/50/0 = Vector2(0, 0)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wja5i"]
+load_path = "res://.godot/imported/GUI_buttons.png-5b2b893474cca9b9292fe5336b3473da.ctex"
+
 [sub_resource type="AtlasTexture" id="53"]
-atlas = ExtResource("4")
+atlas = SubResource("CompressedTexture2D_wja5i")
 region = Rect2(176, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="54"]
@@ -418,7 +451,7 @@ atlas = ExtResource("17")
 region = Rect2(0, 5, 23, 2)
 
 [sub_resource type="AtlasTexture" id="82"]
-atlas = ExtResource("4")
+atlas = SubResource("CompressedTexture2D_wja5i")
 region = Rect2(16, 0, 7, 7)
 
 [sub_resource type="Animation" id="83"]
@@ -604,9 +637,27 @@ _data = {
 "fadeOut": SubResource("116")
 }
 
+[sub_resource type="FontFile" id="FontFile_n5nce"]
+fallbacks = Array[Font]([ExtResource("56_wca64")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+
 [sub_resource type="AtlasTexture" id="10"]
 atlas = ExtResource("14")
 region = Rect2(96, 68, 64, 15)
+
+[sub_resource type="FontFile" id="FontFile_wb0pa"]
+fallbacks = Array[Font]([ExtResource("79")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
 
 [sub_resource type="StyleBoxTexture" id="117"]
 texture = ExtResource("59")
@@ -2243,7 +2294,7 @@ offset_left = -26.0
 offset_right = 26.0
 offset_bottom = 8.0
 theme_override_colors/font_outline_color = Color(0.701961, 0.72549, 0.819608, 1)
-theme_override_fonts/font = ExtResource("57")
+theme_override_fonts/font = SubResource("FontFile_653sy")
 text = "Suit Oxygen"
 
 [node name="suitOxygen" type="TextureProgressBar" parent="CanvasLayer/Oxygen"]
@@ -2285,7 +2336,7 @@ offset_top = 3.0
 offset_right = 30.0
 offset_bottom = 15.0
 theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
-theme_override_fonts/font = ExtResource("10")
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "*33"
 clip_text = true
 
@@ -2311,7 +2362,7 @@ offset_top = 3.0
 offset_right = 27.0
 offset_bottom = 15.0
 theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
-theme_override_fonts/font = ExtResource("10")
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "*33"
 clip_text = true
 
@@ -2423,7 +2474,7 @@ offset_top = 20.0
 offset_right = 87.0
 offset_bottom = 28.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("57")
+theme_override_fonts/font = SubResource("FontFile_653sy")
 text = "X: 32, Y: 5"
 
 [node name="Inventory" type="Control" parent="CanvasLayer"]
@@ -2571,7 +2622,7 @@ offset_left = 29.5
 offset_top = 7.0
 offset_right = 64.5
 offset_bottom = 15.0
-theme_override_fonts/font = ExtResource("10")
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "+1 Def"
 
 [node name="ChestplatePoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
@@ -2580,7 +2631,7 @@ offset_left = 29.5
 offset_top = 20.0
 offset_right = 64.5
 offset_bottom = 28.0
-theme_override_fonts/font = ExtResource("10")
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "+5 Def"
 
 [node name="LeggingsPoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
@@ -2589,7 +2640,7 @@ offset_left = 29.5
 offset_top = 33.0
 offset_right = 64.5
 offset_bottom = 41.0
-theme_override_fonts/font = ExtResource("10")
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "+2 Def"
 
 [node name="BootsPoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
@@ -2598,7 +2649,7 @@ offset_left = 29.5
 offset_top = 46.0
 offset_right = 64.5
 offset_bottom = 54.0
-theme_override_fonts/font = ExtResource("10")
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "+1 Def"
 
 [node name="Blues" type="HBoxContainer" parent="CanvasLayer/Inventory"]
@@ -2619,7 +2670,7 @@ texture = ExtResource("15")
 
 [node name="Label" type="Label" parent="CanvasLayer/Inventory/Blues"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("10")
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "*1003290"
 
 [node name="ItemScroll" type="ScrollContainer" parent="CanvasLayer/Inventory"]
@@ -2646,7 +2697,7 @@ offset_right = 90.0
 offset_bottom = 12.0
 theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
 theme_override_colors/font_outline_color = Color(0.231373, 0.290196, 0.482353, 1)
-theme_override_fonts/font = ExtResource("57")
+theme_override_fonts/font = SubResource("FontFile_653sy")
 text = "Inventory"
 
 [node name="Crafting" type="Control" parent="CanvasLayer"]
@@ -2689,7 +2740,7 @@ offset_right = 94.0
 offset_bottom = 12.0
 theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
 theme_override_colors/font_outline_color = Color(0.231373, 0.290196, 0.482353, 1)
-theme_override_fonts/font = ExtResource("57")
+theme_override_fonts/font = SubResource("FontFile_653sy")
 text = "Crafting"
 
 [node name="RecipesScroll" type="ScrollContainer" parent="CanvasLayer/Crafting"]
@@ -2762,7 +2813,7 @@ offset_right = 94.0
 offset_bottom = 12.0
 theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
 theme_override_colors/font_outline_color = Color(0.270588, 0.235294, 0.380392, 1)
-theme_override_fonts/font = ExtResource("57")
+theme_override_fonts/font = SubResource("FontFile_653sy")
 text = "Chest"
 
 [node name="Shop" type="Control" parent="CanvasLayer"]
@@ -2822,7 +2873,7 @@ offset_right = 114.0
 offset_bottom = 12.0
 theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
 theme_override_colors/font_outline_color = Color(0.270588, 0.235294, 0.380392, 1)
-theme_override_fonts/font = ExtResource("57")
+theme_override_fonts/font = SubResource("FontFile_653sy")
 text = "Lily Mart"
 
 [node name="Dialogue" type="RichTextLabel" parent="CanvasLayer/Shop"]
@@ -2857,7 +2908,7 @@ anchor_bottom = 1.0
 offset_left = 2.0
 offset_top = 1.0
 offset_right = -1.0
-theme_override_fonts/font = ExtResource("10")
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "Buy"
 
 [node name="SellTab" type="TextureButton" parent="CanvasLayer/Shop/TabBar"]
@@ -2873,7 +2924,7 @@ anchor_bottom = 1.0
 offset_left = 1.0
 offset_top = 1.0
 offset_right = -1.0
-theme_override_fonts/font = ExtResource("10")
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "Sell"
 
 [node name="Black" type="TextureRect" parent="CanvasLayer"]
@@ -2912,7 +2963,7 @@ layout_mode = 0
 anchor_right = 1.0
 offset_bottom = 30.0
 theme_override_colors/font_shadow_color = Color(0.415686, 0.415686, 0.415686, 1)
-theme_override_fonts/font = ExtResource("50")
+theme_override_fonts/font = SubResource("FontFile_n5nce")
 text = "You Died!"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Dead"]
@@ -2936,7 +2987,7 @@ layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme_override_colors/font_shadow_color = Color(0.415686, 0.415686, 0.415686, 1)
-theme_override_fonts/font = ExtResource("10")
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "Respawn"
 
 [node name="Quit" type="TextureButton" parent="CanvasLayer/Dead/VBoxContainer"]
@@ -2948,34 +2999,12 @@ layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme_override_colors/font_shadow_color = Color(0.415686, 0.415686, 0.415686, 1)
-theme_override_fonts/font = ExtResource("10")
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "Quit"
 
 [node name="FPS" type="Label" parent="CanvasLayer"]
-visible = false
 offset_right = 40.0
 offset_bottom = 14.0
-
-[node name="Label" type="Label" parent="CanvasLayer"]
-visible = false
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -8.0
-theme_override_colors/font_shadow_color = Color(0.415686, 0.415686, 0.415686, 1)
-theme_override_fonts/font = ExtResource("10")
-text = "TU 2 beta 5 (Unstable)"
-
-[node name="Notification" type="Control" parent="CanvasLayer"]
-visible = false
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
 
 [node name="Commands" type="LineEdit" parent="CanvasLayer"]
 visible = false
@@ -2984,7 +3013,7 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -10.0
 offset_right = 168.0
-theme_override_fonts/font = ExtResource("60")
+theme_override_fonts/font = SubResource("FontFile_wb0pa")
 theme_override_styles/normal = SubResource("117")
 placeholder_text = "Type commands here"
 script = ExtResource("61")
@@ -3000,7 +3029,7 @@ offset_left = -119.0
 offset_top = -30.0
 offset_right = 119.0
 theme_override_colors/font_outline_color = Color(0.6, 0.639216, 0.752941, 1)
-theme_override_fonts/font = ExtResource("57")
+theme_override_fonts/font = SubResource("FontFile_653sy")
 text = "If  your ie J or K slot"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Title"]
@@ -3014,7 +3043,7 @@ offset_right = 20.0
 offset_bottom = 8.0
 size_flags_horizontal = 12
 size_flags_vertical = 12
-theme_override_fonts/font = ExtResource("10")
+theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "Coppeickax"
 script = ExtResource("63")
 
@@ -3034,15 +3063,15 @@ patch_margin_right = 3
 patch_margin_bottom = 3
 
 [node name="Label2" type="Label" parent="CanvasLayer"]
-visible = false
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -13.0
 theme_override_colors/font_outline_color = Color(0.278431, 0.278431, 0.278431, 1)
-theme_override_fonts/font = ExtResource("57")
-text = "Tiny Pixel Planets TU4 Beta 8 (Development Build)"
+theme_override_fonts/font = SubResource("FontFile_653sy")
+text = "Tiny Pixel Planets TU4.1 Godot 4 Port (Development Build)"
+horizontal_alignment = 1
 
 [node name="World" type="Node2D" parent="."]
 script = ExtResource("1")

@@ -1,45 +1,46 @@
 [gd_scene load_steps=8 format=3 uid="uid://b7dx4acdm24vr"]
 
-[ext_resource type="Texture2D" uid="uid://dwo74loecao6y" path="res://textures/GUI/Menu/Buttons.png" id="1"]
-[ext_resource type="FontFile" path="res://fonts/pixelSmall.tres" id="2"]
+[ext_resource type="Theme" uid="uid://b02uwgbscq35l" path="res://themes/menu.tres" id="1_ikuav"]
+[ext_resource type="FontFile" uid="uid://diwuxgjxhgb06" path="res://fonts/PixelPossibilities.ttf" id="2"]
 [ext_resource type="Script" path="res://scripts/menu/saveSelect.gd" id="3"]
-[ext_resource type="FontFile" path="res://fonts/pixel.tres" id="4"]
+[ext_resource type="Texture2D" uid="uid://0n7whpasackm" path="res://textures/GUI/Menu/btns/delete.png" id="3_d06sp"]
+[ext_resource type="Texture2D" uid="uid://dugfek7agpvh5" path="res://textures/GUI/Menu/btns/delete_pressed.png" id="4_fisrb"]
 [ext_resource type="Texture2D" uid="uid://dh3bsb5krtaop" path="res://textures/GUI/Menu/empty_icon.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://c0eqn1e1go26f" path="res://textures/GUI/Menu/btns/delete_hover.png" id="5_to14t"]
 
-[sub_resource type="AtlasTexture" id="1"]
-atlas = ExtResource("1")
-region = Rect2(73, 24, 79, 27)
-
-[sub_resource type="AtlasTexture" id="2"]
-atlas = ExtResource("1")
-region = Rect2(152, 24, 29, 27)
-
-[node name="saveSelect" type="TextureButton"]
+[node name="saveSelect" type="Button"]
+custom_minimum_size = Vector2(79, 27)
 offset_right = 79.0
 offset_bottom = 27.0
-texture_normal = SubResource("1")
+theme = ExtResource("1_ikuav")
 script = ExtResource("3")
 
 [node name="delete" type="TextureButton" parent="."]
-layout_mode = 0
-offset_left = 79.0
-offset_right = 108.0
-offset_bottom = 27.0
-texture_normal = SubResource("2")
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_right = 28.0
+grow_horizontal = 0
+grow_vertical = 2
+texture_normal = ExtResource("3_d06sp")
+texture_pressed = ExtResource("4_fisrb")
+texture_hover = ExtResource("5_to14t")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 22.0
-offset_top = 3.0
+offset_left = 23.0
 offset_right = 79.0
-offset_bottom = 11.0
-theme_override_fonts/font = ExtResource("4")
+offset_bottom = 13.0
+theme_override_fonts/font = ExtResource("2")
 text = "SAVE 1"
 clip_text = true
 
 [node name="stats" type="Label" parent="."]
 layout_mode = 0
-offset_left = 22.0
+offset_left = 23.0
 offset_top = 10.0
 offset_right = 78.0
 offset_bottom = 24.0
@@ -49,13 +50,15 @@ text = "EMPTY"
 uppercase = true
 
 [node name="Icon" type="TextureRect" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 2.0
+offset_left = 3.0
 offset_top = -9.5
-offset_right = 21.0
+offset_right = 22.0
 offset_bottom = 9.5
+grow_vertical = 2
 texture = ExtResource("5")
 
 [connection signal="pressed" from="delete" to="." method="_on_delete_pressed"]
