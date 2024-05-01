@@ -37,7 +37,7 @@ func _process(delta):
 			$Achievement/Icon.texture = achievements[backedUpRequest[0]]["icon"]
 			$Achievement/Text.text = backedUpRequest[0]
 			$Achievement/AnimationPlayer.play("pop_up")
-			backedUpRequest.remove(0)
+			backedUpRequest.remove_at(0)
 
 func _ready():
 	emit_signal("update_achievements",completedAchievements)

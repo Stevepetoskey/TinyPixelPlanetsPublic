@@ -4,12 +4,15 @@ const SHADE_TEX = preload("res://textures/blocks/shade.png")
 
 @onready var mainCol : CollisionShape2D = $CollisionShape2D
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
+@onready var rain_col: LightOccluder2D = $RainCol
 
 func _ready():
+	z_index = layer
 	if layer < 1:
 		modulate = Color(0.68,0.68,0.68)
 		mainCol.disabled = true
-	z_index = layer
+		rain_col.queue_free()
+		z_index -= 1
 	pos = position / world.BLOCK_SIZE
 	world.connect("update_blocks", Callable(self, "on_update"))
 	world.connect("world_loaded", Callable(self, "on_update"))

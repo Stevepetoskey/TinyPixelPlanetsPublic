@@ -21,7 +21,6 @@ func _ready():
 
 func _physics_process(delta):
 	if !Global.pause:
-		$Label.text = state
 		if !is_on_floor() and state != "attack":
 			body.stop()
 			state = "falling"
@@ -29,12 +28,10 @@ func _physics_process(delta):
 			var space_state = get_world_2d().direct_space_state
 			var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self])
 			var result = space_state.intersect_ray(params)
-			if result.collider == player:
+			if !result.is_empty() and result.collider == player:
 				if !seePlayer:
 					$seeTimer.stop()
 					lostPlayer = false
-	#				seePlayer = true
-	#				seenPos = player.position
 					$Seen.show()
 					await get_tree().create_timer(1).timeout
 					$Seen.hide()

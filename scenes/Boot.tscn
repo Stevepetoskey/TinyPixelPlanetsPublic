@@ -209,20 +209,21 @@ script = ExtResource("7")
 
 [node name="Sky" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
 motion_scale = Vector2(0, 0)
+motion_offset = Vector2(100, 2.08165e-12)
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/ParallaxBackground/Sky"]
 texture = ExtResource("4")
 
 [node name="CloudBack" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
 motion_scale = Vector2(0.1, 0.1)
-motion_offset = Vector2(0, 30)
+motion_offset = Vector2(2.08165e-12, 40)
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/ParallaxBackground/CloudBack"]
 texture = ExtResource("5")
 
 [node name="CloudMid" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
 motion_scale = Vector2(0.5, 0.5)
-motion_offset = Vector2(0, -30)
+motion_offset = Vector2(2.08165e-12, 2.08165e-12)
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/ParallaxBackground/CloudMid"]
 texture = ExtResource("3")

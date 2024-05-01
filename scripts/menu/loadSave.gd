@@ -6,12 +6,11 @@ var selectedSave = ""
 
 func update_save_list() -> void:
 	for save in $saves.get_children():
-		if DirAccess.dir_exists_absolute(Global.save_path + save.name):
-			print("dir exists")
-			if FileAccess.file_exists(Global.save_path + save.name + "/playerData.dat"): #Gets save data
-				var savegame = FileAccess.open(Global.save_path + save.name + "/playerData.dat",FileAccess.READ)
-				var playerData = savegame.get_var()
-				save.get_node("Label").text = "Player" if !playerData.has("player_name") else playerData["player_name"]
+		if DirAccess.dir_exists_absolute(Global.save_path + save.name) and FileAccess.file_exists(Global.save_path + save.name + "/playerData.dat"):
+			var savegame = FileAccess.open(Global.save_path + save.name + "/playerData.dat",FileAccess.READ)
+			var playerData = savegame.get_var()
+			if typeof(playerData) == TYPE_DICTIONARY:
+				save.get_node("Label").text = "Player" if typeof(playerData) != TYPE_DICTIONARY or !playerData.has("player_name") else playerData["player_name"]
 				if playerData.has("version") and Global.ALLOW_VERSIONS.has(playerData["version"]):
 					save.disabled = false
 					save.get_node("stats").text = "Ver: " + str(playerData["version"][0]) + "." + str(playerData["version"][1]) + "." + str(playerData["version"][2]) + ((":" + str(playerData["version"][3]) if playerData["version"][3] > 0 else ""))
@@ -25,9 +24,10 @@ func update_save_list() -> void:
 				else:
 					save.get_node("Icon").texture = scenarios.scenarios["sandbox"]["icon"]
 			else:
-				print("file does not")
-				save.disabled = false
-				save.get_node("Label").text = "Save " + str(save.id + 1)
+				save.disabled = true
+				save.get_node("Label").text = "Player"
+				save.get_node("stats").text = "Ver: incompatible"
+				save.get_node("stats").set("theme_override_colors/font_color",Color.RED)
 				save.get_node("Icon").texture = scenarios.scenarios["empty"]["icon"]
 			save.get_node("delete").show()
 		else:

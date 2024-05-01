@@ -32,7 +32,7 @@ func open():
 		skinCol = starterCharacters[character]["skin"]
 		hairCol = starterCharacters[character]["hairCol"]
 		hairSty = starterCharacters[character]["hair"]
-		sex = starterCharacters[character]["sex"]
+		genCharacter(starterCharacters[character]["sex"])
 	else:
 		if randi()%2==1:
 			genCharacter("Guy")
@@ -50,11 +50,21 @@ func open():
 func genCharacter(charSex : String):
 	sex = charSex
 	if charSex == "Guy":
+		$Female.button_pressed = false
+		$Male.disabled = true
+		$Female.disabled = false
+		$Female.z_index = 0
+		$Male.z_index = 1
 		randMNames.shuffle()
 		charName = randMNames[0]
 		mHair.shuffle()
 		hairSty = mHair[0]
 	else:
+		$Male.button_pressed = false
+		$Female.disabled = true
+		$Male.disabled = false
+		$Female.z_index = 1
+		$Male.z_index = 0
 		randFNames.shuffle()
 		charName = randFNames[0]
 		fHair.shuffle()
@@ -117,17 +127,11 @@ func right(type : String):
 func _on_Female_pressed():
 	sex = "Woman"
 	genCharacter(sex)
-	$Male.button_pressed = false
-	$Female.disabled = true
-	$Male.disabled = false
 	update_char()
 
 func _on_Male_pressed():
 	sex = "Guy"
 	genCharacter(sex)
-	$Female.button_pressed = false
-	$Male.disabled = true
-	$Female.disabled = false
 	update_char()
 
 func _on_Scenarios_pressed():

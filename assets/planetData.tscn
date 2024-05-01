@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://bnis2qfg7owat"]
 
-[ext_resource path="res://scripts/planetData.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://scripts/planetData.gd" id="1"]
 
 [node name="planetData" type="Sprite2D"]
-script = ExtResource( 1 )
+script = ExtResource("1")

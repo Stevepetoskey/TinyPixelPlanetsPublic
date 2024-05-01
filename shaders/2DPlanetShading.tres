@@ -1,0 +1,68 @@
+[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://c42y4thdhy2fi"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_sgups"]
+source = 2
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_knvtc"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_7x4a4"]
+parameter_name = "Planet"
+texture_filter = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_k2eea"]
+source = 5
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_7m3rd"]
+default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(0, 0, 0, 0)]
+op_type = 2
+operator = 2
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform sampler2D Planet : filter_nearest;
+
+
+
+void fragment() {
+// Input:3
+	vec2 n_out3p0 = UV;
+
+
+	vec4 n_out2p0;
+// Texture2D:2
+	n_out2p0 = texture(TEXTURE, n_out3p0);
+
+
+	vec4 n_out5p0;
+// Texture2D:5
+	n_out5p0 = texture(Planet, UV);
+
+
+// VectorOp:6
+	vec4 n_out6p0 = n_out2p0 * n_out5p0;
+
+
+// Output:0
+	COLOR.rgb = vec3(n_out6p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(-319.307, 9.29083)
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(900, 260)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_sgups")
+nodes/fragment/2/position = Vector2(-240, 120)
+nodes/fragment/3/node = SubResource("VisualShaderNodeInput_knvtc")
+nodes/fragment/3/position = Vector2(-920, 160)
+nodes/fragment/4/node = SubResource("VisualShaderNodeTexture2DParameter_7x4a4")
+nodes/fragment/4/position = Vector2(-1020, 480)
+nodes/fragment/5/node = SubResource("VisualShaderNodeTexture_k2eea")
+nodes/fragment/5/position = Vector2(-360, 780)
+nodes/fragment/6/node = SubResource("VisualShaderNodeVectorOp_7m3rd")
+nodes/fragment/6/position = Vector2(380, 160)
+nodes/fragment/connections = PackedInt32Array(3, 0, 2, 0, 4, 0, 5, 2, 2, 0, 6, 0, 5, 0, 6, 1, 6, 0, 0, 0)

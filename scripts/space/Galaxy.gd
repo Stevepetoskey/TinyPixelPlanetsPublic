@@ -110,7 +110,7 @@ func system_pressed(system):
 			$SystemInfo.hover(system.global_position,system.systemId)
 			$Selected.show()
 			$Line.position = $CurrentSelector.position + Vector2(10.5,10.5)
-			$Line.rotation = rad_to_deg($Line.position.angle_to_point($Selected.position + Vector2(10.5,10.5))) + 90
+			$Line.rotation_degrees = rad_to_deg($Line.position.angle_to_point($Selected.position + Vector2(10.5,10.5))) - 90
 			$Line.size.y = $Line.position.distance_to($Selected.position + Vector2(10.5,10.5))
 			$Line.show()
 		else:
@@ -120,7 +120,7 @@ func system_pressed(system):
 			for i in range(100):
 				$CurrentSelector.position = lerp(oldPos,$Selected.position,i/100.0)
 				$Line.position = $CurrentSelector.position + Vector2(10.5,10.5)
-				$Line.rotation = rad_to_deg($Line.position.angle_to_point($Selected.position + Vector2(10.5,10.5))) + 90
+				$Line.rotation_degrees = rad_to_deg($Line.position.angle_to_point($Selected.position + Vector2(10.5,10.5))) - 90
 				$Line.size.y = $Line.position.distance_to($Selected.position + Vector2(10.5,10.5))
 				$GalaxyView.position = $Line.position
 				await get_tree().process_frame

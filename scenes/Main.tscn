@@ -1,4 +1,4 @@
-[gd_scene load_steps=187 format=3 uid="uid://2c07adgn0vow"]
+[gd_scene load_steps=194 format=3 uid="uid://2c07adgn0vow"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c3rmyuwb7gd3m" path="res://textures/enviroment/sky.png" id="2"]
@@ -9,17 +9,21 @@
 [ext_resource type="Texture2D" uid="uid://tdqh6int0j64" path="res://textures/GUI/main/storage/storage_bg.png" id="8"]
 [ext_resource type="Script" path="res://scripts/Inventory.gd" id="9"]
 [ext_resource type="Script" path="res://scripts/Crafting.gd" id="11"]
-[ext_resource type="PackedScene" path="res://assets/GUI/Pause.tscn" id="12"]
+[ext_resource type="PackedScene" uid="uid://dn6ilfeqopl5j" path="res://assets/GUI/Pause.tscn" id="12"]
+[ext_resource type="Theme" uid="uid://bvlk5mt2axnwa" path="res://themes/Gray.tres" id="12_23g2f"]
 [ext_resource type="Texture2D" uid="uid://docmqdn1y13fp" path="res://textures/GUI/Blank.png" id="13"]
-[ext_resource type="Texture2D" uid="uid://dwo74loecao6y" path="res://textures/GUI/Menu/Buttons.png" id="14"]
 [ext_resource type="Texture2D" uid="uid://bdy3c4crcwfy1" path="res://textures/GUI/main/Blues.png" id="15"]
 [ext_resource type="PackedScene" uid="uid://c0cgbwp6g0r8h" path="res://assets/Player.tscn" id="16"]
 [ext_resource type="Texture2D" uid="uid://b54ippjho2bff" path="res://textures/GUI/main/hotbar/bars.png" id="17"]
 [ext_resource type="Script" path="res://scripts/Sky.gd" id="18"]
 [ext_resource type="Script" path="res://scripts/enviroment/Space.gd" id="19"]
+[ext_resource type="FontFile" uid="uid://c72erwxvdt2b6" path="res://fonts/PixelpossiblitiesSmall.ttf" id="19_36l8u"]
 [ext_resource type="Texture2D" uid="uid://dhnnswc6ucpvg" path="res://textures/enviroment/backgrounds/terra_front.png" id="20"]
 [ext_resource type="Script" path="res://scripts/Enviroment.gd" id="21"]
+[ext_resource type="Texture2D" uid="uid://c3gi3tckbsqa" path="res://textures/GUI/main/hotbar/go_up_btn.png" id="21_u37ji"]
 [ext_resource type="Texture2D" uid="uid://kusgl6ud38f6" path="res://textures/enviroment/backgrounds/terra_back.png" id="22"]
+[ext_resource type="Texture2D" uid="uid://i4c2a0l1rg2h" path="res://textures/GUI/main/hotbar/go_up_btn_pressed.png" id="22_0y4l0"]
+[ext_resource type="Texture2D" uid="uid://dcwvytn78prs5" path="res://textures/GUI/main/hotbar/go_up_btn_hover.png" id="23_54wbw"]
 [ext_resource type="Texture2D" uid="uid://cg77ke3bvhhcj" path="res://textures/GUI/space/v_bar_handle_select.png" id="24"]
 [ext_resource type="Script" path="res://scripts/ArmorSlot.gd" id="25"]
 [ext_resource type="AudioStream" uid="uid://05eoqqltljlt" path="res://Audio/sfx/Ambience/mixkit-spring-forest-with-woodpeckers-1217.wav" id="26"]
@@ -48,13 +52,13 @@
 [ext_resource type="Script" path="res://scripts/Dead.gd" id="49"]
 [ext_resource type="FastNoiseLite" uid="uid://bp77i8xjxs5di" path="res://noise/Main.tres" id="51"]
 [ext_resource type="Script" path="res://scripts/Chest.gd" id="52"]
-[ext_resource type="PackedScene" path="res://assets/ChestBtn.tscn" id="53"]
 [ext_resource type="Texture2D" uid="uid://d380irrpct8nn" path="res://textures/GUI/main/hotbar/hotbar2.png" id="54"]
 [ext_resource type="Texture2D" uid="uid://bueaebvbfj4jw" path="res://textures/GUI/main/hotbar/hotbar1.png" id="55"]
 [ext_resource type="Texture2D" uid="uid://u27t1xjmaq7" path="res://textures/GUI/main/bigBar.png" id="56"]
 [ext_resource type="FontFile" uid="uid://boiyd3n1keevx" path="res://fonts/upheavtt.ttf" id="56_wca64"]
 [ext_resource type="Texture2D" uid="uid://bom5ygsohqxmw" path="res://textures/GUI/main/hotbar/O2-safe.png" id="58"]
-[ext_resource type="Texture2D" uid="uid://fvhpuf5gfvjs" path="res://textures/GUI/Menu/MenuCharacter.png" id="59"]
+[ext_resource type="Shader" path="res://shaders/Pause.gdshader" id="58_564f8"]
+[ext_resource type="Theme" uid="uid://b02uwgbscq35l" path="res://themes/menu.tres" id="60_dyqfb"]
 [ext_resource type="Script" path="res://scripts/Commands.gd" id="61"]
 [ext_resource type="Texture2D" uid="uid://dpqpaobomk0g" path="res://textures/GUI/main/inventory/item-toolbar.png" id="62"]
 [ext_resource type="Script" path="res://scripts/ItemDataShow.gd" id="63"]
@@ -72,7 +76,6 @@
 [ext_resource type="Texture2D" uid="uid://dqkgujgjvgj5g" path="res://textures/GUI/space/v_bar.png" id="75"]
 [ext_resource type="Texture2D" uid="uid://cy2kr64p5herf" path="res://textures/GUI/space/h_bar_handle.png" id="76"]
 [ext_resource type="Texture2D" uid="uid://bes1uxqlw0hrb" path="res://textures/GUI/main/crafting/crafting_bg.png" id="77"]
-[ext_resource type="PackedScene" path="res://assets/GUI/ShopItem.tscn" id="78"]
 [ext_resource type="FontFile" uid="uid://diwuxgjxhgb06" path="res://fonts/PixelPossibilities.ttf" id="79"]
 [ext_resource type="Texture2D" uid="uid://bb4hsafmlev5c" path="res://textures/GUI/main/shop/shop_bg.png" id="80"]
 [ext_resource type="AudioStream" uid="uid://cjeky6rbgpg1r" path="res://Audio/sfx/Ambience/mixkit-sea-waves-loop-1196.wav" id="81"]
@@ -385,22 +388,8 @@ shader = SubResource("21")
 shader_parameter/StarLight = 1.0
 shader_parameter/SkyColor = Color(0, 0, 0, 1)
 
-[sub_resource type="FontFile" id="FontFile_653sy"]
-fallbacks = Array[Font]([ExtResource("79")])
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/16/0/kerning_overrides/50/0 = Vector2(0, 0)
-cache/0/50/0/ascent = 0.0
-cache/0/50/0/descent = 0.0
-cache/0/50/0/underline_position = 0.0
-cache/0/50/0/underline_thickness = 0.0
-cache/0/50/0/scale = 1.0
-cache/0/50/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/50/0/kerning_overrides/50/0 = Vector2(0, 0)
+[sub_resource type="LabelSettings" id="LabelSettings_q7whe"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
 
 [sub_resource type="AtlasTexture" id="80"]
 atlas = ExtResource("56")
@@ -410,29 +399,8 @@ region = Rect2(0, 0, 98, 8)
 atlas = ExtResource("56")
 region = Rect2(0, 8, 98, 8)
 
-[sub_resource type="FontFile" id="FontFile_70c0w"]
-fallbacks = Array[Font]([ExtResource("79")])
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/16/0/kerning_overrides/50/0 = Vector2(0, 0)
-cache/0/50/0/ascent = 0.0
-cache/0/50/0/descent = 0.0
-cache/0/50/0/underline_position = 0.0
-cache/0/50/0/underline_thickness = 0.0
-cache/0/50/0/scale = 1.0
-cache/0/50/0/kerning_overrides/16/0 = Vector2(0, 0)
-cache/0/50/0/kerning_overrides/50/0 = Vector2(0, 0)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wja5i"]
-load_path = "res://.godot/imported/GUI_buttons.png-5b2b893474cca9b9292fe5336b3473da.ctex"
-
-[sub_resource type="AtlasTexture" id="53"]
-atlas = SubResource("CompressedTexture2D_wja5i")
-region = Rect2(176, 0, 16, 16)
+[sub_resource type="LabelSettings" id="LabelSettings_omix6"]
+font = ExtResource("19_36l8u")
 
 [sub_resource type="AtlasTexture" id="54"]
 atlas = ExtResource("17")
@@ -449,6 +417,8 @@ region = Rect2(0, 12, 23, 2)
 [sub_resource type="AtlasTexture" id="57"]
 atlas = ExtResource("17")
 region = Rect2(0, 5, 23, 2)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wja5i"]
 
 [sub_resource type="AtlasTexture" id="82"]
 atlas = SubResource("CompressedTexture2D_wja5i")
@@ -491,6 +461,26 @@ _data = {
 "RESET": SubResource("83"),
 "blink": SubResource("84")
 }
+
+[sub_resource type="LabelSettings" id="LabelSettings_5jsv6"]
+outline_size = 3
+outline_color = Color(0.431373, 0.458824, 0.552941, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pq2ay"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+shadow_color = Color(0.372549, 0.407843, 0.521569, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_oxxqt"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+shadow_color = Color(0.372549, 0.407843, 0.521569, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pj5bb"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+shadow_color = Color(0.372549, 0.407843, 0.521569, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_a5yvo"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+shadow_color = Color(0.372549, 0.407843, 0.521569, 1)
 
 [sub_resource type="StyleBoxTexture" id="16"]
 texture = ExtResource("76")
@@ -539,14 +529,25 @@ VScrollBar/styles/grabber_pressed = SubResource("15")
 VScrollBar/styles/scroll = SubResource("20")
 VSlider/styles/slider = SubResource("112")
 
-[sub_resource type="FontFile" id="122"]
-fallbacks = Array[Font]([ExtResource("79")])
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+[sub_resource type="LabelSettings" id="LabelSettings_f71tw"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+outline_size = 3
+outline_color = Color(0.231373, 0.290196, 0.478431, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_h1jgf"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+outline_size = 3
+outline_color = Color(0.231373, 0.290196, 0.478431, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xsdyu"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+outline_size = 3
+outline_color = Color(0.266667, 0.235294, 0.384314, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4nrps"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+outline_size = 3
+outline_color = Color(0.266667, 0.235294, 0.384314, 1)
 
 [sub_resource type="Animation" id="11"]
 length = 0.001
@@ -637,20 +638,22 @@ _data = {
 "fadeOut": SubResource("116")
 }
 
-[sub_resource type="FontFile" id="FontFile_n5nce"]
-fallbacks = Array[Font]([ExtResource("56_wca64")])
-cache/0/16/0/ascent = 0.0
-cache/0/16/0/descent = 0.0
-cache/0/16/0/underline_position = 0.0
-cache/0/16/0/underline_thickness = 0.0
-cache/0/16/0/scale = 1.0
-cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ln4b"]
+shader = ExtResource("58_564f8")
+shader_parameter/blur_amount = 2.0
+shader_parameter/mix_amount = 0.5
+shader_parameter/color_over = Color(0.768627, 0, 0, 1)
 
-[sub_resource type="AtlasTexture" id="10"]
-atlas = ExtResource("14")
-region = Rect2(96, 68, 64, 15)
+[sub_resource type="LabelSettings" id="LabelSettings_8airn"]
+font = ExtResource("56_wca64")
+font_size = 20
+font_color = Color(1, 0, 0, 1)
+outline_size = 3
+shadow_size = 0
+shadow_color = Color(0.658824, 0, 0, 1)
+shadow_offset = Vector2(-1, 1)
 
-[sub_resource type="FontFile" id="FontFile_wb0pa"]
+[sub_resource type="FontFile" id="FontFile_653sy"]
 fallbacks = Array[Font]([ExtResource("79")])
 cache/0/16/0/ascent = 0.0
 cache/0/16/0/descent = 0.0
@@ -658,10 +661,14 @@ cache/0/16/0/underline_position = 0.0
 cache/0/16/0/underline_thickness = 0.0
 cache/0/16/0/scale = 1.0
 cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
-
-[sub_resource type="StyleBoxTexture" id="117"]
-texture = ExtResource("59")
-region_rect = Rect2(31, 18, 88, 11)
+cache/0/16/0/kerning_overrides/50/0 = Vector2(0, 0)
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+cache/0/50/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/50/0/kerning_overrides/50/0 = Vector2(0, 0)
 
 [sub_resource type="Animation" id="85"]
 length = 0.001
@@ -811,13 +818,19 @@ size = Vector2(8, 8)
 background_mode = 4
 glow_enabled = true
 
-[sub_resource type="ParticleProcessMaterial" id="75"]
-emission_shape = 2
-emission_sphere_radius = 1.0
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ovjk6"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(240, 1, 1)
 direction = Vector3(0.5, 1, 0)
-spread = 0.0
-gravity = Vector3(0, 0, 0)
-color = Color(0.211765, 0.643137, 0.960784, 0.85098)
+spread = 5.0
+initial_velocity_min = 100.0
+initial_velocity_max = 350.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+color = Color(0.79, 0.8985, 1, 0.619608)
+turbulence_noise_scale = 100.0
+collision_mode = 2
 
 [sub_resource type="Animation" id="93"]
 length = 0.001
@@ -884,110 +897,134 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Rain:process_material:initial_velocity")
+tracks/5/path = NodePath("Snow:emitting")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [200.0]
+"values": [false]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Snow:emitting")
+tracks/6/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:self_modulate")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [false]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:self_modulate")
+tracks/7/path = NodePath("Snow:amount")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [100]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Snow:amount")
+tracks/8/path = NodePath("Snow:process_material:direction")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [100]
+"values": [Vector3(0, 1, 0)]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Snow:process_material:initial_velocity")
+tracks/9/path = NodePath("Snow:lifetime")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [20.0]
+"values": [10.0]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Snow:process_material:direction")
+tracks/10/path = NodePath("../sfx/Rain:playing")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 1, 0)]
+"update": 1,
+"values": [false]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("Snow:lifetime")
+tracks/11/path = NodePath("../sfx/Rain:volume_db")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [10.0]
+"values": [0.0]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("../sfx/Rain:playing")
+tracks/12/path = NodePath("Rain:process_material:initial_velocity_min")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [100.0]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("../sfx/Rain:volume_db")
+tracks/13/path = NodePath("Snow:process_material:initial_velocity_min")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [20.0]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Snow:process_material:initial_velocity_max")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [30.0]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Rain:lifetime")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.5]
 }
 
 [sub_resource type="Animation" id="94"]
@@ -1056,38 +1093,50 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Snow:process_material:initial_velocity")
+tracks/5/path = NodePath("Snow:process_material:direction")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [50.0]
+"values": [Vector3(0.5, 1, 0)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Snow:process_material:direction")
+tracks/6/path = NodePath("Snow:lifetime")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.5, 1, 0)]
+"values": [5.0]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Snow:lifetime")
+tracks/7/path = NodePath("Snow:process_material:initial_velocity_min")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [5.0]
+"values": [50.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Snow:process_material:initial_velocity_max")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [60.0]
 }
 
 [sub_resource type="Animation" id="107"]
@@ -1156,38 +1205,50 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Snow:process_material:initial_velocity")
+tracks/5/path = NodePath("Snow:process_material:direction")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [50.0]
+"values": [Vector3(0.5, 1, 0)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Snow:process_material:direction")
+tracks/6/path = NodePath("Snow:lifetime")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.5, 1, 0)]
+"values": [5.0]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Snow:lifetime")
+tracks/7/path = NodePath("Snow:process_material:initial_velocity_min")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [5.0]
+"values": [50.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Snow:process_material:initial_velocity_max")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [60.0]
 }
 
 [sub_resource type="Animation" id="95"]
@@ -1342,55 +1403,79 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.5, 1, 0)]
+"values": [Vector3(1, 2, 2.08165e-12)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Rain:process_material:initial_velocity")
+tracks/5/path = NodePath("Snow:emitting")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [200.0]
+"update": 1,
+"values": [false]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Snow:emitting")
+tracks/6/path = NodePath("../sfx/Rain:playing")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../sfx/Rain:playing")
+tracks/7/path = NodePath("../sfx/Rain:volume_db")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("../sfx/Rain:volume_db")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
 "times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [-20.0, 0.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Rain:process_material:initial_velocity_min")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [100.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Rain:process_material:initial_velocity_max")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [100.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Rain:lifetime")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.5]
 }
 
 [sub_resource type="Animation" id="108"]
@@ -1459,50 +1544,74 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Rain:process_material:initial_velocity")
+tracks/5/path = NodePath("Snow:emitting")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [200.0]
+"update": 1,
+"values": [false]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Snow:emitting")
+tracks/6/path = NodePath("../sfx/Rain:playing")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../sfx/Rain:playing")
+tracks/7/path = NodePath("../sfx/Rain:volume_db")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [0.0]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("../sfx/Rain:volume_db")
+tracks/8/path = NodePath("Rain:process_material:initial_velocity_min")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [100.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Rain:process_material:initial_velocity_max")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [100.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Rain:lifetime")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.5]
 }
 
 [sub_resource type="Animation" id="98"]
@@ -1630,7 +1739,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [200]
+"values": [300]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -1642,55 +1751,79 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.75, 1, 0)]
+"values": [Vector3(0.5, 5, 2.08165e-12)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Rain:process_material:initial_velocity")
+tracks/5/path = NodePath("Snow:emitting")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [350.0]
+"update": 1,
+"values": [false]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Snow:emitting")
+tracks/6/path = NodePath("../sfx/Rain:playing")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../sfx/Rain:playing")
+tracks/7/path = NodePath("../sfx/Rain:volume_db")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/8/type = "value"
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/path = NodePath("../sfx/Rain:volume_db")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/keys = {
 "times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [-20.0, 0.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Rain:process_material:initial_velocity_min")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [250.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Rain:process_material:initial_velocity_max")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [275.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Rain:lifetime")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.75]
 }
 
 [sub_resource type="Animation" id="109"]
@@ -1742,7 +1875,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [200]
+"values": [300]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -1754,55 +1887,67 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0.75, 1, 0)]
+"values": [Vector3(0.5, 5, 2.08165e-12)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Rain:process_material:initial_velocity")
+tracks/5/path = NodePath("Snow:emitting")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [350.0]
+"update": 1,
+"values": [false]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Snow:emitting")
+tracks/6/path = NodePath("../sfx/Rain:playing")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../sfx/Rain:playing")
+tracks/7/path = NodePath("../sfx/Rain:volume_db")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [0.0]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("../sfx/Rain:volume_db")
+tracks/8/path = NodePath("Rain:process_material:initial_velocity_min")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [350.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Rain:lifetime")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.75]
 }
 
 [sub_resource type="Animation" id="100"]
@@ -1947,38 +2092,50 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Snow:process_material:initial_velocity")
+tracks/5/path = NodePath("Snow:process_material:direction")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [20.0]
+"values": [Vector3(2.08165e-12, 1, 2.08165e-12)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Snow:process_material:direction")
+tracks/6/path = NodePath("Snow:lifetime")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 1, 0)]
+"values": [10.0]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Snow:lifetime")
+tracks/7/path = NodePath("Snow:process_material:initial_velocity_min")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [10.0]
+"values": [20.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Snow:process_material:initial_velocity_max")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [30.0]
 }
 
 [sub_resource type="Animation" id="110"]
@@ -2047,38 +2204,50 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Snow:process_material:initial_velocity")
+tracks/5/path = NodePath("Snow:process_material:direction")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [20.0]
+"values": [Vector3(0, 1, 0)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("Snow:process_material:direction")
+tracks/6/path = NodePath("Snow:lifetime")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 1, 0)]
+"values": [10.0]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("Snow:lifetime")
+tracks/7/path = NodePath("Snow:process_material:initial_velocity_min")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [10.0]
+"values": [20.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Snow:process_material:initial_velocity_max")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [30.0]
 }
 
 [sub_resource type="Animation" id="102"]
@@ -2157,20 +2326,22 @@ particles_anim_h_frames = 3
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="Gradient" id="104"]
-offsets = PackedFloat32Array(0.835294, 1)
-colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
-
-[sub_resource type="GradientTexture2D" id="105"]
-gradient = SubResource("104")
-
-[sub_resource type="ParticleProcessMaterial" id="106"]
-emission_shape = 2
-emission_sphere_radius = 1.0
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i84x0"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(240, 1, 1)
 direction = Vector3(0, 1, 0)
-spread = 25.0
-gravity = Vector3(0, 0, 0)
-color_ramp = SubResource("105")
+spread = 10.0
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+radial_velocity_max = 5.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+turbulence_noise_scale = 100.0
+turbulence_noise_speed = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+turbulence_influence_min = 0.0
+turbulence_influence_max = 0.01
+collision_mode = 2
 
 [node name="Main" type="Node2D"]
 script = ExtResource("35")
@@ -2202,6 +2373,7 @@ motion_scale = Vector2(0, 0)
 [node name="sky" type="Sprite2D" parent="CanvasLayer/ParallaxBackground/SkyLayer"]
 material = SubResource("65")
 texture = ExtResource("2")
+centered = false
 
 [node name="ParallaxBackground2" type="ParallaxBackground" parent="CanvasLayer"]
 layer = -90
@@ -2218,6 +2390,7 @@ motion_scale = Vector2(0, 0)
 visible = false
 modulate = Color(1, 1, 1, 0)
 texture = ExtResource("65")
+centered = false
 
 [node name="Enviroment" type="ParallaxBackground" parent="CanvasLayer"]
 layer = -80
@@ -2250,7 +2423,7 @@ one_shot = true
 [node name="back" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
 modulate = Color(1, 0.662745, 0.282353, 1)
 motion_scale = Vector2(0.1, 0.1)
-motion_offset = Vector2(0, 10)
+motion_offset = Vector2(2.08165e-12, 40)
 motion_mirroring = Vector2(640, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Enviroment/back"]
@@ -2262,7 +2435,7 @@ region_rect = Rect2(0, 0, 640, 180)
 [node name="front" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
 modulate = Color(0.427451, 0.368627, 0.47451, 1)
 motion_scale = Vector2(0.3, 0.3)
-motion_offset = Vector2(0, 35)
+motion_offset = Vector2(2.08165e-12, 55)
 motion_mirroring = Vector2(640, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Enviroment/front"]
@@ -2279,23 +2452,26 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -49.0
-offset_top = -27.0
+offset_top = -28.0
 offset_right = 49.0
-offset_bottom = -10.0
+offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
+theme = ExtResource("12_23g2f")
 
 [node name="Label" type="Label" parent="CanvasLayer/Oxygen"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -26.0
+offset_top = 1.0
 offset_right = 26.0
-offset_bottom = 8.0
-theme_override_colors/font_outline_color = Color(0.701961, 0.72549, 0.819608, 1)
-theme_override_fonts/font = SubResource("FontFile_653sy")
+offset_bottom = 9.0
+grow_horizontal = 2
 text = "Suit Oxygen"
+label_settings = SubResource("LabelSettings_q7whe")
 
 [node name="suitOxygen" type="TextureProgressBar" parent="CanvasLayer/Oxygen"]
 layout_mode = 0
@@ -2316,6 +2492,7 @@ layout_mode = 3
 anchor_right = 1.0
 anchor_bottom = 0.141
 offset_bottom = -0.0240002
+theme = ExtResource("12_23g2f")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Hotbar"]
 layout_mode = 0
@@ -2325,18 +2502,16 @@ texture = ExtResource("68")
 
 [node name="InventoryBtn" type="TextureButton" parent="CanvasLayer/Hotbar"]
 layout_mode = 0
-offset_right = 30.0
-offset_bottom = 17.0
+offset_right = 31.0
+offset_bottom = 16.0
 texture_normal = ExtResource("55")
 
 [node name="Amount" type="Label" parent="CanvasLayer/Hotbar/InventoryBtn"]
 layout_mode = 0
-offset_left = 14.0
-offset_top = 3.0
+offset_left = 13.0
+offset_top = 4.0
 offset_right = 30.0
-offset_bottom = 15.0
-theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
-theme_override_fonts/font = SubResource("FontFile_70c0w")
+offset_bottom = 12.0
 text = "*33"
 clip_text = true
 
@@ -2357,12 +2532,10 @@ texture_normal = ExtResource("54")
 
 [node name="Amount" type="Label" parent="CanvasLayer/Hotbar/InventoryBtn2"]
 layout_mode = 0
-offset_left = 13.0
-offset_top = 3.0
-offset_right = 27.0
-offset_bottom = 15.0
-theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
-theme_override_fonts/font = SubResource("FontFile_70c0w")
+offset_left = 12.0
+offset_top = 4.0
+offset_right = 29.0
+offset_bottom = 12.0
 text = "*33"
 clip_text = true
 
@@ -2376,9 +2549,9 @@ texture = ExtResource("3")
 
 [node name="K" type="TextureRect" parent="CanvasLayer/Hotbar"]
 layout_mode = 0
-offset_left = 110.0
+offset_left = 111.0
 offset_top = 3.0
-offset_right = 131.0
+offset_right = 134.0
 offset_bottom = 16.0
 texture = ExtResource("33")
 
@@ -2389,10 +2562,20 @@ offset_top = 3.0
 offset_right = 19.0
 offset_bottom = 11.0
 
+[node name="Keybind" type="Label" parent="CanvasLayer/Hotbar/K"]
+layout_mode = 0
+offset_left = 7.0
+offset_right = 13.0
+offset_bottom = 12.0
+text = "k"
+label_settings = SubResource("LabelSettings_omix6")
+horizontal_alignment = 1
+uppercase = true
+
 [node name="J" type="TextureRect" parent="CanvasLayer/Hotbar"]
 layout_mode = 0
-offset_left = 100.0
-offset_right = 121.0
+offset_left = 99.0
+offset_right = 122.0
 offset_bottom = 13.0
 texture = ExtResource("34")
 
@@ -2403,6 +2586,17 @@ offset_top = 2.0
 offset_right = 10.0
 offset_bottom = 10.0
 
+[node name="Keybind" type="Label" parent="CanvasLayer/Hotbar/J"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = -4.0
+offset_right = 17.0
+offset_bottom = 8.0
+text = "J"
+label_settings = SubResource("LabelSettings_omix6")
+horizontal_alignment = 1
+uppercase = true
+
 [node name="GoUp" type="TextureButton" parent="CanvasLayer/Hotbar"]
 layout_mode = 0
 anchor_left = 1.0
@@ -2411,7 +2605,9 @@ offset_left = -18.0
 offset_top = 2.0
 offset_right = -2.0
 offset_bottom = 18.0
-texture_normal = SubResource("53")
+texture_normal = ExtResource("21_u37ji")
+texture_pressed = ExtResource("22_0y4l0")
+texture_hover = ExtResource("23_54wbw")
 
 [node name="Bars" type="Control" parent="CanvasLayer/Hotbar"]
 anchors_preset = 0
@@ -2473,9 +2669,8 @@ offset_left = 2.0
 offset_top = 20.0
 offset_right = 87.0
 offset_bottom = 28.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = SubResource("FontFile_653sy")
 text = "X: 32, Y: 5"
+label_settings = SubResource("LabelSettings_5jsv6")
 
 [node name="Inventory" type="Control" parent="CanvasLayer"]
 visible = false
@@ -2484,6 +2679,7 @@ anchors_preset = 0
 offset_top = 19.0
 offset_right = 116.0
 offset_bottom = 160.0
+theme = ExtResource("12_23g2f")
 script = ExtResource("9")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Inventory"]
@@ -2618,59 +2814,67 @@ texture = ExtResource("42")
 
 [node name="HelmetPoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
 layout_mode = 0
-offset_left = 29.5
-offset_top = 7.0
-offset_right = 64.5
+offset_left = 29.0
+offset_top = 5.0
+offset_right = 60.0
 offset_bottom = 15.0
-theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "+1 Def"
+label_settings = SubResource("LabelSettings_pq2ay")
+vertical_alignment = 1
 
 [node name="ChestplatePoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
 layout_mode = 0
-offset_left = 29.5
-offset_top = 20.0
-offset_right = 64.5
+offset_left = 29.0
+offset_top = 18.0
+offset_right = 60.0
 offset_bottom = 28.0
-theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "+5 Def"
+label_settings = SubResource("LabelSettings_oxxqt")
+vertical_alignment = 1
 
 [node name="LeggingsPoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
 layout_mode = 0
-offset_left = 29.5
-offset_top = 33.0
-offset_right = 64.5
+offset_left = 29.0
+offset_top = 31.0
+offset_right = 60.0
 offset_bottom = 41.0
-theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "+2 Def"
+label_settings = SubResource("LabelSettings_pj5bb")
+vertical_alignment = 1
 
 [node name="BootsPoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
 layout_mode = 0
-offset_left = 29.5
-offset_top = 46.0
-offset_right = 64.5
+offset_left = 29.0
+offset_top = 44.0
+offset_right = 60.0
 offset_bottom = 54.0
-theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "+1 Def"
+label_settings = SubResource("LabelSettings_a5yvo")
+vertical_alignment = 1
 
 [node name="Blues" type="HBoxContainer" parent="CanvasLayer/Inventory"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -39.0
-offset_top = -10.0
-offset_right = 39.0
+offset_left = -56.0
+offset_top = -11.0
+offset_right = 56.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_constants/separation = 1
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Inventory/Blues"]
 layout_mode = 2
 texture = ExtResource("15")
+stretch_mode = 3
 
 [node name="Label" type="Label" parent="CanvasLayer/Inventory/Blues"]
 layout_mode = 2
-theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "*1003290"
 
 [node name="ItemScroll" type="ScrollContainer" parent="CanvasLayer/Inventory"]
@@ -2691,14 +2895,13 @@ columns = 2
 
 [node name="Title" type="Label" parent="CanvasLayer/Inventory"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 4.0
-offset_right = 90.0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 114.0
 offset_bottom = 12.0
-theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
-theme_override_colors/font_outline_color = Color(0.231373, 0.290196, 0.482353, 1)
-theme_override_fonts/font = SubResource("FontFile_653sy")
 text = "Inventory"
+label_settings = SubResource("LabelSettings_f71tw")
+horizontal_alignment = 1
 
 [node name="Crafting" type="Control" parent="CanvasLayer"]
 visible = false
@@ -2712,6 +2915,7 @@ offset_left = -116.0
 offset_top = -141.0
 grow_horizontal = 0
 grow_vertical = 0
+theme = ExtResource("12_23g2f")
 script = ExtResource("11")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Crafting"]
@@ -2734,14 +2938,15 @@ offset_bottom = -38.0
 
 [node name="Title" type="Label" parent="CanvasLayer/Crafting"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 4.0
-offset_right = 94.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 114.0
 offset_bottom = 12.0
 theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
 theme_override_colors/font_outline_color = Color(0.231373, 0.290196, 0.482353, 1)
-theme_override_fonts/font = SubResource("FontFile_653sy")
 text = "Crafting"
+label_settings = SubResource("LabelSettings_h1jgf")
+horizontal_alignment = 1
 
 [node name="RecipesScroll" type="ScrollContainer" parent="CanvasLayer/Crafting"]
 layout_mode = 0
@@ -2759,8 +2964,6 @@ layout_mode = 2
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("12")]
 visible = false
-layout_mode = 3
-anchors_preset = 15
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -2776,6 +2979,7 @@ offset_left = -116.0
 offset_top = -141.0
 grow_horizontal = 0
 grow_vertical = 0
+theme = ExtResource("12_23g2f")
 script = ExtResource("52")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Chest"]
@@ -2802,19 +3006,15 @@ theme_override_constants/h_separation = 2
 theme_override_constants/v_separation = 2
 columns = 2
 
-[node name="ChestBtn" parent="CanvasLayer/Chest/ItemScroll/ItemContainer" instance=ExtResource("53")]
-layout_mode = 2
-
 [node name="Title" type="Label" parent="CanvasLayer/Chest"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 4.0
-offset_right = 94.0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 114.0
 offset_bottom = 12.0
-theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
-theme_override_colors/font_outline_color = Color(0.270588, 0.235294, 0.380392, 1)
-theme_override_fonts/font = SubResource("FontFile_653sy")
 text = "Chest"
+label_settings = SubResource("LabelSettings_xsdyu")
+horizontal_alignment = 1
 
 [node name="Shop" type="Control" parent="CanvasLayer"]
 visible = false
@@ -2828,6 +3028,7 @@ offset_left = -116.0
 offset_top = -141.0
 grow_horizontal = 0
 grow_vertical = 0
+theme = ExtResource("12_23g2f")
 script = ExtResource("86")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Shop"]
@@ -2862,19 +3063,15 @@ theme_override_constants/h_separation = 2
 theme_override_constants/v_separation = 2
 columns = 2
 
-[node name="ShopItem" parent="CanvasLayer/Shop/ItemScroll/ItemContainer" instance=ExtResource("78")]
-layout_mode = 2
-
 [node name="Title" type="Label" parent="CanvasLayer/Shop"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 4.0
-offset_right = 114.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 116.0
 offset_bottom = 12.0
-theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
-theme_override_colors/font_outline_color = Color(0.270588, 0.235294, 0.380392, 1)
-theme_override_fonts/font = SubResource("FontFile_653sy")
 text = "Lily Mart"
+label_settings = SubResource("LabelSettings_4nrps")
+horizontal_alignment = 1
 
 [node name="Dialogue" type="RichTextLabel" parent="CanvasLayer/Shop"]
 layout_mode = 0
@@ -2883,7 +3080,6 @@ offset_top = 17.0
 offset_right = 110.0
 offset_bottom = 42.0
 theme = SubResource("113")
-theme_override_fonts/normal_font = SubResource("122")
 text = "Hello!"
 scroll_following = true
 
@@ -2902,14 +3098,20 @@ texture_pressed = ExtResource("87")
 texture_disabled = ExtResource("87")
 
 [node name="Label" type="Label" parent="CanvasLayer/Shop/TabBar/BuyTab"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 2.0
-offset_top = 1.0
+offset_left = 1.0
+offset_top = -4.0
 offset_right = -1.0
-theme_override_fonts/font = SubResource("FontFile_70c0w")
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("19_36l8u")
 text = "Buy"
+horizontal_alignment = 1
+uppercase = true
 
 [node name="SellTab" type="TextureButton" parent="CanvasLayer/Shop/TabBar"]
 layout_mode = 2
@@ -2918,14 +3120,19 @@ texture_pressed = ExtResource("87")
 texture_disabled = ExtResource("87")
 
 [node name="Label" type="Label" parent="CanvasLayer/Shop/TabBar/SellTab"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = -1.0
-theme_override_fonts/font = SubResource("FontFile_70c0w")
+offset_left = 2.0
+offset_top = -4.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("19_36l8u")
 text = "Sell"
+horizontal_alignment = 1
+uppercase = true
 
 [node name="Black" type="TextureRect" parent="CanvasLayer"]
 modulate = Color(0, 0, 0, 1)
@@ -2948,10 +3155,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("12_23g2f")
 script = ExtResource("49")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Dead"]
-modulate = Color(0.741176, 0, 0, 0.52549)
+material = SubResource("ShaderMaterial_8ln4b")
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -2962,9 +3170,10 @@ expand_mode = 1
 layout_mode = 0
 anchor_right = 1.0
 offset_bottom = 30.0
-theme_override_colors/font_shadow_color = Color(0.415686, 0.415686, 0.415686, 1)
-theme_override_fonts/font = SubResource("FontFile_n5nce")
 text = "You Died!"
+label_settings = SubResource("LabelSettings_8airn")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Dead"]
 layout_mode = 0
@@ -2978,47 +3187,36 @@ offset_right = 32.0
 offset_bottom = 23.0
 theme_override_constants/separation = 16
 
-[node name="Respawn" type="TextureButton" parent="CanvasLayer/Dead/VBoxContainer"]
+[node name="Respawn" type="Button" parent="CanvasLayer/Dead/VBoxContainer"]
 layout_mode = 2
-texture_normal = SubResource("10")
-
-[node name="Label" type="Label" parent="CanvasLayer/Dead/VBoxContainer/Respawn"]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme_override_colors/font_shadow_color = Color(0.415686, 0.415686, 0.415686, 1)
-theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "Respawn"
 
-[node name="Quit" type="TextureButton" parent="CanvasLayer/Dead/VBoxContainer"]
+[node name="Quit" type="Button" parent="CanvasLayer/Dead/VBoxContainer"]
 layout_mode = 2
-texture_normal = SubResource("10")
-
-[node name="Label" type="Label" parent="CanvasLayer/Dead/VBoxContainer/Quit"]
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-theme_override_colors/font_shadow_color = Color(0.415686, 0.415686, 0.415686, 1)
-theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "Quit"
 
 [node name="FPS" type="Label" parent="CanvasLayer"]
+visible = false
 offset_right = 40.0
 offset_bottom = 14.0
+text = "60 FPS"
 
 [node name="Commands" type="LineEdit" parent="CanvasLayer"]
 visible = false
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -10.0
-offset_right = 168.0
-theme_override_fonts/font = SubResource("FontFile_wb0pa")
-theme_override_styles/normal = SubResource("117")
+offset_left = 1.0
+offset_top = -13.0
+offset_right = 169.0
+offset_bottom = -1.0
+grow_vertical = 0
+theme = ExtResource("60_dyqfb")
 placeholder_text = "Type commands here"
 script = ExtResource("61")
 
 [node name="Title" type="Label" parent="CanvasLayer"]
+visible = false
 modulate = Color(1, 1, 1, 0)
 anchors_preset = 7
 anchor_left = 0.5
@@ -3043,7 +3241,7 @@ offset_right = 20.0
 offset_bottom = 8.0
 size_flags_horizontal = 12
 size_flags_vertical = 12
-theme_override_fonts/font = SubResource("FontFile_70c0w")
+theme = ExtResource("12_23g2f")
 text = "Coppeickax"
 script = ExtResource("63")
 
@@ -3063,13 +3261,13 @@ patch_margin_right = 3
 patch_margin_bottom = 3
 
 [node name="Label2" type="Label" parent="CanvasLayer"]
+visible = false
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = -13.0
-theme_override_colors/font_outline_color = Color(0.278431, 0.278431, 0.278431, 1)
-theme_override_fonts/font = SubResource("FontFile_653sy")
+theme = ExtResource("12_23g2f")
 text = "Tiny Pixel Planets TU4.1 Godot 4 Port (Development Build)"
 horizontal_alignment = 1
 
@@ -3079,6 +3277,7 @@ worldNoise = ExtResource("51")
 asteroidNoise = SubResource("79")
 oceanNoise = SubResource("92")
 noiseScale = 25
+worldHeight = 30
 
 [node name="blocks" type="Node2D" parent="World"]
 modulate = Color(0.427451, 0.368627, 0.47451, 1)
@@ -3224,16 +3423,14 @@ wait_time = 10.0
 
 [node name="Hold" type="Node2D" parent="Entities"]
 
-[node name="weather" type="CanvasLayer" parent="."]
-layer = -1
+[node name="weather" type="Node2D" parent="."]
 
 [node name="Rain" type="GPUParticles2D" parent="weather"]
-z_index = -1
-z_as_relative = false
 position = Vector2(116, -6)
 emitting = false
-process_material = SubResource("75")
+process_material = SubResource("ParticleProcessMaterial_ovjk6")
 texture = ExtResource("45")
+lifetime = 2.5
 visibility_rect = Rect2(-100, -100, 250, 200)
 
 [node name="WeatherAnimation" type="AnimationPlayer" parent="weather"]
@@ -3249,11 +3446,12 @@ material = SubResource("103")
 position = Vector2(150, 0)
 emitting = false
 amount = 100
-process_material = SubResource("106")
+process_material = SubResource("ParticleProcessMaterial_i84x0")
 texture = ExtResource("66")
 lifetime = 10.0
 
 [node name="Effects" type="Node2D" parent="."]
+z_index = 5
 script = ExtResource("47")
 
 [connection signal="timeout" from="CanvasLayer/Enviroment/Meteors/MeteorTimer" to="CanvasLayer/Enviroment/Meteors" method="_on_MeteorTimer_timeout"]

@@ -38,6 +38,7 @@ func _on_Ok_pressed() -> void:
 	if currentPlanet != null:
 		currentPlanet.pName = $"../RenamePlanet/LineEdit".text
 		Global.save_system()
+		$"../Nav".update_nav()
 		pop_up()
 
 func _on_Bookmark_pressed() -> void:

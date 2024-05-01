@@ -1,38 +1,54 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://cixgxs7yy0mpg"]
 
-[ext_resource path="res://fonts/pixelSmall.tres" type="FontFile" id=1]
-[ext_resource path="res://textures/planets/mud_icon.png" type="Texture2D" id=2]
-[ext_resource path="res://textures/GUI/space/hierarchy_T.png" type="Texture2D" id=3]
-[ext_resource path="res://scripts/space/planetNavIcon.gd" type="Script" id=4]
-[ext_resource path="res://textures/GUI/space/selected_planet.png" type="Texture2D" id=5]
+[ext_resource type="Theme" uid="uid://0o5m0f0xtqt2" path="res://themes/space.tres" id="1_ves03"]
+[ext_resource type="Texture2D" uid="uid://cl808d11iyvx5" path="res://textures/planets/mud_icon.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://dh0pq4fe0xkb6" path="res://textures/GUI/space/hierarchy_T.png" id="3"]
+[ext_resource type="Script" path="res://scripts/space/planetNavIcon.gd" id="4"]
+[ext_resource type="Texture2D" uid="uid://0djtinmnuokj" path="res://textures/GUI/space/selected_planet.png" id="5"]
+[ext_resource type="FontVariation" uid="uid://dvv4nh5hmk455" path="res://fonts/PixelPossNOSPACE.tres" id="6_25wat"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nd7ci"]
+font = ExtResource("6_25wat")
 
 [node name="planetNavIcon" type="HBoxContainer"]
-offset_right = 70.0
+offset_right = 76.0
 offset_bottom = 7.0
-script = ExtResource( 4 )
+theme = ExtResource("1_ves03")
+script = ExtResource("4")
 
 [node name="Hierarchy" type="TextureRect" parent="."]
 visible = false
-offset_right = 7.0
-offset_bottom = 7.0
-texture = ExtResource( 3 )
+layout_mode = 2
+texture = ExtResource("3")
+stretch_mode = 3
 
 [node name="Icon" type="TextureRect" parent="."]
-offset_right = 7.0
-offset_bottom = 7.0
-texture = ExtResource( 2 )
+layout_mode = 2
+texture = ExtResource("2")
+stretch_mode = 3
 
 [node name="near" type="TextureRect" parent="Icon"]
 visible = false
 show_behind_parent = true
+layout_mode = 0
 offset_right = 7.0
 offset_bottom = 7.0
-texture = ExtResource( 5 )
+texture = ExtResource("5")
 
 [node name="Name" type="Label" parent="."]
-offset_left = 11.0
-offset_top = 1.0
-offset_right = 59.0
-offset_bottom = 6.0
-theme_override_fonts/font = ExtResource( 1 )
+layout_mode = 2
 text = "SAB-1390 b.1"
+label_settings = SubResource("LabelSettings_nd7ci")
+
+[node name="Btn" type="Button" parent="Name"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -19.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="pressed" from="Name/Btn" to="." method="_on_btn_pressed"]

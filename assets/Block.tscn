@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dwi5kfm4rxnlu"]
+[gd_scene load_steps=6 format=3 uid="uid://dwi5kfm4rxnlu"]
 
 [ext_resource type="Script" path="res://scripts/Block.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://djsxxfl6fvnug" path="res://textures/blocks/water/water_4.png" id="2_gqfbr"]
@@ -8,6 +8,9 @@ size = Vector2(8, 8)
 
 [sub_resource type="RectangleShape2D" id="2"]
 size = Vector2(8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_y6fa6"]
+polygon = PackedVector2Array(-4, 4, 4, 4, 4, -4, -4, -4)
 
 [node name="AdvanceBlock" type="StaticBody2D"]
 script = ExtResource("1")
@@ -38,6 +41,9 @@ modulate = Color(1, 1, 1, 0.521569)
 visible = false
 shape = SubResource("2")
 one_way_collision = true
+
+[node name="RainCol" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_y6fa6")
 
 [connection signal="timeout" from="Tick" to="." method="_on_Tick_timeout"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]

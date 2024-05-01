@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbnxjoxoprltr"]
+[gd_scene load_steps=5 format=3 uid="uid://bbnxjoxoprltr"]
 
 [ext_resource type="Script" path="res://scripts/blocks/SimpleBlock.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://v8b2cxyd5six" path="res://textures/blocks/dirt.png" id="2_387jr"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_atfbd"]
+polygon = PackedVector2Array(-4, -4, 4, -4, 4, 4, -4, 4)
 
 [node name="SimpleBlock" type="StaticBody2D"]
 script = ExtResource("1")
@@ -20,6 +23,9 @@ modulate = Color(1, 1, 1, 0.521569)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 rect = Rect2(-4, -4, 8, 8)
+
+[node name="RainCol" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_atfbd")
 
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

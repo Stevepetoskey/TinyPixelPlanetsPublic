@@ -1,8 +1,8 @@
 [gd_scene load_steps=84 format=3 uid="uid://cishymc2t8s6j"]
 
 [ext_resource type="Theme" uid="uid://b02uwgbscq35l" path="res://themes/menu.tres" id="1_02jqt"]
-[ext_resource type="Texture2D" uid="uid://bdmee6lphakkb" path="res://textures/GUI/Menu/MenuSpace.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://b7hykydguok1o" path="res://textures/GUI/Menu/TinyPixelTitle.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://c7fk7e4eo8qeg" path="res://textures/enviroment/space-2.png" id="3_1cnr8"]
 [ext_resource type="Texture2D" uid="uid://j3emyaxoa1jb" path="res://textures/enviroment/stars.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://dnyqotr7fp6ce" path="res://textures/GUI/Menu/life_planet.png" id="5_josl1"]
 [ext_resource type="Script" path="res://scripts/menu/Menu.gd" id="6"]
@@ -43,7 +43,7 @@
 [ext_resource type="Texture2D" uid="uid://c8kcmpa2mu523" path="res://textures/GUI/Menu/btns/male_btn_pressed.png" id="30_k0ic3"]
 [ext_resource type="Texture2D" uid="uid://cu2cnqmen3gna" path="res://textures/GUI/Menu/sandbox_icon.png" id="31"]
 [ext_resource type="Texture2D" uid="uid://bj86bui8bpbo" path="res://textures/GUI/Menu/btns/male_btn_hover.png" id="31_a8w7u"]
-[ext_resource type="Theme" uid="uid://bpq1cob8cyjn" path="res://themes/Blue.tres" id="32"]
+[ext_resource type="Theme" uid="uid://der0x8rw3vflt" path="res://themes/Blue.tres" id="32"]
 [ext_resource type="Texture2D" uid="uid://bevjldphfaprx" path="res://textures/GUI/Menu/misc/divider.png" id="32_up6ad"]
 [ext_resource type="Texture2D" uid="uid://cs2ptrjg2ll5k" path="res://textures/GUI/space/v_bar_handle_hover.png" id="33"]
 [ext_resource type="Texture2D" uid="uid://cc7n0wca345u0" path="res://textures/GUI/Menu/scenario_btn.png" id="34"]
@@ -64,7 +64,6 @@ _data = {
 point_count = 6
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_iigue"]
-load_path = "res://.godot/imported/MenuPlanets.png-1245f3166ecc51af27d45fda97a48e15.ctex"
 
 [sub_resource type="AtlasTexture" id="1"]
 atlas = SubResource("CompressedTexture2D_iigue")
@@ -227,7 +226,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(32, 48)]
+"values": [Vector2(142, 100)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -239,7 +238,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.5, 0.5)]
+"values": [Vector2(2.5, 2.5)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -313,6 +312,18 @@ tracks/7/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("blank:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="9"]
 resource_name = "buttons"
@@ -328,6 +339,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("blank:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="8"]
@@ -356,6 +379,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("blank:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="7"]
@@ -420,6 +455,18 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("blank:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_58khl"]
@@ -495,7 +542,7 @@ script = ExtResource("6")
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource("2")
+texture = ExtResource("3_1cnr8")
 
 [node name="Stars" type="TextureRect" parent="."]
 layout_mode = 0
@@ -542,10 +589,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -142.0
-offset_top = -64.0
-offset_right = 50.0
-offset_bottom = 128.0
+offset_top = 16.0
+offset_right = 192.0
+offset_bottom = 208.0
 texture = ExtResource("3")
 expand_mode = 1
 stretch_mode = 6
@@ -566,10 +612,12 @@ theme_override_constants/separation = 1
 alignment = 1
 
 [node name="Play" type="Button" parent="Main/Buttons"]
+custom_minimum_size = Vector2(2.08165e-12, 18)
 layout_mode = 2
 text = "Play"
 
 [node name="Tutorial" type="Button" parent="Main/Buttons"]
+custom_minimum_size = Vector2(2.08165e-12, 18)
 layout_mode = 2
 text = "Tutorial"
 
@@ -661,6 +709,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 1.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -686,6 +735,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -711,6 +761,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -736,6 +787,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -761,6 +813,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -786,6 +839,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -811,6 +865,7 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = 2.0
 offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -977,8 +1032,9 @@ context_menu_enabled = false
 [node name="Label2" type="Label" parent="World/character/Name"]
 layout_mode = 0
 offset_left = 1.0
-offset_top = -10.0
+offset_top = -9.0
 offset_right = 25.0
+offset_bottom = 1.0
 theme = ExtResource("1_02jqt")
 text = "Name:"
 
@@ -1006,13 +1062,16 @@ patch_margin_bottom = 1
 script = ExtResource("19")
 
 [node name="Label" type="Label" parent="World/character/edit/SkinCol"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 0.5
-offset_top = 0.5
-offset_right = 0.5
-offset_bottom = 0.5
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_02jqt")
 text = "Skin Color"
 label_settings = SubResource("LabelSettings_0jbs7")
@@ -1061,10 +1120,12 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 0.5
-offset_top = 0.5
-offset_right = 0.5
-offset_bottom = 0.5
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_02jqt")
 text = "Hair Color"
 label_settings = SubResource("LabelSettings_0jbs7")
@@ -1113,10 +1174,12 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 0.5
-offset_top = 0.5
-offset_right = 0.5
-offset_bottom = 0.5
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("1_02jqt")
 text = "Hair Style"
 label_settings = SubResource("LabelSettings_0jbs7")
@@ -1208,8 +1271,8 @@ theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "Meteor shower"
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(32, 48)
-zoom = Vector2(0.5, 0.5)
+position = Vector2(142, 100)
+zoom = Vector2(2.5, 2.5)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1217,7 +1280,6 @@ libraries = {
 }
 
 [node name="blank" type="TextureRect" parent="."]
-visible = false
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1234,7 +1296,7 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -12.0
+offset_top = -10.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -1286,12 +1348,12 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 4.0
-offset_top = 17.0
+offset_top = 21.0
 offset_right = -4.0
 offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 2
+theme_override_constants/separation = 6
 
 [node name="Ost" type="Label" parent="Credits/VBoxContainer"]
 layout_mode = 2

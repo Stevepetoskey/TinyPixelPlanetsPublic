@@ -1,32 +1,36 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://blqpr5cc7557s"]
 
-[ext_resource path="res://themes/space.tres" type="Theme" id=1]
-[ext_resource path="res://fonts/pixel-outline.tres" type="FontFile" id=2]
-[ext_resource path="res://textures/GUI/space/bookmark_icons/star.png" type="Texture2D" id=3]
-[ext_resource path="res://scripts/space/Bookmark.gd" type="Script" id=4]
+[ext_resource type="Theme" uid="uid://0o5m0f0xtqt2" path="res://themes/space.tres" id="1"]
+[ext_resource type="Texture2D" uid="uid://0iswd60yga81" path="res://textures/GUI/space/bookmark_icons/star.png" id="3"]
+[ext_resource type="Script" path="res://scripts/space/Bookmark.gd" id="4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_um2jm"]
+font_color = Color(0.156863, 0.360784, 0.768627, 1)
+outline_size = 3
+outline_color = Color(0.0638, 0.235867, 0.58, 1)
 
 [node name="Bookmark" type="Button"]
+custom_minimum_size = Vector2(0, 16)
 offset_right = 111.0
 offset_bottom = 16.0
-custom_minimum_size = Vector2( 0, 16 )
-theme = ExtResource( 1 )
-script = ExtResource( 4 )
+theme = ExtResource("1")
+script = ExtResource("4")
 
 [node name="Bookmark" type="TextureRect" parent="."]
+layout_mode = 0
 offset_left = 2.0
 offset_top = 2.0
 offset_right = 14.0
 offset_bottom = 14.0
 mouse_filter = 2
-texture = ExtResource( 3 )
+texture = ExtResource("3")
 
 [node name="Title" type="Label" parent="."]
-offset_left = 16.0
-offset_top = 5.0
-offset_right = 109.0
-offset_bottom = 13.0
-theme_override_colors/font_color = Color( 0.239216, 0.607843, 0.980392, 1 )
-theme_override_colors/font_outline_color = Color( 0.156863, 0.360784, 0.768627, 1 )
-theme_override_fonts/font = ExtResource( 2 )
+layout_mode = 0
+offset_left = 17.0
+offset_top = 4.0
+offset_right = 110.0
+offset_bottom = 12.0
 text = "MMMMMMMMMMMMM"
-clip_text = true
+label_settings = SubResource("LabelSettings_um2jm")
+text_overrun_behavior = 1

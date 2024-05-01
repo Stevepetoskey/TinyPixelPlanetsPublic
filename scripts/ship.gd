@@ -7,8 +7,12 @@ var motion = Vector2(0,0)
 var oldMotion = Vector2(0,0)
 var moved = false
 var canMove = true
+
 @onready var pointerDistance = $pointer.position.x
 @onready var planet_select: Node2D = $".."
+@onready var nav: Control = $"../CanvasLayer/Nav"
+@onready var line: TextureRect = $Line
+
 
 func _ready():
 	await get_tree().create_timer(2).timeout
@@ -16,7 +20,13 @@ func _ready():
 
 func _physics_process(delta):
 	if !planet_select.pause:
-		var pointerAngle = deg_to_rad(snapped(rad_to_deg(position.angle_to_point(get_closets_body())) - 180,45))
+		if nav.targeted != null:
+			line.show()
+			line.rotation = position.angle_to_point(nav.targeted.position)
+			line.size.x = position.distance_to(nav.targeted.position)
+		else:
+			line.hide()
+		var pointerAngle = position.angle_to_point(get_closets_body())
 		$pointer.position = Vector2(cos(pointerAngle)*pointerDistance,sin(pointerAngle)*pointerDistance)
 		$pointer.rotation = pointerAngle
 		if Input.is_action_pressed("move_left") and motion.x > -MAXSPEED:

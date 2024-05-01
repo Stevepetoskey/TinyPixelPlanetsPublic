@@ -23,17 +23,14 @@ func _ready():
 
 func _physics_process(delta):
 	if !Global.pause:
-		$Label.text = state
 		if position.distance_to(player.position) <= 64:
 			var space_state = get_world_2d().direct_space_state
 			var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self])
 			var result = space_state.intersect_ray(params)
-			if result.collider == player:
+			if !result.is_empty() and result.collider == player:
 				if !seePlayer:
 					$seeTimer.stop()
 					lostPlayer = false
-	#				seePlayer = true
-	#				seenPos = player.position
 					$Seen.show()
 					await get_tree().create_timer(1).timeout
 					$Seen.hide()
@@ -47,7 +44,7 @@ func _physics_process(delta):
 				if randi()%100 == 1 or seePlayer:
 					var dir = deg_to_rad(randf_range(0,360))
 					if seePlayer:
-						dir = position.angle_to_point(player.position) + deg_to_rad(180)
+						dir = position.angle_to_point(player.position)
 					rotation = dir + deg_to_rad(90)
 					body.play("thrust")
 					state = "in_motion"

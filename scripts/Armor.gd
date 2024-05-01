@@ -25,7 +25,7 @@ func armor_btn_pressed(icon : Object):
 				if replace != null:
 					inventory.inventory[inventory.holdingRef] = replace
 				else:
-					inventory.inventory.remove(inventory.holdingRef)
+					inventory.inventory.remove_at(inventory.holdingRef)
 				emit_signal("updated_armor",armor)
 			inventory.update_inventory()
 	elif !armor[icon.name].is_empty():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://br0ilkuqrn1jp"]
+[gd_scene load_steps=13 format=3 uid="uid://br0ilkuqrn1jp"]
 
 [ext_resource type="Texture2D" uid="uid://7bvut2r1kvra" path="res://textures/enemies/big_slorg/big_slorg1.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://cue8hp3ok1nkr" path="res://textures/enemies/big_slorg/big_slorg7.png" id="2"]
@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://dk2h3gdwfhwva" path="res://textures/enemies/big_slorg/big_slorg2.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://dk038d3iss4w1" path="res://textures/enemies/big_slorg/big_slorg3.png" id="8"]
 [ext_resource type="Texture2D" uid="uid://bgfht1wwsrhc6" path="res://textures/enemies/seen.png" id="9"]
-[ext_resource type="FontFile" path="res://fonts/pixel.tres" id="10"]
 
 [sub_resource type="SpriteFrames" id="1"]
 animations = [{
@@ -116,15 +115,6 @@ position = Vector2(0, -0.25)
 shape = SubResource("3")
 
 [node name="HurtTimer" type="Timer" parent="."]
-
-[node name="Label" type="Label" parent="."]
-visible = false
-offset_left = -11.0
-offset_top = -6.0
-offset_right = 12.0
-offset_bottom = 8.0
-theme_override_fonts/font = ExtResource("10")
-text = "state"
 
 [connection signal="animation_finished" from="Body" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="seeTimer" to="." method="_on_seeTimer_timeout"]

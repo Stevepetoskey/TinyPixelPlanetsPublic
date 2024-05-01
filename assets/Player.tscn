@@ -706,8 +706,8 @@ _data = {
 }
 
 [sub_resource type="CapsuleShape2D" id="9"]
-radius = 3.5
-height = 15.0
+radius = 4.0
+height = 22.0
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -729,7 +729,7 @@ collision_layer = 0
 collision_mask = 37
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="blockTest"]
-position = Vector2(0, 8.5)
+position = Vector2(0, 12)
 shape = SubResource("3")
 
 [node name="Textures" type="Node2D" parent="."]

@@ -7,6 +7,7 @@ var falling : bool = false
 var fallPos : Vector2
 
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
+@onready var rain_col: LightOccluder2D = $RainCol
 
 func _ready():
 	var mainCol = $CollisionShape2D
@@ -14,13 +15,17 @@ func _ready():
 		$platform.queue_free()
 	else:
 		$CollisionShape2D.queue_free()
+		rain_col.queue_free()
 		collision_layer = 4
 		mainCol = $platform
 	
+	z_index = layer
 	if layer < 1:
 		modulate = Color(0.68,0.68,0.68)
 		mainCol.disabled = true
-	z_index = layer
+		rain_col.queue_free()
+		z_index -= 1
+	
 	pos = position / world.BLOCK_SIZE
 	world.connect("update_blocks", Callable(self, "on_update"))
 	world.connect("world_loaded", Callable(self, "world_loaded"))
@@ -32,6 +37,7 @@ func _ready():
 			if ["snow","snow_terra"].has(StarSystem.find_planet_id(Global.currentPlanet).type["type"]):
 				isSnow = "_snow"
 			$CollisionShape2D.disabled = true
+			rain_col.queue_free()
 			$Sprite2D.texture = load("res://textures/blocks/big_tree"+ isSnow+".png")
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
@@ -39,20 +45,24 @@ func _ready():
 			position.y -= 23
 		6,7:
 			$CollisionShape2D.disabled = true
+			rain_col.queue_free()
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
 		76:
 			$CollisionShape2D.disabled = true
+			rain_col.queue_free()
 			$Sprite2D.texture = load("res://textures/blocks/exotic_tree1.png")
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
 			position.y -= 21
 		11:
 			$CollisionShape2D.disabled = true
+			rain_col.queue_free()
 			$Sprite2D.texture = load("res://textures/blocks/sapling.png")
 			$check.start(randf_range(120,600))
 		85:
 			$CollisionShape2D.disabled = true
+			rain_col.queue_free()
 			$Sprite2D.texture = load("res://textures/blocks/exotic_sapling.png")
 			$check.start(randf_range(120,600))
 		20:
@@ -78,6 +88,7 @@ func _ready():
 		121,122,123:
 			position.y -= 3
 			$CollisionShape2D.disabled = true
+			rain_col.queue_free()
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 			var plant = {121:"wheat",122:"tomato",123:"corn"}[id]
 			if data.has("tick_wait"):
@@ -92,12 +103,15 @@ func _ready():
 		128:
 			position.y -= 4
 			$CollisionShape2D.disabled = true
+			rain_col.queue_free()
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 		142:
 			$CollisionShape2D.disabled = true
+			rain_col.queue_free()
 			$Sprite2D.texture = load("res://textures/blocks/posters/propaganda_poster1.png")
 		143:
 			$CollisionShape2D.disabled = true
+			rain_col.queue_free()
 			$Sprite2D.texture = load("res://textures/blocks/posters/propaganda_poster2.png")
 
 func world_loaded():

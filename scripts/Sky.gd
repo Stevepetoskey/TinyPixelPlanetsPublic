@@ -53,5 +53,6 @@ func reset_angle(angle : float) -> float:
 	return angle
 
 func set_atmosphere(value : float) -> void:
-	if has_node("star"):
-		get_node("star").material.set_shader_parameter("atmoPressure",value)
+	pass
+	#if has_node("star"):
+		#get_node("star").material.set_shader_parameter("atmoPressure",value)

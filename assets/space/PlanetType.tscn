@@ -1,22 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://bppw6n7p1ltej"]
 
-[ext_resource path="res://fonts/pixel.tres" type="FontFile" id=1]
-[ext_resource path="res://textures/planets/exotic.png" type="Texture2D" id=2]
+[ext_resource type="Theme" uid="uid://0o5m0f0xtqt2" path="res://themes/space.tres" id="1_pgqsu"]
+[ext_resource type="Texture2D" uid="uid://c0x2quisquneu" path="res://textures/planets/exotic.png" id="2"]
 
 [node name="PlanetType" type="HBoxContainer"]
 offset_top = 12.0
 offset_right = 79.0
 offset_bottom = 26.0
+theme = ExtResource("1_pgqsu")
 
 [node name="Planet" type="TextureRect" parent="."]
-offset_right = 14.0
-offset_bottom = 14.0
-texture = ExtResource( 2 )
+layout_mode = 2
+texture = ExtResource("2")
+stretch_mode = 3
 
 [node name="Label" type="Label" parent="."]
-offset_left = 18.0
-offset_top = 3.0
-offset_right = 45.0
-offset_bottom = 11.0
-theme_override_fonts/font = ExtResource( 1 )
+layout_mode = 2
 text = "Exotic"

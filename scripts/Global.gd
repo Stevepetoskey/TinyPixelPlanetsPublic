@@ -1,10 +1,12 @@
 extends Node
 
-const CURRENTVER = "TU 4 (v0.4.0)"
-const VER_NUMS = [0,4,0,0]
+const CURRENTVER = "TU 4 (v0.4.1)"
+const VER_NUMS = [0,4,1,0]
 const ALLOW_VERSIONS = [
-	[0,4,0,8],[0,4,0,0]
+	[0,4,1,0]
 ]
+#Incompatable versions:
+#[0,4,0,8] and [0,4,0,0] (as of TU4.1). Reason: Updated to godot 4
 const STABLE = false
 
 var save_path = "user://" #place of the file
@@ -87,7 +89,7 @@ func _process(delta):
 		GlobalGui.complete_achievement("Destroyer of worlds")
 
 func save_exists(saveId : String) -> bool:
-	if DirAccess.dir_exists_absolute(save_path + saveId):
+	if DirAccess.dir_exists_absolute(save_path + saveId) and FileAccess.file_exists(save_path + saveId + "/playerData.dat"):
 		return true
 	return false
 

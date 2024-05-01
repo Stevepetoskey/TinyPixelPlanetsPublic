@@ -25,6 +25,7 @@ func _ready():
 
 func _process(delta):
 	$CanvasLayer/FPS.text = str(Engine.get_frames_per_second())
+	$weather.position = $Player/Camera2D.global_position - Vector2(142,120)
 
 func weather_event(random = true,time = [200,500], set = "none",start = true):
 	if !is_instance_valid(weatherAnimation):
@@ -43,6 +44,8 @@ func set_weather(random = true,time = [200,500], set = "none",start = true):
 	weatherStartData = {"random":random,"time":time,"set":set,"start":start}
 
 func _on_World_world_loaded():
+	$CanvasLayer/Hotbar/K/Keybind.text = "?" if Global.settings["keybinds"]["action2"]["event_type"] == "mouse" else char(Global.settings["keybinds"]["action2"]["id"])
+	$CanvasLayer/Hotbar/J/Keybind.text = "?" if Global.settings["keybinds"]["action1"]["event_type"] == "mouse" else char(Global.settings["keybinds"]["action1"]["id"])
 	worldType = StarSystem.find_planet_id(Global.currentPlanet).type["type"]
 	$World/TutorialParts/Platforms/CollisionShape2D.shape = null
 	$World/TutorialParts/Sprint/CollisionShape2D.shape = null

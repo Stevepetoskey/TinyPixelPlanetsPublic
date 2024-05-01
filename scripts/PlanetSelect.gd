@@ -5,6 +5,8 @@ const PLANET = preload("res://assets/Planet.tscn")
 var planetInCursor = null
 var pause = false
 
+@onready var nav: Control = $CanvasLayer/Nav
+
 signal system_loaded
 
 func _ready():
@@ -56,6 +58,11 @@ func planet_entered(planet : Object) -> void:
 
 func get_save_data() -> Dictionary:
 	return {"player":{"pos":$ship.position},"system":StarSystem.get_system_data()}
+
+func discover_planet(id : int):
+	print("ADDED PLANET")
+	StarSystem.visitedPlanets.append(id)
+	nav.update_nav()
 
 func _on_Galaxy_pressed():
 	StarSystem.leave_star_system()

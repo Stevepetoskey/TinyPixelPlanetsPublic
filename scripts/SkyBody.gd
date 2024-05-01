@@ -25,12 +25,11 @@ func _ready():
 		viewPort.material.set_shader_parameter("planet",planetRef.type["texture"])
 		match planetRef.type["size"]:
 			1:
-				viewPort.size = Vector2(28,28)
-				$SubViewportContainer/SubViewport
-				viewPort.position = Vector2(-14,-14)
+				viewPort.size = Vector2(14,14)
+				viewPort.position = Vector2(-7,-7)
 			2:
-				viewPort.size = Vector2(56,56)
-				viewPort.position = Vector2(-28,-28)
+				viewPort.size = Vector2(28,28)
+				viewPort.position = Vector2(-14,-14)
 
 func _physics_process(_delta):
 	if is_instance_valid(planetRef) or isStar:

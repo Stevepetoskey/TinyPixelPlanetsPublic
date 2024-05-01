@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/PixelPossibilities.ttf-402684e0a8956709287753
 [params]
 
 Rendering=null
-antialiasing=1
+antialiasing=0
 generate_mipmaps=false
 multichannel_signed_distance_field=false
 msdf_pixel_range=8

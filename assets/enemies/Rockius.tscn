@@ -1,11 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://by6n514cuudl8"]
+[gd_scene load_steps=12 format=3 uid="uid://by6n514cuudl8"]
 
 [ext_resource type="Texture2D" uid="uid://cg8yeb44fmwyx" path="res://textures/enemies/rockius/rockius3.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://c21x752cd0hax" path="res://textures/enemies/rockius/rockius2.png" id="2"]
 [ext_resource type="Script" path="res://scripts/enemies/Rockius.gd" id="3"]
 [ext_resource type="Texture2D" uid="uid://ci4x2sin5ekr" path="res://textures/enemies/rockius/rockius1.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://bgfht1wwsrhc6" path="res://textures/enemies/seen.png" id="9"]
-[ext_resource type="FontFile" path="res://fonts/pixel.tres" id="10"]
 
 [sub_resource type="SpriteFrames" id="1"]
 animations = [{
@@ -40,6 +39,66 @@ size = Vector2(10, 10)
 [sub_resource type="CircleShape2D" id="3"]
 radius = 6.0
 
+[sub_resource type="Animation" id="Animation_uurjq"]
+resource_name = "seen"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Seen:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [&"Seen", &"Chasing"]
+}
+
+[sub_resource type="Animation" id="Animation_15364"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Seen:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ddy4c"]
+_data = {
+"RESET": SubResource("Animation_15364"),
+"seen": SubResource("Animation_uurjq")
+}
+
 [node name="Rockius" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
 collision_layer = 8
@@ -48,7 +107,7 @@ type = "rockius"
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("1")
-animation = &"Chasing"
+animation = &"Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("4")
@@ -73,16 +132,13 @@ shape = SubResource("3")
 
 [node name="HurtTimer" type="Timer" parent="."]
 
-[node name="Label" type="Label" parent="."]
-visible = false
-offset_left = -11.0
-offset_top = -6.0
-offset_right = 12.0
-offset_bottom = 8.0
-theme_override_fonts/font = ExtResource("10")
-text = "state"
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ddy4c")
+}
 
 [connection signal="timeout" from="seeTimer" to="." method="_on_seeTimer_timeout"]
 [connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]
 [connection signal="body_exited" from="HitBox" to="." method="_on_HitBox_body_exited"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

@@ -1,7 +1,9 @@
 extends Node3D
 
+@export var fromTop = false
+
 var angle = 0
-var offset = 0.88
+var offset = 0.82
 var camAngle = 0
 
 func _process(delta):
