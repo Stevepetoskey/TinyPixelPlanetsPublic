@@ -1,6 +1,0 @@
-[gd_resource type="FastNoiseLite" format=2]
-
-[resource]
-period = 86.0
-persistence = 1.0
-lacunarity = 2.37

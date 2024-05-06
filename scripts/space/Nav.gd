@@ -53,7 +53,6 @@ func init_nav():
 		planetIcons.add_child(icon)
 
 func update_nav():
-	print("UPDATING NAV")
 	#--- System Info tab---
 	#Updates system name
 	systemName.text = StarSystem.currentStarName

@@ -6,10 +6,9 @@ const BLOCK_SIZE = Vector2(8,8)
 
 @export var worldSize = Vector2(16,24)
 @export var worldNoise : FastNoiseLite
-@export var asteroidNoise : FastNoiseLite
-@export var oceanNoise : FastNoiseLite
-@export var noiseScale = 15
+@export var noiseScale : float = 15.0
 @export var worldHeight = 20
+@export var seaLevel : int = 50
 
 @onready var inventory = $"../CanvasLayer/Inventory"
 @onready var enviroment = $"../CanvasLayer/Enviroment"
@@ -42,6 +41,56 @@ var worldRules = {
 	"enemy_spawning":{"value":true,"type":"bool"},
 	"world_spawn_x":{"value":-1,"type":"int"},
 	"world_spawn_y":{"value":-1,"type":"int"}
+}
+
+var generationData = {
+	"terra":{
+		"noise":load("res://noise/Terra.tres"),
+		"noise_scale":25,
+		"world_height":20,
+		"water_level":45
+	},
+	"stone":{
+		"noise":load("res://noise/Stone.tres"),
+		"noise_scale":20,
+		"world_height":20
+	},
+	"desert":{
+		"noise":load("res://noise/Desert.tres"),
+		"noise_scale":20,
+		"world_height":20
+	},
+	"mud":{
+		"noise":load("res://noise/Mud.tres"),
+		"noise_scale":20,
+		"world_height":20
+	},
+	"snow":{
+		"noise":load("res://noise/Desert.tres"),
+		"noise_scale":20,
+		"world_height":20
+	},
+	"snow_terra":{
+		"noise":load("res://noise/Terra.tres"),
+		"noise_scale":20,
+		"world_height":20
+	},
+	"exotic":{
+		"noise":load("res://noise/Terra.tres"),
+		"noise_scale":20,
+		"world_height":20
+	},
+	"asteroids":{
+		"noise":load("res://noise/Asteroids.tres"),
+		"noise_scale":0.3,
+		"world_height":20
+	},
+	"ocean":{
+		"noise":load("res://noise/Ocean.tres"),
+		"noise_scale":30,
+		"world_height":22,
+		"water_level":37
+	},
 }
 
 var blockData = {
@@ -270,16 +319,14 @@ func start_world():
 func generateWorld(worldType : String):
 	var worldSeed = int(Global.currentSystemId) + Global.currentPlanet
 	seed(worldSeed)
-	if worldType == "exotic":
-		worldNoise = load("res://noise/exotic.tres")
-	else:
-		worldNoise = load("res://noise/Main.tres")
+	worldNoise = generationData[worldType]["noise"]
 	worldNoise.seed = worldSeed
-	var copperOre = FastNoiseLite.new()
-	copperOre.seed = worldSeed
+	noiseScale = generationData[worldType]["noise_scale"]
+	worldHeight = generationData[worldType]["world_height"]
+	if generationData[worldType].has("water_level"):
+		seaLevel = generationData[worldType]["water_level"]
 	match worldType:
 		"terra":
-			var seaLevel = 50
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
 					var height = (worldSize.y - (int(worldNoise.get_noise_1d(x) * noiseScale) + worldHeight))
@@ -305,12 +352,21 @@ func generateWorld(worldType : String):
 					elif y > height and y < height+3:
 						set_block_all(pos,2)
 					elif y >= height+3 and y < worldSize.y-1:
-						if abs(copperOre.get_noise_2d(x,y)) >= 0.4:
-							set_block_all(pos,29)
-						else:
-							set_block_all(pos,3)
+						set_block_all(pos,3)
 					elif y == worldSize.y-1:
 						set_block_all(pos,144)
+			#Ores
+			for x in range(worldSize.x):
+				for y in range(worldSize.y):
+					if y >= 32 and randi_range(0,50) == 1: #copper ore
+						var pos = Vector2(x,y)
+						for i in range(randi_range(3,6)):
+							if get_block_id(pos,1) == 3:
+								set_block_all(pos,29)
+							if randi_range(0,1) == 1:
+								pos.x += [-1,1].pick_random()
+							else:
+								pos.y += [-1,1].pick_random()
 		"stone":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -321,12 +377,21 @@ func generateWorld(worldType : String):
 					if y >= height and y < height+3:
 						set_block_all(pos,8)
 					elif y >= height+3 and y < worldSize.y-1:
-						if abs(copperOre.get_noise_2d(x,y)) >= 0.3:
-							set_block_all(pos,29)
-						else:
-							set_block_all(pos,3)
+						set_block_all(pos,3)
 					elif y == worldSize.y-1:
 						set_block_all(pos,144)
+			#Ores
+			for x in range(worldSize.x):
+				for y in range(worldSize.y):
+					if y >= 0 and randi_range(0,25) == 1: #copper ore
+						var pos = Vector2(x,y)
+						for i in range(randi_range(3,6)):
+							if get_block_id(pos,1) == 3:
+								set_block_all(pos,29)
+							if randi_range(0,1) == 1:
+								pos.x += [-1,1].pick_random()
+							else:
+								pos.y += [-1,1].pick_random()
 		"desert":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -365,12 +430,21 @@ func generateWorld(worldType : String):
 					if y >= height and y < height+3:
 						set_block_all(pos,21)
 					elif y >= height+3 and y < worldSize.y-1:
-						if abs(copperOre.get_noise_2d(x,y)) >= 0.3:
-							set_block_all(pos,55)
-						else:
-							set_block_all(pos,3)
+						set_block_all(pos,3)
 					elif y == worldSize.y-1:
 						set_block_all(pos,144)
+			#Ores
+			for x in range(worldSize.x):
+				for y in range(worldSize.y):
+					if y >= 32 and randi_range(0,50) == 1: #silver ore
+						var pos = Vector2(x,y)
+						for i in range(randi_range(3,6)):
+							if get_block_id(pos,1) == 3:
+								set_block_all(pos,55)
+							if randi_range(0,1) == 1:
+								pos.x += [-1,1].pick_random()
+							else:
+								pos.y += [-1,1].pick_random()
 		"snow_terra":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -385,12 +459,21 @@ func generateWorld(worldType : String):
 					elif y > height and y < height+3:
 						set_block_all(pos,2)
 					elif y >= height+3 and y < worldSize.y-1:
-						if abs(copperOre.get_noise_2d(x,y)) >= 0.3:
-							set_block_all(pos,55)
-						else:
-							set_block_all(pos,3)
+						set_block_all(pos,3)
 					elif y == worldSize.y-1:
 						set_block_all(pos,144)
+			#Ores
+			for x in range(worldSize.x):
+				for y in range(worldSize.y):
+					if y >= 32 and randi_range(0,50) == 1: #silver ore
+						var pos = Vector2(x,y)
+						for i in range(randi_range(3,6)):
+							if get_block_id(pos,1) == 3:
+								set_block_all(pos,55)
+							if randi_range(0,1) == 1:
+								pos.x += [-1,1].pick_random()
+							else:
+								pos.y += [-1,1].pick_random()
 		"exotic":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -402,32 +485,46 @@ func generateWorld(worldType : String):
 						set_block_all(pos,69)
 						if get_block(pos - Vector2(0,2),1) == null and randi() % 5 == 1:
 							set_block(pos - Vector2(0,1),1,76)
-#						elif get_block(pos - Vector2(0,1),1) == null:
-#							if randi() % 3 == 1:
-#								set_block(pos - Vector2(0,1),1,6)
-#							elif randi() % 3 == 1:
-#								set_block(pos - Vector2(0,1),1,7)
 					elif y > height and y < height+3:
 						set_block_all(pos,70)
 					elif y >= height+3 and y < worldSize.y-1:
-						if abs(copperOre.get_noise_2d(x,y)) >= 0.4:
-							set_block_all(pos,73)
-						else:
-							set_block_all(pos,71)
+						set_block_all(pos,71)
 					elif y == worldSize.y-1:
 						set_block_all(pos,144)
+			#Ores
+			for x in range(worldSize.x):
+				for y in range(worldSize.y):
+					if y >= 32 and randi_range(0,100) == 1: #Rhodonite ore
+						var pos = Vector2(x,y)
+						for i in range(randi_range(2,4)):
+							if get_block_id(pos,1) == 71:
+								set_block_all(pos,73)
+							if randi_range(0,1) == 1:
+								pos.x += [-1,1].pick_random()
+							else:
+								pos.y += [-1,1].pick_random()
 		"asteroids":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
-					if asteroidNoise.get_noise_2d(x,y) > 0.4:
+					if worldNoise.get_noise_2d(x,y) > noiseScale:
 						var pos = Vector2(x,y)
-						if abs(copperOre.get_noise_2d(x,y)) >= 0.4:
-							set_block_all(pos,104 + randi()%4)
-						else:
-							set_block_all(pos,112)
+						set_block_all(pos,112)
+			#Ores
+			for x in range(worldSize.x):
+				for y in range(worldSize.y):
+					var pos : Vector2 = Vector2(x,y)
+					var ore : int = 0 if randi_range(0,50) != 1 else [104,105,106,107].pick_random()
+					if ore != 0:
+						for i in range(randi_range(3,6)):
+							if get_block_id(pos,1) == 112:
+								set_block_all(pos,ore)
+							if randi_range(0,1) == 1:
+								pos.x += [-1,1].pick_random()
+							else:
+								pos.y += [-1,1].pick_random()
 		"ocean":
 			for x in range(worldSize.x):
-				var height = (worldSize.y - (int(oceanNoise.get_noise_1d(x) * noiseScale) + worldHeight))
+				var height = (worldSize.y - (int(worldNoise.get_noise_1d(x) * noiseScale) + worldHeight))
 				for y in range(worldSize.y):
 					if height > worldSize.y - 4:
 						height = worldSize.y - 4
@@ -436,31 +533,8 @@ func generateWorld(worldType : String):
 						set_block_all(pos,144)
 					elif y >= height:
 						set_block_all(pos,118)
-					elif y > 40:
+					elif y > seaLevel:
 						set_block(pos,1,117,false,{"water_level":4})
-		"meteor":
-			for x in range(worldSize.x):
-				for y in range(worldSize.y):
-					var height = (worldSize.y - (int(worldNoise.get_noise_1d(x) * noiseScale) + worldHeight))
-					if height > worldSize.y - 4:
-						height = worldSize.y - 4
-					var pos = Vector2(x,y)
-					if y == height:
-						set_block_all(pos,1)
-						if get_block(pos - Vector2(0,2),1) == null and randi() % 5 == 1:
-							set_block(pos - Vector2(0,1),1,9)
-						elif get_block(pos - Vector2(0,1),1) == null:
-							if randi() % 3 == 1:
-								set_block(pos - Vector2(0,1),1,6)
-							elif randi() % 3 == 1:
-								set_block(pos - Vector2(0,1),1,7)
-					elif y > height and y < height+3:
-						set_block_all(pos,2)
-					elif y >= height+3:
-						if abs(copperOre.get_noise_2d(x,y)) >= 0.4:
-							set_block_all(pos,[29,55,124][randi()%3])
-						else:
-							set_block_all(pos,3)
 
 func get_world_data() -> Dictionary:
 	var data = {}
@@ -580,7 +654,7 @@ func update_area(pos):
 				get_block(Vector2(x,y),0).on_update()
 
 func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction = true) -> void:
-	if action == "Build" and get_block(pos,layer) == null and blockData.has(id) and (!blockData[id].has("can_place_on") or blockData[id]["can_place_on"].has(get_block_id(pos + Vector2(0,1),layer))):
+	if action == "Build" and [0,6,7,117].has(get_block_id(pos,layer)) and blockData.has(id) and (!blockData[id].has("can_place_on") or blockData[id]["can_place_on"].has(get_block_id(pos + Vector2(0,1),layer))):
 		set_block(pos,layer,id,true)
 		if itemAction:
 			inventory.remove_id_from_inventory(id,1)

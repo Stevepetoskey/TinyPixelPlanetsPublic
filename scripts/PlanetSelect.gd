@@ -13,7 +13,6 @@ func _ready():
 	load_system()
 	if !Global.gamerules["can_leave_system"]:
 		$CanvasLayer/GalaxyBtn.hide()
-	print("save type: ",Global.playerData["save_type"])
 	if Global.playerData["save_type"] == "system":
 		$ship.position = Global.playerData["pos"]
 	elif Global.currentPlanet != -1:
@@ -60,8 +59,8 @@ func get_save_data() -> Dictionary:
 	return {"player":{"pos":$ship.position},"system":StarSystem.get_system_data()}
 
 func discover_planet(id : int):
-	print("ADDED PLANET")
 	StarSystem.visitedPlanets.append(id)
+	print(StarSystem.visitedPlanets)
 	nav.update_nav()
 
 func _on_Galaxy_pressed():

@@ -1,63 +1,70 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=3 uid="uid://c64cmyhcmuw4g"]
 
-[ext_resource path="res://Audio/music/Found.wav" type="AudioStream" id=1]
-[ext_resource path="res://scripts/Audio/GlobalAudio.gd" type="Script" id=2]
+[ext_resource type="AudioStream" uid="uid://cfffamdvq1fdi" path="res://Audio/music/Found.wav" id="1"]
+[ext_resource type="Script" path="res://scripts/Audio/GlobalAudio.gd" id="2"]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id="1"]
 length = 0.001
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:volume_db")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 0.0 ]
+"values": [0.0]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id="2"]
 resource_name = "vol_down"
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:volume_db")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 1 ),
-"transitions": PackedFloat32Array( 1, 1 ),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ 0.0, -75.0 ]
+"values": [0.0, -75.0]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id="3"]
 resource_name = "vol_up"
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:volume_db")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 1 ),
-"transitions": PackedFloat32Array( 1, 1 ),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ -75.0, 0.0 ]
+"values": [-75.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_63udi"]
+_data = {
+"RESET": SubResource("1"),
+"vol_down": SubResource("2"),
+"vol_up": SubResource("3")
 }
 
 [node name="GlobalAudio" type="Node"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 1 )
+stream = ExtResource("1")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Music"]
-anims/RESET = SubResource( 1 )
-anims/vol_down = SubResource( 2 )
-anims/vol_up = SubResource( 3 )
+libraries = {
+"": SubResource("AnimationLibrary_63udi")
+}
 
 [node name="MusicTimer" type="Timer" parent="Music"]
 

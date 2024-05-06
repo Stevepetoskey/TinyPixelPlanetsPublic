@@ -28,25 +28,6 @@ var lightColorDict = {}
 
 @onready var sky = get_node("../ParallaxBackground/SkyLayer/sky")
 
-var backTextures = {"terra":preload("res://textures/enviroment/backgrounds/terra_back.png"),
-	"stone":preload("res://textures/enviroment/backgrounds/stone_back.png"),
-	"snow":preload("res://textures/enviroment/backgrounds/snow_back.png"),
-	"snow_terra":preload("res://textures/enviroment/backgrounds/snow_back.png"),
-	"mud":preload("res://textures/enviroment/backgrounds/mud_back.png"),
-	"desert":preload("res://textures/enviroment/backgrounds/desert_back.png"),
-	"exotic":preload("res://textures/enviroment/backgrounds/exotic_back.png"),
-	"ocean":preload("res://textures/enviroment/backgrounds/ocean_back.png")
-}
-var frontTextures = {"terra":preload("res://textures/enviroment/backgrounds/terra_front.png"),
-	"stone":preload("res://textures/enviroment/backgrounds/stone_front.png"),
-	"snow":preload("res://textures/enviroment/backgrounds/snow_front.png"),
-	"snow_terra":preload("res://textures/enviroment/backgrounds/snow_terra_front.png"),
-	"mud":preload("res://textures/enviroment/backgrounds/mud_front.png"),
-	"desert":preload("res://textures/enviroment/backgrounds/desert_front.png"),
-	"exotic":preload("res://textures/enviroment/backgrounds/exotic_front.png"),
-	"ocean":preload("res://textures/enviroment/backgrounds/ocean_front.png")
-}
-
 var oldTime = -1.0
 var active = false
 
@@ -139,13 +120,14 @@ func set_background(type : String):
 		_:
 			$back/Sprite2D.show()
 			$front/Sprite2D.show()
-			$back/Sprite2D.texture = backTextures[type]
-			$front/Sprite2D.texture = frontTextures[type]
+			$back/Sprite2D.texture = load("res://textures/enviroment/backgrounds/"+type+"_back.png")
+			$front/Sprite2D.texture = load("res://textures/enviroment/backgrounds/"+type+"_front.png")
+			$front/Underground.texture = load("res://textures/enviroment/backgrounds/"+type+"_underground.png")
 			if type == "ocean":
 				$back.motion_scale.y = 0.9
 				$front.motion_scale.y = 0.95
-				$back.motion_offset.y += 170
-				$front.motion_offset.y += 157
+				$back.motion_offset.y += 120
+				$front.motion_offset.y += 116
 
 func _on_World_world_loaded():
 	if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:

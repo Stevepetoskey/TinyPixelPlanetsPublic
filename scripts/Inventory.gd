@@ -241,7 +241,7 @@ func inv_btn_clicked(loc : int,item : Object):
 			update_inventory()
 
 func mouse_in_btn(loc : int):
-	if inventory.has(loc):
+	if inventory.size() > loc:
 		var itemData = world.get_item_data(inventory[loc]["id"])
 		if itemData.has("name"):
 			var text = itemData["name"]

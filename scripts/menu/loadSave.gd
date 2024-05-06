@@ -60,6 +60,7 @@ func start(tutorial = false):
 	get_node("../../blank").show()
 	get_node("../../AnimationPlayer").play("zoom",-1,-1,true)
 	await get_node("../../AnimationPlayer").animation_finished
+	GlobalAudio.change_mode("game")
 	if tutorial:
 		Global.open_tutorial()
 	else:

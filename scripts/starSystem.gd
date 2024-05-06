@@ -215,11 +215,13 @@ func land(planet : int):
 	var planetType = find_planet_id(planet).type["type"]
 	if !landedPlanetTypes.has(planetType):
 		landedPlanetTypes.append(planetType)
+		print("Found new planet type!")
+		print("explored planet type count: ",landedPlanetTypes.size())
 		if landedPlanetTypes.size() >= 3:
 			GlobalGui.complete_achievement("Explorer 1")
-		elif landedPlanetTypes.size() >= 6:
+		if landedPlanetTypes.size() >= 6:
 			GlobalGui.complete_achievement("Explorer 2")
-		elif landedPlanetTypes.size() >= 9:
+		if landedPlanetTypes.size() >= 9:
 			GlobalGui.complete_achievement("Explorer 3")
 	GlobalGui.complete_achievement("Interplanetary")
 	emit_signal("landing_planet")
@@ -240,9 +242,9 @@ func open_star_system(systemSeed : int,systemId : String):
 		print("Entering system ",systemSeed)
 
 func leave_star_system():
-	visitedPlanets.clear()
 	Global.currentPlanet = -1
 	Global.save_system()
+	visitedPlanets.clear()
 	emit_signal("leaving_system")
 	var _er = get_tree().change_scene_to_file("res://scenes/Galaxy.tscn")
 	print("Leaving system ",Global.currentSystem)
@@ -297,6 +299,7 @@ func load_system(entering = false):
 		currentStar = systemDat["star_type"]
 		currentStarData = starData[currentStar]
 		visitedPlanets = systemDat["visited_planets"]
+		print(visitedPlanets)
 		for id in systemDat["planets"]:
 			var planetDat = systemDat["planets"][id]
 			var planet = PLANET.instantiate()

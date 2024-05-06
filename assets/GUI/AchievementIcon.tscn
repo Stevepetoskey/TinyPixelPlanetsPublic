@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://blmr203fe65nk"]
+
+[ext_resource type="Texture2D" uid="uid://gnk4eoow4bqh" path="res://textures/GUI/GlobalGUI/Ach_completed.png" id="1_5sw3j"]
+[ext_resource type="Script" path="res://scripts/GUI/AchievementBtn.gd" id="2_8fxr3"]
+[ext_resource type="Texture2D" uid="uid://ccpskdvf7mnft" path="res://textures/GUI/main/all_planets_icon.png" id="3_ru5k4"]
+
+[node name="AchievementIcon" type="TextureButton"]
+offset_right = 16.0
+offset_bottom = 16.0
+texture_normal = ExtResource("1_5sw3j")
+script = ExtResource("2_8fxr3")
+id = "One small step"
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
+texture = ExtResource("3_ru5k4")
+stretch_mode = 3

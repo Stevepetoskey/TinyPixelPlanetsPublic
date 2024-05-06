@@ -1,4 +1,4 @@
-[gd_scene load_steps=194 format=3 uid="uid://2c07adgn0vow"]
+[gd_scene load_steps=192 format=3 uid="uid://2c07adgn0vow"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c3rmyuwb7gd3m" path="res://textures/enviroment/sky.png" id="2"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://scripts/Crafting.gd" id="11"]
 [ext_resource type="PackedScene" uid="uid://dn6ilfeqopl5j" path="res://assets/GUI/Pause.tscn" id="12"]
 [ext_resource type="Theme" uid="uid://bvlk5mt2axnwa" path="res://themes/Gray.tres" id="12_23g2f"]
+[ext_resource type="Texture2D" uid="uid://cgm36fclyy5o0" path="res://textures/enviroment/backgrounds/terra_underground.png" id="12_itho0"]
 [ext_resource type="Texture2D" uid="uid://docmqdn1y13fp" path="res://textures/GUI/Blank.png" id="13"]
 [ext_resource type="Texture2D" uid="uid://bdy3c4crcwfy1" path="res://textures/GUI/main/Blues.png" id="15"]
 [ext_resource type="PackedScene" uid="uid://c0cgbwp6g0r8h" path="res://assets/Player.tscn" id="16"]
@@ -50,7 +51,6 @@
 [ext_resource type="Script" path="res://scripts/Effects.gd" id="47"]
 [ext_resource type="Texture2D" uid="uid://bu4jjvitxquwi" path="res://textures/enviroment/space-3.png" id="48"]
 [ext_resource type="Script" path="res://scripts/Dead.gd" id="49"]
-[ext_resource type="FastNoiseLite" uid="uid://bp77i8xjxs5di" path="res://noise/Main.tres" id="51"]
 [ext_resource type="Script" path="res://scripts/Chest.gd" id="52"]
 [ext_resource type="Texture2D" uid="uid://d380irrpct8nn" path="res://textures/GUI/main/hotbar/hotbar2.png" id="54"]
 [ext_resource type="Texture2D" uid="uid://bueaebvbfj4jw" path="res://textures/GUI/main/hotbar/hotbar1.png" id="55"]
@@ -721,10 +721,6 @@ _data = {
 "fade out": SubResource("86"),
 "pop up": SubResource("87")
 }
-
-[sub_resource type="FastNoiseLite" id="79"]
-
-[sub_resource type="FastNoiseLite" id="92"]
 
 [sub_resource type="RectangleShape2D" id="118"]
 size = Vector2(6, 99.25)
@@ -2422,6 +2418,7 @@ one_shot = true
 
 [node name="back" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
 modulate = Color(1, 0.662745, 0.282353, 1)
+texture_repeat = 2
 motion_scale = Vector2(0.1, 0.1)
 motion_offset = Vector2(2.08165e-12, 40)
 motion_mirroring = Vector2(640, 0)
@@ -2434,6 +2431,7 @@ region_rect = Rect2(0, 0, 640, 180)
 
 [node name="front" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
 modulate = Color(0.427451, 0.368627, 0.47451, 1)
+texture_repeat = 2
 motion_scale = Vector2(0.3, 0.3)
 motion_offset = Vector2(2.08165e-12, 55)
 motion_mirroring = Vector2(640, 0)
@@ -2443,6 +2441,13 @@ texture = ExtResource("20")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 640, 180)
+
+[node name="Underground" type="Sprite2D" parent="CanvasLayer/Enviroment/front"]
+position = Vector2(2.08165e-12, 180)
+texture = ExtResource("12_itho0")
+centered = false
+region_enabled = true
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 640, 360)
 
 [node name="Oxygen" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -3273,10 +3278,6 @@ horizontal_alignment = 1
 
 [node name="World" type="Node2D" parent="."]
 script = ExtResource("1")
-worldNoise = ExtResource("51")
-asteroidNoise = SubResource("79")
-oceanNoise = SubResource("92")
-noiseScale = 25
 worldHeight = 30
 
 [node name="blocks" type="Node2D" parent="World"]

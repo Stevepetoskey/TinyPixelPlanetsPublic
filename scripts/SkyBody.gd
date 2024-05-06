@@ -24,12 +24,15 @@ func _ready():
 		#$Sprite.hide()
 		viewPort.material.set_shader_parameter("planet",planetRef.type["texture"])
 		match planetRef.type["size"]:
-			1:
+			0:
 				viewPort.size = Vector2(14,14)
 				viewPort.position = Vector2(-7,-7)
-			2:
+			1:
 				viewPort.size = Vector2(28,28)
 				viewPort.position = Vector2(-14,-14)
+			2:
+				viewPort.size = Vector2(56,56)
+				viewPort.position = Vector2(-28,-28)
 
 func _physics_process(_delta):
 	if is_instance_valid(planetRef) or isStar:
@@ -58,11 +61,14 @@ func _physics_process(_delta):
 			z_index = -int(distance)
 			rot = mainPlanet.position.angle_to_point(planetPos) - mainPlanet.currentRot
 			position = Vector2((cos(rot) * (main.SKY_RADIUS + planetYPos - mainPlanet.systemYPos)),(sin(rot) * (main.SKY_RADIUS + planetYPos - mainPlanet.systemYPos)))
-		if !isStar and planetRef.type["type"] != "commet" and mainPlanet.hasAtmosphere:
-			match get_node("..").get_day_type():
-				"day","sunset","sunrise":
-					viewPort.material.set_shader_parameter("isNight",false)
-				"night":
-					viewPort.material.set_shader_parameter("isNight",true)
+		if !isStar and planetRef.type["type"] != "commet":
+			if mainPlanet.hasAtmosphere:
+				match get_node("..").get_day_type():
+					"day","sunset","sunrise":
+						viewPort.material.set_shader_parameter("isNight",false)
+					"night":
+						viewPort.material.set_shader_parameter("isNight",true)
+			else:
+				viewPort.material.set_shader_parameter("isNight",true)
 	elif !is_instance_valid(planetRef):
 		queue_free()

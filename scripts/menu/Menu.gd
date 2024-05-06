@@ -2,6 +2,10 @@ extends Control
 
 @onready var moon_move: AnimationPlayer = $Path2D/PathFollow2D/MoonMove
 
+func _process(delta: float) -> void:
+	$Space.rotation_degrees += delta / 2.0
+	$Stars.rotation_degrees += delta / 2.0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	moon_move.play("default")
