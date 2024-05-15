@@ -14,6 +14,7 @@ var data = {}
 @export var type : String
 
 @onready var effects = get_node("../../../Effects")
+@onready var main: Node2D = get_node("../../..")
 
 func _ready():
 	if !get_node("../../../World").hasGravity:
@@ -22,6 +23,9 @@ func _ready():
 func die():
 	if hostile:
 		Global.killCount += 1
+		if Global.inTutorial and Global.tutorialStage == 0:
+			Global.tutorialStage = 1
+			main.new_tutorial_stage()
 	var blueDrop = int(randf_range(bluesDropRange[0],bluesDropRange[1]))
 	if blueDrop > 0:
 		get_node("../..").spawn_blues(blueDrop,false,position)

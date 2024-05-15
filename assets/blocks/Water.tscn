@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://80gjocstdg2u"]
+
+[ext_resource type="Script" path="res://scripts/blocks/Water.gd" id="1_5lqui"]
+[ext_resource type="Texture2D" uid="uid://djsxxfl6fvnug" path="res://textures/blocks/water/water_4.png" id="2_y07k5"]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(8, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_y6fa6"]
+polygon = PackedVector2Array(-4, 4, 4, 4, 4, -4, -4, -4)
+
+[node name="AdvanceBlock" type="StaticBody2D"]
+script = ExtResource("1_5lqui")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
+texture = ExtResource("2_y07k5")
+region_rect = Rect2(0, 16, 8, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("1")
+
+[node name="Tick" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2, -2)
+scale = Vector2(0.2, 0.2)
+rect = Rect2(-10, -10, 40, 40)
+
+[node name="RainCol" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_y6fa6")
+
+[connection signal="timeout" from="Tick" to="." method="_on_Tick_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

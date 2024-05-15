@@ -66,7 +66,6 @@ func _on_Spawn_timeout():
 		for entity in $Hold.get_children():
 			if entity.hostile:
 				hostileCount += 1
-		print("SPAWNING")
 		for _i in range(int(randf_range(10,50))):
 			var pos = Vector2(randi()%int(world.worldSize.x),randi()%int(world.worldSize.y))
 			var hostileSpawns = StarSystem.hostileSpawn[StarSystem.find_planet_id(Global.currentPlanet).type["type"]]

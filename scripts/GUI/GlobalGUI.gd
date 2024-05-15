@@ -31,8 +31,11 @@ signal update_achievements
 
 func _process(delta):
 	if GlobalAudio.mode != "menu":
-		if Input.is_action_just_pressed("ach") and !Global.pause:
-			pop_up_ach()
+		if Input.is_action_just_pressed("ach") and (!Global.pause or $AchievementMenu.visible):
+			if !$AchievementMenu.visible:
+				pop_up_ach()
+			else:
+				close_ach()
 		if !backedUpRequest.is_empty() and !$Achievement/AnimationPlayer.is_playing():
 			print("play: ",backedUpRequest[0])
 			$Achievement/Icon.texture = achievements[backedUpRequest[0]]["icon"]
@@ -44,7 +47,7 @@ func _ready():
 	emit_signal("update_achievements",completedAchievements)
 
 func complete_achievement(achievement):
-	if !completedAchievements.has(achievement):
+	if !completedAchievements.has(achievement) and !Global.inTutorial:
 		completedAchievements.append(achievement)
 		emit_signal("update_achievements",completedAchievements)
 		backedUpRequest.append(achievement)

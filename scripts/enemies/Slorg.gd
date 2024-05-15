@@ -6,6 +6,7 @@ const JUMPSPEED = 75
 var seePlayer = false
 var lostPlayer = false
 var seenPos = Vector2(0,0)
+var waitForAnimation = false
 
 var state = "roam"
 var motion = Vector2(0,0)
@@ -21,8 +22,8 @@ func _ready():
 
 func _physics_process(delta):
 	if !Global.pause:
-		if !is_on_floor() and state != "attack":
-			body.stop()
+		if !is_on_floor() and !["attack","falling"].has(state) and !waitForAnimation:
+			body.play("falling")
 			state = "falling"
 		if position.distance_to(player.position) <= 64 and is_on_floor():
 			var space_state = get_world_2d().direct_space_state
@@ -40,14 +41,16 @@ func _physics_process(delta):
 			elif seePlayer and !lostPlayer:
 				lostPlayer = true
 				$seeTimer.start()
-		if !body.is_playing() or state == "attack":
+		if !waitForAnimation or state == "attack":
 			match state:
 				"roam":
 					if randi()%100 == 1 or seePlayer:
+						waitForAnimation = true
 						body.play("hop")
 				"falling":
 					if is_on_floor():
 						inAir = false
+						waitForAnimation = true
 						body.play("land")
 						motion = Vector2(0,0)
 					else:
@@ -62,6 +65,7 @@ func _physics_process(delta):
 					elif inAir:
 						inAir = false
 						body.play("land")
+						waitForAnimation = true
 						motion = Vector2(0,0)
 						state = "roam"
 					else:
@@ -79,7 +83,7 @@ func _physics_process(delta):
 
 
 func _on_AnimatedSprite_animation_finished():
-	body.stop()
+	waitForAnimation = false
 	if state != "attack":
 		match body.animation:
 			"hop":

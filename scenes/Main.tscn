@@ -58,6 +58,8 @@
 [ext_resource type="FontFile" uid="uid://boiyd3n1keevx" path="res://fonts/upheavtt.ttf" id="56_wca64"]
 [ext_resource type="Texture2D" uid="uid://bom5ygsohqxmw" path="res://textures/GUI/main/hotbar/O2-safe.png" id="58"]
 [ext_resource type="Shader" path="res://shaders/Pause.gdshader" id="58_564f8"]
+[ext_resource type="Script" path="res://scripts/GUI/SignEdit.gd" id="58_p8ek0"]
+[ext_resource type="Texture2D" uid="uid://dieq04r77mkl" path="res://textures/GUI/space/buttons/color_btn.png" id="59_b30rk"]
 [ext_resource type="Theme" uid="uid://b02uwgbscq35l" path="res://themes/menu.tres" id="60_dyqfb"]
 [ext_resource type="Script" path="res://scripts/Commands.gd" id="61"]
 [ext_resource type="Texture2D" uid="uid://dpqpaobomk0g" path="res://textures/GUI/main/inventory/item-toolbar.png" id="62"]
@@ -65,6 +67,7 @@
 [ext_resource type="Texture2D" uid="uid://cvq1t01u1jig3" path="res://textures/enviroment/light.png" id="64"]
 [ext_resource type="Texture2D" uid="uid://btus3qrhw2igq" path="res://textures/enviroment/storm_bg.png" id="65"]
 [ext_resource type="Texture2D" uid="uid://hq0q5oh5t744" path="res://textures/weather/snow.png" id="66"]
+[ext_resource type="FontVariation" uid="uid://c4nuc5bd0kohq" path="res://fonts/PixelPossFix.tres" id="66_oustp"]
 [ext_resource type="Script" path="res://scripts/enviroment/Meteors.gd" id="67"]
 [ext_resource type="Texture2D" uid="uid://deiwekva7e5yd" path="res://textures/GUI/main/hotbar/hotbar_panel.png" id="68"]
 [ext_resource type="Texture2D" uid="uid://dmf75orq48o76" path="res://textures/GUI/main/hotbar/forground.png" id="69"]
@@ -670,6 +673,12 @@ cache/0/50/0/scale = 1.0
 cache/0/50/0/kerning_overrides/16/0 = Vector2(0, 0)
 cache/0/50/0/kerning_overrides/50/0 = Vector2(0, 0)
 
+[sub_resource type="LabelSettings" id="LabelSettings_83to3"]
+line_spacing = 2.08165e-12
+font = ExtResource("66_oustp")
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="Animation" id="85"]
 length = 0.001
 tracks/0/type = "value"
@@ -684,9 +693,22 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="86"]
 resource_name = "fade out"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -694,14 +716,27 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
 
 [sub_resource type="Animation" id="87"]
 resource_name = "pop up"
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -709,10 +744,22 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5kbqp"]
@@ -730,18 +777,6 @@ size = Vector2(6, 97)
 
 [sub_resource type="RectangleShape2D" id="120"]
 size = Vector2(6, 248)
-
-[sub_resource type="RectangleShape2D" id="88"]
-size = Vector2(49, 1800)
-
-[sub_resource type="RectangleShape2D" id="89"]
-size = Vector2(97, 1800)
-
-[sub_resource type="RectangleShape2D" id="90"]
-size = Vector2(24, 1800)
-
-[sub_resource type="RectangleShape2D" id="91"]
-size = Vector2(24, 1800)
 
 [sub_resource type="RectangleShape2D" id="52"]
 size = Vector2(4, 4)
@@ -822,7 +857,7 @@ emission_box_extents = Vector3(240, 1, 1)
 direction = Vector3(0.5, 1, 0)
 spread = 5.0
 initial_velocity_min = 100.0
-initial_velocity_max = 350.0
+initial_velocity_max = 200.0
 gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
 color = Color(0.79, 0.8985, 1, 0.619608)
 turbulence_noise_scale = 100.0
@@ -1337,6 +1372,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../sfx/Rain:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="97"]
 resource_name = "rain"
@@ -1447,7 +1494,7 @@ tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [100.0]
+"values": [200.0]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
@@ -1459,7 +1506,7 @@ tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [100.0]
+"values": [200.0]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
@@ -2969,8 +3016,6 @@ layout_mode = 2
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("12")]
 visible = false
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="Chest" type="Control" parent="CanvasLayer"]
 visible = false
@@ -3139,6 +3184,172 @@ text = "Sell"
 horizontal_alignment = 1
 uppercase = true
 
+[node name="SignEdit" type="Panel" parent="CanvasLayer"]
+visible = false
+custom_minimum_size = Vector2(180, 110)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("60_dyqfb")
+script = ExtResource("58_p8ek0")
+
+[node name="EditTextLbl" type="Label" parent="CanvasLayer/SignEdit"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 13.0
+grow_horizontal = 2
+text = "Edit Text"
+horizontal_alignment = 1
+
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer/SignEdit"]
+custom_minimum_size = Vector2(164, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = -42.0
+offset_right = 82.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+wrap_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SignEdit"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -22.0
+offset_right = -3.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="ModeLbl" type="Label" parent="CanvasLayer/SignEdit/HBoxContainer"]
+layout_mode = 2
+text = "Mode:"
+
+[node name="ModeBtn" type="Button" parent="CanvasLayer/SignEdit/HBoxContainer"]
+layout_mode = 2
+text = "Click"
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/SignEdit/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 6
+
+[node name="Red" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="Orange" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(1, 0.501961, 0, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="Yellow" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(1, 1, 0, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="YellowGreen" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(0.501961, 1, 0, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="Green" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(0, 1, 0, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="BlueGreen" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(0, 1, 0.501961, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="Cornflower" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(0.388235, 0.580392, 0.929412, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="Blue" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(0, 0, 1, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="Purple" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(0.501961, 0, 1, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="Magenta" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(1, 0, 1, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="White" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="Black" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(0.0784314, 0.0784314, 0.0862745, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="RadiusLbl" type="Label" parent="CanvasLayer/SignEdit/HBoxContainer"]
+layout_mode = 2
+text = "Radius:"
+
+[node name="RadiusInt" type="SpinBox" parent="CanvasLayer/SignEdit/HBoxContainer"]
+layout_mode = 2
+max_value = 200.0
+
+[node name="CloseBtn" type="Button" parent="CanvasLayer/SignEdit"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_right = -90.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Close"
+
+[node name="LockBtn" type="Button" parent="CanvasLayer/SignEdit"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 90.0
+offset_top = 1.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Lock"
+
 [node name="Black" type="TextureRect" parent="CanvasLayer"]
 modulate = Color(0, 0, 0, 1)
 anchors_preset = 15
@@ -3220,25 +3431,39 @@ theme = ExtResource("60_dyqfb")
 placeholder_text = "Type commands here"
 script = ExtResource("61")
 
+[node name="CommandHelp" type="RichTextLabel" parent="CanvasLayer/Commands"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -66.0
+offset_bottom = -1.0
+grow_horizontal = 2
+
 [node name="Title" type="Label" parent="CanvasLayer"]
 visible = false
 modulate = Color(1, 1, 1, 0)
-anchors_preset = 7
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -119.0
-offset_top = -30.0
-offset_right = 119.0
+offset_left = -128.0
+offset_top = 7.0
+offset_right = 129.0
+offset_bottom = 47.0
+grow_horizontal = 2
 theme_override_colors/font_outline_color = Color(0.6, 0.639216, 0.752941, 1)
 theme_override_fonts/font = SubResource("FontFile_653sy")
-text = "If  your ie J or K slot"
+text = "Hello! I am a sign. Signs display any text you want! I also have many different options below! Click mode requires you to click me, area mode makes me activate within a certain radius."
+label_settings = SubResource("LabelSettings_83to3")
+horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Title"]
 libraries = {
 "": SubResource("AnimationLibrary_5kbqp")
 }
+
+[node name="TitleTimer" type="Timer" parent="CanvasLayer/Title"]
+one_shot = true
 
 [node name="ItemData" type="Label" parent="CanvasLayer"]
 visible = false
@@ -3297,40 +3522,6 @@ shape = SubResource("119")
 position = Vector2(120, 66.5003)
 rotation = 1.5708
 shape = SubResource("120")
-
-[node name="TutorialParts" type="Node2D" parent="World"]
-
-[node name="Platforms" type="Area2D" parent="World/TutorialParts"]
-position = Vector2(143.5, 128)
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Platforms"]
-shape = SubResource("88")
-
-[node name="Sprint" type="Area2D" parent="World/TutorialParts"]
-position = Vector2(463.5, 128)
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Sprint"]
-shape = SubResource("89")
-
-[node name="Chest" type="Area2D" parent="World/TutorialParts"]
-position = Vector2(843, 128)
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Chest"]
-shape = SubResource("90")
-
-[node name="Mine" type="Area2D" parent="World/TutorialParts"]
-position = Vector2(880, 128)
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Mine"]
-shape = SubResource("91")
 
 [node name="GlobalTick" type="Timer" parent="World"]
 wait_time = 0.1
@@ -3463,19 +3654,20 @@ script = ExtResource("47")
 [connection signal="updated_armor" from="CanvasLayer/Inventory/Armor" to="Player" method="_on_Armor_updated_armor"]
 [connection signal="pressed" from="CanvasLayer/Shop/TabBar/BuyTab" to="CanvasLayer/Shop" method="_on_BuyTab_pressed"]
 [connection signal="pressed" from="CanvasLayer/Shop/TabBar/SellTab" to="CanvasLayer/Shop" method="_on_SellTab_pressed"]
+[connection signal="text_changed" from="CanvasLayer/SignEdit/TextEdit" to="CanvasLayer/SignEdit" method="_on_text_edit_text_changed"]
+[connection signal="pressed" from="CanvasLayer/SignEdit/HBoxContainer/ModeBtn" to="CanvasLayer/SignEdit" method="_on_mode_btn_pressed"]
+[connection signal="value_changed" from="CanvasLayer/SignEdit/HBoxContainer/RadiusInt" to="CanvasLayer/SignEdit" method="_on_radius_int_value_changed"]
+[connection signal="pressed" from="CanvasLayer/SignEdit/CloseBtn" to="CanvasLayer/SignEdit" method="_on_close_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/SignEdit/LockBtn" to="CanvasLayer/SignEdit" method="_on_lock_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Respawn" to="CanvasLayer/Dead" method="_on_Respawn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Quit" to="CanvasLayer/Dead" method="_on_Quit_pressed"]
+[connection signal="text_changed" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_text_changed"]
 [connection signal="text_submitted" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_Commands_text_entered"]
+[connection signal="timeout" from="CanvasLayer/Title/TitleTimer" to="." method="_on_title_timer_timeout"]
 [connection signal="world_loaded" from="World" to="." method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="CanvasLayer/ParallaxBackground/Space" method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="CanvasLayer/Enviroment" method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="Entities" method="_on_World_world_loaded"]
-[connection signal="body_entered" from="World/TutorialParts/Platforms" to="." method="_on_Area2D_body_entered"]
-[connection signal="body_exited" from="World/TutorialParts/Platforms" to="." method="_on_Area2D_body_exited"]
-[connection signal="body_entered" from="World/TutorialParts/Sprint" to="." method="_on_Sprint_body_entered"]
-[connection signal="body_exited" from="World/TutorialParts/Sprint" to="." method="_on_Sprint_body_exited"]
-[connection signal="body_entered" from="World/TutorialParts/Chest" to="." method="_on_Chest_body_entered"]
-[connection signal="body_entered" from="World/TutorialParts/Mine" to="." method="_on_Mine_body_entered"]
 [connection signal="timeout" from="World/GlobalTick" to="World" method="_on_GlobalTick_timeout"]
 [connection signal="body_entered" from="Cursor/playerTest" to="Cursor" method="_on_playerTest_body_entered"]
 [connection signal="body_exited" from="Cursor/playerTest" to="Cursor" method="_on_playerTest_body_exited"]

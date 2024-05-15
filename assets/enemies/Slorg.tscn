@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://br0ilkuqrn1jp"]
+[gd_scene load_steps=17 format=3 uid="uid://br0ilkuqrn1jp"]
 
 [ext_resource type="Texture2D" uid="uid://7bvut2r1kvra" path="res://textures/enemies/big_slorg/big_slorg1.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://cue8hp3ok1nkr" path="res://textures/enemies/big_slorg/big_slorg7.png" id="2"]
@@ -9,6 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://dk2h3gdwfhwva" path="res://textures/enemies/big_slorg/big_slorg2.png" id="7"]
 [ext_resource type="Texture2D" uid="uid://dk038d3iss4w1" path="res://textures/enemies/big_slorg/big_slorg3.png" id="8"]
 [ext_resource type="Texture2D" uid="uid://bgfht1wwsrhc6" path="res://textures/enemies/seen.png" id="9"]
+[ext_resource type="Script" path="res://scripts/misc/StateMachine.gd" id="10_q41cq"]
+[ext_resource type="Script" path="res://scripts/enemies/Slorg/roam_state.gd" id="11_1mowf"]
+[ext_resource type="Script" path="res://scripts/enemies/Slorg/Jump_state.gd" id="12_75vjt"]
+[ext_resource type="Script" path="res://scripts/enemies/Slorg/Fall_state.gd" id="13_d0v7d"]
 
 [sub_resource type="SpriteFrames" id="1"]
 animations = [{
@@ -36,6 +40,14 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8")
+}],
+"loop": true,
+"name": &"falling",
 "speed": 5.0
 }, {
 "frames": [{
@@ -89,8 +101,7 @@ type = "slorg"
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("1")
-animation = &"attack"
-frame = 6
+animation = &"land"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3.5)
@@ -116,8 +127,25 @@ shape = SubResource("3")
 
 [node name="HurtTimer" type="Timer" parent="."]
 
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initialState")]
+script = ExtResource("10_q41cq")
+initialState = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("mainBody")]
+script = ExtResource("11_1mowf")
+mainBody = NodePath("../..")
+
+[node name="MoveTimer" type="Timer" parent="StateMachine/Idle"]
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("12_75vjt")
+
+[node name="Fall" type="Node" parent="StateMachine"]
+script = ExtResource("13_d0v7d")
+
 [connection signal="animation_finished" from="Body" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="seeTimer" to="." method="_on_seeTimer_timeout"]
 [connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]
 [connection signal="body_exited" from="HitBox" to="." method="_on_HitBox_body_exited"]
 [connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
+[connection signal="timeout" from="StateMachine/Idle/MoveTimer" to="StateMachine/Idle" method="_on_move_timer_timeout"]

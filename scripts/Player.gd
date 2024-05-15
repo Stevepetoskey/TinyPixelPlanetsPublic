@@ -17,6 +17,7 @@ const NO_PLATFORM = 1
 @onready var inventory = get_node("../CanvasLayer/Inventory")
 @onready var world = get_node("../World")
 @onready var entities = get_node("../Entities")
+@onready var main: Node2D = $".."
 
 var motion = Vector2(0,0)
 
@@ -269,7 +270,10 @@ func checkAllBlocks(id : int) -> bool:
 	return true
 
 func _on_blockTest_body_entered(body):
-	if !currentBlocksOn.has(body):
+	if body.id == 145:
+		if body.data["mode"] == "Area":
+			main.display_text(body.data)
+	elif !currentBlocksOn.has(body):
 		currentBlocksOn.append(body)
 
 func _on_blockTest_body_exited(body):

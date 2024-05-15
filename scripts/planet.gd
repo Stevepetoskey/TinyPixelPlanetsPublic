@@ -28,5 +28,4 @@ func _on_Area2D_body_entered(body):
 		main.planet_entered(self)
 
 func _on_discover_body_entered(body: Node2D) -> void:
-	print("IN DISCOVER")
 	main.discover_planet(planetRef.id)

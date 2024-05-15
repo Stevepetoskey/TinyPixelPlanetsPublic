@@ -8,6 +8,7 @@ func _process(delta: float) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Planet.texture = [load("res://textures/GUI/Menu/planets/terra.png"),load("res://textures/GUI/Menu/planets/mud.png"),load("res://textures/GUI/Menu/planets/desert.png")].pick_random()
 	moon_move.play("default")
 	GlobalAudio.change_mode("menu")
 	#yield(get_tree().create_timer(0.5),"timeout")

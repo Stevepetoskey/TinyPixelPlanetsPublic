@@ -6,8 +6,10 @@ const GALAXY_SIZE = Vector2(1000,1000)
 const SECTOR_STAR_RANGE = [40,60]
 
 var selectedSystem = null
+var currentSystem = null
 var moving = false
 
+@onready var loading_animation: AnimationPlayer = $CanvasLayer/Loading/LoadingAnimation
 
 func _ready():
 	Global.playerData["save_type"] = "galaxy"
@@ -18,6 +20,7 @@ func _ready():
 	update_sectors(sectorCoords)
 	if find_system(Global.currentSystem,sectorCoords) != null:
 		var system = find_system(Global.currentSystem,sectorCoords)
+		currentSystem = system
 		$GalaxyView.position = system.global_position
 		$CurrentSelector.position = system.global_position
 	else:
@@ -93,14 +96,11 @@ func warp(systemId : String, planetId : int):
 	moving = true
 	var sectorCoords = system_seed_to_pos(systemId)
 	load_sector(sectorCoords)
-	var tween = get_tree().create_tween()
-	tween.tween_property($GalaxyView,"position",find_system_id(systemId,sectorCoords).get_global_rect().position,2).set_ease(Tween.EASE_IN_OUT)
-	await tween.finished
-	$AnimationPlayer.play("selected")
-	await $AnimationPlayer.animation_finished
+	loading_animation.play("start_loading")
+	await loading_animation.animation_finished
 	GlobalGui.complete_achievement("Interstellar")
 	Global.currentPlanet = planetId
-	StarSystem.open_star_system(find_system_id(systemId,sectorCoords).systemSeed,systemId)
+	StarSystem.open_star_system(find_system_id(systemId,sectorCoords).systemSeed,systemId,true)
 
 func system_pressed(system):
 	if !moving:
@@ -116,21 +116,11 @@ func system_pressed(system):
 		else:
 			$SystemInfo.hide()
 			moving = true
-			var oldPos = $CurrentSelector.position
-			for i in range(100):
-				$CurrentSelector.position = lerp(oldPos,$Selected.position,i/100.0)
-				$Line.position = $CurrentSelector.position + Vector2(10.5,10.5)
-				$Line.rotation_degrees = rad_to_deg($Line.position.angle_to_point($Selected.position + Vector2(10.5,10.5))) - 90
-				$Line.size.y = $Line.position.distance_to($Selected.position + Vector2(10.5,10.5))
-				$GalaxyView.position = $Line.position
-				await get_tree().process_frame
-			$CurrentSelector.position = $Selected.position
-			$AnimationPlayer.play("selected")
-			moving = false
-			await $AnimationPlayer.animation_finished
+			loading_animation.play("start_loading" if currentSystem != system else "open_system")
+			await loading_animation.animation_finished
 			print("Selected seed: ",selectedSystem.systemSeed)
 			GlobalGui.complete_achievement("Interstellar")
-			StarSystem.open_star_system(selectedSystem.systemSeed,selectedSystem.systemId)
+			StarSystem.open_star_system(selectedSystem.systemSeed,selectedSystem.systemId,true)
 
 func _on_BookmarkBtn_toggled(button_pressed: bool) -> void:
 	if button_pressed:

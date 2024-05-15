@@ -6,6 +6,8 @@ var REACH = 5
 @onready var inventory = get_node("../CanvasLayer/Inventory")
 @onready var player = get_node("../Player")
 @onready var effects: Node2D = $"../Effects"
+@onready var sign_edit: Panel = $"../CanvasLayer/SignEdit"
+@onready var main: Node2D = $".."
 
 var canPlace = true
 var currentLayer = 1
@@ -47,15 +49,16 @@ func _process(_delta):
 		elif blockPos.y > world.worldSize.y-1 :
 			position.y = (world.worldSize.y-1)*world.BLOCK_SIZE.y
 		
-		if world.interactableBlocks.has(world.get_block_id(position / world.BLOCK_SIZE,currentLayer)) or currentShop != null:
+		blockPos = position / world.BLOCK_SIZE
+		cursorPos = blockPos
+		
+		if world.interactableBlocks.has(world.get_block_id(cursorPos,currentLayer)) or currentShop != null:
 			texture = load("res://textures/GUI/main/interactable_cursor.png")
 			canInteract = true
 		else:
 			texture = load("res://textures/GUI/main/cursor.png")
 			canInteract = false
 		
-		blockPos = position / world.BLOCK_SIZE
-		cursorPos = blockPos
 		if blockPos != oldBlockPos and breaking:
 			stop_breaking()
 		oldBlockPos = blockPos
@@ -79,6 +82,12 @@ func _unhandled_input(_event):
 						inventory.inventoryToggle(false,true,"smithing_table")
 					91:
 						inventory.inventoryToggle(false,true,"chest")
+					145:
+						var sign = world.get_block(cursorPos,currentLayer)
+						if !sign.data["locked"]:
+							sign_edit.pop_up(sign)
+						elif sign.data["mode"] == "Click":
+							main.display_text(sign.data)
 			elif (Input.is_action_pressed("build") and inventory.inventory.size() > 0) or (Input.is_action_pressed("build2") and inventory.inventory.size() > 1):
 				var slot = 0 if Input.is_action_pressed("build") or inventory.inventory.size() < 2 else 1
 				var selectedId = inventory.inventory[slot]["id"]
@@ -114,7 +123,7 @@ func tool_action(itemId : int, ref := 0) -> void:
 				else:
 					inventory.inventory[ref]["data"] = {"water":water.data["water_level"]}
 					world.set_block(cursorPos,currentLayer,0,true)
-			elif itemSelect["type"] != "Watering_can" and world.worldRules["place_blocks"]["value"] and inventory.inventory[ref].has("data") and inventory.inventory[ref]["data"].has("water") and inventory.inventory[ref]["data"]["water"] > 0:
+			elif itemSelect["type"] != "Watering_can" and currentLayer != 0 and world.worldRules["place_blocks"]["value"] and inventory.inventory[ref].has("data") and inventory.inventory[ref]["data"].has("water") and inventory.inventory[ref]["data"]["water"] > 0:
 				world.set_block(cursorPos,currentLayer,117,true,{"water_level":inventory.inventory[ref]["data"]["water"]})
 				inventory.inventory[ref]["data"]["water"] = 0
 			elif itemSelect["type"] == "Watering_can" and inventory.inventory[ref].has("data") and inventory.inventory[ref]["data"].has("water") and inventory.inventory[ref]["data"]["water"] > 0:
@@ -122,7 +131,7 @@ func tool_action(itemId : int, ref := 0) -> void:
 				inventory.inventory[ref]["data"]["water"] -= 0.25
 			inventory.update_inventory()
 		"Tool":
-			if !breaking and world.get_block_id(cursorPos,currentLayer) > 0 and world.blockData[world.get_block_id(cursorPos,currentLayer)]["breakWith"] != "None" and itemSelect["strength"] >= world.blockData[world.get_block_id(cursorPos,currentLayer)]["canHaverst"] and world.worldRules["break_blocks"]["value"]:
+			if !breaking and world.get_block_id(cursorPos,currentLayer) > 0 and world.blockData[world.get_block_id(cursorPos,currentLayer)]["breakWith"] != "None" and itemSelect["strength"] >= world.blockData[world.get_block_id(cursorPos,currentLayer)]["canHaverst"] and (world.worldRules["break_blocks"]["value"] or (world.get_block_id(cursorPos,currentLayer) == 8 and Global.inTutorial)):
 				var hardness = world.blockData[world.get_block_id(cursorPos,currentLayer)]["hardness"]
 				if hardness <= 0:
 					world.build_event("Break",position / world.BLOCK_SIZE,currentLayer)

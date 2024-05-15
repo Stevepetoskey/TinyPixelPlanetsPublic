@@ -169,6 +169,7 @@ var systemDat = {}
 var visitedPlanets = []
 var landedPlanetTypes = []
 
+var loadFromGalaxy = false
 var planetReady = false
 
 signal planet_ready
@@ -226,8 +227,9 @@ func land(planet : int):
 	GlobalGui.complete_achievement("Interplanetary")
 	emit_signal("landing_planet")
 
-func open_star_system(systemSeed : int,systemId : String):
+func open_star_system(systemSeed : int,systemId : String, fromGalaxy := false):
 	emit_signal("entering_system")
+	loadFromGalaxy = fromGalaxy
 	Global.currentSystem = systemSeed
 	Global.currentSystemId = systemId
 	print("GIVEN SYSTEM ID: ",systemId)

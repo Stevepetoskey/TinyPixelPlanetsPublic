@@ -117,6 +117,7 @@ func set_background(type : String):
 		"asteroids":
 			$back/Sprite2D.hide()
 			$front/Sprite2D.hide()
+			$front/Underground.hide()
 		_:
 			$back/Sprite2D.show()
 			$front/Sprite2D.show()

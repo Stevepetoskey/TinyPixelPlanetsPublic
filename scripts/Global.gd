@@ -28,16 +28,16 @@ var pause = false
 var enemySpawning = true
 var entitySpawning = true
 var inTutorial = false
+var tutorialStage = 0
 var meteorsAttacked = false
 var globalGameTime : int = 0
 var gameTimeTimer : Timer = Timer.new()
 var default_bookmarks = [
-	{"name":"Shop center","icon":"star","color":Color(0.39,0.58,0.92),"system_id":"3680641011042","planet_id":0},
-	{"name":"Test","icon":"circle","color":Color(1,1,1),"system_id":"1260962067520","planet_id":4}
+	{"name":"Shop center","icon":"star","color":Color(0.39,0.58,0.92),"system_id":"08406415904037","planet_id":0},
 	]
 var default_settings = {
 	"music":10,
-	"keybinds":{"build":{"event_type":"mouse","id":1},"build2":{"event_type":"mouse","id":2},"action1":{"event_type":"key","id":74},"action2":{"event_type":"key","id":75},"background_toggle":{"event_type":"key","id":66},"ach":{"event_type":"key","id":90},"fly":{"event_type":"key","id":70}}
+	"keybinds":{"build":{"event_type":"mouse","id":1},"build2":{"event_type":"mouse","id":2},"action1":{"event_type":"key","id":74},"action2":{"event_type":"key","id":75},"background_toggle":{"event_type":"key","id":66},"inventory":{"event_type":"key","id":69},"ach":{"event_type":"key","id":90},"fly":{"event_type":"key","id":70}}
 }
 var bookmarks : Array= []
 var settings : Dictionary
@@ -94,6 +94,7 @@ func save_exists(saveId : String) -> bool:
 	return false
 
 func open_tutorial():
+	tutorialStage = 0
 	inTutorial = true
 	currentSave = "save4"
 	gameStart = true
@@ -106,13 +107,13 @@ func open_tutorial():
 	dir.open(save_path + currentSave)
 	dir.make_dir("systems")
 	dir.make_dir("planets")
-	DirAccess.copy_absolute("res://data/Tutorial",save_path + currentSave)
+	#DirAccess.copy_absolute("res://data/Tutorial",save_path + currentSave)
 	#copy_directory_recursively("res://data/Tutorial",save_path + currentSave)
-##	copy_directory_recursively("res://data/Tutorial/planets/",save_path + currentSave + "/planets")
-##	copy_directory_recursively("res://data/Tutorial/systems/",save_path + currentSave + "/systems")
-	currentPlanet = 8
-	starterPlanetId = 8
-	currentSystemId = "3106964004403"
+	copy_directory_recursively("res://data/Tutorial/planets/",save_path + currentSave + "/planets")
+	copy_directory_recursively("res://data/Tutorial/systems/",save_path + currentSave + "/systems")
+	currentPlanet = 3
+	starterPlanetId = 3
+	currentSystemId = "3941924765520"
 	godmode = false
 	gamerules = gamerulesBase.duplicate(true)
 	bookmarks = default_bookmarks.duplicate(true)
@@ -167,6 +168,7 @@ func new_save(saveId : String):
 	gamerules = gamerulesBase.duplicate(true)
 	bookmarks = default_bookmarks.duplicate(true)
 	meteorsAttacked = false
+	inTutorial = false
 	match scenario:
 		"temple":
 			gamerules["can_leave_planet"] = false

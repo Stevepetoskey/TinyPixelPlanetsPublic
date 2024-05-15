@@ -6,10 +6,16 @@ var planetInCursor = null
 var pause = false
 
 @onready var nav: Control = $CanvasLayer/Nav
+@onready var loading_animations: AnimationPlayer = $CanvasLayer/Loading/LoadingAnimations
 
 signal system_loaded
 
 func _ready():
+	if StarSystem.loadFromGalaxy:
+		print("From galaxy!")
+		loading_animations.play("start")
+	else:
+		$CanvasLayer/Black/AnimationPlayer.play("fadeOut")
 	load_system()
 	if !Global.gamerules["can_leave_system"]:
 		$CanvasLayer/GalaxyBtn.hide()
@@ -24,7 +30,6 @@ func _ready():
 	else:
 		$ship.position = Vector2(0,-StarSystem.currentStarData["min_distance"]/2.0)
 	Global.playerData["save_type"] = "system"
-	$CanvasLayer/Black/AnimationPlayer.play("fadeOut")
 
 func _process(delta: float) -> void:
 	$Cursor.global_position = get_global_mouse_position()

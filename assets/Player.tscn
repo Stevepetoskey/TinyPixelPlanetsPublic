@@ -705,9 +705,8 @@ _data = {
 "water": SubResource("11")
 }
 
-[sub_resource type="CapsuleShape2D" id="9"]
-radius = 4.0
-height = 22.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_icvb1"]
+size = Vector2(9, 21)
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
@@ -726,7 +725,7 @@ one_shot = true
 
 [node name="blockTest" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 37
+collision_mask = 165
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="blockTest"]
 position = Vector2(0, 12)
@@ -782,8 +781,8 @@ libraries = {
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 3)
-shape = SubResource("9")
+position = Vector2(-0.5, 3.5)
+shape = SubResource("RectangleShape2D_icvb1")
 
 [node name="Oxygen" type="Timer" parent="."]
 wait_time = 0.5

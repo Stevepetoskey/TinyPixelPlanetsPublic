@@ -6,8 +6,8 @@ extends Node2D
 @onready var titleAnim = $CanvasLayer/Title/AnimationPlayer
 @onready var weatherAnimation = $weather/WeatherAnimation
 @onready var weatherTimer = $weather/WeatherTimer
-
-var tutorialStage = 0
+@onready var title_timer: Timer = $CanvasLayer/Title/TitleTimer
+@onready var go_up: TextureButton = $CanvasLayer/Hotbar/GoUp
 
 var currentWeather = "none"
 var worldType : String
@@ -19,8 +19,8 @@ signal weather_changed
 func _ready():
 	StarSystem.connect("start_meteors", Callable(self, "start_meteors"))
 	$CanvasLayer/Black.show()
-	if !Global.gamerules["can_leave_planet"]:
-		$CanvasLayer/Hotbar/GoUp.hide()
+	if !Global.gamerules["can_leave_planet"] or ( Global.inTutorial and Global.tutorialStage < 1):
+		go_up.hide()
 	Global.connect("screenshot", Callable(self, "screenshot"))
 
 func _process(delta):
@@ -43,14 +43,16 @@ func weather_event(random = true,time = [200,500], set = "none",start = true):
 func set_weather(random = true,time = [200,500], set = "none",start = true):
 	weatherStartData = {"random":random,"time":time,"set":set,"start":start}
 
+func new_tutorial_stage():
+	match Global.tutorialStage:
+		1:
+			go_up.show()
+			display_text({"text":"Go to space by clicking the 'Go Up' button","text_color":Color.WHITE})
+
 func _on_World_world_loaded():
 	$CanvasLayer/Hotbar/K/Keybind.text = "?" if Global.settings["keybinds"]["action2"]["event_type"] == "mouse" else char(Global.settings["keybinds"]["action2"]["id"])
 	$CanvasLayer/Hotbar/J/Keybind.text = "?" if Global.settings["keybinds"]["action1"]["event_type"] == "mouse" else char(Global.settings["keybinds"]["action1"]["id"])
 	worldType = StarSystem.find_planet_id(Global.currentPlanet).type["type"]
-	$World/TutorialParts/Platforms/CollisionShape2D.shape = null
-	$World/TutorialParts/Sprint/CollisionShape2D.shape = null
-	$World/TutorialParts/Chest/CollisionShape2D.shape = null
-	$World/TutorialParts/Mine/CollisionShape2D.shape = null
 	if weatherStartData.is_empty():
 		weather_event(false,[0,500])
 	else:
@@ -78,48 +80,13 @@ func disable_godmode():
 func start_meteors():
 	pass
 
-func _on_Area2D_body_entered(body):
-	tutorialStage = 1
-	title.text = "You can jump through platforms, to go down press the S key or down arrow"
+func display_text(textData : Dictionary):
+	title.text = textData["text"]
+	title.label_settings.font_color = textData["text_color"]
+	title.label_settings.outline_color = Color.BLACK if textData["text_color"].get_luminance() > 0.5 else Color.WHITE
+	title_timer.stop()
 	titleAnim.play("pop up")
-
-func _on_Area2D_body_exited(body):
-	titleAnim.play("fade out")
-
-func _on_Sprint_body_entered(body):
-	title.text = "To sprint hold down the SHIFT key"
-	titleAnim.play("pop up")
-
-func _on_Sprint_body_exited(body):
-	titleAnim.play("fade out")
-
-func _on_Chest_body_entered(body):
-	tutorialStage = 2
-	title.text = "To interact with blocks that make your cursor blue, left click"
-	titleAnim.play("pop up")
-	await get_tree().create_timer(5).timeout
-	if tutorialStage == 2:
-		titleAnim.play("fade out")
-		await titleAnim.animation_finished
-		title.text = "Press 'E' or click on the hotbar slot to open your inventory" 
-		titleAnim.play("pop up")
-		await get_tree().create_timer(5).timeout
-		if tutorialStage == 2:
-			titleAnim.play("fade out")
-
-func _on_Mine_body_entered(body):
-	tutorialStage = 3
-	title.text = "To use items in the dark grey slot, left click. Right click for light grey slot"
-	titleAnim.play("pop up")
-	await get_tree().create_timer(7).timeout
-	if tutorialStage == 3:
-		titleAnim.play("fade out")
-		await titleAnim.animation_finished
-		title.text = "If you press J or K over a slot in your inventory (not the hotbar), it will be added to the J or K slot" 
-		titleAnim.play("pop up")
-		await get_tree().create_timer(10).timeout
-		if tutorialStage == 3:
-			titleAnim.play("fade out")
+	title_timer.start(title.text.length() / 10.0)
 
 func _on_WeatherTimer_timeout():
 	if currentWeather == "none":
@@ -128,3 +95,6 @@ func _on_WeatherTimer_timeout():
 		weatherAnimation.play(currentWeather + "_stop")
 		await weatherAnimation.animation_finished
 		weather_event(false)
+
+func _on_title_timer_timeout() -> void:
+	titleAnim.play("fade out")

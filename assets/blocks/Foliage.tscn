@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://be5c3j8r7qxnr"]
+
+[ext_resource type="Script" path="res://scripts/blocks/Foliage.gd" id="1_6f8ac"]
+[ext_resource type="Texture2D" uid="uid://djsxxfl6fvnug" path="res://textures/blocks/water/water_4.png" id="2_a1p1s"]
+
+[node name="Foliage" type="StaticBody2D"]
+script = ExtResource("1_6f8ac")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
+texture = ExtResource("2_a1p1s")
+region_rect = Rect2(0, 16, 8, 8)
+
+[node name="Tick" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2, -2)
+scale = Vector2(0.2, 0.2)
+rect = Rect2(-10, -10, 40, 40)
+
+[node name="check" type="Timer" parent="."]
+
+[connection signal="timeout" from="Tick" to="." method="_on_Tick_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="check" to="." method="_on_check_timeout"]

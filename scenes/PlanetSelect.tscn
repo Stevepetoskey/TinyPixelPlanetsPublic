@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://rcu1gjenp1bt"]
+[gd_scene load_steps=63 format=3 uid="uid://rcu1gjenp1bt"]
 
 [ext_resource type="Texture2D" uid="uid://c7fk7e4eo8qeg" path="res://textures/enviroment/space-2.png" id="1"]
 [ext_resource type="Script" path="res://scripts/PlanetSelect.gd" id="2"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://bwui75sagu74l" path="res://textures/GUI/space/edit_btn.png" id="31"]
 [ext_resource type="Texture2D" uid="uid://biwdw6yi8s11d" path="res://textures/GUI/space/edit_btn_selected.png" id="32"]
 [ext_resource type="Texture2D" uid="uid://dikst6cin2a3t" path="res://textures/GUI/space/buttons/right_btn_hover.png" id="33"]
+[ext_resource type="Texture2D" uid="uid://bshyluxbvfb60" path="res://textures/GUI/loading/warp/bar.png" id="33_ki8rc"]
 [ext_resource type="Texture2D" uid="uid://0ydsvimi35u6" path="res://textures/GUI/space/buttons/right_btn_pressed.png" id="34"]
 [ext_resource type="Texture2D" uid="uid://bl246wyxhjiml" path="res://textures/GUI/space/buttons/left_btn_pressed.png" id="35"]
 [ext_resource type="Theme" uid="uid://0o5m0f0xtqt2" path="res://themes/space.tres" id="36"]
@@ -138,6 +139,91 @@ _data = {
 "RESET": SubResource("5"),
 "fadeIn": SubResource("6"),
 "fadeOut": SubResource("7")
+}
+
+[sub_resource type="Animation" id="Animation_i1ru0"]
+resource_name = "start"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BottomBlackBar:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.3, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 80), Vector2(2.08165e-12, 160)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TopBlackBar:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.3, 0.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12), Vector2(2.08165e-12, -80)]
+}
+
+[sub_resource type="Animation" id="Animation_wpioe"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("BottomBlackBar:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 80)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TopBlackBar:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2.08165e-12, 2.08165e-12)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xu7ho"]
+_data = {
+"RESET": SubResource("Animation_wpioe"),
+"start": SubResource("Animation_i1ru0")
 }
 
 [sub_resource type="Environment" id="2"]
@@ -341,8 +427,6 @@ text = "Galaxy"
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("17")]
 visible = false
-grow_horizontal = 2
-grow_vertical = 2
 type = "system"
 
 [node name="PlanetInfo" type="Panel" parent="CanvasLayer"]
@@ -654,6 +738,68 @@ texture_normal = ExtResource("42")
 modulate = Color(0.0784314, 0.0784314, 0.0862745, 1)
 layout_mode = 2
 texture_normal = ExtResource("42")
+
+[node name="Loading" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopBlackBar" type="TextureRect" parent="CanvasLayer/Loading"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = 1136.0
+offset_bottom = 80.0
+grow_horizontal = 2
+texture = ExtResource("8")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Loading/TopBlackBar"]
+custom_minimum_size = Vector2(2.08165e-12, 32)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("33_ki8rc")
+
+[node name="BottomBlackBar" type="TextureRect" parent="CanvasLayer/Loading"]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 80.0
+offset_right = 1136.0
+offset_bottom = 160.005
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("8")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Loading/BottomBlackBar"]
+custom_minimum_size = Vector2(2.08165e-12, 32)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 32.0
+grow_horizontal = 2
+texture = ExtResource("33_ki8rc")
+flip_v = true
+
+[node name="LoadingAnimations" type="AnimationPlayer" parent="CanvasLayer/Loading"]
+libraries = {
+"": SubResource("AnimationLibrary_xu7ho")
+}
 
 [node name="system" type="Node2D" parent="."]
 

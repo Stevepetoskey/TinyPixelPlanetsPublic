@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://cishymc2t8s6j"]
+[gd_scene load_steps=83 format=3 uid="uid://cishymc2t8s6j"]
 
 [ext_resource type="Theme" uid="uid://b02uwgbscq35l" path="res://themes/menu.tres" id="1_02jqt"]
 [ext_resource type="Texture2D" uid="uid://b7hykydguok1o" path="res://textures/GUI/Menu/TinyPixelTitle.png" id="3"]
@@ -43,7 +43,6 @@
 [ext_resource type="Texture2D" uid="uid://c8kcmpa2mu523" path="res://textures/GUI/Menu/btns/male_btn_pressed.png" id="30_k0ic3"]
 [ext_resource type="Texture2D" uid="uid://cu2cnqmen3gna" path="res://textures/GUI/Menu/sandbox_icon.png" id="31"]
 [ext_resource type="Texture2D" uid="uid://bj86bui8bpbo" path="res://textures/GUI/Menu/btns/male_btn_hover.png" id="31_a8w7u"]
-[ext_resource type="Theme" uid="uid://der0x8rw3vflt" path="res://themes/Blue.tres" id="32"]
 [ext_resource type="Texture2D" uid="uid://bevjldphfaprx" path="res://textures/GUI/Menu/misc/divider.png" id="32_up6ad"]
 [ext_resource type="Texture2D" uid="uid://cs2ptrjg2ll5k" path="res://textures/GUI/space/v_bar_handle_hover.png" id="33"]
 [ext_resource type="Texture2D" uid="uid://cc7n0wca345u0" path="res://textures/GUI/Menu/scenario_btn.png" id="34"]
@@ -820,6 +819,32 @@ vertical_alignment = 1
 layout_mode = 2
 text = "> K <"
 
+[node name="inventory" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("14_3rqod")
+
+[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/inventory/Action"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/inventory"]
+layout_mode = 2
+text = "> E <"
+
 [node name="background_toggle" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
 layout_mode = 2
 theme_override_constants/separation = 0
@@ -979,7 +1004,7 @@ visible = false
 anchors_preset = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource("32")
+theme = ExtResource("1_02jqt")
 script = ExtResource("15")
 
 [node name="Char" type="TextureRect" parent="World/character"]

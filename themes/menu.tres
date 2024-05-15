@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=31 format=3 uid="uid://b02uwgbscq35l"]
+[gd_resource type="Theme" load_steps=35 format=3 uid="uid://b02uwgbscq35l"]
 
 [ext_resource type="FontVariation" uid="uid://c4nuc5bd0kohq" path="res://fonts/PixelPossFix.tres" id="1_34cyi"]
 [ext_resource type="Texture2D" uid="uid://bxs1tl342yhqg" path="res://textures/GUI/space/space_btn_hover.png" id="2_vci7x"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dis6mfjvxeudu" path="res://textures/GUI/space/line_edit_focus.png" id="8_qbwvh"]
 [ext_resource type="Texture2D" uid="uid://chjhdpwimkgty" path="res://textures/GUI/space/line_edit.png" id="9_ngftw"]
 [ext_resource type="Texture2D" uid="uid://4rtnrtq65wgx" path="res://textures/GUI/misc/v_bar.png" id="9_qh2oa"]
+[ext_resource type="Texture2D" uid="uid://cc0frabsbt7dh" path="res://textures/GUI/Menu/misc/up_down.png" id="11_v5nxy"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bo02l"]
 texture = ExtResource("4_51o6t")
@@ -64,16 +65,16 @@ region_rect = Rect2(0, 0, 12, 8)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4n54g"]
 texture = ExtResource("8_qbwvh")
-texture_margin_left = 1.0
+texture_margin_left = 2.0
 texture_margin_top = 1.0
-texture_margin_right = 1.0
+texture_margin_right = 2.0
 texture_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3cywa"]
 texture = ExtResource("9_ngftw")
-texture_margin_left = 1.0
+texture_margin_left = 2.0
 texture_margin_top = 1.0
-texture_margin_right = 1.0
+texture_margin_right = 2.0
 texture_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u7lyj"]
@@ -82,6 +83,27 @@ texture_margin_left = 4.0
 texture_margin_top = 4.0
 texture_margin_right = 4.0
 texture_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lqvbi"]
+texture = ExtResource("9_ngftw")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kf1kt"]
+texture = ExtResource("8_qbwvh")
+texture_margin_left = 2.0
+texture_margin_top = 1.0
+texture_margin_right = 2.0
+texture_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8kdfw"]
+texture = ExtResource("9_ngftw")
+texture_margin_left = 2.0
+texture_margin_top = 1.0
+texture_margin_right = 2.0
+texture_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_q5joq"]
 texture = ExtResource("6_rv35f")
@@ -134,6 +156,10 @@ HSlider/styles/slider = SubResource("StyleBoxTexture_ugb5n")
 LineEdit/styles/focus = SubResource("StyleBoxTexture_4n54g")
 LineEdit/styles/normal = SubResource("StyleBoxTexture_3cywa")
 Panel/styles/panel = SubResource("StyleBoxTexture_u7lyj")
+RichTextLabel/styles/normal = SubResource("StyleBoxTexture_lqvbi")
+SpinBox/icons/updown = ExtResource("11_v5nxy")
+TextEdit/styles/focus = SubResource("StyleBoxTexture_kf1kt")
+TextEdit/styles/normal = SubResource("StyleBoxTexture_8kdfw")
 VScrollBar/styles/grabber = SubResource("StyleBoxTexture_q5joq")
 VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_y2heg")
 VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_b7dn5")

@@ -107,6 +107,8 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("2")
 
 [node name="Blur" type="TextureRect" parent="."]
@@ -127,17 +129,17 @@ offset_right = 32.0
 theme = ExtResource("5")
 alignment = 1
 
-[node name="Quit" type="Button" parent="VBoxContainer"]
+[node name="Continue" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Quit"
+text = "Continue"
 
 [node name="Save" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Save"
 
-[node name="Continue" type="Button" parent="VBoxContainer"]
+[node name="Quit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-text = "Continue"
+text = "Quit"
 
 [node name="Achievements" type="Button" parent="VBoxContainer"]
 layout_mode = 2
@@ -158,7 +160,7 @@ libraries = {
 "": SubResource("AnimationLibrary_cblta")
 }
 
-[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
-[connection signal="pressed" from="VBoxContainer/Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_Continue_pressed"]
+[connection signal="pressed" from="VBoxContainer/Save" to="." method="_on_Save_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="pressed" from="VBoxContainer/Achievements" to="." method="_on_Achievements_pressed"]

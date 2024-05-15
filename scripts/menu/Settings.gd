@@ -14,6 +14,11 @@ func _ready() -> void:
 	$"../AudioStreamPlayer".volume_db = (Global.settings["music"] * 5) - 50
 	if Global.settings["music"] == 0:
 		$"../AudioStreamPlayer".volume_db = -100
+	#Adds extra keybinds if keybind data is out of date
+	for keybind in Global.default_settings["keybinds"]:
+		if !Global.settings["keybinds"].has(keybind):
+			Global.settings["keybinds"][keybind] = Global.default_settings["keybinds"][keybind].duplicate(true)
+	#Maps saved custom keybinds
 	for keybind in Global.settings["keybinds"]:
 		InputMap.action_erase_events(keybind)
 		var keybindData = Global.settings["keybinds"][keybind]
