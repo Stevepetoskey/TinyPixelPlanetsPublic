@@ -3,7 +3,7 @@ extends Control
 const O2_SAFE_TEXTURE = preload("res://textures/GUI/main/hotbar/O2-safe.png")
 const O2_DANGER_TEXTURE = preload("res://textures/GUI/main/hotbar/O2-danger.png")
 
-onready var player = get_node("../../../Player")
+@onready var player = get_node("../../../Player")
 
 func _process(delta):
 	$Health.max_value = player.maxHealth

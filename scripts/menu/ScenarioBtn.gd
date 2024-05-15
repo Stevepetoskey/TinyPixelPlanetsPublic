@@ -1,8 +1,8 @@
 extends TextureButton
 
-export var scenarioId : String
+@export var scenarioId : String
 
-onready var main = $"../../.."
+@onready var main = $"../../.."
 
 func _ready():
 	$TextureRect.texture = main.scenarios[scenarioId]["icon"]

@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/Alpha-Andromedae.ogg-6b7ff68870fd555a6c61f6194de013a6.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dpfxsxigfsb31"
+path="res://.godot/imported/Alpha-Andromedae.ogg-6b7ff68870fd555a6c61f6194de013a6.oggvorbisstr"
 
 [deps]
 
 source_file="res://Audio/music/Alpha-Andromedae.ogg"
-dest_files=[ "res://.import/Alpha-Andromedae.ogg-6b7ff68870fd555a6c61f6194de013a6.oggstr" ]
+dest_files=["res://.godot/imported/Alpha-Andromedae.ogg-6b7ff68870fd555a6c61f6194de013a6.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

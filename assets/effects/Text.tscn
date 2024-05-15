@@ -1,16 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://lo6nhi8fs5ia"]
 
-[ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=1]
-[ext_resource path="res://scripts/effects/Text.gd" type="Script" id=2]
+[ext_resource type="FontVariation" uid="uid://c4nuc5bd0kohq" path="res://fonts/PixelPossFix.tres" id="1_7kcfi"]
+[ext_resource type="Script" path="res://scripts/effects/Text.gd" id="2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_qflwm"]
+font = ExtResource("1_7kcfi")
 
 [node name="Text" type="Label"]
-margin_left = 117.0
-margin_top = 81.0
-margin_right = 126.0
-margin_bottom = 89.0
-custom_fonts/font = ExtResource( 1 )
+offset_left = 117.0
+offset_top = 81.0
+offset_right = 126.0
+offset_bottom = 89.0
 text = "-5"
-script = ExtResource( 2 )
+label_settings = SubResource("LabelSettings_qflwm")
+script = ExtResource("2")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

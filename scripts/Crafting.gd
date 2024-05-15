@@ -2,10 +2,10 @@ extends Control
 
 const CRAFT_BTN = preload("res://assets/CraftBtn.tscn")
 
-onready var inventory = get_node("../Inventory")
-onready var ITEM_PER_PAGE = inventory.ITEM_PER_PAGE
-onready var world = $"../../World"
-onready var recipes_container = $RecipesScroll/RecipesContainer
+@onready var inventory = get_node("../Inventory")
+@onready var ITEM_PER_PAGE = inventory.ITEM_PER_PAGE
+@onready var world = $"../../World"
+@onready var recipes_container = $RecipesScroll/RecipesContainer
 
 var recipes = {
 	"inventory": [
@@ -48,6 +48,7 @@ var recipes = {
 		{"recipe":[{"id":78,"amount":8}],"result":{"id":91,"amount":1}}, #Chest (With exotic wood)
 		{"recipe":[{"id":56,"amount":1}],"result":{"id":113,"amount":1}}, #Silver bucket
 		{"recipe":[{"id":52,"amount":1}],"result":{"id":115,"amount":1}}, #Copper bucket
+		{"recipe":[{"id":5,"amount":2},{"id":13,"amount":3}],"result":{"id":145,"amount":2}}, #Wood sign
 	],
 	"oven": [
 		{"recipe":[{"id":14,"amount":1}],"result":{"id":20,"amount":1}},
@@ -115,7 +116,7 @@ func update_crafting(menu := "null") -> void:
 			recipe.queue_free()
 		var recipesSelect = get_available_recipes(currentMenu)
 		for recipeID in range(recipesSelect.size()):
-			var item = CRAFT_BTN.instance()
+			var item = CRAFT_BTN.instantiate()
 			item.loc = recipeID
 			recipes_container.add_child(item)
 			item.init(recipesSelect[recipeID])
@@ -124,7 +125,7 @@ func get_available_recipes(menu : String) -> Array:
 	var availableRecipes = []
 	for recipe in recipes[menu]:
 		for id in get_recipe_ids(recipe["recipe"]):
-			if !inventory.find_item(id).empty():
+			if !inventory.find_item(id).is_empty():
 				availableRecipes.append(recipe)
 				break
 	return availableRecipes
@@ -144,7 +145,7 @@ func recipe_clicked(recipeRef : Dictionary):
 	if recipesSelect["recipe"].size() > 1:
 		recipe2 = recipesSelect["recipe"][1]
 		item2 = inventory.find_item(recipe2["id"])
-	if !item1.empty() and item1["amount"] >= recipe1["amount"] and (item2 == null or (!item2.empty() and item2["amount"] >= recipe2["amount"])):
+	if !item1.is_empty() and item1["amount"] >= recipe1["amount"] and (item2 == null or (!item2.is_empty() and item2["amount"] >= recipe2["amount"])):
 		inventory.remove_id_from_inventory(recipe1["id"],recipe1["amount"])
 		if item2 != null:
 			inventory.remove_id_from_inventory(recipe2["id"],recipe2["amount"])

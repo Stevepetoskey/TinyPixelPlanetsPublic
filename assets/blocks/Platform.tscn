@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://coec446wyju7a"]
+
+[ext_resource type="Script" path="res://scripts/blocks/Platform.gd" id="1_gufsg"]
+[ext_resource type="Texture2D" uid="uid://djsxxfl6fvnug" path="res://textures/blocks/water/water_4.png" id="2_35ed5"]
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(8, 8)
+
+[node name="Platform" type="StaticBody2D"]
+script = ExtResource("1_gufsg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
+texture = ExtResource("2_35ed5")
+region_rect = Rect2(0, 16, 8, 8)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2, -2)
+scale = Vector2(0.2, 0.2)
+rect = Rect2(-10, -10, 40, 40)
+
+[node name="shade" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.521569)
+
+[node name="platform" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("2")
+one_way_collision = true
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

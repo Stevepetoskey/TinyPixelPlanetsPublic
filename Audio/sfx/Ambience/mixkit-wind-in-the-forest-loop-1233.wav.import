@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/mixkit-wind-in-the-forest-loop-1233.wav-3956991f89509a48b26af44ed668d547.sample"
+type="AudioStreamWAV"
+uid="uid://ddex2unlfvdox"
+path="res://.godot/imported/mixkit-wind-in-the-forest-loop-1233.wav-3956991f89509a48b26af44ed668d547.sample"
 
 [deps]
 
 source_file="res://Audio/sfx/Ambience/mixkit-wind-in-the-forest-loop-1233.wav"
-dest_files=[ "res://.import/mixkit-wind-in-the-forest-loop-1233.wav-3956991f89509a48b26af44ed668d547.sample" ]
+dest_files=["res://.godot/imported/mixkit-wind-in-the-forest-loop-1233.wav-3956991f89509a48b26af44ed668d547.sample"]
 
 [params]
 

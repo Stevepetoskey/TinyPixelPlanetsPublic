@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/clothes.ogg-b88d80815f225aa65161b33d5fe3937f.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bo5des3f4ne3g"
+path="res://.godot/imported/clothes.ogg-b88d80815f225aa65161b33d5fe3937f.oggvorbisstr"
 
 [deps]
 
 source_file="res://Audio/sfx/GUI/clothes.ogg"
-dest_files=[ "res://.import/clothes.ogg-b88d80815f225aa65161b33d5fe3937f.oggstr" ]
+dest_files=["res://.godot/imported/clothes.ogg-b88d80815f225aa65161b33d5fe3937f.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

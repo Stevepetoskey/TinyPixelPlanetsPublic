@@ -32,7 +32,7 @@ var planetTypeNames = {
 	"exotic":"Exotic"
 }
 
-onready var camera = $"../GalaxyView"
+@onready var camera = $"../GalaxyView"
 
 var hoverPos = Vector2(0,0)
 
@@ -50,7 +50,7 @@ func hover(pos, id : String):
 		var planetType = planets[planetId]["planet_type"]
 		if !currentTypes.has(planetType):
 			currentTypes.append(planetType)
-			var planetSlot = PLANET_TYPE.instance()
+			var planetSlot = PLANET_TYPE.instantiate()
 			planetSlot.get_node("Planet").texture = planetTextures[planets[planetId]["planet_type"]]
 			planetSlot.get_node("Label").text = planetTypeNames[planets[planetId]["planet_type"]]
 			$ScrollContainer/VBoxContainer.add_child(planetSlot)
@@ -60,4 +60,4 @@ func _process(delta):
 	var shouldPos = hoverPos + Vector2(16,-84)
 	if shouldPos.y - camera.position.y < -84:
 		shouldPos = hoverPos + Vector2(16,16)
-	rect_position = shouldPos#Vector2(clamp(shouldPos.x,0,284),clamp(shouldPos.y,0,160))
+	position = shouldPos#Vector2(clamp(shouldPos.x,0,284),clamp(shouldPos.y,0,160))

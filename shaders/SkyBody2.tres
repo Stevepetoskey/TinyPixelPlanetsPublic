@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dbms3frghkq0k"]
+
+[ext_resource type="Texture2D" uid="uid://bhfritnnp548a" path="res://textures/planets/snow.png" id="1_4hw6d"]
+[ext_resource type="Shader" uid="uid://b843ijxpude73" path="res://shaders/SkyBody3.tres" id="1_jrhx5"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_jrhx5")
+shader_parameter/isNight = false
+shader_parameter/planet = ExtResource("1_4hw6d")

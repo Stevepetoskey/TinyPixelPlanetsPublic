@@ -27,23 +27,27 @@ var backedUpRequest = []
 
 signal update_achievements
 
-onready var achievementPnl = $Achievement
+@onready var achievementPnl = $Achievement
 
 func _process(delta):
 	if GlobalAudio.mode != "menu":
-		if Input.is_action_just_pressed("ach") and !Global.pause:
-			pop_up_ach()
-		if !backedUpRequest.empty() and !$Achievement/AnimationPlayer.is_playing():
+		if Input.is_action_just_pressed("ach") and (!Global.pause or $AchievementMenu.visible):
+			if !$AchievementMenu.visible:
+				pop_up_ach()
+			else:
+				close_ach()
+		if !backedUpRequest.is_empty() and !$Achievement/AnimationPlayer.is_playing():
+			print("play: ",backedUpRequest[0])
 			$Achievement/Icon.texture = achievements[backedUpRequest[0]]["icon"]
 			$Achievement/Text.text = backedUpRequest[0]
 			$Achievement/AnimationPlayer.play("pop_up")
-			backedUpRequest.remove(0)
+			backedUpRequest.remove_at(0)
 
 func _ready():
 	emit_signal("update_achievements",completedAchievements)
 
 func complete_achievement(achievement):
-	if !completedAchievements.has(achievement):
+	if !completedAchievements.has(achievement) and !Global.inTutorial:
 		completedAchievements.append(achievement)
 		emit_signal("update_achievements",completedAchievements)
 		backedUpRequest.append(achievement)
@@ -70,7 +74,7 @@ func ach_pressed(id):
 		$AchievementMenu/Desc/Desc.text = achievements[id]["desc"]
 	else:
 		$AchievementMenu/Desc/Title.text = "???"
-		if completedAchievements.has(achievements[requiredId]["requires"]):
+		if requiredId != "none" and completedAchievements.has(achievements[requiredId]["requires"]):
 			$AchievementMenu/Desc/Desc.text = "Requires " + requiredId
 		else:
 			$AchievementMenu/Desc/Desc.text = "Requires ???"

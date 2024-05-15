@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/The1.wav-d3aeba4951b8a709962a4dfcc8d3b0a8.sample"
+type="AudioStreamWAV"
+uid="uid://dt4h5n6ecvjpv"
+path="res://.godot/imported/The1.wav-d3aeba4951b8a709962a4dfcc8d3b0a8.sample"
 
 [deps]
 
 source_file="res://Audio/sfx/Ambience/The1.wav"
-dest_files=[ "res://.import/The1.wav-d3aeba4951b8a709962a4dfcc8d3b0a8.sample" ]
+dest_files=["res://.godot/imported/The1.wav-d3aeba4951b8a709962a4dfcc8d3b0a8.sample"]
 
 [params]
 

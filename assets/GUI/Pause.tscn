@@ -1,200 +1,166 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=11 format=3 uid="uid://dn6ilfeqopl5j"]
 
-[ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=1]
-[ext_resource path="res://scripts/Pause.gd" type="Script" id=2]
-[ext_resource path="res://textures/GUI/Blank.png" type="Texture" id=3]
-[ext_resource path="res://textures/GUI/Menu/Buttons.png" type="Texture" id=4]
-[ext_resource path="res://fonts/default_theme.tres" type="Theme" id=5]
+[ext_resource type="Script" path="res://scripts/Pause.gd" id="2"]
+[ext_resource type="Shader" path="res://shaders/Pause.gdshader" id="2_wr1qq"]
+[ext_resource type="Texture2D" uid="uid://docmqdn1y13fp" path="res://textures/GUI/Blank.png" id="3"]
+[ext_resource type="Theme" uid="uid://bb1fxr1s43xy3" path="res://themes/menu_alt.tres" id="4_j4byn"]
+[ext_resource type="Theme" uid="uid://b02uwgbscq35l" path="res://themes/menu.tres" id="5"]
 
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 4 )
-region = Rect2( 96, 68, 64, 15 )
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ut0d"]
+shader = ExtResource("2_wr1qq")
+shader_parameter/blur_amount = 2.0
+shader_parameter/mix_amount = 0.404
+shader_parameter/color_over = Color(0.12549, 0.207843, 0.431373, 1)
 
-[sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 4 )
-region = Rect2( 96, 87, 64, 15 )
-
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id="11"]
 length = 0.001
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 0, 0, 0, 0 ) ]
+"values": [Color(0, 0, 0, 0)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath(".:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ false ]
+"values": [false]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id="12"]
 resource_name = "fadeIn"
 length = 0.6
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath(".:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id="13"]
 resource_name = "fadeOut"
 length = 0.6
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath(".:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ true, false ]
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cblta"]
+_data = {
+"RESET": SubResource("11"),
+"fadeIn": SubResource("12"),
+"fadeOut": SubResource("13")
 }
 
 [node name="Pause" type="Control"]
+layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = ExtResource( 2 )
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-modulate = Color( 0.411765, 0.411765, 0.411765, 0.505882 )
+[node name="Blur" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_3ut0d")
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 3 )
+texture = ExtResource("3")
 stretch_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -32.0
-margin_right = 32.0
-custom_constants/separation = 3
+offset_left = -32.0
+offset_right = 32.0
+theme = ExtResource("5")
 alignment = 1
 
-[node name="Quit" type="TextureButton" parent="VBoxContainer"]
-margin_top = 45.0
-margin_right = 64.0
-margin_bottom = 60.0
-texture_normal = SubResource( 10 )
+[node name="Continue" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Continue"
 
-[node name="Label" type="Label" parent="VBoxContainer/Quit"]
-margin_top = 4.0
-margin_right = 64.0
-margin_bottom = 15.0
-theme = ExtResource( 5 )
-custom_fonts/font = ExtResource( 1 )
-text = "QUIT"
-align = 1
+[node name="Save" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Save"
 
-[node name="Save" type="TextureButton" parent="VBoxContainer"]
-margin_top = 63.0
-margin_right = 64.0
-margin_bottom = 78.0
-texture_normal = SubResource( 10 )
+[node name="Quit" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Quit"
 
-[node name="Label" type="Label" parent="VBoxContainer/Save"]
-margin_left = 1.0
-margin_top = 4.0
-margin_right = 63.0
-margin_bottom = 12.0
-theme = ExtResource( 5 )
-custom_fonts/font = ExtResource( 1 )
-text = "SAVE"
-align = 1
-
-[node name="Continue" type="TextureButton" parent="VBoxContainer"]
-margin_top = 81.0
-margin_right = 64.0
-margin_bottom = 96.0
-texture_normal = SubResource( 10 )
-
-[node name="Label" type="Label" parent="VBoxContainer/Continue"]
-margin_left = 1.0
-margin_top = 4.0
-margin_right = 63.0
-margin_bottom = 12.0
-theme = ExtResource( 5 )
-custom_fonts/font = ExtResource( 1 )
-text = "CONTINUE"
-align = 1
-
-[node name="Achievements" type="TextureButton" parent="VBoxContainer"]
-margin_top = 99.0
-margin_right = 64.0
-margin_bottom = 114.0
-texture_normal = SubResource( 14 )
-
-[node name="Label" type="Label" parent="VBoxContainer/Achievements"]
-margin_left = 1.0
-margin_top = 4.0
-margin_right = 63.0
-margin_bottom = 12.0
-theme = ExtResource( 5 )
-custom_fonts/font = ExtResource( 1 )
-text = "ACHIEVEMENTS"
-align = 1
+[node name="Achievements" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("4_j4byn")
+text = "Achievements"
 
 [node name="Black" type="TextureRect" parent="."]
 visible = false
-modulate = Color( 0, 0, 0, 0 )
+modulate = Color(0, 0, 0, 0)
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 3 )
+texture = ExtResource("3")
 stretch_mode = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Black"]
-anims/RESET = SubResource( 11 )
-anims/fadeIn = SubResource( 12 )
-anims/fadeOut = SubResource( 13 )
+libraries = {
+"": SubResource("AnimationLibrary_cblta")
+}
 
-[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
-[connection signal="pressed" from="VBoxContainer/Save" to="." method="_on_Save_pressed"]
 [connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_Continue_pressed"]
+[connection signal="pressed" from="VBoxContainer/Save" to="." method="_on_Save_pressed"]
+[connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="pressed" from="VBoxContainer/Achievements" to="." method="_on_Achievements_pressed"]

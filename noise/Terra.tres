@@ -1,0 +1,9 @@
+[gd_resource type="FastNoiseLite" format=3 uid="uid://cv3ypxvulewww"]
+
+[resource]
+noise_type = 0
+seed = 10
+offset = Vector3(2.08167e-14, 2.08167e-14, 2.08167e-14)
+fractal_octaves = 6
+fractal_weighted_strength = 0.44
+cellular_return_type = 6

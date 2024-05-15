@@ -1,80 +1,79 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=3 uid="uid://bi8ncn0cari4r"]
 
-[ext_resource path="res://textures/GUI/main/shop/item_display.png" type="Texture" id=1]
-[ext_resource path="res://textures/GUI/main/shop/sell_btn.png" type="Texture" id=2]
-[ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=3]
-[ext_resource path="res://textures/GUI/main/Blues.png" type="Texture" id=4]
-[ext_resource path="res://textures/items/barbed_club.png" type="Texture" id=5]
-[ext_resource path="res://fonts/pixelButton.tres" type="DynamicFont" id=6]
-[ext_resource path="res://textures/GUI/main/shop/up_btn.png" type="Texture" id=7]
-[ext_resource path="res://textures/GUI/main/shop/down_btn.png" type="Texture" id=8]
-[ext_resource path="res://scripts/GUI/ShopItem.gd" type="Script" id=9]
+[ext_resource type="Texture2D" uid="uid://bu5uvrqvalhog" path="res://textures/GUI/main/shop/item_display.png" id="1"]
+[ext_resource type="Theme" uid="uid://bvlk5mt2axnwa" path="res://themes/Gray.tres" id="1_vsp2y"]
+[ext_resource type="Texture2D" uid="uid://76teubwpesh1" path="res://textures/GUI/main/shop/sell_btn.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://bdy3c4crcwfy1" path="res://textures/GUI/main/Blues.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://dlxc3y6yay4df" path="res://textures/items/barbed_club.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://d13hfawr2jnki" path="res://textures/GUI/main/shop/up_btn.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://bpeq5adg7q474" path="res://textures/GUI/main/shop/down_btn.png" id="8"]
+[ext_resource type="Script" path="res://scripts/GUI/ShopItem.gd" id="9"]
 
 [node name="ShopItem" type="TextureRect"]
-margin_right = 46.0
-margin_bottom = 30.0
-texture = ExtResource( 1 )
-script = ExtResource( 9 )
+offset_right = 46.0
+offset_bottom = 30.0
+theme = ExtResource("1_vsp2y")
+texture = ExtResource("1")
+script = ExtResource("9")
 
 [node name="Item" type="TextureRect" parent="."]
-margin_left = 2.0
-margin_top = 4.0
-margin_right = 10.0
-margin_bottom = 12.0
-texture = ExtResource( 5 )
+layout_mode = 0
+offset_left = 2.0
+offset_top = 4.0
+offset_right = 10.0
+offset_bottom = 12.0
+texture = ExtResource("5")
 
 [node name="Amount" type="Label" parent="."]
-margin_left = 11.0
-margin_top = 5.0
-margin_right = 37.0
-margin_bottom = 13.0
-custom_fonts/font = ExtResource( 3 )
+layout_mode = 0
+offset_left = 11.0
+offset_top = 3.0
+offset_right = 37.0
+offset_bottom = 13.0
 text = "x99"
 
 [node name="UpBtn" type="TextureButton" parent="."]
-margin_left = 37.0
-margin_top = 3.0
-margin_right = 44.0
-margin_bottom = 8.0
-texture_normal = ExtResource( 7 )
+layout_mode = 0
+offset_left = 37.0
+offset_top = 3.0
+offset_right = 44.0
+offset_bottom = 8.0
+texture_normal = ExtResource("7")
 
 [node name="DownBtn" type="TextureButton" parent="."]
-margin_left = 37.0
-margin_top = 9.0
-margin_right = 44.0
-margin_bottom = 14.0
-texture_normal = ExtResource( 8 )
+layout_mode = 0
+offset_left = 37.0
+offset_top = 9.0
+offset_right = 44.0
+offset_bottom = 14.0
+texture_normal = ExtResource("8")
 
 [node name="Sell" type="TextureButton" parent="."]
-margin_left = 2.0
-margin_top = 18.0
-margin_right = 44.0
-margin_bottom = 28.0
-texture_normal = ExtResource( 2 )
+layout_mode = 0
+offset_left = 2.0
+offset_top = 18.0
+offset_right = 44.0
+offset_bottom = 28.0
+texture_normal = ExtResource("2")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Sell"]
-margin_left = 1.0
-margin_top = 1.0
-margin_right = 41.0
-margin_bottom = 9.0
+layout_mode = 0
+offset_left = 1.0
+offset_right = 41.0
+offset_bottom = 10.0
 mouse_filter = 2
-custom_constants/separation = 1
+theme_override_constants/separation = 1
 alignment = 1
 
 [node name="Blues" type="TextureRect" parent="Sell/HBoxContainer"]
-margin_left = 6.0
-margin_right = 14.0
-margin_bottom = 8.0
+layout_mode = 2
 mouse_filter = 2
-texture = ExtResource( 4 )
+texture = ExtResource("4")
+stretch_mode = 3
 
 [node name="Amount" type="Label" parent="Sell/HBoxContainer"]
-margin_left = 15.0
-margin_right = 33.0
-margin_bottom = 7.0
-custom_fonts/font = ExtResource( 6 )
+layout_mode = 2
 text = "*100"
-valign = 1
 
 [connection signal="pressed" from="UpBtn" to="." method="_on_UpBtn_pressed"]
 [connection signal="pressed" from="DownBtn" to="." method="_on_DownBtn_pressed"]

@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Battle-2.wav-a76d3c0dc1577c67dcc370db7ac62b43.sample"
+type="AudioStreamWAV"
+uid="uid://wyh4effca7oe"
+path="res://.godot/imported/Battle-2.wav-a76d3c0dc1577c67dcc370db7ac62b43.sample"
 
 [deps]
 
 source_file="res://Audio/music/Battle-2.wav"
-dest_files=[ "res://.import/Battle-2.wav-a76d3c0dc1577c67dcc370db7ac62b43.sample" ]
+dest_files=["res://.godot/imported/Battle-2.wav-a76d3c0dc1577c67dcc370db7ac62b43.sample"]
 
 [params]
 

@@ -1,9 +1,9 @@
 extends HBoxContainer
 
-onready var main = get_node("../../../..")
+@onready var main = get_node("../../../..")
 
-func _process(delta):
-	if main.closest != null and str(main.closest.id) == name:
-		$Icon/near.show()
-	else:
-		$Icon/near.hide()
+var discoverd : bool = false
+var id : = 0
+
+func _on_btn_pressed() -> void:
+	main.nav_icon_pressed(id)

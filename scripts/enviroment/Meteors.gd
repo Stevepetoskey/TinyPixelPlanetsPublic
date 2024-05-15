@@ -15,15 +15,15 @@ var meteorTypes = {
 	10:{"radius":30,"amount":100},
 }
 
-export var meteorSpawnTime : Array = [5,10]
-export var StageProgressTime = 60
+@export var meteorSpawnTime : Array = [5,10]
+@export var StageProgressTime = 60
 
 var savedProgressTime = 0
 
 var stage = 2
 
 func _ready():
-	StarSystem.connect("start_meteors",self,"start_meteors")
+	StarSystem.connect("start_meteors", Callable(self, "start_meteors"))
 	if Global.meteorsAttacked:
 		meteorSpawnTime[0] -= stage/2.0
 		meteorSpawnTime[1] -= stage/2.0
@@ -32,19 +32,19 @@ func _ready():
 
 func start_meteors(saved : bool = false):
 	Global.meteorsAttacked = true
-	$MeteorTimer.start(rand_range(meteorSpawnTime[0],meteorSpawnTime[1]))
+	$MeteorTimer.start(randf_range(meteorSpawnTime[0],meteorSpawnTime[1]))
 	if !saved:
 		$StageProgress.start(StageProgressTime)
 
 func _on_MeteorTimer_timeout():
-	var meteor = METEOR.instance()
-	meteor.position = Vector2(rand_range(-286,286),-20)
+	var meteor = METEOR.instantiate()
+	meteor.position = Vector2(randf_range(-286,286),-20)
 	var meteorType = randi() % stage + 1
-	meteor.get_node("Particles2D").amount = meteorTypes[meteorType]["amount"]
-	meteor.get_node("Particles2D").process_material.emission_sphere_radius =  meteorTypes[meteorType]["radius"]
+	meteor.get_node("GPUParticles2D").amount = meteorTypes[meteorType]["amount"]
+	meteor.get_node("GPUParticles2D").process_material.emission_sphere_radius =  meteorTypes[meteorType]["radius"]
 	meteor.texture = load("res://textures/enviroment/meteors/meteor" + str(meteorType) + ".png")
 	add_child(meteor)
-	$MeteorTimer.start(rand_range(meteorSpawnTime[0],meteorSpawnTime[1]))
+	$MeteorTimer.start(randf_range(meteorSpawnTime[0],meteorSpawnTime[1]))
 
 func _on_StageProgress_timeout():
 	stage += 2

@@ -6,14 +6,14 @@ var cost = 0
 var mode = "buy"
 var loc = 0
 
-onready var down_btn: TextureButton = $DownBtn
-onready var up_btn: TextureButton = $UpBtn
-onready var amount_lbl: Label = $Amount
-onready var item: TextureRect = $Item
-onready var blues_amount: Label = $Sell/HBoxContainer/Amount
-onready var world: Node2D = $"../../../../../World"
-onready var inventory: Control = $"../../../../Inventory"
-onready var shop: Control = $"../../.."
+@onready var down_btn: TextureButton = $DownBtn
+@onready var up_btn: TextureButton = $UpBtn
+@onready var amount_lbl: Label = $Amount
+@onready var item: TextureRect = $Item
+@onready var blues_amount: Label = $Sell/HBoxContainer/Amount
+@onready var world: Node2D = $"../../../../../World"
+@onready var inventory: Control = $"../../../../Inventory"
+@onready var shop: Control = $"../../.."
 
 func _ready() -> void:
 	item.texture = world.get_item_texture(id)

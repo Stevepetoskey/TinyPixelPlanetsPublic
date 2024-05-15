@@ -1,7 +1,7 @@
 extends TextureButton
 
-onready var world = $"../../../../../World"
-onready var crafting = $"../../.."
+@onready var world = $"../../../../../World"
+@onready var crafting = $"../../.."
 
 var loc = 0
 var recipeRef : Dictionary

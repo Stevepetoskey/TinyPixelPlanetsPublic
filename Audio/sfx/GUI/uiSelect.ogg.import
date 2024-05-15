@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/uiSelect.ogg-9de75a6730980cbe04c50bb573882bea.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c4h1rhhrmcpit"
+path="res://.godot/imported/uiSelect.ogg-9de75a6730980cbe04c50bb573882bea.oggvorbisstr"
 
 [deps]
 
 source_file="res://Audio/sfx/GUI/uiSelect.ogg"
-dest_files=[ "res://.import/uiSelect.ogg-9de75a6730980cbe04c50bb573882bea.oggstr" ]
+dest_files=["res://.godot/imported/uiSelect.ogg-9de75a6730980cbe04c50bb573882bea.oggvorbisstr"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

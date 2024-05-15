@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Lost_in_space.wav-ce0bbdf354c14bc9c62548fde769b9de.sample"
+type="AudioStreamWAV"
+uid="uid://x7tdl2ixfqp7"
+path="res://.godot/imported/Lost_in_space.wav-ce0bbdf354c14bc9c62548fde769b9de.sample"
 
 [deps]
 
 source_file="res://Audio/music/Lost_in_space.wav"
-dest_files=[ "res://.import/Lost_in_space.wav-ce0bbdf354c14bc9c62548fde769b9de.sample" ]
+dest_files=["res://.godot/imported/Lost_in_space.wav-ce0bbdf354c14bc9c62548fde769b9de.sample"]
 
 [params]
 

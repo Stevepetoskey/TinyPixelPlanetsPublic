@@ -9,11 +9,11 @@ extends Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimationPlayer.play("down")
-	yield($AnimationPlayer,"animation_finished")
-	yield(get_tree().create_timer(0.2),"timeout")
+	await $AnimationPlayer.animation_finished
+	await get_tree().create_timer(0.2).timeout
 	$AnimationPlayer.play("fadeIn")
-	yield($AnimationPlayer,"animation_finished")
-	yield(get_tree().create_timer(2),"timeout")
+	await $AnimationPlayer.animation_finished
+	await get_tree().create_timer(2).timeout
 	$AnimationPlayer.play("zoom")
-	yield($AnimationPlayer,"animation_finished")
-	var _er = get_tree().change_scene("res://scenes/Menu.tscn")
+	await $AnimationPlayer.animation_finished
+	var _er = get_tree().change_scene_to_file("res://scenes/Menu.tscn")

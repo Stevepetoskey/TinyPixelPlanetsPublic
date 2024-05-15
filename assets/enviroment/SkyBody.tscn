@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjl2l6nbx2koh"]
+
+[ext_resource type="Script" path="res://scripts/SkyBody.gd" id="2_w0ahp"]
+[ext_resource type="Texture2D" uid="uid://d1n4dhdudqunb" path="res://textures/planets/desert.png" id="3_2tw3p"]
+[ext_resource type="Material" uid="uid://dbms3frghkq0k" path="res://shaders/SkyBody2.tres" id="3_tniqo"]
+[ext_resource type="PackedScene" uid="uid://dptelr8pr6kt6" path="res://assets/PlanetShade.tscn" id="4_nqi3v"]
+
+[sub_resource type="Environment" id="Environment_nhx4n"]
+background_mode = 1
+glow_normalized = true
+glow_intensity = 2.37
+glow_strength = 0.45
+glow_bloom = 0.38
+
+[sub_resource type="World3D" id="World3D_rb66h"]
+environment = SubResource("Environment_nhx4n")
+
+[node name="SkyBody" type="Node2D"]
+script = ExtResource("2_w0ahp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("3_2tw3p")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+material = ExtResource("3_tniqo")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_top = -7.0
+offset_right = 7.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+own_world_3d = true
+world_3d = SubResource("World3D_rb66h")
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(14, 14)
+render_target_update_mode = 4
+
+[node name="Node3D" parent="SubViewportContainer/SubViewport" instance=ExtResource("4_nqi3v")]

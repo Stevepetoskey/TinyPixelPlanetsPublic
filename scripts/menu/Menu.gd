@@ -1,25 +1,24 @@
 extends Control
 
+@onready var moon_move: AnimationPlayer = $Path2D/PathFollow2D/MoonMove
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-func _process(delta):
-	$Path2D/PathFollow2D.offset += delta
+func _process(delta: float) -> void:
+	$Space.rotation_degrees += delta / 2.0
+	$Stars.rotation_degrees += delta / 2.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$Planet.texture = [load("res://textures/GUI/Menu/planets/terra.png"),load("res://textures/GUI/Menu/planets/mud.png"),load("res://textures/GUI/Menu/planets/desert.png")].pick_random()
+	moon_move.play("default")
 	GlobalAudio.change_mode("menu")
 	#yield(get_tree().create_timer(0.5),"timeout")
 	$Main/Title.modulate = Color(1,1,1,0)
 	$AnimationPlayer.play("zoom")
-	yield($AnimationPlayer,"animation_finished")
+	await $AnimationPlayer.animation_finished
 	$blank.hide()
 	$Main/Title.show()
 	$AnimationPlayer.play("title")
-	yield($AnimationPlayer,"animation_finished")
+	await $AnimationPlayer.animation_finished
 	$Main/Buttons.show()
 	$AnimationPlayer.play("buttons")
 

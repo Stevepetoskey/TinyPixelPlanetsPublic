@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/collect_item.ogg-e3482b597720a16ddea93ffe99dd57da.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://kld8ru3vf0hc"
+path="res://.godot/imported/collect_item.ogg-e3482b597720a16ddea93ffe99dd57da.oggvorbisstr"
 
 [deps]
 
 source_file="res://Audio/sfx/Game/collect_item.ogg"
-dest_files=[ "res://.import/collect_item.ogg-e3482b597720a16ddea93ffe99dd57da.oggstr" ]
+dest_files=["res://.godot/imported/collect_item.ogg-e3482b597720a16ddea93ffe99dd57da.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

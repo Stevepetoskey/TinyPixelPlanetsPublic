@@ -71,13 +71,13 @@ var shopData = {
 var currentShop = ""
 var currentTab = "buy"
 
-onready var dialogue : RichTextLabel = $Dialogue
-onready var face_texture : TextureRect = $Face
-onready var buy_tab = $Tabs/BuyTab
-onready var sell_tab = $Tabs/SellTab
-onready var item_container: GridContainer = $ItemScroll/ItemContainer
-onready var inventory: Control = $"../Inventory"
-onready var title: Label = $Title
+@onready var dialogue : RichTextLabel = $Dialogue
+@onready var face_texture : TextureRect = $Face
+@onready var buy_tab = $TabBar/BuyTab
+@onready var sell_tab = $TabBar/SellTab
+@onready var item_container: GridContainer = $ItemScroll/ItemContainer
+@onready var inventory: Control = $"../Inventory"
+@onready var title: Label = $Title
 
 func pop_up(shopID : String):
 	buy_tab.disabled = true
@@ -95,7 +95,7 @@ func update_list():
 	match currentTab:
 		"buy":
 			for item in shopData[currentShop]["buy"]:
-				var shopBtn = SHOP_BTN.instance()
+				var shopBtn = SHOP_BTN.instantiate()
 				shopBtn.mode = "buy"
 				shopBtn.id = item["id"]
 				shopBtn.amount = item["amount"]
@@ -105,7 +105,7 @@ func update_list():
 		"sell":
 			for item in shopData[currentShop]["sell"]:
 				if inventory.count_id(item["id"]) > 0:
-					var shopBtn = SHOP_BTN.instance()
+					var shopBtn = SHOP_BTN.instantiate()
 					shopBtn.mode = "sell"
 					shopBtn.id = item["id"]
 					shopBtn.cost = item["value"]
@@ -137,17 +137,17 @@ func play_dialogue(sample : String, face : String) -> void:
 	face_texture.texture = shopData[currentShop]["face"][face]
 	for i in range(finalText.length()):
 		dialogue.text += finalText[i]
-		yield(get_tree().create_timer(0.05),"timeout")
+		await get_tree().create_timer(0.05).timeout
 	dialogue.text = finalText
 
 func _on_BuyTab_pressed() -> void:
-	$Tabs/SellTab.disabled = false
-	$Tabs/BuyTab.disabled = true
+	$TabBar/SellTab.disabled = false
+	$TabBar/BuyTab.disabled = true
 	currentTab = "buy"
 	update_list()
 
 func _on_SellTab_pressed() -> void:
-	$Tabs/SellTab.disabled = true
-	$Tabs/BuyTab.disabled = false
+	$TabBar/SellTab.disabled = true
+	$TabBar/BuyTab.disabled = false
 	currentTab = "sell"
 	update_list()

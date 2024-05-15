@@ -169,6 +169,7 @@ var systemDat = {}
 var visitedPlanets = []
 var landedPlanetTypes = []
 
+var loadFromGalaxy = false
 var planetReady = false
 
 signal planet_ready
@@ -182,12 +183,12 @@ signal start_meteors
 func start_game():
 	print("---start game---")
 	if Global.new:
-		new()
-		yield(self,"found_system")
+		new_game()
+		await self.found_system
 		Global.currentPlanet = find_planet("type","terra").id
 		Global.starterPlanetId = Global.currentPlanet
 		if Global.scenario == "meteor": #Adds the commet if meteor scenario
-			var commet = PLANET.instance()
+			var commet = PLANET.instantiate()
 			commet.id = get_system_bodies().size()
 			commet.type = {"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"}
 			commet.hasAtmosphere = false
@@ -195,8 +196,8 @@ func start_game():
 			commet.orbitingBody = find_planet_id(Global.currentPlanet)
 			commet.orbitalSpeed = 0
 			commet.rotationSpeed = 0
-			commet.currentOrbit = deg2rad(randi() % 360)
-			commet.currentRot = deg2rad(randi() % 360)
+			commet.currentOrbit = deg_to_rad(randi() % 360)
+			commet.currentRot = deg_to_rad(randi() % 360)
 			$system.add_child(commet)
 		print("Current Planet: ", find_planet_id(Global.currentPlanet).pName)
 	planetReady = true
@@ -207,7 +208,7 @@ func start_space():
 	print("going into space")
 	GlobalGui.complete_achievement("The mechanic")
 	emit_signal("leaving_planet")
-	var _er = get_tree().change_scene("res://scenes/PlanetSelect.tscn")
+	var _er = get_tree().change_scene_to_file("res://scenes/PlanetSelect.tscn")
 
 func land(planet : int):
 	Global.currentPlanet = planet
@@ -215,58 +216,60 @@ func land(planet : int):
 	var planetType = find_planet_id(planet).type["type"]
 	if !landedPlanetTypes.has(planetType):
 		landedPlanetTypes.append(planetType)
+		print("Found new planet type!")
+		print("explored planet type count: ",landedPlanetTypes.size())
 		if landedPlanetTypes.size() >= 3:
 			GlobalGui.complete_achievement("Explorer 1")
-		elif landedPlanetTypes.size() >= 6:
+		if landedPlanetTypes.size() >= 6:
 			GlobalGui.complete_achievement("Explorer 2")
-		elif landedPlanetTypes.size() >= 9:
+		if landedPlanetTypes.size() >= 9:
 			GlobalGui.complete_achievement("Explorer 3")
 	GlobalGui.complete_achievement("Interplanetary")
 	emit_signal("landing_planet")
 
-func open_star_system(systemSeed : int,systemId : String):
+func open_star_system(systemSeed : int,systemId : String, fromGalaxy := false):
 	emit_signal("entering_system")
+	loadFromGalaxy = fromGalaxy
 	Global.currentSystem = systemSeed
 	Global.currentSystemId = systemId
-	var dir = Directory.new()
 	print("GIVEN SYSTEM ID: ",systemId)
-	if dir.file_exists(Global.save_path + Global.currentSave + "/systems/" + systemId + ".dat"):
+	if FileAccess.file_exists(Global.save_path + Global.currentSave + "/systems/" + systemId + ".dat"):
 		systemDat = Global.load_system(systemId)
 		print("Loading system")
 		load_system(true)
 	else:
 		print("Creating new system")
 		new_system(systemSeed)
-		var _er = get_tree().change_scene("res://scenes/PlanetSelect.tscn")
+		var _er = get_tree().change_scene_to_file("res://scenes/PlanetSelect.tscn")
 		print("Entering system ",systemSeed)
 
 func leave_star_system():
-	visitedPlanets.clear()
 	Global.currentPlanet = -1
 	Global.save_system()
+	visitedPlanets.clear()
 	emit_signal("leaving_system")
-	var _er = get_tree().change_scene("res://scenes/Galaxy.tscn")
+	var _er = get_tree().change_scene_to_file("res://scenes/Galaxy.tscn")
 	print("Leaving system ",Global.currentSystem)
 
-func new():
+func new_game():
 	visitedPlanets.clear()
 	var foundSeed = false
 	while !foundSeed:
-		var seedX = str(stepify(int(rand_range(0,SECTOR_SIZE.x*GALAXY_SIZE.x)),SECTOR_SIZE.x))
-		var seedY = str(stepify(int(rand_range(0,SECTOR_SIZE.y*GALAXY_SIZE.y)),SECTOR_SIZE.y))
+		var seedX = str(snapped(int(randf_range(0,SECTOR_SIZE.x*GALAXY_SIZE.x)),SECTOR_SIZE.x))
+		var seedY = str(snapped(int(randf_range(0,SECTOR_SIZE.y*GALAXY_SIZE.y)),SECTOR_SIZE.y))
 		while seedY.length() < 6:
 			seedY = "0" + seedY
 		var sectorSeed = int(seedX + seedY)
 		while seedX.length() < 6:
 			seedX = "0" + seedX
 		seed(sectorSeed)
-		var starAmount = int(rand_range(SECTOR_STAR_RANGE[0],SECTOR_STAR_RANGE[1]))
+		var starAmount = int(randf_range(SECTOR_STAR_RANGE[0],SECTOR_STAR_RANGE[1]))
 		for i in range(starAmount):
 			print("seeds")
 			print(seedX)
 			print(seedY)
 			new_system(int(seedX + seedY + str(i)))
-			yield(get_tree(),"idle_frame")
+			await get_tree().process_frame
 			if search_system("type").has("terra"):
 				foundSeed = true
 				Global.currentSystem = currentSeed
@@ -292,15 +295,16 @@ func load_system(entering = false):
 		for child in $system.get_children():
 			child.queue_free()
 			$system.remove_child(child)
-		yield(get_tree(),"idle_frame")
+		await get_tree().process_frame
 		currentStarName = systemDat["system_name"]
 		currentSeed = systemDat["system_seed"]
 		currentStar = systemDat["star_type"]
 		currentStarData = starData[currentStar]
 		visitedPlanets = systemDat["visited_planets"]
+		print(visitedPlanets)
 		for id in systemDat["planets"]:
 			var planetDat = systemDat["planets"][id]
-			var planet = PLANET.instance()
+			var planet = PLANET.instantiate()
 			planet.id = id
 			planet.hasAtmosphere = planetDat["has_atmosphere"]
 			match planetDat["planet_type"]:
@@ -319,13 +323,13 @@ func load_system(entering = false):
 			$system.add_child(planet)
 		match Global.playerData["save_type"]:
 			"planet":
-				var _er = get_tree().change_scene("res://scenes/Main.tscn")
+				var _er = get_tree().change_scene_to_file("res://scenes/Main.tscn")
 			"system","galaxy":
 				print("entering system final")
-				var _er = get_tree().change_scene("res://scenes/PlanetSelect.tscn")
+				var _er = get_tree().change_scene_to_file("res://scenes/PlanetSelect.tscn")
 	else:
 		GlobalAudio.currentMusic = "space"
-		var _er = get_tree().change_scene("res://scenes/Galaxy.tscn")
+		var _er = get_tree().change_scene_to_file("res://scenes/Galaxy.tscn")
 
 func quick_system_check(systemSeed : int) -> Dictionary:
 	seed(systemSeed)
@@ -368,7 +372,7 @@ func new_system(systemSeed : int):
 
 func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSize = 0) -> void:
 	#randomize()
-	var planet = PLANET.instance()
+	var planet = PLANET.instantiate()
 	planet.id = get_system_bodies().size()
 	
 	#Determines planet type
@@ -389,7 +393,7 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 		var i = 0
 		while true:
 			i += 1
-			planet.orbitalDistance = int(rand_range(currentStarData["min_distance"],currentStarData["max_distance"]))
+			planet.orbitalDistance = int(randf_range(currentStarData["min_distance"],currentStarData["max_distance"]))
 			if is_clear_space(planet,orbitBody):
 				break
 			if i == MAX_SPACE_CHECK:
@@ -403,12 +407,12 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 				break
 			if i == MAX_SPACE_CHECK:
 				return
-		planet.modulate = Color.red
+		planet.modulate = Color.RED
 	planet.orbitingBody = orbitBody
-	planet.orbitalSpeed = int(rand_range(6,12))
-	planet.rotationSpeed = int(rand_range(1,8))
-	planet.currentOrbit = deg2rad(randi() % 360)
-	planet.currentRot = deg2rad(randi() % 360)
+	planet.orbitalSpeed = int(randf_range(6,12))
+	planet.rotationSpeed = int(randf_range(1,8))
+	planet.currentOrbit = deg_to_rad(randi() % 360)
+	planet.currentRot = deg_to_rad(randi() % 360)
 	
 	#Checks if habitable
 	var size = "" if planetType["size"] > sizeTypes.small else "small_"
@@ -421,7 +425,7 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 				type = "ocean"
 		planet.type = planetData[size + type]
 		planet.hasAtmosphere = true
-	elif !currentStarData["habital"].empty() and abs(planet.orbitalDistance-orbitBody.orbitalDistance) > currentStarData["habital"][currentStarData["habital"].size()-1]:
+	elif !currentStarData["habital"].is_empty() and abs(planet.orbitalDistance-orbitBody.orbitalDistance) > currentStarData["habital"][currentStarData["habital"].size()-1]:
 		if randi() % 3 ==1:
 			planet.type = planetData[size + "snow"]
 			planet.hasAtmosphere = true
@@ -447,7 +451,7 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 		planet.pName = currentStarName + " " + num
 
 func is_clear_space(planetSelf : Object, orbitingBody : Object) -> bool:
-	if !get_orbiting_bodies(orbitingBody).empty():
+	if !get_orbiting_bodies(orbitingBody).is_empty():
 		for planet in get_orbiting_bodies(orbitingBody):
 			if planet != planetSelf:
 				var planetMoonArea = sizeData[planet.type["size"]]["distance"]

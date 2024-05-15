@@ -1,0 +1,4 @@
+[gd_resource type="FastNoiseLite" format=3 uid="uid://qkivt5x16318"]
+
+[resource]
+fractal_octaves = 2

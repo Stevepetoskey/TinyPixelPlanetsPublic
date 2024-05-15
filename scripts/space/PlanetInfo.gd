@@ -2,11 +2,11 @@ extends Panel
 
 var bookmarkTextures = {false:preload("res://textures/GUI/space/bookmark_btn.png"),true:preload("res://textures/GUI/space/buttons/bookmarked_btn.png")}
 
-onready var rename_planet: Panel = $"../RenamePlanet"
-onready var new_bookmark: Panel = $"../NewBookmark"
-onready var planet_name: Label = $Top/ScrollContainer/PlanetName
-onready var bookmark_btn: TextureButton = $Top/Bookmark
-onready var planet_select: Node2D = $"../.."
+@onready var rename_planet: Panel = $"../RenamePlanet"
+@onready var new_bookmark: Panel = $"../NewBookmark"
+@onready var planet_name: Label = $Top/ScrollContainer/PlanetName
+@onready var bookmark_btn: TextureButton = $Top/Bookmark
+@onready var planet_select: Node2D = $"../.."
 
 var currentPlanet = null
 
@@ -38,6 +38,7 @@ func _on_Ok_pressed() -> void:
 	if currentPlanet != null:
 		currentPlanet.pName = $"../RenamePlanet/LineEdit".text
 		Global.save_system()
+		$"../Nav".update_nav()
 		pop_up()
 
 func _on_Bookmark_pressed() -> void:

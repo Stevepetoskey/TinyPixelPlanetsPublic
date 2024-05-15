@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Tiny-Systems.wav-489c312a58d52d7083e5f9ae12c4b23e.sample"
+type="AudioStreamWAV"
+uid="uid://c1mespuovq7u4"
+path="res://.godot/imported/Tiny-Systems.wav-489c312a58d52d7083e5f9ae12c4b23e.sample"
 
 [deps]
 
 source_file="res://Audio/music/Tiny-Systems.wav"
-dest_files=[ "res://.import/Tiny-Systems.wav-489c312a58d52d7083e5f9ae12c4b23e.sample" ]
+dest_files=["res://.godot/imported/Tiny-Systems.wav-489c312a58d52d7083e5f9ae12c4b23e.sample"]
 
 [params]
 

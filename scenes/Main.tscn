@@ -1,297 +1,283 @@
-[gd_scene load_steps=182 format=2]
+[gd_scene load_steps=192 format=3 uid="uid://2c07adgn0vow"]
 
-[ext_resource path="res://scripts/World.gd" type="Script" id=1]
-[ext_resource path="res://textures/enviroment/sky.png" type="Texture" id=2]
-[ext_resource path="res://textures/blocks2X/bricks.png" type="Texture" id=3]
-[ext_resource path="res://textures/GUI/main/GUI_buttons.png" type="Texture" id=4]
-[ext_resource path="res://textures/GUI/main/cursor.png" type="Texture" id=5]
-[ext_resource path="res://textures/GUI/main/inventory/inventory_bg.png" type="Texture" id=6]
-[ext_resource path="res://scripts/Cursor.gd" type="Script" id=7]
-[ext_resource path="res://textures/GUI/main/storage/storage_bg.png" type="Texture" id=8]
-[ext_resource path="res://scripts/Inventory.gd" type="Script" id=9]
-[ext_resource path="res://fonts/pixel.tres" type="DynamicFont" id=10]
-[ext_resource path="res://scripts/Crafting.gd" type="Script" id=11]
-[ext_resource path="res://assets/GUI/Pause.tscn" type="PackedScene" id=12]
-[ext_resource path="res://textures/GUI/Blank.png" type="Texture" id=13]
-[ext_resource path="res://textures/GUI/Menu/Buttons.png" type="Texture" id=14]
-[ext_resource path="res://textures/GUI/main/Blues.png" type="Texture" id=15]
-[ext_resource path="res://assets/Player.tscn" type="PackedScene" id=16]
-[ext_resource path="res://textures/GUI/main/hotbar/bars.png" type="Texture" id=17]
-[ext_resource path="res://scripts/Sky.gd" type="Script" id=18]
-[ext_resource path="res://scripts/enviroment/Space.gd" type="Script" id=19]
-[ext_resource path="res://textures/enviroment/backgrounds/terra_front.png" type="Texture" id=20]
-[ext_resource path="res://scripts/Enviroment.gd" type="Script" id=21]
-[ext_resource path="res://textures/enviroment/backgrounds/terra_back.png" type="Texture" id=22]
-[ext_resource path="res://textures/planets/gas3.png" type="Texture" id=23]
-[ext_resource path="res://textures/GUI/space/v_bar_handle_select.png" type="Texture" id=24]
-[ext_resource path="res://scripts/ArmorSlot.gd" type="Script" id=25]
-[ext_resource path="res://Audio/sfx/Ambience/mixkit-spring-forest-with-woodpeckers-1217.wav" type="AudioStream" id=26]
-[ext_resource path="res://Audio/sfx/Ambience/mixkit-summer-crickets-loop-1788.wav" type="AudioStream" id=27]
-[ext_resource path="res://Audio/sfx/Ambience/mixkit-wind-in-the-forest-loop-1233.wav" type="AudioStream" id=28]
-[ext_resource path="res://Audio/sfx/Game/collect_item.ogg" type="AudioStream" id=29]
-[ext_resource path="res://Audio/sfx/GUI/inventory.ogg" type="AudioStream" id=30]
-[ext_resource path="res://Audio/sfx/GUI/equip.ogg" type="AudioStream" id=31]
-[ext_resource path="res://Audio/sfx/Ambience/mixkit-blizzard-cold-winds-1153.wav" type="AudioStream" id=32]
-[ext_resource path="res://textures/GUI/main/hotbar/k.png" type="Texture" id=33]
-[ext_resource path="res://textures/GUI/main/hotbar/j.png" type="Texture" id=34]
-[ext_resource path="res://scripts/Main.gd" type="Script" id=35]
-[ext_resource path="res://textures/GUI/main/break1.png" type="Texture" id=36]
-[ext_resource path="res://textures/GUI/main/break4.png" type="Texture" id=37]
-[ext_resource path="res://textures/GUI/main/break2.png" type="Texture" id=38]
-[ext_resource path="res://textures/GUI/main/break3.png" type="Texture" id=39]
-[ext_resource path="res://scripts/Armor.gd" type="Script" id=40]
-[ext_resource path="res://textures/GUI/main/Armor/Btn.png" type="Texture" id=41]
-[ext_resource path="res://textures/GUI/main/Armor/hat.png" type="Texture" id=42]
-[ext_resource path="res://scripts/Entities.gd" type="Script" id=43]
-[ext_resource path="res://scripts/Bars.gd" type="Script" id=44]
-[ext_resource path="res://textures/weather/rain.png" type="Texture" id=45]
-[ext_resource path="res://textures/weather/Cloud_Large1.png" type="Texture" id=46]
-[ext_resource path="res://scripts/Effects.gd" type="Script" id=47]
-[ext_resource path="res://textures/enviroment/space-3.png" type="Texture" id=48]
-[ext_resource path="res://scripts/Dead.gd" type="Script" id=49]
-[ext_resource path="res://fonts/pixelHeader.tres" type="DynamicFont" id=50]
-[ext_resource path="res://noise/Main.tres" type="OpenSimplexNoise" id=51]
-[ext_resource path="res://scripts/Chest.gd" type="Script" id=52]
-[ext_resource path="res://assets/ChestBtn.tscn" type="PackedScene" id=53]
-[ext_resource path="res://textures/GUI/main/hotbar/hotbar2.png" type="Texture" id=54]
-[ext_resource path="res://textures/GUI/main/hotbar/hotbar1.png" type="Texture" id=55]
-[ext_resource path="res://textures/GUI/main/bigBar.png" type="Texture" id=56]
-[ext_resource path="res://fonts/pixel-outline.tres" type="DynamicFont" id=57]
-[ext_resource path="res://textures/GUI/main/hotbar/O2-safe.png" type="Texture" id=58]
-[ext_resource path="res://textures/GUI/Menu/MenuCharacter.png" type="Texture" id=59]
-[ext_resource path="res://fonts/pixelLineEdit.tres" type="DynamicFont" id=60]
-[ext_resource path="res://scripts/Commands.gd" type="Script" id=61]
-[ext_resource path="res://textures/GUI/main/inventory/item-toolbar.png" type="Texture" id=62]
-[ext_resource path="res://scripts/ItemDataShow.gd" type="Script" id=63]
-[ext_resource path="res://textures/enviroment/light.png" type="Texture" id=64]
-[ext_resource path="res://textures/enviroment/storm_bg.png" type="Texture" id=65]
-[ext_resource path="res://textures/weather/snow.png" type="Texture" id=66]
-[ext_resource path="res://scripts/enviroment/Meteors.gd" type="Script" id=67]
-[ext_resource path="res://textures/GUI/main/hotbar/hotbar_panel.png" type="Texture" id=68]
-[ext_resource path="res://textures/GUI/main/hotbar/forground.png" type="Texture" id=69]
-[ext_resource path="res://textures/GUI/space/h_bar_handle_select.png" type="Texture" id=70]
-[ext_resource path="res://textures/GUI/space/h_bar_handle_hover.png" type="Texture" id=71]
-[ext_resource path="res://textures/GUI/space/v_bar_handle_hover.png" type="Texture" id=72]
-[ext_resource path="res://textures/GUI/space/v_bar_handle.png" type="Texture" id=73]
-[ext_resource path="res://textures/GUI/space/h_bar.png" type="Texture" id=74]
-[ext_resource path="res://textures/GUI/space/v_bar.png" type="Texture" id=75]
-[ext_resource path="res://textures/GUI/space/h_bar_handle.png" type="Texture" id=76]
-[ext_resource path="res://textures/GUI/main/crafting/crafting_bg.png" type="Texture" id=77]
-[ext_resource path="res://assets/GUI/ShopItem.tscn" type="PackedScene" id=78]
-[ext_resource path="res://fonts/PixelPossibilities.ttf" type="DynamicFontData" id=79]
-[ext_resource path="res://textures/GUI/main/shop/shop_bg.png" type="Texture" id=80]
-[ext_resource path="res://Audio/sfx/Ambience/mixkit-sea-waves-loop-1196.wav" type="AudioStream" id=81]
-[ext_resource path="res://textures/NPCs/faces/lily_cheerful.png" type="Texture" id=82]
-[ext_resource path="res://Audio/sfx/Ambience/mixkit-light-rain-loop-1253.wav" type="AudioStream" id=83]
-[ext_resource path="res://scripts/GUI/Shop.gd" type="Script" id=86]
-[ext_resource path="res://textures/GUI/main/shop/tab_selected.png" type="Texture" id=87]
-[ext_resource path="res://textures/GUI/main/shop/tab.png" type="Texture" id=88]
+[ext_resource type="Script" path="res://scripts/World.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://c3rmyuwb7gd3m" path="res://textures/enviroment/sky.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cxlf6mt32br23" path="res://textures/blocks/bricks.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://bolugbajn3c14" path="res://textures/GUI/main/cursor.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://bmf2svqxergrd" path="res://textures/GUI/main/inventory/inventory_bg.png" id="6"]
+[ext_resource type="Script" path="res://scripts/Cursor.gd" id="7"]
+[ext_resource type="Texture2D" uid="uid://tdqh6int0j64" path="res://textures/GUI/main/storage/storage_bg.png" id="8"]
+[ext_resource type="Script" path="res://scripts/Inventory.gd" id="9"]
+[ext_resource type="Script" path="res://scripts/Crafting.gd" id="11"]
+[ext_resource type="PackedScene" uid="uid://dn6ilfeqopl5j" path="res://assets/GUI/Pause.tscn" id="12"]
+[ext_resource type="Theme" uid="uid://bvlk5mt2axnwa" path="res://themes/Gray.tres" id="12_23g2f"]
+[ext_resource type="Texture2D" uid="uid://cgm36fclyy5o0" path="res://textures/enviroment/backgrounds/terra_underground.png" id="12_itho0"]
+[ext_resource type="Texture2D" uid="uid://docmqdn1y13fp" path="res://textures/GUI/Blank.png" id="13"]
+[ext_resource type="Texture2D" uid="uid://bdy3c4crcwfy1" path="res://textures/GUI/main/Blues.png" id="15"]
+[ext_resource type="PackedScene" uid="uid://c0cgbwp6g0r8h" path="res://assets/Player.tscn" id="16"]
+[ext_resource type="Texture2D" uid="uid://b54ippjho2bff" path="res://textures/GUI/main/hotbar/bars.png" id="17"]
+[ext_resource type="Script" path="res://scripts/Sky.gd" id="18"]
+[ext_resource type="Script" path="res://scripts/enviroment/Space.gd" id="19"]
+[ext_resource type="FontFile" uid="uid://c72erwxvdt2b6" path="res://fonts/PixelpossiblitiesSmall.ttf" id="19_36l8u"]
+[ext_resource type="Texture2D" uid="uid://dhnnswc6ucpvg" path="res://textures/enviroment/backgrounds/terra_front.png" id="20"]
+[ext_resource type="Script" path="res://scripts/Enviroment.gd" id="21"]
+[ext_resource type="Texture2D" uid="uid://c3gi3tckbsqa" path="res://textures/GUI/main/hotbar/go_up_btn.png" id="21_u37ji"]
+[ext_resource type="Texture2D" uid="uid://kusgl6ud38f6" path="res://textures/enviroment/backgrounds/terra_back.png" id="22"]
+[ext_resource type="Texture2D" uid="uid://i4c2a0l1rg2h" path="res://textures/GUI/main/hotbar/go_up_btn_pressed.png" id="22_0y4l0"]
+[ext_resource type="Texture2D" uid="uid://dcwvytn78prs5" path="res://textures/GUI/main/hotbar/go_up_btn_hover.png" id="23_54wbw"]
+[ext_resource type="Texture2D" uid="uid://cg77ke3bvhhcj" path="res://textures/GUI/space/v_bar_handle_select.png" id="24"]
+[ext_resource type="Script" path="res://scripts/ArmorSlot.gd" id="25"]
+[ext_resource type="AudioStream" uid="uid://05eoqqltljlt" path="res://Audio/sfx/Ambience/mixkit-spring-forest-with-woodpeckers-1217.wav" id="26"]
+[ext_resource type="AudioStream" uid="uid://b423pej6t5txt" path="res://Audio/sfx/Ambience/mixkit-summer-crickets-loop-1788.wav" id="27"]
+[ext_resource type="AudioStream" uid="uid://ddex2unlfvdox" path="res://Audio/sfx/Ambience/mixkit-wind-in-the-forest-loop-1233.wav" id="28"]
+[ext_resource type="AudioStream" uid="uid://kld8ru3vf0hc" path="res://Audio/sfx/Game/collect_item.ogg" id="29"]
+[ext_resource type="AudioStream" uid="uid://ilj5mfs024wp" path="res://Audio/sfx/GUI/inventory.ogg" id="30"]
+[ext_resource type="AudioStream" uid="uid://cmcadcgiyfugn" path="res://Audio/sfx/GUI/equip.ogg" id="31"]
+[ext_resource type="AudioStream" uid="uid://cqhncywyj01ki" path="res://Audio/sfx/Ambience/mixkit-blizzard-cold-winds-1153.wav" id="32"]
+[ext_resource type="Texture2D" uid="uid://chpgk1wfbx8v2" path="res://textures/GUI/main/hotbar/k.png" id="33"]
+[ext_resource type="Texture2D" uid="uid://dro6l7qprs4d3" path="res://textures/GUI/main/hotbar/j.png" id="34"]
+[ext_resource type="Script" path="res://scripts/Main.gd" id="35"]
+[ext_resource type="Texture2D" uid="uid://b870mq11gihn" path="res://textures/GUI/main/break1.png" id="36"]
+[ext_resource type="Texture2D" uid="uid://b8yl13mcwhcxu" path="res://textures/GUI/main/break4.png" id="37"]
+[ext_resource type="Texture2D" uid="uid://dmceukhll6w76" path="res://textures/GUI/main/break2.png" id="38"]
+[ext_resource type="Texture2D" uid="uid://baijdpy2unnd0" path="res://textures/GUI/main/break3.png" id="39"]
+[ext_resource type="Script" path="res://scripts/Armor.gd" id="40"]
+[ext_resource type="Texture2D" uid="uid://w40dj0ncdwk8" path="res://textures/GUI/main/Armor/Btn.png" id="41"]
+[ext_resource type="Texture2D" uid="uid://dt21m5af7l32j" path="res://textures/GUI/main/Armor/hat.png" id="42"]
+[ext_resource type="Script" path="res://scripts/Entities.gd" id="43"]
+[ext_resource type="Script" path="res://scripts/Bars.gd" id="44"]
+[ext_resource type="Texture2D" uid="uid://dc2440kvhp48n" path="res://textures/weather/rain.png" id="45"]
+[ext_resource type="Texture2D" uid="uid://2mpdkbqjvljn" path="res://textures/weather/Cloud_Large1.png" id="46"]
+[ext_resource type="Script" path="res://scripts/Effects.gd" id="47"]
+[ext_resource type="Texture2D" uid="uid://bu4jjvitxquwi" path="res://textures/enviroment/space-3.png" id="48"]
+[ext_resource type="Script" path="res://scripts/Dead.gd" id="49"]
+[ext_resource type="Script" path="res://scripts/Chest.gd" id="52"]
+[ext_resource type="Texture2D" uid="uid://d380irrpct8nn" path="res://textures/GUI/main/hotbar/hotbar2.png" id="54"]
+[ext_resource type="Texture2D" uid="uid://bueaebvbfj4jw" path="res://textures/GUI/main/hotbar/hotbar1.png" id="55"]
+[ext_resource type="Texture2D" uid="uid://u27t1xjmaq7" path="res://textures/GUI/main/bigBar.png" id="56"]
+[ext_resource type="FontFile" uid="uid://boiyd3n1keevx" path="res://fonts/upheavtt.ttf" id="56_wca64"]
+[ext_resource type="Texture2D" uid="uid://bom5ygsohqxmw" path="res://textures/GUI/main/hotbar/O2-safe.png" id="58"]
+[ext_resource type="Shader" path="res://shaders/Pause.gdshader" id="58_564f8"]
+[ext_resource type="Script" path="res://scripts/GUI/SignEdit.gd" id="58_p8ek0"]
+[ext_resource type="Texture2D" uid="uid://dieq04r77mkl" path="res://textures/GUI/space/buttons/color_btn.png" id="59_b30rk"]
+[ext_resource type="Theme" uid="uid://b02uwgbscq35l" path="res://themes/menu.tres" id="60_dyqfb"]
+[ext_resource type="Script" path="res://scripts/Commands.gd" id="61"]
+[ext_resource type="Texture2D" uid="uid://dpqpaobomk0g" path="res://textures/GUI/main/inventory/item-toolbar.png" id="62"]
+[ext_resource type="Script" path="res://scripts/ItemDataShow.gd" id="63"]
+[ext_resource type="Texture2D" uid="uid://cvq1t01u1jig3" path="res://textures/enviroment/light.png" id="64"]
+[ext_resource type="Texture2D" uid="uid://btus3qrhw2igq" path="res://textures/enviroment/storm_bg.png" id="65"]
+[ext_resource type="Texture2D" uid="uid://hq0q5oh5t744" path="res://textures/weather/snow.png" id="66"]
+[ext_resource type="FontVariation" uid="uid://c4nuc5bd0kohq" path="res://fonts/PixelPossFix.tres" id="66_oustp"]
+[ext_resource type="Script" path="res://scripts/enviroment/Meteors.gd" id="67"]
+[ext_resource type="Texture2D" uid="uid://deiwekva7e5yd" path="res://textures/GUI/main/hotbar/hotbar_panel.png" id="68"]
+[ext_resource type="Texture2D" uid="uid://dmf75orq48o76" path="res://textures/GUI/main/hotbar/forground.png" id="69"]
+[ext_resource type="Texture2D" uid="uid://im3ftx86mtc3" path="res://textures/GUI/space/h_bar_handle_select.png" id="70"]
+[ext_resource type="Texture2D" uid="uid://cgfxdpw0sxxxi" path="res://textures/GUI/space/h_bar_handle_hover.png" id="71"]
+[ext_resource type="Texture2D" uid="uid://cs2ptrjg2ll5k" path="res://textures/GUI/space/v_bar_handle_hover.png" id="72"]
+[ext_resource type="Texture2D" uid="uid://cn76yxyfhxg3v" path="res://textures/GUI/space/v_bar_handle.png" id="73"]
+[ext_resource type="Texture2D" uid="uid://45o7v1dsk3yx" path="res://textures/GUI/space/h_bar.png" id="74"]
+[ext_resource type="Texture2D" uid="uid://dqkgujgjvgj5g" path="res://textures/GUI/space/v_bar.png" id="75"]
+[ext_resource type="Texture2D" uid="uid://cy2kr64p5herf" path="res://textures/GUI/space/h_bar_handle.png" id="76"]
+[ext_resource type="Texture2D" uid="uid://bes1uxqlw0hrb" path="res://textures/GUI/main/crafting/crafting_bg.png" id="77"]
+[ext_resource type="FontFile" uid="uid://diwuxgjxhgb06" path="res://fonts/PixelPossibilities.ttf" id="79"]
+[ext_resource type="Texture2D" uid="uid://bb4hsafmlev5c" path="res://textures/GUI/main/shop/shop_bg.png" id="80"]
+[ext_resource type="AudioStream" uid="uid://cjeky6rbgpg1r" path="res://Audio/sfx/Ambience/mixkit-sea-waves-loop-1196.wav" id="81"]
+[ext_resource type="Texture2D" uid="uid://bqdiir8v4ncnx" path="res://textures/NPCs/faces/lily_cheerful.png" id="82"]
+[ext_resource type="AudioStream" uid="uid://duo4t1cbibbxx" path="res://Audio/sfx/Ambience/mixkit-light-rain-loop-1253.wav" id="83"]
+[ext_resource type="Script" path="res://scripts/GUI/Shop.gd" id="86"]
+[ext_resource type="Texture2D" uid="uid://yt38gkuyx7oq" path="res://textures/GUI/main/shop/tab_selected.png" id="87"]
+[ext_resource type="Texture2D" uid="uid://bc3ncctygtmi" path="res://textures/GUI/main/shop/tab.png" id="88"]
 
-[sub_resource type="VisualShaderNodeScalarOp" id=67]
+[sub_resource type="VisualShaderNodeFloatOp" id="67"]
 output_port_for_preview = 0
-default_input_values = [ 0, 0.0, 1, 1.0 ]
+default_input_values = [0, 0.0, 1, 1.0]
 operator = 1
 
-[sub_resource type="VisualShaderNodeIf" id=73]
+[sub_resource type="VisualShaderNodeIf" id="73"]
 
-[sub_resource type="VisualShaderNodeVectorOp" id=74]
-default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 2, 2, 2 ) ]
+[sub_resource type="VisualShaderNodeVectorOp" id="74"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(2, 2, 2)]
 operator = 3
 
-[sub_resource type="VisualShaderNodeTexture" id=61]
+[sub_resource type="VisualShaderNodeTexture" id="61"]
 source = 1
 
-[sub_resource type="VisualShaderNodeTexture" id=62]
+[sub_resource type="VisualShaderNodeTexture" id="62"]
 source = 2
 
-[sub_resource type="VisualShaderNodeInput" id=66]
+[sub_resource type="VisualShaderNodeInput" id="66"]
 input_name = "screen_uv"
 
-[sub_resource type="VisualShaderNodeColorFunc" id=69]
+[sub_resource type="VisualShaderNodeColorFunc" id="69"]
 
-[sub_resource type="VisualShaderNodeColorFunc" id=70]
+[sub_resource type="VisualShaderNodeColorFunc" id="70"]
 
-[sub_resource type="VisualShaderNodeVectorDecompose" id=71]
+[sub_resource type="VisualShaderNodeVectorDecompose" id="71"]
 
-[sub_resource type="VisualShaderNodeVectorDecompose" id=72]
+[sub_resource type="VisualShaderNodeVectorDecompose" id="72"]
 
-[sub_resource type="VisualShader" id=64]
+[sub_resource type="VisualShader" id="64"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
 
 
 
-void vertex() {
-// Output:0
-
-}
-
-void fragment() {
-// Output:0
-
-}
-
-void light() {
-// Output:0
-
-}
 "
-graph_offset = Vector2( -523.232, 13.6574 )
+graph_offset = Vector2(-523.232, 13.6574)
 mode = 1
 flags/light_only = false
-nodes/fragment/0/position = Vector2( 1920, 360 )
-nodes/fragment/2/node = SubResource( 61 )
-nodes/fragment/2/position = Vector2( -460, 420 )
-nodes/fragment/3/node = SubResource( 62 )
-nodes/fragment/3/position = Vector2( -620, 140 )
-nodes/fragment/5/node = SubResource( 66 )
-nodes/fragment/5/position = Vector2( -900, 540 )
-nodes/fragment/6/node = SubResource( 69 )
-nodes/fragment/6/position = Vector2( -120, 440 )
-nodes/fragment/7/node = SubResource( 70 )
-nodes/fragment/7/position = Vector2( -120, 200 )
-nodes/fragment/8/node = SubResource( 71 )
-nodes/fragment/8/position = Vector2( 280, 140 )
-nodes/fragment/9/node = SubResource( 72 )
-nodes/fragment/9/position = Vector2( 260, 440 )
-nodes/fragment/10/node = SubResource( 67 )
-nodes/fragment/10/position = Vector2( 740, 440 )
-nodes/fragment/15/node = SubResource( 73 )
-nodes/fragment/15/position = Vector2( 1160, 500 )
-nodes/fragment/16/node = SubResource( 74 )
-nodes/fragment/16/position = Vector2( -40, 640 )
-nodes/fragment/connections = PoolIntArray( 5, 0, 2, 0, 2, 0, 6, 0, 3, 0, 7, 0, 7, 0, 8, 0, 6, 0, 9, 0, 9, 0, 10, 0, 10, 0, 15, 0, 2, 0, 16, 0, 16, 0, 15, 4 )
+nodes/fragment/0/position = Vector2(1920, 360)
+nodes/fragment/2/node = SubResource("61")
+nodes/fragment/2/position = Vector2(-460, 420)
+nodes/fragment/3/node = SubResource("62")
+nodes/fragment/3/position = Vector2(-620, 140)
+nodes/fragment/5/node = SubResource("66")
+nodes/fragment/5/position = Vector2(-900, 540)
+nodes/fragment/6/node = SubResource("69")
+nodes/fragment/6/position = Vector2(-120, 440)
+nodes/fragment/7/node = SubResource("70")
+nodes/fragment/7/position = Vector2(-120, 200)
+nodes/fragment/8/node = SubResource("71")
+nodes/fragment/8/position = Vector2(280, 140)
+nodes/fragment/9/node = SubResource("72")
+nodes/fragment/9/position = Vector2(260, 440)
+nodes/fragment/10/node = SubResource("67")
+nodes/fragment/10/position = Vector2(740, 440)
+nodes/fragment/15/node = SubResource("73")
+nodes/fragment/15/position = Vector2(1160, 500)
+nodes/fragment/16/node = SubResource("74")
+nodes/fragment/16/position = Vector2(-40, 640)
+nodes/fragment/connections = PackedInt32Array(5, 0, 2, 0, 2, 0, 6, 0, 3, 0, 7, 0, 7, 0, 8, 0, 6, 0, 9, 0, 9, 0, 10, 0, 10, 0, 15, 0, 2, 0, 16, 0, 16, 0, 15, 4)
 
-[sub_resource type="ShaderMaterial" id=65]
-shader = SubResource( 64 )
+[sub_resource type="ShaderMaterial" id="65"]
+shader = SubResource("64")
 
-[sub_resource type="ImageTexture" id=26]
+[sub_resource type="ImageTexture" id="26"]
 
-[sub_resource type="VisualShaderNodeTexture" id=27]
+[sub_resource type="VisualShaderNodeTexture" id="27"]
 source = 2
-texture = SubResource( 26 )
+texture = SubResource("26")
 
-[sub_resource type="VisualShaderNodeVectorOp" id=30]
+[sub_resource type="VisualShaderNodeVectorOp" id="30"]
 operator = 2
 
-[sub_resource type="VisualShaderNodeColorUniform" id=31]
-uniform_name = "SkyColor"
+[sub_resource type="VisualShaderNodeColorParameter" id="31"]
+parameter_name = "SkyColor"
 default_value_enabled = true
-default_value = Color( 0, 0, 0, 1 )
+default_value = Color(0, 0, 0, 1)
 
-[sub_resource type="VisualShaderNodeColorFunc" id=34]
+[sub_resource type="VisualShaderNodeColorFunc" id="34"]
 
-[sub_resource type="VisualShaderNodeIf" id=35]
+[sub_resource type="VisualShaderNodeIf" id="35"]
 
-[sub_resource type="VisualShaderNodeTexture" id=19]
+[sub_resource type="VisualShaderNodeTexture" id="19"]
 source = 1
 
-[sub_resource type="VisualShaderNodeVectorDecompose" id=37]
+[sub_resource type="VisualShaderNodeVectorDecompose" id="37"]
 
-[sub_resource type="VisualShaderNodeScalarUniform" id=40]
-uniform_name = "StarLight"
+[sub_resource type="VisualShaderNodeFloatParameter" id="40"]
+parameter_name = "StarLight"
 default_value_enabled = true
 default_value = 1.0
 
-[sub_resource type="VisualShaderNodeColorConstant" id=44]
-constant = Color( 0.339455, 0.339455, 0.339455, 1 )
+[sub_resource type="VisualShaderNodeColorConstant" id="44"]
+constant = Color(0.339455, 0.339455, 0.339455, 1)
 
-[sub_resource type="VisualShaderNodeVectorOp" id=45]
+[sub_resource type="VisualShaderNodeVectorOp" id="45"]
 operator = 1
 
-[sub_resource type="VisualShaderNodeVectorOp" id=46]
-default_input_values = [ 0, Vector3( 0, 0, 0 ), 1, Vector3( 6, 6, 6 ) ]
+[sub_resource type="VisualShaderNodeVectorOp" id="46"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(6, 6, 6)]
 operator = 2
 
-[sub_resource type="VisualShaderNodeScalarConstant" id=47]
+[sub_resource type="VisualShaderNodeFloatConstant" id="47"]
 
-[sub_resource type="VisualShaderNodeVectorOp" id=48]
+[sub_resource type="VisualShaderNodeVectorOp" id="48"]
 operator = 6
 
-[sub_resource type="VisualShaderNodeIf" id=49]
+[sub_resource type="VisualShaderNodeIf" id="49"]
 
-[sub_resource type="VisualShaderNodeVectorDecompose" id=50]
+[sub_resource type="VisualShaderNodeVectorDecompose" id="50"]
 
-[sub_resource type="VisualShaderNodeColorFunc" id=51]
+[sub_resource type="VisualShaderNodeColorFunc" id="51"]
 
-[sub_resource type="VisualShaderNodeInput" id=23]
+[sub_resource type="VisualShaderNodeInput" id="23"]
 input_name = "screen_uv"
 
-[sub_resource type="VisualShaderNodeInput" id=29]
+[sub_resource type="VisualShaderNodeInput" id="29"]
 input_name = "uv"
 
-[sub_resource type="VisualShader" id=21]
+[sub_resource type="VisualShader" id="21"]
 code = "shader_type canvas_item;
+render_mode blend_mix;
+
 uniform float StarLight = 1;
-uniform vec4 SkyColor : hint_color = vec4(0.000000, 0.000000, 0.000000, 1.000000);
+uniform sampler2D screen_tex_frg_2 : hint_screen_texture;
+uniform vec4 SkyColor : source_color = vec4(0.000000, 0.000000, 0.000000, 1.000000);
 
 
-
-void vertex() {
-// Output:0
-
-}
 
 void fragment() {
-// ScalarUniform:24
+// FloatParameter:24
 	float n_out24p0 = StarLight;
 
+
 // Input:4
-	vec3 n_out4p0 = vec3(SCREEN_UV, 0.0);
+	vec2 n_out4p0 = SCREEN_UV;
 
-// Texture:2
-	vec3 n_out2p0;
-	float n_out2p1;
-	{
-		vec4 _tex_read = textureLod(SCREEN_TEXTURE, n_out4p0.xy, 0.0);
-		n_out2p0 = _tex_read.rgb;
-		n_out2p1 = _tex_read.a;
-	}
 
-// ColorFunc:18
+	vec4 n_out2p0;
+// Texture2D:2
+	n_out2p0 = texture(screen_tex_frg_2, n_out4p0);
+
+
 	vec3 n_out18p0;
+// ColorFunc:18
 	{
-		vec3 c = n_out2p0;
+		vec3 c = vec3(n_out2p0.xyz);
 		float max1 = max(c.r, c.g);
 		float max2 = max(max1, c.b);
 		n_out18p0 = vec3(max2, max2, max2);
 	}
+
 
 // VectorDecompose:21
 	float n_out21p0 = n_out18p0.x;
 	float n_out21p1 = n_out18p0.y;
 	float n_out21p2 = n_out18p0.z;
 
+
 // Input:9
-	vec3 n_out9p0 = vec3(UV, 0.0);
+	vec2 n_out9p0 = UV;
 
-// Texture:12
-	vec3 n_out12p0;
-	float n_out12p1;
-	{
-		vec4 _tex_read = texture(TEXTURE, n_out9p0.xy);
-		n_out12p0 = _tex_read.rgb;
-		n_out12p1 = _tex_read.a;
-	}
 
-// ColorUniform:16
-	vec3 n_out16p0 = SkyColor.rgb;
-	float n_out16p1 = SkyColor.a;
+	vec4 n_out12p0;
+// Texture2D:12
+	n_out12p0 = texture(TEXTURE, n_out9p0);
+
+
+// ColorParameter:16
+	vec4 n_out16p0 = SkyColor;
+
 
 // VectorOp:14
-	vec3 n_out14p0 = n_out12p0 * n_out16p0;
+	vec3 n_out14p0 = vec3(n_out12p0.xyz) * vec3(n_out16p0.xyz);
 
-// Scalar:33
+
+// FloatConstant:33
 	float n_out33p0 = 0.000000;
 
-// Color:28
-	vec3 n_out28p0 = vec3(0.339455, 0.339455, 0.339455);
-	float n_out28p1 = 1.000000;
+
+// ColorConstant:28
+	vec4 n_out28p0 = vec4(0.339455, 0.339455, 0.339455, 1.000000);
+
 
 // VectorOp:30
-	vec3 n_out30p0 = n_out2p0 - n_out28p0;
+	vec3 n_out30p0 = vec3(n_out2p0.xyz) - vec3(n_out28p0.xyz);
 
-// ColorFunc:37
+
 	vec3 n_out37p0;
+// ColorFunc:37
 	{
 		vec3 c = n_out30p0;
 		float max1 = max(c.r, c.g);
@@ -299,16 +285,18 @@ void fragment() {
 		n_out37p0 = vec3(max2, max2, max2);
 	}
 
+
 // VectorDecompose:36
 	float n_out36p0 = n_out37p0.x;
 	float n_out36p1 = n_out37p0.y;
 	float n_out36p2 = n_out37p0.z;
 
+
+	vec3 n_out35p0;
 // If:35
 	float n_in35p2 = 0.00001;
 	vec3 n_in35p3 = vec3(0.00000, 0.00000, 0.00000);
 	vec3 n_in35p4 = vec3(0.00000, 0.00000, 0.00000);
-	vec3 n_out35p0;
 	if(abs(n_out33p0 - n_out36p0) < n_in35p2)
 	{
 		n_out35p0 = n_in35p3;
@@ -322,1832 +310,2084 @@ void fragment() {
 		n_out35p0 = n_in35p4;
 	}
 
+
 // VectorOp:31
 	vec3 n_in31p1 = vec3(6.00000, 6.00000, 6.00000);
 	vec3 n_out31p0 = n_out35p0 * n_in31p1;
 
+
 // VectorOp:34
 	vec3 n_out34p0 = max(n_out14p0, n_out31p0);
 
+
+	vec3 n_out19p0;
 // If:19
 	float n_in19p2 = 0.00001;
 	vec3 n_in19p3 = vec3(0.00000, 0.00000, 0.00000);
-	vec3 n_out19p0;
 	if(abs(n_out24p0 - n_out21p0) < n_in19p2)
 	{
 		n_out19p0 = n_in19p3;
 	}
 	else if(n_out24p0 < n_out21p0)
 	{
-		n_out19p0 = n_out2p0;
+		n_out19p0 = vec3(n_out2p0.xyz);
 	}
 	else
 	{
 		n_out19p0 = n_out34p0;
 	}
 
+
 // Output:0
 	COLOR.rgb = n_out19p0;
-	COLOR.a = n_out12p1;
 
-}
-
-void light() {
-// Output:0
 
 }
 "
-graph_offset = Vector2( -643.698, -184.851 )
+graph_offset = Vector2(-643.698, -184.851)
 mode = 1
 flags/light_only = false
-nodes/fragment/0/position = Vector2( 2000, 200 )
-nodes/fragment/2/node = SubResource( 19 )
-nodes/fragment/2/position = Vector2( -660, 100 )
-nodes/fragment/4/node = SubResource( 23 )
-nodes/fragment/4/position = Vector2( -1140, 200 )
-nodes/fragment/9/node = SubResource( 29 )
-nodes/fragment/9/position = Vector2( -1160, 520 )
-nodes/fragment/12/node = SubResource( 27 )
-nodes/fragment/12/position = Vector2( -800, 460 )
-nodes/fragment/14/node = SubResource( 30 )
-nodes/fragment/14/position = Vector2( -40, 600 )
-nodes/fragment/16/node = SubResource( 31 )
-nodes/fragment/16/position = Vector2( -1000, 720 )
-nodes/fragment/18/node = SubResource( 34 )
-nodes/fragment/18/position = Vector2( -40, 160 )
-nodes/fragment/19/node = SubResource( 35 )
-nodes/fragment/19/position = Vector2( 1440, 480 )
-nodes/fragment/21/node = SubResource( 37 )
-nodes/fragment/21/position = Vector2( 440, 140 )
-nodes/fragment/24/node = SubResource( 40 )
-nodes/fragment/24/position = Vector2( -1240, 1340 )
-nodes/fragment/28/node = SubResource( 44 )
-nodes/fragment/28/position = Vector2( -780, 1160 )
-nodes/fragment/30/node = SubResource( 45 )
-nodes/fragment/30/position = Vector2( -340, 1040 )
-nodes/fragment/31/node = SubResource( 46 )
-nodes/fragment/31/position = Vector2( 160, 1060 )
-nodes/fragment/33/node = SubResource( 47 )
-nodes/fragment/33/position = Vector2( -240, 1600 )
-nodes/fragment/34/node = SubResource( 48 )
-nodes/fragment/34/position = Vector2( 700, 700 )
-nodes/fragment/35/node = SubResource( 49 )
-nodes/fragment/35/position = Vector2( 300, 1620 )
-nodes/fragment/36/node = SubResource( 50 )
-nodes/fragment/36/position = Vector2( -260, 1740 )
-nodes/fragment/37/node = SubResource( 51 )
-nodes/fragment/37/position = Vector2( -860, 1760 )
-nodes/fragment/connections = PoolIntArray( 4, 0, 2, 0, 9, 0, 12, 0, 12, 1, 0, 1, 16, 0, 14, 1, 12, 0, 14, 0, 2, 0, 18, 0, 18, 0, 21, 0, 2, 0, 19, 5, 24, 0, 19, 0, 21, 0, 19, 1, 2, 0, 30, 0, 28, 0, 30, 1, 19, 0, 0, 0, 14, 0, 34, 0, 31, 0, 34, 1, 34, 0, 19, 4, 33, 0, 35, 0, 36, 0, 35, 1, 37, 0, 36, 0, 30, 0, 37, 0, 30, 0, 35, 5, 35, 0, 31, 0 )
+nodes/fragment/0/position = Vector2(2000, 200)
+nodes/fragment/2/node = SubResource("19")
+nodes/fragment/2/position = Vector2(-660, 100)
+nodes/fragment/4/node = SubResource("23")
+nodes/fragment/4/position = Vector2(-1140, 200)
+nodes/fragment/9/node = SubResource("29")
+nodes/fragment/9/position = Vector2(-1160, 520)
+nodes/fragment/12/node = SubResource("27")
+nodes/fragment/12/position = Vector2(-800, 460)
+nodes/fragment/14/node = SubResource("30")
+nodes/fragment/14/position = Vector2(-40, 600)
+nodes/fragment/16/node = SubResource("31")
+nodes/fragment/16/position = Vector2(-1000, 720)
+nodes/fragment/18/node = SubResource("34")
+nodes/fragment/18/position = Vector2(-40, 160)
+nodes/fragment/19/node = SubResource("35")
+nodes/fragment/19/position = Vector2(1440, 480)
+nodes/fragment/21/node = SubResource("37")
+nodes/fragment/21/position = Vector2(440, 140)
+nodes/fragment/24/node = SubResource("40")
+nodes/fragment/24/position = Vector2(-1240, 1340)
+nodes/fragment/28/node = SubResource("44")
+nodes/fragment/28/position = Vector2(-780, 1160)
+nodes/fragment/30/node = SubResource("45")
+nodes/fragment/30/position = Vector2(-340, 1040)
+nodes/fragment/31/node = SubResource("46")
+nodes/fragment/31/position = Vector2(160, 1060)
+nodes/fragment/33/node = SubResource("47")
+nodes/fragment/33/position = Vector2(-240, 1600)
+nodes/fragment/34/node = SubResource("48")
+nodes/fragment/34/position = Vector2(700, 700)
+nodes/fragment/35/node = SubResource("49")
+nodes/fragment/35/position = Vector2(300, 1620)
+nodes/fragment/36/node = SubResource("50")
+nodes/fragment/36/position = Vector2(-260, 1740)
+nodes/fragment/37/node = SubResource("51")
+nodes/fragment/37/position = Vector2(-860, 1760)
+nodes/fragment/connections = PackedInt32Array(4, 0, 2, 0, 9, 0, 12, 0, 16, 0, 14, 1, 12, 0, 14, 0, 2, 0, 18, 0, 18, 0, 21, 0, 2, 0, 19, 5, 24, 0, 19, 0, 21, 0, 19, 1, 2, 0, 30, 0, 28, 0, 30, 1, 19, 0, 0, 0, 14, 0, 34, 0, 31, 0, 34, 1, 34, 0, 19, 4, 33, 0, 35, 0, 36, 0, 35, 1, 37, 0, 36, 0, 30, 0, 37, 0, 30, 0, 35, 5, 35, 0, 31, 0)
 
-[sub_resource type="ShaderMaterial" id=22]
-shader = SubResource( 21 )
-shader_param/StarLight = 1.0
-shader_param/SkyColor = Color( 0, 0, 0, 1 )
+[sub_resource type="ShaderMaterial" id="22"]
+shader = SubResource("21")
+shader_parameter/StarLight = 1.0
+shader_parameter/SkyColor = Color(0, 0, 0, 1)
 
-[sub_resource type="AtlasTexture" id=80]
-atlas = ExtResource( 56 )
-region = Rect2( 0, 0, 98, 8 )
+[sub_resource type="LabelSettings" id="LabelSettings_q7whe"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
 
-[sub_resource type="AtlasTexture" id=81]
-atlas = ExtResource( 56 )
-region = Rect2( 0, 8, 98, 8 )
+[sub_resource type="AtlasTexture" id="80"]
+atlas = ExtResource("56")
+region = Rect2(0, 0, 98, 8)
 
-[sub_resource type="AtlasTexture" id=53]
-atlas = ExtResource( 4 )
-region = Rect2( 176, 0, 16, 16 )
+[sub_resource type="AtlasTexture" id="81"]
+atlas = ExtResource("56")
+region = Rect2(0, 8, 98, 8)
 
-[sub_resource type="AtlasTexture" id=54]
-atlas = ExtResource( 17 )
-region = Rect2( 0, 7, 35, 5 )
+[sub_resource type="LabelSettings" id="LabelSettings_omix6"]
+font = ExtResource("19_36l8u")
 
-[sub_resource type="AtlasTexture" id=55]
-atlas = ExtResource( 17 )
-region = Rect2( 0, 0, 35, 5 )
+[sub_resource type="AtlasTexture" id="54"]
+atlas = ExtResource("17")
+region = Rect2(0, 7, 35, 5)
 
-[sub_resource type="AtlasTexture" id=56]
-atlas = ExtResource( 17 )
-region = Rect2( 0, 12, 23, 2 )
+[sub_resource type="AtlasTexture" id="55"]
+atlas = ExtResource("17")
+region = Rect2(0, 0, 35, 5)
 
-[sub_resource type="AtlasTexture" id=57]
-atlas = ExtResource( 17 )
-region = Rect2( 0, 5, 23, 2 )
+[sub_resource type="AtlasTexture" id="56"]
+atlas = ExtResource("17")
+region = Rect2(0, 12, 23, 2)
 
-[sub_resource type="AtlasTexture" id=82]
-atlas = ExtResource( 4 )
-region = Rect2( 16, 0, 7, 7 )
+[sub_resource type="AtlasTexture" id="57"]
+atlas = ExtResource("17")
+region = Rect2(0, 5, 23, 2)
 
-[sub_resource type="Animation" id=83]
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wja5i"]
+
+[sub_resource type="AtlasTexture" id="82"]
+atlas = SubResource("CompressedTexture2D_wja5i")
+region = Rect2(16, 0, 7, 7)
+
+[sub_resource type="Animation" id="83"]
 length = 0.001
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ false ]
+"values": [false]
 }
 
-[sub_resource type="Animation" id=84]
+[sub_resource type="Animation" id="84"]
 resource_name = "blink"
 length = 1.5
-loop = true
+loop_mode = 1
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ false, true ]
+"values": [false, true]
 }
 
-[sub_resource type="StyleBoxTexture" id=16]
-texture = ExtResource( 76 )
-region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6ih42"]
+_data = {
+"RESET": SubResource("83"),
+"blink": SubResource("84")
+}
 
-[sub_resource type="StyleBoxTexture" id=17]
-texture = ExtResource( 71 )
-region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="LabelSettings" id="LabelSettings_5jsv6"]
+outline_size = 3
+outline_color = Color(0.431373, 0.458824, 0.552941, 1)
 
-[sub_resource type="StyleBoxTexture" id=13]
-texture = ExtResource( 70 )
-region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="LabelSettings" id="LabelSettings_pq2ay"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+shadow_color = Color(0.372549, 0.407843, 0.521569, 1)
 
-[sub_resource type="StyleBoxTexture" id=18]
-texture = ExtResource( 74 )
-region_rect = Rect2( 0, 0, 8, 4 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="LabelSettings" id="LabelSettings_oxxqt"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+shadow_color = Color(0.372549, 0.407843, 0.521569, 1)
 
-[sub_resource type="StyleBoxTexture" id=111]
-texture = ExtResource( 73 )
-region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="LabelSettings" id="LabelSettings_pj5bb"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+shadow_color = Color(0.372549, 0.407843, 0.521569, 1)
 
-[sub_resource type="StyleBoxTexture" id=14]
-texture = ExtResource( 72 )
-region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="LabelSettings" id="LabelSettings_a5yvo"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+shadow_color = Color(0.372549, 0.407843, 0.521569, 1)
 
-[sub_resource type="StyleBoxTexture" id=15]
-texture = ExtResource( 24 )
-region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="16"]
+texture = ExtResource("76")
+region_rect = Rect2(0, 0, 8, 4)
 
-[sub_resource type="StyleBoxTexture" id=20]
-texture = ExtResource( 75 )
-region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="17"]
+texture = ExtResource("71")
+region_rect = Rect2(0, 0, 8, 4)
 
-[sub_resource type="StyleBoxTexture" id=112]
-texture = ExtResource( 75 )
-region_rect = Rect2( 0, 0, 4, 8 )
-margin_left = 1.0
-margin_right = 1.0
-margin_top = 1.0
-margin_bottom = 1.0
+[sub_resource type="StyleBoxTexture" id="13"]
+texture = ExtResource("70")
+region_rect = Rect2(0, 0, 8, 4)
 
-[sub_resource type="Theme" id=113]
-HScrollBar/styles/grabber = SubResource( 16 )
-HScrollBar/styles/grabber_highlight = SubResource( 17 )
-HScrollBar/styles/grabber_pressed = SubResource( 13 )
-HScrollBar/styles/scroll = SubResource( 18 )
-VScrollBar/styles/grabber = SubResource( 111 )
-VScrollBar/styles/grabber_highlight = SubResource( 14 )
-VScrollBar/styles/grabber_pressed = SubResource( 15 )
-VScrollBar/styles/scroll = SubResource( 20 )
-VSlider/styles/slider = SubResource( 112 )
+[sub_resource type="StyleBoxTexture" id="18"]
+texture = ExtResource("74")
+region_rect = Rect2(0, 0, 8, 4)
 
-[sub_resource type="DynamicFont" id=122]
-outline_color = Color( 0.854902, 0.878431, 0.917647, 1 )
-extra_spacing_top = -4
-font_data = ExtResource( 79 )
+[sub_resource type="StyleBoxTexture" id="111"]
+texture = ExtResource("73")
+region_rect = Rect2(0, 0, 4, 8)
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="StyleBoxTexture" id="14"]
+texture = ExtResource("72")
+region_rect = Rect2(0, 0, 4, 8)
+
+[sub_resource type="StyleBoxTexture" id="15"]
+texture = ExtResource("24")
+region_rect = Rect2(0, 0, 4, 8)
+
+[sub_resource type="StyleBoxTexture" id="20"]
+texture = ExtResource("75")
+region_rect = Rect2(0, 0, 4, 8)
+
+[sub_resource type="StyleBoxTexture" id="112"]
+texture = ExtResource("75")
+region_rect = Rect2(0, 0, 4, 8)
+
+[sub_resource type="Theme" id="113"]
+HScrollBar/styles/grabber = SubResource("16")
+HScrollBar/styles/grabber_highlight = SubResource("17")
+HScrollBar/styles/grabber_pressed = SubResource("13")
+HScrollBar/styles/scroll = SubResource("18")
+VScrollBar/styles/grabber = SubResource("111")
+VScrollBar/styles/grabber_highlight = SubResource("14")
+VScrollBar/styles/grabber_pressed = SubResource("15")
+VScrollBar/styles/scroll = SubResource("20")
+VSlider/styles/slider = SubResource("112")
+
+[sub_resource type="LabelSettings" id="LabelSettings_f71tw"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+outline_size = 3
+outline_color = Color(0.231373, 0.290196, 0.478431, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_h1jgf"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+outline_size = 3
+outline_color = Color(0.231373, 0.290196, 0.478431, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xsdyu"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+outline_size = 3
+outline_color = Color(0.266667, 0.235294, 0.384314, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4nrps"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+outline_size = 3
+outline_color = Color(0.266667, 0.235294, 0.384314, 1)
+
+[sub_resource type="Animation" id="11"]
 length = 0.001
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 0, 0, 0, 1 ) ]
+"values": [Color(0, 0, 0, 1)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath(".:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ true ]
+"values": [true]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id="12"]
 resource_name = "fadeIn"
 length = 0.6
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath(".:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 
-[sub_resource type="Animation" id=116]
+[sub_resource type="Animation" id="116"]
 length = 0.6
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath(".:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_iw6f7"]
+_data = {
+"RESET": SubResource("11"),
+"fadeIn": SubResource("12"),
+"fadeOut": SubResource("116")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ln4b"]
+shader = ExtResource("58_564f8")
+shader_parameter/blur_amount = 2.0
+shader_parameter/mix_amount = 0.5
+shader_parameter/color_over = Color(0.768627, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_8airn"]
+font = ExtResource("56_wca64")
+font_size = 20
+font_color = Color(1, 0, 0, 1)
+outline_size = 3
+shadow_size = 0
+shadow_color = Color(0.658824, 0, 0, 1)
+shadow_offset = Vector2(-1, 1)
+
+[sub_resource type="FontFile" id="FontFile_653sy"]
+fallbacks = Array[Font]([ExtResource("79")])
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/16/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/16/0/kerning_overrides/50/0 = Vector2(0, 0)
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+cache/0/50/0/kerning_overrides/16/0 = Vector2(0, 0)
+cache/0/50/0/kerning_overrides/50/0 = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_83to3"]
+line_spacing = 2.08165e-12
+font = ExtResource("66_oustp")
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="85"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true, false ]
+"values": [false]
 }
 
-[sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 14 )
-region = Rect2( 96, 68, 64, 15 )
-
-[sub_resource type="StyleBoxTexture" id=117]
-texture = ExtResource( 59 )
-region_rect = Rect2( 31, 18, 88, 11 )
-margin_left = 2.0
-margin_right = 2.0
-margin_top = 2.0
-margin_bottom = 2.0
-
-[sub_resource type="Animation" id=85]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
-}
-
-[sub_resource type="Animation" id=86]
+[sub_resource type="Animation" id="86"]
 resource_name = "fade out"
+length = 0.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
 }
 
-[sub_resource type="Animation" id=87]
+[sub_resource type="Animation" id="87"]
 resource_name = "pop up"
+length = 0.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
-[sub_resource type="OpenSimplexNoise" id=79]
-period = 7.0
-persistence = 0.0
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5kbqp"]
+_data = {
+"RESET": SubResource("85"),
+"fade out": SubResource("86"),
+"pop up": SubResource("87")
+}
 
-[sub_resource type="OpenSimplexNoise" id=92]
-period = 10.0
-persistence = 0.0
-lacunarity = 0.55
+[sub_resource type="RectangleShape2D" id="118"]
+size = Vector2(6, 99.25)
 
-[sub_resource type="RectangleShape2D" id=118]
-extents = Vector2( 3, 49.625 )
+[sub_resource type="RectangleShape2D" id="119"]
+size = Vector2(6, 97)
 
-[sub_resource type="RectangleShape2D" id=119]
-extents = Vector2( 3, 48.5 )
+[sub_resource type="RectangleShape2D" id="120"]
+size = Vector2(6, 248)
 
-[sub_resource type="RectangleShape2D" id=120]
-extents = Vector2( 3, 124 )
+[sub_resource type="RectangleShape2D" id="52"]
+size = Vector2(4, 4)
 
-[sub_resource type="RectangleShape2D" id=88]
-extents = Vector2( 24.5, 900 )
-
-[sub_resource type="RectangleShape2D" id=89]
-extents = Vector2( 48.5, 900 )
-
-[sub_resource type="RectangleShape2D" id=90]
-extents = Vector2( 12, 900 )
-
-[sub_resource type="RectangleShape2D" id=91]
-extents = Vector2( 12, 900 )
-
-[sub_resource type="RectangleShape2D" id=52]
-extents = Vector2( 2, 2 )
-
-[sub_resource type="Animation" id=58]
+[sub_resource type="Animation" id="58"]
 length = 0.001
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ false ]
+"values": [false]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath(".:texture")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ ExtResource( 36 ) ]
+"values": [ExtResource("36")]
 }
 
-[sub_resource type="Animation" id=59]
+[sub_resource type="Animation" id="59"]
 resource_name = "break"
 step = 0.25
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath(".:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ true, false ]
+"values": [true, false]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath(".:texture")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.25, 0.5, 0.75 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [ ExtResource( 36 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 37 ) ]
+"values": [ExtResource("36"), ExtResource("38"), ExtResource("39"), ExtResource("37")]
 }
 
-[sub_resource type="RectangleShape2D" id=121]
-extents = Vector2( 4, 4 )
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hurbd"]
+_data = {
+"RESET": SubResource("58"),
+"break": SubResource("59")
+}
 
-[sub_resource type="Environment" id=32]
+[sub_resource type="RectangleShape2D" id="121"]
+size = Vector2(8, 8)
+
+[sub_resource type="Environment" id="32"]
 background_mode = 4
 glow_enabled = true
 
-[sub_resource type="ParticlesMaterial" id=75]
-emission_shape = 2
-emission_box_extents = Vector3( 300, 1, 1 )
-flag_align_y = true
-flag_disable_z = true
-direction = Vector3( 0.5, 1, 0 )
-spread = 0.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 200.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-color = Color( 0.211765, 0.643137, 0.960784, 0.85098 )
-hue_variation_random = 0.5
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ovjk6"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(240, 1, 1)
+direction = Vector3(0.5, 1, 0)
+spread = 5.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+color = Color(0.79, 0.8985, 1, 0.619608)
+turbulence_noise_scale = 100.0
+collision_mode = 2
 
-[sub_resource type="Animation" id=93]
+[sub_resource type="Animation" id="93"]
 length = 0.001
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Rain:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ false ]
+"values": [false]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ false ]
+"values": [false]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ) ]
+"values": [Color(1, 1, 1, 0)]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Rain:amount")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 8 ]
+"values": [8]
 }
 tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("Rain:process_material:direction")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector3( 0.5, 1, 0 ) ]
+"values": [Vector3(0.5, 1, 0)]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Rain:process_material:initial_velocity")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
+tracks/5/path = NodePath("Snow:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 200.0 ]
+"values": [false]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Snow:emitting")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
+tracks/6/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ false ]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:self_modulate")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
+tracks/7/path = NodePath("Snow:amount")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [100]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("Snow:amount")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
+tracks/8/path = NodePath("Snow:process_material:direction")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 100 ]
+"values": [Vector3(0, 1, 0)]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("Snow:process_material:initial_velocity")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
+tracks/9/path = NodePath("Snow:lifetime")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 20.0 ]
+"values": [10.0]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("Snow:process_material:direction")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
+tracks/10/path = NodePath("../sfx/Rain:playing")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector3( 0, 1, 0 ) ]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("Snow:lifetime")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
 tracks/11/imported = false
 tracks/11/enabled = true
+tracks/11/path = NodePath("../sfx/Rain:volume_db")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
 tracks/11/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 10.0 ]
+"values": [0.0]
 }
 tracks/12/type = "value"
-tracks/12/path = NodePath("../sfx/Rain:playing")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
 tracks/12/imported = false
 tracks/12/enabled = true
+tracks/12/path = NodePath("Rain:process_material:initial_velocity_min")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
 tracks/12/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [100.0]
 }
 tracks/13/type = "value"
-tracks/13/path = NodePath("../sfx/Rain:volume_db")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
 tracks/13/imported = false
 tracks/13/enabled = true
+tracks/13/path = NodePath("Snow:process_material:initial_velocity_min")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
 tracks/13/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 0.0 ]
+"values": [20.0]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("Snow:process_material:initial_velocity_max")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [30.0]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("Rain:lifetime")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.5]
 }
 
-[sub_resource type="Animation" id=94]
+[sub_resource type="Animation" id="94"]
 resource_name = "blizzard"
 length = 1.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 0.8, 0.8, 0.8, 1 ) ]
+"values": [Color(1, 1, 1, 0), Color(0.8, 0.8, 0.8, 1)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Rain:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [false]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Snow:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("Snow:amount")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ 200 ]
+"values": [200]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Snow:process_material:initial_velocity")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
+tracks/5/path = NodePath("Snow:process_material:direction")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 50.0 ]
+"values": [Vector3(0.5, 1, 0)]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Snow:process_material:direction")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
+tracks/6/path = NodePath("Snow:lifetime")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector3( 0.5, 1, 0 ) ]
+"values": [5.0]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Snow:lifetime")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
+tracks/7/path = NodePath("Snow:process_material:initial_velocity_min")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 5.0 ]
+"values": [50.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Snow:process_material:initial_velocity_max")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [60.0]
 }
 
-[sub_resource type="Animation" id=107]
+[sub_resource type="Animation" id="107"]
 resource_name = "blizzard_no_start"
 length = 1.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 0.8, 0.8, 0.8, 1 ) ]
+"values": [Color(0.8, 0.8, 0.8, 1)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Rain:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [false]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Snow:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("Snow:amount")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ 200 ]
+"values": [200]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Snow:process_material:initial_velocity")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
+tracks/5/path = NodePath("Snow:process_material:direction")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 50.0 ]
+"values": [Vector3(0.5, 1, 0)]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Snow:process_material:direction")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
+tracks/6/path = NodePath("Snow:lifetime")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector3( 0.5, 1, 0 ) ]
+"values": [5.0]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Snow:lifetime")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
+tracks/7/path = NodePath("Snow:process_material:initial_velocity_min")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 5.0 ]
+"values": [50.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Snow:process_material:initial_velocity_max")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [60.0]
 }
 
-[sub_resource type="Animation" id=95]
+[sub_resource type="Animation" id="95"]
 resource_name = "blizzard_stop"
 length = 1.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ true, false ]
+"values": [true, false]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 0.8, 0.8, 0.8, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [Color(0.8, 0.8, 0.8, 1), Color(1, 1, 1, 0)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Rain:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [false]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Snow:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [false]
 }
 
-[sub_resource type="Animation" id=96]
+[sub_resource type="Animation" id="96"]
 resource_name = "none"
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Rain:emitting")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [false]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [false]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Snow:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../sfx/Rain:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
-[sub_resource type="Animation" id=97]
+[sub_resource type="Animation" id="97"]
 resource_name = "rain"
 length = 1.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Rain:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Rain:amount")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ 100 ]
+"values": [100]
 }
 tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("Rain:process_material:direction")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector3( 0.5, 1, 0 ) ]
+"values": [Vector3(1, 2, 2.08165e-12)]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Rain:process_material:initial_velocity")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
+tracks/5/path = NodePath("Snow:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 200.0 ]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Snow:emitting")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
+tracks/6/path = NodePath("../sfx/Rain:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [true]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("../sfx/Rain:playing")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
+tracks/7/path = NodePath("../sfx/Rain:volume_db")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-20.0, 0.0]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("../sfx/Rain:volume_db")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
+tracks/8/path = NodePath("Rain:process_material:initial_velocity_min")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ -20.0, 0.0 ]
+"values": [200.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Rain:process_material:initial_velocity_max")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [200.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Rain:lifetime")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.5]
 }
 
-[sub_resource type="Animation" id=108]
+[sub_resource type="Animation" id="108"]
 resource_name = "rain_no_start"
 length = 1.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Rain:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Rain:amount")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ 100 ]
+"values": [100]
 }
 tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("Rain:process_material:direction")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector3( 0.5, 1, 0 ) ]
+"values": [Vector3(0.5, 1, 0)]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Rain:process_material:initial_velocity")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
+tracks/5/path = NodePath("Snow:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 200.0 ]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Snow:emitting")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
+tracks/6/path = NodePath("../sfx/Rain:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [true]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("../sfx/Rain:playing")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
+tracks/7/path = NodePath("../sfx/Rain:volume_db")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("../sfx/Rain:volume_db")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
+tracks/8/path = NodePath("Rain:process_material:initial_velocity_min")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 0.0 ]
+"values": [100.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Rain:process_material:initial_velocity_max")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [100.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Rain:lifetime")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.5]
 }
 
-[sub_resource type="Animation" id=98]
+[sub_resource type="Animation" id="98"]
 resource_name = "rain_stop"
 length = 1.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ true, false ]
+"values": [true, false]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Rain:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [false]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Snow:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [false]
 }
 tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("../sfx/Rain:playing")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ true, false ]
+"values": [true, false]
 }
 tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
 tracks/5/path = NodePath("../sfx/Rain:volume_db")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ 0.0, -20.0 ]
+"values": [0.0, -20.0]
 }
 
-[sub_resource type="Animation" id=99]
+[sub_resource type="Animation" id="99"]
 resource_name = "showers"
 length = 1.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 0.752941, 0.752941, 0.752941, 1 ) ]
+"values": [Color(1, 1, 1, 0), Color(0.752941, 0.752941, 0.752941, 1)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Rain:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Rain:amount")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ 200 ]
+"values": [300]
 }
 tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("Rain:process_material:direction")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector3( 0.75, 1, 0 ) ]
+"values": [Vector3(0.5, 5, 2.08165e-12)]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Rain:process_material:initial_velocity")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
+tracks/5/path = NodePath("Snow:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 350.0 ]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Snow:emitting")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
+tracks/6/path = NodePath("../sfx/Rain:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [true]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("../sfx/Rain:playing")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
+tracks/7/path = NodePath("../sfx/Rain:volume_db")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-20.0, 0.0]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("../sfx/Rain:volume_db")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
+tracks/8/path = NodePath("Rain:process_material:initial_velocity_min")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ -20.0, 0.0 ]
+"values": [250.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Rain:process_material:initial_velocity_max")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [275.0]
+}
+tracks/10/type = "value"
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/path = NodePath("Rain:lifetime")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.75]
 }
 
-[sub_resource type="Animation" id=109]
+[sub_resource type="Animation" id="109"]
 resource_name = "showers_no_start"
 length = 1.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 0.752941, 0.752941, 0.752941, 1 ) ]
+"values": [Color(0.752941, 0.752941, 0.752941, 1)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Rain:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Rain:amount")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ 200 ]
+"values": [300]
 }
 tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("Rain:process_material:direction")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector3( 0.75, 1, 0 ) ]
+"values": [Vector3(0.5, 5, 2.08165e-12)]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Rain:process_material:initial_velocity")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
+tracks/5/path = NodePath("Snow:emitting")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 350.0 ]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Snow:emitting")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
+tracks/6/path = NodePath("../sfx/Rain:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [true]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("../sfx/Rain:playing")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
+tracks/7/path = NodePath("../sfx/Rain:volume_db")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("../sfx/Rain:volume_db")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
 tracks/8/imported = false
 tracks/8/enabled = true
+tracks/8/path = NodePath("Rain:process_material:initial_velocity_min")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
 tracks/8/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 0.0 ]
+"values": [350.0]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Rain:lifetime")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.75]
 }
 
-[sub_resource type="Animation" id=100]
+[sub_resource type="Animation" id="100"]
 resource_name = "showers_stop"
 length = 1.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ true, false ]
+"values": [true, false]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 0.752941, 0.752941, 0.752941, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [Color(0.752941, 0.752941, 0.752941, 1), Color(1, 1, 1, 0)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Rain:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [false]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Snow:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [false]
 }
 tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("../sfx/Rain:volume_db")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ 0.0, -20.0 ]
+"values": [0.0, -20.0]
 }
 tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
 tracks/5/path = NodePath("../sfx/Rain:playing")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
 tracks/5/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ true, false ]
+"values": [true, false]
 }
 
-[sub_resource type="Animation" id=101]
+[sub_resource type="Animation" id="101"]
 resource_name = "snow"
 length = 1.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Rain:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [false]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Snow:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("Snow:amount")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ 100 ]
+"values": [100]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Snow:process_material:initial_velocity")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
+tracks/5/path = NodePath("Snow:process_material:direction")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 20.0 ]
+"values": [Vector3(2.08165e-12, 1, 2.08165e-12)]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Snow:process_material:direction")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
+tracks/6/path = NodePath("Snow:lifetime")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector3( 0, 1, 0 ) ]
+"values": [10.0]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Snow:lifetime")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
+tracks/7/path = NodePath("Snow:process_material:initial_velocity_min")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 10.0 ]
+"values": [20.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Snow:process_material:initial_velocity_max")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [30.0]
 }
 
-[sub_resource type="Animation" id=110]
+[sub_resource type="Animation" id="110"]
 resource_name = "snow_no_start"
 length = 1.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Rain:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [false]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Snow:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ true ]
+"values": [true]
 }
 tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
 tracks/4/path = NodePath("Snow:amount")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ 100 ]
+"values": [100]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Snow:process_material:initial_velocity")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
 tracks/5/imported = false
 tracks/5/enabled = true
+tracks/5/path = NodePath("Snow:process_material:direction")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 20.0 ]
+"values": [Vector3(0, 1, 0)]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Snow:process_material:direction")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
+tracks/6/path = NodePath("Snow:lifetime")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
 tracks/6/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector3( 0, 1, 0 ) ]
+"values": [10.0]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Snow:lifetime")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
+tracks/7/path = NodePath("Snow:process_material:initial_velocity_min")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 10.0 ]
+"values": [20.0]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Snow:process_material:initial_velocity_max")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [30.0]
 }
 
-[sub_resource type="Animation" id=102]
+[sub_resource type="Animation" id="102"]
 resource_name = "snow_stop"
 length = 1.5
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [ true, false ]
+"values": [true, false]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("../CanvasLayer/ParallaxBackground2/StormLayer/storm:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 1.5 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
 tracks/2/path = NodePath("Rain:emitting")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [false]
 }
 tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
 tracks/3/path = NodePath("Snow:emitting")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ false ]
+"values": [false]
 }
 
-[sub_resource type="CanvasItemMaterial" id=103]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nsugu"]
+_data = {
+"RESET": SubResource("93"),
+"blizzard": SubResource("94"),
+"blizzard_no_start": SubResource("107"),
+"blizzard_stop": SubResource("95"),
+"none": SubResource("96"),
+"rain": SubResource("97"),
+"rain_no_start": SubResource("108"),
+"rain_stop": SubResource("98"),
+"showers": SubResource("99"),
+"showers_no_start": SubResource("109"),
+"showers_stop": SubResource("100"),
+"snow": SubResource("101"),
+"snow_no_start": SubResource("110"),
+"snow_stop": SubResource("102")
+}
+
+[sub_resource type="CanvasItemMaterial" id="103"]
 particles_animation = true
 particles_anim_h_frames = 3
 particles_anim_v_frames = 1
 particles_anim_loop = false
 
-[sub_resource type="Gradient" id=104]
-offsets = PoolRealArray( 0.835294, 1 )
-colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0 )
-
-[sub_resource type="GradientTexture" id=105]
-gradient = SubResource( 104 )
-
-[sub_resource type="ParticlesMaterial" id=106]
-emission_shape = 2
-emission_box_extents = Vector3( 300, 1, 1 )
-flag_align_y = true
-flag_disable_z = true
-direction = Vector3( 0, 1, 0 )
-spread = 25.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 20.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
-color_ramp = SubResource( 105 )
-anim_offset = 1.0
-anim_offset_random = 1.0
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_i84x0"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(240, 1, 1)
+direction = Vector3(0, 1, 0)
+spread = 10.0
+initial_velocity_min = 20.0
+initial_velocity_max = 30.0
+radial_velocity_max = 5.0
+gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+turbulence_noise_scale = 100.0
+turbulence_noise_speed = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
+turbulence_influence_min = 0.0
+turbulence_influence_max = 0.01
+collision_mode = 2
 
 [node name="Main" type="Node2D"]
-script = ExtResource( 35 )
+script = ExtResource("35")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -2156,71 +2396,67 @@ layer = -99
 visible = false
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="CanvasLayer/CloudLayer1"]
-motion_scale = Vector2( 0, 0.1 )
+motion_scale = Vector2(0, 0.1)
 
-[node name="CloudLarge1" type="Sprite" parent="CanvasLayer/CloudLayer1/ParallaxLayer"]
-position = Vector2( -39, -43 )
-texture = ExtResource( 46 )
+[node name="CloudLarge1" type="Sprite2D" parent="CanvasLayer/CloudLayer1/ParallaxLayer"]
+position = Vector2(-39, -43)
+texture = ExtResource("46")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
 
-[node name="Space" type="Sprite" parent="CanvasLayer/ParallaxBackground"]
-position = Vector2( 120, 120 )
-scale = Vector2( 0.75, 0.75 )
-texture = ExtResource( 48 )
-script = ExtResource( 19 )
-starAmount = 0
+[node name="Space" type="Sprite2D" parent="CanvasLayer/ParallaxBackground"]
+position = Vector2(120, 120)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("48")
+script = ExtResource("19")
 
 [node name="SkyLayer" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground"]
-motion_scale = Vector2( 0, 0 )
+motion_scale = Vector2(0, 0)
 
-[node name="sky" type="Sprite" parent="CanvasLayer/ParallaxBackground/SkyLayer"]
-material = SubResource( 65 )
-texture = ExtResource( 2 )
+[node name="sky" type="Sprite2D" parent="CanvasLayer/ParallaxBackground/SkyLayer"]
+material = SubResource("65")
+texture = ExtResource("2")
+centered = false
 
 [node name="ParallaxBackground2" type="ParallaxBackground" parent="CanvasLayer"]
 layer = -90
 
 [node name="Sky" type="Node2D" parent="CanvasLayer/ParallaxBackground2"]
-position = Vector2( 120, 120 )
-script = ExtResource( 18 )
-
-[node name="Sprite" type="Sprite" parent="CanvasLayer/ParallaxBackground2/Sky"]
-visible = false
-modulate = Color( 2, 2, 2, 1 )
-position = Vector2( -48, -156 )
-texture = ExtResource( 23 )
+position = Vector2(120, 120)
+script = ExtResource("18")
 
 [node name="StormLayer" type="ParallaxLayer" parent="CanvasLayer/ParallaxBackground2"]
 z_index = 1
-motion_scale = Vector2( 0, 0 )
+motion_scale = Vector2(0, 0)
 
-[node name="storm" type="Sprite" parent="CanvasLayer/ParallaxBackground2/StormLayer"]
+[node name="storm" type="Sprite2D" parent="CanvasLayer/ParallaxBackground2/StormLayer"]
 visible = false
-modulate = Color( 1, 1, 1, 0 )
-texture = ExtResource( 65 )
+modulate = Color(1, 1, 1, 0)
+texture = ExtResource("65")
+centered = false
 
 [node name="Enviroment" type="ParallaxBackground" parent="CanvasLayer"]
 layer = -80
-script = ExtResource( 21 )
+script = ExtResource("21")
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Enviroment"]
 visible = false
-material = SubResource( 22 )
+material = SubResource("22")
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -32.0
-margin_top = -32.0
-margin_right = -32.0
-margin_bottom = -32.0
+offset_left = -32.0
+offset_top = -32.0
+offset_right = -32.0
+offset_bottom = -32.0
 mouse_filter = 2
-texture = ExtResource( 2 )
-expand = true
+texture = ExtResource("2")
+expand_mode = 1
 stretch_mode = 2
 
 [node name="Meteors" type="Node2D" parent="CanvasLayer/Enviroment"]
 z_index = -81
-script = ExtResource( 67 )
+script = ExtResource("67")
 
 [node name="MeteorTimer" type="Timer" parent="CanvasLayer/Enviroment/Meteors"]
 one_shot = true
@@ -2228,800 +2464,1027 @@ one_shot = true
 [node name="StageProgress" type="Timer" parent="CanvasLayer/Enviroment/Meteors"]
 
 [node name="back" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
-modulate = Color( 1, 0.662745, 0.282353, 1 )
-motion_scale = Vector2( 0.1, 0.1 )
-motion_offset = Vector2( 0, 10 )
-motion_mirroring = Vector2( 640, 0 )
+modulate = Color(1, 0.662745, 0.282353, 1)
+texture_repeat = 2
+motion_scale = Vector2(0.1, 0.1)
+motion_offset = Vector2(2.08165e-12, 40)
+motion_mirroring = Vector2(640, 0)
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/Enviroment/back"]
-texture = ExtResource( 22 )
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Enviroment/back"]
+texture = ExtResource("22")
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 640, 180 )
+region_rect = Rect2(0, 0, 640, 180)
 
 [node name="front" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
-modulate = Color( 0.427451, 0.368627, 0.47451, 1 )
-motion_scale = Vector2( 0.3, 0.3 )
-motion_offset = Vector2( 0, 35 )
-motion_mirroring = Vector2( 640, 0 )
+modulate = Color(0.427451, 0.368627, 0.47451, 1)
+texture_repeat = 2
+motion_scale = Vector2(0.3, 0.3)
+motion_offset = Vector2(2.08165e-12, 55)
+motion_mirroring = Vector2(640, 0)
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/Enviroment/front"]
-texture = ExtResource( 20 )
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Enviroment/front"]
+texture = ExtResource("20")
 centered = false
 region_enabled = true
-region_rect = Rect2( 0, 0, 640, 180 )
+region_rect = Rect2(0, 0, 640, 180)
+
+[node name="Underground" type="Sprite2D" parent="CanvasLayer/Enviroment/front"]
+position = Vector2(2.08165e-12, 180)
+texture = ExtResource("12_itho0")
+centered = false
+region_enabled = true
+region_rect = Rect2(2.08165e-12, 2.08165e-12, 640, 360)
 
 [node name="Oxygen" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -49.0
-margin_top = -27.0
-margin_right = 49.0
-margin_bottom = -10.0
+offset_left = -49.0
+offset_top = -28.0
+offset_right = 49.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
 mouse_filter = 2
+theme = ExtResource("12_23g2f")
 
 [node name="Label" type="Label" parent="CanvasLayer/Oxygen"]
+layout_mode = 1
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -26.0
-margin_right = 26.0
-margin_bottom = 8.0
-custom_colors/font_outline_modulate = Color( 0.701961, 0.72549, 0.819608, 1 )
-custom_fonts/font = ExtResource( 57 )
+offset_left = -26.0
+offset_top = 1.0
+offset_right = 26.0
+offset_bottom = 9.0
+grow_horizontal = 2
 text = "Suit Oxygen"
+label_settings = SubResource("LabelSettings_q7whe")
 
-[node name="suitOxygen" type="TextureProgress" parent="CanvasLayer/Oxygen"]
+[node name="suitOxygen" type="TextureProgressBar" parent="CanvasLayer/Oxygen"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -49.0
-margin_top = -8.0
-margin_right = 49.0
+offset_left = -49.0
+offset_top = -8.0
+offset_right = 49.0
 max_value = 200.0
 value = 200.0
-texture_under = SubResource( 80 )
-texture_progress = SubResource( 81 )
+texture_under = SubResource("80")
+texture_progress = SubResource("81")
 
 [node name="Hotbar" type="Control" parent="CanvasLayer"]
+layout_mode = 3
 anchor_right = 1.0
 anchor_bottom = 0.141
-margin_bottom = -0.0240002
+offset_bottom = -0.0240002
+theme = ExtResource("12_23g2f")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Hotbar"]
-margin_right = 150.0
-margin_bottom = 18.0
-texture = ExtResource( 68 )
+layout_mode = 0
+offset_right = 150.0
+offset_bottom = 18.0
+texture = ExtResource("68")
 
 [node name="InventoryBtn" type="TextureButton" parent="CanvasLayer/Hotbar"]
-margin_right = 30.0
-margin_bottom = 17.0
-texture_normal = ExtResource( 55 )
+layout_mode = 0
+offset_right = 31.0
+offset_bottom = 16.0
+texture_normal = ExtResource("55")
 
 [node name="Amount" type="Label" parent="CanvasLayer/Hotbar/InventoryBtn"]
-margin_left = 14.0
-margin_top = 3.0
-margin_right = 30.0
-margin_bottom = 15.0
-custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
-custom_fonts/font = ExtResource( 10 )
+layout_mode = 0
+offset_left = 13.0
+offset_top = 4.0
+offset_right = 30.0
+offset_bottom = 12.0
 text = "*33"
-valign = 1
 clip_text = true
 
 [node name="Item" type="TextureRect" parent="CanvasLayer/Hotbar/InventoryBtn"]
-margin_left = 4.0
-margin_top = 4.0
-margin_right = 12.0
-margin_bottom = 12.0
-texture = ExtResource( 3 )
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 12.0
+offset_bottom = 12.0
+texture = ExtResource("3")
 
 [node name="InventoryBtn2" type="TextureButton" parent="CanvasLayer/Hotbar"]
-margin_left = 30.0
-margin_right = 60.0
-margin_bottom = 17.0
-texture_normal = ExtResource( 54 )
+layout_mode = 0
+offset_left = 30.0
+offset_right = 60.0
+offset_bottom = 17.0
+texture_normal = ExtResource("54")
 
 [node name="Amount" type="Label" parent="CanvasLayer/Hotbar/InventoryBtn2"]
-margin_left = 13.0
-margin_top = 3.0
-margin_right = 27.0
-margin_bottom = 15.0
-custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
-custom_fonts/font = ExtResource( 10 )
+layout_mode = 0
+offset_left = 12.0
+offset_top = 4.0
+offset_right = 29.0
+offset_bottom = 12.0
 text = "*33"
-valign = 1
 clip_text = true
 
 [node name="Item" type="TextureRect" parent="CanvasLayer/Hotbar/InventoryBtn2"]
-margin_left = 3.0
-margin_top = 4.0
-margin_right = 11.0
-margin_bottom = 12.0
-texture = ExtResource( 3 )
+layout_mode = 0
+offset_left = 3.0
+offset_top = 4.0
+offset_right = 11.0
+offset_bottom = 12.0
+texture = ExtResource("3")
 
 [node name="K" type="TextureRect" parent="CanvasLayer/Hotbar"]
-margin_left = 110.0
-margin_top = 3.0
-margin_right = 131.0
-margin_bottom = 16.0
-texture = ExtResource( 33 )
+layout_mode = 0
+offset_left = 111.0
+offset_top = 3.0
+offset_right = 134.0
+offset_bottom = 16.0
+texture = ExtResource("33")
 
 [node name="Item" type="TextureRect" parent="CanvasLayer/Hotbar/K"]
-margin_left = 11.0
-margin_top = 3.0
-margin_right = 19.0
-margin_bottom = 11.0
+layout_mode = 0
+offset_left = 11.0
+offset_top = 3.0
+offset_right = 19.0
+offset_bottom = 11.0
+
+[node name="Keybind" type="Label" parent="CanvasLayer/Hotbar/K"]
+layout_mode = 0
+offset_left = 7.0
+offset_right = 13.0
+offset_bottom = 12.0
+text = "k"
+label_settings = SubResource("LabelSettings_omix6")
+horizontal_alignment = 1
+uppercase = true
 
 [node name="J" type="TextureRect" parent="CanvasLayer/Hotbar"]
-margin_left = 100.0
-margin_right = 121.0
-margin_bottom = 13.0
-texture = ExtResource( 34 )
+layout_mode = 0
+offset_left = 99.0
+offset_right = 122.0
+offset_bottom = 13.0
+texture = ExtResource("34")
 
 [node name="Item" type="TextureRect" parent="CanvasLayer/Hotbar/J"]
-margin_left = 2.0
-margin_top = 2.0
-margin_right = 10.0
-margin_bottom = 10.0
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 10.0
+offset_bottom = 10.0
+
+[node name="Keybind" type="Label" parent="CanvasLayer/Hotbar/J"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = -4.0
+offset_right = 17.0
+offset_bottom = 8.0
+text = "J"
+label_settings = SubResource("LabelSettings_omix6")
+horizontal_alignment = 1
+uppercase = true
 
 [node name="GoUp" type="TextureButton" parent="CanvasLayer/Hotbar"]
+layout_mode = 0
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -18.0
-margin_top = 2.0
-margin_right = -2.0
-margin_bottom = 18.0
-texture_normal = SubResource( 53 )
+offset_left = -18.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = 18.0
+texture_normal = ExtResource("21_u37ji")
+texture_pressed = ExtResource("22_0y4l0")
+texture_hover = ExtResource("23_54wbw")
 
 [node name="Bars" type="Control" parent="CanvasLayer/Hotbar"]
-margin_left = 63.0
-margin_top = 1.0
-margin_right = 98.0
-margin_bottom = 8.0
-script = ExtResource( 44 )
+anchors_preset = 0
+offset_left = 63.0
+offset_top = 1.0
+offset_right = 98.0
+offset_bottom = 8.0
+script = ExtResource("44")
 
-[node name="Health" type="TextureProgress" parent="CanvasLayer/Hotbar/Bars"]
-margin_right = 35.0
-margin_bottom = 5.0
+[node name="Health" type="TextureProgressBar" parent="CanvasLayer/Hotbar/Bars"]
+layout_mode = 0
+offset_right = 35.0
+offset_bottom = 5.0
 max_value = 20.0
 value = 10.0
-texture_under = SubResource( 54 )
-texture_progress = SubResource( 55 )
+texture_under = SubResource("54")
+texture_progress = SubResource("55")
 
-[node name="Oxygen" type="TextureProgress" parent="CanvasLayer/Hotbar/Bars"]
-margin_top = 5.0
-margin_right = 23.0
-margin_bottom = 7.0
+[node name="Oxygen" type="TextureProgressBar" parent="CanvasLayer/Hotbar/Bars"]
+layout_mode = 0
+offset_top = 5.0
+offset_right = 23.0
+offset_bottom = 7.0
 max_value = 10.0
 value = 7.0
-texture_under = SubResource( 56 )
-texture_progress = SubResource( 57 )
+texture_under = SubResource("56")
+texture_progress = SubResource("57")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Hotbar"]
-margin_left = 63.0
-margin_top = 9.0
-margin_right = 98.0
-margin_bottom = 16.0
-custom_constants/separation = 0
+layout_mode = 0
+offset_left = 63.0
+offset_top = 9.0
+offset_right = 98.0
+offset_bottom = 16.0
+theme_override_constants/separation = 0
 
 [node name="BGT" type="TextureRect" parent="CanvasLayer/Hotbar/HBoxContainer"]
-margin_right = 7.0
-margin_bottom = 7.0
-texture = ExtResource( 69 )
+layout_mode = 2
+texture = ExtResource("69")
 
 [node name="O2" type="TextureRect" parent="CanvasLayer/Hotbar/HBoxContainer"]
-margin_left = 7.0
-margin_right = 16.0
-margin_bottom = 7.0
-texture = ExtResource( 58 )
+layout_mode = 2
+texture = ExtResource("58")
 
 [node name="Warning" type="TextureRect" parent="CanvasLayer/Hotbar/HBoxContainer"]
 visible = false
-margin_left = 16.0
-margin_right = 23.0
-margin_bottom = 7.0
-texture = SubResource( 82 )
+layout_mode = 2
+texture = SubResource("82")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Hotbar/HBoxContainer/Warning"]
-anims/RESET = SubResource( 83 )
-anims/blink = SubResource( 84 )
+libraries = {
+"": SubResource("AnimationLibrary_6ih42")
+}
 
 [node name="Coords" type="Label" parent="CanvasLayer/Hotbar"]
 visible = false
-margin_left = 2.0
-margin_top = 20.0
-margin_right = 87.0
-margin_bottom = 28.0
-custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
-custom_fonts/font = ExtResource( 57 )
+layout_mode = 0
+offset_left = 2.0
+offset_top = 20.0
+offset_right = 87.0
+offset_bottom = 28.0
 text = "X: 32, Y: 5"
+label_settings = SubResource("LabelSettings_5jsv6")
 
 [node name="Inventory" type="Control" parent="CanvasLayer"]
 visible = false
-margin_top = 19.0
-margin_right = 116.0
-margin_bottom = 160.0
-script = ExtResource( 9 )
+layout_mode = 3
+anchors_preset = 0
+offset_top = 19.0
+offset_right = 116.0
+offset_bottom = 160.0
+theme = ExtResource("12_23g2f")
+script = ExtResource("9")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Inventory"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 6 )
-expand = true
+texture = ExtResource("6")
+expand_mode = 1
 
 [node name="items" type="Control" parent="CanvasLayer/Inventory"]
+anchors_preset = 0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 60.0
-margin_right = 101.0
-margin_bottom = -20.0
+offset_left = 2.0
+offset_top = 60.0
+offset_right = 101.0
+offset_bottom = -20.0
 
 [node name="collect" type="AudioStreamPlayer" parent="CanvasLayer/Inventory"]
-stream = ExtResource( 29 )
+stream = ExtResource("29")
 
 [node name="change" type="AudioStreamPlayer" parent="CanvasLayer/Inventory"]
-stream = ExtResource( 30 )
+stream = ExtResource("30")
 
 [node name="equip" type="AudioStreamPlayer" parent="CanvasLayer/Inventory"]
-stream = ExtResource( 31 )
+stream = ExtResource("31")
 
 [node name="Armor" type="TextureRect" parent="CanvasLayer/Inventory"]
+layout_mode = 0
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -28.0
-margin_top = 15.0
-margin_right = 39.0
-margin_bottom = 74.0
-script = ExtResource( 40 )
+offset_left = -28.0
+offset_top = 15.0
+offset_right = 39.0
+offset_bottom = 74.0
+script = ExtResource("40")
 
 [node name="GridContainer" type="GridContainer" parent="CanvasLayer/Inventory/Armor"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 4.0
-margin_right = -2.0
-margin_bottom = -2.0
-custom_constants/vseparation = 1
-custom_constants/hseparation = 1
+offset_left = 3.0
+offset_top = 4.0
+offset_right = -2.0
+offset_bottom = -2.0
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
 columns = 2
 
 [node name="Hat" type="TextureButton" parent="CanvasLayer/Inventory/Armor/GridContainer"]
-margin_right = 12.0
-margin_bottom = 12.0
-texture_normal = ExtResource( 41 )
-script = ExtResource( 25 )
+layout_mode = 2
+texture_normal = ExtResource("41")
+script = ExtResource("25")
 type = "helmet"
 deco = true
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/Armor/GridContainer/Hat"]
-position = Vector2( 6, 6 )
-texture = ExtResource( 42 )
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Inventory/Armor/GridContainer/Hat"]
+position = Vector2(6, 6)
+texture = ExtResource("42")
 
 [node name="Helmet" type="TextureButton" parent="CanvasLayer/Inventory/Armor/GridContainer"]
-margin_left = 13.0
-margin_right = 25.0
-margin_bottom = 12.0
-texture_normal = ExtResource( 41 )
-script = ExtResource( 25 )
+layout_mode = 2
+texture_normal = ExtResource("41")
+script = ExtResource("25")
 type = "helmet"
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/Armor/GridContainer/Helmet"]
-position = Vector2( 6, 6 )
-texture = ExtResource( 42 )
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Inventory/Armor/GridContainer/Helmet"]
+position = Vector2(6, 6)
+texture = ExtResource("42")
 
 [node name="Shirt" type="TextureButton" parent="CanvasLayer/Inventory/Armor/GridContainer"]
-margin_top = 13.0
-margin_right = 12.0
-margin_bottom = 25.0
-texture_normal = ExtResource( 41 )
-script = ExtResource( 25 )
+layout_mode = 2
+texture_normal = ExtResource("41")
+script = ExtResource("25")
 type = "shirt"
 deco = true
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/Armor/GridContainer/Shirt"]
-position = Vector2( 6, 6 )
-texture = ExtResource( 42 )
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Inventory/Armor/GridContainer/Shirt"]
+position = Vector2(6, 6)
+texture = ExtResource("42")
 
 [node name="Chestplate" type="TextureButton" parent="CanvasLayer/Inventory/Armor/GridContainer"]
-margin_left = 13.0
-margin_top = 13.0
-margin_right = 25.0
-margin_bottom = 25.0
-texture_normal = ExtResource( 41 )
-script = ExtResource( 25 )
+layout_mode = 2
+texture_normal = ExtResource("41")
+script = ExtResource("25")
 type = "shirt"
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/Armor/GridContainer/Chestplate"]
-position = Vector2( 6, 6 )
-texture = ExtResource( 42 )
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Inventory/Armor/GridContainer/Chestplate"]
+position = Vector2(6, 6)
+texture = ExtResource("42")
 
 [node name="Pants" type="TextureButton" parent="CanvasLayer/Inventory/Armor/GridContainer"]
-margin_top = 26.0
-margin_right = 12.0
-margin_bottom = 38.0
-texture_normal = ExtResource( 41 )
-script = ExtResource( 25 )
+layout_mode = 2
+texture_normal = ExtResource("41")
+script = ExtResource("25")
 type = "pants"
 deco = true
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/Armor/GridContainer/Pants"]
-position = Vector2( 6, 6 )
-texture = ExtResource( 42 )
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Inventory/Armor/GridContainer/Pants"]
+position = Vector2(6, 6)
+texture = ExtResource("42")
 
 [node name="Leggings" type="TextureButton" parent="CanvasLayer/Inventory/Armor/GridContainer"]
-margin_left = 13.0
-margin_top = 26.0
-margin_right = 25.0
-margin_bottom = 38.0
-texture_normal = ExtResource( 41 )
-script = ExtResource( 25 )
+layout_mode = 2
+texture_normal = ExtResource("41")
+script = ExtResource("25")
 type = "pants"
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/Armor/GridContainer/Leggings"]
-position = Vector2( 6, 6 )
-texture = ExtResource( 42 )
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Inventory/Armor/GridContainer/Leggings"]
+position = Vector2(6, 6)
+texture = ExtResource("42")
 
 [node name="Shoes" type="TextureButton" parent="CanvasLayer/Inventory/Armor/GridContainer"]
-margin_top = 39.0
-margin_right = 12.0
-margin_bottom = 51.0
-texture_normal = ExtResource( 41 )
-script = ExtResource( 25 )
+layout_mode = 2
+texture_normal = ExtResource("41")
+script = ExtResource("25")
 type = "shoes"
 deco = true
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/Armor/GridContainer/Shoes"]
-position = Vector2( 6, 6 )
-texture = ExtResource( 42 )
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Inventory/Armor/GridContainer/Shoes"]
+position = Vector2(6, 6)
+texture = ExtResource("42")
 
 [node name="Boots" type="TextureButton" parent="CanvasLayer/Inventory/Armor/GridContainer"]
-margin_left = 13.0
-margin_top = 39.0
-margin_right = 25.0
-margin_bottom = 51.0
-texture_normal = ExtResource( 41 )
-script = ExtResource( 25 )
+layout_mode = 2
+texture_normal = ExtResource("41")
+script = ExtResource("25")
 type = "shoes"
 
-[node name="Sprite" type="Sprite" parent="CanvasLayer/Inventory/Armor/GridContainer/Boots"]
-position = Vector2( 6, 6 )
-texture = ExtResource( 42 )
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Inventory/Armor/GridContainer/Boots"]
+position = Vector2(6, 6)
+texture = ExtResource("42")
 
 [node name="HelmetPoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
-margin_left = 29.5
-margin_top = 7.0
-margin_right = 64.5
-margin_bottom = 15.0
-custom_fonts/font = ExtResource( 10 )
+layout_mode = 0
+offset_left = 29.0
+offset_top = 5.0
+offset_right = 60.0
+offset_bottom = 15.0
 text = "+1 Def"
+label_settings = SubResource("LabelSettings_pq2ay")
+vertical_alignment = 1
 
 [node name="ChestplatePoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
-margin_left = 29.5
-margin_top = 20.0
-margin_right = 64.5
-margin_bottom = 28.0
-custom_fonts/font = ExtResource( 10 )
+layout_mode = 0
+offset_left = 29.0
+offset_top = 18.0
+offset_right = 60.0
+offset_bottom = 28.0
 text = "+5 Def"
+label_settings = SubResource("LabelSettings_oxxqt")
+vertical_alignment = 1
 
 [node name="LeggingsPoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
-margin_left = 29.5
-margin_top = 33.0
-margin_right = 64.5
-margin_bottom = 41.0
-custom_fonts/font = ExtResource( 10 )
+layout_mode = 0
+offset_left = 29.0
+offset_top = 31.0
+offset_right = 60.0
+offset_bottom = 41.0
 text = "+2 Def"
+label_settings = SubResource("LabelSettings_pj5bb")
+vertical_alignment = 1
 
 [node name="BootsPoints" type="Label" parent="CanvasLayer/Inventory/Armor"]
-margin_left = 29.5
-margin_top = 46.0
-margin_right = 64.5
-margin_bottom = 54.0
-custom_fonts/font = ExtResource( 10 )
+layout_mode = 0
+offset_left = 29.0
+offset_top = 44.0
+offset_right = 60.0
+offset_bottom = 54.0
 text = "+1 Def"
+label_settings = SubResource("LabelSettings_a5yvo")
+vertical_alignment = 1
 
 [node name="Blues" type="HBoxContainer" parent="CanvasLayer/Inventory"]
+layout_mode = 1
+anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -39.0
-margin_top = -10.0
-margin_right = 39.0
-custom_constants/separation = 1
+offset_left = -56.0
+offset_top = -11.0
+offset_right = 56.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 1
 alignment = 1
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Inventory/Blues"]
-margin_left = 15.0
-margin_right = 23.0
-margin_bottom = 10.0
-texture = ExtResource( 15 )
+layout_mode = 2
+texture = ExtResource("15")
+stretch_mode = 3
 
 [node name="Label" type="Label" parent="CanvasLayer/Inventory/Blues"]
-margin_left = 24.0
-margin_top = 1.0
-margin_right = 62.0
-margin_bottom = 9.0
-custom_fonts/font = ExtResource( 10 )
+layout_mode = 2
 text = "*1003290"
 
 [node name="ItemScroll" type="ScrollContainer" parent="CanvasLayer/Inventory"]
+layout_mode = 0
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = -65.0
-margin_right = 110.0
-margin_bottom = -12.0
-theme = SubResource( 113 )
+offset_left = 6.0
+offset_top = -65.0
+offset_right = 110.0
+offset_bottom = -12.0
+theme = SubResource("113")
 
 [node name="ItemContainer" type="GridContainer" parent="CanvasLayer/Inventory/ItemScroll"]
-custom_constants/vseparation = 2
-custom_constants/hseparation = 2
+layout_mode = 2
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
 columns = 2
 
 [node name="Title" type="Label" parent="CanvasLayer/Inventory"]
-margin_left = 15.0
-margin_top = 4.0
-margin_right = 90.0
-margin_bottom = 12.0
-custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
-custom_colors/font_outline_modulate = Color( 0.231373, 0.290196, 0.482353, 1 )
-custom_fonts/font = ExtResource( 57 )
+layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 114.0
+offset_bottom = 12.0
 text = "Inventory"
-align = 1
+label_settings = SubResource("LabelSettings_f71tw")
+horizontal_alignment = 1
 
 [node name="Crafting" type="Control" parent="CanvasLayer"]
 visible = false
+layout_mode = 3
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -116.0
-margin_top = -141.0
-script = ExtResource( 11 )
+offset_left = -116.0
+offset_top = -141.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("12_23g2f")
+script = ExtResource("11")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Crafting"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 77 )
-expand = true
+texture = ExtResource("77")
+expand_mode = 1
 
 [node name="recipes" type="Control" parent="CanvasLayer/Crafting"]
+anchors_preset = 0
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -34.0
-margin_top = -158.0
-margin_right = 38.0
-margin_bottom = -38.0
+offset_left = -34.0
+offset_top = -158.0
+offset_right = 38.0
+offset_bottom = -38.0
 
 [node name="Title" type="Label" parent="CanvasLayer/Crafting"]
-margin_left = 15.0
-margin_top = 4.0
-margin_right = 94.0
-margin_bottom = 12.0
-custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
-custom_colors/font_outline_modulate = Color( 0.231373, 0.290196, 0.482353, 1 )
-custom_fonts/font = ExtResource( 57 )
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 114.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
+theme_override_colors/font_outline_color = Color(0.231373, 0.290196, 0.482353, 1)
 text = "Crafting"
-align = 1
+label_settings = SubResource("LabelSettings_h1jgf")
+horizontal_alignment = 1
 
 [node name="RecipesScroll" type="ScrollContainer" parent="CanvasLayer/Crafting"]
+layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = -125.0
-margin_right = -6.0
-margin_bottom = -5.0
-theme = SubResource( 113 )
+offset_left = 6.0
+offset_top = -125.0
+offset_right = -6.0
+offset_bottom = -5.0
+theme = SubResource("113")
 
 [node name="RecipesContainer" type="VBoxContainer" parent="CanvasLayer/Crafting/RecipesScroll"]
+layout_mode = 2
 
-[node name="Pause" parent="CanvasLayer" instance=ExtResource( 12 )]
+[node name="Pause" parent="CanvasLayer" instance=ExtResource("12")]
 visible = false
 
 [node name="Chest" type="Control" parent="CanvasLayer"]
 visible = false
+layout_mode = 3
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -116.0
-margin_top = -141.0
-script = ExtResource( 52 )
+offset_left = -116.0
+offset_top = -141.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("12_23g2f")
+script = ExtResource("52")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Chest"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 8 )
-expand = true
+texture = ExtResource("8")
+expand_mode = 1
 
 [node name="ItemScroll" type="ScrollContainer" parent="CanvasLayer/Chest"]
+layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = -125.0
-margin_right = -6.0
-margin_bottom = -5.0
-theme = SubResource( 113 )
+offset_left = 6.0
+offset_top = -125.0
+offset_right = -6.0
+offset_bottom = -5.0
+theme = SubResource("113")
 
 [node name="ItemContainer" type="GridContainer" parent="CanvasLayer/Chest/ItemScroll"]
-margin_right = 48.0
-margin_bottom = 14.0
-custom_constants/vseparation = 2
-custom_constants/hseparation = 2
+layout_mode = 2
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
 columns = 2
 
-[node name="ChestBtn" parent="CanvasLayer/Chest/ItemScroll/ItemContainer" instance=ExtResource( 53 )]
-
 [node name="Title" type="Label" parent="CanvasLayer/Chest"]
-margin_left = 15.0
-margin_top = 4.0
-margin_right = 94.0
-margin_bottom = 12.0
-custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
-custom_colors/font_outline_modulate = Color( 0.270588, 0.235294, 0.380392, 1 )
-custom_fonts/font = ExtResource( 57 )
+layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 114.0
+offset_bottom = 12.0
 text = "Chest"
-align = 1
+label_settings = SubResource("LabelSettings_xsdyu")
+horizontal_alignment = 1
 
 [node name="Shop" type="Control" parent="CanvasLayer"]
 visible = false
+layout_mode = 3
+anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -116.0
-margin_top = -141.0
-script = ExtResource( 86 )
+offset_left = -116.0
+offset_top = -141.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("12_23g2f")
+script = ExtResource("86")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Shop"]
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource( 80 )
-expand = true
+texture = ExtResource("80")
+expand_mode = 1
 
 [node name="Face" type="TextureRect" parent="CanvasLayer/Shop"]
-margin_left = 5.0
-margin_top = 16.0
-margin_right = 35.0
-margin_bottom = 46.0
-texture = ExtResource( 82 )
+layout_mode = 0
+offset_left = 5.0
+offset_top = 16.0
+offset_right = 35.0
+offset_bottom = 46.0
+texture = ExtResource("82")
 
 [node name="ItemScroll" type="ScrollContainer" parent="CanvasLayer/Shop"]
+layout_mode = 0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 6.0
-margin_top = -81.0
-margin_right = -6.0
-margin_bottom = -5.0
-theme = SubResource( 113 )
+offset_left = 6.0
+offset_top = -81.0
+offset_right = -6.0
+offset_bottom = -5.0
+theme = SubResource("113")
 
 [node name="ItemContainer" type="GridContainer" parent="CanvasLayer/Shop/ItemScroll"]
-margin_right = 46.0
-margin_bottom = 30.0
-custom_constants/vseparation = 2
-custom_constants/hseparation = 2
+layout_mode = 2
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
 columns = 2
 
-[node name="ShopItem" parent="CanvasLayer/Shop/ItemScroll/ItemContainer" instance=ExtResource( 78 )]
-
 [node name="Title" type="Label" parent="CanvasLayer/Shop"]
-margin_left = 15.0
-margin_top = 4.0
-margin_right = 114.0
-margin_bottom = 12.0
-custom_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
-custom_colors/font_outline_modulate = Color( 0.270588, 0.235294, 0.380392, 1 )
-custom_fonts/font = ExtResource( 57 )
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 116.0
+offset_bottom = 12.0
 text = "Lily Mart"
-align = 1
+label_settings = SubResource("LabelSettings_4nrps")
+horizontal_alignment = 1
 
 [node name="Dialogue" type="RichTextLabel" parent="CanvasLayer/Shop"]
-margin_left = 40.0
-margin_top = 17.0
-margin_right = 110.0
-margin_bottom = 42.0
-theme = SubResource( 113 )
-custom_fonts/normal_font = SubResource( 122 )
+layout_mode = 0
+offset_left = 40.0
+offset_top = 17.0
+offset_right = 110.0
+offset_bottom = 42.0
+theme = SubResource("113")
 text = "Hello!"
 scroll_following = true
 
-[node name="Tabs" type="HBoxContainer" parent="CanvasLayer/Shop"]
-margin_left = 4.0
-margin_top = 51.0
-margin_right = 44.0
-margin_bottom = 60.0
-custom_constants/separation = 0
+[node name="TabBar" type="HBoxContainer" parent="CanvasLayer/Shop"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 51.0
+offset_right = 44.0
+offset_bottom = 60.0
+theme_override_constants/separation = 0
 
-[node name="BuyTab" type="TextureButton" parent="CanvasLayer/Shop/Tabs"]
-margin_right = 21.0
-margin_bottom = 9.0
-texture_normal = ExtResource( 88 )
-texture_pressed = ExtResource( 87 )
-texture_disabled = ExtResource( 87 )
+[node name="BuyTab" type="TextureButton" parent="CanvasLayer/Shop/TabBar"]
+layout_mode = 2
+texture_normal = ExtResource("88")
+texture_pressed = ExtResource("87")
+texture_disabled = ExtResource("87")
 
-[node name="Label" type="Label" parent="CanvasLayer/Shop/Tabs/BuyTab"]
+[node name="Label" type="Label" parent="CanvasLayer/Shop/TabBar/BuyTab"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.0
-margin_top = 1.0
-margin_right = -1.0
-custom_fonts/font = ExtResource( 10 )
+offset_left = 1.0
+offset_top = -4.0
+offset_right = -1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("19_36l8u")
 text = "Buy"
-align = 1
+horizontal_alignment = 1
+uppercase = true
 
-[node name="SellTab" type="TextureButton" parent="CanvasLayer/Shop/Tabs"]
-margin_left = 21.0
-margin_right = 42.0
-margin_bottom = 9.0
-texture_normal = ExtResource( 88 )
-texture_pressed = ExtResource( 87 )
-texture_disabled = ExtResource( 87 )
+[node name="SellTab" type="TextureButton" parent="CanvasLayer/Shop/TabBar"]
+layout_mode = 2
+texture_normal = ExtResource("88")
+texture_pressed = ExtResource("87")
+texture_disabled = ExtResource("87")
 
-[node name="Label" type="Label" parent="CanvasLayer/Shop/Tabs/SellTab"]
+[node name="Label" type="Label" parent="CanvasLayer/Shop/TabBar/SellTab"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 1.0
-margin_top = 1.0
-margin_right = -1.0
-custom_fonts/font = ExtResource( 10 )
+offset_left = 2.0
+offset_top = -4.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("19_36l8u")
 text = "Sell"
-align = 1
+horizontal_alignment = 1
+uppercase = true
 
-[node name="Black" type="TextureRect" parent="CanvasLayer"]
-modulate = Color( 0, 0, 0, 1 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 13 )
-stretch_mode = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Black"]
-anims/RESET = SubResource( 11 )
-anims/fadeIn = SubResource( 12 )
-anims/fadeOut = SubResource( 116 )
-
-[node name="Dead" type="Control" parent="CanvasLayer"]
+[node name="SignEdit" type="Panel" parent="CanvasLayer"]
 visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-script = ExtResource( 49 )
-
-[node name="BG" type="TextureRect" parent="CanvasLayer/Dead"]
-modulate = Color( 0.741176, 0, 0, 0.52549 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-texture = ExtResource( 13 )
-expand = true
-
-[node name="youDed" type="Label" parent="CanvasLayer/Dead"]
-anchor_right = 1.0
-margin_bottom = 30.0
-custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
-custom_fonts/font = ExtResource( 50 )
-text = "You Died!"
-align = 1
-valign = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Dead"]
+custom_minimum_size = Vector2(180, 110)
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -32.0
-margin_top = -23.0
-margin_right = 32.0
-margin_bottom = 23.0
-custom_constants/separation = 16
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("60_dyqfb")
+script = ExtResource("58_p8ek0")
 
-[node name="Respawn" type="TextureButton" parent="CanvasLayer/Dead/VBoxContainer"]
-margin_right = 64.0
-margin_bottom = 15.0
-texture_normal = SubResource( 10 )
+[node name="EditTextLbl" type="Label" parent="CanvasLayer/SignEdit"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 13.0
+grow_horizontal = 2
+text = "Edit Text"
+horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="CanvasLayer/Dead/VBoxContainer/Respawn"]
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer/SignEdit"]
+custom_minimum_size = Vector2(164, 74)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = -42.0
+offset_right = 82.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+wrap_mode = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SignEdit"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
-custom_fonts/font = ExtResource( 10 )
+offset_left = 3.0
+offset_top = -22.0
+offset_right = -3.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1
+
+[node name="ModeLbl" type="Label" parent="CanvasLayer/SignEdit/HBoxContainer"]
+layout_mode = 2
+text = "Mode:"
+
+[node name="ModeBtn" type="Button" parent="CanvasLayer/SignEdit/HBoxContainer"]
+layout_mode = 2
+text = "Click"
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/SignEdit/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 6
+
+[node name="Red" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="Orange" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(1, 0.501961, 0, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="Yellow" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(1, 1, 0, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="YellowGreen" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(0.501961, 1, 0, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="Green" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(0, 1, 0, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="BlueGreen" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(0, 1, 0.501961, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="Cornflower" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(0.388235, 0.580392, 0.929412, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="Blue" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(0, 0, 1, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="Purple" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(0.501961, 0, 1, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="Magenta" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(1, 0, 1, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="White" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="Black" type="TextureButton" parent="CanvasLayer/SignEdit/HBoxContainer/GridContainer"]
+modulate = Color(0.0784314, 0.0784314, 0.0862745, 1)
+layout_mode = 2
+texture_normal = ExtResource("59_b30rk")
+
+[node name="RadiusLbl" type="Label" parent="CanvasLayer/SignEdit/HBoxContainer"]
+layout_mode = 2
+text = "Radius:"
+
+[node name="RadiusInt" type="SpinBox" parent="CanvasLayer/SignEdit/HBoxContainer"]
+layout_mode = 2
+max_value = 200.0
+
+[node name="CloseBtn" type="Button" parent="CanvasLayer/SignEdit"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_right = -90.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Close"
+
+[node name="LockBtn" type="Button" parent="CanvasLayer/SignEdit"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 90.0
+offset_top = 1.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Lock"
+
+[node name="Black" type="TextureRect" parent="CanvasLayer"]
+modulate = Color(0, 0, 0, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("13")
+stretch_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Black"]
+libraries = {
+"": SubResource("AnimationLibrary_iw6f7")
+}
+
+[node name="Dead" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("12_23g2f")
+script = ExtResource("49")
+
+[node name="BG" type="TextureRect" parent="CanvasLayer/Dead"]
+material = SubResource("ShaderMaterial_8ln4b")
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("13")
+expand_mode = 1
+
+[node name="youDed" type="Label" parent="CanvasLayer/Dead"]
+layout_mode = 0
+anchor_right = 1.0
+offset_bottom = 30.0
+text = "You Died!"
+label_settings = SubResource("LabelSettings_8airn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Dead"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -23.0
+offset_right = 32.0
+offset_bottom = 23.0
+theme_override_constants/separation = 16
+
+[node name="Respawn" type="Button" parent="CanvasLayer/Dead/VBoxContainer"]
+layout_mode = 2
 text = "Respawn"
-align = 1
-valign = 1
 
-[node name="Quit" type="TextureButton" parent="CanvasLayer/Dead/VBoxContainer"]
-margin_top = 31.0
-margin_right = 64.0
-margin_bottom = 46.0
-texture_normal = SubResource( 10 )
-
-[node name="Label" type="Label" parent="CanvasLayer/Dead/VBoxContainer/Quit"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
-custom_fonts/font = ExtResource( 10 )
+[node name="Quit" type="Button" parent="CanvasLayer/Dead/VBoxContainer"]
+layout_mode = 2
 text = "Quit"
-align = 1
-valign = 1
 
 [node name="FPS" type="Label" parent="CanvasLayer"]
 visible = false
-margin_right = 40.0
-margin_bottom = 14.0
-
-[node name="Label" type="Label" parent="CanvasLayer"]
-visible = false
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = -8.0
-custom_colors/font_color_shadow = Color( 0.415686, 0.415686, 0.415686, 1 )
-custom_fonts/font = ExtResource( 10 )
-text = "TU 2 beta 5 (Unstable)"
-align = 1
-
-[node name="Notification" type="Control" parent="CanvasLayer"]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
+offset_right = 40.0
+offset_bottom = 14.0
+text = "60 FPS"
 
 [node name="Commands" type="LineEdit" parent="CanvasLayer"]
 visible = false
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_top = -10.0
-margin_right = 168.0
-custom_fonts/font = ExtResource( 60 )
-custom_styles/normal = SubResource( 117 )
+offset_left = 1.0
+offset_top = -13.0
+offset_right = 169.0
+offset_bottom = -1.0
+grow_vertical = 0
+theme = ExtResource("60_dyqfb")
 placeholder_text = "Type commands here"
-script = ExtResource( 61 )
+script = ExtResource("61")
+
+[node name="CommandHelp" type="RichTextLabel" parent="CanvasLayer/Commands"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -66.0
+offset_bottom = -1.0
+grow_horizontal = 2
 
 [node name="Title" type="Label" parent="CanvasLayer"]
-modulate = Color( 1, 1, 1, 0 )
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -119.0
-margin_top = -30.0
-margin_right = 119.0
-custom_colors/font_outline_modulate = Color( 0.6, 0.639216, 0.752941, 1 )
-custom_fonts/font = ExtResource( 57 )
-text = "If  your ie J or K slot"
-align = 1
-valign = 2
-autowrap = true
+offset_left = -128.0
+offset_top = 7.0
+offset_right = 129.0
+offset_bottom = 47.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0.6, 0.639216, 0.752941, 1)
+theme_override_fonts/font = SubResource("FontFile_653sy")
+text = "Hello! I am a sign. Signs display any text you want! I also have many different options below! Click mode requires you to click me, area mode makes me activate within a certain radius."
+label_settings = SubResource("LabelSettings_83to3")
+horizontal_alignment = 1
+autowrap_mode = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Title"]
-anims/RESET = SubResource( 85 )
-"anims/fade out" = SubResource( 86 )
-"anims/pop up" = SubResource( 87 )
+libraries = {
+"": SubResource("AnimationLibrary_5kbqp")
+}
+
+[node name="TitleTimer" type="Timer" parent="CanvasLayer/Title"]
+one_shot = true
 
 [node name="ItemData" type="Label" parent="CanvasLayer"]
 visible = false
-margin_right = 20.0
-margin_bottom = 8.0
+offset_right = 20.0
+offset_bottom = 8.0
 size_flags_horizontal = 12
 size_flags_vertical = 12
-custom_fonts/font = ExtResource( 10 )
+theme = ExtResource("12_23g2f")
 text = "Coppeickax"
-script = ExtResource( 63 )
+script = ExtResource("63")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/ItemData"]
 show_behind_parent = true
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -2.0
-margin_top = -1.0
-margin_right = 2.0
-margin_bottom = 1.0
-texture = ExtResource( 62 )
+offset_left = -2.0
+offset_top = -1.0
+offset_right = 2.0
+offset_bottom = 1.0
+texture = ExtResource("62")
 patch_margin_left = 3
 patch_margin_top = 3
 patch_margin_right = 3
@@ -3029,74 +3492,36 @@ patch_margin_bottom = 3
 
 [node name="Label2" type="Label" parent="CanvasLayer"]
 visible = false
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -13.0
-custom_colors/font_outline_modulate = Color( 0.278431, 0.278431, 0.278431, 1 )
-custom_fonts/font = ExtResource( 57 )
-text = "Tiny Pixel Planets TU4 Beta 8 (Development Build)"
-align = 1
-valign = 1
+offset_top = -13.0
+theme = ExtResource("12_23g2f")
+text = "Tiny Pixel Planets TU4.1 Godot 4 Port (Development Build)"
+horizontal_alignment = 1
 
 [node name="World" type="Node2D" parent="."]
-script = ExtResource( 1 )
-worldNoise = ExtResource( 51 )
-asteroidNoise = SubResource( 79 )
-oceanNoise = SubResource( 92 )
-noiseScale = 25
+script = ExtResource("1")
+worldHeight = 30
 
 [node name="blocks" type="Node2D" parent="World"]
-modulate = Color( 0.427451, 0.368627, 0.47451, 1 )
+modulate = Color(0.427451, 0.368627, 0.47451, 1)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="World"]
 
 [node name="Left" type="CollisionShape2D" parent="World/StaticBody2D"]
-position = Vector2( -6.5, 16.625 )
-shape = SubResource( 118 )
+position = Vector2(-6.5, 16.625)
+shape = SubResource("118")
 
 [node name="Right" type="CollisionShape2D" parent="World/StaticBody2D"]
-position = Vector2( 66.5, 15.5 )
-shape = SubResource( 119 )
+position = Vector2(66.5, 15.5)
+shape = SubResource("119")
 
 [node name="Bottom" type="CollisionShape2D" parent="World/StaticBody2D"]
-position = Vector2( 120, 66.5003 )
+position = Vector2(120, 66.5003)
 rotation = 1.5708
-shape = SubResource( 120 )
-
-[node name="TutorialParts" type="Node2D" parent="World"]
-
-[node name="Platforms" type="Area2D" parent="World/TutorialParts"]
-position = Vector2( 143.5, 128 )
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Platforms"]
-shape = SubResource( 88 )
-
-[node name="Sprint" type="Area2D" parent="World/TutorialParts"]
-position = Vector2( 463.5, 128 )
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Sprint"]
-shape = SubResource( 89 )
-
-[node name="Chest" type="Area2D" parent="World/TutorialParts"]
-position = Vector2( 843, 128 )
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Chest"]
-shape = SubResource( 90 )
-
-[node name="Mine" type="Area2D" parent="World/TutorialParts"]
-position = Vector2( 880, 128 )
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World/TutorialParts/Mine"]
-shape = SubResource( 91 )
+shape = SubResource("120")
 
 [node name="GlobalTick" type="Timer" parent="World"]
 wait_time = 0.1
@@ -3104,134 +3529,122 @@ autostart = true
 
 [node name="Deleting" type="Node2D" parent="World"]
 
-[node name="Cursor" type="Sprite" parent="."]
+[node name="Cursor" type="Sprite2D" parent="."]
 z_index = 5
-texture = ExtResource( 5 )
-script = ExtResource( 7 )
+texture = ExtResource("5")
+script = ExtResource("7")
 
 [node name="playerTest" type="Area2D" parent="Cursor"]
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cursor/playerTest"]
-shape = SubResource( 52 )
+shape = SubResource("52")
 
-[node name="break" type="Sprite" parent="Cursor"]
+[node name="break" type="Sprite2D" parent="Cursor"]
 visible = false
 show_behind_parent = true
-texture = ExtResource( 36 )
+texture = ExtResource("36")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Cursor/break"]
-anims/RESET = SubResource( 58 )
-anims/break = SubResource( 59 )
+libraries = {
+"": SubResource("AnimationLibrary_hurbd")
+}
 
 [node name="ShopTest" type="Area2D" parent="Cursor"]
 collision_layer = 0
 collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cursor/ShopTest"]
-shape = SubResource( 121 )
+shape = SubResource("121")
 
-[node name="Player" parent="." instance=ExtResource( 16 )]
-position = Vector2( 30, -6 )
+[node name="Player" parent="." instance=ExtResource("16")]
 z_index = 2
+position = Vector2(30, -6)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-offset = Vector2( 0, -30 )
-current = true
+offset = Vector2(0, -30)
 limit_left = 0
 limit_smoothed = true
-smoothing_enabled = true
+position_smoothing_enabled = true
 
-[node name="Light" type="Light2D" parent="Player"]
+[node name="Light3D" type="PointLight2D" parent="Player"]
 visible = false
-texture = ExtResource( 64 )
-texture_scale = 2.0
 range_item_cull_mask = 2
 shadow_item_cull_mask = 0
-
-[node name="Shadow" type="Light2D" parent="Player"]
-visible = false
-texture = ExtResource( 64 )
+texture = ExtResource("64")
 texture_scale = 2.0
+
+[node name="Shadow" type="PointLight2D" parent="Player"]
+visible = false
 shadow_enabled = true
+texture = ExtResource("64")
+texture_scale = 2.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 32 )
+environment = SubResource("32")
 
 [node name="sfx" type="Node" parent="."]
 
 [node name="crickets" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource( 27 )
+stream = ExtResource("27")
 volume_db = -35.0
 
 [node name="forest" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource( 26 )
+stream = ExtResource("26")
 volume_db = -35.0
 
 [node name="wind" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource( 28 )
+stream = ExtResource("28")
 volume_db = -35.0
 
 [node name="winterWind" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource( 32 )
+stream = ExtResource("32")
 
 [node name="Ocean" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource( 81 )
+stream = ExtResource("81")
 
 [node name="Rain" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource( 83 )
+stream = ExtResource("83")
 
 [node name="Entities" type="Node2D" parent="."]
-script = ExtResource( 43 )
+script = ExtResource("43")
 
 [node name="Spawn" type="Timer" parent="Entities"]
 wait_time = 10.0
 
 [node name="Hold" type="Node2D" parent="Entities"]
 
-[node name="weather" type="CanvasLayer" parent="."]
-layer = -1
+[node name="weather" type="Node2D" parent="."]
 
-[node name="Rain" type="Particles2D" parent="weather"]
-position = Vector2( 116, -6 )
-z_index = -1
-z_as_relative = false
+[node name="Rain" type="GPUParticles2D" parent="weather"]
+position = Vector2(116, -6)
 emitting = false
-visibility_rect = Rect2( -100, -100, 250, 200 )
-process_material = SubResource( 75 )
-texture = ExtResource( 45 )
+process_material = SubResource("ParticleProcessMaterial_ovjk6")
+texture = ExtResource("45")
+lifetime = 2.5
+visibility_rect = Rect2(-100, -100, 250, 200)
 
 [node name="WeatherAnimation" type="AnimationPlayer" parent="weather"]
-anims/RESET = SubResource( 93 )
-anims/blizzard = SubResource( 94 )
-anims/blizzard_no_start = SubResource( 107 )
-anims/blizzard_stop = SubResource( 95 )
-anims/none = SubResource( 96 )
-anims/rain = SubResource( 97 )
-anims/rain_no_start = SubResource( 108 )
-anims/rain_stop = SubResource( 98 )
-anims/showers = SubResource( 99 )
-anims/showers_no_start = SubResource( 109 )
-anims/showers_stop = SubResource( 100 )
-anims/snow = SubResource( 101 )
-anims/snow_no_start = SubResource( 110 )
-anims/snow_stop = SubResource( 102 )
+libraries = {
+"": SubResource("AnimationLibrary_nsugu")
+}
 
 [node name="WeatherTimer" type="Timer" parent="weather"]
 one_shot = true
 
-[node name="Snow" type="Particles2D" parent="weather"]
-material = SubResource( 103 )
-position = Vector2( 150, 0 )
+[node name="Snow" type="GPUParticles2D" parent="weather"]
+material = SubResource("103")
+position = Vector2(150, 0)
 emitting = false
 amount = 100
+process_material = SubResource("ParticleProcessMaterial_i84x0")
+texture = ExtResource("66")
 lifetime = 10.0
-process_material = SubResource( 106 )
-texture = ExtResource( 66 )
 
 [node name="Effects" type="Node2D" parent="."]
-script = ExtResource( 47 )
+z_index = 5
+script = ExtResource("47")
 
 [connection signal="timeout" from="CanvasLayer/Enviroment/Meteors/MeteorTimer" to="CanvasLayer/Enviroment/Meteors" method="_on_MeteorTimer_timeout"]
 [connection signal="timeout" from="CanvasLayer/Enviroment/Meteors/StageProgress" to="CanvasLayer/Enviroment/Meteors" method="_on_StageProgress_timeout"]
@@ -3239,21 +3652,22 @@ script = ExtResource( 47 )
 [connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn2" to="CanvasLayer/Inventory" method="_on_InventoryBtn2_pressed"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/GoUp" to="World" method="_on_GoUp_pressed"]
 [connection signal="updated_armor" from="CanvasLayer/Inventory/Armor" to="Player" method="_on_Armor_updated_armor"]
-[connection signal="pressed" from="CanvasLayer/Shop/Tabs/BuyTab" to="CanvasLayer/Shop" method="_on_BuyTab_pressed"]
-[connection signal="pressed" from="CanvasLayer/Shop/Tabs/SellTab" to="CanvasLayer/Shop" method="_on_SellTab_pressed"]
+[connection signal="pressed" from="CanvasLayer/Shop/TabBar/BuyTab" to="CanvasLayer/Shop" method="_on_BuyTab_pressed"]
+[connection signal="pressed" from="CanvasLayer/Shop/TabBar/SellTab" to="CanvasLayer/Shop" method="_on_SellTab_pressed"]
+[connection signal="text_changed" from="CanvasLayer/SignEdit/TextEdit" to="CanvasLayer/SignEdit" method="_on_text_edit_text_changed"]
+[connection signal="pressed" from="CanvasLayer/SignEdit/HBoxContainer/ModeBtn" to="CanvasLayer/SignEdit" method="_on_mode_btn_pressed"]
+[connection signal="value_changed" from="CanvasLayer/SignEdit/HBoxContainer/RadiusInt" to="CanvasLayer/SignEdit" method="_on_radius_int_value_changed"]
+[connection signal="pressed" from="CanvasLayer/SignEdit/CloseBtn" to="CanvasLayer/SignEdit" method="_on_close_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/SignEdit/LockBtn" to="CanvasLayer/SignEdit" method="_on_lock_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Respawn" to="CanvasLayer/Dead" method="_on_Respawn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Quit" to="CanvasLayer/Dead" method="_on_Quit_pressed"]
-[connection signal="text_entered" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_Commands_text_entered"]
+[connection signal="text_changed" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_text_changed"]
+[connection signal="text_submitted" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_Commands_text_entered"]
+[connection signal="timeout" from="CanvasLayer/Title/TitleTimer" to="." method="_on_title_timer_timeout"]
 [connection signal="world_loaded" from="World" to="." method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="CanvasLayer/ParallaxBackground/Space" method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="CanvasLayer/Enviroment" method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="Entities" method="_on_World_world_loaded"]
-[connection signal="body_entered" from="World/TutorialParts/Platforms" to="." method="_on_Area2D_body_entered"]
-[connection signal="body_exited" from="World/TutorialParts/Platforms" to="." method="_on_Area2D_body_exited"]
-[connection signal="body_entered" from="World/TutorialParts/Sprint" to="." method="_on_Sprint_body_entered"]
-[connection signal="body_exited" from="World/TutorialParts/Sprint" to="." method="_on_Sprint_body_exited"]
-[connection signal="body_entered" from="World/TutorialParts/Chest" to="." method="_on_Chest_body_entered"]
-[connection signal="body_entered" from="World/TutorialParts/Mine" to="." method="_on_Mine_body_entered"]
 [connection signal="timeout" from="World/GlobalTick" to="World" method="_on_GlobalTick_timeout"]
 [connection signal="body_entered" from="Cursor/playerTest" to="Cursor" method="_on_playerTest_body_entered"]
 [connection signal="body_exited" from="Cursor/playerTest" to="Cursor" method="_on_playerTest_body_exited"]

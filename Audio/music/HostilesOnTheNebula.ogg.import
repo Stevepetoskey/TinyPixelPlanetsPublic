@@ -1,15 +1,19 @@
 [remap]
 
-importer="ogg_vorbis"
-type="AudioStreamOGGVorbis"
-path="res://.import/HostilesOnTheNebula.ogg-5e4241a4eabefba0e4b34fb270bf23bc.oggstr"
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b77swr4kkg8ov"
+path="res://.godot/imported/HostilesOnTheNebula.ogg-5e4241a4eabefba0e4b34fb270bf23bc.oggvorbisstr"
 
 [deps]
 
 source_file="res://Audio/music/HostilesOnTheNebula.ogg"
-dest_files=[ "res://.import/HostilesOnTheNebula.ogg-5e4241a4eabefba0e4b34fb270bf23bc.oggstr" ]
+dest_files=["res://.godot/imported/HostilesOnTheNebula.ogg-5e4241a4eabefba0e4b34fb270bf23bc.oggvorbisstr"]
 
 [params]
 
 loop=false
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

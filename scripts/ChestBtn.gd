@@ -2,7 +2,7 @@ extends TextureButton
 
 var loc = 0
 
-onready var chest_gui = $"../../.."
+@onready var chest_gui = $"../../.."
 
 func _pressed() -> void:
 	chest_gui.chest_btn_clicked(loc,self)

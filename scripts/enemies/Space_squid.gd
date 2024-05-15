@@ -13,7 +13,8 @@ var motion := Vector2(0,0)
 var animating = false
 var canDamage = true
 
-onready var player = get_node("../../../Player")
+@onready var player = get_node("../../../Player")
+@onready var body: AnimatedSprite2D = $Body
 
 func _ready():
 	maxHealth = 50
@@ -22,18 +23,16 @@ func _ready():
 
 func _physics_process(delta):
 	if !Global.pause:
-		$Label.text = state
 		if position.distance_to(player.position) <= 64:
 			var space_state = get_world_2d().direct_space_state
-			var result = space_state.intersect_ray(global_position, player.global_position,[self],3)
-			if result.collider == player:
+			var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self])
+			var result = space_state.intersect_ray(params)
+			if !result.is_empty() and result.collider == player:
 				if !seePlayer:
 					$seeTimer.stop()
 					lostPlayer = false
-	#				seePlayer = true
-	#				seenPos = player.position
 					$Seen.show()
-					yield(get_tree().create_timer(1),"timeout")
+					await get_tree().create_timer(1).timeout
 					$Seen.hide()
 				seePlayer = true
 				seenPos = player.position
@@ -43,14 +42,14 @@ func _physics_process(delta):
 		match state:
 			"roam":
 				if randi()%100 == 1 or seePlayer:
-					var dir = deg2rad(rand_range(0,360))
+					var dir = deg_to_rad(randf_range(0,360))
 					if seePlayer:
-						dir = position.angle_to_point(player.position) + deg2rad(180)
-					rotation = dir + deg2rad(90)
-					$AnimatedSprite.play("thrust")
+						dir = position.angle_to_point(player.position)
+					rotation = dir + deg_to_rad(90)
+					body.play("thrust")
 					state = "in_motion"
 					animating = true
-					yield(get_tree().create_timer(0.5),"timeout")
+					await get_tree().create_timer(0.5).timeout
 					animating = false
 					motion = Vector2(cos(dir)*MAX_SPEED,sin(dir)*MAX_SPEED)
 		if motion.length() > 0.5:
@@ -58,7 +57,9 @@ func _physics_process(delta):
 		elif !animating:
 			motion = Vector2(0,0)
 			state = "roam"
-		motion = move_and_slide(motion)
+		set_velocity(motion)
+		move_and_slide()
+		motion = velocity
 
 func _on_seeTimer_timeout():
 	seePlayer = false
@@ -77,6 +78,6 @@ func _on_HitBox_body_exited(body):
 	$HurtTimer.stop()
 
 func _on_AnimatedSprite_animation_finished() -> void:
-	match $AnimatedSprite.animation:
+	match body.animation:
 		"thrust","hurt":
-			$AnimatedSprite.play("idle")
+			body.play("idle")

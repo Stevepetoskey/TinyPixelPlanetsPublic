@@ -22,6 +22,8 @@ var hairStyles = ["Short","Long","Beard","Farmer","Bald","Beard_bald"]
 var fHair = [0,1,3,4]
 var mHair = [0,2,4,5]
 
+@onready var load_save: Control = $"../loadSave"
+
 func open():
 	randomize()
 	if randi()%3 == 1:
@@ -30,7 +32,7 @@ func open():
 		skinCol = starterCharacters[character]["skin"]
 		hairCol = starterCharacters[character]["hairCol"]
 		hairSty = starterCharacters[character]["hair"]
-		sex = starterCharacters[character]["sex"]
+		genCharacter(starterCharacters[character]["sex"])
 	else:
 		if randi()%2==1:
 			genCharacter("Guy")
@@ -48,11 +50,21 @@ func open():
 func genCharacter(charSex : String):
 	sex = charSex
 	if charSex == "Guy":
+		$Female.button_pressed = false
+		$Male.disabled = true
+		$Female.disabled = false
+		$Female.z_index = 0
+		$Male.z_index = 1
 		randMNames.shuffle()
 		charName = randMNames[0]
 		mHair.shuffle()
 		hairSty = mHair[0]
 	else:
+		$Male.button_pressed = false
+		$Female.disabled = true
+		$Male.disabled = false
+		$Female.z_index = 1
+		$Male.z_index = 0
 		randFNames.shuffle()
 		charName = randFNames[0]
 		fHair.shuffle()
@@ -73,12 +85,12 @@ func _on_Name_text_changed(new_text):
 
 func _on_back_pressed():
 	hide()
-	get_node("../loadSave").cancel()
+	load_save.cancel()
 
 func _on_Start_pressed():
 	Global.playerBase = {"skin":skinColors[skinCol],"hair_style":hairStyles[hairSty],"hair_color":hairColors[hairCol],"sex":sex}
 	Global.playerName = charName
-	get_node("../loadSave").start()
+	load_save.start()
 
 func left(type : String):
 	match type:
@@ -115,17 +127,11 @@ func right(type : String):
 func _on_Female_pressed():
 	sex = "Woman"
 	genCharacter(sex)
-	$Male.pressed = false
-	$Female.disabled = true
-	$Male.disabled = false
 	update_char()
 
 func _on_Male_pressed():
 	sex = "Guy"
 	genCharacter(sex)
-	$Female.pressed = false
-	$Male.disabled = true
-	$Female.disabled = false
 	update_char()
 
 func _on_Scenarios_pressed():

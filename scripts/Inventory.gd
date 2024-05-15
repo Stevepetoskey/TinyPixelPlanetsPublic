@@ -7,20 +7,20 @@ const ITEM_PER_PAGE = 8
 var INVENTORY_SIZE = 20
 const ITEM_STACK_SIZE = 99
 
-onready var world = get_node("../../World")
-onready var slot1 = get_node("../Hotbar/InventoryBtn")
-onready var slot2 = $"../Hotbar/InventoryBtn2"
-onready var jAction = get_node("../Hotbar/J")
-onready var kAction = get_node("../Hotbar/K")
-onready var cursor = get_node("../../Cursor")
-onready var crafting = get_node("../Crafting")
-onready var chest = get_node("../Chest")
-onready var entities = $"../../Entities"
-onready var item_container = $ItemScroll/ItemContainer
-onready var shop: Control = $"../Shop"
+@onready var world = get_node("../../World")
+@onready var slot1 = get_node("../Hotbar/InventoryBtn")
+@onready var slot2 = $"../Hotbar/InventoryBtn2"
+@onready var jAction = get_node("../Hotbar/J")
+@onready var kAction = get_node("../Hotbar/K")
+@onready var cursor = get_node("../../Cursor")
+@onready var crafting = get_node("../Crafting")
+@onready var chest = get_node("../Chest")
+@onready var entities = $"../../Entities"
+@onready var item_container = $ItemScroll/ItemContainer
+@onready var shop: Control = $"../Shop"
 
 #{"id":1,"amount",2}
-var inventory = []
+var inventory : Array = []
 var jRef = -1 #Where the j reference is located in inventory
 var kRef = -1
 var jId = 0
@@ -34,9 +34,9 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel") and visible:
-		yield(get_tree(),"idle_frame")
+		await get_tree().process_frame
 		inventoryToggle(false,false,"close")
-	if Input.is_action_just_pressed("Inventory") and !Global.pause:
+	if Input.is_action_just_pressed("inventory") and (!Global.pause or visible):
 		inventoryToggle()
 	if Input.is_action_just_pressed("background_toggle") and !Global.pause:
 		cursor.currentLayer = int(!bool(cursor.currentLayer))
@@ -80,7 +80,7 @@ func add_to_inventory(id : int,amount : int,drop = true,data := {}) -> Dictionar
 
 func remove_loc_from_inventory(loc : int) -> void:
 	if loc < inventory.size() and !Global.godmode:
-		inventory.remove(loc)
+		inventory.remove_at(loc)
 		update_inventory()
 
 func remove_amount_at_loc(loc : int,amount : int) -> void:
@@ -128,28 +128,28 @@ func update_inventory() -> void:
 	if Global.godmode:
 		INVENTORY_SIZE = world.blockData.size() + world.itemData.size() + 5
 		for block in world.blockData:
-			if find_item(block).empty():
+			if find_item(block).is_empty():
 				inventory.append({"id":block,"amount":1})
 		for item in world.itemData:
-			if find_item(item).empty():
+			if find_item(item).is_empty():
 				inventory.append({"id":item,"amount":1})
 	
 	holding = false
 	holdingRef = -1
 	
 	#Gets j and k refs
-	if !find_item(jId).empty():
+	if !find_item(jId).is_empty():
 		jRef = inventory.find(find_item(jId))
 	else:
 		jRef = -1
 		jId = 0
-	if !find_item(kId).empty():
+	if !find_item(kId).is_empty():
 		kRef = inventory.find(find_item(kId))
 	else:
 		kRef = -1
 		kId = 0
 	
-	if !inventory.empty():
+	if !inventory.is_empty():
 		#clears all items
 		for item in item_container.get_children():
 			item.queue_free()
@@ -189,9 +189,9 @@ func update_inventory() -> void:
 		
 		#Creates items
 		for itemLoc in range(2,inventory.size()):
-			var itemNode = INV_BTN.instance()
+			var itemNode = INV_BTN.instantiate()
 			itemNode.loc = itemLoc
-			itemNode.get_node("Sprite").texture = get_item_texture(inventory[itemLoc]["id"],itemLoc)
+			itemNode.get_node("Sprite2D").texture = get_item_texture(inventory[itemLoc]["id"],itemLoc)
 			itemNode.get_node("Amount").text = str(inventory[itemLoc]["amount"])
 			item_container.add_child(itemNode)
 	else:
@@ -214,8 +214,8 @@ func inv_btn_clicked(loc : int,item : Object):
 			jId = 0
 		if loc == kRef:
 			kId = 0
-		inventory.remove(loc)
-		if leftover.empty():
+		inventory.remove_at(loc)
+		if leftover.is_empty():
 			update_inventory()
 			chest.update_chest()
 		else:
@@ -241,7 +241,7 @@ func inv_btn_clicked(loc : int,item : Object):
 			update_inventory()
 
 func mouse_in_btn(loc : int):
-	if inventory.has(loc):
+	if inventory.size() > loc:
 		var itemData = world.get_item_data(inventory[loc]["id"])
 		if itemData.has("name"):
 			var text = itemData["name"]
@@ -302,8 +302,8 @@ func _on_InventoryBtn_pressed():
 				jId = 0
 			if kRef == 0:
 				kId = 0
-			inventory.remove(0)
-			if leftover.empty():
+			inventory.remove_at(0)
+			if leftover.is_empty():
 				update_inventory()
 				chest.update_chest()
 			else:
@@ -336,8 +336,8 @@ func _on_InventoryBtn2_pressed():
 				jId = 1
 			if kRef == 1:
 				kId = 1
-			inventory.remove(1)
-			if leftover.empty():
+			inventory.remove_at(1)
+			if leftover.is_empty():
 				update_inventory()
 				chest.update_chest()
 			else:

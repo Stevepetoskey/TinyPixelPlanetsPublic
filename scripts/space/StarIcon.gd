@@ -1,6 +1,6 @@
 extends TextureButton
 
-onready var galaxy = get_node("../../..")
+@onready var galaxy = get_node("../../..")
 
 var systemSeed = 0
 var systemId = ""

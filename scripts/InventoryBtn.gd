@@ -3,7 +3,7 @@ extends TextureButton
 var loc = 0
 var mouseIn = false
 
-onready var inventory = $"../../.."
+@onready var inventory = $"../../.."
 
 func _ready():
 	if inventory.jRef == loc:
