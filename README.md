@@ -23,3 +23,8 @@ This branch is for my unstable development process in porting Tiny Pixel Planets
 
 ## Dev notes
 - TU4 and before saves will no longer work in TU4.1 due to Godot 4’s changes in file storage
+
+# Tiny Pixel PLanets TU4.2 (v0.4.2)
+## Fixes
+- Fixed gui elements not working after going to a new star system
+- Fixed second hotbar slot still showing an item when inventory is completely empty

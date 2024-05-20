@@ -196,6 +196,7 @@ func update_inventory() -> void:
 			item_container.add_child(itemNode)
 	else:
 		slot1.hide()
+		slot2.hide()
 	crafting.update_crafting()
 
 func get_item_texture(id : int, loc : int):

@@ -609,9 +609,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = 16.0
-offset_right = 192.0
-offset_bottom = 208.0
+offset_left = -142.0
+offset_top = -64.0
+offset_right = 50.0
+offset_bottom = 128.0
 texture = ExtResource("3")
 expand_mode = 1
 stretch_mode = 6
@@ -999,6 +1000,67 @@ id = 1
 layout_mode = 2
 id = 2
 
+[node name="Warning" type="Panel" parent="World/loadSave"]
+visible = false
+custom_minimum_size = Vector2(2.08165e-12, 96)
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="World/loadSave/Warning"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 2.0
+offset_bottom = 14.0
+grow_horizontal = 2
+text = "WARNING!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Body" type="Label" parent="World/loadSave/Warning"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 16.0
+offset_right = -4.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "While TU4.1 saves work in TU4.2, if the save was created on the Windows export, the shop center does not exist."
+autowrap_mode = 2
+
+[node name="BackBtn" type="Button" parent="World/loadSave/Warning"]
+custom_minimum_size = Vector2(71, 2.08165e-12)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -16.0
+offset_right = 26.0
+grow_vertical = 0
+text = "Back"
+
+[node name="OkBtn" type="Button" parent="World/loadSave/Warning"]
+custom_minimum_size = Vector2(71, 2.08165e-12)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -26.0
+offset_top = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Ok"
+
 [node name="character" type="Control" parent="World"]
 visible = false
 anchors_preset = 0
@@ -1346,7 +1408,7 @@ offset_top = -10.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Tiny Pixel Planets TU4.1 (v0.4.1)"
+text = "Tiny Pixel Planets TU4.2 (v0.4.2)"
 horizontal_alignment = 1
 
 [node name="Credits" type="Panel" parent="."]
@@ -1600,6 +1662,8 @@ mouse_filter = 0
 [connection signal="value_changed" from="Settings/ScrollContainer/VBoxContainer/MusicSlider" to="Settings" method="_on_MusicSlider_value_changed"]
 [connection signal="pressed" from="Settings/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="World/loadSave/back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="World/loadSave/Warning/BackBtn" to="World/loadSave" method="_on_back_btn_pressed"]
+[connection signal="pressed" from="World/loadSave/Warning/OkBtn" to="World/loadSave" method="_on_ok_btn_pressed"]
 [connection signal="pressed" from="World/character/Female" to="World/character" method="_on_Female_pressed"]
 [connection signal="pressed" from="World/character/Male" to="World/character" method="_on_Male_pressed"]
 [connection signal="text_changed" from="World/character/Name" to="World/character" method="_on_Name_text_changed"]

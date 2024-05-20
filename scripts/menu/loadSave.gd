@@ -41,9 +41,15 @@ func update_save_list() -> void:
 func save_clicked(save : Object) -> void:
 	selectedSave = save.name
 	if Global.save_exists(save.name):
-		start()
+		var savegame = FileAccess.open(Global.save_path + save.name + "/playerData.dat",FileAccess.READ)
+		var playerData = savegame.get_var()
+		if playerData.has("version") and playerData["version"] == [0,4,1,0]:
+			$Warning.show()
+		else:
+			start()
 	else:
 		hide()
+		$Warning.hide()
 		get_node("../character").open()
 		$"../../Scenarios".scenario_btn_pressed("sandbox")
 
@@ -54,6 +60,7 @@ func delete_file(save : Object) -> void:
 func cancel():
 	selectedSave = ""
 	show()
+	$Warning.hide()
 
 func start(tutorial = false):
 	get_node("..").hide()
@@ -65,3 +72,10 @@ func start(tutorial = false):
 		Global.open_tutorial()
 	else:
 		Global.open_save(selectedSave)
+
+func _on_back_btn_pressed() -> void:
+	$Warning.hide()
+	selectedSave = ""
+
+func _on_ok_btn_pressed() -> void:
+	start()
