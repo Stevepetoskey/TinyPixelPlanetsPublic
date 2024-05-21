@@ -6,11 +6,11 @@ res://themes/space.tres
 res://fonts/PixelPossNOSPACE.tres
 res://scripts/PlanetShade.gd
 res://shaders/SkyBody3.tres
+res://shaders/SkyBody2.tres
 res://themes/menu.tres
 res://themes/menu_alt.tres
 res://shaders/Pause.gdshader
 res://textures/player/animations/body/M_animation.tres
-res://shaders/SkyBody2.tres
 res://noise/Terra.tres
 res://shaders/2DPlanetShading.tres
 res://shaders/SkyBody2.gdshader
@@ -24,8 +24,5 @@ res://assets/Player.tscn
 res://scenes/Galaxy.tscn
 res://assets/enemies/Slorg.tscn
 res://scenes/tools/noise_test.tscn
-res://scripts/Inventory.gd
-res://README.md
-res://scripts/menu/loadSave.gd
+res://assets/CraftBtn.tscn
 res://scripts/Global.gd
-res://scripts/menu/Menu.gd

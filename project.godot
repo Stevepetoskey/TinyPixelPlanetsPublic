@@ -11,15 +11,15 @@ config_version=5
 [application]
 
 config/name="Tiny Pixel Worlds"
-config/version="0.4.0 GODOT 4"
+config/version="0.4.2"
 run/main_scene="res://scenes/Boot.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="TinyPixelPlanetsGodot4"
 config/features=PackedStringArray("4.2")
 boot_splash/bg_color=Color(1, 1, 1, 1)
 boot_splash/show_image=false
-config/icon="res://textures/planets/terraMedium.png"
-config/windows_native_icon="res://textures/icons/terraMedium.ico"
+config/icon="res://textures/icons/TPP_Icon.png"
+config/windows_native_icon="res://textures/icons/TPP_Icon.ico"
 
 [autoload]
 
