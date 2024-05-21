@@ -11,7 +11,6 @@ const ALLOW_VERSIONS = [
 const STABLE = false
 
 var save_path = "user://" #place of the file
-@onready var tutorial_path = "res://data/Tutorial"
 var currentSave : String
 var new = true
 var gameStart = true
@@ -110,8 +109,8 @@ func open_tutorial():
 	dir.make_dir("planets")
 	#DirAccess.copy_absolute("res://data/Tutorial",save_path + currentSave)
 	#copy_directory_recursively("res://data/Tutorial",save_path + currentSave)
-	copy_directory_recursively("res://data/Tutorial/planets/",save_path + currentSave + "/planets")
-	copy_directory_recursively("res://data/Tutorial/systems/",save_path + currentSave + "/systems")
+	copy_directory_recursively("res://data/Tutorial/planets",save_path + currentSave + "/planets",true)
+	copy_directory_recursively("res://data/Tutorial/systems",save_path + currentSave + "/systems",true)
 	currentPlanet = 3
 	starterPlanetId = 3
 	currentSystemId = "3941924765520"
@@ -189,8 +188,8 @@ func new_save(saveId : String):
 	dir.open(save_path + saveId)
 	dir.make_dir("systems")
 	dir.make_dir("planets")
-	copy_directory_recursively("res://data/pre_made_planets/",save_path + saveId + "/planets")
-	copy_directory_recursively("res://data/pre_made_systems/",save_path + saveId + "/systems")
+	copy_directory_recursively("res://data/pre_made_planets",save_path + saveId + "/planets",true)
+	copy_directory_recursively("res://data/pre_made_systems",save_path + saveId + "/systems",true)
 	GlobalGui.completedAchievements = []
 	globalGameTime = 0
 	var _er = get_tree().change_scene_to_file("res://scenes/Main.tscn")
@@ -308,7 +307,7 @@ func remove_recursive(path): #Credit to davidepesce.com for this function. It de
 	else:
 		print("Error removing " + path)
 
-func copy_directory_recursively(p_from : String, p_to : String) -> void:
+func copy_directory_recursively(p_from : String, p_to : String, fromRes : bool) -> void:
 	if not DirAccess.dir_exists_absolute(p_to):
 		DirAccess.make_dir_absolute(p_to)
 	var dir = DirAccess.open(p_from)
@@ -316,9 +315,14 @@ func copy_directory_recursively(p_from : String, p_to : String) -> void:
 	var file_name = dir.get_next()
 	while (file_name != "" and file_name != "." and file_name != ".."):
 		if dir.current_is_dir():
-			copy_directory_recursively(p_from + "/" + file_name, p_to + "/" + file_name)
+			copy_directory_recursively(p_from + "/" + file_name, p_to + "/" + file_name,fromRes)
 		else:
-			dir.copy_absolute(p_from + "/" + file_name, p_to + "/" + file_name)
+			if fromRes:
+				print(p_from + "/" + file_name)
+				var resDir = DirAccess.open("res://")
+				resDir.copy(p_from + "/" + file_name, p_to + "/" + file_name)
+			else:
+				dir.copy_absolute(p_from + "/" + file_name, p_to + "/" + file_name)
 		file_name = dir.get_next()
 
 func game_time_second():

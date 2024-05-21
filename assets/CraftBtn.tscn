@@ -1,6 +1,6 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=5 format=3 uid="uid://cmfcdryfap1g0"]
 
-[ext_resource type="FontFile" path="res://fonts/pixel.tres" id="1"]
+[ext_resource type="Theme" uid="uid://bvlk5mt2axnwa" path="res://themes/Gray.tres" id="1_n4iqs"]
 [ext_resource type="Texture2D" uid="uid://hpcjp7k0yhyy" path="res://textures/GUI/main/crafting/crafting_btn.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://cjefuit7vryf7" path="res://textures/blocks/Cobble.png" id="3"]
 [ext_resource type="Script" path="res://scripts/CraftBtn.gd" id="4"]
@@ -8,73 +8,71 @@
 [node name="CraftBtn" type="TextureButton"]
 offset_right = 99.0
 offset_bottom = 14.0
-texture_normal = ExtResource( 2 )
-script = ExtResource( 4 )
+theme = ExtResource("1_n4iqs")
+texture_normal = ExtResource("2")
+script = ExtResource("4")
 
 [node name="Recipe1" type="Sprite2D" parent="."]
-position = Vector2( 66, 7 )
-texture = ExtResource( 3 )
+position = Vector2(66, 7)
+texture = ExtResource("3")
 
 [node name="R1Amount" type="Label" parent="."]
+layout_mode = 0
 offset_left = 51.0
-offset_top = 4.0
+offset_top = 2.0
 offset_right = 61.0
 offset_bottom = 12.0
-theme_override_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
-theme_override_fonts/font = ExtResource( 1 )
+theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
 text = "99"
-align = 2
 clip_text = true
 
 [node name="Recipe2" type="Sprite2D" parent="."]
 visible = false
-position = Vector2( 40, 7 )
-texture = ExtResource( 3 )
+position = Vector2(40, 7)
+texture = ExtResource("3")
 
 [node name="R2Amount" type="Label" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 25.0
-offset_top = 4.0
+offset_top = 2.0
 offset_right = 35.0
 offset_bottom = 12.0
-theme_override_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
-theme_override_fonts/font = ExtResource( 1 )
+theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
 text = "99"
-align = 2
 clip_text = true
 
 [node name="Result" type="Sprite2D" parent="."]
-position = Vector2( 92, 7 )
-texture = ExtResource( 3 )
+position = Vector2(92, 7)
+texture = ExtResource("3")
 
 [node name="R3Amount" type="Label" parent="."]
+layout_mode = 0
 offset_left = 77.0
-offset_top = 4.0
+offset_top = 2.0
 offset_right = 87.0
 offset_bottom = 12.0
-theme_override_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
-theme_override_fonts/font = ExtResource( 1 )
+theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
 text = "99"
-align = 2
 clip_text = true
 
 [node name="=" type="Label" parent="."]
+layout_mode = 0
 offset_left = 72.0
-offset_top = 4.0
+offset_top = 2.0
 offset_right = 76.0
 offset_bottom = 12.0
-theme_override_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
-theme_override_fonts/font = ExtResource( 1 )
+theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
 text = "="
 
 [node name="+" type="Label" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 46.0
-offset_top = 4.0
+offset_top = 2.0
 offset_right = 50.0
 offset_bottom = 12.0
-theme_override_colors/font_color = Color( 0.854902, 0.878431, 0.917647, 1 )
-theme_override_fonts/font = ExtResource( 1 )
+theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
 text = "+"
 
 [connection signal="mouse_entered" from="." to="." method="_on_CraftBtn_mouse_entered"]
