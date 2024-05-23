@@ -1,8 +1,8 @@
 extends Node
 
 var musicPool = {
-	"regular":[preload("res://Audio/music/TinyPlanets.ogg"),preload("res://Audio/music/Alpha-Andromedae.ogg"),preload("res://Audio/music/Cosmic-Wonders.wav"),preload("res://Audio/music/The-Edge-of-Time.wav"),preload("res://Audio/music/Tiny-Systems.wav")],
-	"space":[preload("res://Audio/music/Found.wav"),preload("res://Audio/music/Lost_in_space.wav")]
+	"regular":[preload("res://Audio/music/TinyPlanets.ogg"),preload("res://Audio/music/Alpha-Andromedae.ogg"),preload("res://Audio/music/Cosmic-Wonders.ogg"),preload("res://Audio/music/The-Edge-of-Time.ogg"),preload("res://Audio/music/Tiny-Systems.ogg")],
+	"space":[preload("res://Audio/music/Found.ogg"),preload("res://Audio/music/Lost_in_space.ogg")]
 	}
 
 var mode = "menu"
