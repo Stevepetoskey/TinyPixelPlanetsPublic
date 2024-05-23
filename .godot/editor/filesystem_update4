@@ -1,3 +1,4 @@
+res://scenes/Main.tscn
 res://default_env.tres
 res://scenes/Menu.tscn
 res://themes/Blue.tres
@@ -15,7 +16,6 @@ res://noise/Terra.tres
 res://shaders/2DPlanetShading.tres
 res://shaders/SkyBody2.gdshader
 res://shaders/2DPlanetShading.gdshader
-res://scenes/Main.tscn
 res://scenes/starSystem.tscn
 res://scenes/PlanetSelect.tscn
 res://assets/blocks/Block.tscn
@@ -25,4 +25,5 @@ res://scenes/Galaxy.tscn
 res://assets/enemies/Slorg.tscn
 res://scenes/tools/noise_test.tscn
 res://assets/CraftBtn.tscn
-res://scripts/Global.gd
+res://scripts/Audio/GlobalAudio.gd
+res://scenes/GlobalAudio.tscn
