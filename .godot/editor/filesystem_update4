@@ -15,3 +15,13 @@ res://fonts/PixelPossNOSPACE.tres
 res://shaders/2DPlanetShading.tres
 res://shaders/SkyBody2.gdshader
 res://shaders/2DPlanetShading.gdshader
+res://README.md
+res://scenes/Menu.tscn
+res://assets/blocks/Block.tscn
+res://assets/blocks/Foliage.tscn
+res://scenes/starSystem.tscn
+res://scenes/PlanetSelect.tscn
+res://assets/blocks/Lever.tscn
+res://assets/blocks/wire.tscn
+res://assets/blocks/DisplayBlock.tscn
+res://assets/blocks/LogicBlock.tscn

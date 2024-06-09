@@ -1,9 +1,9 @@
-# Tiny Pixel Planets
+# Tiny Pixel Planets Title Update 5 branch (unstable)
+This branch is for unstable development of TU5 (v0.5.0)
 
-![FinalThumbnail.jpg](https://github.com/Stevepetoskey/TinyPixelPlanetsPublic/blob/e09e8cbaa03b0d21f48765cd13aaa2102ac7510f/FinalThumbnail.jpg)
-
-Tiny Pixel Planets is a Terraria like sandbox game in space. 
-Tiny Pixel Planet uses Godot 4.2.2 (As of TU4.1/ v0.4.1)
-
-Release packages can be found on the [itch.io page](https://sp-possibilities.itch.io/tiny-pixel-planets).
-The itch.io page also has all the update changes on the devlogs from TU1 to TU4.2.
+## TU5.2 (v0.5.0:2)
+- Began working on wire system (system is not finalized yet)
+- Added levers and display blocks
+- Added Grassland planets
+- Added Acacia trees, acacia wood, acacia planks, acacia saplings, dry grass, dry dirt, acacia crafting table, acacia chest, grass, and tall grass
+- Added pink, white, and brown granite and polished granite
