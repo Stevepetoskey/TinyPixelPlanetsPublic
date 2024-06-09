@@ -1,2 +1,3 @@
+AnimatedTexture
 Theme
 FontVariation

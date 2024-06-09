@@ -1,0 +1,17 @@
+[gd_resource type="AnimatedTexture" load_steps=5 format=3 uid="uid://cddi73qq286ke"]
+
+[ext_resource type="Texture2D" uid="uid://dws4ws2f2aput" path="res://textures/blocks/misc/red_wire/red_wire1.png" id="1_57da8"]
+[ext_resource type="Texture2D" uid="uid://bve3qv8hys2k2" path="res://textures/blocks/misc/red_wire/red_wire2.png" id="2_da4h5"]
+[ext_resource type="Texture2D" uid="uid://2syxojfkc5ck" path="res://textures/blocks/misc/red_wire/red_wire3.png" id="3_055u7"]
+[ext_resource type="Texture2D" uid="uid://8i6iweka18ji" path="res://textures/blocks/misc/red_wire/red_wire4.png" id="4_je5gq"]
+
+[resource]
+frames = 4
+frame_0/texture = ExtResource("1_57da8")
+frame_0/duration = 0.5
+frame_1/texture = ExtResource("2_da4h5")
+frame_1/duration = 0.5
+frame_2/texture = ExtResource("3_055u7")
+frame_2/duration = 0.5
+frame_3/texture = ExtResource("4_je5gq")
+frame_3/duration = 0.5

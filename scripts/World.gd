@@ -23,7 +23,10 @@ var blockTypes = {
 	"water":preload("res://assets/blocks/Water.tscn"),
 	"lily_mart":preload("res://assets/shops/LilyMart.tscn"),
 	"skips_stones":preload("res://assets/shops/SkipsStones.tscn"),
-	"sign":preload("res://assets/blocks/Sign.tscn")
+	"sign":preload("res://assets/blocks/Sign.tscn"),
+	"lever":preload("res://assets/blocks/Lever.tscn"),
+	"display_block":preload("res://assets/blocks/DisplayBlock.tscn"),
+	"logic_block":preload("res://assets/blocks/LogicBlock.tscn")
 }
 
 var currentPlanet : Object
@@ -33,9 +36,9 @@ var hasGravity = true
 
 var waterUpdateList = []
 
-var interactableBlocks = [12,16,28,91,145]
+var interactableBlocks = [12,16,28,91,145,158,159,167]
 
-var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145]
+var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,167]
 
 var worldRules = {
 	"break_blocks":{"value":true,"type":"bool"},
@@ -95,14 +98,20 @@ var generationData = {
 		"world_height":22,
 		"water_level":37
 	},
+	"grassland":{
+		"noise":load("res://noise/Grassland.tres"),
+		"noise_scale":13,
+		"world_height":18,
+		"water_level":50
+	}
 }
 
 var blockData = {
 	1:{"texture":preload("res://textures/blocks/grass_block.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":1,"amount":1}],"name":"Grass block","type":"block"},
 	2:{"texture":preload("res://textures/blocks/dirt.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":2,"amount":1}],"name":"Dirt","type":"simple"},
 	3:{"texture":preload("res://textures/blocks/stone.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":8,"amount":1}],"name":"Stone","type":"simple"},
-	6:{"texture":preload("res://textures/blocks/flower1.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Flower 1","can_place_on":[1,2],"type":"foliage"},
-	7:{"texture":preload("res://textures/blocks/flower2.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Flower 2","can_place_on":[1,2],"type":"foliage"},
+	6:{"texture":preload("res://textures/blocks/flower1.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Flower 1","can_place_on":[1,2,146,147],"type":"foliage"},
+	7:{"texture":preload("res://textures/blocks/flower2.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Flower 2","can_place_on":[1,2,146,147],"type":"foliage"},
 	8:{"texture":preload("res://textures/blocks/Cobble.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":8,"amount":1}],"name":"Cobble","type":"simple"},
 	9:{"texture":preload("res://textures/blocks/sapling.png"),"hardness":7,"breakWith":"Axe","canHaverst":1,"drops":[{"id":10,"amount":[3,6]},{"id":11,"amount":[0,3]}],"name":"Tree","type":"foliage"},
 	10:{"texture":preload("res://textures/blocks/log_front.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":10,"amount":1}],"name":"Log","type":"block"},
@@ -179,6 +188,28 @@ var blockData = {
 	143:{"texture":preload("res://textures/blocks/posters/poster_icon.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[{"id":143,"amount":1}],"name":"Poster 2","type":"foliage"},
 	144:{"texture":preload("res://textures/blocks/bottom_rock.png"),"hardness":0,"breakWith":"Pickaxe","canHaverst":100,"drops":[{"id":144,"amount":1}],"name":"Bottom rock","type":"simple"},
 	145:{"texture":preload("res://textures/blocks/sign_empty.png"),"hardness":0.5,"breakWith":"Axe","canHaverst":0,"drops":[{"id":145,"amount":1}],"name":"Wood sign","type":"sign"},
+	146:{"texture":preload("res://textures/blocks/dry_grass_block.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":146,"amount":1}],"name":"Dry grass block","type":"block"},
+	147:{"texture":preload("res://textures/blocks/dry_dirt.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":147,"amount":1}],"name":"Dry dirt","type":"simple"},
+	148:{"texture":preload("res://textures/blocks/pink_granite.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":148,"amount":1}],"name":"Pink granite","type":"simple"},
+	149:{"texture":preload("res://textures/blocks/white_granite.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":149,"amount":1}],"name":"White granite","type":"simple"},
+	150:{"texture":preload("res://textures/blocks/brown_granite.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":150,"amount":1}],"name":"Brown granite","type":"simple"},
+	151:{"texture":preload("res://textures/blocks/pink_iron_ore.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":151,"amount":1}],"name":"Iron ore","type":"simple"},
+	152:{"texture":preload("res://textures/blocks/white_iron_ore.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":152,"amount":1}],"name":"Iron ore","type":"simple"},
+	153:{"texture":preload("res://textures/blocks/brown_iron_ore.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":153,"amount":1}],"name":"Iron ore","type":"simple"},
+	154:{"texture":preload("res://textures/blocks/acacia_log_front.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":154,"amount":1}],"name":"Acacia log","type":"block"},
+	155:{"texture":preload("res://textures/blocks/plants/acacia_tree/acacia_tree_sapling.png"),"hardness":7,"breakWith":"Axe","canHaverst":1,"drops":[{"id":154,"amount":[3,6]},{"id":156,"amount":[0,3]}],"name":"Acacia tree","type":"foliage"},
+	156:{"texture":preload("res://textures/blocks/plants/acacia_tree/acacia_tree_sapling.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[{"id":156,"amount":1}],"name":"Acacia sapling","can_place_on":[146,147],"type":"foliage"},
+	157:{"texture":preload("res://textures/blocks/acacia_planks.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":157,"amount":1}],"name":"Acacia planks","type":"simple"},
+	158:{"texture":preload("res://textures/blocks/acacia_crafting_table.png"),"hardness":2,"breakWith":"Axe","canHaverst":1,"drops":[{"id":158,"amount":1}],"name":"Workbench","type":"simple"},
+	159:{"texture":preload("res://textures/blocks/acacia_chest.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":159,"amount":1}],"name":"Chest","type":"block"},
+	160:{"texture":preload("res://textures/blocks/plants/grass.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Grass","can_place_on":[1,2,146,147],"type":"foliage"},
+	161:{"texture":preload("res://textures/blocks/plants/tall_grass.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Tall grass","can_place_on":[1,2,146,147],"type":"foliage"},
+	162:{"texture":preload("res://textures/blocks/polished_pink_granite.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":162,"amount":1}],"name":"Polished pink granite","type":"simple"},
+	163:{"texture":preload("res://textures/blocks/polished_white_granite.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":163,"amount":1}],"name":"Polished white granite","type":"simple"},
+	164:{"texture":preload("res://textures/blocks/polished_brown_granite.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":164,"amount":1}],"name":"Polished brown granite","type":"simple"},
+	167:{"texture":preload("res://textures/blocks/lever_off.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":167,"amount":1}],"name":"Lever","type":"lever"},
+	168:{"texture":preload("res://textures/blocks/display_block_off.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":168,"amount":1}],"name":"Display block","type":"display_block"},
+	169:{"texture":preload("res://textures/blocks/logic_block_and.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":169,"amount":1}],"name":"Logic block","type":"logic_block"},
 }
 
 var itemData = {
@@ -246,6 +277,8 @@ var itemData = {
 	131:{"texture_loc":preload("res://textures/items/copper_watering_can.png"),"type":"Watering_can","name":"Copper watering can","big_texture":preload("res://textures/weapons/copper_watering_can.png")},
 	132:{"texture_loc":preload("res://textures/items/silver_watering_can.png"),"type":"Watering_can","name":"Silver watering can","big_texture":preload("res://textures/weapons/silver_watering_can.png")},
 	140:{"texture_loc":preload("res://textures/items/bread.png"),"type":"Food","name":"Bread","regen":8},
+	165:{"texture_loc":preload("res://textures/items/iron.png"),"type":"Item","name":"Iron"},
+	166:{"texture_loc":preload("res://textures/items/red_wires.png"),"type":"wire","name":"Red wire"},
 }
 
 var fullGrownItemDrops = {
@@ -256,6 +289,7 @@ var fullGrownItemDrops = {
 
 signal update_blocks
 signal world_loaded
+signal blocks_changed
 
 func _ready():
 	var _er = StarSystem.connect("planet_ready", Callable(self, "start_world"))
@@ -540,6 +574,50 @@ func generateWorld(worldType : String):
 						set_block_all(pos,118)
 					elif y > seaLevel:
 						set_block(pos,1,117,false,{"water_level":4})
+		"grassland":
+			for x in range(worldSize.x):
+				for y in range(worldSize.y):
+					var height = (worldSize.y - (int(worldNoise.get_noise_1d(x) * noiseScale) + worldHeight))
+					if height > worldSize.y - 4:
+						height = worldSize.y - 4
+					var pos = Vector2(x,y)
+					if y >= seaLevel and y < height:
+						set_block(pos,1,117,false,{"water_level":4})
+					elif y == height:
+						if y <= seaLevel:
+							set_block_all(pos,146)
+							if get_block(pos - Vector2(0,2),1) == null and randi() % 20 == 1:
+								set_block(pos - Vector2(0,1),1,155)
+							elif get_block(pos - Vector2(0,1),1) == null:
+								if randi() % 3 == 1:
+									set_block(pos - Vector2(0,1),1,160)
+								elif randi() % 3 == 1:
+									set_block(pos - Vector2(0,1),1,161)
+						else:
+							set_block_all(pos,147)
+					elif y > height and y < height+3:
+						set_block_all(pos,147)
+					elif y >= height+3 and y < worldSize.y-1:
+						if worldNoise.get_noise_2d(x,y) > 0.20:
+							set_block_all(pos,149)
+						elif worldNoise.get_noise_2d(x,y) < -0.20:
+							set_block_all(pos,150)
+						else:
+							set_block_all(pos,148)
+					elif y == worldSize.y-1:
+						set_block_all(pos,144)
+			#Ores
+			for x in range(worldSize.x):
+				for y in range(worldSize.y):
+					if y >= 32 and randi_range(0,50) == 1: #iron ore
+						var pos = Vector2(x,y)
+						for i in range(randi_range(3,6)):
+							if [148,149,150].has(get_block_id(pos,1)):
+								set_block_all(pos,{148:151,149:152,150:153}[get_block_id(pos,1)])
+							if randi_range(0,1) == 1:
+								pos.x += [-1,1].pick_random()
+							else:
+								pos.y += [-1,1].pick_random()
 
 func get_world_data() -> Dictionary:
 	var data = {}
@@ -640,6 +718,7 @@ func set_block(pos : Vector2, layer : int, id : int, update = false, data = {}) 
 		block.name = str(pos.x) + "," + str(pos.y) + "," + str(layer)
 		block.get_node("Sprite2D").texture = get_item_texture(id)
 		$blocks.add_child(block)
+	emit_signal("blocks_changed")
 	if update:
 		update_area(pos)
 

@@ -124,11 +124,15 @@ func set_background(type : String):
 			$back/Sprite2D.texture = load("res://textures/enviroment/backgrounds/"+type+"_back.png")
 			$front/Sprite2D.texture = load("res://textures/enviroment/backgrounds/"+type+"_front.png")
 			$front/Underground.texture = load("res://textures/enviroment/backgrounds/"+type+"_underground.png")
-			if type == "ocean":
-				$back.motion_scale.y = 0.9
-				$front.motion_scale.y = 0.95
-				$back.motion_offset.y += 120
-				$front.motion_offset.y += 116
+			match type:
+				"ocean":
+					$back.motion_scale.y = 0.9
+					$front.motion_scale.y = 0.95
+					$back.motion_offset.y += 120
+					$front.motion_offset.y += 116
+				"grassland":
+					$front.motion_offset.y += 20
+					$back.motion_offset.y += 20
 
 func _on_World_world_loaded():
 	if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:

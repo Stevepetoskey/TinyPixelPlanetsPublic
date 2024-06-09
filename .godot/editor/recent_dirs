@@ -1,14 +1,17 @@
+res://scripts/GUI/main
+res://scripts/blocks
+res://assets/blocks
+res://scripts/misc
+res://textures/blocks/misc/red_wire/
+res://noise
+/Users/chris/Desktop/HTMLTEST/TU4.2
 res://Audio/music
 res://Audio/sfx/Ambience
-C:/Users/Chris/Desktop/Tiny Pixel Planets TU4_2
 res://textures/icons
 res://textures/planets
 res://scripts/enemies/Slorg
-res://scripts/misc
-res://scripts/blocks
 res://scripts/GUI
 res://assets/GUI
-res://noise
 res://scenes/tools
 res://scripts/tools
 res://shaders

@@ -12,6 +12,7 @@ func _ready() -> void:
 	world.connect("world_loaded", Callable(self, "world_loaded"))
 	match id:
 		9:
+			z_index -= 1
 			var isSnow = ""
 			if ["snow","snow_terra"].has(StarSystem.find_planet_id(Global.currentPlanet).type["type"]):
 				isSnow = "_snow"
@@ -20,10 +21,11 @@ func _ready() -> void:
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
 			position.x += 0.5
 			position.y -= 23
-		6,7:
+		6,7,160:
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
 		76:
+			z_index -= 1
 			$Sprite2D.texture = load("res://textures/blocks/exotic_tree1.png")
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
@@ -47,13 +49,25 @@ func _ready() -> void:
 				data["tick_wait"] = int(randf_range(600,700))
 				data["plant_stage"] = 0
 				$Tick.start()
-		128:
+		128,161:
 			position.y -= 4
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 		142:
 			$Sprite2D.texture = load("res://textures/blocks/posters/propaganda_poster1.png")
 		143:
 			$Sprite2D.texture = load("res://textures/blocks/posters/propaganda_poster2.png")
+		155:
+			z_index -= 1
+			$Sprite2D.texture = load("res://textures/blocks/plants/acacia_tree/acacia_tree_1.png")
+			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
+			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
+			#position.x += 0.5
+			position.y -= 46
+		156:
+			z_index -= 1
+			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
+			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
+			$check.start(randf_range(120,600))
 
 func world_loaded():
 	on_update()
@@ -61,9 +75,9 @@ func world_loaded():
 func on_update():
 	if world.worldLoaded and visible_on_screen_notifier_2d.is_on_screen():
 		match id:
-			6,7:
+			6,7,160,161:
 				var bottomBlock = world.get_block_id(pos+Vector2(0,1),layer)
-				if ![1,2].has(bottomBlock):
+				if ![1,2,146,147].has(bottomBlock):
 					world.build_event("Break", pos, layer)
 			121,122,123:
 				var bottomBlock = world.get_block(pos+Vector2(0,1),layer)
@@ -105,3 +119,5 @@ func _on_check_timeout():
 			world.set_block(pos,layer,9)
 		85:
 			world.set_block(pos,layer,76)
+		156:
+			world.set_block(pos,layer,155)

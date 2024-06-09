@@ -1,4 +1,4 @@
-[gd_scene load_steps=192 format=3 uid="uid://2c07adgn0vow"]
+[gd_scene load_steps=203 format=3 uid="uid://2c07adgn0vow"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c3rmyuwb7gd3m" path="res://textures/enviroment/sky.png" id="2"]
@@ -60,18 +60,29 @@
 [ext_resource type="Shader" path="res://shaders/Pause.gdshader" id="58_564f8"]
 [ext_resource type="Script" path="res://scripts/GUI/SignEdit.gd" id="58_p8ek0"]
 [ext_resource type="Texture2D" uid="uid://dieq04r77mkl" path="res://textures/GUI/space/buttons/color_btn.png" id="59_b30rk"]
+[ext_resource type="Script" path="res://scripts/GUI/main/LogicBlockEdit.gd" id="60_2s7q2"]
 [ext_resource type="Theme" uid="uid://b02uwgbscq35l" path="res://themes/menu.tres" id="60_dyqfb"]
 [ext_resource type="Script" path="res://scripts/Commands.gd" id="61"]
+[ext_resource type="Texture2D" uid="uid://dar211a01qnx1" path="res://textures/GUI/main/logic/and_btn.png" id="61_v3k1y"]
 [ext_resource type="Texture2D" uid="uid://dpqpaobomk0g" path="res://textures/GUI/main/inventory/item-toolbar.png" id="62"]
+[ext_resource type="Texture2D" uid="uid://8mn0dbsd5mox" path="res://textures/GUI/main/logic/and_btn_pressed.png" id="62_1oiqi"]
 [ext_resource type="Script" path="res://scripts/ItemDataShow.gd" id="63"]
+[ext_resource type="Texture2D" uid="uid://bv6gbdnyxnev3" path="res://textures/GUI/main/logic/or_btn.png" id="63_mfad1"]
 [ext_resource type="Texture2D" uid="uid://cvq1t01u1jig3" path="res://textures/enviroment/light.png" id="64"]
+[ext_resource type="Texture2D" uid="uid://b42csi50rkx1p" path="res://textures/GUI/main/logic/or_btn_pressed.png" id="64_tkw1u"]
 [ext_resource type="Texture2D" uid="uid://btus3qrhw2igq" path="res://textures/enviroment/storm_bg.png" id="65"]
+[ext_resource type="Texture2D" uid="uid://cxeo3tukb5o52" path="res://textures/GUI/main/logic/nand_btn.png" id="65_rkwro"]
 [ext_resource type="Texture2D" uid="uid://hq0q5oh5t744" path="res://textures/weather/snow.png" id="66"]
+[ext_resource type="Texture2D" uid="uid://37qbun2wp7lw" path="res://textures/GUI/main/logic/nand_btn_pressed.png" id="66_klnxr"]
 [ext_resource type="FontVariation" uid="uid://c4nuc5bd0kohq" path="res://fonts/PixelPossFix.tres" id="66_oustp"]
 [ext_resource type="Script" path="res://scripts/enviroment/Meteors.gd" id="67"]
+[ext_resource type="Texture2D" uid="uid://cby3yuoltp7ry" path="res://textures/GUI/main/logic/nor_btn.png" id="67_rhacj"]
 [ext_resource type="Texture2D" uid="uid://deiwekva7e5yd" path="res://textures/GUI/main/hotbar/hotbar_panel.png" id="68"]
+[ext_resource type="Texture2D" uid="uid://ddqniq8ix80j5" path="res://textures/GUI/main/logic/nor_btn_pressed.png" id="68_46ew3"]
 [ext_resource type="Texture2D" uid="uid://dmf75orq48o76" path="res://textures/GUI/main/hotbar/forground.png" id="69"]
+[ext_resource type="Texture2D" uid="uid://d4mw43b7joeam" path="res://textures/GUI/main/logic/xor_btn.png" id="69_4xjca"]
 [ext_resource type="Texture2D" uid="uid://im3ftx86mtc3" path="res://textures/GUI/space/h_bar_handle_select.png" id="70"]
+[ext_resource type="Texture2D" uid="uid://gq6xylkb0lf4" path="res://textures/GUI/main/logic/xor_btn_pressed.png" id="70_gxdv6"]
 [ext_resource type="Texture2D" uid="uid://cgfxdpw0sxxxi" path="res://textures/GUI/space/h_bar_handle_hover.png" id="71"]
 [ext_resource type="Texture2D" uid="uid://cs2ptrjg2ll5k" path="res://textures/GUI/space/v_bar_handle_hover.png" id="72"]
 [ext_resource type="Texture2D" uid="uid://cn76yxyfhxg3v" path="res://textures/GUI/space/v_bar_handle.png" id="73"]
@@ -3350,6 +3361,94 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Lock"
 
+[node name="LogicBlockEdit" type="Panel" parent="CanvasLayer"]
+custom_minimum_size = Vector2(180, 75)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -37.5
+offset_right = 90.0
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("60_dyqfb")
+script = ExtResource("60_2s7q2")
+
+[node name="EditTextLbl" type="Label" parent="CanvasLayer/LogicBlockEdit"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 13.0
+grow_horizontal = 2
+text = "Select Logic Mode"
+horizontal_alignment = 1
+
+[node name="CloseBtn" type="Button" parent="CanvasLayer/LogicBlockEdit"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -18.0
+offset_right = -3.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Done"
+
+[node name="LogicBtns" type="HBoxContainer" parent="CanvasLayer/LogicBlockEdit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 16.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="and" type="TextureButton" parent="CanvasLayer/LogicBlockEdit/LogicBtns"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("61_v3k1y")
+texture_pressed = ExtResource("62_1oiqi")
+stretch_mode = 3
+
+[node name="or" type="TextureButton" parent="CanvasLayer/LogicBlockEdit/LogicBtns"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("63_mfad1")
+texture_pressed = ExtResource("64_tkw1u")
+stretch_mode = 3
+
+[node name="nand" type="TextureButton" parent="CanvasLayer/LogicBlockEdit/LogicBtns"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("65_rkwro")
+texture_pressed = ExtResource("66_klnxr")
+stretch_mode = 3
+
+[node name="nor" type="TextureButton" parent="CanvasLayer/LogicBlockEdit/LogicBtns"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("67_rhacj")
+texture_pressed = ExtResource("68_46ew3")
+stretch_mode = 3
+
+[node name="xor" type="TextureButton" parent="CanvasLayer/LogicBlockEdit/LogicBtns"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("69_4xjca")
+texture_pressed = ExtResource("70_gxdv6")
+stretch_mode = 3
+
 [node name="Black" type="TextureRect" parent="CanvasLayer"]
 modulate = Color(0, 0, 0, 1)
 anchors_preset = 15
@@ -3529,6 +3628,8 @@ autostart = true
 
 [node name="Deleting" type="Node2D" parent="World"]
 
+[node name="Wires" type="Node2D" parent="World"]
+
 [node name="Cursor" type="Sprite2D" parent="."]
 z_index = 5
 texture = ExtResource("5")
@@ -3646,6 +3747,8 @@ lifetime = 10.0
 z_index = 5
 script = ExtResource("47")
 
+[connection signal="input_pressed" from="." to="Cursor" method="_on_main_input_pressed"]
+[connection signal="output_pressed" from="." to="Cursor" method="_on_main_output_pressed"]
 [connection signal="timeout" from="CanvasLayer/Enviroment/Meteors/MeteorTimer" to="CanvasLayer/Enviroment/Meteors" method="_on_MeteorTimer_timeout"]
 [connection signal="timeout" from="CanvasLayer/Enviroment/Meteors/StageProgress" to="CanvasLayer/Enviroment/Meteors" method="_on_StageProgress_timeout"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn" to="CanvasLayer/Inventory" method="_on_InventoryBtn_pressed"]

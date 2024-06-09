@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8vunar1kahag"]
+
+[ext_resource type="Texture2D" uid="uid://cddi73qq286ke" path="res://textures/blocks/misc/red_wire/red_wire.tres" id="1_aafw8"]
+[ext_resource type="Script" path="res://scripts/misc/Wire.gd" id="2_3g87l"]
+
+[node name="Wire" type="TextureRect"]
+z_index = 5
+offset_right = 40.0
+offset_bottom = 3.0
+texture = ExtResource("1_aafw8")
+stretch_mode = 1
+script = ExtResource("2_3g87l")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

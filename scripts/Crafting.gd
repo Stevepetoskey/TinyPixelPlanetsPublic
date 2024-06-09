@@ -15,6 +15,9 @@ var recipes = {
 		{"recipe":[{"id":77,"amount":1}],"result":{"id":78,"amount":4}}, #Exotic planks
 		{"recipe":[{"id":13,"amount":1}],"result":{"id":5,"amount":3}}, #sticks
 		{"recipe":[{"id":78,"amount":1}],"result":{"id":5,"amount":3}}, #sticks (With exotic wood)
+		{"recipe":[{"id":157,"amount":1}],"result":{"id":5,"amount":3}}, #sticks (With acacia wood)
+		{"recipe":[{"id":154,"amount":1}],"result":{"id":157,"amount":4}}, #Acacia planks
+		{"recipe":[{"id":157,"amount":4}],"result":{"id":158,"amount":1}}, #Acacia workbench
 	],
 	"crafting_table": [
 		{"recipe":[{"id":10,"amount":1}],"result":{"id":13,"amount":4}},
@@ -49,6 +52,14 @@ var recipes = {
 		{"recipe":[{"id":56,"amount":1}],"result":{"id":113,"amount":1}}, #Silver bucket
 		{"recipe":[{"id":52,"amount":1}],"result":{"id":115,"amount":1}}, #Copper bucket
 		{"recipe":[{"id":5,"amount":2},{"id":13,"amount":3}],"result":{"id":145,"amount":2}}, #Wood sign
+		{"recipe":[{"id":148,"amount":4}],"result":{"id":162,"amount":4}}, #Polished pink granite
+		{"recipe":[{"id":149,"amount":4}],"result":{"id":163,"amount":4}}, #Polished white granite
+		{"recipe":[{"id":150,"amount":4}],"result":{"id":164,"amount":4}}, #Polished brown granite
+		{"recipe":[{"id":154,"amount":1}],"result":{"id":157,"amount":4}}, #Acacia planks
+		{"recipe":[{"id":157,"amount":4}],"result":{"id":158,"amount":1}}, #Acacia workbench
+		{"recipe":[{"id":157,"amount":8}],"result":{"id":159,"amount":1}}, #Acacia chest
+		{"recipe":[{"id":5,"amount":2},{"id":157,"amount":4}],"result":{"id":58,"amount":1}}, #(Acacia) Wood club
+		{"recipe":[{"id":5,"amount":2},{"id":157,"amount":3}],"result":{"id":61,"amount":1}}, #(Acacia) Wood sword
 	],
 	"oven": [
 		{"recipe":[{"id":14,"amount":1}],"result":{"id":20,"amount":1}},
@@ -63,6 +74,9 @@ var recipes = {
 		{"recipe":[{"id":134,"amount":1}],"result":{"id":135,"amount":1}}, #Cracked copper bricks
 		{"recipe":[{"id":137,"amount":1}],"result":{"id":138,"amount":1}}, #Cracked silver bricks
 		{"recipe":[{"id":125,"amount":2}],"result":{"id":140,"amount":1}}, #Bread
+		{"recipe":[{"id":151,"amount":1}],"result":{"id":165,"amount":1}}, #Iron (pink)
+		{"recipe":[{"id":152,"amount":1}],"result":{"id":165,"amount":1}}, #Iron (white)
+		{"recipe":[{"id":153,"amount":1}],"result":{"id":165,"amount":1}}, #Iron (brown)
 	],
 	"smithing_table": [
 		{"recipe":[{"id":52,"amount":6}],"result":{"id":88,"amount":1}}, #Copper block

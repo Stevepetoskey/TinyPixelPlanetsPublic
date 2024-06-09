@@ -23,7 +23,7 @@ func _ready():
 	world.connect("update_blocks", Callable(self, "on_update"))
 	world.connect("world_loaded", Callable(self, "world_loaded"))
 	match id:
-		1,24:
+		1,24,146:
 			$check.start(randf_range(10,60))
 		20:
 			$Sprite2D.texture = load("res://textures/blocks/glass_atlas.png")
@@ -34,7 +34,7 @@ func _ready():
 		81:
 			$Sprite2D.texture = load("res://textures/blocks/copper_window_atlas.png")
 			$Sprite2D.region_enabled = true
-		91:
+		91,159:
 			if data.is_empty():
 				data = []
 		119:
@@ -76,20 +76,13 @@ func on_update():
 	
 	if world.worldLoaded and visible_on_screen_notifier_2d.is_on_screen():
 		match id:
-			10:
-				if world.get_block_id(pos - Vector2(0,1),layer) == 10 or world.get_block_id(pos + Vector2(0,1),layer) == 10:
-					$Sprite2D.texture = load("res://textures/blocks/log_v.png")
-				elif world.get_block_id(pos - Vector2(1,0),layer) == 10 or world.get_block_id(pos + Vector2(1,0),layer) == 10:
-					$Sprite2D.texture = load("res://textures/blocks/log_h.png")
+			10,77,154: #logs
+				if world.get_block_id(pos - Vector2(0,1),layer) == id or world.get_block_id(pos + Vector2(0,1),layer) == id:
+					$Sprite2D.texture = {10:load("res://textures/blocks/log_v.png"),77:load("res://textures/blocks/exotic_log_v.png"),154:load("res://textures/blocks/acacia_log_v.png")}[id]
+				elif world.get_block_id(pos - Vector2(1,0),layer) == id or world.get_block_id(pos + Vector2(1,0),layer) == id:
+					$Sprite2D.texture = {10:load("res://textures/blocks/log_h.png"),77:load("res://textures/blocks/exotic_log_h.png"),154:load("res://textures/blocks/acacia_log_h.png")}[id]
 				else:
-					$Sprite2D.texture = load("res://textures/blocks/log_front.png")
-			77:
-				if world.get_block_id(pos - Vector2(0,1),layer) == 77 or world.get_block_id(pos + Vector2(0,1),layer) == 77:
-					$Sprite2D.texture = load("res://textures/blocks/exotic_log_v.png")
-				elif world.get_block_id(pos - Vector2(1,0),layer) == 77 or world.get_block_id(pos + Vector2(1,0),layer) == 77:
-					$Sprite2D.texture = load("res://textures/blocks/exotic_log_h.png")
-				else:
-					$Sprite2D.texture = load("res://textures/blocks/exotic_log_front.png")
+					$Sprite2D.texture = {10:load("res://textures/blocks/log_front.png"),77:load("res://textures/blocks/exotic_log_front.png"),154:load("res://textures/blocks/acacia_log_front.png")}[id]
 			18,14:
 				if !falling and pos.y < world.worldSize.y -1:
 					if pos.y < world.worldSize.y - 1 and FALL_BLOCKS.has(world.get_block_id(pos + Vector2(0,1),layer)):
@@ -171,6 +164,10 @@ func _on_check_timeout():
 				world.set_block(pos,layer,1)
 			elif !["snow_terra"].has(currentPlanet.type["type"]):
 				world.set_block(pos,layer,2)
+		146:
+			var currentPlanet = StarSystem.find_planet_id(Global.currentPlanet)
+			if ["desert","stone","snow","snow_terra"].has(currentPlanet.type["type"]) or !currentPlanet.hasAtmosphere:
+				world.set_block(pos,layer,147)
 		119:
 			if ["rain","showers","snow","blizzard"].has(main.currentWeather):
 				world.set_block(pos,layer,120,true)

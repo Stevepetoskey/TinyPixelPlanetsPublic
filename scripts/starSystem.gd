@@ -88,7 +88,8 @@ var weatherEvents = {
 	"snow":["snow","blizzard"],
 	"snow_terra":["snow","blizzard"],
 	"asteroids":["none"],
-	"ocean":["rain","showers"]
+	"ocean":["rain","showers"],
+	"grassland":["rain"]
 }
 
 var typeNames = {
@@ -103,7 +104,8 @@ var typeNames = {
 	"gas2":"Gas giant",
 	"gas3":"Gas giant",
 	"asteroids":"Asteroids",
-	"ocean":"Ocean"
+	"ocean":"Ocean",
+	"grassland":"Grassland"
 }
 
 var hostileSpawn = {
@@ -115,7 +117,8 @@ var hostileSpawn = {
 	"snow":[],
 	"snow_terra":["slorg"],
 	"asteroids":["space_squid"],
-	"ocean":[]
+	"ocean":[],
+	"grassland":["slorg"]
 }
 
 var sizeNames = {
@@ -145,6 +148,8 @@ var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra
 	"asteroids":{"texture":preload("res://textures/planets/asteroids.png"),"size":sizeTypes.small,"type":"asteroids"},
 	"small_ocean":{"texture":preload("res://textures/planets/ocean.png"),"size":sizeTypes.small,"type":"ocean"},
 	"ocean":{"texture":preload("res://textures/planets/oceanMedium.png"),"size":sizeTypes.medium,"type":"ocean"},
+	"small_grassland":{"texture":preload("res://textures/planets/grassland.png"),"size":sizeTypes.small,"type":"grassland"},
+	"grassland":{"texture":preload("res://textures/planets/grasslandMedium.png"),"size":sizeTypes.medium,"type":"grassland"}
 	#"commet":{"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"},
 }
 
@@ -187,18 +192,18 @@ func start_game():
 		await self.found_system
 		Global.currentPlanet = find_planet("type","terra").id
 		Global.starterPlanetId = Global.currentPlanet
-		if Global.scenario == "meteor": #Adds the commet if meteor scenario
-			var commet = PLANET.instantiate()
-			commet.id = get_system_bodies().size()
-			commet.type = {"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"}
-			commet.hasAtmosphere = false
-			commet.orbitalDistance = 500
-			commet.orbitingBody = find_planet_id(Global.currentPlanet)
-			commet.orbitalSpeed = 0
-			commet.rotationSpeed = 0
-			commet.currentOrbit = deg_to_rad(randi() % 360)
-			commet.currentRot = deg_to_rad(randi() % 360)
-			$system.add_child(commet)
+		#if Global.scenario == "meteor": #Adds the commet if meteor scenario
+			#var commet = PLANET.instantiate()
+			#commet.id = get_system_bodies().size()
+			#commet.type = {"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"}
+			#commet.hasAtmosphere = false
+			#commet.orbitalDistance = 500
+			#commet.orbitingBody = find_planet_id(Global.currentPlanet)
+			#commet.orbitalSpeed = 0
+			#commet.rotationSpeed = 0
+			#commet.currentOrbit = deg_to_rad(randi() % 360)
+			#commet.currentRot = deg_to_rad(randi() % 360)
+			#$system.add_child(commet)
 		print("Current Planet: ", find_planet_id(Global.currentPlanet).pName)
 	planetReady = true
 	print("---Planet Ready---")
@@ -379,7 +384,7 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 	var planetType
 	var planets = []
 	for planetDat in planetData:
-		if (planetData[planetDat]["size"] < maxSize or (maxSize == 0 and planetData[planetDat]["size"] == 0)) and !["terra","snow","snow_terra","exotic","ocean"].has(planetData[planetDat]["type"]):
+		if (planetData[planetDat]["size"] < maxSize or (maxSize == 0 and planetData[planetDat]["size"] == 0)) and !["terra","snow","snow_terra","exotic","ocean","grassland"].has(planetData[planetDat]["type"]):
 			planets.append(planetData[planetDat])
 	planets.shuffle()
 	planetType = planets[0]
@@ -425,6 +430,10 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 				type = "ocean"
 		planet.type = planetData[size + type]
 		planet.hasAtmosphere = true
+	elif !currentStarData["habital"].is_empty() and abs(planet.orbitalDistance-orbitBody.orbitalDistance) < currentStarData["habital"][currentStarData["habital"].size()-1]:
+		if randi() % 4 == 1:
+			planet.type = planetData[size + "grassland"]
+			planet.hasAtmosphere = true
 	elif !currentStarData["habital"].is_empty() and abs(planet.orbitalDistance-orbitBody.orbitalDistance) > currentStarData["habital"][currentStarData["habital"].size()-1]:
 		if randi() % 3 ==1:
 			planet.type = planetData[size + "snow"]

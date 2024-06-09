@@ -14,7 +14,12 @@ var worldType : String
 
 var weatherStartData = {}
 
+var togglePins = false
+
 signal weather_changed
+signal toggle_pins
+signal output_pressed
+signal input_pressed
 
 func _ready():
 	StarSystem.connect("start_meteors", Callable(self, "start_meteors"))
@@ -26,6 +31,11 @@ func _ready():
 func _process(delta):
 	$CanvasLayer/FPS.text = str(Engine.get_frames_per_second())
 	$weather.position = $Player/Camera2D.global_position - Vector2(142,120)
+
+func toggle_wire_visibility(toggle : bool):
+	$World/Wires.visible = toggle
+	togglePins = toggle
+	emit_signal("toggle_pins",toggle)
 
 func weather_event(random = true,time = [200,500], set = "none",start = true):
 	if !is_instance_valid(weatherAnimation):
