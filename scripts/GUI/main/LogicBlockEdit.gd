@@ -1,11 +1,26 @@
 extends Panel
 
+var selectedLogicBlock : LogicBlock
 
-# Called when the node enters the scene tree for the first time.
+@onready var logic_btns: HBoxContainer = $LogicBtns
+
 func _ready() -> void:
-	pass # Replace with function body.
+	for btn : TextureButton in logic_btns.get_children():
+		btn.pressed.connect(logic_btn_pressed.bind(btn.name))
 
+func pop_up(logicBlock : LogicBlock) -> void:
+	selectedLogicBlock = logicBlock
+	set_mode(logicBlock.data["mode"])
+	show()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func set_mode(mode : String) -> void:
+	selectedLogicBlock.change_mode(mode)
+	for btn : TextureButton in logic_btns.get_children():
+		btn.button_pressed = btn.name == mode
+
+func logic_btn_pressed(mode : String) -> void:
+	if is_instance_valid(selectedLogicBlock) and mode != selectedLogicBlock.data["mode"]:
+		set_mode(mode)
+
+func _on_done_btn_pressed() -> void:
+	hide()

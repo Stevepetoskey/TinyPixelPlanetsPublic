@@ -1407,7 +1407,7 @@ offset_top = -10.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Tiny Pixel Planets TU4.2 (v0.4.2)"
+text = "Tiny Pixel Planets TU5 beta 3 (v0.5.0:3)"
 horizontal_alignment = 1
 
 [node name="Credits" type="Panel" parent="."]

@@ -7,6 +7,7 @@
 z_index = 5
 offset_right = 40.0
 offset_bottom = 3.0
+pivot_offset = Vector2(2.08165e-12, 1.5)
 texture = ExtResource("1_aafw8")
 stretch_mode = 1
 script = ExtResource("2_3g87l")

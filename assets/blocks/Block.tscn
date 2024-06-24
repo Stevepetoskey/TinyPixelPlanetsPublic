@@ -1,21 +1,29 @@
 [gd_scene load_steps=5 format=3 uid="uid://dwi5kfm4rxnlu"]
 
 [ext_resource type="Script" path="res://scripts/Block.gd" id="1_6x2si"]
-[ext_resource type="Texture2D" uid="uid://djsxxfl6fvnug" path="res://textures/blocks/water/water_4.png" id="2_jj352"]
-
-[sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(8, 8)
+[ext_resource type="Texture2D" uid="uid://crcfjd0b4eqg0" path="res://textures/blocks/silver_ore.png" id="2_g2fuu"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_y6fa6"]
 polygon = PackedVector2Array(-4, 4, 4, 4, 4, -4, -4, -4)
 
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(8, 8)
+
 [node name="AdvanceBlock" type="StaticBody2D"]
 script = ExtResource("1_6x2si")
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2, -2)
+scale = Vector2(0.2, 0.2)
+rect = Rect2(-10, -10, 40, 40)
+
+[node name="RainCol" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_y6fa6")
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 2
-texture = ExtResource("2_jj352")
-region_rect = Rect2(0, 16, 8, 8)
+texture = ExtResource("2_g2fuu")
+region_rect = Rect2(2.08165e-12, 8, 8, 8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
@@ -24,20 +32,12 @@ shape = SubResource("1")
 [node name="Tick" type="Timer" parent="."]
 wait_time = 0.1
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(-2, -2)
-scale = Vector2(0.2, 0.2)
-rect = Rect2(-10, -10, 40, 40)
-
 [node name="check" type="Timer" parent="."]
 
 [node name="shade" type="Node2D" parent="."]
 modulate = Color(1, 1, 1, 0.521569)
 
-[node name="RainCol" type="LightOccluder2D" parent="."]
-occluder = SubResource("OccluderPolygon2D_y6fa6")
-
-[connection signal="timeout" from="Tick" to="." method="_on_Tick_timeout"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="Tick" to="." method="_on_Tick_timeout"]
 [connection signal="timeout" from="check" to="." method="_on_check_timeout"]

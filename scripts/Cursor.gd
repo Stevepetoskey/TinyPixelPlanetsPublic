@@ -24,13 +24,14 @@ var cursorPos = Vector2(0,0)
 var oldBlockPos = Vector2(0,0)
 
 var wires : Array= [166]
+var wireIn : Array = []
 var pinsShown : bool = false
 var wiring = false
 var currentWire : TextureRect = null
 
 func _process(_delta):
 	if !Global.pause:
-		if wires.has(inventory.inventory[0]["id"]) or wires.has(inventory.inventory[1]["id"]):
+		if (inventory.inventory.size() > 0 and wires.has(inventory.inventory[0]["id"])) or (inventory.inventory.size() > 1 and wires.has(inventory.inventory[1]["id"])):
 			if !pinsShown:
 				pinsShown = true
 				main.toggle_wire_visibility(true)
@@ -82,9 +83,9 @@ func _process(_delta):
 		if wiring:
 			if is_instance_valid(currentWire):
 				if currentWire.outputBlock != null:
-					currentWire.position = currentWire.outputBlock.get_node("Outputs/" + currentWire.outputPin).global_position + currentWire.outputBlock.get_node("Outputs").offset
+					currentWire.position = currentWire.outputBlock.get_node("Outputs/" + currentWire.outputPin).global_position + currentWire.outputBlock.get_node("Outputs").offset + currentWire.wireOffset
 				else:
-					currentWire.position = currentWire.inputBlock.get_node("Inputs/" + currentWire.inputPin).global_position + currentWire.inputBlock.get_node("Inputs").offset
+					currentWire.position = currentWire.inputBlock.get_node("Inputs/" + currentWire.inputPin).global_position + currentWire.inputBlock.get_node("Inputs").offset + currentWire.wireOffset
 				currentWire.rotation = currentWire.position.angle_to_point(get_global_mouse_position())
 				currentWire.size.x = currentWire.position.distance_to(get_global_mouse_position())
 			else:
@@ -121,6 +122,18 @@ func _unhandled_input(_event):
 							main.display_text(sign.data)
 					167:
 						world.get_block(cursorPos,currentLayer).flip_lever()
+					169:
+						$"../CanvasLayer/LogicBlockEdit".pop_up(world.get_block(cursorPos,currentLayer))
+					171:
+						world.get_block(cursorPos,currentLayer).mainBlock.interact()
+					176:
+						world.get_block(cursorPos,currentLayer).pressed_btn()
+			elif Input.is_action_just_pressed("build2") and wireIn.size() > 0:
+				if is_instance_valid(wireIn[0]):
+					wireIn[0].break_wire()
+					await get_tree().process_frame
+				else:
+					wireIn.remove_at(0)
 			elif (Input.is_action_pressed("build") and inventory.inventory.size() > 0) or (Input.is_action_pressed("build2") and inventory.inventory.size() > 1):
 				var slot = 0 if Input.is_action_pressed("build") or inventory.inventory.size() < 2 else 1
 				var selectedId = inventory.inventory[slot]["id"]
@@ -170,7 +183,7 @@ func tool_action(itemId : int, ref := 0) -> void:
 				inventory.inventory[ref]["data"]["water"] -= 0.25
 			inventory.update_inventory()
 		"Tool":
-			if !breaking and world.get_block_id(cursorPos,currentLayer) > 0 and world.blockData[world.get_block_id(cursorPos,currentLayer)]["breakWith"] != "None" and itemSelect["strength"] >= world.blockData[world.get_block_id(cursorPos,currentLayer)]["canHaverst"] and (world.worldRules["break_blocks"]["value"] or (world.get_block_id(cursorPos,currentLayer) == 8 and Global.inTutorial)):
+			if !breaking and world.get_block_id(cursorPos,currentLayer) > 0 and itemSelect["strength"] >= world.blockData[world.get_block_id(cursorPos,currentLayer)]["canHaverst"] and (world.worldRules["break_blocks"]["value"] or (world.get_block_id(cursorPos,currentLayer) == 8 and Global.inTutorial)):
 				var hardness = world.blockData[world.get_block_id(cursorPos,currentLayer)]["hardness"]
 				if hardness <= 0:
 					world.build_event("Break",position / world.BLOCK_SIZE,currentLayer)
@@ -218,14 +231,13 @@ func _on_main_output_pressed(logicBlock : LogicBlock, pin : String) -> void:
 		currentWire = wire
 		wire.outputBlock = logicBlock
 		wire.outputPin = pin
-		wire.new = true
 		wire_hold.add_child(wire)
 	elif currentWire.outputBlock == null:
 		wiring = false
 		currentWire.outputBlock = logicBlock
 		currentWire.outputPin = pin
 		var good = true
-		for wireObj in $"../World/Wires".get_children():
+		for wireObj in wire_hold.get_children():
 			if wireObj != currentWire and wireObj.outputBlock == logicBlock and wireObj.outputPin == pin and wireObj.inputBlock == currentWire.inputBlock and wireObj.inputPin == currentWire.inputPin:
 				currentWire.queue_free()
 				wireObj.break_wire()
@@ -243,14 +255,13 @@ func _on_main_input_pressed(logicBlock : LogicBlock, pin : String) -> void:
 		currentWire = wire
 		wire.inputBlock = logicBlock
 		wire.inputPin = pin
-		wire.new = true
 		wire_hold.add_child(wire)
 	elif currentWire.inputBlock == null:
 		wiring = false
 		currentWire.inputBlock = logicBlock
 		currentWire.inputPin = pin
 		var good = true
-		for wireObj in $"../World/Wires".get_children():
+		for wireObj in wire_hold.get_children():
 			if wireObj != currentWire and wireObj.inputBlock == logicBlock and wireObj.inputPin == pin and wireObj.outputBlock == currentWire.outputBlock and wireObj.outputPin == currentWire.outputPin:
 				currentWire.queue_free()
 				wireObj.break_wire()

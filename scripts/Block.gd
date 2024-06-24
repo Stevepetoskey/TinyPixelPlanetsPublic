@@ -9,7 +9,7 @@ var fallPos : Vector2
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @onready var rain_col: LightOccluder2D = $RainCol
 @onready var mainCol: CollisionShape2D = $CollisionShape2D
-
+@onready var texture: Sprite2D = $Sprite2D
 
 func _ready():
 	z_index = layer
@@ -26,14 +26,17 @@ func _ready():
 		1,24,146:
 			$check.start(randf_range(10,60))
 		20:
-			$Sprite2D.texture = load("res://textures/blocks/glass_atlas.png")
-			$Sprite2D.region_enabled = true
+			texture.texture = load("res://textures/blocks/glass_atlas.png")
+			texture.region_enabled = true
+		79:
+			texture.texture = load("res://textures/blocks/exotic_wood_window_atlas.png")
+			texture.region_enabled = true
 		80:
-			$Sprite2D.texture = load("res://textures/blocks/wood_window_atlas.png")
-			$Sprite2D.region_enabled = true
+			texture.texture = load("res://textures/blocks/wood_window_atlas.png")
+			texture.region_enabled = true
 		81:
-			$Sprite2D.texture = load("res://textures/blocks/copper_window_atlas.png")
-			$Sprite2D.region_enabled = true
+			texture.texture = load("res://textures/blocks/copper_window_atlas.png")
+			texture.region_enabled = true
 		91,159:
 			if data.is_empty():
 				data = []
@@ -43,10 +46,13 @@ func _ready():
 				$check.start(randf_range(10,30))
 		145:
 			if data.has("text"):
-				$Sprite2D.texture = load("res://textures/blocks/sign.png") if data["locked"] else load("res://textures/blocks/sign_empty.png")
+				texture.texture = load("res://textures/blocks/sign.png") if data["locked"] else load("res://textures/blocks/sign_empty.png")
 			else:
-				$Sprite2D.texture = load("res://textures/blocks/sign_empty.png")
+				texture.texture = load("res://textures/blocks/sign_empty.png")
 				data = {"text":"","locked":false,"text_color":Color.WHITE,"mode":"Click","radius":2}
+		173:
+			texture.texture = load("res://textures/blocks/steel_atlas.png")
+			texture.region_enabled = true
 
 func world_loaded():
 	on_update()
@@ -78,11 +84,11 @@ func on_update():
 		match id:
 			10,77,154: #logs
 				if world.get_block_id(pos - Vector2(0,1),layer) == id or world.get_block_id(pos + Vector2(0,1),layer) == id:
-					$Sprite2D.texture = {10:load("res://textures/blocks/log_v.png"),77:load("res://textures/blocks/exotic_log_v.png"),154:load("res://textures/blocks/acacia_log_v.png")}[id]
+					texture.texture = {10:load("res://textures/blocks/log_v.png"),77:load("res://textures/blocks/exotic_log_v.png"),154:load("res://textures/blocks/acacia_log_v.png")}[id]
 				elif world.get_block_id(pos - Vector2(1,0),layer) == id or world.get_block_id(pos + Vector2(1,0),layer) == id:
-					$Sprite2D.texture = {10:load("res://textures/blocks/log_h.png"),77:load("res://textures/blocks/exotic_log_h.png"),154:load("res://textures/blocks/acacia_log_h.png")}[id]
+					texture.texture = {10:load("res://textures/blocks/log_h.png"),77:load("res://textures/blocks/exotic_log_h.png"),154:load("res://textures/blocks/acacia_log_h.png")}[id]
 				else:
-					$Sprite2D.texture = {10:load("res://textures/blocks/log_front.png"),77:load("res://textures/blocks/exotic_log_front.png"),154:load("res://textures/blocks/acacia_log_front.png")}[id]
+					texture.texture = {10:load("res://textures/blocks/log_front.png"),77:load("res://textures/blocks/exotic_log_front.png"),154:load("res://textures/blocks/acacia_log_front.png")}[id]
 			18,14:
 				if !falling and pos.y < world.worldSize.y -1:
 					if pos.y < world.worldSize.y - 1 and FALL_BLOCKS.has(world.get_block_id(pos + Vector2(0,1),layer)):
@@ -102,31 +108,62 @@ func on_update():
 				var sides = {"left":world.get_block_id(pos - Vector2(1,0),layer) == 20,"right":world.get_block_id(pos + Vector2(1,0),layer) == 20,"top":world.get_block_id(pos - Vector2(0,1),layer) == 20,"bottom":world.get_block_id(pos + Vector2(0,1),layer) == 20}
 				var sideEqual = {[true,true,true,true]:Vector2(16,8),[true,false,true,true]:Vector2(24,8),[false,true,true,true]:Vector2(8,8),[true,true,false,true]:Vector2(16,0),[true,true,true,false]:Vector2(16,16),[false,true,false,true]:Vector2(8,0),[false,true,true,false]:Vector2(8,16),[true,false,false,true]:Vector2(24,0),[true,false,true,false]:Vector2(24,16)}
 				if sideEqual.has(sides.values()):
-					$Sprite2D.region_rect.position = sideEqual[sides.values()]
+					texture.region_rect.position = sideEqual[sides.values()]
 				else:
-					$Sprite2D.region_rect.position = Vector2(0,16)
+					texture.region_rect.position = Vector2(0,16)
 			79,80:
 				var sides = get_sides(id)
 				if sides["top"] and sides["right"] and sides["rightTop"]:
-					$Sprite2D.region_rect.position = Vector2(0,8)
+					texture.region_rect.position = Vector2(0,8)
 				elif sides["top"] and sides["left"] and sides["leftTop"] and !sides["right"]:
-					$Sprite2D.region_rect.position = Vector2(8,8)
+					texture.region_rect.position = Vector2(8,8)
 				elif sides["right"] and sides["bottom"] and sides["bottomRight"] and !sides["top"]:
-					$Sprite2D.region_rect.position = Vector2(0,0)
+					texture.region_rect.position = Vector2(0,0)
 				else:
-					$Sprite2D.region_rect.position = Vector2(8,0)
+					texture.region_rect.position = Vector2(8,0)
 			81:
 				var sides = get_sides(81)
 				var sideToCheck = [sides["bottom"],sides["right"],sides["top"]]
 				var sideCheck = {[false,true,true]:Vector2(8,16),[true,true,true]:Vector2(8,8),[true,true,false]:Vector2(8,0),
 				[true,false,false]:Vector2(16,0),[true,false,true]:Vector2(16,8),[false,false,true]:Vector2(16,16)}
 				if sideCheck.has(sideToCheck):
-					$Sprite2D.region_rect.position = sideCheck[sideToCheck]
+					texture.region_rect.position = sideCheck[sideToCheck]
 				else:
-					$Sprite2D.region_rect.position = Vector2(0,16)
+					texture.region_rect.position = Vector2(0,16)
+			173:
+				var choices = {[Vector2(0,-1),Vector2(1,0),Vector2(1,-1)]:{"mod":Vector2(0,1),"atlas_pos":Vector2(8,8)},[Vector2(0,1),Vector2(1,0),Vector2(1,1)]:{"mod":Vector2(0,0),"atlas_pos":Vector2(8,0)},[Vector2(0,1),Vector2(-1,0),Vector2(-1,1)]:{"mod":Vector2(1,0),"atlas_pos":Vector2(16,0)},[Vector2(0,-1),Vector2(-1,0),Vector2(-1,-1)]:{"mod":Vector2(1,1),"atlas_pos":Vector2(16,8)}}
+				var sides = get_sides_vector2([173,174])
+				var chosenSides = []
+				for sideArray in choices.keys():
+					var count = 0
+					for i in sideArray:
+						if sides[i]:
+							count += 1
+					if count >= 3:
+						chosenSides.append(sideArray)
+				if chosenSides.size() > 0:
+					var posMod = Vector2(fmod(pos.x,2.0),fmod(pos.y,2.0))
+					var correctSide : Array
+					for side in chosenSides:
+						if choices[side]["mod"] == posMod:
+							correctSide = side
+					if correctSide.is_empty():
+						texture.region_rect.position = Vector2(0,8)
+					else:
+						texture.region_rect.position = choices[correctSide]["atlas_pos"]
+				else:
+					texture.region_rect.position = Vector2(0,8)
 
 func get_sides(blockId : int) -> Dictionary:
-	return {"left":world.get_block_id(pos - Vector2(1,0),layer) == blockId,"right":world.get_block_id(pos + Vector2(1,0),layer) == blockId,"top":world.get_block_id(pos - Vector2(0,1),layer) == blockId,"bottom":world.get_block_id(pos + Vector2(0,1),layer) == blockId,"rightTop":world.get_block_id(pos + Vector2(1,-1),layer) == blockId,"leftTop":world.get_block_id(pos - Vector2(1,1),layer) == blockId,"bottomRight":world.get_block_id(pos + Vector2(1,1),layer) == blockId}
+	return {"left":world.get_block_id(pos - Vector2(1,0),layer) == blockId,"right":world.get_block_id(pos + Vector2(1,0),layer) == blockId,"top":world.get_block_id(pos - Vector2(0,1),layer) == blockId,"bottom":world.get_block_id(pos + Vector2(0,1),layer) == blockId,"rightTop":world.get_block_id(pos + Vector2(1,-1),layer) == blockId,"leftTop":world.get_block_id(pos - Vector2(1,1),layer) == blockId,"bottomRight":world.get_block_id(pos + Vector2(1,1),layer) == blockId,"bottomLeft":world.get_block_id(pos + Vector2(-1,1),layer) == blockId}
+
+func get_sides_vector2(blockIds : Array) -> Dictionary:
+	var sides = {}
+	for x in range(-1,2):
+		for y in range(-1,2):
+			if !(x==0 and y==0):
+				sides[Vector2(x,y)] = blockIds.has(world.get_block_id(pos + Vector2(x,y),layer))
+	return sides
 
 func _on_Tick_timeout():
 	match id:

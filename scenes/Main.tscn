@@ -2401,6 +2401,7 @@ collision_mode = 2
 script = ExtResource("35")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="CloudLayer1" type="ParallaxBackground" parent="CanvasLayer"]
 layer = -99
@@ -3362,6 +3363,7 @@ grow_vertical = 0
 text = "Lock"
 
 [node name="LogicBlockEdit" type="Panel" parent="CanvasLayer"]
+visible = false
 custom_minimum_size = Vector2(180, 75)
 anchors_preset = 8
 anchor_left = 0.5
@@ -3377,7 +3379,7 @@ grow_vertical = 2
 theme = ExtResource("60_dyqfb")
 script = ExtResource("60_2s7q2")
 
-[node name="EditTextLbl" type="Label" parent="CanvasLayer/LogicBlockEdit"]
+[node name="SelectLbl" type="Label" parent="CanvasLayer/LogicBlockEdit"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -3389,7 +3391,7 @@ grow_horizontal = 2
 text = "Select Logic Mode"
 horizontal_alignment = 1
 
-[node name="CloseBtn" type="Button" parent="CanvasLayer/LogicBlockEdit"]
+[node name="DoneBtn" type="Button" parent="CanvasLayer/LogicBlockEdit"]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -3629,6 +3631,7 @@ autostart = true
 [node name="Deleting" type="Node2D" parent="World"]
 
 [node name="Wires" type="Node2D" parent="World"]
+visible = false
 
 [node name="Cursor" type="Sprite2D" parent="."]
 z_index = 5
@@ -3762,6 +3765,7 @@ script = ExtResource("47")
 [connection signal="value_changed" from="CanvasLayer/SignEdit/HBoxContainer/RadiusInt" to="CanvasLayer/SignEdit" method="_on_radius_int_value_changed"]
 [connection signal="pressed" from="CanvasLayer/SignEdit/CloseBtn" to="CanvasLayer/SignEdit" method="_on_close_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/SignEdit/LockBtn" to="CanvasLayer/SignEdit" method="_on_lock_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/LogicBlockEdit/DoneBtn" to="CanvasLayer/LogicBlockEdit" method="_on_done_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Respawn" to="CanvasLayer/Dead" method="_on_Respawn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Quit" to="CanvasLayer/Dead" method="_on_Quit_pressed"]
 [connection signal="text_changed" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_text_changed"]

@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=3 uid="uid://co0vbel01tdon"]
+
+[ext_resource type="Script" path="res://scripts/blocks/FlipBlock.gd" id="1_2bkv1"]
+[ext_resource type="Texture2D" uid="uid://bp6ihch4qfy34" path="res://textures/blocks/logic_block_and.png" id="2_73sep"]
+[ext_resource type="Texture2D" uid="uid://d2knl2pc7ytxv" path="res://textures/blocks/misc/logic_pin_bool.png" id="3_1b7cd"]
+
+[node name="FlipBlock" type="StaticBody2D"]
+script = ExtResource("1_2bkv1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
+texture = ExtResource("2_73sep")
+region_rect = Rect2(0, 16, 8, 8)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2, -2)
+scale = Vector2(0.2, 0.2)
+rect = Rect2(-10, -10, 40, 40)
+
+[node name="shade" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.521569)
+
+[node name="Inputs" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="I1" type="TextureButton" parent="Inputs"]
+offset_left = -6.0
+offset_top = -2.0
+offset_right = -2.0
+offset_bottom = 2.0
+texture_normal = ExtResource("3_1b7cd")
+
+[node name="Outputs" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="O1" type="TextureButton" parent="Outputs"]
+offset_left = 1.0
+offset_top = -2.0
+offset_right = 5.0
+offset_bottom = 2.0
+texture_normal = ExtResource("3_1b7cd")
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

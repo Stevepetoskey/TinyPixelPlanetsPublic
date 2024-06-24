@@ -23,7 +23,7 @@ func _ready():
 		modulate = Color(0.68,0.68,0.68)
 		z_index -= 1
 	if !data.has("mode"):
-		data = {"mode":"and"}
+		data["mode"] = "and"
 		$Sprite2D.texture = LOGIC_TEXTURE["and"]
 	else:
 		$Sprite2D.texture = LOGIC_TEXTURE[data["mode"]]
@@ -31,24 +31,34 @@ func _ready():
 	world.connect("update_blocks", Callable(self, "on_update"))
 	world.connect("world_loaded", Callable(self, "world_loaded"))
 
+func change_mode(mode : String) -> void:
+	data["mode"] = mode
+	$Sprite2D.texture = LOGIC_TEXTURE[mode]
+	calculate()
+
 func input_called(inputPin : String,value,wire : TextureRect):
 	inputs[inputPin][wire] = value
 	calculate()
 
-func calculate():
-	if !calculating:
+func calculate(inputValues := [],ignoreTick := false):
+	if inputValues.is_empty():
+		inputValues = inputs["I1"].values()
+	if !calculating or ignoreTick:
 		calculating = true
-		await get_tree().create_timer(0.05).timeout
+		await get_tree().create_timer(0.02).timeout
 		var on : bool
 		match data["mode"]:
 			"and":
-				on = !inputs["I1"].values().has(false)
+				on = !inputValues.has(false)
 			"or":
-				on = inputs["I1"].values().has(true)
+				on = inputValues.has(true)
 			"nand":
-				on = inputs["I1"].values().has(false)
+				on = inputValues.has(false)
 			"nor":
-				on = !inputs["I1"].values().has(true)
+				on = !inputValues.has(true)
+			"xor":
+				on = inputValues.count(true) == 1
+		data["last_input"] = inputs["I1"].values()
 		emit_signal("output","O1",on)
 		calculating = false
 
@@ -58,6 +68,7 @@ func wire_broke(inputPin : String,wire : TextureRect):
 
 func toggle_pins(toggle : bool) -> void:
 	input_node.visible = toggle
+	output_node.visible = toggle
 
 func send_output(pin : String):
 	match pin:
@@ -74,6 +85,8 @@ func output_pressed(out : String) -> void:
 
 func world_loaded():
 	on_update()
+	if data.has("last_input"):
+		calculate(data["last_input"],true)
 
 func on_update():
 	if layer < 1:

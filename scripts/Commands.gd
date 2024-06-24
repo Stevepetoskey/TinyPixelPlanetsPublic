@@ -5,6 +5,7 @@ extends LineEdit
 @onready var world = $"../../World"
 @onready var player = $"../../Player"
 @onready var command_help: RichTextLabel = $CommandHelp
+@onready var cursor: Sprite2D = $"../../Cursor"
 
 var commandList = [
 	"worldrule [rule] [value]",
@@ -15,7 +16,7 @@ var commandList = [
 ]
 
 func _process(delta):
-	$"../Hotbar/Coords".text = "X: " + str(snapped(player.position.x / 4.0,0.01)) + ", Y: " + str(snapped(player.position.y/ 4.0,0.01))
+	$"../Hotbar/Coords".text = "X: " + str(snapped(cursor.position.x / 8.0,0.01)) + ", Y: " + str(snapped(cursor.position.y/ 8.0,0.01))
 
 func _unhandled_input(event):
 	if Input.is_key_pressed(KEY_SHIFT) and Input.is_key_pressed(KEY_C):

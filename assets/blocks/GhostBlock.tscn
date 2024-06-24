@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdi7x7nwgloqe"]
+
+[ext_resource type="Script" path="res://scripts/blocks/GhostBlock.gd" id="1_papii"]
+
+[node name="GhostBlock" type="StaticBody2D"]
+script = ExtResource("1_papii")

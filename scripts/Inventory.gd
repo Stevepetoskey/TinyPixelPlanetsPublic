@@ -260,6 +260,8 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 	holding = false
 	if toggle:
 		setValue = !visible
+		if !setValue:
+			mode = "close"
 	visible = setValue
 	Global.pause = setValue
 	if visible:
@@ -273,6 +275,7 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 			crafting.visible = setValue
 			crafting.update_crafting(mode)
 		"chest":
+			print("hide chest: ",setValue)
 			chest.visible = setValue
 			chest.update_chest(world.get_block(cursor.cursorPos,cursor.currentLayer))
 		"lily_mart","skips_stones":

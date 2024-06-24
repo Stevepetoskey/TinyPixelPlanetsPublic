@@ -1,3 +1,6 @@
+Label
+CollisionShape2D
+AnimatedSprite2D
 TextureButton
 HBoxContainer
 CanvasLayer
@@ -6,9 +9,6 @@ Node2D
 TextureRect
 Control
 Button
-Label
 Panel
 Timer
 State
-AnimationPlayer
-AnimatedSprite2D

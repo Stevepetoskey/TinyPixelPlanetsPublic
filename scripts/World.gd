@@ -1,5 +1,6 @@
 extends Node2D
 
+const WIRE = preload("res://assets/blocks/wire.tscn")
 const BLOCK_SIZE = Vector2(8,8)
 
 @export var worldSize = Vector2(16,24)
@@ -26,7 +27,11 @@ var blockTypes = {
 	"sign":preload("res://assets/blocks/Sign.tscn"),
 	"lever":preload("res://assets/blocks/Lever.tscn"),
 	"display_block":preload("res://assets/blocks/DisplayBlock.tscn"),
-	"logic_block":preload("res://assets/blocks/LogicBlock.tscn")
+	"logic_block":preload("res://assets/blocks/LogicBlock.tscn"),
+	"flip_block":preload("res://assets/blocks/FlipBlock.tscn"),
+	"door":preload("res://assets/blocks/Door.tscn"),
+	"ghost":preload("res://assets/blocks/GhostBlock.tscn"),
+	"button":preload("res://assets/blocks/Button.tscn"),
 }
 
 var currentPlanet : Object
@@ -36,9 +41,9 @@ var hasGravity = true
 
 var waterUpdateList = []
 
-var interactableBlocks = [12,16,28,91,145,158,159,167]
+var interactableBlocks = [12,16,28,91,145,158,159,167,169,171,176]
 
-var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,167]
+var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,167,171,172,176]
 
 var worldRules = {
 	"break_blocks":{"value":true,"type":"bool"},
@@ -210,6 +215,13 @@ var blockData = {
 	167:{"texture":preload("res://textures/blocks/lever_off.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":167,"amount":1}],"name":"Lever","type":"lever"},
 	168:{"texture":preload("res://textures/blocks/display_block_off.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":168,"amount":1}],"name":"Display block","type":"display_block"},
 	169:{"texture":preload("res://textures/blocks/logic_block_and.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":169,"amount":1}],"name":"Logic block","type":"logic_block"},
+	170:{"texture":preload("res://textures/blocks/flip_block_off.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":170,"amount":1}],"name":"Flip block","type":"flip_block"},
+	171:{"texture":preload("res://textures/items/door_icon.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":171,"amount":1}],"name":"Wood door","type":"door","door_animation":preload("res://textures/blocks/misc/wood_door.tres")},
+	172:{"texture":preload("res://textures/items/steel_door_icon.png"),"hardness":4,"canHaverst":3,"drops":[{"id":172,"amount":1}],"name":"Steel door","type":"door","door_animation":preload("res://textures/blocks/misc/steel_door.tres")},
+	173:{"texture":preload("res://textures/blocks/steel.png"),"hardness":5,"canHaverst":3,"drops":[{"id":173,"amount":1}],"name":"Steel","type":"block"},
+	174:{"texture":preload("res://textures/blocks/steel_taped.png"),"hardness":4,"canHaverst":3,"drops":[{"id":174,"amount":1}],"name":"Taped steel","type":"simple"},
+	175:{"texture":preload("res://textures/blocks/steel_tiles.png"),"hardness":4,"canHaverst":3,"drops":[{"id":175,"amount":1}],"name":"Steel tiles","type":"simple"},
+	176:{"texture":preload("res://textures/blocks/button_off.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":176,"amount":1}],"name":"Button","type":"button"},
 }
 
 var itemData = {
@@ -292,8 +304,8 @@ signal world_loaded
 signal blocks_changed
 
 func _ready():
-	var _er = StarSystem.connect("planet_ready", Callable(self, "start_world"))
-	_er = Global.connect("loaded_data", Callable(self, "start_world"))
+	var _er = StarSystem.connect("planet_ready", start_world)
+	_er = Global.connect("loaded_data", start_world)
 	Global.pause = false
 	if Global.gameStart:
 		StarSystem.start_game()
@@ -626,9 +638,12 @@ func get_world_data() -> Dictionary:
 		"misc_stats":{"meteor_stage":meteors.stage,"meteor_progress_time_left":$"../CanvasLayer/Enviroment/Meteors/StageProgress".time_left}
 	}
 	data["system"] = StarSystem.get_system_data()
-	data["planet"] = {"blocks":[],"entities":entities.get_entity_data(),"rules":worldRules,"left_at_time":Global.globalGameTime,"current_weather":$"..".currentWeather,"weather_time_left":$"../weather/WeatherTimer".time_left}
+	data["planet"] = {"blocks":[],"entities":entities.get_entity_data(),"rules":worldRules,"left_at_time":Global.globalGameTime,"current_weather":$"..".currentWeather,"weather_time_left":$"../weather/WeatherTimer".time_left,"wires":[]}
+	for wire in $Wires.get_children():
+		data["planet"]["wires"].append({"output_block_pos":wire.outputBlock.pos,"output_block_layer":wire.outputBlock.layer,"output_pin":wire.outputPin,"input_block_pos":wire.inputBlock.pos,"input_block_layer":wire.inputBlock.layer,"input_pin":wire.inputPin})
 	for block in $blocks.get_children():
-		data["planet"]["blocks"].append({"id":block.id,"layer":block.layer,"position":block.pos,"data":block.data})
+		if blockData[block.id]["type"] != "door" or block.mainBlock == block:
+			data["planet"]["blocks"].append({"id":block.id,"layer":block.layer,"position":block.pos,"data":block.data})
 	return data
 
 func load_player_data() -> void:
@@ -674,6 +689,15 @@ func load_world_data() -> void:#data : Dictionary) -> void:
 		player.position = Vector2(worldRules["world_spawn_x"]["value"]*4,worldRules["world_spawn_y"]["value"]*4)
 	for block in planetData["blocks"]:
 		set_block(block["position"],block["layer"],block["id"],false,block["data"])
+	if planetData.has("wires"): #For older versions
+		for wireData in planetData["wires"]:
+			var wire = WIRE.instantiate()
+			wire.outputBlock = get_block(wireData["output_block_pos"],wireData["output_block_layer"])
+			wire.inputBlock = get_block(wireData["input_block_pos"],wireData["input_block_layer"])
+			wire.outputPin = wireData["output_pin"]
+			wire.inputPin = wireData["input_pin"]
+			$Wires.add_child(wire)
+			wire.setup()
 
 func get_item_data(item_id : int) -> Dictionary:
 	if blockData.has(item_id):
@@ -707,6 +731,8 @@ func set_block(pos : Vector2, layer : int, id : int, update = false, data = {}) 
 	var blockAtPos = get_block(pos,layer)
 	if blockAtPos != null or (id == 0 and blockAtPos != null):
 		$blocks.remove_child(blockAtPos)
+		if blockData[blockAtPos.id]["type"] == "door":
+			blockAtPos.emit_signal("destroyed")
 		blockAtPos.queue_free()
 	if id > 0:
 		var block = blockTypes[blockData[id]["type"]].instantiate()
@@ -716,8 +742,25 @@ func set_block(pos : Vector2, layer : int, id : int, update = false, data = {}) 
 		block.layer = layer
 		block.data = data
 		block.name = str(pos.x) + "," + str(pos.y) + "," + str(layer)
-		block.get_node("Sprite2D").texture = get_item_texture(id)
+		if block.has_node("Sprite2D"):
+			block.get_node("Sprite2D").texture = get_item_texture(id)
 		$blocks.add_child(block)
+		if blockData[id]["type"] == "door": #adds ghost blocks for door
+			for y in [-1,1]:
+				var newBlockAtPos = get_block(pos + Vector2(0,y),layer)
+				if newBlockAtPos != null:
+					$blocks.remove_child(newBlockAtPos)
+					if blockData[newBlockAtPos.id]["type"] == "door":
+						newBlockAtPos.emit_signal("destroyed")
+					newBlockAtPos.queue_free()
+				var ghostBlock = blockTypes["ghost"].instantiate()
+				ghostBlock.destroyed.connect(block.ghost_block_block_destroyed)
+				ghostBlock.position = (pos + Vector2(0,y)) * BLOCK_SIZE
+				ghostBlock.mainBlock = block
+				ghostBlock.pos = pos + Vector2(0,y)
+				ghostBlock.id = id
+				ghostBlock.name = str(pos.x) + "," + str(pos.y+y) + "," + str(layer)
+				$blocks.add_child(ghostBlock)
 	emit_signal("blocks_changed")
 	if update:
 		update_area(pos)
@@ -732,9 +775,17 @@ func update_area(pos):
 
 func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction = true) -> void:
 	if action == "Build" and [0,6,7,117].has(get_block_id(pos,layer)) and blockData.has(id) and (!blockData[id].has("can_place_on") or blockData[id]["can_place_on"].has(get_block_id(pos + Vector2(0,1),layer))):
-		set_block(pos,layer,id,true)
-		if itemAction:
-			inventory.remove_id_from_inventory(id,1)
+		var canPlace = true
+		if blockData[id]["type"] == "door": #Makes sure all blocks are clear for the door
+			if [0,6,7,117].has(get_block_id(pos + Vector2(0,2),layer)):
+				canPlace = false
+			for y in [-1,1]:
+				if ![0,6,7,117].has(get_block_id(pos + Vector2(0,y),layer)):
+					canPlace = false
+		if canPlace:
+			set_block(pos,layer,id,true)
+			if itemAction:
+				inventory.remove_id_from_inventory(id,1)
 	elif action == "Break" and get_block(pos,layer) != null:
 		var block = get_block(pos,layer).id
 		if block == 91:

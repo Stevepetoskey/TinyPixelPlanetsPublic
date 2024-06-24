@@ -1,5 +1,6 @@
-res://scripts/GUI/main
 res://scripts/blocks
+res://textures/blocks/misc
+res://scripts/GUI/main
 res://assets/blocks
 res://scripts/misc
 res://textures/blocks/misc/red_wire/
@@ -19,4 +20,3 @@ res://fonts
 res://themes
 res://themes/
 res://fonts/
-res://assets/enviroment

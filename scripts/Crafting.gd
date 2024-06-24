@@ -60,6 +60,10 @@ var recipes = {
 		{"recipe":[{"id":157,"amount":8}],"result":{"id":159,"amount":1}}, #Acacia chest
 		{"recipe":[{"id":5,"amount":2},{"id":157,"amount":4}],"result":{"id":58,"amount":1}}, #(Acacia) Wood club
 		{"recipe":[{"id":5,"amount":2},{"id":157,"amount":3}],"result":{"id":61,"amount":1}}, #(Acacia) Wood sword
+		{"recipe":[{"id":173,"amount":1}],"result":{"id":174,"amount":1}}, #Taped steel
+		{"recipe":[{"id":173,"amount":1}],"result":{"id":175,"amount":1}}, #Steel tiles
+		{"recipe":[{"id":173,"amount":6}],"result":{"id":172,"amount":1}}, #Steel door
+		{"recipe":[{"id":13,"amount":6}],"result":{"id":171,"amount":1}}, #Wood door
 	],
 	"oven": [
 		{"recipe":[{"id":14,"amount":1}],"result":{"id":20,"amount":1}},
@@ -81,6 +85,7 @@ var recipes = {
 	"smithing_table": [
 		{"recipe":[{"id":52,"amount":6}],"result":{"id":88,"amount":1}}, #Copper block
 		{"recipe":[{"id":56,"amount":6}],"result":{"id":89,"amount":1}}, #Silver block
+		{"recipe":[{"id":165,"amount":4}],"result":{"id":173,"amount":3}}, #Steel
 		{"recipe":[{"id":88,"amount":1}],"result":{"id":133,"amount":2}}, #Copper plate
 		{"recipe":[{"id":88,"amount":4}],"result":{"id":134,"amount":4}}, #Copper bricks
 		{"recipe":[{"id":89,"amount":1}],"result":{"id":136,"amount":2}}, #Silver plate

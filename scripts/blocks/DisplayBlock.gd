@@ -30,13 +30,16 @@ func input_called(inputPin : String,value,wire : TextureRect):
 	inputs[inputPin][wire] = value
 	calculate()
 
-func calculate():
-	if !calculating:
+func calculate(inputValues := [],ignoreTick := false):
+	if inputValues.is_empty():
+		inputValues = inputs["I1"].values()
+	if !calculating or ignoreTick:
 		calculating = true
-		var on = inputs["I1"].values().has(true)
+		await get_tree().create_timer(0.02).timeout
+		var on = inputValues.has(true)
+		data["last_input"] = inputs["I1"].values()
 		data["toggled"] = on
 		$Sprite2D.texture = DISPLAY_TEXTURE[on]
-		await get_tree().create_timer(0.05).timeout
 		calculating = false
 
 func wire_broke(inputPin : String,wire : TextureRect):
@@ -52,6 +55,8 @@ func input_pressed(input : String) -> void:
 
 func world_loaded():
 	on_update()
+	if data.has("last_input"):
+		calculate(data["last_input"],true)
 
 func on_update():
 	if layer < 1:

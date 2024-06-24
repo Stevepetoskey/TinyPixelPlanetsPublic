@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://v75cpae2r336"]
+
+[ext_resource type="Script" path="res://scripts/blocks/Door.gd" id="1_5sgly"]
+[ext_resource type="SpriteFrames" uid="uid://bpvym6vatw37d" path="res://textures/blocks/misc/steel_door.tres" id="2_dfd2d"]
+[ext_resource type="Texture2D" uid="uid://d2knl2pc7ytxv" path="res://textures/blocks/misc/logic_pin_bool.png" id="3_37kq4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7y4uk"]
+size = Vector2(3, 24)
+
+[node name="Door" type="StaticBody2D"]
+script = ExtResource("1_5sgly")
+
+[node name="Texture" type="AnimatedSprite2D" parent="."]
+light_mask = 2
+position = Vector2(2.08165e-12, 2.08165e-12)
+sprite_frames = ExtResource("2_dfd2d")
+animation = &"start_closed"
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-1.5, -6)
+scale = Vector2(0.15, 0.6)
+rect = Rect2(-10, -10, 40, 40)
+
+[node name="shade" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.521569)
+
+[node name="Inputs" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="I1" type="TextureButton" parent="Inputs"]
+offset_left = -6.0
+offset_top = -2.0
+offset_right = -2.0
+offset_bottom = 2.0
+texture_normal = ExtResource("3_37kq4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7y4uk")
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
