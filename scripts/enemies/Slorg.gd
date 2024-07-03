@@ -92,7 +92,7 @@ func _on_AnimatedSprite_animation_finished():
 				if !seePlayer:
 					dir = 1 if randi()%2 == 1 else -1
 				else:
-					dir = 1 * sign(player.position.x - position.x)
+					dir = 1 * sign(seenPos.x - position.x)
 				motion = Vector2(MAX_SPEED * dir,-JUMPSPEED)
 				inAir = true
 				state = nextState

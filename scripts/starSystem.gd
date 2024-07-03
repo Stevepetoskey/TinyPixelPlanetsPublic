@@ -89,7 +89,8 @@ var weatherEvents = {
 	"snow_terra":["snow","blizzard"],
 	"asteroids":["none"],
 	"ocean":["rain","showers"],
-	"grassland":["rain"]
+	"grassland":["rain"],
+	"scorched":["none"],
 }
 
 var typeNames = {
@@ -105,7 +106,8 @@ var typeNames = {
 	"gas3":"Gas giant",
 	"asteroids":"Asteroids",
 	"ocean":"Ocean",
-	"grassland":"Grassland"
+	"grassland":"Grassland",
+	"scorched":"Scorched"
 }
 
 var hostileSpawn = {
@@ -118,7 +120,8 @@ var hostileSpawn = {
 	"snow_terra":["slorg"],
 	"asteroids":["space_squid"],
 	"ocean":[],
-	"grassland":["slorg"]
+	"grassland":["slorg"],
+	"scorched":[],
 }
 
 var sizeNames = {
@@ -149,7 +152,9 @@ var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra
 	"small_ocean":{"texture":preload("res://textures/planets/ocean.png"),"size":sizeTypes.small,"type":"ocean"},
 	"ocean":{"texture":preload("res://textures/planets/oceanMedium.png"),"size":sizeTypes.medium,"type":"ocean"},
 	"small_grassland":{"texture":preload("res://textures/planets/grassland.png"),"size":sizeTypes.small,"type":"grassland"},
-	"grassland":{"texture":preload("res://textures/planets/grasslandMedium.png"),"size":sizeTypes.medium,"type":"grassland"}
+	"grassland":{"texture":preload("res://textures/planets/grasslandMedium.png"),"size":sizeTypes.medium,"type":"grassland"},
+	"small_scorched":{"texture":preload("res://textures/planets/scorched.png"),"size":sizeTypes.small,"type":"scorched"},
+	"scorched":{"texture":preload("res://textures/planets/scorchedMedium.png"),"size":sizeTypes.medium,"type":"scorched"},
 	#"commet":{"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"},
 }
 
@@ -384,7 +389,7 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 	var planetType
 	var planets = []
 	for planetDat in planetData:
-		if (planetData[planetDat]["size"] < maxSize or (maxSize == 0 and planetData[planetDat]["size"] == 0)) and !["terra","snow","snow_terra","exotic","ocean","grassland"].has(planetData[planetDat]["type"]):
+		if (planetData[planetDat]["size"] < maxSize or (maxSize == 0 and planetData[planetDat]["size"] == 0)) and !["terra","snow","snow_terra","exotic","ocean","grassland","scorched"].has(planetData[planetDat]["type"]):
 			planets.append(planetData[planetDat])
 	planets.shuffle()
 	planetType = planets[0]
@@ -431,9 +436,13 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 		planet.type = planetData[size + type]
 		planet.hasAtmosphere = true
 	elif !currentStarData["habital"].is_empty() and abs(planet.orbitalDistance-orbitBody.orbitalDistance) < currentStarData["habital"][currentStarData["habital"].size()-1]:
-		if randi() % 4 == 1:
-			planet.type = planetData[size + "grassland"]
-			planet.hasAtmosphere = true
+		match randi() % 4:
+			0:
+				planet.type = planetData[size + "grassland"]
+				planet.hasAtmosphere = true
+			1:
+				planet.type = planetData[size + "scorched"]
+				planet.hasAtmosphere = true
 	elif !currentStarData["habital"].is_empty() and abs(planet.orbitalDistance-orbitBody.orbitalDistance) > currentStarData["habital"][currentStarData["habital"].size()-1]:
 		if randi() % 3 ==1:
 			planet.type = planetData[size + "snow"]

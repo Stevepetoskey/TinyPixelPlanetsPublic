@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://gat3vrk8pgvh"]
+
+[ext_resource type="Script" path="res://scripts/blocks/Spawner.gd" id="1_ob8p8"]
+[ext_resource type="Texture2D" uid="uid://dcuh5qrsl4jfy" path="res://textures/particles/fire.png" id="2_bia2d"]
+[ext_resource type="Texture2D" uid="uid://q873rdslsnk4" path="res://textures/blocks/scorched_spawner.png" id="3_rynhy"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_y6fa6"]
+polygon = PackedVector2Array(-4, 4, 4, 4, 4, 1, -4, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_weafu"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_17qht"]
+offsets = PackedFloat32Array(0.786458, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(8, 4)
+
+[node name="Spawner" type="StaticBody2D"]
+script = ExtResource("1_ob8p8")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2, 0.25)
+scale = Vector2(0.2, 0.125)
+rect = Rect2(-10, -10, 40, 40)
+
+[node name="RainCol" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_y6fa6")
+
+[node name="FireParticles" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_weafu")
+lifetime = 2.5
+lifetime_randomness = 0.47
+texture = ExtResource("2_bia2d")
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2(2.08165e-12, -1)
+gravity = Vector2(2.08165e-12, -2)
+initial_velocity_min = 4.0
+initial_velocity_max = 6.0
+color_ramp = SubResource("Gradient_17qht")
+anim_offset_max = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
+texture = ExtResource("3_rynhy")
+region_rect = Rect2(16, 2.08165e-12, 8, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 2)
+shape = SubResource("1")
+
+[node name="shade" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.521569)
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 10.0
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

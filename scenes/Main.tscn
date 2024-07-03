@@ -1,4 +1,4 @@
-[gd_scene load_steps=203 format=3 uid="uid://2c07adgn0vow"]
+[gd_scene load_steps=205 format=3 uid="uid://2c07adgn0vow"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c3rmyuwb7gd3m" path="res://textures/enviroment/sky.png" id="2"]
@@ -84,7 +84,9 @@
 [ext_resource type="Texture2D" uid="uid://im3ftx86mtc3" path="res://textures/GUI/space/h_bar_handle_select.png" id="70"]
 [ext_resource type="Texture2D" uid="uid://gq6xylkb0lf4" path="res://textures/GUI/main/logic/xor_btn_pressed.png" id="70_gxdv6"]
 [ext_resource type="Texture2D" uid="uid://cgfxdpw0sxxxi" path="res://textures/GUI/space/h_bar_handle_hover.png" id="71"]
+[ext_resource type="Script" path="res://scripts/GUI/main/StructureSaveEdit.gd" id="71_3tamp"]
 [ext_resource type="Texture2D" uid="uid://cs2ptrjg2ll5k" path="res://textures/GUI/space/v_bar_handle_hover.png" id="72"]
+[ext_resource type="Script" path="res://scripts/GUI/main/DevChestEdit.gd" id="72_5q14t"]
 [ext_resource type="Texture2D" uid="uid://cn76yxyfhxg3v" path="res://textures/GUI/space/v_bar_handle.png" id="73"]
 [ext_resource type="Texture2D" uid="uid://45o7v1dsk3yx" path="res://textures/GUI/space/h_bar.png" id="74"]
 [ext_resource type="Texture2D" uid="uid://dqkgujgjvgj5g" path="res://textures/GUI/space/v_bar.png" id="75"]
@@ -3451,6 +3453,171 @@ texture_normal = ExtResource("69_4xjca")
 texture_pressed = ExtResource("70_gxdv6")
 stretch_mode = 3
 
+[node name="StructureSaveEdit" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.5
+offset_top = -41.0
+offset_right = 61.5
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("60_dyqfb")
+script = ExtResource("71_3tamp")
+
+[node name="TitleLbl" type="Label" parent="CanvasLayer/StructureSaveEdit"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 13.0
+grow_horizontal = 2
+text = "Structure save"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/StructureSaveEdit"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 13.0
+offset_right = 119.0
+offset_bottom = 85.0
+theme_override_constants/separation = 6
+
+[node name="Position" type="HBoxContainer" parent="CanvasLayer/StructureSaveEdit/VBoxContainer"]
+layout_mode = 2
+
+[node name="XLbl" type="Label" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Position"]
+layout_mode = 2
+text = "X:"
+
+[node name="XEdit" type="SpinBox" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Position"]
+layout_mode = 2
+max_value = 256.0
+
+[node name="YLbl" type="Label" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Position"]
+layout_mode = 2
+text = "Y:"
+
+[node name="YEdit" type="SpinBox" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Position"]
+layout_mode = 2
+max_value = 128.0
+
+[node name="Size" type="HBoxContainer" parent="CanvasLayer/StructureSaveEdit/VBoxContainer"]
+layout_mode = 2
+
+[node name="WLbl" type="Label" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Size"]
+layout_mode = 2
+text = "W:"
+
+[node name="WidthEdit" type="SpinBox" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Size"]
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+
+[node name="HLbl" type="Label" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Size"]
+layout_mode = 2
+text = "H:"
+
+[node name="HeightEdit" type="SpinBox" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Size"]
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+
+[node name="Name" type="HBoxContainer" parent="CanvasLayer/StructureSaveEdit/VBoxContainer"]
+layout_mode = 2
+
+[node name="NameLbl" type="Label" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Name"]
+layout_mode = 2
+text = "Name:"
+
+[node name="NameEdit" type="LineEdit" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Name"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "file name"
+
+[node name="BackBtn" type="Button" parent="CanvasLayer/StructureSaveEdit"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -17.0
+offset_right = -62.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back"
+
+[node name="SaveBtn" type="Button" parent="CanvasLayer/StructureSaveEdit"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 62.0
+offset_top = -17.0
+offset_right = -2.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Save"
+
+[node name="DevChestEdit" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.5
+offset_top = -32.5
+offset_right = 61.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("60_dyqfb")
+script = ExtResource("72_5q14t")
+
+[node name="TitleLbl" type="Label" parent="CanvasLayer/DevChestEdit"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 13.0
+grow_horizontal = 2
+text = "Dev chest"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DevChestEdit"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 13.0
+offset_right = 119.0
+offset_bottom = 85.0
+theme_override_constants/separation = 6
+
+[node name="GroupLbl" type="Label" parent="CanvasLayer/DevChestEdit/VBoxContainer"]
+layout_mode = 2
+text = "Loot table group:"
+horizontal_alignment = 1
+
+[node name="GroupEdit" type="LineEdit" parent="CanvasLayer/DevChestEdit/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SaveBtn" type="Button" parent="CanvasLayer/DevChestEdit/VBoxContainer"]
+layout_mode = 2
+text = "Save"
+
 [node name="Black" type="TextureRect" parent="CanvasLayer"]
 modulate = Color(0, 0, 0, 1)
 anchors_preset = 15
@@ -3766,6 +3933,15 @@ script = ExtResource("47")
 [connection signal="pressed" from="CanvasLayer/SignEdit/CloseBtn" to="CanvasLayer/SignEdit" method="_on_close_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/SignEdit/LockBtn" to="CanvasLayer/SignEdit" method="_on_lock_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/LogicBlockEdit/DoneBtn" to="CanvasLayer/LogicBlockEdit" method="_on_done_btn_pressed"]
+[connection signal="value_changed" from="CanvasLayer/StructureSaveEdit/VBoxContainer/Position/XEdit" to="CanvasLayer/StructureSaveEdit" method="_on_x_edit_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/StructureSaveEdit/VBoxContainer/Position/YEdit" to="CanvasLayer/StructureSaveEdit" method="_on_y_edit_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/StructureSaveEdit/VBoxContainer/Size/WidthEdit" to="CanvasLayer/StructureSaveEdit" method="_on_width_edit_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/StructureSaveEdit/VBoxContainer/Size/HeightEdit" to="CanvasLayer/StructureSaveEdit" method="_on_height_edit_value_changed"]
+[connection signal="text_changed" from="CanvasLayer/StructureSaveEdit/VBoxContainer/Name/NameEdit" to="CanvasLayer/StructureSaveEdit" method="_on_name_edit_text_changed"]
+[connection signal="pressed" from="CanvasLayer/StructureSaveEdit/BackBtn" to="CanvasLayer/StructureSaveEdit" method="_on_back_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/StructureSaveEdit/SaveBtn" to="CanvasLayer/StructureSaveEdit" method="_on_save_btn_pressed"]
+[connection signal="text_changed" from="CanvasLayer/DevChestEdit/VBoxContainer/GroupEdit" to="CanvasLayer/DevChestEdit" method="_on_group_edit_text_changed"]
+[connection signal="pressed" from="CanvasLayer/DevChestEdit/VBoxContainer/SaveBtn" to="CanvasLayer/DevChestEdit" method="_on_save_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Respawn" to="CanvasLayer/Dead" method="_on_Respawn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Quit" to="CanvasLayer/Dead" method="_on_Quit_pressed"]
 [connection signal="text_changed" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_text_changed"]

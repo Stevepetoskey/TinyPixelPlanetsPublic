@@ -29,4 +29,5 @@ func _on_timer_timeout() -> void:
 					img.set_pixel(x,y,Color.WHITE)
 				else:
 					img.set_pixel(x,y,Color.BLACK)
+
 	$TextureRect.texture = ImageTexture.create_from_image(img)

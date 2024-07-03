@@ -5,7 +5,9 @@ var entities = {
 	"item":preload("res://assets/entities/Item.tscn"),
 	"blues":preload("res://assets/entities/Blues.tscn"),
 	"space_squid":preload("res://assets/enemies/Space_squid.tscn"),
-	"rockius":preload("res://assets/enemies/Rockius.tscn")
+	"rockius":preload("res://assets/enemies/Rockius.tscn"),
+	"magma_spit":preload("res://assets/entities/magma_spit.tscn"),
+	"scorched_guard":preload("res://assets/enemies/ScorchedGuard.tscn")
 	}
 
 var loaded = false
@@ -16,6 +18,7 @@ var loaded = false
 func get_entity_data():
 	var data = []
 	for entity in $Hold.get_children():
+		print(entity.type)
 		data.append({"pos":entity.position,"type":entity.type,"health":entity.health,"data":entity.data})
 	return data
 
@@ -48,6 +51,14 @@ func spawn_item(item : Dictionary, thrown = false, pos = $"../Player".position):
 		newI.canPickup = false
 		newI.motion = Vector2(10*randf_range(-1,1),-5)
 	$Hold.add_child(newI)
+
+func spawn_spit(pos : Vector2, direction : float, distance : float) -> void:
+	var newS = entities["magma_spit"].instantiate()
+	newS.position = pos
+	newS.direction = direction
+	newS.distance = distance
+	newS.new = true
+	$Hold.add_child(newS)
 
 func spawn_blues(amount : int, thrown = false, pos = $"../Player".position):
 	var newB = entities["blues"].instantiate()

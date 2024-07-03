@@ -15,3 +15,14 @@ This branch is for unstable development of TU5 (v0.5.0)
 - Added wood and steel doors
 - Added steel, steel tiles, and taped steel
 - Added button
+## TU5.4 (v0.5.0:4)
+- Added scorched rock, scorched pebbles, scorched bricks, carved scorched bricks, scorched brick fence, magma, magma scorched bricks, and scorched iron ore
+- Added scorched planets
+- Changed the texture for silver and copper blocks
+- Added Structure save, Dev link, Air hold, and Dev chest blocks (Used for creating custom structures)
+- Added scorched dungeon that generates on scorched planets
+- Fixed enemies still knowing where you are even if they can't see you
+- Added new enemy: Scorched guard
+- Added scorched spawner (Generates in scorched dungeons)
+- Added scorched platforms and scorched spawners
+- Changed texture for chest

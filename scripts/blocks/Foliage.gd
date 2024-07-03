@@ -68,6 +68,8 @@ func _ready() -> void:
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
 			$check.start(randf_range(120,600))
+		187:
+			modulate *= Color(1,1,1,0.5)
 
 func world_loaded():
 	on_update()

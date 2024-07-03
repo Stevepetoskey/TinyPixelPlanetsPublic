@@ -1,12 +1,13 @@
 extends Node
 
-const CURRENTVER = "TU5 Beta 3 (v0.5.0:3)"
-const VER_NUMS = [0,5,0,3]
+const CURRENTVER = "TU5 Beta 4 (v0.5.0:4)"
+const VER_NUMS = [0,5,0,4]
 const ALLOW_VERSIONS = [
 	[0,4,1,0],
 	[0,4,2,0],
 	[0,5,0,1],
-	[0,5,0,3]
+	[0,5,0,3],
+	[0,5,0,4]
 ]
 #Incompatable versions:
 #[0,4,0,8] and [0,4,0,0] (as of TU4.1). Reason: Updated to godot 4
@@ -109,10 +110,12 @@ func open_tutorial():
 	dir.open(save_path + currentSave)
 	dir.make_dir("systems")
 	dir.make_dir("planets")
+	dir.make_dir("structures")
 	#DirAccess.copy_absolute("res://data/Tutorial",save_path + currentSave)
 	#copy_directory_recursively("res://data/Tutorial",save_path + currentSave)
 	copy_directory_recursively("res://data/Tutorial/planets",save_path + currentSave + "/planets",true)
 	copy_directory_recursively("res://data/Tutorial/systems",save_path + currentSave + "/systems",true)
+	copy_directory_recursively("res://data/structures",save_path + currentSave + "/structures",true)
 	currentPlanet = 3
 	starterPlanetId = 3
 	currentSystemId = "3941924765520"
@@ -137,6 +140,9 @@ func open_save(saveId : String) -> void:
 	new = true
 	if DirAccess.dir_exists_absolute(save_path + saveId):
 		if FileAccess.file_exists(save_path + saveId + "/playerData.dat"):
+			if !DirAccess.dir_exists_absolute(save_path + saveId + "/structures"): #For TU4.2 and before
+				DirAccess.make_dir_absolute(save_path + saveId + "/structures")
+				copy_directory_recursively("res://data/structures",save_path + saveId + "/structures",true)
 			var savegame = FileAccess.open(save_path + saveId + "/playerData.dat",FileAccess.READ)
 			playerData = savegame.get_var()
 			blues = playerData["blues"]
@@ -190,8 +196,10 @@ func new_save(saveId : String):
 	dir.open(save_path + saveId)
 	dir.make_dir("systems")
 	dir.make_dir("planets")
+	dir.make_dir("structures")
 	copy_directory_recursively("res://data/pre_made_planets",save_path + saveId + "/planets",true)
 	copy_directory_recursively("res://data/pre_made_systems",save_path + saveId + "/systems",true)
+	copy_directory_recursively("res://data/structures",save_path + saveId + "/structures",true)
 	GlobalGui.completedAchievements = []
 	globalGameTime = 0
 	var _er = get_tree().change_scene_to_file("res://scenes/Main.tscn")
@@ -209,6 +217,29 @@ func save_settings():
 	file.store_var(settings)
 	print("Saved settings")
 	emit_signal("saved_settings")
+
+func save_structure(data : Dictionary) -> void:
+	var file = FileAccess.open(save_path + currentSave + "/structures/" + data["file_name"] + ".dat",FileAccess.WRITE)
+	file.store_var(data)
+	print("saved structure: " + data["file_name"])
+
+func load_structures(group : String) -> Array:
+	var data = []
+	var dir = DirAccess.open(save_path + currentSave + "/structures")
+	dir.list_dir_begin()
+	var fileName : String = dir.get_next()
+	while (fileName != "" and fileName != "." and fileName != ".."):
+		if fileName.begins_with(group):
+			var file = FileAccess.open(save_path + currentSave + "/structures/" + fileName,FileAccess.READ)
+			data.append(file.get_var())
+		fileName = dir.get_next()
+	return data
+
+func load_structure(structureName : String) -> Dictionary:
+	if FileAccess.file_exists(save_path + currentSave + "/structures/" + structureName):
+		var file = FileAccess.open(save_path + currentSave + "/structures/" + structureName,FileAccess.READ)
+		return file.get_var()
+	return {}
 
 func save(saveType : String, saveData : Dictionary) -> void:
 	playerData["save_type"] = saveType

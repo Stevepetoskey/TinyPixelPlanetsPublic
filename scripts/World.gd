@@ -32,6 +32,7 @@ var blockTypes = {
 	"door":preload("res://assets/blocks/Door.tscn"),
 	"ghost":preload("res://assets/blocks/GhostBlock.tscn"),
 	"button":preload("res://assets/blocks/Button.tscn"),
+	"spawner":preload("res://assets/blocks/Spawner.tscn")
 }
 
 var currentPlanet : Object
@@ -41,9 +42,9 @@ var hasGravity = true
 
 var waterUpdateList = []
 
-var interactableBlocks = [12,16,28,91,145,158,159,167,169,171,176]
-
-var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,167,171,172,176]
+var interactableBlocks = [12,16,28,91,145,158,159,167,169,171,176,186,189]
+var noCollisionBlocks = [0,6,7,9,11,30,117,167,121,122,123,128,142,143,145,155,156,167,168,169,170,171,172,187]
+var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,167,171,172,176,183,187,188,189,190]
 
 var worldRules = {
 	"break_blocks":{"value":true,"type":"bool"},
@@ -57,58 +58,73 @@ var worldRules = {
 
 var generationData = {
 	"terra":{
-		"noise":load("res://noise/Terra.tres"),
+		"noise":preload("res://noise/Terra.tres"),
 		"noise_scale":20,
 		"world_height":20,
 		"water_level":47
 	},
 	"stone":{
-		"noise":load("res://noise/Stone.tres"),
+		"noise":preload("res://noise/Stone.tres"),
 		"noise_scale":20,
 		"world_height":20
 	},
 	"desert":{
-		"noise":load("res://noise/Desert.tres"),
+		"noise":preload("res://noise/Desert.tres"),
 		"noise_scale":20,
 		"world_height":20
 	},
 	"mud":{
-		"noise":load("res://noise/Mud.tres"),
+		"noise":preload("res://noise/Mud.tres"),
 		"noise_scale":20,
 		"world_height":20
 	},
 	"snow":{
-		"noise":load("res://noise/Desert.tres"),
+		"noise":preload("res://noise/Desert.tres"),
 		"noise_scale":20,
 		"world_height":20
 	},
 	"snow_terra":{
-		"noise":load("res://noise/Terra.tres"),
+		"noise":preload("res://noise/Terra.tres"),
 		"noise_scale":20,
 		"world_height":20
 	},
 	"exotic":{
-		"noise":load("res://noise/Terra.tres"),
+		"noise":preload("res://noise/Terra.tres"),
 		"noise_scale":20,
 		"world_height":20
 	},
 	"asteroids":{
-		"noise":load("res://noise/Asteroids.tres"),
+		"noise":preload("res://noise/Asteroids.tres"),
 		"noise_scale":0.3,
 		"world_height":20
 	},
 	"ocean":{
-		"noise":load("res://noise/Ocean.tres"),
+		"noise":preload("res://noise/Ocean.tres"),
 		"noise_scale":30,
 		"world_height":22,
 		"water_level":37
 	},
 	"grassland":{
-		"noise":load("res://noise/Grassland.tres"),
+		"noise":preload("res://noise/Grassland.tres"),
 		"noise_scale":13,
 		"world_height":18,
 		"water_level":50
+	},
+	"scorched":{
+		"noise":preload("res://noise/Scorched.tres"),
+		"noise_scale":25,
+		"world_height":20,
 	}
+}
+
+var lootTables = { #{id:Block/Item id, amount:max amount, rarity: item chance, group: what group it is in to prevent more than one from a group
+	"scorched":[
+		{"id":165,"amount":5,"rarity":3,"group":"none"},
+		{"id":74,"amount":3,"rarity":6,"group":"none"},
+		{"id":43,"amount":1,"rarity":3,"group":"clothes"},
+		{"id":44,"amount":1,"rarity":3,"group":"clothes"},
+		{"id":45,"amount":1,"rarity":3,"group":"clothes"},
+	]
 }
 
 var blockData = {
@@ -221,7 +237,21 @@ var blockData = {
 	173:{"texture":preload("res://textures/blocks/steel.png"),"hardness":5,"canHaverst":3,"drops":[{"id":173,"amount":1}],"name":"Steel","type":"block"},
 	174:{"texture":preload("res://textures/blocks/steel_taped.png"),"hardness":4,"canHaverst":3,"drops":[{"id":174,"amount":1}],"name":"Taped steel","type":"simple"},
 	175:{"texture":preload("res://textures/blocks/steel_tiles.png"),"hardness":4,"canHaverst":3,"drops":[{"id":175,"amount":1}],"name":"Steel tiles","type":"simple"},
-	176:{"texture":preload("res://textures/blocks/button_off.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":176,"amount":1}],"name":"Button","type":"button"},
+	176:{"texture":preload("res://textures/blocks/button_off.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":176,"amount":1}],"name":"Button","type":"button"},
+	177:{"texture":preload("res://textures/blocks/scorched_rock.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":177,"amount":1}],"name":"Scorched rock","type":"simple"},
+	178:{"texture":preload("res://textures/blocks/scorched_pebbles.png"),"hardness":0.5,"canHaverst":1,"drops":[{"id":178,"amount":1}],"name":"Scorched pebbles","type":"simple"},
+	179:{"texture":preload("res://textures/blocks/scorched_iron_ore.png"),"hardness":3.5,"canHaverst":3,"drops":[{"id":179,"amount":1}],"name":"Scorched iron ore","type":"simple"},
+	180:{"texture":preload("res://textures/blocks/scorched_bricks_1.png"),"hardness":1,"canHaverst":1,"drops":[{"id":180,"amount":1}],"name":"Scorched bricks","type":"block"},
+	181:{"texture":preload("res://textures/blocks/carved_scorched_bricks.png"),"hardness":1,"canHaverst":1,"drops":[{"id":181,"amount":1}],"name":"Carved scorched bricks","type":"simple"},
+	182:{"texture":preload("res://textures/blocks/magma_scorched_bricks.png"),"hardness":1,"canHaverst":1,"drops":[{"id":182,"amount":1}],"name":"Magma scorched bricks","type":"simple"},
+	183:{"texture":preload("res://textures/blocks/scorched_brick_fence.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":183,"amount":1}],"name":"Scorched brick fence","type":"block"},
+	184:{"texture":preload("res://textures/blocks/magma.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":184,"amount":1}],"name":"Magma","type":"simple"},
+	185:{"texture":preload("res://textures/blocks/dev_link.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":185,"amount":1}],"name":"Dev link block","type":"simple"},
+	186:{"texture":preload("res://textures/blocks/structure_save.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":186,"amount":1}],"name":"Structure save block","type":"block"},
+	187:{"texture":preload("res://textures/blocks/air_hold.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Air hold","type":"foliage"},
+	188:{"texture":preload("res://textures/blocks/scorched_platform_full.png"),"hardness":1,"canHaverst":1,"drops":[{"id":188,"amount":1}],"name":"Scorched platform","type":"platform"},
+	189:{"texture":preload("res://textures/blocks/dev_chest.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":189,"amount":1}],"name":"Dev chest","type":"block"},
+	190:{"texture":preload("res://textures/blocks/scorched_spawner.png"),"hardness":6,"canHaverst":2,"drops":[],"name":"Scorched spawner","type":"spawner"},
 }
 
 var itemData = {
@@ -291,6 +321,7 @@ var itemData = {
 	140:{"texture_loc":preload("res://textures/items/bread.png"),"type":"Food","name":"Bread","regen":8},
 	165:{"texture_loc":preload("res://textures/items/iron.png"),"type":"Item","name":"Iron"},
 	166:{"texture_loc":preload("res://textures/items/red_wires.png"),"type":"wire","name":"Red wire"},
+	191:{"texture_loc":preload("res://textures/items/magma_ball.png"),"type":"Item","name":"Magma ball"},
 }
 
 var fullGrownItemDrops = {
@@ -343,7 +374,7 @@ func start_world():
 		armor.emit_signal("updated_armor",armor.armor)
 	elif !(Global.gameStart and Global.new):
 		load_player_data()
-	if Global.new: #This is if this is a new planet
+	if Global.new or Global.load_planet(Global.currentSystemId,Global.currentPlanet).is_empty(): #This is if this is a new planet
 		if Global.gameStart: #This is if the game is a new save
 			player.health = Global.gamerules["starting_hp"]
 			player.maxHealth = Global.gamerules["max_hp"]
@@ -630,6 +661,141 @@ func generateWorld(worldType : String):
 								pos.x += [-1,1].pick_random()
 							else:
 								pos.y += [-1,1].pick_random()
+		"scorched":
+			for x in range(worldSize.x):
+				for y in range(worldSize.y):
+					var height = (worldSize.y - (int(worldNoise.get_noise_1d(x) * noiseScale) + worldHeight))
+					if height > worldSize.y - 4:
+						height = worldSize.y - 4
+					var pos = Vector2(x,y)
+					if y >= height and y < height+3:
+						set_block_all(pos,178)
+					elif y >= height+3 and y < worldSize.y-1:
+						set_block_all(pos,177)
+					elif y == worldSize.y-1:
+						set_block_all(pos,144)
+			#Ores
+			for x in range(worldSize.x):
+				for y in range(worldSize.y):
+					if y >= 0:
+						if randi_range(0,50) == 1: #iron ore
+							var pos = Vector2(x,y)
+							for i in range(randi_range(3,6)):
+								if get_block_id(pos,1) == 177:
+									set_block_all(pos,179)
+								if randi_range(0,1) == 1:
+									pos.x += [-1,1].pick_random()
+								else:
+									pos.y += [-1,1].pick_random()
+						elif randi_range(0,40) == 1: #Magma 
+							var pos = Vector2(x,y)
+							for i in range(randi_range(5,30)):
+								if [178].has(get_block_id(pos,1)):
+									set_block_all(pos,184)
+								if randi_range(0,1) == 1:
+									pos.x += [-1,1].pick_random()
+								else:
+									pos.y += [-1,1].pick_random()
+			#Scorched dungeon
+			var dungeonPieces = Global.load_structures("scorched")
+			var dungeonBossRoom = Global.load_structure("boss_scorched.dat")
+			var pos = Vector2(randi_range(0,worldSize.x-12),0)
+			var size = dungeonBossRoom["size"]
+			pos.y = (worldSize.y - (int(worldNoise.get_noise_1d(pos.x) * noiseScale) + worldHeight))
+			var currentId = 0
+			var openLinks = {0:[]}
+			var dungeon = {0:{"position":pos,"size":dungeonBossRoom["size"]}}
+			for link in dungeonBossRoom["structure"]["link_blocks"]:
+				openLinks[currentId].append(link)
+			for block in dungeonBossRoom["structure"]["blocks"]:
+				match block["id"]:
+					187:
+						set_block(block["position"]+pos,block["layer"],0,false)
+					189:
+						var usedGroups = []
+						var chest = []
+						if lootTables.has(block["data"]["group"]):
+							while chest.is_empty():
+								for loot in lootTables[block["data"]["group"]]:
+									if !usedGroups.has(loot["group"]):
+										var amount : int = 0
+										for i in range(loot["amount"]):
+											amount += 1 if randi_range(0,loot["rarity"]) == 0 else 0
+										if amount > 0:
+											if loot["group"] != "none":
+												usedGroups.append(loot["group"])
+											chest.append({"id":loot["id"],"amount":amount})
+						set_block(block["position"] + pos,block["layer"],91,false,chest)
+					_:
+						set_block(block["position"] + pos,block["layer"],block["id"],false,block["data"])
+			var dungeonSize = randi_range(15,30)
+			for room in range(dungeonSize):
+				currentId = room + 1
+				var selectedLinkRoom : int = openLinks.keys().pick_random()
+				while openLinks[selectedLinkRoom].is_empty():
+					openLinks.erase(selectedLinkRoom)
+					if openLinks.is_empty():
+						return
+					selectedLinkRoom = openLinks.keys().pick_random()
+				var selectedLink : Dictionary = openLinks[selectedLinkRoom].pick_random()
+				var possibleRooms : Array = []
+				for piece in dungeonPieces:
+					for link in piece["structure"]["link_blocks"]:
+						var side1 = link["side"]
+						var side2 = selectedLink["side"]
+						if (side1.x == -side2.x and side1.x != 0) or (side1.y == -side2.y and side1.y != 0):
+							possibleRooms.append({"piece":piece,"link":link})
+							break
+				var roomChosen = false
+				while !roomChosen and !possibleRooms.is_empty():
+					var chosenRoom = possibleRooms.pick_random()
+					var link1Pos = selectedLink["position"] + dungeon[selectedLinkRoom]["position"]
+					var link2 = chosenRoom["link"]
+					var originPos : Vector2
+					if link2["side"].x != 0:
+						originPos = Vector2(link1Pos.x+selectedLink["side"].x-(chosenRoom["piece"]["size"].x-1 if selectedLink["side"].x < 0 else 0),-(link2["position"].y-link1Pos.y))
+					else:
+						originPos = Vector2(-(link2["position"].x-link1Pos.x),link1Pos.y+selectedLink["side"].y-(chosenRoom["piece"]["size"].y-1 if selectedLink["side"].y < 0 else 0))
+					var canPlace = true
+					for oldRoom in dungeon:
+						if Rect2(dungeon[oldRoom]["position"],dungeon[oldRoom]["size"]).intersects(Rect2(originPos,chosenRoom["piece"]["size"])) or !Rect2(Vector2(0,0),worldSize).encloses(Rect2(originPos,chosenRoom["piece"]["size"])):
+							canPlace = false
+					if canPlace:
+						dungeon[currentId] = {"position":originPos,"size":chosenRoom["piece"]["size"]}
+						openLinks[selectedLinkRoom].erase(selectedLink)
+						if openLinks[selectedLinkRoom].is_empty():
+							openLinks.erase(selectedLinkRoom)
+						openLinks[currentId] = []
+						for link in chosenRoom["piece"]["structure"]["link_blocks"]:
+							if link["position"] != link2["position"]:
+								openLinks[currentId].append(link)
+						for block in chosenRoom["piece"]["structure"]["blocks"]:
+							match block["id"]:
+								187:
+									set_block(block["position"] + originPos,block["layer"],0,false)
+								189:
+									var usedGroups = []
+									var chest = []
+									if lootTables.has(block["data"]["group"]):
+										print("has loot")
+										while chest.is_empty():
+											for loot in lootTables[block["data"]["group"]]:
+												if !usedGroups.has(loot["group"]):
+													var amount : int = 0
+													for i in range(loot["amount"]):
+														amount += 1 if randi_range(0,loot["rarity"]) == 0 else 0
+													if amount > 0:
+														if loot["group"] != "none":
+															usedGroups.append(loot["group"])
+														chest.append({"id":loot["id"],"amount":amount})
+									else:
+										print("no loot :(")
+									set_block(block["position"] + originPos,block["layer"],91,false,chest)
+								_:
+									set_block(block["position"] + originPos,block["layer"],block["id"],false,block["data"])
+						roomChosen = true
+					else:
+						possibleRooms.erase(chosenRoom)
 
 func get_world_data() -> Dictionary:
 	var data = {}
@@ -638,13 +804,34 @@ func get_world_data() -> Dictionary:
 		"misc_stats":{"meteor_stage":meteors.stage,"meteor_progress_time_left":$"../CanvasLayer/Enviroment/Meteors/StageProgress".time_left}
 	}
 	data["system"] = StarSystem.get_system_data()
-	data["planet"] = {"blocks":[],"entities":entities.get_entity_data(),"rules":worldRules,"left_at_time":Global.globalGameTime,"current_weather":$"..".currentWeather,"weather_time_left":$"../weather/WeatherTimer".time_left,"wires":[]}
+	data["planet"] = {"blocks":get_blocks_data(),"entities":entities.get_entity_data(),"rules":worldRules,"left_at_time":Global.globalGameTime,"current_weather":$"..".currentWeather,"weather_time_left":$"../weather/WeatherTimer".time_left,"wires":[]}
 	for wire in $Wires.get_children():
 		data["planet"]["wires"].append({"output_block_pos":wire.outputBlock.pos,"output_block_layer":wire.outputBlock.layer,"output_pin":wire.outputPin,"input_block_pos":wire.inputBlock.pos,"input_block_layer":wire.inputBlock.layer,"input_pin":wire.inputPin})
-	for block in $blocks.get_children():
-		if blockData[block.id]["type"] != "door" or block.mainBlock == block:
-			data["planet"]["blocks"].append({"id":block.id,"layer":block.layer,"position":block.pos,"data":block.data})
 	return data
+
+func get_blocks_data(withinArea : bool = false,area : Rect2 = Rect2()) -> Array:
+	var blocks = []
+	for block in $blocks.get_children():
+		if (blockData[block.id]["type"] != "door" or block.mainBlock == block) and (!withinArea or area.has_point(block.pos)):
+			if block.id == 186:
+				print(block.data)
+			blocks.append({"id":block.id,"layer":block.layer,"position":block.pos if !withinArea else block.pos - area.position ,"data":block.data})
+	return blocks
+
+func get_structure_blocks(area : Rect2) -> Dictionary:
+	var blocks = {"blocks":[],"link_blocks":[]}
+	for block in $blocks.get_children():
+		if (blockData[block.id]["type"] != "door" or block.mainBlock == block) and area.has_point(block.pos):
+			match block.id:
+				185:
+					var pos = block.pos - area.position
+					var xSide = -1 if pos.x < 1 else (1 if pos.x == area.size.x-1 else 0)
+					var ySide = -1 if pos.y < 1 else (1 if pos.y == area.size.y-1 else 0)
+					blocks["link_blocks"].append({"side":Vector2(xSide,ySide),"position":pos})
+					blocks["blocks"].append({"id":187,"layer":block.layer,"position":block.pos - area.position,"data":block.data})
+				_:
+					blocks["blocks"].append({"id":block.id,"layer":block.layer,"position":block.pos - area.position ,"data":block.data})
+	return blocks
 
 func load_player_data() -> void:
 	#Loads player data

@@ -1,0 +1,183 @@
+[gd_scene load_steps=17 format=3 uid="uid://d1sjk7vrcq420"]
+
+[ext_resource type="Script" path="res://scripts/enemies/ScorchedGuard.gd" id="1_svgyy"]
+[ext_resource type="Texture2D" uid="uid://clnc1y6fq0tle" path="res://textures/enemies/scorched_guard/scorched_guard1.png" id="2_2u6c7"]
+[ext_resource type="Texture2D" uid="uid://dm1kbl6hmguit" path="res://textures/enemies/scorched_guard/scorched_guard7.png" id="3_y8mu5"]
+[ext_resource type="Texture2D" uid="uid://b1db62lnif4b4" path="res://textures/enemies/scorched_guard/scorched_guard8.png" id="4_4f1hj"]
+[ext_resource type="Texture2D" uid="uid://bgfht1wwsrhc6" path="res://textures/enemies/seen.png" id="5_3bxsc"]
+[ext_resource type="Texture2D" uid="uid://bsrpbv5fauhpv" path="res://textures/enemies/scorched_guard/scorched_guard9.png" id="5_std3o"]
+[ext_resource type="Texture2D" uid="uid://dujea5xgpqybj" path="res://textures/enemies/scorched_guard/scorched_guard2.png" id="6_suilc"]
+[ext_resource type="Texture2D" uid="uid://y2n72e0iwxo" path="res://textures/enemies/scorched_guard/scorched_guard3.png" id="7_7h355"]
+[ext_resource type="Texture2D" uid="uid://dp50r2fkqb2yn" path="res://textures/enemies/scorched_guard/scorched_guard4.png" id="8_c8kpr"]
+[ext_resource type="Texture2D" uid="uid://co5k28emgbwii" path="res://textures/enemies/scorched_guard/scorched_guard5.png" id="9_pyhqf"]
+[ext_resource type="Texture2D" uid="uid://h1esws4r3m18" path="res://textures/enemies/scorched_guard/scorched_guard6.png" id="10_rgmfu"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wsys2"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2u6c7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_y8mu5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4f1hj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_std3o")
+}],
+"loop": false,
+"name": &"Defend",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2u6c7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_suilc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7h355")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_c8kpr")
+}],
+"loop": true,
+"name": &"Move",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_std3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4f1hj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_y8mu5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_2u6c7")
+}],
+"loop": false,
+"name": &"Recover",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_2u6c7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_pyhqf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_rgmfu")
+}],
+"loop": false,
+"name": &"Spit",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_std3o")
+}],
+"loop": true,
+"name": &"Start",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="4"]
+size = Vector2(16, 21)
+
+[sub_resource type="Animation" id="Animation_15364"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Seen:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_uurjq"]
+resource_name = "seen"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Seen:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ddy4c"]
+_data = {
+"RESET": SubResource("Animation_15364"),
+"seen": SubResource("Animation_uurjq")
+}
+
+[node name="ScorchedGuard" type="CharacterBody2D" groups=["enemy"]]
+z_index = 1
+collision_layer = 8
+script = ExtResource("1_svgyy")
+hostile = true
+bluesDropRange = [5, 12]
+loot = [{
+"amount": [0, 1],
+"id": 191
+}]
+type = "scorched_guard"
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_wsys2")
+animation = &"Spit"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 2.5)
+shape = SubResource("4")
+
+[node name="Seen" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(3, -17)
+texture = ExtResource("5_3bxsc")
+
+[node name="seeTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="HitBox" type="Area2D" parent="."]
+position = Vector2(0, 3)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox"]
+polygon = PackedVector2Array(8, 10, 8, -10, 4, -14, -3, -9, -2, 3, -10, 10)
+
+[node name="HurtTimer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ddy4c")
+}
+
+[node name="SpitTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[connection signal="animation_finished" from="Body" to="." method="_on_body_animation_finished"]
+[connection signal="timeout" from="seeTimer" to="." method="_on_seeTimer_timeout"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]
+[connection signal="body_exited" from="HitBox" to="." method="_on_HitBox_body_exited"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
+[connection signal="timeout" from="SpitTimer" to="." method="_on_spit_timer_timeout"]

@@ -13,7 +13,11 @@ func _ready():
 		modulate = Color(0.68,0.68,0.68)
 		mainCol.disabled = true
 		z_index -= 1
-	
+	if world.worldLoaded and visible_on_screen_notifier_2d.is_on_screen():
+		var textures = {30:"res://textures/blocks/platform_",188:"res://textures/blocks/scorched_platform_"}
+		var side = {[true,true]:"full",[true,false]:"left",[false,true]:"right",[false,false]:"mid"}
+		var around = [!world.transparentBlocks.has(world.get_block_id(pos - Vector2(1,0),layer)),!world.transparentBlocks.has(world.get_block_id(pos + Vector2(1,0),layer))]
+		$Sprite2D.texture = load(textures[id] + side[around] + ".png")
 	pos = position / world.BLOCK_SIZE
 	world.connect("update_blocks", Callable(self, "on_update"))
 	world.connect("world_loaded", Callable(self, "world_loaded"))
@@ -39,11 +43,11 @@ func on_update():
 							$shade.add_child(shade)
 						elif world.get_block_id(pos + Vector2(x,y),1) == 0 and $shade.has_node(str(x) + str(y)):
 							$shade.get_node(str(x) + str(y)).queue_free()
-	
 	if world.worldLoaded and visible_on_screen_notifier_2d.is_on_screen():
-		var textures = {[false,false]:"res://textures/blocks/platform_full.png",[false,true]:"res://textures/blocks/platform_left.png",[true,false]:"res://textures/blocks/platform_right.png",[true,true]:"res://textures/blocks/platform_mid.png"}
-		var around = [world.get_block_id(pos - Vector2(1,0),layer) == 30,world.get_block_id(pos + Vector2(1,0),layer) == 30]
-		$Sprite2D.texture = load(textures[around])
+		var textures = {30:"res://textures/blocks/platform_",188:"res://textures/blocks/scorched_platform_"}
+		var side = {[true,true]:"full",[true,false]:"left",[false,true]:"right",[false,false]:"mid"}
+		var around = [!world.transparentBlocks.has(world.get_block_id(pos - Vector2(1,0),layer)),!world.transparentBlocks.has(world.get_block_id(pos + Vector2(1,0),layer))]
+		$Sprite2D.texture = load(textures[id] + side[around] + ".png")
 
 func _on_VisibilityNotifier2D_screen_entered():
 	on_update()

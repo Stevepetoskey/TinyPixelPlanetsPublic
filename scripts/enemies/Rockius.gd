@@ -15,12 +15,12 @@ var inAir = false
 var goInDir = 0
 
 @onready var player = get_node("../../../Player")
-@onready var body: AnimatedSprite2D = $Body
+@onready var body_texture: AnimatedSprite2D = $Body
 @onready var seen: Sprite2D = $Seen
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _ready():
-	body.play("Idle")
+	body_texture.play("Idle")
 	maxHealth = 20
 	if new:
 		health = 20
@@ -53,14 +53,14 @@ func _physics_process(delta):
 					if randi()%(100 if goInDir == 0 else 50) == 1:
 						goInDir = [-1,0,0,0,1][randi()%5]
 				else:
-					goInDir = -1 if player.position < position else 1
+					goInDir = -1 if seenPos < position else 1
 				if is_on_wall() and is_on_floor():
 					motion.y = -JUMPSPEED
 				if goInDir != 0:
 					motion.x = move_toward(motion.x,MAX_SPEED*goInDir,ACCEL)
 				else:
 					motion.x = move_toward(motion.x,0,ACCEL/2.0)
-				body.rotation_degrees += goInDir * 4
+				body_texture.rotation_degrees += goInDir * 4
 				set_velocity(motion)
 				set_up_direction(Vector2(0,-1))
 				move_and_slide()
@@ -70,7 +70,7 @@ func _on_seeTimer_timeout():
 	print("Gave up")
 	seePlayer = false
 	lostPlayer = false
-	body.play("Idle")
+	body_texture.play("Idle")
 
 func _on_HitBox_body_entered(body):
 	body.damage(2)

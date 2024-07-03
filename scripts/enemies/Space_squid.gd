@@ -44,7 +44,7 @@ func _physics_process(delta):
 				if randi()%100 == 1 or seePlayer:
 					var dir = deg_to_rad(randf_range(0,360))
 					if seePlayer:
-						dir = position.angle_to_point(player.position)
+						dir = position.angle_to_point(seenPos)
 					rotation = dir + deg_to_rad(90)
 					body.play("thrust")
 					state = "in_motion"

@@ -63,6 +63,7 @@ z_index = 1
 collision_layer = 8
 script = ExtResource("4")
 hostile = true
+bluesDropRange = [5, 12]
 type = "space_squid"
 
 [node name="Body" type="AnimatedSprite2D" parent="."]

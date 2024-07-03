@@ -105,7 +105,8 @@ func _unhandled_input(_event):
 					141:
 						inventory.inventoryToggle(false,true,"skips_stones")
 			elif canInteract and world.worldRules["interact_with_blocks"]["value"] and (Input.is_action_just_pressed("build") or Input.is_action_just_pressed("build2")):
-				match world.get_block_id(cursorPos,currentLayer):
+				var currentBlock = world.get_block(cursorPos,currentLayer)
+				match currentBlock.id:
 					12,158:
 						inventory.inventoryToggle(false,true,"crafting_table")
 					16:
@@ -115,19 +116,23 @@ func _unhandled_input(_event):
 					91,159:
 						inventory.inventoryToggle(false,true,"chest")
 					145:
-						var sign = world.get_block(cursorPos,currentLayer)
+						var sign = currentBlock
 						if !sign.data["locked"]:
 							sign_edit.pop_up(sign)
 						elif sign.data["mode"] == "Click":
 							main.display_text(sign.data)
 					167:
-						world.get_block(cursorPos,currentLayer).flip_lever()
+						currentBlock.flip_lever()
 					169:
-						$"../CanvasLayer/LogicBlockEdit".pop_up(world.get_block(cursorPos,currentLayer))
+						$"../CanvasLayer/LogicBlockEdit".pop_up(currentBlock)
 					171:
-						world.get_block(cursorPos,currentLayer).mainBlock.interact()
+						currentBlock.mainBlock.interact()
 					176:
-						world.get_block(cursorPos,currentLayer).pressed_btn()
+						currentBlock.pressed_btn()
+					186:
+						$"../CanvasLayer/StructureSaveEdit".pop_up(currentBlock)
+					189:
+						$"../CanvasLayer/DevChestEdit".pop_up(currentBlock)
 			elif Input.is_action_just_pressed("build2") and wireIn.size() > 0:
 				if is_instance_valid(wireIn[0]):
 					wireIn[0].break_wire()

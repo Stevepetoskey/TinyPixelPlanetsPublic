@@ -1,10 +1,14 @@
+res://scripts/enemies
+res://assets/entities
 res://scripts/blocks
-res://textures/blocks/misc
 res://scripts/GUI/main
+res://scenes/tools
+res://scripts/tools
+res://noise
+res://textures/blocks/misc
 res://assets/blocks
 res://scripts/misc
 res://textures/blocks/misc/red_wire/
-res://noise
 /Users/chris/Desktop/HTMLTEST/TU4.2
 res://Audio/music
 res://Audio/sfx/Ambience
@@ -13,10 +17,6 @@ res://textures/planets
 res://scripts/enemies/Slorg
 res://scripts/GUI
 res://assets/GUI
-res://scenes/tools
-res://scripts/tools
 res://shaders
 res://fonts
 res://themes
-res://themes/
-res://fonts/
