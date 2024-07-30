@@ -1,10 +1,12 @@
 extends Panel
 
 @onready var group_edit: LineEdit = $VBoxContainer/GroupEdit
+@onready var title_lbl: Label = $TitleLbl
 
 var selectedBlock : BaseBlock
 
-func pop_up(block : BaseBlock):
+func pop_up(block : BaseBlock, type : String):
+	title_lbl.text = type
 	Global.pause = true
 	selectedBlock = block
 	group_edit.text = selectedBlock.data["group"]

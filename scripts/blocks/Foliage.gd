@@ -39,6 +39,7 @@ func _ready() -> void:
 		121,122,123:
 			position.y -= 3
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
+			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
 			var plant = {121:"wheat",122:"tomato",123:"corn"}[id]
 			if data.has("tick_wait"):
 				$Sprite2D.texture = load("res://textures/blocks/plants/"+ plant +"/" + plant + "_stage_" + str(data["plant_stage"]) + ".png")
@@ -70,6 +71,11 @@ func _ready() -> void:
 			$check.start(randf_range(120,600))
 		187:
 			modulate *= Color(1,1,1,0.5)
+		196:
+			$Sprite2D.texture = load("res://textures/blocks/plants/desert_bush.png")
+			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
+			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
+			position.y -= 4
 
 func world_loaded():
 	on_update()
@@ -77,9 +83,9 @@ func world_loaded():
 func on_update():
 	if world.worldLoaded and visible_on_screen_notifier_2d.is_on_screen():
 		match id:
-			6,7,160,161:
+			6,7,160,161,196:
 				var bottomBlock = world.get_block_id(pos+Vector2(0,1),layer)
-				if ![1,2,146,147].has(bottomBlock):
+				if !world.blockData[id]["can_place_on"].has(bottomBlock):
 					world.build_event("Break", pos, layer)
 			121,122,123:
 				var bottomBlock = world.get_block(pos+Vector2(0,1),layer)

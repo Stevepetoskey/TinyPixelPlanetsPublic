@@ -1,0 +1,167 @@
+[gd_scene load_steps=15 format=3 uid="uid://dffn4624whn2n"]
+
+[ext_resource type="Script" path="res://scripts/enemies/FridgedSpike.gd" id="1_335ag"]
+[ext_resource type="Texture2D" uid="uid://dhureelo7j7yg" path="res://textures/enemies/fridged_spike/fridged_spike4.png" id="2_03ri8"]
+[ext_resource type="Texture2D" uid="uid://c0032a5n3dnwe" path="res://textures/enemies/fridged_spike/fridged_spike1.png" id="3_xxtk6"]
+[ext_resource type="Texture2D" uid="uid://b2q7poxm0rki2" path="res://textures/enemies/fridged_spike/fridged_spike2.png" id="4_ftfcm"]
+[ext_resource type="Texture2D" uid="uid://dlpgdfk3lhk1q" path="res://textures/enemies/fridged_spike/fridged_spike3.png" id="5_15vcc"]
+[ext_resource type="Texture2D" uid="uid://c0vcca8re2qi5" path="res://textures/particles/puff.png" id="7_3qtwy"]
+[ext_resource type="Texture2D" uid="uid://bgfht1wwsrhc6" path="res://textures/enemies/seen.png" id="11_vnmd0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e8phb"]
+resource_local_to_scene = true
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_03ri8")
+}],
+"loop": true,
+"name": &"Hurt",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_xxtk6")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_xxtk6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ftfcm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_15vcc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ftfcm")
+}],
+"loop": false,
+"name": &"Spit",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="4"]
+size = Vector2(14, 18.5)
+
+[sub_resource type="Animation" id="Animation_15364"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Seen:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_uurjq"]
+resource_name = "seen"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Seen:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ddy4c"]
+_data = {
+"RESET": SubResource("Animation_15364"),
+"seen": SubResource("Animation_uurjq")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_q057l"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_o874g"]
+offsets = PackedFloat32Array(0.635417, 1)
+colors = PackedColorArray(0.827451, 0.937255, 1, 1, 0.639216, 1, 1, 0)
+
+[node name="FridgedSpike" type="CharacterBody2D" groups=["enemy"]]
+z_index = 1
+collision_layer = 8
+script = ExtResource("1_335ag")
+hostile = true
+bluesDropRange = [5, 12]
+type = "fridged_spike"
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_e8phb")
+animation = &"Spit"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1.25)
+shape = SubResource("4")
+
+[node name="Seen" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -20)
+texture = ExtResource("11_vnmd0")
+
+[node name="seeTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="HitBox" type="Area2D" parent="."]
+position = Vector2(0, 3)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="HitBox"]
+polygon = PackedVector2Array(0, -16, -10, -8, 0, 7, 10, -8)
+
+[node name="HurtTimer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ddy4c")
+}
+
+[node name="SpitTimer" type="Timer" parent="."]
+wait_time = 2.5
+
+[node name="StoneTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="Puff" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_q057l")
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("7_3qtwy")
+emission_shape = 1
+emission_sphere_radius = 4.0
+spread = 180.0
+gravity = Vector2(2.08165e-12, -10)
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+damping_min = 10.0
+damping_max = 10.0
+color_ramp = SubResource("Gradient_o874g")
+anim_offset_max = 1.0
+
+[connection signal="timeout" from="seeTimer" to="." method="_on_seeTimer_timeout"]
+[connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]
+[connection signal="body_exited" from="HitBox" to="." method="_on_HitBox_body_exited"]
+[connection signal="timeout" from="HurtTimer" to="." method="_on_HurtTimer_timeout"]
+[connection signal="timeout" from="SpitTimer" to="." method="_on_spit_timer_timeout"]
+[connection signal="timeout" from="StoneTimer" to="." method="_on_stone_timer_timeout"]

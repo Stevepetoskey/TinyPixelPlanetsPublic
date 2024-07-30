@@ -1,7 +1,9 @@
+res://scripts/GUI/main
+res://scripts/global
 res://scripts/enemies
+res://assets/GUI
 res://assets/entities
 res://scripts/blocks
-res://scripts/GUI/main
 res://scenes/tools
 res://scripts/tools
 res://noise
@@ -16,7 +18,5 @@ res://textures/icons
 res://textures/planets
 res://scripts/enemies/Slorg
 res://scripts/GUI
-res://assets/GUI
 res://shaders
 res://fonts
-res://themes

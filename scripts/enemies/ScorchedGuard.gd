@@ -42,7 +42,6 @@ func _physics_process(delta):
 				if !seePlayer:
 					print("SEEN!")
 					$seeTimer.stop()
-					lostPlayer = false
 					animation_player.play("seen")
 					print("seen player, getting up")
 					print("state: ",state)
@@ -51,6 +50,7 @@ func _physics_process(delta):
 						body_texture.play("Recover")
 						spit_timer.start()
 				seePlayer = true
+				lostPlayer = false
 				seenPos = player.position
 			elif seePlayer and !lostPlayer:
 				print("lost the player")
@@ -66,15 +66,15 @@ func _physics_process(delta):
 					if !spitting:
 						if position.distance_to(player.position) <= 64:
 							if position.distance_to(player.position) < 48:
-								goInDir = -1 if player.position > position else 1
+								goInDir = -1 if player.position.x > position.x else 1
 							else:
 								goInDir = 0
 						else:
-							goInDir = -1 if player.position < position else 1
+							goInDir = -1 if player.position.x < position.x else 1
 					else:
 						goInDir = 0
 				else:
-					goInDir = -1 if seenPos < position else 1
+					goInDir = -1 if seenPos.x < position.x else 1
 				if is_on_wall() and is_on_floor():
 					motion.y = -JUMPSPEED
 				if goInDir != 0:
@@ -109,15 +109,16 @@ func _on_HitBox_body_exited(body):
 	$HurtTimer.stop()
 
 func _on_spit_timer_timeout() -> void:
-	spitting = true
-	body_texture.play("Spit")
-	await get_tree().create_timer(0.75).timeout
-	entities.spawn_spit(position,position.angle_to_point(player.position),position.distance_to(player.position))
-	if !seePlayer:
-		spit_timer.stop()
-	spitting = false
-	if state == "roam":
-		body_texture.play("Move")
+	if !Global.pause:
+		spitting = true
+		body_texture.play("Spit")
+		await get_tree().create_timer(0.75).timeout
+		entities.spawn_spit(position,position.angle_to_point(player.position),position.distance_to(player.position))
+		if !seePlayer:
+			spit_timer.stop()
+		spitting = false
+		if state == "roam":
+			body_texture.play("Move")
 
 func _on_body_animation_finished() -> void:
 	print("Animation finished: ",body_texture.animation)

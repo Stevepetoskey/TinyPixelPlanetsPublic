@@ -134,10 +134,6 @@ collision_layer = 8
 script = ExtResource("1_svgyy")
 hostile = true
 bluesDropRange = [5, 12]
-loot = [{
-"amount": [0, 1],
-"id": 191
-}]
 type = "scorched_guard"
 
 [node name="Body" type="AnimatedSprite2D" parent="."]

@@ -5,6 +5,8 @@ var GRAVITY = 4
 
 var maxHealth = 20
 var health = 20
+var frozen : bool = false
+var canDamage : bool = true
 
 @export var canDie = true
 @export var hostile = false
@@ -16,6 +18,8 @@ var data = {}
 
 @onready var effects = get_node("../../../Effects")
 @onready var main: Node2D = get_node("../../..")
+
+signal damaged
 
 func _ready():
 	if !get_node("../../../World").hasGravity:
@@ -34,18 +38,26 @@ func die():
 		var amount = randi_range(item["amount"][0],item["amount"][1])
 		if amount > 0:
 			print("did drop")
-			$"../..".spawn_item({"id":item["id"],"amount":amount},false,position)
+			$"../..".spawn_item({"id":item["id"],"amount":amount,"data":{}},false,position)
 	if blueDrop > 0:
 		get_node("../..").spawn_blues(blueDrop,false,position)
 	effects.death_particles(position)
 	queue_free()
 
 func damage(hp):
-	if canDie:
+	if canDie and canDamage:
 		modulate = Color("ff5959")
 		effects.floating_text(position, "-" + str(hp), Color.RED)
 		health -= hp
+		emit_signal("damaged")
 		await get_tree().create_timer(0.5).timeout
-		modulate = Color.WHITE
+		modulate = Global.lightColor
 		if health <= 0:
 			die()
+
+func freeze(time : float) -> void:
+	modulate = Color("75b2ff")
+	frozen = true
+	await get_tree().create_timer(time).timeout
+	modulate = Global.lightColor
+	frozen = false

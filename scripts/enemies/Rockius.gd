@@ -38,10 +38,10 @@ func _physics_process(delta):
 				if !seePlayer:
 					print("SEEN!")
 					$seeTimer.stop()
-					lostPlayer = false
 					state = "pause"
 					animation_player.play("seen")
 				seePlayer = true
+				lostPlayer = false
 				seenPos = player.position
 			elif seePlayer and !lostPlayer:
 				print("lost the player")

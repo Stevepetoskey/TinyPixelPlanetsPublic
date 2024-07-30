@@ -21,7 +21,6 @@ func _ready():
 		mainCol.disabled = true
 		rain_col.queue_free()
 		z_index -= 1
-	
 	pos = position / world.BLOCK_SIZE
 	world.connect("update_blocks", Callable(self, "on_update"))
 	world.connect("world_loaded", Callable(self, "world_loaded"))
@@ -39,30 +38,30 @@ func _process(delta: float) -> void:
 
 func spawn():
 	randomize()
+	var summon : String
 	match id:
 		190:
+			summon = "scorched_guard"
 			print("spawning")
-			var hAmount = 0
-			for child in entities.get_node("Hold").get_children():
-				if child.is_in_group("enemy") and child.type == "scorched_guard" and Rect2(position - Vector2(48,48),Vector2(96,96)).has_point(child.position):
-					hAmount += 1
-			if hAmount < 5:
-				var amount = randi_range(0,3)
-				var possiblePos = []
-				for x in range(pos.x -6,pos.x+6):
-					for y in range(pos.y-6,pos.y+6):
-						if !world.noCollisionBlocks.has(world.get_block_id(Vector2(x,y+2),layer)) and world.noCollisionBlocks.has(world.get_block_id(Vector2(x,y+1),layer)) and world.noCollisionBlocks.has(world.get_block_id(Vector2(x,y),layer)) and world.noCollisionBlocks.has(world.get_block_id(Vector2(x,y-1),layer)):
-							possiblePos.append(Vector2(x,y))
-				print(possiblePos)
-				print("amount: ",amount)
-				for i in range(amount):
-					if !possiblePos.is_empty() and hAmount < 5:
-						var pos2 = possiblePos.pick_random()
-						entities.summon_entity("scorched_guard",pos2*8)
-						possiblePos.erase(pos2)
-						hAmount += 1
-						print("position: ",pos2)
-						print("spawned!")
+		206:
+			summon = "fridged_spike"
+	var hAmount = 0
+	for child in entities.get_node("Hold").get_children():
+		if child.is_in_group("enemy") and child.type == summon and Rect2(position - Vector2(48,48),Vector2(96,96)).has_point(child.position):
+			hAmount += 1
+	if hAmount < 5:
+		var amount = randi_range(0,3)
+		var possiblePos = []
+		for x in range(pos.x -6,pos.x+6):
+			for y in range(pos.y-6,pos.y+6):
+				if !world.noCollisionBlocks.has(world.get_block_id(Vector2(x,y+2),layer)) and world.noCollisionBlocks.has(world.get_block_id(Vector2(x,y+1),layer)) and world.noCollisionBlocks.has(world.get_block_id(Vector2(x,y),layer)) and world.noCollisionBlocks.has(world.get_block_id(Vector2(x,y-1),layer)):
+					possiblePos.append(Vector2(x,y))
+		for i in range(amount):
+			if !possiblePos.is_empty() and hAmount < 5:
+				var pos2 = possiblePos.pick_random()
+				entities.summon_entity(summon,pos2*8)
+				possiblePos.erase(pos2)
+				hAmount += 1
 
 func world_loaded():
 	on_update()

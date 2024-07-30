@@ -1,6 +1,7 @@
 extends BaseBlock
 
 const SHADE_TEX = preload("res://textures/blocks/shade.png")
+const PLATFORM_TEXTURES = {30:"res://textures/blocks/platform_",188:"res://textures/blocks/scorched_platform_",204:"res://textures/blocks/permafrost_platform_"}
 
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @onready var mainCol: CollisionShape2D = $platform
@@ -14,7 +15,7 @@ func _ready():
 		mainCol.disabled = true
 		z_index -= 1
 	if world.worldLoaded and visible_on_screen_notifier_2d.is_on_screen():
-		var textures = {30:"res://textures/blocks/platform_",188:"res://textures/blocks/scorched_platform_"}
+		var textures = PLATFORM_TEXTURES
 		var side = {[true,true]:"full",[true,false]:"left",[false,true]:"right",[false,false]:"mid"}
 		var around = [!world.transparentBlocks.has(world.get_block_id(pos - Vector2(1,0),layer)),!world.transparentBlocks.has(world.get_block_id(pos + Vector2(1,0),layer))]
 		$Sprite2D.texture = load(textures[id] + side[around] + ".png")
@@ -44,7 +45,7 @@ func on_update():
 						elif world.get_block_id(pos + Vector2(x,y),1) == 0 and $shade.has_node(str(x) + str(y)):
 							$shade.get_node(str(x) + str(y)).queue_free()
 	if world.worldLoaded and visible_on_screen_notifier_2d.is_on_screen():
-		var textures = {30:"res://textures/blocks/platform_",188:"res://textures/blocks/scorched_platform_"}
+		var textures = PLATFORM_TEXTURES
 		var side = {[true,true]:"full",[true,false]:"left",[false,true]:"right",[false,false]:"mid"}
 		var around = [!world.transparentBlocks.has(world.get_block_id(pos - Vector2(1,0),layer)),!world.transparentBlocks.has(world.get_block_id(pos + Vector2(1,0),layer))]
 		$Sprite2D.texture = load(textures[id] + side[around] + ".png")

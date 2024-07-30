@@ -32,10 +32,10 @@ func _physics_process(delta):
 			if !result.is_empty() and result.collider == player:
 				if !seePlayer:
 					$seeTimer.stop()
-					lostPlayer = false
 					$Seen.show()
 					await get_tree().create_timer(1).timeout
 					$Seen.hide()
+				lostPlayer = false
 				seePlayer = true
 				seenPos = player.position
 			elif seePlayer and !lostPlayer:

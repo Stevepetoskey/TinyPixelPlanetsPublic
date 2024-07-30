@@ -84,7 +84,7 @@ func disable_godmode():
 	inventory.update_inventory()
 	inventory.add_to_inventory(4,1)
 	inventory.INVENTORY_SIZE = 20
-	armor.armor = {"Helmet":{"id":46,"amount":1},"Hat":{},"Chestplate":{"id":47,"amount":1},"Shirt":{},"Leggings":{"id":48,"amount":1},"Pants":{},"Boots":{"id":49,"amount":1},"Shoes":{}}
+	armor.armor = {"Helmet":{"id":46,"amount":1,"data":{}},"Hat":{},"Chestplate":{"id":47,"amount":1,"data":{}},"Shirt":{},"Leggings":{"id":48,"amount":1,"data":{}},"Pants":{},"Boots":{"id":49,"amount":1,"data":{}},"Shoes":{}}
 	armor.emit_signal("updated_armor",armor.armor)
 
 func start_meteors():

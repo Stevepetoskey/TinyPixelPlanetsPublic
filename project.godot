@@ -27,6 +27,7 @@ Global="*res://scripts/Global.gd"
 StarSystem="*res://scenes/starSystem.tscn"
 GlobalAudio="*res://scenes/GlobalAudio.tscn"
 GlobalGui="*res://scenes/GlobalGUI.tscn"
+GlobalData="*res://scripts/global/global_data.gd"
 
 [debug]
 

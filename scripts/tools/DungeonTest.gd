@@ -2,74 +2,219 @@ extends Node2D
 
 @export var worldSize = Vector2(128,64)
 
+var blockData = {
+	1:{"texture":preload("res://textures/blocks/grass_block.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":1,"amount":1}],"name":"Grass block","type":"block"},
+	2:{"texture":preload("res://textures/blocks/dirt.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":2,"amount":1}],"name":"Dirt","type":"simple"},
+	3:{"texture":preload("res://textures/blocks/stone.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":8,"amount":1}],"name":"Stone","type":"simple"},
+	6:{"texture":preload("res://textures/blocks/flower1.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Flower 1","can_place_on":[1,2,146,147],"type":"foliage"},
+	7:{"texture":preload("res://textures/blocks/flower2.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Flower 2","can_place_on":[1,2,146,147],"type":"foliage"},
+	8:{"texture":preload("res://textures/blocks/Cobble.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":8,"amount":1}],"name":"Cobble","type":"simple"},
+	9:{"texture":preload("res://textures/blocks/sapling.png"),"hardness":7,"breakWith":"Axe","canHaverst":1,"drops":[{"id":10,"amount":[3,6]},{"id":11,"amount":[0,3]}],"name":"Tree","type":"foliage"},
+	10:{"texture":preload("res://textures/blocks/log_front.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":10,"amount":1}],"name":"Log","type":"block"},
+	11:{"texture":preload("res://textures/items/pinecone.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[{"id":11,"amount":1}],"name":"Pinecone","can_place_on":[1,2],"type":"foliage"},
+	12:{"texture":preload("res://textures/blocks/crafting_table.png"),"hardness":2,"breakWith":"Axe","canHaverst":1,"drops":[{"id":12,"amount":1}],"name":"Workbench","type":"simple"},
+	13:{"texture":preload("res://textures/blocks/planks.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":13,"amount":1}],"name":"Planks","type":"simple"},
+	14:{"texture":preload("res://textures/blocks/sand.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":14,"amount":1}],"name":"Sand","type":"block"},
+	15:{"texture":preload("res://textures/blocks/stone_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":15,"amount":1}],"name":"Stone bricks","type":"simple"},
+	16:{"texture":preload("res://textures/blocks/oven.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":16,"amount":1}],"name":"Oven","type":"simple"},
+	17:{"texture":preload("res://textures/blocks/mud_stone.png"),"hardness":1.2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":17,"amount":1}],"name":"Mud stone","type":"simple"},
+	18:{"texture":preload("res://textures/blocks/mud_stone_dust.png"),"hardness":0.5,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":18,"amount":1}],"name":"Mud stone dust","type":"block"},
+	19:{"texture":preload("res://textures/blocks/mud_stone_bricks.png"),"hardness":1.4,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":19,"amount":1}],"name":"Mud stone bricks","type":"simple"},
+	20:{"texture":preload("res://textures/blocks/glass_icon.png"),"hardness":0.1,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":20,"amount":1}],"name":"Glass","type":"block"},
+	21:{"texture":preload("res://textures/blocks/snow_block.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":21,"amount":1}],"name":"Snow block","type":"simple"},
+	22:{"texture":preload("res://textures/blocks/sandstone.png"),"hardness":1.3,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":22,"amount":1}],"name":"Sandstone","type":"simple"},
+	23:{"texture":preload("res://textures/blocks/sandstone_bricks.png"),"hardness":2.2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":23,"amount":1}],"name":"Sandstone bricks","type":"simple"},
+	24:{"texture":preload("res://textures/blocks/grass_snow.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":24,"amount":1}],"name":"Grass snow","type":"block"},
+	25:{"texture":preload("res://textures/blocks/clay.png"),"hardness":0.4,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":25,"amount":1}],"name":"Clay","type":"simple"},
+	26:{"texture":preload("res://textures/blocks/bricks.png"),"hardness":1.5,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":26,"amount":1}],"name":"Bricks","type":"simple"},
+	27:{"texture":preload("res://textures/blocks/brick_shingles.png"),"hardness":1.5,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":27,"amount":1}],"name":"Brick shingles","type":"simple"},
+	28:{"texture":preload("res://textures/blocks/smithing_table.png"),"hardness":2.5,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":28,"amount":1}],"name":"Smithing table","type":"simple"},
+	29:{"texture":preload("res://textures/blocks/copper_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":29,"amount":1}],"name":"Copper ore","type":"simple"},
+	30:{"texture":preload("res://textures/blocks/platform_full.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":30,"amount":1}],"name":"Wood platform","type":"platform"},
+	55:{"texture":preload("res://textures/blocks/silver_ore.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":55,"amount":1}],"name":"Silver ore","type":"simple"},
+	69:{"texture":preload("res://textures/blocks/exotic_grass_block.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":69,"amount":1}],"name":"Exotic grass block","type":"simple"},
+	70:{"texture":preload("res://textures/blocks/exotic_dirt.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":70,"amount":1}],"name":"Exotic dirt","type":"simple"},
+	71:{"texture":preload("res://textures/blocks/exotic_stone.png"),"hardness":3,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":71,"amount":1}],"name":"Exotic stone","type":"simple"},
+	72:{"texture":preload("res://textures/blocks/exotic_stone_bricks.png"),"hardness":3.5,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":72,"amount":1}],"name":"Exotic stone bricks","type":"simple"},
+	73:{"texture":preload("res://textures/blocks/rhodonite_ore.png"),"hardness":6,"breakWith":"Pickaxe","canHaverst":4,"drops":[{"id":74,"amount":1}],"name":"Rhodonite ore","type":"simple"},
+	75:{"texture":preload("res://textures/blocks/carved_exotic_stone.png"),"hardness":3,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":75,"amount":1}],"name":"Carved exotic stone","type":"simple"},
+	76:{"texture":preload("res://textures/blocks/exotic_sapling.png"),"hardness":9,"breakWith":"Axe","canHaverst":1,"drops":[{"id":77,"amount":[3,6]},{"id":85,"amount":[0,3]}],"name":"Exotic tree","type":"foliage"},
+	77:{"texture":preload("res://textures/blocks/exotic_log_front.png"),"hardness":1.5,"breakWith":"Axe","canHaverst":1,"drops":[{"id":77,"amount":1}],"name":"Exotic log","type":"block"},
+	78:{"texture":preload("res://textures/blocks/exotic_planks.png"),"hardness":1.5,"breakWith":"Axe","canHaverst":1,"drops":[{"id":78,"amount":1}],"name":"Exotic planks","type":"simple"},
+	79:{"texture":preload("res://textures/blocks/exotic_wood_window.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":79,"amount":1}],"name":"Exotic wood window","type":"block"},
+	80:{"texture":preload("res://textures/blocks/wood_window.png"),"hardness":0.5,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":80,"amount":1}],"name":"Wood window","type":"block"},
+	81:{"texture":preload("res://textures/blocks/copper_window.png"),"hardness":0.5,"breakWith":"Pickaxe","canHaverst":0,"drops":[{"id":81,"amount":1}],"name":"Copper window","type":"block"},
+	82:{"texture":preload("res://textures/blocks/mossy_stone_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":82,"amount":1}],"name":"Mossy stone bricks","type":"simple"},
+	83:{"texture":preload("res://textures/blocks/cracked_stone_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":83,"amount":1}],"name":"Cracked stone bricks","type":"simple"},
+	84:{"texture":preload("res://textures/blocks/mossy_cobblestone.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":84,"amount":1}],"name":"Mossy cobble","type":"simple"},
+	85:{"texture":preload("res://textures/blocks/exotic_sapling.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[{"id":85,"amount":1}],"name":"Exotic sapling","can_place_on":[69,70],"type":"foliage"},
+	86:{"texture":preload("res://textures/blocks/cracked_mud_bricks.png"),"hardness":1.2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":86,"amount":1}],"name":"Cracked mud bricks","type":"simple"},
+	87:{"texture":preload("res://textures/blocks/cracked_sandstone_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":87,"amount":1}],"name":"Cracked sandstone bricks","type":"simple"},
+	88:{"texture":preload("res://textures/blocks/copper_block.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":88,"amount":1}],"name":"Copper block","type":"simple"},
+	89:{"texture":preload("res://textures/blocks/silver_block.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":89,"amount":1}],"name":"Silver block","type":"simple"},
+	90:{"texture":preload("res://textures/blocks/rhodonite_block.png"),"hardness":6,"breakWith":"Pickaxe","canHaverst":4,"drops":[{"id":90,"amount":1}],"name":"Rhodonite block","type":"simple"},
+	91:{"texture":preload("res://textures/blocks/chest.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":91,"amount":1}],"name":"Chest","type":"block"},
+	104:{"texture":preload("res://textures/blocks/quartz_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":100,"amount":[1,3]}],"name":"Quartz ore","type":"simple"},
+	105:{"texture":preload("res://textures/blocks/rose_quartz_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":101,"amount":[1,3]}],"name":"Rose quartz ore","type":"simple"},
+	106:{"texture":preload("res://textures/blocks/purple_quartz_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":102,"amount":[1,3]}],"name":"Purple quartz ore","type":"simple"},
+	107:{"texture":preload("res://textures/blocks/blue_quartz_ore.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":103,"amount":[1,3]}],"name":"Blue quartz ore","type":"simple"},
+	108:{"texture":preload("res://textures/blocks/quartz_block.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":108,"amount":1}],"name":"Quartz block","type":"simple"},
+	109:{"texture":preload("res://textures/blocks/rose_quartz_block.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":109,"amount":1}],"name":"Rose quartz block","type":"simple"},
+	110:{"texture":preload("res://textures/blocks/purple_quartz_block.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":110,"amount":1}],"name":"Purple quartz block","type":"simple"},
+	111:{"texture":preload("res://textures/blocks/blue_quartz_block.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":111,"amount":1}],"name":"Blue quartz block","type":"simple"},
+	112:{"texture":preload("res://textures/blocks/asteroid_rock.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":112,"amount":1}],"name":"Asteroid rock","type":"simple"},
+	117:{"texture":preload("res://textures/blocks/water/water_4.png"),"hardness":0,"breakWith":"None","canHaverst":0,"drops":[],"name":"Water","type":"water"},
+	118:{"texture":preload("res://textures/blocks/wet_sand.png"),"hardness":0.4,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":118,"amount":1}],"name":"Wet sand","type":"simple"},
+	119:{"texture":preload("res://textures/blocks/farmland_dry.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":2,"amount":1}],"name":"Farmland","type":"block"},
+	120:{"texture":preload("res://textures/blocks/farmland_wet.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":2,"amount":1}],"name":"Wet farmland","type":"simple"},
+	121:{"texture":preload("res://textures/items/wheat_seeds.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":121,"amount":1}],"name":"Wheat seeds","can_place_on":[119,120],"type":"foliage"},
+	122:{"texture":preload("res://textures/items/tomato_seeds.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":122,"amount":1}],"name":"Tomato seeds","can_place_on":[119,120],"type":"foliage"},
+	123:{"texture":preload("res://textures/items/corn_seeds.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":123,"amount":1}],"name":"Corn seeds","can_place_on":[119,120],"type":"foliage"},
+	124:{"texture":preload("res://textures/blocks/rhodonite_ore_stone.png"),"hardness":6,"breakWith":"Pickaxe","canHaverst":4,"drops":[{"id":74,"amount":1}],"name":"Rhodonite stone ore","type":"simple"},
+	128:{"texture":preload("res://textures/items/fig_tree.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":121,"amount":[0,1]},{"id":122,"amount":[0,1]},{"id":123,"amount":[0,1]}],"name":"Fig tree","can_place_on":[1,2],"type":"foliage"},
+	133:{"texture":preload("res://textures/blocks/copper_plate.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":133,"amount":1}],"name":"Copper plate","type":"simple"},
+	134:{"texture":preload("res://textures/blocks/copper_bricks.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":134,"amount":1}],"name":"Copper bricks","type":"simple"},
+	135:{"texture":preload("res://textures/blocks/cracked_copper_bricks.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":135,"amount":1}],"name":"Cracked copper bricks","type":"simple"},
+	136:{"texture":preload("res://textures/blocks/silver_plate.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":136,"amount":1}],"name":"Silver plate","type":"simple"},
+	137:{"texture":preload("res://textures/blocks/silver_bricks.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":137,"amount":1}],"name":"Silver bricks","type":"simple"},
+	138:{"texture":preload("res://textures/blocks/cracked_silver_bricks.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":138,"amount":1}],"name":"Silver bricks","type":"simple"},
+	139:{"texture":preload("res://textures/blocks/lily_mart.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Lily Mart","type":"lily_mart"},
+	141:{"texture":preload("res://textures/blocks/skips_stones.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Skip's stones","type":"skips_stones"},
+	142:{"texture":preload("res://textures/blocks/posters/poster_icon.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[{"id":142,"amount":1}],"name":"Poster 1","type":"foliage"},
+	143:{"texture":preload("res://textures/blocks/posters/poster_icon.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[{"id":143,"amount":1}],"name":"Poster 2","type":"foliage"},
+	144:{"texture":preload("res://textures/blocks/bottom_rock.png"),"hardness":0,"breakWith":"Pickaxe","canHaverst":100,"drops":[{"id":144,"amount":1}],"name":"Bottom rock","type":"simple"},
+	145:{"texture":preload("res://textures/blocks/sign_empty.png"),"hardness":0.5,"breakWith":"Axe","canHaverst":0,"drops":[{"id":145,"amount":1}],"name":"Wood sign","type":"sign"},
+	146:{"texture":preload("res://textures/blocks/dry_grass_block.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":146,"amount":1}],"name":"Dry grass block","type":"block"},
+	147:{"texture":preload("res://textures/blocks/dry_dirt.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":147,"amount":1}],"name":"Dry dirt","type":"simple"},
+	148:{"texture":preload("res://textures/blocks/pink_granite.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":148,"amount":1}],"name":"Pink granite","type":"simple"},
+	149:{"texture":preload("res://textures/blocks/white_granite.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":149,"amount":1}],"name":"White granite","type":"simple"},
+	150:{"texture":preload("res://textures/blocks/brown_granite.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":150,"amount":1}],"name":"Brown granite","type":"simple"},
+	151:{"texture":preload("res://textures/blocks/pink_iron_ore.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":151,"amount":1}],"name":"Iron ore","type":"simple"},
+	152:{"texture":preload("res://textures/blocks/white_iron_ore.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":152,"amount":1}],"name":"Iron ore","type":"simple"},
+	153:{"texture":preload("res://textures/blocks/brown_iron_ore.png"),"hardness":5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":153,"amount":1}],"name":"Iron ore","type":"simple"},
+	154:{"texture":preload("res://textures/blocks/acacia_log_front.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":154,"amount":1}],"name":"Acacia log","type":"block"},
+	155:{"texture":preload("res://textures/blocks/plants/acacia_tree/acacia_tree_sapling.png"),"hardness":7,"breakWith":"Axe","canHaverst":1,"drops":[{"id":154,"amount":[3,6]},{"id":156,"amount":[0,3]}],"name":"Acacia tree","type":"foliage"},
+	156:{"texture":preload("res://textures/blocks/plants/acacia_tree/acacia_tree_sapling.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[{"id":156,"amount":1}],"name":"Acacia sapling","can_place_on":[146,147],"type":"foliage"},
+	157:{"texture":preload("res://textures/blocks/acacia_planks.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":157,"amount":1}],"name":"Acacia planks","type":"simple"},
+	158:{"texture":preload("res://textures/blocks/acacia_crafting_table.png"),"hardness":2,"breakWith":"Axe","canHaverst":1,"drops":[{"id":158,"amount":1}],"name":"Workbench","type":"simple"},
+	159:{"texture":preload("res://textures/blocks/acacia_chest.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":159,"amount":1}],"name":"Chest","type":"block"},
+	160:{"texture":preload("res://textures/blocks/plants/grass.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Grass","can_place_on":[1,2,146,147],"type":"foliage"},
+	161:{"texture":preload("res://textures/blocks/plants/tall_grass.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Tall grass","can_place_on":[1,2,146,147],"type":"foliage"},
+	162:{"texture":preload("res://textures/blocks/polished_pink_granite.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":162,"amount":1}],"name":"Polished pink granite","type":"simple"},
+	163:{"texture":preload("res://textures/blocks/polished_white_granite.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":163,"amount":1}],"name":"Polished white granite","type":"simple"},
+	164:{"texture":preload("res://textures/blocks/polished_brown_granite.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":164,"amount":1}],"name":"Polished brown granite","type":"simple"},
+	167:{"texture":preload("res://textures/blocks/lever_off.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":167,"amount":1}],"name":"Lever","type":"lever"},
+	168:{"texture":preload("res://textures/blocks/display_block_off.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":168,"amount":1}],"name":"Display block","type":"display_block"},
+	169:{"texture":preload("res://textures/blocks/logic_block_and.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":169,"amount":1}],"name":"Logic block","type":"logic_block"},
+	170:{"texture":preload("res://textures/blocks/flip_block_off.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":170,"amount":1}],"name":"Flip block","type":"flip_block"},
+	171:{"texture":preload("res://textures/items/door_icon.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":171,"amount":1}],"name":"Wood door","type":"door","door_animation":preload("res://textures/blocks/misc/wood_door.tres")},
+	172:{"texture":preload("res://textures/items/steel_door_icon.png"),"hardness":4,"canHaverst":3,"drops":[{"id":172,"amount":1}],"name":"Steel door","type":"door","door_animation":preload("res://textures/blocks/misc/steel_door.tres")},
+	173:{"texture":preload("res://textures/blocks/steel.png"),"hardness":5,"canHaverst":3,"drops":[{"id":173,"amount":1}],"name":"Steel","type":"block"},
+	174:{"texture":preload("res://textures/blocks/steel_taped.png"),"hardness":4,"canHaverst":3,"drops":[{"id":174,"amount":1}],"name":"Taped steel","type":"simple"},
+	175:{"texture":preload("res://textures/blocks/steel_tiles.png"),"hardness":4,"canHaverst":3,"drops":[{"id":175,"amount":1}],"name":"Steel tiles","type":"simple"},
+	176:{"texture":preload("res://textures/blocks/button_off.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":176,"amount":1}],"name":"Button","type":"button"},
+	177:{"texture":preload("res://textures/blocks/scorched_rock.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":177,"amount":1}],"name":"Scorched rock","type":"simple"},
+	178:{"texture":preload("res://textures/blocks/scorched_pebbles.png"),"hardness":0.5,"canHaverst":1,"drops":[{"id":178,"amount":1}],"name":"Scorched pebbles","type":"simple"},
+	179:{"texture":preload("res://textures/blocks/scorched_iron_ore.png"),"hardness":3.5,"canHaverst":3,"drops":[{"id":179,"amount":1}],"name":"Scorched iron ore","type":"simple"},
+	180:{"texture":preload("res://textures/blocks/scorched_bricks_1.png"),"hardness":1,"canHaverst":1,"drops":[{"id":180,"amount":1}],"name":"Scorched bricks","type":"block"},
+	181:{"texture":preload("res://textures/blocks/carved_scorched_bricks.png"),"hardness":1,"canHaverst":1,"drops":[{"id":181,"amount":1}],"name":"Carved scorched bricks","type":"simple"},
+	182:{"texture":preload("res://textures/blocks/magma_scorched_bricks.png"),"hardness":1,"canHaverst":1,"drops":[{"id":182,"amount":1}],"name":"Magma scorched bricks","type":"simple"},
+	183:{"texture":preload("res://textures/blocks/scorched_brick_fence.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":183,"amount":1}],"name":"Scorched brick fence","type":"block"},
+	184:{"texture":preload("res://textures/blocks/magma.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":184,"amount":1}],"name":"Magma","type":"simple"},
+	185:{"texture":preload("res://textures/blocks/dev_link.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":185,"amount":1}],"name":"Dev link block","type":"simple"},
+	186:{"texture":preload("res://textures/blocks/structure_save.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":186,"amount":1}],"name":"Structure save block","type":"block"},
+	187:{"texture":preload("res://textures/blocks/air_hold.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Air hold","type":"foliage"},
+	188:{"texture":preload("res://textures/blocks/scorched_platform_full.png"),"hardness":1,"canHaverst":1,"drops":[{"id":188,"amount":1}],"name":"Scorched platform","type":"platform"},
+	189:{"texture":preload("res://textures/blocks/dev_chest.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":189,"amount":1}],"name":"Dev chest","type":"block"},
+	190:{"texture":preload("res://textures/blocks/scorched_spawner.png"),"hardness":6,"canHaverst":2,"drops":[],"name":"Scorched spawner","type":"spawner"},
+	192:{"texture":preload("res://textures/blocks/sandstone_gold_ore.png"),"hardness":4,"canHaverst":3,"drops":[{"id":192,"amount":1}],"name":"Gold ore","type":"simple"},
+	194:{"texture":preload("res://textures/blocks/gold_ore.png"),"hardness":5,"canHaverst":3,"drops":[{"id":194,"amount":1}],"name":"Gold ore","type":"simple"},
+	195:{"texture":preload("res://textures/blocks/gold_block.png"),"hardness":5,"canHaverst":3,"drops":[{"id":195,"amount":1}],"name":"Gold block","type":"simple"},
+	196:{"texture":preload("res://textures/items/desert_bush.png"),"hardness":0.1,"canHaverst":0,"drops":[{"id":196,"amount":1}],"name":"Desert shrub","can_place_on":[1,2,146,147,14],"type":"foliage"},
+	197:{"texture":preload("res://textures/blocks/permafrost.png"),"hardness":2.5,"canHaverst":1,"drops":[{"id":197,"amount":1}],"name":"Permafrost","type":"simple"},
+	198:{"texture":preload("res://textures/blocks/permafrost_slush.png"),"hardness":0.8,"canHaverst":0,"drops":[{"id":198,"amount":1}],"name":"Permafrost slush","type":"simple"},
+	199:{"texture":preload("res://textures/blocks/permafrost_slush_top.png"),"hardness":0.9,"canHaverst":0,"drops":[{"id":199,"amount":1}],"name":"Top permafrost slush","type":"simple"},
+	200:{"texture":preload("res://textures/blocks/permafrost_silver_ore.png"),"hardness":5.5,"canHaverst":3,"drops":[{"id":200,"amount":1}],"name":"Silver ore","type":"simple"},
+	201:{"texture":preload("res://textures/blocks/permafrost_bricks.png"),"hardness":2.5,"canHaverst":1,"drops":[{"id":201,"amount":1}],"name":"Permafrost bricks","type":"simple"},
+	202:{"texture":preload("res://textures/blocks/carved_permafrost_bricks.png"),"hardness":2.5,"canHaverst":1,"drops":[{"id":202,"amount":1}],"name":"Carved permafrost bricks","type":"simple"},
+	203:{"texture":preload("res://textures/blocks/permafrost_fence.png"),"hardness":2.5,"canHaverst":1,"drops":[{"id":203,"amount":1}],"name":"Permafrost fence","type":"block"},
+	204:{"texture":preload("res://textures/blocks/permafrost_platform_full.png"),"hardness":2,"canHaverst":1,"drops":[{"id":204,"amount":1}],"name":"Permafrost platform","type":"platform"},
+}
+
+var itemData = {
+	4:{"texture_loc":preload("res://textures/items/wood_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":1,"speed":1,"big_texture":preload("res://textures/weapons/wood_pick.png"),"name":"Wood pickaxe","desc":"+1 Strength\n+1 Speed"},
+	5:{"texture_loc":preload("res://textures/items/stick.png"),"type":"Item","name":"Stick"},
+	31:{"texture_loc":preload("res://textures/items/stone_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":2,"speed":2,"big_texture":preload("res://textures/weapons/stone_pick.png"),"name":"Stone pickaxe","desc":"+2 Strength\n+2 Speed"},
+	32:{"texture_loc":preload("res://textures/items/armor/shirt.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":0,"speed":0,"air_tight":false},"name":"Shirt","desc":"+0 Def\n+0 Speed"},
+	33:{"texture_loc":preload("res://textures/items/armor/jeans.png"),"type":"armor","armor_data":{"armor_type":"pants","def":0,"speed":0,"air_tight":false},"name":"Jeans","desc":"+0 Def\n+0 Speed"},
+	34:{"texture_loc":preload("res://textures/items/armor/black_shoes.png"),"type":"armor","armor_data":{"armor_type":"shoes","def":0,"speed":0,"air_tight":false},"name":"Black shoes","desc":"+0 Def\n+0 Speed"},
+	35:{"texture_loc":preload("res://textures/items/armor/copper_helmet.png"),"type":"armor","armor_data":{"armor_type":"helmet","def":1,"speed":0,"air_tight":false},"name":"Copper helmet","desc":"+1 Def\n+0 Speed"},
+	36:{"texture_loc":preload("res://textures/items/armor/copper_chestplate.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":3,"speed":-1,"air_tight":false},"name":"Copper chestplate","desc":"+3 Def\n-1 Speed"},
+	37:{"texture_loc":preload("res://textures/items/armor/copper_leggings.png"),"type":"armor","armor_data":{"armor_type":"pants","def":2,"speed":-1,"air_tight":false},"name":"Copper leggings","desc":"+2 Def\n-1 Speed"},
+	38:{"texture_loc":preload("res://textures/items/armor/copper_boots.png"),"type":"armor","armor_data":{"armor_type":"shoes","def":1,"speed":0,"air_tight":false},"name":"Copper boots","desc":"+1 Def\n+0 Speed"},
+	39:{"texture_loc":preload("res://textures/items/armor/silver_helmet.png"),"type":"armor","armor_data":{"armor_type":"helmet","def":2,"speed":0,"air_tight":false},"name":"Silver helmet","desc":"+2 Def\n+0 Speed"},
+	40:{"texture_loc":preload("res://textures/items/armor/silver_chestplate.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":5,"speed":-2,"air_tight":false},"name":"Silver chestplate","desc":"+5 Def\n-2 Speed"},
+	41:{"texture_loc":preload("res://textures/items/armor/silver_leggings.png"),"type":"armor","armor_data":{"armor_type":"pants","def":3,"speed":-1,"air_tight":false},"name":"Silver leggings","desc":"+3 Def\n-1 Speed"},
+	42:{"texture_loc":preload("res://textures/items/armor/silver_boots.png"),"type":"armor","armor_data":{"armor_type":"shoes","def":2,"speed":0,"air_tight":false},"name":"Silver boots","desc":"+2 Def\n+0 Speed"},
+	43:{"texture_loc":preload("res://textures/items/armor/tuxedo.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":0,"speed":0,"air_tight":false},"name":"Tuxedo","desc":"+0 Def\n+0 Speed"},
+	44:{"texture_loc":preload("res://textures/items/armor/slacks.png"),"type":"armor","armor_data":{"armor_type":"pants","def":0,"speed":0,"air_tight":false},"name":"Slacks","desc":"+0 Def\n+0 Speed"},
+	45:{"texture_loc":preload("res://textures/items/armor/top_hat.png"),"type":"armor","armor_data":{"armor_type":"helmet","def":0,"speed":0,"air_tight":false},"name":"Top hat","desc":"+0 Def\n+0 Speed"},
+	46:{"texture_loc":preload("res://textures/items/armor/space_helmet.png"),"type":"armor","armor_data":{"armor_type":"helmet","def":0,"speed":0,"air_tight":true},"name":"Space helmet","desc":"+0 Def\n+0 Speed\nAirtight"},
+	47:{"texture_loc":preload("res://textures/items/armor/space_chestplate.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":1,"speed":-2,"air_tight":true},"name":"Space chestplate","desc":"+1 Def\n-2 Speed\nAirtight"},
+	48:{"texture_loc":preload("res://textures/items/armor/space_pants.png"),"type":"armor","armor_data":{"armor_type":"pants","def":1,"speed":-1,"air_tight":true},"name":"Space pants","desc":"+1 Def\n-1 Speed\nAirtight"},
+	49:{"texture_loc":preload("res://textures/items/armor/space_shoes.png"),"type":"armor","armor_data":{"armor_type":"shoes","def":0,"speed":0,"air_tight":true},"name":"Space_shoes","desc":"+0 Def\n+0 Speed\nAirtight"},
+	50:{"texture_loc":preload("res://textures/items/armor/red_dress.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":0,"speed":0,"air_tight":false},"name":"Red dress top","desc":"+0 Def\n+0 Speed"},
+	51:{"texture_loc":preload("res://textures/items/armor/red_dress_bottom.png"),"type":"armor","armor_data":{"armor_type":"pants","def":0,"speed":-1,"air_tight":false},"name":"Red dress bottom","desc":"+0 Def\n+0 Speed"},
+	52:{"texture_loc":preload("res://textures/items/copper.png"),"type":"Item","name":"Copper"},
+	53:{"texture_loc":preload("res://textures/items/copper_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":3,"speed":4,"big_texture":preload("res://textures/weapons/copper_pick.png"),"name":"Copper pickaxe","desc":"+3 Strength\n+4 Speed"},
+	54:{"texture_loc":preload("res://textures/items/stone_spear.png"),"type":"weapon","weapon_type":"Spear","dmg":3,"speed":2,"range":64,"big_texture":preload("res://textures/weapons/stone_spear.png"),"name":"Stone spear","desc":"+3 Damage\n+2 Speed\n+4 Range"},
+	56:{"texture_loc":preload("res://textures/items/silver.png"),"type":"Item","name":"Silver"},
+	57:{"texture_loc":preload("res://textures/items/silver_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":4,"speed":6,"big_texture":preload("res://textures/weapons/silver_pick.png"),"name":"Silver pickaxe","desc":"+4 Strength\n+6 Speed"},
+	58:{"texture_loc":preload("res://textures/items/wood_club.png"),"type":"weapon","weapon_type":"Club","dmg":3,"speed":1,"range":32,"big_texture":preload("res://textures/weapons/wood_club.png"),"name":"Wood club","desc":"+3 Damage\n+1 Speed\n+2 Range"},
+	59:{"texture_loc":preload("res://textures/items/wood_axe_big.png"),"type":"weapon","weapon_type":"Axe","dmg":4,"speed":2,"range":32,"big_texture":preload("res://textures/weapons/wood_axe.png"),"name":"Wood axe","desc":"+4 Damage\n+2 Speed\n+2 Range"},
+	60:{"texture_loc":preload("res://textures/items/wood_machete_big.png"),"type":"weapon","weapon_type":"Machete","dmg":1,"speed":0.1,"range":16,"name":"Wood machete","desc":"+1 Damage\n+0.1 Speed\n+1 Range"},
+	61:{"texture_loc":preload("res://textures/items/wood_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":2,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/wood_sword.png"),"name":"Wood sword","desc":"+2 Damage\n+0.5 Speed\n+2 Range"},
+	62:{"texture_loc":preload("res://textures/items/barbed_club.png"),"type":"weapon","weapon_type":"Club","dmg":5,"speed":1,"range":32,"big_texture":preload("res://textures/weapons/barbed_club.png"),"name":"Barbed club","desc":"+5 Damage\n+1 Speed\n+2 Range"},
+	63:{"texture_loc":preload("res://textures/items/copper_axe.png"),"type":"weapon","weapon_type":"Axe","dmg":7,"speed":2,"range":32,"big_texture":preload("res://textures/weapons/copper_axe.png"),"name":"Copper axe","desc":"+7 Damage\n+2 Speed\n+2 Range"},
+	64:{"texture_loc":preload("res://textures/items/copper_dagger.png"),"type":"weapon","weapon_type":"Dagger","dmg":2,"speed":0.1,"range":16,"big_texture":preload("res://textures/weapons/copper_dagger.png"),"name":"Copper dagger","desc":"+2 Damage\n+0.1 Speed\n+1 Range"},
+	65:{"texture_loc":preload("res://textures/items/copper_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":4,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/copper_sword.png"),"name":"Copper sword","desc":"+4 Damage\n+0.5 Speed\n+2 Range"},
+	66:{"texture_loc":preload("res://textures/items/silver_axe.png"),"type":"weapon","weapon_type":"Axe","dmg":12,"speed":2,"range":32,"big_texture":preload("res://textures/weapons/silver_axe.png"),"name":"Silver axe","desc":"+12 Damage\n+2 Speed\n+2 Range"},
+	67:{"texture_loc":preload("res://textures/items/silver_dagger.png"),"type":"weapon","weapon_type":"Dagger","dmg":5,"speed":0.1,"range":16,"big_texture":preload("res://textures/weapons/silver_dagger.png"),"name":"Silver dagger","desc":"+5 Damage\n+0.1 Speed\n+1 Range"},
+	68:{"texture_loc":preload("res://textures/items/silver_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":8,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/silver_sword.png"),"name":"Silver sword","desc":"+8 Damage\n+0.5 Speed\n+2 Range"},
+	74:{"texture_loc":preload("res://textures/items/rhodonite.png"),"type":"Item","name":"Rhodonite"},
+	92:{"texture_loc":preload("res://textures/items/exotic_wood_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":1,"speed":2,"big_texture":preload("res://textures/weapons/exotic_wood_pick.png"),"name":"Exotic wood pickaxe","desc":"+1 Strength\n+2 Speed"},
+	93:{"texture_loc":preload("res://textures/items/exotic_wood_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":3,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/exotic_wood_sword.png"),"name":"Exotic wood sword","desc":"+3 Damage\n+0.5 Speed\n+2 Range"},
+	94:{"texture_loc":preload("res://textures/items/exotic_wood_club.png"),"type":"weapon","weapon_type":"Club","dmg":4,"speed":1,"range":32,"big_texture":preload("res://textures/items/exotic_wood_club.png"),"name":"Exotic wood club","desc":"+4 Damage\n+1 Speed\n+2 Range"},
+	95:{"texture_loc":preload("res://textures/items/exotic_barbed_club.png"),"type":"weapon","weapon_type":"Club","dmg":5,"speed":1,"range":32,"big_texture":preload("res://textures/weapons/exotic_barbed_club.png"),"name":"Exotic barbed club","desc":"+5 Damage\n+1 Speed\n+2 Range"},
+	96:{"texture_loc":preload("res://textures/items/rhodonite_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":10,"speed":0.25,"range":32,"big_texture":preload("res://textures/weapons/rhodonite_sword.png"),"name":"Rhodonite sword","desc":"+10 Damage\n+0.25 Speed\n+2 Range"},
+	97:{"texture_loc":preload("res://textures/items/rhodonite_axe.png"),"type":"weapon","weapon_type":"Axe","dmg":16,"speed":3.5,"range":32,"big_texture":preload("res://textures/weapons/rhodonite_axe.png"),"name":"Rhodonite axe","desc":"+16 Damage\n+3.5 Speed\n+2 Range"},
+	98:{"texture_loc":preload("res://textures/items/rhodonite_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":5,"speed":8,"big_texture":preload("res://textures/weapons/rhodonite_pick.png"),"name":"Rhodonite pickaxe","desc":"+5 Strength\n+8 Speed"},
+	99:{"texture_loc":preload("res://textures/items/rhodonite_spear.png"),"type":"weapon","weapon_type":"Spear","dmg":8,"speed":1,"range":96,"big_texture":preload("res://textures/weapons/rhodonite_spear.png"),"name":"Rhodonite spear","desc":"+8 Damage\n+1 Speed\n+6 Range"},
+	100:{"texture_loc":preload("res://textures/items/quartz.png"),"type":"Item","name":"Quartz"},
+	101:{"texture_loc":preload("res://textures/items/rose_quartz.png"),"type":"Item","name":"Rose quartz"},
+	102:{"texture_loc":preload("res://textures/items/purple_quartz.png"),"type":"Item","name":"Purple quartz"},
+	103:{"texture_loc":preload("res://textures/items/blue_quartz.png"),"type":"Item","name":"Blue quartz"},
+	113:{"texture_loc":preload("res://textures/items/bucket.png"),"type":"Bucket","name":"Silver bucket"},
+	114:{"texture_loc":preload("res://textures/items/copper_bucket.png"),"type":"Bucket","name":"Copper bucket"},
+	115:{"texture_loc":preload("res://textures/items/water_bucket.png"),"type":"Bucket","name":"Silver bucket of water"},
+	116:{"texture_loc":preload("res://textures/items/water_copper_bucket.png"),"type":"Bucket","name":"Copper bucket of water"},
+	125:{"texture_loc":preload("res://textures/items/wheat.png"),"type":"Item","name":"Wheat"},
+	126:{"texture_loc":preload("res://textures/items/tomato.png"),"type":"Food","name":"Tomato","regen":2},
+	127:{"texture_loc":preload("res://textures/items/corn.png"),"type":"Food","name":"Corn","regen":4},
+	129:{"texture_loc":preload("res://textures/items/stone_hoe.png"),"type":"Hoe","name":"Stone hoe","big_texture":preload("res://textures/weapons/stone_hoe.png")},
+	130:{"texture_loc":preload("res://textures/items/silver_hoe.png"),"type":"Hoe","name":"Silver hoe","big_texture":preload("res://textures/weapons/silver_hoe.png")},
+	131:{"texture_loc":preload("res://textures/items/copper_watering_can.png"),"type":"Watering_can","name":"Copper watering can","big_texture":preload("res://textures/weapons/copper_watering_can.png")},
+	132:{"texture_loc":preload("res://textures/items/silver_watering_can.png"),"type":"Watering_can","name":"Silver watering can","big_texture":preload("res://textures/weapons/silver_watering_can.png")},
+	140:{"texture_loc":preload("res://textures/items/bread.png"),"type":"Food","name":"Bread","regen":8},
+	165:{"texture_loc":preload("res://textures/items/iron.png"),"type":"Item","name":"Iron"},
+	166:{"texture_loc":preload("res://textures/items/red_wires.png"),"type":"wire","name":"Red wire"},
+	191:{"texture_loc":preload("res://textures/items/magma_ball.png"),"type":"Item","name":"Magma ball"},
+	193:{"texture_loc":preload("res://textures/items/gold.png"),"type":"Item","name":"Gold"},
+}
+
 func _ready() -> void:
-	var img : Image = Image.create(worldSize.x,worldSize.y,false,Image.FORMAT_RGB8)
-	Global.currentSave = "save1"
-	var dungeonPieces = Global.load_structures("scorched")
-	var dungeonBossRoom = Global.load_structure("boss_scorched.dat")
-	var pos = Vector2(64,32)
-	var size = dungeonBossRoom["size"]
-	var currentId = 0
-	var openLinks = {0:[]}
-	var dungeon = {0:{"position":pos,"size":dungeonBossRoom["size"]}}
-	for link in dungeonBossRoom["structure"]["link_blocks"]:
-		openLinks[currentId].append(link)
-	#img.fill_rect(Rect2(pos,dungeonBossRoom["size"]),Color.RED)
-	for block in dungeonBossRoom["structure"]["blocks"]:
-		if block["layer"] == 1:
-			print(block["layer"])
-			img.set_pixel(block["position"].x + pos.x,block["position"].y + pos.y,Color.RED)
-		else:
-			pass
-			#img.set_pixel(block["position"].x + pos.x,block["position"].y + pos.y,Color.DARK_RED)
-	var dungeonSize = randi_range(10,20)
-	for room in range(dungeonSize):
-		currentId = room + 1
-		var selectedLinkRoom : int = openLinks.keys().pick_random()
-		while openLinks[selectedLinkRoom].is_empty():
-			openLinks.erase(selectedLinkRoom)
-			if openLinks.is_empty():
-				return
-			selectedLinkRoom = openLinks.keys().pick_random()
-		var selectedLink : Dictionary = openLinks[selectedLinkRoom].pick_random()
-		var possibleRooms : Array = []
-		for piece in dungeonPieces:
-			for link in piece["structure"]["link_blocks"]:
-				var side1 = link["side"]
-				var side2 = selectedLink["side"]
-				if (side1.x == -side2.x and side1.x != 0) or (side1.y == -side2.y and side1.y != 0):
-					possibleRooms.append({"piece":piece,"link":link})
-					break
-		var roomChosen = false
-		while !roomChosen and !possibleRooms.is_empty():
-			var chosenRoom = possibleRooms.pick_random()
-			var link1Pos = selectedLink["position"] + dungeon[selectedLinkRoom]["position"]
-			var link2 = chosenRoom["link"]
-			var originPos : Vector2
-			if link2["side"].x != 0:
-				originPos = Vector2(link1Pos.x+selectedLink["side"].x-(chosenRoom["piece"]["size"].x-1 if selectedLink["side"].x < 0 else 0),-(link2["position"].y-link1Pos.y))
-			else:
-				originPos = Vector2(-(link2["position"].x-link1Pos.x),link1Pos.y+selectedLink["side"].y-(chosenRoom["piece"]["size"].y-1 if selectedLink["side"].y < 0 else 0))
-			var canPlace = true
-			for oldRoom in dungeon:
-				if Rect2(dungeon[oldRoom]["position"],dungeon[oldRoom]["size"]).intersects(Rect2(originPos,chosenRoom["piece"]["size"])) or !Rect2(Vector2(0,0),worldSize).encloses(Rect2(originPos,chosenRoom["piece"]["size"])):
-					canPlace = false
-			if canPlace:
-				dungeon[currentId] = {"position":originPos,"size":chosenRoom["piece"]["size"]}
-				openLinks[selectedLinkRoom].erase(selectedLink)
-				if openLinks[selectedLinkRoom].is_empty():
-					openLinks.erase(selectedLinkRoom)
-				openLinks[currentId] = []
-				for link in chosenRoom["piece"]["structure"]["link_blocks"]:
-					if link["position"] != link2["position"]:
-						openLinks[currentId].append(link)
-				for block in chosenRoom["piece"]["structure"]["blocks"]:
-					if block["layer"] > 0:
-						img.set_pixel(block["position"].x + originPos.x,block["position"].y + originPos.y,Color.WHITE)
-					else:
-						pass
-						#img.set_pixel(block["position"].x+ originPos.x,block["position"].y + originPos.y,Color.LIGHT_GRAY)
-				roomChosen = true
-			else:
-				possibleRooms.erase(chosenRoom)
-	$TextureRect.texture = ImageTexture.create_from_image(img)
+	for id in range(blockData.size() + itemData.size() + 1):
+		if blockData.has(id):
+			print("BLOCK | ID: ",id, " | Name: ",blockData[id]["name"])
+		elif itemData.has(id):
+			print("ITEM | ID: ",id, " | Name: ",itemData[id]["name"])

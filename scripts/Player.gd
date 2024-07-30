@@ -18,20 +18,24 @@ const NO_PLATFORM = 1
 @onready var world = get_node("../World")
 @onready var entities = get_node("../Entities")
 @onready var main: Node2D = $".."
+@onready var swing_timer: Timer = $SwingTimer
 
 var motion = Vector2(0,0)
 
+var type = "player"
 var coyote = true
 var timerOn = false
 var jumping = false
-var swinging = false
-var swingingWith = 0
+var swinging : bool = false
+var swingingWith : int = 0
 var currentBlocksOn = []
 var canBreath = true
-var inSuit = false
+var currentTemp : int = 0
 var flying = false
 var defPoints = 0
 var inWater = false
+var frozen : bool = false
+var armorBuff : String = ""
 
 var dead = false
 var flipped = false
@@ -67,6 +71,14 @@ var files = {32:{"folder":"Tops","file":"Shirt.png"},
 	49:{"folder":"Shoes","file":"Space.png"},
 	50:{"folder":"Tops","file":"Red_Dress.png"},
 	51:{"folder":"Bottoms","file":"Red_Dress.png"},
+	207:{"folder":"Headwear","file":"Coat.png"},
+	208:{"folder":"Tops","file":"Coat.png"},
+	209:{"folder":"Bottoms","file":"Coat.png"},
+	210:{"folder":"Shoes","file":"Coat.png"},
+	211:{"folder":"Headwear","file":"Fire.png"},
+	212:{"folder":"Tops","file":"Fire.png"},
+	213:{"folder":"Bottoms","file":"Fire.png"},
+	214:{"folder":"Shoes","file":"Fire.png"},
 	}
 
 func _ready():
@@ -79,7 +91,7 @@ func _ready():
 	_on_Armor_updated_armor(armor.armor)
 
 func _physics_process(_delta):
-	if !dead and !Global.pause:
+	if !dead and !Global.pause and !frozen:
 		#Swinging process
 		if inventory.inventory.size() > 0:
 			if Input.is_action_pressed("build"):
@@ -90,10 +102,6 @@ func _physics_process(_delta):
 				swing(inventory.jId)
 			elif Input.is_action_pressed("action2"):
 				swing(inventory.kId)
-			else:
-				swinging = false
-				if $Textures/AnimationPlayer.current_animation == "water":
-					$Textures/AnimationPlayer.play("idle")
 		#Collision modifiers
 		if Input.is_action_pressed("down"):
 			if !world.hasGravity:
@@ -143,7 +151,47 @@ func _physics_process(_delta):
 						$Textures/AnimationPlayer.play("idle")
 				else:
 					$Textures/AnimationPlayer.play("swim")
-		elif world.hasGravity and (!Global.godmode or !flying): #Regular movement
+		elif Global.godmode and flying: 
+			#Flying movement
+			var speed = MAX_SPEED
+			if Input.is_action_pressed("sprint"):
+				speed = SPRINT_SPEED
+			
+			if Input.is_action_pressed("move_left"):
+				if motion.x > -speed:
+					motion.x -= ACCEL
+				else:
+					motion.x = move_toward(motion.x,0,FRICTION / 2.0)
+			elif Input.is_action_pressed("move_right"):
+				if motion.x < speed:
+					motion.x += ACCEL
+				else:
+					motion.x = move_toward(motion.x,0,FRICTION / 2.0)
+			else:
+				motion.x = move_toward(motion.x,0,FRICTION / 2.0)
+			
+			if Input.is_action_pressed("jump"):
+				if motion.y > -speed:
+					motion.y -= ACCEL
+				else:
+					motion.y = move_toward(motion.y,0,FRICTION / 2.0)
+			elif Input.is_action_pressed("down"):
+				if motion.y < speed:
+					motion.y += ACCEL
+				else:
+					motion.y = move_toward(motion.y,0,FRICTION / 2.0)
+			else:
+				motion.y = move_toward(motion.y,0,FRICTION / 2.0)
+			
+			if !swinging:
+				if is_on_floor():
+					if motion.x == 0:
+						$Textures/AnimationPlayer.play("idle")
+					else:
+						$Textures/AnimationPlayer.play("walk")
+				else:
+					$Textures/AnimationPlayer.play("jump")
+		elif world.hasGravity: #Regular movement
 			if inWater:
 				inWater = false
 				motion.y = -JUMPSPEED
@@ -185,7 +233,7 @@ func _physics_process(_delta):
 			if Input.is_action_just_pressed("jump") and !jumping:
 				motion.y = -JUMPSPEED
 				jumping = true
-		else: # Flying/ no gravity Movement
+		else: # no gravity Movement
 			if inWater:
 				inWater = false
 				motion.y = -JUMPSPEED
@@ -223,7 +271,7 @@ func _physics_process(_delta):
 		motion = velocity
 
 func swing(item):
-	if world.itemData.has(item) and item > 0 and ["Tool","weapon","Hoe","Watering_can"].has(world.itemData[item]["type"]) and !swinging:
+	if world.itemData.has(item) and item > 0 and ["tool","weapon","Hoe","Watering_can"].has(world.itemData[item]["type"]) and !swinging:
 		$Textures/Weapon.texture = world.itemData[item]["big_texture"]
 		if world.itemData[item]["type"] == "Watering_can":
 			if !swinging:
@@ -231,6 +279,8 @@ func swing(item):
 		else:
 			$Textures/AnimationPlayer.play("swing")
 		swinging = true
+		if world.itemData[item]["type"] == "weapon":
+			swing_timer.start(world.itemData[item]["speed"])
 		swingingWith = item
 		if world.itemData[item]["type"] == "weapon":
 			for enemy in entities.get_node("Hold").get_children():
@@ -249,7 +299,15 @@ func damage(dmg,enemyLevel = 1):
 		await get_tree().create_timer(0.5).timeout
 		if health < 0:
 			die()
-		modulate = Global.lightColor
+		if !frozen:
+			modulate = Global.lightColor
+
+func freeze(time : float) -> void:
+	modulate = Color("75b2ff")
+	frozen = true
+	await get_tree().create_timer(time).timeout
+	frozen = false
+	modulate = Global.lightColor
 
 func die():
 	dead = true
@@ -325,40 +383,69 @@ func _on_Armor_updated_armor(armorData):
 					$Textures/headwear.modulate = Color.WHITE
 				$Textures.get_node(sheet).show()
 				$Textures.get_node(sheet).texture = display[sheet]
-		var fullSuit = true
-		if wearing.values() != [48,47,49,46]:
-			fullSuit = false
+		var currentBuff = ""
+		for buff in GlobalData.armor_buffs:
+			var hasBuff = true
+			for requiredArmor in GlobalData.armor_buffs[buff]["requires"]:
+				if !wearing.values().has(requiredArmor):
+					hasBuff = false
+			if hasBuff:
+				currentBuff = buff
+				break
 		if StarSystem.find_planet_id(Global.currentPlanet) != null and StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
 			canBreath = true
 		else:
 			canBreath = false
-		inSuit = fullSuit
+		$"../CanvasLayer/Warnings/NoOxygen".visible = !canBreath
+		$"../CanvasLayer/Warnings/NoOxygen".modulate = Color.WHITE if currentBuff != "air_tight" else Color(1,1,1,0.5)
+		match StarSystem.find_planet_id(Global.currentPlanet).type["type"]:
+			"scorched":
+				currentTemp = 1
+				$"../CanvasLayer/Warnings/Fire".show()
+				$"../CanvasLayer/Warnings/Frozen".hide()
+				$"../CanvasLayer/Warnings/Fire".modulate = Color.WHITE if currentBuff != "heat_resistance" else Color(1,1,1,0.5)
+			"fridged":
+				currentTemp = -1
+				$"../CanvasLayer/Warnings/Frozen".show()
+				$"../CanvasLayer/Warnings/Fire".hide()
+				$"../CanvasLayer/Warnings/Frozen".modulate = Color.WHITE if currentBuff != "cold_resistance" else Color(1,1,1,0.5)
+			_:
+				currentTemp = 0
+				$"../CanvasLayer/Warnings/Fire".hide()
+				$"../CanvasLayer/Warnings/Frozen".hide()
+		armorBuff = currentBuff
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if anim_name == "swing":
+	if ["swing","water"].has(anim_name) and world.itemData[swingingWith]["type"] != "weapon":
 		swinging = false
 
-func _on_Oxygen_timeout():
-	if !canBreath:
-		if inSuit and suitOxygen > 0:
-			suitOxygen -= 1
+func _on_tick_timeout() -> void:
+	if !Global.pause:
+		if !canBreath:
+			if armorBuff == "air_tight" and suitOxygen > 0:
+				suitOxygen -= 1
+				if oxygen < maxOxygen:
+					oxygen += 1
+					suitOxygen -= 1
+					if oxygen > maxOxygen:
+						oxygen = maxOxygen
+			elif oxygen > 0:
+				oxygen -= 1
+			elif health >0:
+				health -= 1
+				if health <= 0:
+					die()
+		else:
 			if oxygen < maxOxygen:
 				oxygen += 1
-				suitOxygen -= 1
 				if oxygen > maxOxygen:
 					oxygen = maxOxygen
-		elif oxygen > 0:
-			oxygen -= 1
-		elif health > 0:
+			if suitOxygen < suitOxygenMax:
+				suitOxygen += 5
+				if suitOxygen > suitOxygenMax:
+					suitOxygen = suitOxygenMax
+		if (currentTemp > 0 and armorBuff != "heat_resistance") or (currentTemp < 0 and armorBuff != "cold_resistance"):
 			health -= 1
-			if health <= 0:
-				die()
-	else:
-		if oxygen < maxOxygen:
-			oxygen += 1
-			if oxygen > maxOxygen:
-				oxygen = maxOxygen
-		if suitOxygen < suitOxygenMax:
-			suitOxygen += 5
-			if suitOxygen > suitOxygenMax:
-				suitOxygen = suitOxygenMax
+
+func _on_swing_timer_timeout() -> void:
+	swinging = false

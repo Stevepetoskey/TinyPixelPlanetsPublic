@@ -11,7 +11,6 @@ var seenPos = Vector2(0,0)
 var state = "roam"
 var motion := Vector2(0,0)
 var animating = false
-var canDamage = true
 
 @onready var player = get_node("../../../Player")
 @onready var body: AnimatedSprite2D = $Body
@@ -30,11 +29,11 @@ func _physics_process(delta):
 			if !result.is_empty() and result.collider == player:
 				if !seePlayer:
 					$seeTimer.stop()
-					lostPlayer = false
 					$Seen.show()
 					await get_tree().create_timer(1).timeout
 					$Seen.hide()
 				seePlayer = true
+				lostPlayer = false
 				seenPos = player.position
 			elif seePlayer and !lostPlayer:
 				lostPlayer = true
@@ -66,9 +65,8 @@ func _on_seeTimer_timeout():
 	lostPlayer = false
 
 func _on_HitBox_body_entered(body):
-	if canDamage:
-		body.damage(2)
-		$HurtTimer.start()
+	body.damage(2)
+	$HurtTimer.start()
 
 func _on_HurtTimer_timeout():
 	if !Global.pause:

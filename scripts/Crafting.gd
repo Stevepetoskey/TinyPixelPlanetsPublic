@@ -81,10 +81,13 @@ var recipes = {
 		{"recipe":[{"id":151,"amount":1}],"result":{"id":165,"amount":1}}, #Iron (pink)
 		{"recipe":[{"id":152,"amount":1}],"result":{"id":165,"amount":1}}, #Iron (white)
 		{"recipe":[{"id":153,"amount":1}],"result":{"id":165,"amount":1}}, #Iron (brown)
+		{"recipe":[{"id":192,"amount":1}],"result":{"id":193,"amount":1}}, #Gold (Sandstone)
+		{"recipe":[{"id":194,"amount":1}],"result":{"id":193,"amount":1}}, #Gold (Stone)
 	],
 	"smithing_table": [
 		{"recipe":[{"id":52,"amount":6}],"result":{"id":88,"amount":1}}, #Copper block
 		{"recipe":[{"id":56,"amount":6}],"result":{"id":89,"amount":1}}, #Silver block
+		{"recipe":[{"id":193,"amount":6}],"result":{"id":195,"amount":1}}, #Gold block
 		{"recipe":[{"id":165,"amount":4}],"result":{"id":173,"amount":3}}, #Steel
 		{"recipe":[{"id":88,"amount":1}],"result":{"id":133,"amount":2}}, #Copper plate
 		{"recipe":[{"id":88,"amount":4}],"result":{"id":134,"amount":4}}, #Copper bricks

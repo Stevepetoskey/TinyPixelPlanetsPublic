@@ -784,12 +784,16 @@ libraries = {
 position = Vector2(-0.5, 3.5)
 shape = SubResource("RectangleShape2D_icvb1")
 
-[node name="Oxygen" type="Timer" parent="."]
+[node name="Tick" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
+
+[node name="SwingTimer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="timeout" from="coyoteTimer" to="." method="_on_coyoteTimer_timeout"]
 [connection signal="body_entered" from="blockTest" to="." method="_on_blockTest_body_entered"]
 [connection signal="body_exited" from="blockTest" to="." method="_on_blockTest_body_exited"]
 [connection signal="animation_finished" from="Textures/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
-[connection signal="timeout" from="Oxygen" to="." method="_on_Oxygen_timeout"]
+[connection signal="timeout" from="Tick" to="." method="_on_tick_timeout"]
+[connection signal="timeout" from="SwingTimer" to="." method="_on_swing_timer_timeout"]

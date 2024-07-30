@@ -7,8 +7,22 @@ var entities = {
 	"space_squid":preload("res://assets/enemies/Space_squid.tscn"),
 	"rockius":preload("res://assets/enemies/Rockius.tscn"),
 	"magma_spit":preload("res://assets/entities/magma_spit.tscn"),
-	"scorched_guard":preload("res://assets/enemies/ScorchedGuard.tscn")
+	"scorched_guard":preload("res://assets/enemies/ScorchedGuard.tscn"),
+	"fridged_spike":preload("res://assets/enemies/FridgedSpike.tscn"),
+	"fridged_spit":preload("res://assets/entities/fridged_spit.tscn"),
 	}
+
+var loot = {
+	"slorg":[],
+	"item":[],
+	"blues":[],
+	"space_squid":[],
+	"rockius":[],
+	"magma_spit":[],
+	"scorched_guard":[{"id":191,"amount":[0,1]}],
+	"fridged_spike":[{"id":205,"amount":[0,1]}],
+	"fridged_spit":[]
+}
 
 var loaded = false
 
@@ -41,6 +55,7 @@ func summon_entity(entity : String, pos = player.position):
 	var newE = entities[entity].instantiate()
 	newE.position = pos
 	newE.new = true
+	newE.loot = loot[entity]
 	$Hold.add_child(newE)
 
 func spawn_item(item : Dictionary, thrown = false, pos = $"../Player".position):
@@ -57,6 +72,13 @@ func spawn_spit(pos : Vector2, direction : float, distance : float) -> void:
 	newS.position = pos
 	newS.direction = direction
 	newS.distance = distance
+	newS.new = true
+	$Hold.add_child(newS)
+
+func spawn_fridged_spit(pos : Vector2, direction : float) -> void:
+	var newS = entities["fridged_spit"].instantiate()
+	newS.position = pos
+	newS.direction = direction
 	newS.new = true
 	$Hold.add_child(newS)
 

@@ -132,7 +132,9 @@ func _unhandled_input(_event):
 					186:
 						$"../CanvasLayer/StructureSaveEdit".pop_up(currentBlock)
 					189:
-						$"../CanvasLayer/DevChestEdit".pop_up(currentBlock)
+						$"../CanvasLayer/LineEditPopUp".pop_up(currentBlock,"Dev chest")
+					185:
+						$"../CanvasLayer/LineEditPopUp".pop_up(currentBlock,"Link block")
 			elif Input.is_action_just_pressed("build2") and wireIn.size() > 0:
 				if is_instance_valid(wireIn[0]):
 					wireIn[0].break_wire()
@@ -165,29 +167,41 @@ func tool_action(itemId : int, ref := 0) -> void:
 		"Bucket","Watering_can":
 			if world.get_block_id(cursorPos,currentLayer) == 117 and world.worldRules["break_blocks"]["value"]:
 				var water = world.get_block(cursorPos,currentLayer)
-				if inventory.inventory[ref].has("data") and inventory.inventory[ref]["data"].has("water"):
-					var bucketWaterLevel = inventory.inventory[ref]["data"]["water"]
-					if bucketWaterLevel + water.data["water_level"] < 4:
-						inventory.inventory[ref]["data"]["water"] += water.data["water_level"]
-						world.set_block(cursorPos,currentLayer,0,true)
-					else:
-						water.data["water_level"] -= 4 - bucketWaterLevel
-						if water.data["water_level"] <= 0:
-							world.set_block(cursorPos,currentLayer,0,true)
-						water.update_water_texture()
-						water.on_update()
-						inventory.inventory[ref]["data"]["water"] = 4
-				else:
-					inventory.inventory[ref]["data"] = {"water":water.data["water_level"]}
+				#if inventory.inventory[ref]["data"].has("water_level"):
+				var bucketWaterLevel = inventory.inventory[ref]["data"]["water_level"]
+				if bucketWaterLevel + water.data["water_level"] < 4:
+					inventory.add_to_inventory(itemId,1,true,{"water_level":bucketWaterLevel + water.data["water_level"]})
+					inventory.remove_amount_at_loc(ref,1)
 					world.set_block(cursorPos,currentLayer,0,true)
-			elif itemSelect["type"] != "Watering_can" and currentLayer != 0 and world.worldRules["place_blocks"]["value"] and inventory.inventory[ref].has("data") and inventory.inventory[ref]["data"].has("water") and inventory.inventory[ref]["data"]["water"] > 0:
-				world.set_block(cursorPos,currentLayer,117,true,{"water_level":inventory.inventory[ref]["data"]["water"]})
-				inventory.inventory[ref]["data"]["water"] = 0
-			elif itemSelect["type"] == "Watering_can" and inventory.inventory[ref].has("data") and inventory.inventory[ref]["data"].has("water") and inventory.inventory[ref]["data"]["water"] > 0:
+				else:
+					water.data["water_level"] -= 4 - bucketWaterLevel
+					if water.data["water_level"] <= 0:
+						world.set_block(cursorPos,currentLayer,0,true)
+					water.update_water_texture()
+					water.on_update()
+					inventory.add_to_inventory(itemId,1,true,{"water_level":4})
+					inventory.remove_amount_at_loc(ref,1)
+				#else:
+					#inventory.inventory[ref]["data"] = {"water_level":water.data["water_level"]}
+					#world.set_block(cursorPos,currentLayer,0,true)
+			elif itemSelect["type"] != "Watering_can" and currentLayer != 0 and world.get_block_id(cursorPos,currentLayer) == 0 and world.worldRules["place_blocks"]["value"] and inventory.inventory[ref]["data"].has("water_level") and inventory.inventory[ref]["data"]["water_level"] > 0: #places water
+				world.set_block(cursorPos,currentLayer,117,true,{"water_level":inventory.inventory[ref]["data"]["water_level"]})
+				inventory.add_to_inventory(itemId,1,true,{"water_level":0})
+				inventory.remove_amount_at_loc(ref,1)
+			elif itemSelect["type"] == "Watering_can" and inventory.inventory[ref]["data"].has("water_level") and inventory.inventory[ref]["data"]["water_level"] > 0:
 				$"../Effects".spray(player.position,player.flipped)
-				inventory.inventory[ref]["data"]["water"] -= 0.25
+				inventory.inventory[ref]["data"]["water_level"] -= 0.25
 			inventory.update_inventory()
-		"Tool":
+		"Full_bucket": #Used for godmode
+			if world.worldRules["place_blocks"]["value"]:
+				var blockAtPos = world.get_block(cursorPos,currentLayer)
+				if blockAtPos == null and currentLayer != 0:
+					world.set_block(cursorPos,currentLayer,117,true,{"water_level":4})
+				elif blockAtPos != null and blockAtPos.id == 117:
+					blockAtPos.data["water_level"] = 4
+					blockAtPos.update_water_texture()
+					blockAtPos.on_update()
+		"tool":
 			if !breaking and world.get_block_id(cursorPos,currentLayer) > 0 and itemSelect["strength"] >= world.blockData[world.get_block_id(cursorPos,currentLayer)]["canHaverst"] and (world.worldRules["break_blocks"]["value"] or (world.get_block_id(cursorPos,currentLayer) == 8 and Global.inTutorial)):
 				var hardness = world.blockData[world.get_block_id(cursorPos,currentLayer)]["hardness"]
 				if hardness <= 0:

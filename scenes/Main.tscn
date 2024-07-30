@@ -1,4 +1,4 @@
-[gd_scene load_steps=205 format=3 uid="uid://2c07adgn0vow"]
+[gd_scene load_steps=239 format=3 uid="uid://2c07adgn0vow"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c3rmyuwb7gd3m" path="res://textures/enviroment/sky.png" id="2"]
@@ -41,9 +41,13 @@
 [ext_resource type="Texture2D" uid="uid://b8yl13mcwhcxu" path="res://textures/GUI/main/break4.png" id="37"]
 [ext_resource type="Texture2D" uid="uid://dmceukhll6w76" path="res://textures/GUI/main/break2.png" id="38"]
 [ext_resource type="Texture2D" uid="uid://baijdpy2unnd0" path="res://textures/GUI/main/break3.png" id="39"]
+[ext_resource type="Texture2D" uid="uid://cewfc0igs8va1" path="res://textures/GUI/main/inventory/clear_btn.png" id="39_od4vt"]
 [ext_resource type="Script" path="res://scripts/Armor.gd" id="40"]
+[ext_resource type="Texture2D" uid="uid://qa4n71a3htkg" path="res://textures/GUI/main/inventory/clear_btn_pressed.png" id="40_fxihi"]
 [ext_resource type="Texture2D" uid="uid://w40dj0ncdwk8" path="res://textures/GUI/main/Armor/Btn.png" id="41"]
+[ext_resource type="Texture2D" uid="uid://d4blvfukgxyo8" path="res://textures/GUI/main/inventory/clear_btn_hover.png" id="41_rvmfq"]
 [ext_resource type="Texture2D" uid="uid://dt21m5af7l32j" path="res://textures/GUI/main/Armor/hat.png" id="42"]
+[ext_resource type="Texture2D" uid="uid://b8igi2tlv2rqh" path="res://textures/GUI/main/inventory/delete_item.png" id="42_ur3h4"]
 [ext_resource type="Script" path="res://scripts/Entities.gd" id="43"]
 [ext_resource type="Script" path="res://scripts/Bars.gd" id="44"]
 [ext_resource type="Texture2D" uid="uid://dc2440kvhp48n" path="res://textures/weather/rain.png" id="45"]
@@ -56,29 +60,40 @@
 [ext_resource type="Texture2D" uid="uid://bueaebvbfj4jw" path="res://textures/GUI/main/hotbar/hotbar1.png" id="55"]
 [ext_resource type="Texture2D" uid="uid://u27t1xjmaq7" path="res://textures/GUI/main/bigBar.png" id="56"]
 [ext_resource type="FontFile" uid="uid://boiyd3n1keevx" path="res://fonts/upheavtt.ttf" id="56_wca64"]
-[ext_resource type="Texture2D" uid="uid://bom5ygsohqxmw" path="res://textures/GUI/main/hotbar/O2-safe.png" id="58"]
+[ext_resource type="Script" path="res://scripts/GUI/main/Godmode.gd" id="57_keb65"]
 [ext_resource type="Shader" path="res://shaders/Pause.gdshader" id="58_564f8"]
 [ext_resource type="Script" path="res://scripts/GUI/SignEdit.gd" id="58_p8ek0"]
+[ext_resource type="Texture2D" uid="uid://kh521oks6k4s" path="res://textures/GUI/main/godmode/godmode_bg.png" id="58_rc7dj"]
 [ext_resource type="Texture2D" uid="uid://dieq04r77mkl" path="res://textures/GUI/space/buttons/color_btn.png" id="59_b30rk"]
+[ext_resource type="Texture2D" uid="uid://c6qqoitldaoyo" path="res://textures/GUI/main/godmode/tab_btn.png" id="59_khys4"]
 [ext_resource type="Script" path="res://scripts/GUI/main/LogicBlockEdit.gd" id="60_2s7q2"]
 [ext_resource type="Theme" uid="uid://b02uwgbscq35l" path="res://themes/menu.tres" id="60_dyqfb"]
+[ext_resource type="Texture2D" uid="uid://bgwlh0v4u7ckg" path="res://textures/GUI/main/godmode/tab_btn_pressed.png" id="60_xmnff"]
 [ext_resource type="Script" path="res://scripts/Commands.gd" id="61"]
+[ext_resource type="Texture2D" uid="uid://c2scp6jvapcg1" path="res://textures/GUI/main/godmode/tab_btn_hover.png" id="61_lmb5b"]
 [ext_resource type="Texture2D" uid="uid://dar211a01qnx1" path="res://textures/GUI/main/logic/and_btn.png" id="61_v3k1y"]
 [ext_resource type="Texture2D" uid="uid://dpqpaobomk0g" path="res://textures/GUI/main/inventory/item-toolbar.png" id="62"]
 [ext_resource type="Texture2D" uid="uid://8mn0dbsd5mox" path="res://textures/GUI/main/logic/and_btn_pressed.png" id="62_1oiqi"]
+[ext_resource type="Texture2D" uid="uid://ceyd16bt7g11j" path="res://textures/blocks/grass_block.png" id="62_msb4f"]
 [ext_resource type="Script" path="res://scripts/ItemDataShow.gd" id="63"]
 [ext_resource type="Texture2D" uid="uid://bv6gbdnyxnev3" path="res://textures/GUI/main/logic/or_btn.png" id="63_mfad1"]
+[ext_resource type="Texture2D" uid="uid://bp6ihch4qfy34" path="res://textures/blocks/logic_block_and.png" id="63_r3nvb"]
 [ext_resource type="Texture2D" uid="uid://cvq1t01u1jig3" path="res://textures/enviroment/light.png" id="64"]
+[ext_resource type="Texture2D" uid="uid://c1vhi3y881rsy" path="res://textures/items/tomato.png" id="64_bcqkm"]
 [ext_resource type="Texture2D" uid="uid://b42csi50rkx1p" path="res://textures/GUI/main/logic/or_btn_pressed.png" id="64_tkw1u"]
 [ext_resource type="Texture2D" uid="uid://btus3qrhw2igq" path="res://textures/enviroment/storm_bg.png" id="65"]
+[ext_resource type="Texture2D" uid="uid://shi627ctjorp" path="res://textures/items/silver_axe.png" id="65_pjfr3"]
 [ext_resource type="Texture2D" uid="uid://cxeo3tukb5o52" path="res://textures/GUI/main/logic/nand_btn.png" id="65_rkwro"]
 [ext_resource type="Texture2D" uid="uid://hq0q5oh5t744" path="res://textures/weather/snow.png" id="66"]
+[ext_resource type="Texture2D" uid="uid://cch3q0ycdtbn8" path="res://textures/items/water_copper_bucket.png" id="66_8qkex"]
+[ext_resource type="Texture2D" uid="uid://cyyqftw4mthc8" path="res://textures/items/armor/space_helmet.png" id="66_i8amm"]
 [ext_resource type="Texture2D" uid="uid://37qbun2wp7lw" path="res://textures/GUI/main/logic/nand_btn_pressed.png" id="66_klnxr"]
 [ext_resource type="FontVariation" uid="uid://c4nuc5bd0kohq" path="res://fonts/PixelPossFix.tres" id="66_oustp"]
 [ext_resource type="Script" path="res://scripts/enviroment/Meteors.gd" id="67"]
 [ext_resource type="Texture2D" uid="uid://cby3yuoltp7ry" path="res://textures/GUI/main/logic/nor_btn.png" id="67_rhacj"]
 [ext_resource type="Texture2D" uid="uid://deiwekva7e5yd" path="res://textures/GUI/main/hotbar/hotbar_panel.png" id="68"]
 [ext_resource type="Texture2D" uid="uid://ddqniq8ix80j5" path="res://textures/GUI/main/logic/nor_btn_pressed.png" id="68_46ew3"]
+[ext_resource type="Texture2D" uid="uid://4x6ubvrf5igt" path="res://textures/blocks/dev_link.png" id="68_dm17w"]
 [ext_resource type="Texture2D" uid="uid://dmf75orq48o76" path="res://textures/GUI/main/hotbar/forground.png" id="69"]
 [ext_resource type="Texture2D" uid="uid://d4mw43b7joeam" path="res://textures/GUI/main/logic/xor_btn.png" id="69_4xjca"]
 [ext_resource type="Texture2D" uid="uid://im3ftx86mtc3" path="res://textures/GUI/space/h_bar_handle_select.png" id="70"]
@@ -90,16 +105,26 @@
 [ext_resource type="Texture2D" uid="uid://cn76yxyfhxg3v" path="res://textures/GUI/space/v_bar_handle.png" id="73"]
 [ext_resource type="Texture2D" uid="uid://45o7v1dsk3yx" path="res://textures/GUI/space/h_bar.png" id="74"]
 [ext_resource type="Texture2D" uid="uid://dqkgujgjvgj5g" path="res://textures/GUI/space/v_bar.png" id="75"]
+[ext_resource type="Script" path="res://scripts/GUI/main/Upgrade.gd" id="75_0dd7g"]
 [ext_resource type="Texture2D" uid="uid://cy2kr64p5herf" path="res://textures/GUI/space/h_bar_handle.png" id="76"]
+[ext_resource type="Texture2D" uid="uid://cbe2x144k6eci" path="res://textures/GUI/main/upgrade/background.png" id="76_lw3wt"]
 [ext_resource type="Texture2D" uid="uid://bes1uxqlw0hrb" path="res://textures/GUI/main/crafting/crafting_bg.png" id="77"]
+[ext_resource type="Texture2D" uid="uid://dtfa7tf4iexsu" path="res://textures/GUI/main/upgrade/main_slot.png" id="77_w74uk"]
+[ext_resource type="Texture2D" uid="uid://dbcxlsomp1g7b" path="res://textures/GUI/main/upgrade/main_slot_hover.png" id="78_gbxmp"]
 [ext_resource type="FontFile" uid="uid://diwuxgjxhgb06" path="res://fonts/PixelPossibilities.ttf" id="79"]
+[ext_resource type="Texture2D" uid="uid://c3wxj8ma11bxt" path="res://textures/GUI/main/upgrade/animations/left_item_slot_sheet.png" id="79_hj1c0"]
 [ext_resource type="Texture2D" uid="uid://bb4hsafmlev5c" path="res://textures/GUI/main/shop/shop_bg.png" id="80"]
+[ext_resource type="Texture2D" uid="uid://cju88cr22c0na" path="res://textures/GUI/main/upgrade/animations/top_item_slot_sheet.png" id="80_wujuo"]
 [ext_resource type="AudioStream" uid="uid://cjeky6rbgpg1r" path="res://Audio/sfx/Ambience/mixkit-sea-waves-loop-1196.wav" id="81"]
+[ext_resource type="Texture2D" uid="uid://djh8v1682610f" path="res://textures/GUI/main/upgrade/animations/right_item_slot_sheet.png" id="81_3oc2h"]
 [ext_resource type="Texture2D" uid="uid://bqdiir8v4ncnx" path="res://textures/NPCs/faces/lily_cheerful.png" id="82"]
 [ext_resource type="AudioStream" uid="uid://duo4t1cbibbxx" path="res://Audio/sfx/Ambience/mixkit-light-rain-loop-1253.wav" id="83"]
 [ext_resource type="Script" path="res://scripts/GUI/Shop.gd" id="86"]
 [ext_resource type="Texture2D" uid="uid://yt38gkuyx7oq" path="res://textures/GUI/main/shop/tab_selected.png" id="87"]
 [ext_resource type="Texture2D" uid="uid://bc3ncctygtmi" path="res://textures/GUI/main/shop/tab.png" id="88"]
+[ext_resource type="Texture2D" uid="uid://0kw3pswgl7ra" path="res://textures/GUI/main/effects/no_oxygen.png" id="98_obupc"]
+[ext_resource type="Texture2D" uid="uid://jubrgfwjnpsj" path="res://textures/GUI/main/effects/fire.png" id="99_nicjf"]
+[ext_resource type="Texture2D" uid="uid://bh35fik5wk5y4" path="res://textures/GUI/main/effects/frozen.png" id="100_xdqdj"]
 
 [sub_resource type="VisualShaderNodeFloatOp" id="67"]
 output_port_for_preview = 0
@@ -434,50 +459,6 @@ region = Rect2(0, 12, 23, 2)
 atlas = ExtResource("17")
 region = Rect2(0, 5, 23, 2)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wja5i"]
-
-[sub_resource type="AtlasTexture" id="82"]
-atlas = SubResource("CompressedTexture2D_wja5i")
-region = Rect2(16, 0, 7, 7)
-
-[sub_resource type="Animation" id="83"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="84"]
-resource_name = "blink"
-length = 1.5
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_6ih42"]
-_data = {
-"RESET": SubResource("83"),
-"blink": SubResource("84")
-}
-
 [sub_resource type="LabelSettings" id="LabelSettings_5jsv6"]
 outline_size = 3
 outline_color = Color(0.431373, 0.458824, 0.552941, 1)
@@ -497,6 +478,16 @@ shadow_color = Color(0.372549, 0.407843, 0.521569, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_a5yvo"]
 font_color = Color(0.854902, 0.878431, 0.917647, 1)
 shadow_color = Color(0.372549, 0.407843, 0.521569, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_f71tw"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+outline_size = 3
+outline_color = Color(0.231373, 0.290196, 0.478431, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_h1jgf"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+outline_size = 3
+outline_color = Color(0.231373, 0.290196, 0.478431, 1)
 
 [sub_resource type="StyleBoxTexture" id="16"]
 texture = ExtResource("76")
@@ -545,16 +536,6 @@ VScrollBar/styles/grabber_pressed = SubResource("15")
 VScrollBar/styles/scroll = SubResource("20")
 VSlider/styles/slider = SubResource("112")
 
-[sub_resource type="LabelSettings" id="LabelSettings_f71tw"]
-font_color = Color(0.854902, 0.878431, 0.917647, 1)
-outline_size = 3
-outline_color = Color(0.231373, 0.290196, 0.478431, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_h1jgf"]
-font_color = Color(0.854902, 0.878431, 0.917647, 1)
-outline_size = 3
-outline_color = Color(0.231373, 0.290196, 0.478431, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_xsdyu"]
 font_color = Color(0.854902, 0.878431, 0.917647, 1)
 outline_size = 3
@@ -564,6 +545,213 @@ outline_color = Color(0.266667, 0.235294, 0.384314, 1)
 font_color = Color(0.854902, 0.878431, 0.917647, 1)
 outline_size = 3
 outline_color = Color(0.266667, 0.235294, 0.384314, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wilhb"]
+font_color = Color(0.994154, 0.772127, 0.757899, 1)
+outline_size = 3
+outline_color = Color(0.342634, 0.0358904, 0.066403, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88nlb"]
+atlas = ExtResource("79_hj1c0")
+region = Rect2(29, 2.08165e-12, 29, 27)
+
+[sub_resource type="Animation" id="Animation_7e2sk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(29, 2.08165e-12, 29, 27)]
+}
+
+[sub_resource type="Animation" id="Animation_u4g5d"]
+resource_name = "power"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(116, 2.08165e-12, 29, 27), Rect2(145, 2.08165e-12, 29, 27), Rect2(174, 2.08165e-12, 29, 27), Rect2(2.08165e-12, 2.08165e-12, 29, 27)]
+}
+
+[sub_resource type="Animation" id="Animation_2t7xa"]
+resource_name = "start"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(29, 2.08165e-12, 29, 27), Rect2(58, 2.08165e-12, 29, 27), Rect2(87, 2.08165e-12, 29, 27), Rect2(116, 2.08165e-12, 29, 27)]
+}
+
+[sub_resource type="Animation" id="Animation_euiw8"]
+resource_name = "unpower"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(2.08165e-12, 2.08165e-12, 29, 27), Rect2(174, 2.08165e-12, 29, 27), Rect2(145, 2.08165e-12, 29, 27), Rect2(116, 2.08165e-12, 29, 27)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pdkrh"]
+_data = {
+"RESET": SubResource("Animation_7e2sk"),
+"power": SubResource("Animation_u4g5d"),
+"start": SubResource("Animation_2t7xa"),
+"unpower": SubResource("Animation_euiw8")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gilhv"]
+atlas = ExtResource("80_wujuo")
+region = Rect2(14, 2.08165e-12, 14, 40)
+
+[sub_resource type="Animation" id="Animation_ks2y2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(14, 2.08165e-12, 14, 40)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_d3nst"]
+resource_name = "power"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(56, 2.08165e-12, 14, 40), Rect2(70, 2.08165e-12, 14, 40), Rect2(84, 2.08165e-12, 14, 40), Rect2(2.08165e-12, 2.08165e-12, 14, 40)]
+}
+
+[sub_resource type="Animation" id="Animation_c6nvi"]
+resource_name = "start"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(14, 2.08165e-12, 14, 40), Rect2(28, 2.08165e-12, 14, 40), Rect2(42, 2.08165e-12, 14, 40), Rect2(56, 2.08165e-12, 14, 40)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_bkgki"]
+resource_name = "unpower"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(2.08165e-12, 2.08165e-12, 14, 40), Rect2(84, 2.08165e-12, 14, 40), Rect2(70, 2.08165e-12, 14, 40), Rect2(56, 2.08165e-12, 14, 40)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4dlmm"]
+_data = {
+"RESET": SubResource("Animation_ks2y2"),
+"power": SubResource("Animation_d3nst"),
+"start": SubResource("Animation_c6nvi"),
+"unpower": SubResource("Animation_bkgki")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ltsjs"]
+atlas = ExtResource("81_3oc2h")
+region = Rect2(29, 2.08165e-12, 29, 27)
 
 [sub_resource type="Animation" id="11"]
 length = 0.001
@@ -2553,6 +2741,34 @@ value = 200.0
 texture_under = SubResource("80")
 texture_progress = SubResource("81")
 
+[node name="Warnings" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 152.0
+offset_right = -20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="NoOxygen" type="TextureRect" parent="CanvasLayer/Warnings"]
+visible = false
+layout_mode = 2
+texture = ExtResource("98_obupc")
+stretch_mode = 3
+
+[node name="Fire" type="TextureRect" parent="CanvasLayer/Warnings"]
+visible = false
+layout_mode = 2
+texture = ExtResource("99_nicjf")
+stretch_mode = 3
+
+[node name="Frozen" type="TextureRect" parent="CanvasLayer/Warnings"]
+visible = false
+layout_mode = 2
+texture = ExtResource("100_xdqdj")
+stretch_mode = 3
+
 [node name="Hotbar" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchor_right = 1.0
@@ -2713,20 +2929,6 @@ theme_override_constants/separation = 0
 [node name="BGT" type="TextureRect" parent="CanvasLayer/Hotbar/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("69")
-
-[node name="O2" type="TextureRect" parent="CanvasLayer/Hotbar/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("58")
-
-[node name="Warning" type="TextureRect" parent="CanvasLayer/Hotbar/HBoxContainer"]
-visible = false
-layout_mode = 2
-texture = SubResource("82")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Hotbar/HBoxContainer/Warning"]
-libraries = {
-"": SubResource("AnimationLibrary_6ih42")
-}
 
 [node name="Coords" type="Label" parent="CanvasLayer/Hotbar"]
 visible = false
@@ -2951,13 +3153,14 @@ offset_left = 6.0
 offset_top = -65.0
 offset_right = 110.0
 offset_bottom = -12.0
-theme = SubResource("113")
+theme = ExtResource("12_23g2f")
+horizontal_scroll_mode = 0
 
 [node name="ItemContainer" type="GridContainer" parent="CanvasLayer/Inventory/ItemScroll"]
 layout_mode = 2
 theme_override_constants/h_separation = 2
 theme_override_constants/v_separation = 2
-columns = 2
+columns = 3
 
 [node name="Title" type="Label" parent="CanvasLayer/Inventory"]
 layout_mode = 0
@@ -2968,6 +3171,33 @@ offset_bottom = 12.0
 text = "Inventory"
 label_settings = SubResource("LabelSettings_f71tw")
 horizontal_alignment = 1
+
+[node name="ClearBtn" type="TextureButton" parent="CanvasLayer/Inventory"]
+visible = false
+layout_mode = 0
+offset_left = 5.0
+offset_top = 62.0
+offset_right = 17.0
+offset_bottom = 74.0
+texture_normal = ExtResource("39_od4vt")
+texture_pressed = ExtResource("40_fxihi")
+texture_hover = ExtResource("41_rvmfq")
+
+[node name="DeleteItemBtn" type="TextureButton" parent="CanvasLayer/Inventory"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -26.0
+offset_right = 50.0
+offset_bottom = -2.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("42_ur3h4")
+stretch_mode = 3
 
 [node name="Crafting" type="Control" parent="CanvasLayer"]
 visible = false
@@ -3197,6 +3427,346 @@ theme_override_fonts/font = ExtResource("19_36l8u")
 text = "Sell"
 horizontal_alignment = 1
 uppercase = true
+
+[node name="Godmode" type="Control" parent="CanvasLayer"]
+visible = false
+custom_minimum_size = Vector2(116, 141)
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("12_23g2f")
+script = ExtResource("57_keb65")
+
+[node name="BG" type="TextureRect" parent="CanvasLayer/Godmode"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("58_rc7dj")
+stretch_mode = 3
+
+[node name="Title" type="Label" parent="CanvasLayer/Godmode"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 114.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
+theme_override_colors/font_outline_color = Color(0.231373, 0.290196, 0.482353, 1)
+text = "Godmode"
+label_settings = SubResource("LabelSettings_h1jgf")
+horizontal_alignment = 1
+
+[node name="Tabs" type="HBoxContainer" parent="CanvasLayer/Godmode"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 5.0
+offset_top = 16.0
+offset_right = -5.0
+offset_bottom = 28.0
+grow_horizontal = 2
+theme_override_constants/separation = 0
+
+[node name="building_blocks" type="TextureButton" parent="CanvasLayer/Godmode/Tabs"]
+layout_mode = 2
+texture_normal = ExtResource("59_khys4")
+texture_pressed = ExtResource("60_xmnff")
+texture_hover = ExtResource("61_lmb5b")
+texture_disabled = ExtResource("60_xmnff")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Godmode/Tabs/building_blocks"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3")
+stretch_mode = 3
+
+[node name="nature_blocks" type="TextureButton" parent="CanvasLayer/Godmode/Tabs"]
+layout_mode = 2
+texture_normal = ExtResource("59_khys4")
+texture_pressed = ExtResource("60_xmnff")
+texture_hover = ExtResource("61_lmb5b")
+texture_disabled = ExtResource("60_xmnff")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Godmode/Tabs/nature_blocks"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("62_msb4f")
+stretch_mode = 3
+
+[node name="functional_blocks" type="TextureButton" parent="CanvasLayer/Godmode/Tabs"]
+layout_mode = 2
+texture_normal = ExtResource("59_khys4")
+texture_pressed = ExtResource("60_xmnff")
+texture_hover = ExtResource("61_lmb5b")
+texture_disabled = ExtResource("60_xmnff")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Godmode/Tabs/functional_blocks"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("63_r3nvb")
+stretch_mode = 3
+
+[node name="food" type="TextureButton" parent="CanvasLayer/Godmode/Tabs"]
+layout_mode = 2
+texture_normal = ExtResource("59_khys4")
+texture_pressed = ExtResource("60_xmnff")
+texture_hover = ExtResource("61_lmb5b")
+texture_disabled = ExtResource("60_xmnff")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Godmode/Tabs/food"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("64_bcqkm")
+stretch_mode = 3
+
+[node name="tools" type="TextureButton" parent="CanvasLayer/Godmode/Tabs"]
+layout_mode = 2
+texture_normal = ExtResource("59_khys4")
+texture_pressed = ExtResource("60_xmnff")
+texture_hover = ExtResource("61_lmb5b")
+texture_disabled = ExtResource("60_xmnff")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Godmode/Tabs/tools"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("65_pjfr3")
+stretch_mode = 3
+
+[node name="wearables" type="TextureButton" parent="CanvasLayer/Godmode/Tabs"]
+layout_mode = 2
+texture_normal = ExtResource("59_khys4")
+texture_pressed = ExtResource("60_xmnff")
+texture_hover = ExtResource("61_lmb5b")
+texture_disabled = ExtResource("60_xmnff")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Godmode/Tabs/wearables"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("66_i8amm")
+stretch_mode = 3
+
+[node name="misc" type="TextureButton" parent="CanvasLayer/Godmode/Tabs"]
+layout_mode = 2
+texture_normal = ExtResource("59_khys4")
+texture_pressed = ExtResource("60_xmnff")
+texture_hover = ExtResource("61_lmb5b")
+texture_disabled = ExtResource("60_xmnff")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Godmode/Tabs/misc"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("66_8qkex")
+stretch_mode = 3
+
+[node name="dev" type="TextureButton" parent="CanvasLayer/Godmode/Tabs"]
+layout_mode = 2
+texture_normal = ExtResource("59_khys4")
+texture_pressed = ExtResource("60_xmnff")
+texture_hover = ExtResource("61_lmb5b")
+texture_disabled = ExtResource("60_xmnff")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Godmode/Tabs/dev"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("68_dm17w")
+stretch_mode = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Godmode"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 29.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="ItemHold" type="GridContainer" parent="CanvasLayer/Godmode/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 2
+columns = 7
+
+[node name="Upgrade" type="Control" parent="CanvasLayer"]
+visible = false
+custom_minimum_size = Vector2(116, 141)
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("12_23g2f")
+script = ExtResource("75_0dd7g")
+
+[node name="BG" type="TextureRect" parent="CanvasLayer/Upgrade"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("76_lw3wt")
+stretch_mode = 3
+
+[node name="Title" type="Label" parent="CanvasLayer/Upgrade"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 114.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
+theme_override_colors/font_outline_color = Color(0.231373, 0.290196, 0.482353, 1)
+text = "Upgrade"
+label_settings = SubResource("LabelSettings_wilhb")
+horizontal_alignment = 1
+
+[node name="ItemHold" type="Control" parent="CanvasLayer/Upgrade"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 14.0
+offset_right = -2.0
+offset_bottom = -67.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Mainslot" type="TextureButton" parent="CanvasLayer/Upgrade/ItemHold"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_top = 12.0
+offset_right = 7.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("77_w74uk")
+texture_hover = ExtResource("78_gbxmp")
+
+[node name="LeftSlot" type="TextureRect" parent="CanvasLayer/Upgrade/ItemHold"]
+visible = false
+layout_mode = 0
+offset_left = 20.0
+offset_top = 29.0
+offset_right = 49.0
+offset_bottom = 56.0
+texture = SubResource("AtlasTexture_88nlb")
+stretch_mode = 3
+
+[node name="LeftAnimations" type="AnimationPlayer" parent="CanvasLayer/Upgrade/ItemHold/LeftSlot"]
+libraries = {
+"": SubResource("AnimationLibrary_pdkrh")
+}
+
+[node name="LeftSlotBtn" type="TextureButton" parent="CanvasLayer/Upgrade/ItemHold/LeftSlot"]
+layout_mode = 0
+offset_top = 13.0
+offset_right = 14.0
+offset_bottom = 27.0
+
+[node name="TopSlot" type="TextureRect" parent="CanvasLayer/Upgrade/ItemHold"]
+visible = false
+layout_mode = 0
+offset_left = 49.0
+offset_top = 2.0
+offset_right = 63.0
+offset_bottom = 42.0
+texture = SubResource("AtlasTexture_gilhv")
+stretch_mode = 3
+
+[node name="TopAnimations" type="AnimationPlayer" parent="CanvasLayer/Upgrade/ItemHold/TopSlot"]
+libraries = {
+"": SubResource("AnimationLibrary_4dlmm")
+}
+
+[node name="TopSlotBtn" type="TextureButton" parent="CanvasLayer/Upgrade/ItemHold/TopSlot"]
+layout_mode = 0
+offset_top = 11.0
+offset_right = 14.0
+offset_bottom = 25.0
+
+[node name="RightSlot" type="TextureRect" parent="CanvasLayer/Upgrade/ItemHold"]
+visible = false
+layout_mode = 0
+offset_left = 63.0
+offset_top = 29.0
+offset_right = 92.0
+offset_bottom = 56.0
+texture = SubResource("AtlasTexture_ltsjs")
+stretch_mode = 3
+
+[node name="RightAnimations" type="AnimationPlayer" parent="CanvasLayer/Upgrade/ItemHold/RightSlot"]
+libraries = {
+"": SubResource("AnimationLibrary_pdkrh")
+}
+
+[node name="RightSlotBtn" type="TextureButton" parent="CanvasLayer/Upgrade/ItemHold/RightSlot"]
+layout_mode = 0
+offset_top = 13.0
+offset_right = 14.0
+offset_bottom = 27.0
 
 [node name="SignEdit" type="Panel" parent="CanvasLayer"]
 visible = false
@@ -3569,7 +4139,7 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Save"
 
-[node name="DevChestEdit" type="Panel" parent="CanvasLayer"]
+[node name="LineEditPopUp" type="Panel" parent="CanvasLayer"]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -3585,7 +4155,7 @@ grow_vertical = 2
 theme = ExtResource("60_dyqfb")
 script = ExtResource("72_5q14t")
 
-[node name="TitleLbl" type="Label" parent="CanvasLayer/DevChestEdit"]
+[node name="TitleLbl" type="Label" parent="CanvasLayer/LineEditPopUp"]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -3597,7 +4167,7 @@ grow_horizontal = 2
 text = "Dev chest"
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/DevChestEdit"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LineEditPopUp"]
 layout_mode = 0
 offset_left = 4.0
 offset_top = 13.0
@@ -3605,16 +4175,16 @@ offset_right = 119.0
 offset_bottom = 85.0
 theme_override_constants/separation = 6
 
-[node name="GroupLbl" type="Label" parent="CanvasLayer/DevChestEdit/VBoxContainer"]
+[node name="GroupLbl" type="Label" parent="CanvasLayer/LineEditPopUp/VBoxContainer"]
 layout_mode = 2
-text = "Loot table group:"
+text = "Group:"
 horizontal_alignment = 1
 
-[node name="GroupEdit" type="LineEdit" parent="CanvasLayer/DevChestEdit/VBoxContainer"]
+[node name="GroupEdit" type="LineEdit" parent="CanvasLayer/LineEditPopUp/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SaveBtn" type="Button" parent="CanvasLayer/DevChestEdit/VBoxContainer"]
+[node name="SaveBtn" type="Button" parent="CanvasLayer/LineEditPopUp/VBoxContainer"]
 layout_mode = 2
 text = "Save"
 
@@ -3733,25 +4303,32 @@ libraries = {
 [node name="TitleTimer" type="Timer" parent="CanvasLayer/Title"]
 one_shot = true
 
-[node name="ItemData" type="Label" parent="CanvasLayer"]
+[node name="ItemData" type="RichTextLabel" parent="CanvasLayer"]
 visible = false
-offset_right = 20.0
-offset_bottom = 8.0
+clip_contents = false
+offset_right = 72.0
+offset_bottom = 20.0
 size_flags_horizontal = 12
 size_flags_vertical = 12
 theme = ExtResource("12_23g2f")
-text = "Coppeickax"
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 script = ExtResource("63")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/ItemData"]
 show_behind_parent = true
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -2.0
 offset_top = -1.0
 offset_right = 2.0
 offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("62")
 patch_margin_left = 3
 patch_margin_top = 3
@@ -3925,8 +4502,11 @@ script = ExtResource("47")
 [connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn2" to="CanvasLayer/Inventory" method="_on_InventoryBtn2_pressed"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/GoUp" to="World" method="_on_GoUp_pressed"]
 [connection signal="updated_armor" from="CanvasLayer/Inventory/Armor" to="Player" method="_on_Armor_updated_armor"]
+[connection signal="pressed" from="CanvasLayer/Inventory/ClearBtn" to="CanvasLayer/Inventory" method="_on_clear_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/Inventory/DeleteItemBtn" to="CanvasLayer/Inventory" method="_on_delete_item_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Shop/TabBar/BuyTab" to="CanvasLayer/Shop" method="_on_BuyTab_pressed"]
 [connection signal="pressed" from="CanvasLayer/Shop/TabBar/SellTab" to="CanvasLayer/Shop" method="_on_SellTab_pressed"]
+[connection signal="pressed" from="CanvasLayer/Upgrade/ItemHold/Mainslot" to="CanvasLayer/Upgrade" method="_on_mainslot_pressed"]
 [connection signal="text_changed" from="CanvasLayer/SignEdit/TextEdit" to="CanvasLayer/SignEdit" method="_on_text_edit_text_changed"]
 [connection signal="pressed" from="CanvasLayer/SignEdit/HBoxContainer/ModeBtn" to="CanvasLayer/SignEdit" method="_on_mode_btn_pressed"]
 [connection signal="value_changed" from="CanvasLayer/SignEdit/HBoxContainer/RadiusInt" to="CanvasLayer/SignEdit" method="_on_radius_int_value_changed"]
@@ -3940,8 +4520,8 @@ script = ExtResource("47")
 [connection signal="text_changed" from="CanvasLayer/StructureSaveEdit/VBoxContainer/Name/NameEdit" to="CanvasLayer/StructureSaveEdit" method="_on_name_edit_text_changed"]
 [connection signal="pressed" from="CanvasLayer/StructureSaveEdit/BackBtn" to="CanvasLayer/StructureSaveEdit" method="_on_back_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/StructureSaveEdit/SaveBtn" to="CanvasLayer/StructureSaveEdit" method="_on_save_btn_pressed"]
-[connection signal="text_changed" from="CanvasLayer/DevChestEdit/VBoxContainer/GroupEdit" to="CanvasLayer/DevChestEdit" method="_on_group_edit_text_changed"]
-[connection signal="pressed" from="CanvasLayer/DevChestEdit/VBoxContainer/SaveBtn" to="CanvasLayer/DevChestEdit" method="_on_save_btn_pressed"]
+[connection signal="text_changed" from="CanvasLayer/LineEditPopUp/VBoxContainer/GroupEdit" to="CanvasLayer/LineEditPopUp" method="_on_group_edit_text_changed"]
+[connection signal="pressed" from="CanvasLayer/LineEditPopUp/VBoxContainer/SaveBtn" to="CanvasLayer/LineEditPopUp" method="_on_save_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Respawn" to="CanvasLayer/Dead" method="_on_Respawn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Quit" to="CanvasLayer/Dead" method="_on_Quit_pressed"]
 [connection signal="text_changed" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_text_changed"]

@@ -42,9 +42,9 @@ var hasGravity = true
 
 var waterUpdateList = []
 
-var interactableBlocks = [12,16,28,91,145,158,159,167,169,171,176,186,189]
+var interactableBlocks = [12,16,28,91,145,158,159,167,169,171,176,185,186,189]
 var noCollisionBlocks = [0,6,7,9,11,30,117,167,121,122,123,128,142,143,145,155,156,167,168,169,170,171,172,187]
-var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,167,171,172,176,183,187,188,189,190]
+var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,167,171,172,176,183,187,188,189,190,199,203,204]
 
 var worldRules = {
 	"break_blocks":{"value":true,"type":"bool"},
@@ -114,6 +114,11 @@ var generationData = {
 		"noise":preload("res://noise/Scorched.tres"),
 		"noise_scale":25,
 		"world_height":20,
+	},
+	"fridged":{
+		"noise":preload("res://noise/Terra.tres"),
+		"noise_scale":25,
+		"world_height":20,
 	}
 }
 
@@ -124,6 +129,22 @@ var lootTables = { #{id:Block/Item id, amount:max amount, rarity: item chance, g
 		{"id":43,"amount":1,"rarity":3,"group":"clothes"},
 		{"id":44,"amount":1,"rarity":3,"group":"clothes"},
 		{"id":45,"amount":1,"rarity":3,"group":"clothes"},
+	],
+	"mines":[
+		{"id":193,"amount":3,"rarity":6,"group":"none"},
+		{"id":52,"amount":6,"rarity":3,"group":"none"},
+		{"id":23,"amount":24,"rarity":2,"group":"none"},
+		{"id":196,"amount":5,"rarity":3,"group":"none"},
+		{"id":35,"amount":1,"rarity":3,"group":"clothes"},
+		{"id":36,"amount":1,"rarity":3,"group":"clothes"},
+		{"id":37,"amount":1,"rarity":3,"group":"clothes"},
+		{"id":38,"amount":1,"rarity":3,"group":"clothes"},
+	],
+	"fridged":[
+		{"id":56,"amount":5,"rarity":3,"group":"none"}
+	],
+	"fridged_boss":[
+		{"id":56,"amount":10,"rarity":3,"group":"none"}
 	]
 }
 
@@ -246,82 +267,119 @@ var blockData = {
 	182:{"texture":preload("res://textures/blocks/magma_scorched_bricks.png"),"hardness":1,"canHaverst":1,"drops":[{"id":182,"amount":1}],"name":"Magma scorched bricks","type":"simple"},
 	183:{"texture":preload("res://textures/blocks/scorched_brick_fence.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":183,"amount":1}],"name":"Scorched brick fence","type":"block"},
 	184:{"texture":preload("res://textures/blocks/magma.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":184,"amount":1}],"name":"Magma","type":"simple"},
-	185:{"texture":preload("res://textures/blocks/dev_link.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":185,"amount":1}],"name":"Dev link block","type":"simple"},
+	185:{"texture":preload("res://textures/blocks/dev_link.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":185,"amount":1}],"name":"Dev link block","type":"block"},
 	186:{"texture":preload("res://textures/blocks/structure_save.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":186,"amount":1}],"name":"Structure save block","type":"block"},
 	187:{"texture":preload("res://textures/blocks/air_hold.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Air hold","type":"foliage"},
 	188:{"texture":preload("res://textures/blocks/scorched_platform_full.png"),"hardness":1,"canHaverst":1,"drops":[{"id":188,"amount":1}],"name":"Scorched platform","type":"platform"},
 	189:{"texture":preload("res://textures/blocks/dev_chest.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":189,"amount":1}],"name":"Dev chest","type":"block"},
 	190:{"texture":preload("res://textures/blocks/scorched_spawner.png"),"hardness":6,"canHaverst":2,"drops":[],"name":"Scorched spawner","type":"spawner"},
+	192:{"texture":preload("res://textures/blocks/sandstone_gold_ore.png"),"hardness":4,"canHaverst":3,"drops":[{"id":192,"amount":1}],"name":"Gold ore","type":"simple"},
+	194:{"texture":preload("res://textures/blocks/gold_ore.png"),"hardness":5,"canHaverst":3,"drops":[{"id":194,"amount":1}],"name":"Gold ore","type":"simple"},
+	195:{"texture":preload("res://textures/blocks/gold_block.png"),"hardness":5,"canHaverst":3,"drops":[{"id":195,"amount":1}],"name":"Gold block","type":"simple"},
+	196:{"texture":preload("res://textures/items/desert_bush.png"),"hardness":0.1,"canHaverst":0,"drops":[{"id":196,"amount":1}],"name":"Desert shrub","can_place_on":[1,2,146,147,14],"type":"foliage"},
+	197:{"texture":preload("res://textures/blocks/permafrost.png"),"hardness":2.5,"canHaverst":1,"drops":[{"id":197,"amount":1}],"name":"Permafrost","type":"simple"},
+	198:{"texture":preload("res://textures/blocks/permafrost_slush.png"),"hardness":0.8,"canHaverst":0,"drops":[{"id":198,"amount":1}],"name":"Permafrost slush","type":"simple"},
+	199:{"texture":preload("res://textures/blocks/permafrost_slush_top.png"),"hardness":0.9,"canHaverst":0,"drops":[{"id":199,"amount":1}],"name":"Top permafrost slush","type":"simple"},
+	200:{"texture":preload("res://textures/blocks/permafrost_silver_ore.png"),"hardness":5.5,"canHaverst":3,"drops":[{"id":200,"amount":1}],"name":"Silver ore","type":"simple"},
+	201:{"texture":preload("res://textures/blocks/permafrost_bricks.png"),"hardness":2.5,"canHaverst":1,"drops":[{"id":201,"amount":1}],"name":"Permafrost bricks","type":"simple"},
+	202:{"texture":preload("res://textures/blocks/carved_permafrost_bricks.png"),"hardness":2.5,"canHaverst":1,"drops":[{"id":202,"amount":1}],"name":"Carved permafrost bricks","type":"simple"},
+	203:{"texture":preload("res://textures/blocks/permafrost_fence.png"),"hardness":2.5,"canHaverst":1,"drops":[{"id":203,"amount":1}],"name":"Permafrost fence","type":"block"},
+	204:{"texture":preload("res://textures/blocks/permafrost_platform_full.png"),"hardness":2,"canHaverst":1,"drops":[{"id":204,"amount":1}],"name":"Permafrost platform","type":"platform"},
+	206:{"texture":preload("res://textures/blocks/fridged_spawner.png"),"hardness":6,"canHaverst":2,"drops":[],"name":"Fridged spawner","type":"spawner"},
 }
 
 var itemData = {
-	4:{"texture_loc":preload("res://textures/items/wood_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":1,"speed":1,"big_texture":preload("res://textures/weapons/wood_pick.png"),"name":"Wood pickaxe","desc":"+1 Strength\n+1 Speed"},
+	4:{"texture_loc":preload("res://textures/items/wood_pick.png"),"type":"tool","strength":1,"speed":1,"big_texture":preload("res://textures/weapons/wood_pick.png"),"name":"Wood pickaxe","desc":"[color=cornflowerblue]+1 Strength\n+1 Speed[/color]","stack_size":1},
 	5:{"texture_loc":preload("res://textures/items/stick.png"),"type":"Item","name":"Stick"},
-	31:{"texture_loc":preload("res://textures/items/stone_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":2,"speed":2,"big_texture":preload("res://textures/weapons/stone_pick.png"),"name":"Stone pickaxe","desc":"+2 Strength\n+2 Speed"},
-	32:{"texture_loc":preload("res://textures/items/armor/shirt.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":0,"speed":0,"air_tight":false},"name":"Shirt","desc":"+0 Def\n+0 Speed"},
-	33:{"texture_loc":preload("res://textures/items/armor/jeans.png"),"type":"armor","armor_data":{"armor_type":"pants","def":0,"speed":0,"air_tight":false},"name":"Jeans","desc":"+0 Def\n+0 Speed"},
-	34:{"texture_loc":preload("res://textures/items/armor/black_shoes.png"),"type":"armor","armor_data":{"armor_type":"shoes","def":0,"speed":0,"air_tight":false},"name":"Black shoes","desc":"+0 Def\n+0 Speed"},
-	35:{"texture_loc":preload("res://textures/items/armor/copper_helmet.png"),"type":"armor","armor_data":{"armor_type":"helmet","def":1,"speed":0,"air_tight":false},"name":"Copper helmet","desc":"+1 Def\n+0 Speed"},
-	36:{"texture_loc":preload("res://textures/items/armor/copper_chestplate.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":3,"speed":-1,"air_tight":false},"name":"Copper chestplate","desc":"+3 Def\n-1 Speed"},
-	37:{"texture_loc":preload("res://textures/items/armor/copper_leggings.png"),"type":"armor","armor_data":{"armor_type":"pants","def":2,"speed":-1,"air_tight":false},"name":"Copper leggings","desc":"+2 Def\n-1 Speed"},
-	38:{"texture_loc":preload("res://textures/items/armor/copper_boots.png"),"type":"armor","armor_data":{"armor_type":"shoes","def":1,"speed":0,"air_tight":false},"name":"Copper boots","desc":"+1 Def\n+0 Speed"},
-	39:{"texture_loc":preload("res://textures/items/armor/silver_helmet.png"),"type":"armor","armor_data":{"armor_type":"helmet","def":2,"speed":0,"air_tight":false},"name":"Silver helmet","desc":"+2 Def\n+0 Speed"},
-	40:{"texture_loc":preload("res://textures/items/armor/silver_chestplate.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":5,"speed":-2,"air_tight":false},"name":"Silver chestplate","desc":"+5 Def\n-2 Speed"},
-	41:{"texture_loc":preload("res://textures/items/armor/silver_leggings.png"),"type":"armor","armor_data":{"armor_type":"pants","def":3,"speed":-1,"air_tight":false},"name":"Silver leggings","desc":"+3 Def\n-1 Speed"},
-	42:{"texture_loc":preload("res://textures/items/armor/silver_boots.png"),"type":"armor","armor_data":{"armor_type":"shoes","def":2,"speed":0,"air_tight":false},"name":"Silver boots","desc":"+2 Def\n+0 Speed"},
-	43:{"texture_loc":preload("res://textures/items/armor/tuxedo.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":0,"speed":0,"air_tight":false},"name":"Tuxedo","desc":"+0 Def\n+0 Speed"},
-	44:{"texture_loc":preload("res://textures/items/armor/slacks.png"),"type":"armor","armor_data":{"armor_type":"pants","def":0,"speed":0,"air_tight":false},"name":"Slacks","desc":"+0 Def\n+0 Speed"},
-	45:{"texture_loc":preload("res://textures/items/armor/top_hat.png"),"type":"armor","armor_data":{"armor_type":"helmet","def":0,"speed":0,"air_tight":false},"name":"Top hat","desc":"+0 Def\n+0 Speed"},
-	46:{"texture_loc":preload("res://textures/items/armor/space_helmet.png"),"type":"armor","armor_data":{"armor_type":"helmet","def":0,"speed":0,"air_tight":true},"name":"Space helmet","desc":"+0 Def\n+0 Speed\nAirtight"},
-	47:{"texture_loc":preload("res://textures/items/armor/space_chestplate.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":1,"speed":-2,"air_tight":true},"name":"Space chestplate","desc":"+1 Def\n-2 Speed\nAirtight"},
-	48:{"texture_loc":preload("res://textures/items/armor/space_pants.png"),"type":"armor","armor_data":{"armor_type":"pants","def":1,"speed":-1,"air_tight":true},"name":"Space pants","desc":"+1 Def\n-1 Speed\nAirtight"},
-	49:{"texture_loc":preload("res://textures/items/armor/space_shoes.png"),"type":"armor","armor_data":{"armor_type":"shoes","def":0,"speed":0,"air_tight":true},"name":"Space_shoes","desc":"+0 Def\n+0 Speed\nAirtight"},
-	50:{"texture_loc":preload("res://textures/items/armor/red_dress.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":0,"speed":0,"air_tight":false},"name":"Red dress top","desc":"+0 Def\n+0 Speed"},
-	51:{"texture_loc":preload("res://textures/items/armor/red_dress_bottom.png"),"type":"armor","armor_data":{"armor_type":"pants","def":0,"speed":-1,"air_tight":false},"name":"Red dress bottom","desc":"+0 Def\n+0 Speed"},
+	31:{"texture_loc":preload("res://textures/items/stone_pick.png"),"type":"tool","strength":2,"speed":2,"big_texture":preload("res://textures/weapons/stone_pick.png"),"name":"Stone pickaxe","desc":"[color=cornflowerblue]+2 Strength\n+2 Speed[/color]","stack_size":1},
+	32:{"texture_loc":preload("res://textures/items/armor/shirt.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":0,"speed":0,"buff":[]},"name":"Shirt","desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]","stack_size":1},
+	33:{"texture_loc":preload("res://textures/items/armor/jeans.png"),"type":"armor","armor_data":{"armor_type":"pants","def":0,"speed":0,"buff":[]},"name":"Jeans","desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]","stack_size":1},
+	34:{"texture_loc":preload("res://textures/items/armor/black_shoes.png"),"type":"armor","armor_data":{"armor_type":"shoes","def":0,"speed":0,"buff":[]},"name":"Black shoes","desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]","stack_size":1},
+	35:{"texture_loc":preload("res://textures/items/armor/copper_helmet.png"),"type":"armor","armor_data":{"armor_type":"helmet","def":1,"speed":0,"buff":[]},"name":"Copper helmet","desc":"[color=cornflowerblue]+1 Def\n+0 Speed[/color]","stack_size":1},
+	36:{"texture_loc":preload("res://textures/items/armor/copper_chestplate.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":3,"speed":-1,"buff":[]},"name":"Copper chestplate","desc":"[color=cornflowerblue]+3 Def\n-1 Speed[/color]","stack_size":1},
+	37:{"texture_loc":preload("res://textures/items/armor/copper_leggings.png"),"type":"armor","armor_data":{"armor_type":"pants","def":2,"speed":-1,"buff":[]},"name":"Copper leggings","desc":"[color=cornflowerblue]+2 Def\n-1 Speed[/color]","stack_size":1},
+	38:{"texture_loc":preload("res://textures/items/armor/copper_boots.png"),"type":"armor","armor_data":{"armor_type":"shoes","def":1,"speed":0,"buff":[]},"name":"Copper boots","desc":"[color=cornflowerblue]+1 Def\n+0 Speed[/color]","stack_size":1},
+	39:{"texture_loc":preload("res://textures/items/armor/silver_helmet.png"),"type":"armor","armor_data":{"armor_type":"helmet","def":2,"speed":0,"buff":[]},"name":"Silver helmet","desc":"[color=cornflowerblue]+2 Def\n+0 Speed[/color]","stack_size":1},
+	40:{"texture_loc":preload("res://textures/items/armor/silver_chestplate.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":5,"speed":-2,"buff":[]},"name":"Silver chestplate","desc":"[color=cornflowerblue]+5 Def\n-2 Speed[/color]","stack_size":1},
+	41:{"texture_loc":preload("res://textures/items/armor/silver_leggings.png"),"type":"armor","armor_data":{"armor_type":"pants","def":3,"speed":-1,"buff":[]},"name":"Silver leggings","desc":"[color=cornflowerblue]+3 Def\n-1 Speed[/color]","stack_size":1},
+	42:{"texture_loc":preload("res://textures/items/armor/silver_boots.png"),"type":"armor","armor_data":{"armor_type":"shoes","def":2,"speed":0,"buff":[]},"name":"Silver boots","desc":"[color=cornflowerblue]+2 Def\n+0 Speed[/color]","stack_size":1},
+	43:{"texture_loc":preload("res://textures/items/armor/tuxedo.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":0,"speed":0,"buff":[]},"name":"Tuxedo","desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]","stack_size":1},
+	44:{"texture_loc":preload("res://textures/items/armor/slacks.png"),"type":"armor","armor_data":{"armor_type":"pants","def":0,"speed":0,"buff":[]},"name":"Slacks","desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]","stack_size":1},
+	45:{"texture_loc":preload("res://textures/items/armor/top_hat.png"),"type":"armor","armor_data":{"armor_type":"helmet","def":0,"speed":0,"buff":[]},"name":"Top hat","desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]","stack_size":1},
+	46:{"texture_loc":preload("res://textures/items/armor/space_helmet.png"),"type":"armor","armor_data":{"armor_type":"helmet","def":0,"speed":0,"buff":[]},"name":"Space helmet","desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]\n[color=darkorchid]Airtight[/color]","stack_size":1},
+	47:{"texture_loc":preload("res://textures/items/armor/space_chestplate.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":1,"speed":-2,"buff":[]},"name":"Space chestplate","desc":"[color=cornflowerblue]+1 Def\n-2 Speed[/color]\n[color=darkorchid]Airtight[/color]","stack_size":1},
+	48:{"texture_loc":preload("res://textures/items/armor/space_pants.png"),"type":"armor","armor_data":{"armor_type":"pants","def":1,"speed":-1,"buff":[]},"name":"Space pants","desc":"[color=cornflowerblue]+1 Def\n-1 Speed[/color]\n[color=darkorchid]Airtight[/color]","stack_size":1},
+	49:{"texture_loc":preload("res://textures/items/armor/space_shoes.png"),"type":"armor","armor_data":{"armor_type":"shoes","def":0,"speed":0,"buff":[]},"name":"Space shoes","desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]\n[color=darkorchid]Airtight[/color]","stack_size":1},
+	50:{"texture_loc":preload("res://textures/items/armor/red_dress.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":0,"speed":0,"buff":[]},"name":"Red dress top","desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]","stack_size":1},
+	51:{"texture_loc":preload("res://textures/items/armor/red_dress_bottom.png"),"type":"armor","armor_data":{"armor_type":"pants","def":0,"speed":-1,"buff":[]},"name":"Red dress bottom","desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]","stack_size":1},
 	52:{"texture_loc":preload("res://textures/items/copper.png"),"type":"Item","name":"Copper"},
-	53:{"texture_loc":preload("res://textures/items/copper_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":3,"speed":4,"big_texture":preload("res://textures/weapons/copper_pick.png"),"name":"Copper pickaxe","desc":"+3 Strength\n+4 Speed"},
-	54:{"texture_loc":preload("res://textures/items/stone_spear.png"),"type":"weapon","weapon_type":"Spear","dmg":3,"speed":2,"range":64,"big_texture":preload("res://textures/weapons/stone_spear.png"),"name":"Stone spear","desc":"+3 Damage\n+2 Speed\n+4 Range"},
+	53:{"texture_loc":preload("res://textures/items/copper_pick.png"),"type":"tool","strength":3,"speed":4,"big_texture":preload("res://textures/weapons/copper_pick.png"),"name":"Copper pickaxe","desc":"[color=cornflowerblue]+3 Strength\n+4 Speed[/color]","stack_size":1},
+	54:{"texture_loc":preload("res://textures/items/stone_spear.png"),"type":"weapon","weapon_type":"Spear","dmg":3,"speed":2,"range":64,"big_texture":preload("res://textures/weapons/stone_spear.png"),"name":"Stone spear","desc":"[color=cornflowerblue]+3 Damage\n+2 Speed\n+4 Range[/color]","stack_size":1},
 	56:{"texture_loc":preload("res://textures/items/silver.png"),"type":"Item","name":"Silver"},
-	57:{"texture_loc":preload("res://textures/items/silver_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":4,"speed":6,"big_texture":preload("res://textures/weapons/silver_pick.png"),"name":"Silver pickaxe","desc":"+4 Strength\n+6 Speed"},
-	58:{"texture_loc":preload("res://textures/items/wood_club.png"),"type":"weapon","weapon_type":"Club","dmg":3,"speed":1,"range":32,"big_texture":preload("res://textures/weapons/wood_club.png"),"name":"Wood club","desc":"+3 Damage\n+1 Speed\n+2 Range"},
-	59:{"texture_loc":preload("res://textures/items/wood_axe_big.png"),"type":"weapon","weapon_type":"Axe","dmg":4,"speed":2,"range":32,"big_texture":preload("res://textures/weapons/wood_axe.png"),"name":"Wood axe","desc":"+4 Damage\n+2 Speed\n+2 Range"},
-	60:{"texture_loc":preload("res://textures/items/wood_machete_big.png"),"type":"weapon","weapon_type":"Machete","dmg":1,"speed":0.1,"range":16,"name":"Wood machete","desc":"+1 Damage\n+0.1 Speed\n+1 Range"},
-	61:{"texture_loc":preload("res://textures/items/wood_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":2,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/wood_sword.png"),"name":"Wood sword","desc":"+2 Damage\n+0.5 Speed\n+2 Range"},
-	62:{"texture_loc":preload("res://textures/items/barbed_club.png"),"type":"weapon","weapon_type":"Club","dmg":5,"speed":1,"range":32,"big_texture":preload("res://textures/weapons/barbed_club.png"),"name":"Barbed club","desc":"+5 Damage\n+1 Speed\n+2 Range"},
-	63:{"texture_loc":preload("res://textures/items/copper_axe.png"),"type":"weapon","weapon_type":"Axe","dmg":7,"speed":2,"range":32,"big_texture":preload("res://textures/weapons/copper_axe.png"),"name":"Copper axe","desc":"+7 Damage\n+2 Speed\n+2 Range"},
-	64:{"texture_loc":preload("res://textures/items/copper_dagger.png"),"type":"weapon","weapon_type":"Dagger","dmg":2,"speed":0.1,"range":16,"big_texture":preload("res://textures/weapons/copper_dagger.png"),"name":"Copper dagger","desc":"+2 Damage\n+0.1 Speed\n+1 Range"},
-	65:{"texture_loc":preload("res://textures/items/copper_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":4,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/copper_sword.png"),"name":"Copper sword","desc":"+4 Damage\n+0.5 Speed\n+2 Range"},
-	66:{"texture_loc":preload("res://textures/items/silver_axe.png"),"type":"weapon","weapon_type":"Axe","dmg":12,"speed":2,"range":32,"big_texture":preload("res://textures/weapons/silver_axe.png"),"name":"Silver axe","desc":"+12 Damage\n+2 Speed\n+2 Range"},
-	67:{"texture_loc":preload("res://textures/items/silver_dagger.png"),"type":"weapon","weapon_type":"Dagger","dmg":5,"speed":0.1,"range":16,"big_texture":preload("res://textures/weapons/silver_dagger.png"),"name":"Silver dagger","desc":"+5 Damage\n+0.1 Speed\n+1 Range"},
-	68:{"texture_loc":preload("res://textures/items/silver_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":8,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/silver_sword.png"),"name":"Silver sword","desc":"+8 Damage\n+0.5 Speed\n+2 Range"},
+	57:{"texture_loc":preload("res://textures/items/silver_pick.png"),"type":"tool","strength":4,"speed":6,"big_texture":preload("res://textures/weapons/silver_pick.png"),"name":"Silver pickaxe","desc":"[color=cornflowerblue]+4 Strength\n+6 Speed[/color]","stack_size":1},
+	58:{"texture_loc":preload("res://textures/items/wood_club.png"),"type":"weapon","weapon_type":"Club","dmg":3,"speed":1,"range":32,"big_texture":preload("res://textures/weapons/wood_club.png"),"name":"Wood club","desc":"[color=cornflowerblue]+3 Damage\n+1 Speed\n+2 Range[/color]","stack_size":1},
+	59:{"texture_loc":preload("res://textures/items/wood_axe_big.png"),"type":"weapon","weapon_type":"Axe","dmg":4,"speed":2,"range":32,"big_texture":preload("res://textures/weapons/wood_axe.png"),"name":"Wood axe","desc":"[color=cornflowerblue]+4 Damage\n+2 Speed\n+2 Range[/color]","stack_size":1},
+	60:{"texture_loc":preload("res://textures/items/wood_machete_big.png"),"type":"weapon","weapon_type":"Machete","dmg":1,"speed":0.1,"range":16,"name":"Wood machete","desc":"[color=cornflowerblue]+1 Damage\n+0.1 Speed\n+1 Range[/color]","stack_size":1},
+	61:{"texture_loc":preload("res://textures/items/wood_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":2,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/wood_sword.png"),"name":"Wood sword","desc":"[color=cornflowerblue]+2 Damage\n+0.5 Speed\n+2 Range[/color]","stack_size":1},
+	62:{"texture_loc":preload("res://textures/items/barbed_club.png"),"type":"weapon","weapon_type":"Club","dmg":5,"speed":1,"range":32,"big_texture":preload("res://textures/weapons/barbed_club.png"),"name":"Barbed club","desc":"[color=cornflowerblue]+5 Damage\n+1 Speed\n+2 Range[/color]","stack_size":1},
+	63:{"texture_loc":preload("res://textures/items/copper_axe.png"),"type":"weapon","weapon_type":"Axe","dmg":7,"speed":2,"range":32,"big_texture":preload("res://textures/weapons/copper_axe.png"),"name":"Copper axe","desc":"[color=cornflowerblue]+7 Damage\n+2 Speed\n+2 Range[/color]","stack_size":1},
+	64:{"texture_loc":preload("res://textures/items/copper_dagger.png"),"type":"weapon","weapon_type":"Dagger","dmg":2,"speed":0.1,"range":16,"big_texture":preload("res://textures/weapons/copper_dagger.png"),"name":"Copper dagger","desc":"[color=cornflowerblue]+2 Damage\n+0.1 Speed\n+1 Range[/color]","stack_size":1},
+	65:{"texture_loc":preload("res://textures/items/copper_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":4,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/copper_sword.png"),"name":"Copper sword","desc":"[color=cornflowerblue]+4 Damage\n+0.5 Speed\n+2 Range[/color]","stack_size":1},
+	66:{"texture_loc":preload("res://textures/items/silver_axe.png"),"type":"weapon","weapon_type":"Axe","dmg":12,"speed":2,"range":32,"big_texture":preload("res://textures/weapons/silver_axe.png"),"name":"Silver axe","desc":"[color=cornflowerblue]+12 Damage\n+2 Speed\n+2 Range[/color]","stack_size":1},
+	67:{"texture_loc":preload("res://textures/items/silver_dagger.png"),"type":"weapon","weapon_type":"Dagger","dmg":5,"speed":0.1,"range":16,"big_texture":preload("res://textures/weapons/silver_dagger.png"),"name":"Silver dagger","desc":"[color=cornflowerblue]+5 Damage\n+0.1 Speed\n+1 Range[/color]","stack_size":1},
+	68:{"texture_loc":preload("res://textures/items/silver_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":8,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/silver_sword.png"),"name":"Silver sword","desc":"[color=cornflowerblue]+8 Damage\n+0.5 Speed\n+2 Range[/color]","stack_size":1},
 	74:{"texture_loc":preload("res://textures/items/rhodonite.png"),"type":"Item","name":"Rhodonite"},
-	92:{"texture_loc":preload("res://textures/items/exotic_wood_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":1,"speed":2,"big_texture":preload("res://textures/weapons/exotic_wood_pick.png"),"name":"Exotic wood pickaxe","desc":"+1 Strength\n+2 Speed"},
-	93:{"texture_loc":preload("res://textures/items/exotic_wood_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":3,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/exotic_wood_sword.png"),"name":"Exotic wood sword","desc":"+3 Damage\n+0.5 Speed\n+2 Range"},
-	94:{"texture_loc":preload("res://textures/items/exotic_wood_club.png"),"type":"weapon","weapon_type":"Club","dmg":4,"speed":1,"range":32,"big_texture":preload("res://textures/items/exotic_wood_club.png"),"name":"Exotic wood club","desc":"+4 Damage\n+1 Speed\n+2 Range"},
-	95:{"texture_loc":preload("res://textures/items/exotic_barbed_club.png"),"type":"weapon","weapon_type":"Club","dmg":5,"speed":1,"range":32,"big_texture":preload("res://textures/weapons/exotic_barbed_club.png"),"name":"Exotic barbed club","desc":"+5 Damage\n+1 Speed\n+2 Range"},
-	96:{"texture_loc":preload("res://textures/items/rhodonite_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":10,"speed":0.25,"range":32,"big_texture":preload("res://textures/weapons/rhodonite_sword.png"),"name":"Rhodonite sword","desc":"+10 Damage\n+0.25 Speed\n+2 Range"},
-	97:{"texture_loc":preload("res://textures/items/rhodonite_axe.png"),"type":"weapon","weapon_type":"Axe","dmg":16,"speed":3.5,"range":32,"big_texture":preload("res://textures/weapons/rhodonite_axe.png"),"name":"Rhodonite axe","desc":"+16 Damage\n+3.5 Speed\n+2 Range"},
-	98:{"texture_loc":preload("res://textures/items/rhodonite_pick.png"),"type":"Tool","tool_type":"Pickaxe","strength":5,"speed":8,"big_texture":preload("res://textures/weapons/rhodonite_pick.png"),"name":"Rhodonite pickaxe","desc":"+5 Strength\n+8 Speed"},
-	99:{"texture_loc":preload("res://textures/items/rhodonite_spear.png"),"type":"weapon","weapon_type":"Spear","dmg":8,"speed":1,"range":96,"big_texture":preload("res://textures/weapons/rhodonite_spear.png"),"name":"Rhodonite spear","desc":"+8 Damage\n+1 Speed\n+6 Range"},
+	92:{"texture_loc":preload("res://textures/items/exotic_wood_pick.png"),"type":"tool","strength":1,"speed":2,"big_texture":preload("res://textures/weapons/exotic_wood_pick.png"),"name":"Exotic wood pickaxe","desc":"[color=cornflowerblue]+1 Strength\n+2 Speed[/color]","stack_size":1},
+	93:{"texture_loc":preload("res://textures/items/exotic_wood_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":3,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/exotic_wood_sword.png"),"name":"Exotic wood sword","desc":"[color=cornflowerblue]+3 Damage\n+0.5 Speed\n+2 Range[/color]","stack_size":1},
+	94:{"texture_loc":preload("res://textures/items/exotic_wood_club.png"),"type":"weapon","weapon_type":"Club","dmg":4,"speed":1,"range":32,"big_texture":preload("res://textures/items/exotic_wood_club.png"),"name":"Exotic wood club","desc":"[color=cornflowerblue]+4 Damage\n+1 Speed\n+2 Range[/color]","stack_size":1},
+	95:{"texture_loc":preload("res://textures/items/exotic_barbed_club.png"),"type":"weapon","weapon_type":"Club","dmg":5,"speed":1,"range":32,"big_texture":preload("res://textures/weapons/exotic_barbed_club.png"),"name":"Exotic barbed club","desc":"[color=cornflowerblue]+5 Damage\n+1 Speed\n+2 Range[/color]","stack_size":1},
+	96:{"texture_loc":preload("res://textures/items/rhodonite_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":10,"speed":0.25,"range":32,"big_texture":preload("res://textures/weapons/rhodonite_sword.png"),"name":"Rhodonite sword","desc":"[color=cornflowerblue]+10 Damage\n+0.25 Speed\n+2 Range[/color]","stack_size":1},
+	97:{"texture_loc":preload("res://textures/items/rhodonite_axe.png"),"type":"weapon","weapon_type":"Axe","dmg":16,"speed":3.5,"range":32,"big_texture":preload("res://textures/weapons/rhodonite_axe.png"),"name":"Rhodonite axe","desc":"[color=cornflowerblue]+16 Damage\n+3.5 Speed\n+2 Range[/color]","stack_size":1},
+	98:{"texture_loc":preload("res://textures/items/rhodonite_pick.png"),"type":"tool","strength":5,"speed":8,"big_texture":preload("res://textures/weapons/rhodonite_pick.png"),"name":"Rhodonite pickaxe","desc":"[color=cornflowerblue]+5 Strength\n+8 Speed[/color]","stack_size":1},
+	99:{"texture_loc":preload("res://textures/items/rhodonite_spear.png"),"type":"weapon","weapon_type":"Spear","dmg":8,"speed":1,"range":96,"big_texture":preload("res://textures/weapons/rhodonite_spear.png"),"name":"Rhodonite spear","desc":"[color=cornflowerblue]+8 Damage\n+1 Speed\n+6 Range[/color]","stack_size":1},
 	100:{"texture_loc":preload("res://textures/items/quartz.png"),"type":"Item","name":"Quartz"},
 	101:{"texture_loc":preload("res://textures/items/rose_quartz.png"),"type":"Item","name":"Rose quartz"},
 	102:{"texture_loc":preload("res://textures/items/purple_quartz.png"),"type":"Item","name":"Purple quartz"},
 	103:{"texture_loc":preload("res://textures/items/blue_quartz.png"),"type":"Item","name":"Blue quartz"},
-	113:{"texture_loc":preload("res://textures/items/bucket.png"),"type":"Bucket","name":"Silver bucket"},
-	114:{"texture_loc":preload("res://textures/items/copper_bucket.png"),"type":"Bucket","name":"Copper bucket"},
-	115:{"texture_loc":preload("res://textures/items/water_bucket.png"),"type":"Bucket","name":"Silver bucket of water"},
-	116:{"texture_loc":preload("res://textures/items/water_copper_bucket.png"),"type":"Bucket","name":"Copper bucket of water"},
+	113:{"texture_loc":preload("res://textures/items/silver_bucket_level_0.png"),"type":"Bucket","name":"Silver bucket","starter_data":{"water_level":0}},
+	114:{"texture_loc":preload("res://textures/items/copper_bucket_level_0.png"),"type":"Bucket","name":"Copper bucket","starter_data":{"water_level":0}},
+	115:{"texture_loc":preload("res://textures/items/silver_bucket_level_4.png"),"type":"Full_bucket","name":"Silver bucket of water","stack_size":1},
+	116:{"texture_loc":preload("res://textures/items/copper_bucket_level_4.png"),"type":"Full_bucket","name":"Copper bucket of water","stack_size":1},
 	125:{"texture_loc":preload("res://textures/items/wheat.png"),"type":"Item","name":"Wheat"},
-	126:{"texture_loc":preload("res://textures/items/tomato.png"),"type":"Food","name":"Tomato","regen":2},
-	127:{"texture_loc":preload("res://textures/items/corn.png"),"type":"Food","name":"Corn","regen":4},
-	129:{"texture_loc":preload("res://textures/items/stone_hoe.png"),"type":"Hoe","name":"Stone hoe","big_texture":preload("res://textures/weapons/stone_hoe.png")},
-	130:{"texture_loc":preload("res://textures/items/silver_hoe.png"),"type":"Hoe","name":"Silver hoe","big_texture":preload("res://textures/weapons/silver_hoe.png")},
-	131:{"texture_loc":preload("res://textures/items/copper_watering_can.png"),"type":"Watering_can","name":"Copper watering can","big_texture":preload("res://textures/weapons/copper_watering_can.png")},
-	132:{"texture_loc":preload("res://textures/items/silver_watering_can.png"),"type":"Watering_can","name":"Silver watering can","big_texture":preload("res://textures/weapons/silver_watering_can.png")},
-	140:{"texture_loc":preload("res://textures/items/bread.png"),"type":"Food","name":"Bread","regen":8},
+	126:{"texture_loc":preload("res://textures/items/tomato.png"),"type":"Food","name":"Tomato","regen":2,"desc":"[color=cornflowerblue]+2 HP[/color]"},
+	127:{"texture_loc":preload("res://textures/items/corn.png"),"type":"Food","name":"Corn","regen":4,"desc":"[color=cornflowerblue]+4 HP[/color]"},
+	129:{"texture_loc":preload("res://textures/items/stone_hoe.png"),"type":"Hoe","name":"Stone hoe","big_texture":preload("res://textures/weapons/stone_hoe.png"),"stack_size":1},
+	130:{"texture_loc":preload("res://textures/items/silver_hoe.png"),"type":"Hoe","name":"Silver hoe","big_texture":preload("res://textures/weapons/silver_hoe.png"),"stack_size":1},
+	131:{"texture_loc":preload("res://textures/items/copper_watering_can.png"),"type":"Watering_can","name":"Copper watering can","big_texture":preload("res://textures/weapons/copper_watering_can.png"),"stack_size":1},
+	132:{"texture_loc":preload("res://textures/items/silver_watering_can.png"),"type":"Watering_can","name":"Silver watering can","big_texture":preload("res://textures/weapons/silver_watering_can.png"),"stack_size":1},
+	140:{"texture_loc":preload("res://textures/items/bread.png"),"type":"Food","name":"Bread","regen":8,"desc":"[color=cornflowerblue]+8 HP[/color]"},
 	165:{"texture_loc":preload("res://textures/items/iron.png"),"type":"Item","name":"Iron"},
 	166:{"texture_loc":preload("res://textures/items/red_wires.png"),"type":"wire","name":"Red wire"},
 	191:{"texture_loc":preload("res://textures/items/magma_ball.png"),"type":"Item","name":"Magma ball"},
+	193:{"texture_loc":preload("res://textures/items/gold.png"),"type":"Item","name":"Gold"},
+	205:{"texture_loc":preload("res://textures/items/coolant_shard.png"),"type":"Item","name":"Coolant shard"},
+	207:{"texture_loc":preload("res://textures/items/armor/coat_hood.png"),"type":"armor","armor_data":{"armor_type":"helmet","def":0,"speed":0,"buff":[]},"name":"Coat hood","desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]\n[color=darkorchid]Cold resistance[/color]","stack_size":1},
+	208:{"texture_loc":preload("res://textures/items/armor/coat.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":1,"speed":0,"buff":[]},"name":"Coat","desc":"[color=cornflowerblue]+1 Def\n+0 Speed[/color]\n[color=darkorchid]Cold resistance[/color]","stack_size":1},
+	209:{"texture_loc":preload("res://textures/items/armor/coat_pants.png"),"type":"armor","armor_data":{"armor_type":"pants","def":1,"speed":0,"buff":[]},"name":"Coat pants","desc":"[color=cornflowerblue]+1 Def\n+0 Speed[/color]\n[color=darkorchid]Cold resistance[/color]","stack_size":1},
+	210:{"texture_loc":preload("res://textures/items/armor/coat_boots.png"),"type":"armor","armor_data":{"armor_type":"shoes","def":0,"speed":0,"buff":[]},"name":"Coat boots","desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]\n[color=darkorchid]Cold resistance[/color]","stack_size":1},
+	211:{"texture_loc":preload("res://textures/items/armor/fire_helmet.png"),"type":"armor","armor_data":{"armor_type":"helmet","def":1,"speed":0,"buff":[]},"name":"Fire helmet","desc":"[color=cornflowerblue]+1 Def\n+0 Speed[/color]\n[color=darkorchid]Heat resistance[/color]","stack_size":1},
+	212:{"texture_loc":preload("res://textures/items/armor/fire_chestplate.png"),"type":"armor","armor_data":{"armor_type":"shirt","def":3,"speed":-1,"buff":[]},"name":"Fire chestplate","desc":"[color=cornflowerblue]+3 Def\n-1 Speed[/color]\n[color=darkorchid]Heat resistance[/color]","stack_size":1},
+	213:{"texture_loc":preload("res://textures/items/armor/fire_leggings.png"),"type":"armor","armor_data":{"armor_type":"pants","def":2,"speed":-1,"buff":[]},"name":"Fire leggings","desc":"[color=cornflowerblue]+2 Def\n-1 Speed[/color]\n[color=darkorchid]Heat resistance[/color]","stack_size":1},
+	214:{"texture_loc":preload("res://textures/items/armor/fire_boots.png"),"type":"armor","armor_data":{"armor_type":"shoes","def":1,"speed":0,"buff":[]},"name":"Fire boots","desc":"[color=cornflowerblue]+1 Def\n+0 Speed[/color]\n[color=darkorchid]Heat resistance[/color]","stack_size":1},
+	215:{"texture_loc":preload("res://textures/items/upgrade_module.png"),"type":"Item","name":"Upgrade module","stack_size":1,"starter_data":{"upgrade":"none","level":0}},
+
+}
+
+var upgrades : Dictionary = { #upgrade:{
+	"jetpack":{"name":"Jetpack","apply_to":"shirt"},
+	"wallclimb":{"name":"Wall climb","apply_to":"shoes"},
+	"movement_speed":{"name":"Movement+","apply_to":"pants"},
+	"oxygen":{"name":"Oxygen+","apply_to":"helmet"},
+	"protection":{"name":"Protection","apply_to":"armor"},
+	"speed":{"name":"Speed+","apply_to":"Tool"},
+	"auto_smelt":{"name":"Auto smelt","apply_to":"Tool"},
+	"damage":{"name":"Damage+","apply_to":"weapon"},
+	"poison":{"name":"Poison","apply_to":"weapon"},
 }
 
 var fullGrownItemDrops = {
@@ -359,10 +417,10 @@ func start_world():
 	$StaticBody2D/Left.position.y = (worldSize.y * BLOCK_SIZE.y) / 2 - 8
 	$StaticBody2D/Bottom.shape.extents.y = (worldSize.x * BLOCK_SIZE.x) / 2
 	$StaticBody2D/Bottom.position = Vector2((worldSize.x * BLOCK_SIZE.x) / 2,worldSize.y * BLOCK_SIZE.y)
-	
-	var worldType = StarSystem.find_planet_id(Global.currentPlanet).type["type"]
+	var currentPlanetData = StarSystem.find_planet_id(Global.currentPlanet)
+	var worldType = currentPlanetData.type["type"]
 	get_node("../CanvasLayer/Black").show()
-	if !StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
+	if !currentPlanetData.hasAtmosphere:
 		get_node("../CanvasLayer/ParallaxBackground/SkyLayer").hide()
 	if worldType == "asteroids":
 		hasGravity = false
@@ -370,7 +428,7 @@ func start_world():
 		Global.playerData.erase("pos")
 	if Global.inTutorial:
 		player.gender = "Guy"
-		armor.armor = {"Helmet":{},"Hat":{},"Chestplate":{"id":32,"amount":1},"Shirt":{},"Leggings":{"id":33,"amount":1},"Pants":{},"Boots":{"id":34,"amount":1},"Shoes":{}}
+		armor.armor = {"Helmet":{},"Hat":{},"Chestplate":{"id":32,"amount":1,"data":{}},"Shirt":{},"Leggings":{"id":33,"amount":1,"data":{}},"Pants":{},"Boots":{"id":34,"amount":1,"data":{}},"Shoes":{}}
 		armor.emit_signal("updated_armor",armor.armor)
 	elif !(Global.gameStart and Global.new):
 		load_player_data()
@@ -381,7 +439,7 @@ func start_world():
 			player.get_node("Textures/body").modulate = Global.playerBase["skin"]
 			player.gender = Global.playerBase["sex"]
 			inventory.add_to_inventory(4,1)
-			armor.armor = {"Helmet":{"id":46,"amount":1},"Hat":{},"Chestplate":{"id":47,"amount":1},"Shirt":{},"Leggings":{"id":48,"amount":1},"Pants":{},"Boots":{"id":49,"amount":1},"Shoes":{}}
+			armor.armor = {"Helmet":{"id":46,"amount":1,"data":{}},"Hat":{},"Chestplate":{"id":47,"amount":1,"data":{}},"Shirt":{},"Leggings":{"id":48,"amount":1,"data":{}},"Pants":{},"Boots":{"id":49,"amount":1,"data":{}},"Shoes":{}}
 			armor.emit_signal("updated_armor",armor.armor)
 		#Generates like normal, unless specified to generate a custom world
 		generateWorld(worldType if Global.gamerules["custom_generation"] == "" else Global.gamerules["custom_generation"])
@@ -400,6 +458,7 @@ func start_world():
 
 func generateWorld(worldType : String):
 	var worldSeed = int(Global.currentSystemId) + Global.currentPlanet
+	var currentPlanetData = StarSystem.find_planet_id(Global.currentPlanet)
 	seed(worldSeed)
 	worldNoise = generationData[worldType]["noise"]
 	worldNoise.seed = worldSeed
@@ -483,10 +542,27 @@ func generateWorld(worldType : String):
 					var pos = Vector2(x,y)
 					if y >= height and y < height+3:
 						set_block_all(pos,14)
+						if y == height and currentPlanetData.hasAtmosphere and get_block_id(pos - Vector2(0,1),1) == 0 and randi_range(0,10) == 1:
+							set_block(pos-Vector2(0,1),1,196,false)
 					elif y >= height+3 and y < worldSize.y-1:
 						set_block_all(pos,22)
 					elif y == worldSize.y-1:
 						set_block_all(pos,144)
+			#Ores
+			for x in range(worldSize.x):
+				for y in range(worldSize.y):
+					if y >= 0 and randi_range(0,300) == 1: #gold ore
+						var pos = Vector2(x,y)
+						for i in range(randi_range(2,4)):
+							if get_block_id(pos,1) == 22:
+								set_block(pos,randi_range(0,1),192,false)
+							if randi_range(0,1) == 1:
+								pos.x += [-1,1].pick_random()
+							else:
+								pos.y += [-1,1].pick_random()
+			if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere and randi_range(0,1) == 0:
+				#mines
+				generate_dungeon("mines","mines_shaft",randi_range(15,30),[13],true)
 		"mud":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -518,7 +594,7 @@ func generateWorld(worldType : String):
 			#Ores
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
-					if y >= 32 and randi_range(0,50) == 1: #silver ore
+					if y >= 32 and randi_range(0,100) == 1: #silver ore
 						var pos = Vector2(x,y)
 						for i in range(randi_range(3,6)):
 							if get_block_id(pos,1) == 3:
@@ -547,7 +623,7 @@ func generateWorld(worldType : String):
 			#Ores
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
-					if y >= 32 and randi_range(0,50) == 1: #silver ore
+					if y >= 32 and randi_range(0,100) == 1: #silver ore
 						var pos = Vector2(x,y)
 						for i in range(randi_range(3,6)):
 							if get_block_id(pos,1) == 3:
@@ -697,105 +773,144 @@ func generateWorld(worldType : String):
 								else:
 									pos.y += [-1,1].pick_random()
 			#Scorched dungeon
-			var dungeonPieces = Global.load_structures("scorched")
-			var dungeonBossRoom = Global.load_structure("boss_scorched.dat")
-			var pos = Vector2(randi_range(0,worldSize.x-12),0)
-			var size = dungeonBossRoom["size"]
-			pos.y = (worldSize.y - (int(worldNoise.get_noise_1d(pos.x) * noiseScale) + worldHeight))
-			var currentId = 0
-			var openLinks = {0:[]}
-			var dungeon = {0:{"position":pos,"size":dungeonBossRoom["size"]}}
-			for link in dungeonBossRoom["structure"]["link_blocks"]:
-				openLinks[currentId].append(link)
-			for block in dungeonBossRoom["structure"]["blocks"]:
-				match block["id"]:
-					187:
-						set_block(block["position"]+pos,block["layer"],0,false)
-					189:
-						var usedGroups = []
-						var chest = []
-						if lootTables.has(block["data"]["group"]):
-							while chest.is_empty():
-								for loot in lootTables[block["data"]["group"]]:
-									if !usedGroups.has(loot["group"]):
-										var amount : int = 0
-										for i in range(loot["amount"]):
-											amount += 1 if randi_range(0,loot["rarity"]) == 0 else 0
-										if amount > 0:
-											if loot["group"] != "none":
-												usedGroups.append(loot["group"])
-											chest.append({"id":loot["id"],"amount":amount})
-						set_block(block["position"] + pos,block["layer"],91,false,chest)
-					_:
-						set_block(block["position"] + pos,block["layer"],block["id"],false,block["data"])
-			var dungeonSize = randi_range(15,30)
-			for room in range(dungeonSize):
-				currentId = room + 1
-				var selectedLinkRoom : int = openLinks.keys().pick_random()
-				while openLinks[selectedLinkRoom].is_empty():
+			if randi_range(1,2) == 1:
+				generate_dungeon("scorched","boss_scorched",randi_range(15,30))
+		"fridged":
+			for x in range(worldSize.x):
+				for y in range(worldSize.y):
+					var height = (worldSize.y - (int(worldNoise.get_noise_1d(x) * noiseScale) + worldHeight))
+					if height > worldSize.y - 4:
+						height = worldSize.y - 4
+					var pos = Vector2(x,y)
+					if y == height:
+						set_block_all(pos,199)
+					elif y > height and y <= height+3:
+						set_block_all(pos,198)
+					elif y > height+3 and y < worldSize.y-1:
+						set_block_all(pos,197)
+					elif y == worldSize.y-1:
+						set_block_all(pos,144)
+			#Ores
+			for x in range(worldSize.x):
+				for y in range(worldSize.y):
+					if y >= 0:
+						if randi_range(0,50) == 1: #silver ore
+							var pos = Vector2(x,y)
+							for i in range(randi_range(3,6)):
+								if get_block_id(pos,1) == 197:
+									set_block_all(pos,200)
+								if randi_range(0,1) == 1:
+									pos.x += [-1,1].pick_random()
+								else:
+									pos.y += [-1,1].pick_random()
+			#Fridged dungeon
+			if randi_range(1,2) == 1:
+				generate_dungeon("fridged","boss_fridged",randi_range(15,30))
+
+func generate_dungeon(dungeonGroup : String, startingPiece : String, dungeonSize : int, replaceFloorBlock := [], keepOnGround := false) -> void:
+	var dungeonPieces = Global.load_structures(dungeonGroup)
+	var dungeonBossRoom = Global.load_structure(startingPiece + ".dat")
+	var pos = Vector2(randi_range(0,worldSize.x-12),0)
+	var size = dungeonBossRoom["size"]
+	pos.y = (worldSize.y - (int(worldNoise.get_noise_1d(pos.x) * noiseScale) + worldHeight))
+	var currentId = 0
+	var openLinks = {0:[]}
+	var dungeon = {0:{"position":pos,"size":dungeonBossRoom["size"]}}
+	for link in dungeonBossRoom["structure"]["link_blocks"]:
+		openLinks[currentId].append(link)
+	for block in dungeonBossRoom["structure"]["blocks"]:
+		if replaceFloorBlock.is_empty() or !replaceFloorBlock.has(block["id"]):
+			match block["id"]:
+				187:
+					set_block(block["position"]+pos,block["layer"],0,false)
+				189:
+					var usedGroups = []
+					var chest = []
+					if lootTables.has(block["data"]["group"]):
+						while chest.is_empty():
+							for loot in lootTables[block["data"]["group"]]:
+								if !usedGroups.has(loot["group"]):
+									var amount : int = 0
+									for i in range(loot["amount"]):
+										amount += 1 if randi_range(0,loot["rarity"]) == 0 else 0
+									if amount > 0:
+										if loot["group"] != "none":
+											usedGroups.append(loot["group"])
+										chest.append({"id":loot["id"],"amount":amount,"data":{}})
+					set_block(block["position"] + pos,block["layer"],91,false,chest)
+				_:
+					set_block(block["position"] + pos,block["layer"],block["id"],false,block["data"])
+	for room in range(dungeonSize):
+		currentId = room + 1
+		var selectedLinkRoom : int = openLinks.keys().pick_random()
+		#Removes any rooms with no available links
+		while openLinks[selectedLinkRoom].is_empty():
+			openLinks.erase(selectedLinkRoom)
+			if openLinks.is_empty():
+				return
+			selectedLinkRoom = openLinks.keys().pick_random()
+		
+		var selectedLink : Dictionary = openLinks[selectedLinkRoom].pick_random()
+		var possibleRooms : Array = []
+		for piece in dungeonPieces:
+			for link in piece["structure"]["link_blocks"]:
+				if (selectedLink.has("group") and link.has("group") and selectedLink["group"] == link["group"]) or (!selectedLink.has("group") and !link.has("group")):
+					var side1 = link["side"]
+					var side2 = selectedLink["side"]
+					if (side1.x == -side2.x and side1.x != 0) or (side1.y == -side2.y and side1.y != 0):
+						possibleRooms.append({"piece":piece,"link":link})
+						break
+		var roomChosen = false
+		while !roomChosen and !possibleRooms.is_empty():
+			var chosenRoom = possibleRooms.pick_random()
+			var link1Pos = selectedLink["position"] + dungeon[selectedLinkRoom]["position"]
+			var link2 = chosenRoom["link"]
+			var originPos : Vector2
+			if link2["side"].x != 0:
+				originPos = Vector2(link1Pos.x+selectedLink["side"].x-(chosenRoom["piece"]["size"].x-1 if selectedLink["side"].x < 0 else 0),-(link2["position"].y-link1Pos.y))
+			else:
+				originPos = Vector2(-(link2["position"].x-link1Pos.x),link1Pos.y+selectedLink["side"].y-(chosenRoom["piece"]["size"].y-1 if selectedLink["side"].y < 0 else 0))
+			var canPlace = true
+			for oldRoom in dungeon:
+				if Rect2(dungeon[oldRoom]["position"],dungeon[oldRoom]["size"]).intersects(Rect2(originPos,chosenRoom["piece"]["size"])) or !Rect2(Vector2(0,0),worldSize).encloses(Rect2(originPos,chosenRoom["piece"]["size"])) or (keepOnGround and originPos.y + chosenRoom["piece"]["size"].y < (worldSize.y - (int(worldNoise.get_noise_1d(originPos.x) * noiseScale) + worldHeight))):
+					canPlace = false
+			if canPlace:
+				dungeon[currentId] = {"position":originPos,"size":chosenRoom["piece"]["size"]}
+				openLinks[selectedLinkRoom].erase(selectedLink)
+				if openLinks[selectedLinkRoom].is_empty():
 					openLinks.erase(selectedLinkRoom)
-					if openLinks.is_empty():
-						return
-					selectedLinkRoom = openLinks.keys().pick_random()
-				var selectedLink : Dictionary = openLinks[selectedLinkRoom].pick_random()
-				var possibleRooms : Array = []
-				for piece in dungeonPieces:
-					for link in piece["structure"]["link_blocks"]:
-						var side1 = link["side"]
-						var side2 = selectedLink["side"]
-						if (side1.x == -side2.x and side1.x != 0) or (side1.y == -side2.y and side1.y != 0):
-							possibleRooms.append({"piece":piece,"link":link})
-							break
-				var roomChosen = false
-				while !roomChosen and !possibleRooms.is_empty():
-					var chosenRoom = possibleRooms.pick_random()
-					var link1Pos = selectedLink["position"] + dungeon[selectedLinkRoom]["position"]
-					var link2 = chosenRoom["link"]
-					var originPos : Vector2
-					if link2["side"].x != 0:
-						originPos = Vector2(link1Pos.x+selectedLink["side"].x-(chosenRoom["piece"]["size"].x-1 if selectedLink["side"].x < 0 else 0),-(link2["position"].y-link1Pos.y))
-					else:
-						originPos = Vector2(-(link2["position"].x-link1Pos.x),link1Pos.y+selectedLink["side"].y-(chosenRoom["piece"]["size"].y-1 if selectedLink["side"].y < 0 else 0))
-					var canPlace = true
-					for oldRoom in dungeon:
-						if Rect2(dungeon[oldRoom]["position"],dungeon[oldRoom]["size"]).intersects(Rect2(originPos,chosenRoom["piece"]["size"])) or !Rect2(Vector2(0,0),worldSize).encloses(Rect2(originPos,chosenRoom["piece"]["size"])):
-							canPlace = false
-					if canPlace:
-						dungeon[currentId] = {"position":originPos,"size":chosenRoom["piece"]["size"]}
-						openLinks[selectedLinkRoom].erase(selectedLink)
-						if openLinks[selectedLinkRoom].is_empty():
-							openLinks.erase(selectedLinkRoom)
-						openLinks[currentId] = []
-						for link in chosenRoom["piece"]["structure"]["link_blocks"]:
-							if link["position"] != link2["position"]:
-								openLinks[currentId].append(link)
-						for block in chosenRoom["piece"]["structure"]["blocks"]:
-							match block["id"]:
-								187:
-									set_block(block["position"] + originPos,block["layer"],0,false)
-								189:
-									var usedGroups = []
-									var chest = []
-									if lootTables.has(block["data"]["group"]):
-										print("has loot")
-										while chest.is_empty():
-											for loot in lootTables[block["data"]["group"]]:
-												if !usedGroups.has(loot["group"]):
-													var amount : int = 0
-													for i in range(loot["amount"]):
-														amount += 1 if randi_range(0,loot["rarity"]) == 0 else 0
-													if amount > 0:
-														if loot["group"] != "none":
-															usedGroups.append(loot["group"])
-														chest.append({"id":loot["id"],"amount":amount})
-									else:
-										print("no loot :(")
-									set_block(block["position"] + originPos,block["layer"],91,false,chest)
-								_:
-									set_block(block["position"] + originPos,block["layer"],block["id"],false,block["data"])
-						roomChosen = true
-					else:
-						possibleRooms.erase(chosenRoom)
+				openLinks[currentId] = []
+				for link in chosenRoom["piece"]["structure"]["link_blocks"]:
+					if link["position"] != link2["position"]:
+						openLinks[currentId].append(link)
+				for block in chosenRoom["piece"]["structure"]["blocks"]:
+					if replaceFloorBlock.is_empty() or !replaceFloorBlock.has(block["id"]):
+						match block["id"]:
+							187:
+								set_block(block["position"] + originPos,block["layer"],0,false)
+							189:
+								var usedGroups = []
+								var chest = []
+								if lootTables.has(block["data"]["group"]):
+									print("has loot")
+									while chest.is_empty():
+										for loot in lootTables[block["data"]["group"]]:
+											if !usedGroups.has(loot["group"]):
+												var amount : int = 0
+												for i in range(loot["amount"]):
+													amount += 1 if randi_range(0,loot["rarity"]) == 0 else 0
+												if amount > 0:
+													if loot["group"] != "none":
+														usedGroups.append(loot["group"])
+													chest.append({"id":loot["id"],"amount":amount,"data":{}})
+								else:
+									print("no loot :(")
+								set_block(block["position"] + originPos,block["layer"],91,false,chest)
+							_:
+								set_block(block["position"] + originPos,block["layer"],block["id"],false,block["data"])
+				roomChosen = true
+			else:
+				possibleRooms.erase(chosenRoom)
 
 func get_world_data() -> Dictionary:
 	var data = {}
@@ -827,7 +942,10 @@ func get_structure_blocks(area : Rect2) -> Dictionary:
 					var pos = block.pos - area.position
 					var xSide = -1 if pos.x < 1 else (1 if pos.x == area.size.x-1 else 0)
 					var ySide = -1 if pos.y < 1 else (1 if pos.y == area.size.y-1 else 0)
-					blocks["link_blocks"].append({"side":Vector2(xSide,ySide),"position":pos})
+					var linkData = {"side":Vector2(xSide,ySide),"position":pos}
+					if !block.data["group"].is_empty():
+						linkData["group"] = block.data["group"]
+					blocks["link_blocks"].append(linkData)
 					blocks["blocks"].append({"id":187,"layer":block.layer,"position":block.pos - area.position,"data":block.data})
 				_:
 					blocks["blocks"].append({"id":block.id,"layer":block.layer,"position":block.pos - area.position ,"data":block.data})
@@ -845,7 +963,12 @@ func load_player_data() -> void:
 	player.maxHealth = playerData["max_health"]
 	player.maxOxygen = playerData["max_oxygen"]
 	player.suitOxygenMax = playerData["suit_oxygen_max"]
-	inventory.inventory = playerData["inventory"]
+	var inventorySet : Array = playerData["inventory"]
+	if playerData["version"][1] < 5: #adds item data to every item in the inventory if before TU5
+		for item : Dictionary in inventorySet:
+			if !item.has("data"):
+				item["data"] = {}
+	inventory.inventory = inventorySet
 	armor.armor = playerData["armor"]
 	armor.emit_signal("updated_armor",armor.armor)
 	if playerData.has("inventory_refs"):
@@ -977,7 +1100,7 @@ func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction 
 		var block = get_block(pos,layer).id
 		if block == 91:
 			for item in get_block(pos,layer).data:
-				entities.spawn_item({"id":item["id"],"amount":item["amount"]},false,pos*BLOCK_SIZE)
+				entities.spawn_item({"id":item["id"],"amount":item["amount"],"data":item["data"]},false,pos*BLOCK_SIZE)
 		if itemAction and !Global.godmode:
 			var itemsToDrop = blockData[block]["drops"]
 			match block:
@@ -986,10 +1109,10 @@ func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction 
 						itemsToDrop = fullGrownItemDrops[block]
 			for i in range(itemsToDrop.size()):
 				if typeof(itemsToDrop[i]["amount"]) != TYPE_ARRAY:
-					entities.spawn_item({"id":itemsToDrop[i]["id"],"amount":itemsToDrop[i]["amount"]},false,pos*BLOCK_SIZE)
+					entities.spawn_item({"id":itemsToDrop[i]["id"],"amount":itemsToDrop[i]["amount"],"data":{}},false,pos*BLOCK_SIZE)
 					#inventory.add_to_inventory(itemsToDrop[i]["id"],itemsToDrop[i]["amount"])
 				else:
-					entities.spawn_item({"id":itemsToDrop[i]["id"],"amount":int(randf_range(itemsToDrop[i]["amount"][0],itemsToDrop[i]["amount"][1] + 1))},false,pos*BLOCK_SIZE)
+					entities.spawn_item({"id":itemsToDrop[i]["id"],"amount":int(randf_range(itemsToDrop[i]["amount"][0],itemsToDrop[i]["amount"][1] + 1)),"data":{}},false,pos*BLOCK_SIZE)
 					#inventory.add_to_inventory(itemsToDrop[i]["id"],int(rand_range(itemsToDrop[i]["amount"][0],itemsToDrop[i]["amount"][1] + 1)))
 		set_block(pos,layer,0,true)
 

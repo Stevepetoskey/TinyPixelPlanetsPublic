@@ -26,3 +26,26 @@ This branch is for unstable development of TU5 (v0.5.0)
 - Added scorched spawner (Generates in scorched dungeons)
 - Added scorched platforms and scorched spawners
 - Changed texture for chest
+## TU5.5 (v0.5.0:5)
+- Changed textures for terra planet backgrounds
+- Added gold ore, sandstone gold ore, desert shrub, and gold blocks
+- Added gold
+- Gold ore now generates on desert planets alongside desert shrubs (desert shrubs only generate if planet has an atmosphere)
+- Mines now have a chance of generating on desert planets
+- Added permafrost, permafrost slush, top permafrost, permafrost silver ore, permafrost bricks, carved permafrost bricks, permafrost fence, and permafrost platform
+- Added new godmode inventory for ease of selecting all blocks in godmode
+- Added clear inventory button when in godmode
+- Added delete item button (select item then select the delete item button)
+- Improved flying when in godmode
+- Fixed entities turning back to day colors after taking damage, even at night
+- Added fridged planets
+- Added fridged dungeon
+- Added fridged spikes (new enemy)
+- Scorched planets now slowly burn you to death
+- Fridged planets now slowly freeze you to death
+- Added fire and coat armor (Fire armor protects you from burning on scorched planets and coat protects freezing on fridged planets)
+- Weapons now have different speeds of attack.
+- All items now have the data tag (Water buckets originally only used this)
+- Changed textures for both silver and copper buckets
+- Buckets now show their water level visually and as a tag when hovered over
+- Buckets can now only be group together by water level, and will be automatically added as a new item when their water level changes

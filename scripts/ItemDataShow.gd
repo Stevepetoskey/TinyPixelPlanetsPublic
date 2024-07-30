@@ -1,4 +1,4 @@
-extends Label
+extends RichTextLabel
 
 func _process(delta):
 	position = get_global_mouse_position() + Vector2(3,3)

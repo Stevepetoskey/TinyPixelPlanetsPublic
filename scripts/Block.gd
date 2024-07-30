@@ -58,6 +58,12 @@ func _ready():
 		183:
 			texture.texture = load("res://textures/blocks/scorched_brick_fence_atlas.png")
 			texture.region_enabled = true
+		203:
+			texture.texture = load("res://textures/blocks/permafrost_fence_atlas.png")
+			texture.region_enabled = true
+		185:
+			if data.is_empty():
+				data["group"] = ""
 		186:
 			if !data.has("pos"):
 				data = {"pos":Vector2(0,0),"size":Vector2(1,1),"file_name":""}
@@ -164,9 +170,9 @@ func on_update():
 						texture.region_rect.position = choices[correctSide]["atlas_pos"]
 				else:
 					texture.region_rect.position = Vector2(0,8)
-			183:
+			183,203:
 				var choices = {[false,false,false]:Vector2(16,16),[true,false,false]:Vector2(16,0),[false,true,false]:Vector2(16,16),[false,false,true]:Vector2(0,0),[true,true,false]:Vector2(16,8),[false,true,true]:Vector2(0,8),[true,false,true]:Vector2(8,0),[true,true,true]:Vector2(8,8)}
-				var sides = get_sides_vector2([183],true,world.transparentBlocks)
+				var sides = get_sides_vector2([183,203],true,world.transparentBlocks)
 				texture.region_rect.position = choices[[sides[Vector2(-1,0)],sides[Vector2(0,-1)],sides[Vector2(1,0)]]]
 
 func get_sides(blockId : int) -> Dictionary:
