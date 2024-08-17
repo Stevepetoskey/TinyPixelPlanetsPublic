@@ -1,14 +1,15 @@
 extends Node
 
-const CURRENTVER = "TU5 Beta 5 (v0.5.0:5)"
-const VER_NUMS = [0,5,0,5]
+const CURRENTVER = "TU5 Beta 6 (v0.5.0:6)"
+const VER_NUMS = [0,5,0,6]
 const ALLOW_VERSIONS = [
 	[0,4,1,0],
 	[0,4,2,0],
 	[0,5,0,1],
 	[0,5,0,3],
 	[0,5,0,4],
-	[0,5,0,5]
+	[0,5,0,5],
+	[0,5,0,6]
 ]
 #Incompatable versions:
 #[0,4,0,8] and [0,4,0,0] (as of TU4.1). Reason: Updated to godot 4
@@ -41,6 +42,7 @@ var default_bookmarks = [
 	]
 var default_settings = {
 	"music":10,
+	"autosave_interval":2,
 	"keybinds":{"build":{"event_type":"mouse","id":1},"build2":{"event_type":"mouse","id":2},"action1":{"event_type":"key","id":74},"action2":{"event_type":"key","id":75},"background_toggle":{"event_type":"key","id":66},"inventory":{"event_type":"key","id":69},"ach":{"event_type":"key","id":90},"fly":{"event_type":"key","id":70}}
 }
 var bookmarks : Array= []
@@ -64,6 +66,8 @@ var playerBase = {"skin":Color("F8DEC3"),"hair_style":"Short","hair_color":Color
 signal loaded_data
 signal screenshot
 signal saved_settings
+signal entered_save
+signal left_save
 
 func _ready():
 	if FileAccess.file_exists(save_path + "settings.dat"):
@@ -163,6 +167,7 @@ func open_save(saveId : String) -> void:
 			StarSystem.landedPlanetTypes = [] if !playerData.has("landed_planet_types") else playerData["landed_planet_types"]
 			GlobalGui.completedAchievements = [] if !playerData.has("achievements") else playerData["achievements"]
 			StarSystem.systemDat = load_system(playerData["current_system"])
+			entered_save.emit()
 			StarSystem.load_system()
 			new = false
 		else:
@@ -203,6 +208,7 @@ func new_save(saveId : String):
 	copy_directory_recursively("res://data/structures",save_path + saveId + "/structures",true)
 	GlobalGui.completedAchievements = []
 	globalGameTime = 0
+	entered_save.emit()
 	var _er = get_tree().change_scene_to_file("res://scenes/Main.tscn")
 
 func new_planet() -> void:

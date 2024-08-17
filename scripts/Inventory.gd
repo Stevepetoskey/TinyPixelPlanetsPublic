@@ -7,9 +7,10 @@ const ITEM_PER_PAGE = 8
 var INVENTORY_SIZE = 20
 const ITEM_STACK_SIZE = 99
 
+@onready var main: Node2D = $"../.."
 @onready var world = get_node("../../World")
-@onready var slot1 = get_node("../Hotbar/InventoryBtn")
-@onready var slot2 = $"../Hotbar/InventoryBtn2"
+@onready var slot1: TextureButton = $"../Hotbar/InventoryBtn"
+@onready var slot2: TextureButton = $"../Hotbar/InventoryBtn2"
 @onready var jAction = get_node("../Hotbar/J")
 @onready var kAction = get_node("../Hotbar/K")
 @onready var cursor = get_node("../../Cursor")
@@ -19,6 +20,7 @@ const ITEM_STACK_SIZE = 99
 @onready var item_container = $ItemScroll/ItemContainer
 @onready var shop: Control = $"../Shop"
 @onready var godmode: Control = $"../Godmode"
+@onready var upgrade: Control = $"../Upgrade"
 
 #{"id":int,"amount":int,"data":dictionary}
 var inventory : Array = []
@@ -31,7 +33,10 @@ var deleteHold = {}
 var holding = false
 var holdingRef = -1
 
-func _ready():
+func _ready() -> void:
+	for slot : TextureButton in [slot1,slot2]:
+		slot.mouse_entered.connect(mouse_in_btn.bind({slot1:0,slot2:1}[slot]))
+		slot.mouse_exited.connect(mouse_out_btn)
 	update_inventory()
 
 func _process(_delta):
@@ -44,48 +49,50 @@ func _process(_delta):
 		cursor.currentLayer = int(!bool(cursor.currentLayer))
 		$"../Hotbar/HBoxContainer/BGT".texture = [BACKGROUND_TEXTURE,FOREGROUND_TEXTURE][cursor.currentLayer]
 
-func add_to_inventory(id : int,amount : int,drop = true,data := {}) -> Dictionary:
-	if !Global.godmode:
-		match id: #For achievements
-			31:
-				GlobalGui.complete_achievement("An upgrade")
-			98:
-				GlobalGui.complete_achievement("Top of the line")
-		if world.get_item_data(id).has("type") and world.get_item_data(id)["type"] == "weapon":
-			GlobalGui.complete_achievement("Ready for battle")
-		$collect.play()
+func add_to_inventory(id : int,amount : int,drop : bool = true,data := {}) -> Dictionary:
+	print("data added: ",data)
+	match id: #For achievements
+		31:
+			GlobalGui.complete_achievement("An upgrade")
+		98:
+			GlobalGui.complete_achievement("Top of the line")
+	if world.get_item_data(id).has("type") and world.get_item_data(id)["type"] == "weapon":
+		GlobalGui.complete_achievement("Ready for battle")
+	$collect.play()
+	if amount > 0:
+		var itemData = world.get_item_data(id)
+		if itemData.has("starter_data") and data.is_empty():
+			data = itemData["starter_data"].duplicate(true)
+		if ["weapon","tool","armor"].has(itemData["type"]) and !data.has("upgrades"):
+			data["upgrades"] = {"left":"","top":"","right":""}
+		var stackSize = ITEM_STACK_SIZE if !itemData.has("stack_size") else itemData["stack_size"]
+		for item in range(inventory.size()):
+			if inventory[item]["id"] == id and inventory[item]["data"] == data:
+				if inventory[item]["amount"] + amount <= stackSize:
+					inventory[item]["amount"] += amount
+					amount = 0
+				else:
+					amount -= stackSize - inventory[item]["amount"]
+					inventory[item]["amount"] = stackSize
 		if amount > 0:
-			var itemData = world.get_item_data(id)
-			if itemData.has("starter_data") and data.is_empty():
-				data = itemData["starter_data"].duplicate(true)
-			var stackSize = ITEM_STACK_SIZE if !itemData.has("stack_size") else itemData["stack_size"]
-			for item in range(inventory.size()):
-				if inventory[item]["id"] == id and inventory[item]["data"] == data:
-					if inventory[item]["amount"] + amount <= stackSize:
-						inventory[item]["amount"] += amount
-						amount = 0
+			while amount > 0:
+				if inventory.size() >= INVENTORY_SIZE:
+					update_inventory()
+					if drop:
+						entities.spawn_item({"id":id,"amount":amount,"data":data},true)
+						return {}
 					else:
-						amount -= stackSize - inventory[item]["amount"]
-						inventory[item]["amount"] = stackSize
-			if amount > 0:
-				while amount > 0:
-					if inventory.size() >= INVENTORY_SIZE:
-						update_inventory()
-						if drop:
-							entities.spawn_item({"id":id,"amount":amount,"data":data},true)
-							return {}
-						else:
-							return {"id":id,"amount":amount,"data":data}
-					var newAmount = amount
-					if amount > stackSize:
-						newAmount = stackSize
-					inventory.append({"id":id,"amount":newAmount,"data":data})
-					amount -= stackSize
-		update_inventory()
+						return {"id":id,"amount":amount,"data":data}
+				var newAmount = amount
+				if amount > stackSize:
+					newAmount = stackSize
+				inventory.append({"id":id,"amount":newAmount,"data":data})
+				amount -= stackSize
+	update_inventory()
 	return {}
 
 func remove_loc_from_inventory(loc : int) -> void:
-	if loc < inventory.size() and !Global.godmode:
+	if loc < inventory.size():
 		inventory.remove_at(loc)
 		update_inventory()
 
@@ -129,7 +136,6 @@ func count_id(id : int) -> int:
 
 func update_inventory() -> void:
 	#updates blues amount
-	print(inventory)
 	$ClearBtn.visible = Global.godmode
 	$Blues/Label.text = "*" + str(Global.blues)
 	
@@ -220,7 +226,7 @@ func inv_btn_clicked(loc : int,item : Object):
 			update_inventory()
 			chest.update_chest()
 		else:
-			add_to_inventory(leftover["id"],leftover["amount"],leftover["data"])
+			add_to_inventory(leftover["id"],leftover["amount"],true,leftover["data"])
 	else:
 		if !holding:
 			holding = true
@@ -242,19 +248,10 @@ func inv_btn_clicked(loc : int,item : Object):
 			update_inventory()
 
 func mouse_in_btn(loc : int):
-	if inventory.size() > loc:
-		var itemData = world.get_item_data(inventory[loc]["id"])
-		if itemData.has("name"):
-			var text = itemData["name"]
-			if itemData.has("desc"):
-				text += "\n" + itemData["desc"]
-			match itemData["type"]:
-				"Bucket":
-					text += "\n[color=darkorchid]Water level: " + str(inventory[loc]["data"]["water_level"]) + "[/color]"
-			$"../ItemData".show()
-			$"../ItemData".text = text
+	if inventory.size() > loc and visible:
+		$"../ItemData".display(inventory[loc])
 
-func mouse_out_btn(_loc : int):
+func mouse_out_btn():
 	$"../ItemData".hide()
 
 func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
@@ -275,12 +272,15 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 			chest.hide()
 			shop.hide()
 			godmode.hide()
+			upgrade.clear()
 		"inventory","crafting_table","oven","smithing_table":
 			if !Global.godmode or mode != "inventory":
 				crafting.visible = setValue
 				crafting.update_crafting(mode)
 			else:
 				godmode.pop_up(setValue)
+		"upgrade_table":
+			upgrade.pop_up()
 		"chest":
 			print("hide chest: ",setValue)
 			chest.visible = setValue
@@ -318,7 +318,7 @@ func _on_InventoryBtn_pressed():
 				update_inventory()
 				chest.update_chest()
 			else:
-				add_to_inventory(leftover["id"],leftover["amount"],leftover["data"])
+				add_to_inventory(leftover["id"],leftover["amount"],true,leftover["data"])
 		else:
 			if !holding:
 				holding = true
@@ -352,7 +352,7 @@ func _on_InventoryBtn2_pressed():
 				update_inventory()
 				chest.update_chest()
 			else:
-				add_to_inventory(leftover["id"],leftover["amount"],leftover["data"])
+				add_to_inventory(leftover["id"],leftover["amount"],true,leftover["data"])
 		else:
 			if !holding:
 				holding = true

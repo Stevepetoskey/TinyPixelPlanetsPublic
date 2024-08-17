@@ -1,4 +1,4 @@
-[gd_scene load_steps=239 format=3 uid="uid://2c07adgn0vow"]
+[gd_scene load_steps=249 format=3 uid="uid://2c07adgn0vow"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c3rmyuwb7gd3m" path="res://textures/enviroment/sky.png" id="2"]
@@ -112,11 +112,13 @@
 [ext_resource type="Texture2D" uid="uid://dtfa7tf4iexsu" path="res://textures/GUI/main/upgrade/main_slot.png" id="77_w74uk"]
 [ext_resource type="Texture2D" uid="uid://dbcxlsomp1g7b" path="res://textures/GUI/main/upgrade/main_slot_hover.png" id="78_gbxmp"]
 [ext_resource type="FontFile" uid="uid://diwuxgjxhgb06" path="res://fonts/PixelPossibilities.ttf" id="79"]
+[ext_resource type="Texture2D" uid="uid://xfgmpka4i7ho" path="res://textures/items/rhodonite_sword.png" id="79_atg4g"]
 [ext_resource type="Texture2D" uid="uid://c3wxj8ma11bxt" path="res://textures/GUI/main/upgrade/animations/left_item_slot_sheet.png" id="79_hj1c0"]
 [ext_resource type="Texture2D" uid="uid://bb4hsafmlev5c" path="res://textures/GUI/main/shop/shop_bg.png" id="80"]
 [ext_resource type="Texture2D" uid="uid://cju88cr22c0na" path="res://textures/GUI/main/upgrade/animations/top_item_slot_sheet.png" id="80_wujuo"]
 [ext_resource type="AudioStream" uid="uid://cjeky6rbgpg1r" path="res://Audio/sfx/Ambience/mixkit-sea-waves-loop-1196.wav" id="81"]
 [ext_resource type="Texture2D" uid="uid://djh8v1682610f" path="res://textures/GUI/main/upgrade/animations/right_item_slot_sheet.png" id="81_3oc2h"]
+[ext_resource type="Texture2D" uid="uid://c0uyc414d20xr" path="res://textures/items/upgrade_module.png" id="81_e54nj"]
 [ext_resource type="Texture2D" uid="uid://bqdiir8v4ncnx" path="res://textures/NPCs/faces/lily_cheerful.png" id="82"]
 [ext_resource type="AudioStream" uid="uid://duo4t1cbibbxx" path="res://Audio/sfx/Ambience/mixkit-light-rain-loop-1253.wav" id="83"]
 [ext_resource type="Script" path="res://scripts/GUI/Shop.gd" id="86"]
@@ -555,7 +557,7 @@ outline_color = Color(0.342634, 0.0358904, 0.066403, 1)
 atlas = ExtResource("79_hj1c0")
 region = Rect2(29, 2.08165e-12, 29, 27)
 
-[sub_resource type="Animation" id="Animation_7e2sk"]
+[sub_resource type="Animation" id="Animation_wlq0u"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -581,8 +583,20 @@ tracks/1/keys = {
 "update": 0,
 "values": [Rect2(29, 2.08165e-12, 29, 27)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftSlotBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
-[sub_resource type="Animation" id="Animation_u4g5d"]
+[sub_resource type="Animation" id="Animation_wf4ee"]
 resource_name = "power"
 length = 0.3
 tracks/0/type = "value"
@@ -597,10 +611,75 @@ tracks/0/keys = {
 "update": 1,
 "values": [Rect2(116, 2.08165e-12, 29, 27), Rect2(145, 2.08165e-12, 29, 27), Rect2(174, 2.08165e-12, 29, 27), Rect2(2.08165e-12, 2.08165e-12, 29, 27)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftSlotBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
-[sub_resource type="Animation" id="Animation_2t7xa"]
+[sub_resource type="Animation" id="Animation_nvbpb"]
+resource_local_to_scene = true
+resource_name = "remove"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(116, 2.08165e-12, 29, 27), Rect2(87, 2.08165e-12, 29, 27), Rect2(58, 2.08165e-12, 29, 27), Rect2(29, 2.08165e-12, 29, 27)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftSlotBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3kwvw"]
 resource_name = "start"
-length = 0.4
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -625,8 +704,20 @@ tracks/1/keys = {
 "update": 1,
 "values": [Rect2(29, 2.08165e-12, 29, 27), Rect2(58, 2.08165e-12, 29, 27), Rect2(87, 2.08165e-12, 29, 27), Rect2(116, 2.08165e-12, 29, 27)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftSlotBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
-[sub_resource type="Animation" id="Animation_euiw8"]
+[sub_resource type="Animation" id="Animation_puh5q"]
 resource_name = "unpower"
 length = 0.3
 tracks/0/type = "value"
@@ -641,20 +732,47 @@ tracks/0/keys = {
 "update": 1,
 "values": [Rect2(2.08165e-12, 2.08165e-12, 29, 27), Rect2(174, 2.08165e-12, 29, 27), Rect2(145, 2.08165e-12, 29, 27), Rect2(116, 2.08165e-12, 29, 27)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LeftSlotBtn:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_pdkrh"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6pjqh"]
 _data = {
-"RESET": SubResource("Animation_7e2sk"),
-"power": SubResource("Animation_u4g5d"),
-"start": SubResource("Animation_2t7xa"),
-"unpower": SubResource("Animation_euiw8")
+"RESET": SubResource("Animation_wlq0u"),
+"power": SubResource("Animation_wf4ee"),
+"remove": SubResource("Animation_nvbpb"),
+"start": SubResource("Animation_3kwvw"),
+"unpower": SubResource("Animation_puh5q")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gilhv"]
 atlas = ExtResource("80_wujuo")
 region = Rect2(14, 2.08165e-12, 14, 40)
+margin = Rect2(0.1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+filter_clip = true
 
-[sub_resource type="Animation" id="Animation_ks2y2"]
+[sub_resource type="Animation" id="Animation_ef3rd"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -680,8 +798,20 @@ tracks/1/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TopSlotBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
-[sub_resource type="Animation" id="Animation_d3nst"]
+[sub_resource type="Animation" id="Animation_mrytc"]
 resource_name = "power"
 length = 0.3
 tracks/0/type = "value"
@@ -696,10 +826,76 @@ tracks/0/keys = {
 "update": 1,
 "values": [Rect2(56, 2.08165e-12, 14, 40), Rect2(70, 2.08165e-12, 14, 40), Rect2(84, 2.08165e-12, 14, 40), Rect2(2.08165e-12, 2.08165e-12, 14, 40)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TopSlotBtn:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
-[sub_resource type="Animation" id="Animation_c6nvi"]
+[sub_resource type="Animation" id="Animation_yj3bx"]
+resource_local_to_scene = true
+resource_name = "remove"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(56, 2.08165e-12, 14, 40), Rect2(42, 2.08165e-12, 14, 40), Rect2(28, 2.08165e-12, 14, 40), Rect2(14, 2.08165e-12, 14, 40)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TopSlotBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3wmlr"]
+resource_local_to_scene = true
 resource_name = "start"
-length = 0.4
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -724,8 +920,20 @@ tracks/1/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TopSlotBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
 
-[sub_resource type="Animation" id="Animation_bkgki"]
+[sub_resource type="Animation" id="Animation_t3y27"]
 resource_name = "unpower"
 length = 0.3
 tracks/0/type = "value"
@@ -740,18 +948,251 @@ tracks/0/keys = {
 "update": 1,
 "values": [Rect2(2.08165e-12, 2.08165e-12, 14, 40), Rect2(84, 2.08165e-12, 14, 40), Rect2(70, 2.08165e-12, 14, 40), Rect2(56, 2.08165e-12, 14, 40)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TopSlotBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4dlmm"]
 _data = {
-"RESET": SubResource("Animation_ks2y2"),
-"power": SubResource("Animation_d3nst"),
-"start": SubResource("Animation_c6nvi"),
-"unpower": SubResource("Animation_bkgki")
+"RESET": SubResource("Animation_ef3rd"),
+"power": SubResource("Animation_mrytc"),
+"remove": SubResource("Animation_yj3bx"),
+"start": SubResource("Animation_3wmlr"),
+"unpower": SubResource("Animation_t3y27")
 }
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ltsjs"]
 atlas = ExtResource("81_3oc2h")
 region = Rect2(29, 2.08165e-12, 29, 27)
+
+[sub_resource type="Animation" id="Animation_doqaj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightSlotBtn:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:texture:region")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(29, 2.08165e-12, 29, 27)]
+}
+
+[sub_resource type="Animation" id="Animation_cvvwd"]
+resource_name = "power"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightSlotBtn:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:texture:region")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(116, 2.08165e-12, 29, 27), Rect2(145, 2.08165e-12, 29, 27), Rect2(174, 2.08165e-12, 29, 27), Rect2(2.08165e-12, 2.08165e-12, 29, 27)]
+}
+
+[sub_resource type="Animation" id="Animation_f41t2"]
+resource_name = "remove"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightSlotBtn:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:texture:region")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(116, 2.08165e-12, 29, 27), Rect2(87, 2.08165e-12, 29, 27), Rect2(58, 2.08165e-12, 29, 27), Rect2(29, 2.08165e-12, 29, 27)]
+}
+
+[sub_resource type="Animation" id="Animation_t4bpu"]
+resource_name = "start"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightSlotBtn:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:texture:region")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(29, 2.08165e-12, 29, 27), Rect2(58, 2.08165e-12, 29, 27), Rect2(87, 2.08165e-12, 29, 27), Rect2(116, 2.08165e-12, 29, 27)]
+}
+
+[sub_resource type="Animation" id="Animation_i1rtu"]
+resource_name = "unpower"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightSlotBtn:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:texture:region")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(2.08165e-12, 2.08165e-12, 29, 27), Rect2(174, 2.08165e-12, 29, 27), Rect2(145, 2.08165e-12, 29, 27), Rect2(116, 2.08165e-12, 29, 27)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6c7h1"]
+_data = {
+"RESET": SubResource("Animation_doqaj"),
+"power": SubResource("Animation_cvvwd"),
+"remove": SubResource("Animation_f41t2"),
+"start": SubResource("Animation_t4bpu"),
+"unpower": SubResource("Animation_i1rtu")
+}
 
 [sub_resource type="Animation" id="11"]
 length = 0.001
@@ -3258,9 +3699,6 @@ theme = SubResource("113")
 [node name="RecipesContainer" type="VBoxContainer" parent="CanvasLayer/Crafting/RecipesScroll"]
 layout_mode = 2
 
-[node name="Pause" parent="CanvasLayer" instance=ExtResource("12")]
-visible = false
-
 [node name="Chest" type="Control" parent="CanvasLayer"]
 visible = false
 layout_mode = 3
@@ -3427,6 +3865,9 @@ theme_override_fonts/font = ExtResource("19_36l8u")
 text = "Sell"
 horizontal_alignment = 1
 uppercase = true
+
+[node name="TextTimer" type="Timer" parent="CanvasLayer/Shop"]
+wait_time = 0.05
 
 [node name="Godmode" type="Control" parent="CanvasLayer"]
 visible = false
@@ -3705,6 +4146,14 @@ grow_vertical = 2
 texture_normal = ExtResource("77_w74uk")
 texture_hover = ExtResource("78_gbxmp")
 
+[node name="Item" type="TextureRect" parent="CanvasLayer/Upgrade/ItemHold/Mainslot"]
+layout_mode = 0
+offset_right = 14.0
+offset_bottom = 14.0
+mouse_filter = 2
+texture = ExtResource("79_atg4g")
+stretch_mode = 3
+
 [node name="LeftSlot" type="TextureRect" parent="CanvasLayer/Upgrade/ItemHold"]
 visible = false
 layout_mode = 0
@@ -3715,16 +4164,19 @@ offset_bottom = 56.0
 texture = SubResource("AtlasTexture_88nlb")
 stretch_mode = 3
 
-[node name="LeftAnimations" type="AnimationPlayer" parent="CanvasLayer/Upgrade/ItemHold/LeftSlot"]
+[node name="Animation" type="AnimationPlayer" parent="CanvasLayer/Upgrade/ItemHold/LeftSlot"]
 libraries = {
-"": SubResource("AnimationLibrary_pdkrh")
+"": SubResource("AnimationLibrary_6pjqh")
 }
 
 [node name="LeftSlotBtn" type="TextureButton" parent="CanvasLayer/Upgrade/ItemHold/LeftSlot"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_top = 13.0
 offset_right = 14.0
 offset_bottom = 27.0
+texture_normal = ExtResource("81_e54nj")
+stretch_mode = 3
 
 [node name="TopSlot" type="TextureRect" parent="CanvasLayer/Upgrade/ItemHold"]
 visible = false
@@ -3736,16 +4188,19 @@ offset_bottom = 42.0
 texture = SubResource("AtlasTexture_gilhv")
 stretch_mode = 3
 
-[node name="TopAnimations" type="AnimationPlayer" parent="CanvasLayer/Upgrade/ItemHold/TopSlot"]
+[node name="Animation" type="AnimationPlayer" parent="CanvasLayer/Upgrade/ItemHold/TopSlot"]
 libraries = {
 "": SubResource("AnimationLibrary_4dlmm")
 }
 
 [node name="TopSlotBtn" type="TextureButton" parent="CanvasLayer/Upgrade/ItemHold/TopSlot"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 0
 offset_top = 11.0
 offset_right = 14.0
 offset_bottom = 25.0
+texture_normal = ExtResource("81_e54nj")
+stretch_mode = 3
 
 [node name="RightSlot" type="TextureRect" parent="CanvasLayer/Upgrade/ItemHold"]
 visible = false
@@ -3757,16 +4212,20 @@ offset_bottom = 56.0
 texture = SubResource("AtlasTexture_ltsjs")
 stretch_mode = 3
 
-[node name="RightAnimations" type="AnimationPlayer" parent="CanvasLayer/Upgrade/ItemHold/RightSlot"]
-libraries = {
-"": SubResource("AnimationLibrary_pdkrh")
-}
-
 [node name="RightSlotBtn" type="TextureButton" parent="CanvasLayer/Upgrade/ItemHold/RightSlot"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 0
+offset_left = 15.0
 offset_top = 13.0
-offset_right = 14.0
+offset_right = 29.0
 offset_bottom = 27.0
+texture_normal = ExtResource("81_e54nj")
+stretch_mode = 3
+
+[node name="Animation" type="AnimationPlayer" parent="CanvasLayer/Upgrade/ItemHold/RightSlot"]
+libraries = {
+"": SubResource("AnimationLibrary_6c7h1")
+}
 
 [node name="SignEdit" type="Panel" parent="CanvasLayer"]
 visible = false
@@ -4346,6 +4805,9 @@ theme = ExtResource("12_23g2f")
 text = "Tiny Pixel Planets TU4.1 Godot 4 Port (Development Build)"
 horizontal_alignment = 1
 
+[node name="Pause" parent="CanvasLayer" instance=ExtResource("12")]
+visible = false
+
 [node name="World" type="Node2D" parent="."]
 script = ExtResource("1")
 worldHeight = 30
@@ -4506,6 +4968,7 @@ script = ExtResource("47")
 [connection signal="pressed" from="CanvasLayer/Inventory/DeleteItemBtn" to="CanvasLayer/Inventory" method="_on_delete_item_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Shop/TabBar/BuyTab" to="CanvasLayer/Shop" method="_on_BuyTab_pressed"]
 [connection signal="pressed" from="CanvasLayer/Shop/TabBar/SellTab" to="CanvasLayer/Shop" method="_on_SellTab_pressed"]
+[connection signal="timeout" from="CanvasLayer/Shop/TextTimer" to="CanvasLayer/Shop" method="_on_text_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Upgrade/ItemHold/Mainslot" to="CanvasLayer/Upgrade" method="_on_mainslot_pressed"]
 [connection signal="text_changed" from="CanvasLayer/SignEdit/TextEdit" to="CanvasLayer/SignEdit" method="_on_text_edit_text_changed"]
 [connection signal="pressed" from="CanvasLayer/SignEdit/HBoxContainer/ModeBtn" to="CanvasLayer/SignEdit" method="_on_mode_btn_pressed"]

@@ -707,6 +707,14 @@ layout_mode = 2
 max_value = 10.0
 value = 10.0
 
+[node name="GameplayLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Gameplay:"
+
+[node name="AutoSaveBtn" type="Button" parent="Settings/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "Auto Save: Off"
+
 [node name="KeyBinds" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "Keybinds:"
@@ -1659,6 +1667,7 @@ mouse_filter = 0
 [connection signal="pressed" from="Main/Buttons/HBoxContainer/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="pressed" from="Main/Buttons/HBoxContainer/Credits" to="." method="_on_Credits_pressed"]
 [connection signal="value_changed" from="Settings/ScrollContainer/VBoxContainer/MusicSlider" to="Settings" method="_on_MusicSlider_value_changed"]
+[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/AutoSaveBtn" to="Settings" method="_on_auto_save_btn_pressed"]
 [connection signal="pressed" from="Settings/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="World/loadSave/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="World/loadSave/Warning/BackBtn" to="World/loadSave" method="_on_back_btn_pressed"]

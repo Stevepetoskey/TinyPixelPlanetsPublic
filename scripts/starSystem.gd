@@ -109,7 +109,7 @@ var typeNames = {
 	"ocean":"Ocean",
 	"grassland":"Grassland",
 	"scorched":"Scorched",
-	"fridged":"Fridged"
+	"fridged":"Frigid"
 }
 
 var hostileSpawn = {

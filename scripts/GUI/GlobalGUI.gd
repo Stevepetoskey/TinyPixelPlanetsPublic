@@ -26,8 +26,10 @@ var completedAchievements = []
 var backedUpRequest = []
 
 signal update_achievements
+signal autosave
 
 @onready var achievementPnl = $Achievement
+@onready var auto_save_timer: Timer = $AutoSaveTimer
 
 func _process(delta):
 	if GlobalAudio.mode != "menu":
@@ -45,6 +47,8 @@ func _process(delta):
 
 func _ready():
 	emit_signal("update_achievements",completedAchievements)
+	Global.entered_save.connect(entered_save)
+	Global.left_save.connect(left_save)
 
 func complete_achievement(achievement):
 	if !completedAchievements.has(achievement) and !Global.inTutorial:
@@ -79,3 +83,18 @@ func ach_pressed(id):
 		else:
 			$AchievementMenu/Desc/Desc.text = "Requires ???"
 	$AchievementMenu/Desc.show()
+
+func entered_save() -> void:
+	print("saving time at: ",GlobalData.autoSaveTimes[Global.settings["autosave_interval"]])
+	if Global.settings["autosave_interval"] != 0:
+		print("Started save timer")
+		auto_save_timer.start(GlobalData.autoSaveTimes[Global.settings["autosave_interval"]])
+
+func left_save() -> void:
+	print("stop autosave")
+	auto_save_timer.stop()
+
+func _on_auto_save_timer_timeout() -> void:
+	$AutosaveIcon/AnimationPlayer.play("pulse")
+	await get_tree().create_timer(2.0).timeout
+	autosave.emit()

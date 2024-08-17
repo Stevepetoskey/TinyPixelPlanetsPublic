@@ -7,6 +7,7 @@ var bookmarkTextures = {false:preload("res://textures/GUI/space/bookmark_btn.png
 @onready var planet_name: Label = $Top/ScrollContainer/PlanetName
 @onready var bookmark_btn: TextureButton = $Top/Bookmark
 @onready var planet_select: Node2D = $"../.."
+@onready var danger_lbl: RichTextLabel = $ScrollContainer/VBoxContainer/DangerLbl
 
 var currentPlanet = null
 
@@ -20,6 +21,15 @@ func pop_up(planet : Area2D = null):
 	bookmark_btn.texture_normal = bookmarkTextures[Global.find_bookmark(Global.currentSystemId,planetRef.id) > -1]
 	$ScrollContainer/VBoxContainer/Type.text = "Type: " + StarSystem.typeNames[planetRef.type["type"]]
 	$ScrollContainer/VBoxContainer/Size.text = "Size: " + StarSystem.sizeNames[planetRef.type["size"]]
+	var text = "Danger: "
+	match planetRef.type["type"]:
+		"scorched":
+			text += "[color=firebrick]Extreme heat[/color]"
+		"fridged":
+			text += "[color=skyblue]Extreme cold[/color]"
+		_:
+			text += "[color=lawngreen]None[/color]"
+	danger_lbl.text = text
 	for event in $ScrollContainer/VBoxContainer/WeatherEvents.get_children():
 		event.visible = StarSystem.weatherEvents[planetRef.type["type"]].has(event.name)
 	show()

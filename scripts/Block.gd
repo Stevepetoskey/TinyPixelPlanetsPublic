@@ -97,7 +97,7 @@ func on_update():
 						elif world.get_block_id(pos + Vector2(x,y),1) == 0 and $shade.has_node(str(x) + str(y)):
 							$shade.get_node(str(x) + str(y)).queue_free()
 	
-	if world.worldLoaded and visible_on_screen_notifier_2d.is_on_screen():
+	if world.worldLoaded and (visible_on_screen_notifier_2d.is_on_screen() or [14,18].has(id)):
 		match id:
 			10,77,154: #logs
 				if world.get_block_id(pos - Vector2(0,1),layer) == id or world.get_block_id(pos + Vector2(0,1),layer) == id:

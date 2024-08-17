@@ -9,3 +9,5 @@ var armor_buffs : Dictionary = {
 	"cold_resistance":{"requires":[207,208,209,210]},
 	"heat_resistance":{"requires":[211,212,213,214]}
 }
+
+var autoSaveTimes : Array = [0,300,900,2700,3600,7200]

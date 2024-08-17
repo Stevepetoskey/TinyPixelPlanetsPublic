@@ -6,6 +6,7 @@ var GRAVITY = 4
 var maxHealth = 20
 var health = 20
 var frozen : bool = false
+var poisoned : bool = false
 var canDamage : bool = true
 
 @export var canDie = true
@@ -22,6 +23,7 @@ var data = {}
 signal damaged
 
 func _ready():
+	modulate = Global.lightColor
 	if !get_node("../../../World").hasGravity:
 		GRAVITY = 0
 
@@ -46,12 +48,14 @@ func die():
 
 func damage(hp):
 	if canDie and canDamage:
-		modulate = Color("ff5959")
+		if !frozen and !poisoned:
+			modulate = Color("ff5959")
 		effects.floating_text(position, "-" + str(hp), Color.RED)
 		health -= hp
 		emit_signal("damaged")
 		await get_tree().create_timer(0.5).timeout
-		modulate = Global.lightColor
+		if !frozen and !poisoned:
+			modulate = Global.lightColor
 		if health <= 0:
 			die()
 
@@ -61,3 +65,13 @@ func freeze(time : float) -> void:
 	await get_tree().create_timer(time).timeout
 	modulate = Global.lightColor
 	frozen = false
+
+func poison(amount : float,dmg := 1) -> void:
+	modulate = Color("47ff3d")
+	poisoned = true
+	for i in range(amount):
+		await get_tree().create_timer(1).timeout
+		damage(dmg)
+		if i == amount - 1:
+			poisoned = false
+			modulate = Global.lightColor

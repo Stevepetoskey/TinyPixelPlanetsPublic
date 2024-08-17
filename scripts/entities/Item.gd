@@ -26,7 +26,7 @@ func _on_PickupTimer_timeout():
 func _on_Area2D_body_entered(body):
 	if body != self:
 		if body.is_in_group("item"):
-			if body.data["id"] == data["id"]:
+			if body.data["id"] == data["id"] and data["data"] == data["data"]:
 				data["amount"] += body.data["amount"]
 				body.free()
 		elif canPickup:
@@ -40,5 +40,5 @@ func _on_Area2D_body_entered(body):
 				position = lerp(ogPos,body.position,i/time)
 				modulate = lerp(Color(1,1,1,1),Color(1,1,1,0),i/time)
 				await get_tree().process_frame
-			inventory.add_to_inventory(data["id"],data["amount"])
+			inventory.add_to_inventory(data["id"],data["amount"],true,data["data"])
 			queue_free()

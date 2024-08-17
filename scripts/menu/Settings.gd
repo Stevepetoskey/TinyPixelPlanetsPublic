@@ -5,15 +5,22 @@ var changingKeybind : String
 var allowedKeybinds = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
 var allowedMousebinds = {1:"LMB",2:"RMB",3:"MMB",8:"XMB1",9:"XMB2",4:"MBWU",5:"MBWD"}
 
+var autoSaveText : Array = ["Off","5 Minutes","15 Minutes","45 Minutes","1 Hour","2 Hours"]
+
 @onready var disable_controls: TextureRect = $"../DisableControls"
 @onready var keybind_container: VBoxContainer = $ScrollContainer/VBoxContainer/KeybindContainer
 @onready var music_slider: HSlider = $ScrollContainer/VBoxContainer/MusicSlider
+@onready var auto_save_btn: Button = $ScrollContainer/VBoxContainer/AutoSaveBtn
 
 func _ready() -> void:
 	music_slider.value = Global.settings["music"]
 	$"../AudioStreamPlayer".volume_db = (Global.settings["music"] * 5) - 50
 	if Global.settings["music"] == 0:
 		$"../AudioStreamPlayer".volume_db = -100
+	#Makes sure that settings has autosave_interval
+	if !Global.settings.has("autosave_interval"):
+		Global.settings["autosave_interval"] = Global.default_settings["autosave_interval"]
+	auto_save_btn.text = "Autosave: " + autoSaveText[Global.settings["autosave_interval"]]
 	#Adds extra keybinds if keybind data is out of date
 	for keybind in Global.default_settings["keybinds"]:
 		if !Global.settings["keybinds"].has(keybind):
@@ -70,4 +77,11 @@ func _on_MusicSlider_value_changed(value: float) -> void:
 	$"../AudioStreamPlayer".volume_db = (value * 5) - 50
 	if Global.settings["music"] == 0:
 		$"../AudioStreamPlayer".volume_db = -100
+	Global.save_settings()
+
+func _on_auto_save_btn_pressed() -> void:
+	Global.settings["autosave_interval"] += 1
+	if Global.settings["autosave_interval"] >= autoSaveText.size():
+		Global.settings["autosave_interval"] = 0
+	auto_save_btn.text = "Autosave: " + autoSaveText[Global.settings["autosave_interval"]]
 	Global.save_settings()

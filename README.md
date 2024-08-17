@@ -49,3 +49,13 @@ This branch is for unstable development of TU5 (v0.5.0)
 - Changed textures for both silver and copper buckets
 - Buckets now show their water level visually and as a tag when hovered over
 - Buckets can now only be group together by water level, and will be automatically added as a new item when their water level changes
+## TU5.6 (v0.5.0:6)
+- Added upgrade table and upgrade modules
+- Now able to upgrade equipment with new upgrade modules
+- Inventory hotbar slots now also display item data when hovered over
+- Fixed dungeon boss rooms generating below the world
+- Upgrade modules now generate in fridged and scorched dungeon chests
+- Changed most textures added before TU3
+- Fixed death particles not spreading
+- Fixed opening and closing shop gui quickly causing the shop keeper to speak gibberish.
+- Added autosave setting

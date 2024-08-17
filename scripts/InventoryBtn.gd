@@ -27,4 +27,4 @@ func _on_InventoryBtn_mouse_entered():
 
 func _on_InventoryBtn_mouse_exited():
 	mouseIn = false
-	inventory.mouse_out_btn(loc)
+	inventory.mouse_out_btn()

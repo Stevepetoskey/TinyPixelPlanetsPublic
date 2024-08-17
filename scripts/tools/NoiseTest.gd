@@ -29,7 +29,7 @@ func _ready() -> void:
 					set_block(Vector2(x,y),0,Color.LIGHT_GRAY)
 					set_block(Vector2(x,y),1,Color.WHITE)
 	#generate_dungeon("scorched","boss_scorched",randi_range(15,30))
-	generate_dungeon("fridged","boss_fridged",randi_range(15,30))
+	generate_dungeon("scorched","boss_scorched",randi_range(30,50))
 	for layer in range(2):
 		for x in range(worldSize.x):
 			for y in range(worldSize.y):
@@ -53,6 +53,10 @@ func generate_dungeon(dungeonGroup : String, startingPiece : String, dungeonSize
 	var pos = Vector2(randi_range(0,worldSize.x-12),0)
 	var size = dungeonBossRoom["size"]
 	pos.y = randi_range((worldSize.y - (int(noise.get_noise_1d(pos.x) * noiseScale) + worldHeight)),worldSize.y-19)
+	while !Rect2(Vector2(0,0),worldSize).encloses(Rect2(pos,size)):
+		pos.y -= 1
+		if pos.y <= 0:
+			return
 	var currentId = 0
 	var openLinks = {0:[]}
 	var dungeon = {0:{"position":pos,"size":dungeonBossRoom["size"]}}

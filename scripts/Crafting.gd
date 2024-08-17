@@ -174,13 +174,7 @@ func recipe_clicked(recipeRef : Dictionary):
 		inventory.add_to_inventory(recipesSelect["result"]["id"],recipesSelect["result"]["amount"])
 
 func mouse_in_btn(recipeRef : Dictionary):
-	var itemData = world.get_item_data(recipeRef["result"]["id"])
-	if itemData.has("name"):
-		var text = itemData["name"]
-		if itemData.has("desc"):
-			text += "\n" + itemData["desc"]
-		$"../ItemData".show()
-		$"../ItemData".text = text
+	$"../ItemData".display(recipeRef["result"])
 
 func mouse_out_btn(_recipeRef : Dictionary):
 	$"../ItemData".hide()

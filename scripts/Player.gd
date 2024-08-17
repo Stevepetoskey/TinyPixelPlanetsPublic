@@ -35,7 +35,12 @@ var flying = false
 var defPoints = 0
 var inWater = false
 var frozen : bool = false
+var poisoned : bool = false
 var armorBuff : String = ""
+var jetpackLevel : int = 0
+var jetpackFuel : int = 0
+var usingJetpack : bool = false
+var movementModifier : int = 0
 
 var dead = false
 var flipped = false
@@ -95,13 +100,15 @@ func _physics_process(_delta):
 		#Swinging process
 		if inventory.inventory.size() > 0:
 			if Input.is_action_pressed("build"):
-				swing(inventory.inventory[0]["id"])
+				swing(0)
+				#swing(inventory.inventory[0]["id"])
 			elif Input.is_action_pressed("build2") and inventory.inventory.size() > 1:
-				swing(inventory.inventory[1]["id"])
+				swing(1)
+				#swing(inventory.inventory[1]["id"])
 			elif Input.is_action_pressed("action1"):
-				swing(inventory.jId)
+				swing(inventory.jRef)
 			elif Input.is_action_pressed("action2"):
-				swing(inventory.kId)
+				swing(inventory.kRef)
 		#Collision modifiers
 		if Input.is_action_pressed("down"):
 			if !world.hasGravity:
@@ -120,9 +127,9 @@ func _physics_process(_delta):
 			if !is_on_floor():
 				motion.y += GRAVITY/ 2.0
 			
-			var speed = MAX_SPEED
+			var speed = MAX_SPEED + movementModifier
 			if Input.is_action_pressed("sprint"):
-				speed = SPRINT_SPEED
+				speed = SPRINT_SPEED + movementModifier
 			
 			if Input.is_action_pressed("move_left"):
 				if motion.x > -speed:
@@ -197,19 +204,21 @@ func _physics_process(_delta):
 				motion.y = -JUMPSPEED
 				jumping = true
 			if !is_on_floor():
-				if !coyote:
-					motion.y += GRAVITY
-				elif !timerOn:
-					$coyoteTimer.start()
-					timerOn = true
+				if jetpackFuel <= 0 or !usingJetpack:
+					if !coyote:
+						motion.y += GRAVITY
+					elif !timerOn:
+						$coyoteTimer.start()
+						timerOn = true
 			else:
+				jetpackFuel = 0
 				motion.y = 0
 				jumping = false
 				coyote = true
 			
-			var speed = MAX_SPEED
+			var speed = MAX_SPEED + movementModifier
 			if Input.is_action_pressed("sprint"):
-				speed = SPRINT_SPEED
+				speed = SPRINT_SPEED + movementModifier
 			
 			if Input.is_action_pressed("move_left"):
 				if motion.x > -speed:
@@ -229,10 +238,21 @@ func _physics_process(_delta):
 					$Textures/AnimationPlayer.play("idle")
 				else:
 					$Textures/AnimationPlayer.play("walk")
-			
-			if Input.is_action_just_pressed("jump") and !jumping:
-				motion.y = -JUMPSPEED
-				jumping = true
+			if jetpackLevel <= 0:
+				if Input.is_action_just_pressed("jump") and !jumping:
+					motion.y = -JUMPSPEED
+					jumping = true
+			elif Input.is_action_pressed("jump"):
+				usingJetpack = true
+				if !jumping or jetpackFuel > 0:
+					if !jumping:
+						jetpackFuel = 10 * [0,1,2.5,5][jetpackLevel]
+					else:
+						jetpackFuel -= 1
+					motion.y = -JUMPSPEED
+					jumping = true
+			else:
+				usingJetpack = false
 		else: # no gravity Movement
 			if inWater:
 				inWater = false
@@ -270,7 +290,8 @@ func _physics_process(_delta):
 		move_and_slide()
 		motion = velocity
 
-func swing(item):
+func swing(loc):
+	var item = inventory.inventory[loc]["id"]
 	if world.itemData.has(item) and item > 0 and ["tool","weapon","Hoe","Watering_can"].has(world.itemData[item]["type"]) and !swinging:
 		$Textures/Weapon.texture = world.itemData[item]["big_texture"]
 		if world.itemData[item]["type"] == "Watering_can":
@@ -288,18 +309,25 @@ func swing(item):
 				var params = PhysicsRayQueryParameters2D.create(position,enemy.position,1,[self])
 				var result = space_state.intersect_ray(params)
 				if result.is_empty() and position.distance_to(enemy.position) < world.itemData[swingingWith]["range"] and sign(enemy.position.x - position.x) == sign(get_global_mouse_position().x - position.x):
-					enemy.damage(world.itemData[swingingWith]["dmg"])
+					var dmg = world.itemData[swingingWith]["dmg"]
+					var upgrades : Dictionary = get_item_upgrades(inventory.inventory[loc])
+					if upgrades.has("damage"):
+						dmg += upgrades["damage"] * 2
+					enemy.damage(dmg)
+					if upgrades.has("poison"):
+						enemy.poison(6,upgrades["poison"])
 
 func damage(dmg,enemyLevel = 1):
 	if !dead and !Global.pause:
-		modulate = Color("ff5959")
+		if !frozen and !poisoned:
+			modulate = Color("ff5959")
 		var totalDmg = int(round(dmg * max(1-(defPoints/(enemyLevel*25.0)),0)))
 		effects.floating_text(position, "-" + str(totalDmg), Color.RED)
 		health -= totalDmg
 		await get_tree().create_timer(0.5).timeout
 		if health < 0:
 			die()
-		if !frozen:
+		if !frozen and !poisoned:
 			modulate = Global.lightColor
 
 func freeze(time : float) -> void:
@@ -308,6 +336,16 @@ func freeze(time : float) -> void:
 	await get_tree().create_timer(time).timeout
 	frozen = false
 	modulate = Global.lightColor
+
+func poison(amount : float,dmg := 1) -> void:
+	modulate = Color("47ff3d")
+	poisoned = true
+	for i in range(amount):
+		await get_tree().create_timer(1).timeout
+		damage(dmg)
+		if i == amount - 1:
+			poisoned = false
+			modulate = Global.lightColor
 
 func die():
 	dead = true
@@ -338,6 +376,16 @@ func _on_blockTest_body_exited(body):
 	if currentBlocksOn.has(body):
 		currentBlocksOn.erase(body)
 
+func get_item_upgrades(itemData : Dictionary) -> Dictionary:
+	var upgrades : Dictionary
+	if itemData["data"].has("upgrades"):
+		for slot : String in itemData["data"]["upgrades"]:
+			if upgrades.has(itemData["data"]["upgrades"][slot]):
+				upgrades[itemData["data"]["upgrades"][slot]] += 1
+			else:
+				upgrades[itemData["data"]["upgrades"][slot]] = 1
+	return upgrades
+
 func _on_Armor_updated_armor(armorData):
 	if world != null:
 		$Textures/body.texture = load("res://textures/player/Body/" + gender + ".png")
@@ -345,12 +393,16 @@ func _on_Armor_updated_armor(armorData):
 		var display = {"pants":null,"shirt":null,"boots":null,"headwear":null}
 		var wearing = {"pants":0,"shirt":0,"boots":0,"headwear":0}
 		defPoints = 0
+		movementModifier = 0
 		for armorType in armorData:
 			if !armorData[armorType].is_empty():
 				var id = armorData[armorType]["id"]
 				wearing[set[armorType]] = id
 				if ["Chestplate","Leggings","Boots","Helmet"].has(armorType):
 					var def = world.itemData[id]["armor_data"]["def"]
+					movementModifier += world.itemData[id]["armor_data"]["speed"]
+					if get_item_upgrades(armorData[armorType]).has("protection"):
+						def += get_item_upgrades(armorData[armorType])["protection"]
 					if def > 0:
 						defPoints += def
 						armor.get_node(armorType + "Points").show()
@@ -359,10 +411,18 @@ func _on_Armor_updated_armor(armorData):
 						armor.get_node(armorType + "Points").hide()
 				if !["Shirt","Chestplate"].has(armorType):
 					display[set[armorType]] = load("res://textures/player/" + files[id]["folder"]+ "/" + files[id]["file"])
+					if ["Leggings","Pants"].has(armorType) and get_item_upgrades(armorData[armorType]).has("movement_speed"):
+						movementModifier += get_item_upgrades(armorData[armorType])["movement_speed"] * 2
 				else:
+					if get_item_upgrades(armorData[armorType]).has("jetpack"):
+						jetpackLevel = get_item_upgrades(armorData[armorType])["jetpack"]
+					else:
+						jetpackLevel = 0
 					display[set[armorType]] = load("res://textures/player/" + files[id]["folder"]+ "/" + gender + "/" + files[id]["file"])
 			elif ["Chestplate","Leggings","Boots","Helmet"].has(armorType):
+				jetpackLevel = 0
 				$"../CanvasLayer/Inventory/Armor".get_node(armorType + "Points").hide()
+		movementModifier *= 4
 		for sheet in display:
 			if display[sheet] == null:
 				match sheet:

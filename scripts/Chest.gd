@@ -55,7 +55,7 @@ func chest_btn_clicked(loc,item):
 	if !itemData.has("data"):
 		itemData["data"] = {}
 	currentChest.data.remove_at(loc)
-	var leftover = inventory.add_to_inventory(itemData["id"],itemData["amount"],itemData["data"])
+	var leftover = inventory.add_to_inventory(itemData["id"],itemData["amount"],true,itemData["data"])
 	if !leftover.is_empty():
 		add_to_chest(leftover["id"],leftover["amount"],leftover["data"])
 	else:
@@ -63,13 +63,7 @@ func chest_btn_clicked(loc,item):
 	inventory.update_inventory()
 
 func mouse_in_btn(loc : int):
-	var itemData = world.get_item_data(currentChest.data[loc]["id"])
-	if itemData.has("name"):
-		var text = itemData["name"]
-		if itemData.has("desc"):
-			text += "\n" + itemData["desc"]
-		$"../ItemData".show()
-		$"../ItemData".text = text
+	$"../ItemData".display(currentChest.data[loc])
 
 func mouse_out_btn(_loc : int):
 	$"../ItemData".hide()

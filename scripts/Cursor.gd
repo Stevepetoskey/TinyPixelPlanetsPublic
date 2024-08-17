@@ -135,6 +135,8 @@ func _unhandled_input(_event):
 						$"../CanvasLayer/LineEditPopUp".pop_up(currentBlock,"Dev chest")
 					185:
 						$"../CanvasLayer/LineEditPopUp".pop_up(currentBlock,"Link block")
+					216:
+						inventory.inventoryToggle(false,true,"upgrade_table")
 			elif Input.is_action_just_pressed("build2") and wireIn.size() > 0:
 				if is_instance_valid(wireIn[0]):
 					wireIn[0].break_wire()
@@ -207,7 +209,10 @@ func tool_action(itemId : int, ref := 0) -> void:
 				if hardness <= 0:
 					world.build_event("Break",position / world.BLOCK_SIZE,currentLayer)
 				else:
-					$break/AnimationPlayer.speed_scale = (1 / float(hardness)) * itemSelect["speed"]
+					var speedModifier = itemSelect["speed"]
+					if get_item_upgrades(inventory.inventory[ref]).has("speed"):
+						speedModifier += get_item_upgrades(inventory.inventory[ref])["speed"] * max(1,itemSelect["speed"]/2.0)
+					$break/AnimationPlayer.speed_scale = (1 / float(hardness)) * speedModifier
 					$break/AnimationPlayer.play("break")
 					breaking = true
 		"Hoe":
@@ -218,6 +223,16 @@ func tool_action(itemId : int, ref := 0) -> void:
 				inventory.remove_amount_at_loc(ref,1)
 				player.health += itemSelect["regen"]
 				effects.floating_text(player.position, "+" + str(itemSelect["regen"]), Color.GREEN)
+
+func get_item_upgrades(itemData : Dictionary) -> Dictionary:
+	var upgrades : Dictionary
+	if itemData["data"].has("upgrades"):
+		for slot : String in itemData["data"]["upgrades"]:
+			if upgrades.has(itemData["data"]["upgrades"][slot]):
+				upgrades[itemData["data"]["upgrades"][slot]] += 1
+			else:
+				upgrades[itemData["data"]["upgrades"][slot]] = 1
+	return upgrades
 
 func stop_breaking():
 	breaking = false

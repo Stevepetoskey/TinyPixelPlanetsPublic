@@ -1,9 +1,10 @@
-TextureButton
 AnimationPlayer
 TextureRect
-Control
-RichTextLabel
+Button
 Timer
+RichTextLabel
+TextureButton
+Control
 HBoxContainer
 CPUParticles2D
 GridContainer
@@ -11,4 +12,3 @@ ScrollContainer
 CollisionShape2D
 Area2D
 Sprite2D
-Entity
