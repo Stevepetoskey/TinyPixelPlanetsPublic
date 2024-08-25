@@ -18,10 +18,11 @@ func display(data : Dictionary) -> void:
 		var displayText = itemData["name"]
 		if itemData.has("desc"):
 			displayText += "\n" + itemData["desc"]
-		if data["data"].has("upgrade") and world.upgrades.has(data["data"]["upgrade"]):
-			displayText += "\n[color=Palegoldenrod]" + world.upgrades[data["data"]["upgrade"]]["name"] + "[/color]"
-		if data["data"].has("upgrades"):
-			displayText += main.get_item_upgrade_text(data["data"])
+		if data.has("data"):
+			if data["data"].has("upgrade") and world.upgrades.has(data["data"]["upgrade"]):
+				displayText += "\n[color=Palegoldenrod]" + world.upgrades[data["data"]["upgrade"]]["name"] + "[/color]"
+			if data["data"].has("upgrades"):
+				displayText += main.get_item_upgrade_text(data["data"])
 		match itemData["type"]:
 			"Bucket":
 				displayText += "\n[color=darkorchid]Water level: " + str(data["data"]["water_level"]) + "[/color]"

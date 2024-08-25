@@ -46,13 +46,13 @@ func die():
 	effects.death_particles(position)
 	queue_free()
 
-func damage(hp):
+func damage(hp,knockback : float = 0):
 	if canDie and canDamage:
 		if !frozen and !poisoned:
 			modulate = Color("ff5959")
 		effects.floating_text(position, "-" + str(hp), Color.RED)
 		health -= hp
-		emit_signal("damaged")
+		emit_signal("damaged",knockback)
 		await get_tree().create_timer(0.5).timeout
 		if !frozen and !poisoned:
 			modulate = Global.lightColor

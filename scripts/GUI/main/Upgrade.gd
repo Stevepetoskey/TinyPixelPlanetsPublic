@@ -21,10 +21,10 @@ var typeUpgradeAmount = {
 @onready var main_slot_btn: TextureButton = $ItemHold/Mainslot
 
 var slots = {
-	"main":{"id":0,"amount":0,"data":{}},
-	"left":{"id":0,"amount":0,"data":{}},
-	"top":{"id":0,"amount":0,"data":{}},
-	"right":{"id":0,"amount":0,"data":{}}
+	"main":GlobalData.emptyItem.duplicate(true),
+	"left":GlobalData.emptyItem.duplicate(true),
+	"top":GlobalData.emptyItem.duplicate(true),
+	"right":GlobalData.emptyItem.duplicate(true)
 }
 
 func pop_up() -> void:
@@ -37,7 +37,7 @@ func clear() -> void:
 			var currentSlot = [left_slot,top_slot,right_slot][i]
 			currentSlot.get_node("Animation").play("RESET")
 		inventory.add_to_inventory(slots["main"]["id"],slots["main"]["amount"],true,slots["main"]["data"].duplicate(true))
-		slots["main"] = {"id":0,"amount":0,"data":{}}
+		slots["main"] = GlobalData.emptyItem.duplicate(true)
 	hide()
 	update_upgrade()
 
@@ -72,7 +72,7 @@ func upgrade_slot_pressed(slot : String) -> void:
 					update_upgrade()
 		elif slotData["id"] != 0:
 			inventory.add_to_inventory(slotData["id"],slotData["amount"],true,slotData["data"].duplicate(true))
-			slots[slot] = {"id":0,"amount":0,"data":{}}
+			slots[slot] = GlobalData.emptyItem.duplicate(true)
 			slotAnimation.play("unpower")
 			slots["main"]["data"]["upgrades"][slot] = ""
 			update_upgrade()
@@ -85,11 +85,11 @@ func _on_mainslot_pressed() -> void:
 			if slots["main"]["data"].has("upgrades"):
 				var itemUpgrades : Dictionary = slots["main"]["data"]["upgrades"]
 				for slot : String in itemUpgrades:
-					slots[slot] = {"id":0,"amount":0,"data":{}} if itemUpgrades[slot] == "" else {"id":215,"amount":1,"data":{"upgrade":itemUpgrades[slot]}}
+					slots[slot] = GlobalData.emptyItem.duplicate(true) if itemUpgrades[slot] == "" else {"id":215,"amount":1,"data":{"upgrade":itemUpgrades[slot]}}
 			else:
 				slots["main"]["data"]["upgrades"] = {"left":"","top":"","right":""}
 				for slot : String in ["left","top","right"]:
-					slots[slot] = {"id":0,"amount":0,"data":{}}
+					slots[slot] = GlobalData.emptyItem.duplicate(true)
 			for slot in [left_slot,top_slot,right_slot]:
 				slot.hide()
 			update_upgrade()
@@ -108,7 +108,7 @@ func _on_mainslot_pressed() -> void:
 			else:
 				currentSlot.hide()
 		inventory.add_to_inventory(slots["main"]["id"],slots["main"]["amount"],true,slots["main"]["data"].duplicate(true))
-		slots["main"] = {"id":0,"amount":0,"data":{}}
+		slots["main"] = GlobalData.emptyItem.duplicate(true)
 		update_upgrade()
 
 func update_upgrade() -> void:

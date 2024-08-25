@@ -11,3 +11,5 @@ var armor_buffs : Dictionary = {
 }
 
 var autoSaveTimes : Array = [0,300,900,2700,3600,7200]
+
+var emptyItem : Dictionary = {"id":0,"amount":0,"data":{}}

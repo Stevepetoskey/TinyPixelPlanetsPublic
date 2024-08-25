@@ -31,7 +31,7 @@ func _ready():
 
 func _process(delta):
 	$CanvasLayer/FPS.text = str(Engine.get_frames_per_second())
-	$weather.position = $Player/Camera2D.global_position - Vector2(142,120)
+	$weather.position = $Player/PlayerCamera.global_position - Vector2(142,120)
 
 func toggle_wire_visibility(toggle : bool):
 	$World/Wires.visible = toggle

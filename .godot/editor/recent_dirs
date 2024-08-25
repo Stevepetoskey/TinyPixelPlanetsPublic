@@ -1,12 +1,14 @@
-res://scripts/GUI/main
-res://scripts/global
 res://scripts/enemies
+res://scripts
+res://scripts/GUI/main
+res://scripts/blocks
+res://shaders
+res://noise
+res://scripts/global
 res://assets/GUI
 res://assets/entities
-res://scripts/blocks
 res://scenes/tools
 res://scripts/tools
-res://noise
 res://textures/blocks/misc
 res://assets/blocks
 res://scripts/misc
@@ -18,5 +20,3 @@ res://textures/icons
 res://textures/planets
 res://scripts/enemies/Slorg
 res://scripts/GUI
-res://shaders
-res://fonts

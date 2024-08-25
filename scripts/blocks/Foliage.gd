@@ -21,7 +21,11 @@ func _ready() -> void:
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
 			position.x += 0.5
 			position.y -= 23
-		6,7,160:
+		6,7,218:
+			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
+			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
+			$Sprite2D.texture = load({6:"res://textures/blocks/flower1.png",7:"res://textures/blocks/flower2.png",218:"res://textures/blocks/blue_mud_flower.png"}[id])
+		160,220:
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
 		76:
@@ -36,11 +40,11 @@ func _ready() -> void:
 		85:
 			$Sprite2D.texture = load("res://textures/blocks/exotic_sapling.png")
 			$check.start(randf_range(120,600))
-		121,122,123:
+		121,122,123,221:
 			position.y -= 3
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
-			var plant = {121:"wheat",122:"tomato",123:"corn"}[id]
+			var plant = {121:"wheat",122:"tomato",123:"corn",221:"coffee"}[id]
 			if data.has("tick_wait"):
 				$Sprite2D.texture = load("res://textures/blocks/plants/"+ plant +"/" + plant + "_stage_" + str(data["plant_stage"]) + ".png")
 				if data["plant_stage"] < 3:
@@ -76,6 +80,10 @@ func _ready() -> void:
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
 			position.y -= 4
+		217:
+			var topBlock = world.get_block_id(pos-Vector2(0,1),layer)
+			if [0].has(topBlock):
+				world.build_event("Break", pos, layer)
 
 func world_loaded():
 	on_update()
@@ -87,7 +95,7 @@ func on_update():
 				var bottomBlock = world.get_block_id(pos+Vector2(0,1),layer)
 				if !world.blockData[id]["can_place_on"].has(bottomBlock):
 					world.build_event("Break", pos, layer)
-			121,122,123:
+			121,122,123,221:
 				var bottomBlock = world.get_block(pos+Vector2(0,1),layer)
 				if bottomBlock == null:
 					world.build_event("Break", pos, layer)
@@ -100,19 +108,23 @@ func on_update():
 				var bottomBlock = world.get_block_id(pos+Vector2(0,1),layer)
 				if ![1,2].has(bottomBlock):
 					world.build_event("Break", pos, layer)
+			217:
+				var topBlock = world.get_block_id(pos-Vector2(0,1),layer)
+				if [0].has(topBlock):
+					world.build_event("Break", pos, layer)
 
 func get_sides(blockId : int) -> Dictionary:
 	return {"left":world.get_block_id(pos - Vector2(1,0),layer) == blockId,"right":world.get_block_id(pos + Vector2(1,0),layer) == blockId,"top":world.get_block_id(pos - Vector2(0,1),layer) == blockId,"bottom":world.get_block_id(pos + Vector2(0,1),layer) == blockId,"rightTop":world.get_block_id(pos + Vector2(1,-1),layer) == blockId,"leftTop":world.get_block_id(pos - Vector2(1,1),layer) == blockId,"bottomRight":world.get_block_id(pos + Vector2(1,1),layer) == blockId}
 
 func _on_Tick_timeout():
 	match id:
-		121,122,123:
+		121,122,123,221:
 			data["tick_wait"] -= 1
 			if data["tick_wait"] <= 0:
 				data["plant_stage"] += 1
 				world.set_block(pos+Vector2(0,1),layer,119)
 				$Tick.stop()
-				var plant = {121:"wheat",122:"tomato",123:"corn"}[id]
+				var plant = {121:"wheat",122:"tomato",123:"corn",221:"coffee"}[id]
 				$Sprite2D.texture = load("res://textures/blocks/plants/"+ plant+"/"+ plant+"_stage_" + str(data["plant_stage"]) + ".png")
 
 func _on_VisibilityNotifier2D_screen_entered():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=249 format=3 uid="uid://2c07adgn0vow"]
+[gd_scene load_steps=255 format=3 uid="uid://2c07adgn0vow"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c3rmyuwb7gd3m" path="res://textures/enviroment/sky.png" id="2"]
@@ -27,13 +27,9 @@
 [ext_resource type="Texture2D" uid="uid://dcwvytn78prs5" path="res://textures/GUI/main/hotbar/go_up_btn_hover.png" id="23_54wbw"]
 [ext_resource type="Texture2D" uid="uid://cg77ke3bvhhcj" path="res://textures/GUI/space/v_bar_handle_select.png" id="24"]
 [ext_resource type="Script" path="res://scripts/ArmorSlot.gd" id="25"]
-[ext_resource type="AudioStream" uid="uid://05eoqqltljlt" path="res://Audio/sfx/Ambience/mixkit-spring-forest-with-woodpeckers-1217.wav" id="26"]
-[ext_resource type="AudioStream" uid="uid://dmwt0ndwo6ccl" path="res://Audio/sfx/Ambience/mixkit-summer-crickets-loop-1788.ogg" id="27"]
-[ext_resource type="AudioStream" uid="uid://cjrqnidt14f0o" path="res://Audio/sfx/Ambience/mixkit-wind-in-the-forest-loop-1233.ogg" id="28"]
 [ext_resource type="AudioStream" uid="uid://kld8ru3vf0hc" path="res://Audio/sfx/Game/collect_item.ogg" id="29"]
 [ext_resource type="AudioStream" uid="uid://ilj5mfs024wp" path="res://Audio/sfx/GUI/inventory.ogg" id="30"]
 [ext_resource type="AudioStream" uid="uid://cmcadcgiyfugn" path="res://Audio/sfx/GUI/equip.ogg" id="31"]
-[ext_resource type="AudioStream" uid="uid://38w8ka0n5aut" path="res://Audio/sfx/Ambience/mixkit-blizzard-cold-winds-1153.ogg" id="32"]
 [ext_resource type="Texture2D" uid="uid://chpgk1wfbx8v2" path="res://textures/GUI/main/hotbar/k.png" id="33"]
 [ext_resource type="Texture2D" uid="uid://dro6l7qprs4d3" path="res://textures/GUI/main/hotbar/j.png" id="34"]
 [ext_resource type="Script" path="res://scripts/Main.gd" id="35"]
@@ -116,17 +112,25 @@
 [ext_resource type="Texture2D" uid="uid://c3wxj8ma11bxt" path="res://textures/GUI/main/upgrade/animations/left_item_slot_sheet.png" id="79_hj1c0"]
 [ext_resource type="Texture2D" uid="uid://bb4hsafmlev5c" path="res://textures/GUI/main/shop/shop_bg.png" id="80"]
 [ext_resource type="Texture2D" uid="uid://cju88cr22c0na" path="res://textures/GUI/main/upgrade/animations/top_item_slot_sheet.png" id="80_wujuo"]
-[ext_resource type="AudioStream" uid="uid://cjeky6rbgpg1r" path="res://Audio/sfx/Ambience/mixkit-sea-waves-loop-1196.wav" id="81"]
 [ext_resource type="Texture2D" uid="uid://djh8v1682610f" path="res://textures/GUI/main/upgrade/animations/right_item_slot_sheet.png" id="81_3oc2h"]
 [ext_resource type="Texture2D" uid="uid://c0uyc414d20xr" path="res://textures/items/upgrade_module.png" id="81_e54nj"]
 [ext_resource type="Texture2D" uid="uid://bqdiir8v4ncnx" path="res://textures/NPCs/faces/lily_cheerful.png" id="82"]
 [ext_resource type="AudioStream" uid="uid://duo4t1cbibbxx" path="res://Audio/sfx/Ambience/mixkit-light-rain-loop-1253.wav" id="83"]
+[ext_resource type="Script" path="res://scripts/GUI/main/music_player.gd" id="83_plk3y"]
+[ext_resource type="Texture2D" uid="uid://mnwx0jdd62pr" path="res://textures/GUI/main/music_player/music_player_bg.png" id="84_4fai7"]
+[ext_resource type="Texture2D" uid="uid://b6kxe5q4pgwpk" path="res://textures/GUI/main/music_player/slot.png" id="85_35fx5"]
 [ext_resource type="Script" path="res://scripts/GUI/Shop.gd" id="86"]
+[ext_resource type="Texture2D" uid="uid://dyamq4dw8xo88" path="res://textures/GUI/main/music_player/slot_hover.png" id="86_r0iqa"]
 [ext_resource type="Texture2D" uid="uid://yt38gkuyx7oq" path="res://textures/GUI/main/shop/tab_selected.png" id="87"]
+[ext_resource type="Texture2D" uid="uid://iges7aepbyai" path="res://textures/items/music_chip_alpha_andromedae.png" id="87_cghyt"]
 [ext_resource type="Texture2D" uid="uid://bc3ncctygtmi" path="res://textures/GUI/main/shop/tab.png" id="88"]
 [ext_resource type="Texture2D" uid="uid://0kw3pswgl7ra" path="res://textures/GUI/main/effects/no_oxygen.png" id="98_obupc"]
 [ext_resource type="Texture2D" uid="uid://jubrgfwjnpsj" path="res://textures/GUI/main/effects/fire.png" id="99_nicjf"]
 [ext_resource type="Texture2D" uid="uid://bh35fik5wk5y4" path="res://textures/GUI/main/effects/frozen.png" id="100_xdqdj"]
+[ext_resource type="Script" path="res://scripts/GUI/main/slider_pop_up.gd" id="104_kln4w"]
+[ext_resource type="FastNoiseLite" uid="uid://c5g6yqr51sbl6" path="res://noise/Cave.tres" id="110_3l8vn"]
+[ext_resource type="Script" path="res://scripts/player_camera.gd" id="124_kgcw1"]
+[ext_resource type="AudioStream" uid="uid://i51amw3y2qy6" path="res://Audio/sfx/Ambience/The2.mp3" id="125_7ahbp"]
 
 [sub_resource type="VisualShaderNodeFloatOp" id="67"]
 output_port_for_preview = 0
@@ -1194,6 +1198,11 @@ _data = {
 "unpower": SubResource("Animation_i1rtu")
 }
 
+[sub_resource type="LabelSettings" id="LabelSettings_c7ud0"]
+font_color = Color(0.117647, 0.0784314, 0.137255, 1)
+outline_size = 3
+outline_color = Color(0.760784, 0.780392, 0.788235, 1)
+
 [sub_resource type="Animation" id="11"]
 length = 0.001
 tracks/0/type = "value"
@@ -1486,6 +1495,9 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="121"]
 size = Vector2(8, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8j75d"]
+radius = 100.0
 
 [sub_resource type="Environment" id="32"]
 background_mode = 4
@@ -4227,6 +4239,89 @@ libraries = {
 "": SubResource("AnimationLibrary_6c7h1")
 }
 
+[node name="MusicPlayer" type="Control" parent="CanvasLayer"]
+visible = false
+custom_minimum_size = Vector2(116, 141)
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("12_23g2f")
+script = ExtResource("83_plk3y")
+
+[node name="BG" type="TextureRect" parent="CanvasLayer/MusicPlayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("84_4fai7")
+stretch_mode = 3
+
+[node name="Title" type="Label" parent="CanvasLayer/MusicPlayer"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 114.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
+theme_override_colors/font_outline_color = Color(0.231373, 0.290196, 0.482353, 1)
+text = "Music Player"
+label_settings = SubResource("LabelSettings_c7ud0")
+horizontal_alignment = 1
+
+[node name="MusicChipSlot" type="TextureButton" parent="CanvasLayer/MusicPlayer"]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 38.0
+offset_right = 65.0
+offset_bottom = 52.0
+texture_normal = ExtResource("85_35fx5")
+texture_hover = ExtResource("86_r0iqa")
+
+[node name="ItemTexture" type="TextureRect" parent="CanvasLayer/MusicPlayer/MusicChipSlot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("87_cghyt")
+stretch_mode = 3
+
+[node name="Data" type="ScrollContainer" parent="CanvasLayer/MusicPlayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 77.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MusicPlayer/Data"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleLbl" type="Label" parent="CanvasLayer/MusicPlayer/Data/VBoxContainer"]
+layout_mode = 2
+text = "Alpha Andromedae"
+horizontal_alignment = 1
+
+[node name="ByLbl" type="Label" parent="CanvasLayer/MusicPlayer/Data/VBoxContainer"]
+layout_mode = 2
+text = "The_Mad_duck"
+horizontal_alignment = 1
+
 [node name="SignEdit" type="Panel" parent="CanvasLayer"]
 visible = false
 custom_minimum_size = Vector2(180, 110)
@@ -4631,7 +4726,7 @@ layout_mode = 0
 offset_left = 4.0
 offset_top = 13.0
 offset_right = 119.0
-offset_bottom = 85.0
+offset_bottom = 69.0
 theme_override_constants/separation = 6
 
 [node name="GroupLbl" type="Label" parent="CanvasLayer/LineEditPopUp/VBoxContainer"]
@@ -4642,8 +4737,62 @@ horizontal_alignment = 1
 [node name="GroupEdit" type="LineEdit" parent="CanvasLayer/LineEditPopUp/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "h"
 
 [node name="SaveBtn" type="Button" parent="CanvasLayer/LineEditPopUp/VBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="SliderPopUp" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.5
+offset_top = -32.5
+offset_right = 61.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("60_dyqfb")
+script = ExtResource("104_kln4w")
+
+[node name="TitleLbl" type="Label" parent="CanvasLayer/SliderPopUp"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 13.0
+grow_horizontal = 2
+text = "Timer Block"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SliderPopUp"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 13.0
+offset_right = 119.0
+offset_bottom = 69.0
+theme_override_constants/separation = 6
+
+[node name="TimeLbl" type="Label" parent="CanvasLayer/SliderPopUp/VBoxContainer"]
+layout_mode = 2
+text = "Wait time: 60 seconds"
+horizontal_alignment = 1
+
+[node name="Slider" type="HSlider" parent="CanvasLayer/SliderPopUp/VBoxContainer"]
+layout_mode = 2
+min_value = 0.25
+max_value = 60.0
+step = 0.25
+value = 0.25
+
+[node name="SaveBtn" type="Button" parent="CanvasLayer/SliderPopUp/VBoxContainer"]
 layout_mode = 2
 text = "Save"
 
@@ -4810,6 +4959,7 @@ visible = false
 
 [node name="World" type="Node2D" parent="."]
 script = ExtResource("1")
+caveNoise = ExtResource("110_3l8vn")
 worldHeight = 30
 
 [node name="blocks" type="Node2D" parent="World"]
@@ -4872,11 +5022,12 @@ shape = SubResource("121")
 z_index = 2
 position = Vector2(30, -6)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="PlayerCamera" type="Camera2D" parent="Player"]
 offset = Vector2(0, -30)
 limit_left = 0
 limit_smoothed = true
 position_smoothing_enabled = true
+script = ExtResource("124_kgcw1")
 
 [node name="Light3D" type="PointLight2D" parent="Player"]
 visible = false
@@ -4891,31 +5042,30 @@ shadow_enabled = true
 texture = ExtResource("64")
 texture_scale = 2.0
 
+[node name="FocusArea" type="Area2D" parent="Player"]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/FocusArea"]
+shape = SubResource("CircleShape2D_8j75d")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("32")
 
 [node name="sfx" type="Node" parent="."]
 
-[node name="crickets" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource("27")
-volume_db = -35.0
-
-[node name="forest" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource("26")
-volume_db = -35.0
-
-[node name="wind" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource("28")
-volume_db = -35.0
-
-[node name="winterWind" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource("32")
-
-[node name="Ocean" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource("81")
-
 [node name="Rain" type="AudioStreamPlayer" parent="sfx"]
 stream = ExtResource("83")
+
+[node name="DaySound" type="AudioStreamPlayer" parent="sfx"]
+
+[node name="NightSound" type="AudioStreamPlayer" parent="sfx"]
+
+[node name="ConstantSound" type="AudioStreamPlayer" parent="sfx"]
+
+[node name="The" type="AudioStreamPlayer" parent="sfx"]
+stream = ExtResource("125_7ahbp")
+volume_db = -10.0
 
 [node name="Entities" type="Node2D" parent="."]
 script = ExtResource("43")
@@ -4970,6 +5120,9 @@ script = ExtResource("47")
 [connection signal="pressed" from="CanvasLayer/Shop/TabBar/SellTab" to="CanvasLayer/Shop" method="_on_SellTab_pressed"]
 [connection signal="timeout" from="CanvasLayer/Shop/TextTimer" to="CanvasLayer/Shop" method="_on_text_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Upgrade/ItemHold/Mainslot" to="CanvasLayer/Upgrade" method="_on_mainslot_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MusicPlayer/MusicChipSlot" to="CanvasLayer/MusicPlayer" method="_on_music_chip_slot_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/MusicPlayer/MusicChipSlot" to="CanvasLayer/MusicPlayer" method="_on_music_chip_slot_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/MusicPlayer/MusicChipSlot" to="CanvasLayer/MusicPlayer" method="_on_music_chip_slot_pressed"]
 [connection signal="text_changed" from="CanvasLayer/SignEdit/TextEdit" to="CanvasLayer/SignEdit" method="_on_text_edit_text_changed"]
 [connection signal="pressed" from="CanvasLayer/SignEdit/HBoxContainer/ModeBtn" to="CanvasLayer/SignEdit" method="_on_mode_btn_pressed"]
 [connection signal="value_changed" from="CanvasLayer/SignEdit/HBoxContainer/RadiusInt" to="CanvasLayer/SignEdit" method="_on_radius_int_value_changed"]
@@ -4985,6 +5138,8 @@ script = ExtResource("47")
 [connection signal="pressed" from="CanvasLayer/StructureSaveEdit/SaveBtn" to="CanvasLayer/StructureSaveEdit" method="_on_save_btn_pressed"]
 [connection signal="text_changed" from="CanvasLayer/LineEditPopUp/VBoxContainer/GroupEdit" to="CanvasLayer/LineEditPopUp" method="_on_group_edit_text_changed"]
 [connection signal="pressed" from="CanvasLayer/LineEditPopUp/VBoxContainer/SaveBtn" to="CanvasLayer/LineEditPopUp" method="_on_save_btn_pressed"]
+[connection signal="value_changed" from="CanvasLayer/SliderPopUp/VBoxContainer/Slider" to="CanvasLayer/SliderPopUp" method="_on_slider_value_changed"]
+[connection signal="pressed" from="CanvasLayer/SliderPopUp/VBoxContainer/SaveBtn" to="CanvasLayer/SliderPopUp" method="_on_save_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Respawn" to="CanvasLayer/Dead" method="_on_Respawn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Quit" to="CanvasLayer/Dead" method="_on_Quit_pressed"]
 [connection signal="text_changed" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_text_changed"]
@@ -5000,5 +5155,7 @@ script = ExtResource("47")
 [connection signal="animation_finished" from="Cursor/break/AnimationPlayer" to="Cursor" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="Cursor/ShopTest" to="Cursor" method="_on_ShopTest_body_entered"]
 [connection signal="body_exited" from="Cursor/ShopTest" to="Cursor" method="_on_ShopTest_body_exited"]
+[connection signal="area_entered" from="Player/FocusArea" to="Player/PlayerCamera" method="_on_focus_area_area_entered"]
+[connection signal="area_exited" from="Player/FocusArea" to="Player/PlayerCamera" method="_on_focus_area_area_exited"]
 [connection signal="timeout" from="Entities/Spawn" to="Entities" method="_on_Spawn_timeout"]
 [connection signal="timeout" from="weather/WeatherTimer" to="." method="_on_WeatherTimer_timeout"]

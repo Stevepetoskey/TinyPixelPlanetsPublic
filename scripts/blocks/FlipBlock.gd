@@ -27,6 +27,7 @@ func _ready():
 		$Sprite2D.texture = FLIP_TEXTURE[false]
 	else:
 		$Sprite2D.texture = FLIP_TEXTURE[data["flipped"]]
+	print(data)
 	if !data.has("reset"):
 		data["reset"] = true
 	pos = position / world.BLOCK_SIZE
@@ -38,20 +39,21 @@ func input_called(inputPin : String,value,wire : TextureRect):
 	calculate()
 
 func calculate(inputValues := [],ignoreTick := false):
-	if inputValues.is_empty():
-		inputValues = inputs["I1"].values()
-	if !calculating or ignoreTick:
-		calculating = true
-		await get_tree().create_timer(0.02).timeout
-		if data["reset"] and inputValues.has(true):
-			data["reset"] = false
-			data["flipped"] = !data["flipped"]
-			$Sprite2D.texture = FLIP_TEXTURE[data["flipped"]]
-		elif !inputValues.has(true):
-			data["reset"] = true
-		data["last_input"] = inputs["I1"].values()
-		emit_signal("output","O1",data["flipped"])
-		calculating = false
+	if world.worldLoaded:
+		if inputValues.is_empty():
+			inputValues = inputs["I1"].values()
+		if !calculating or ignoreTick:
+			calculating = true
+			await get_tree().create_timer(0.02).timeout
+			if data["reset"] and inputValues.has(true):
+				data["reset"] = false
+				data["flipped"] = !data["flipped"]
+				$Sprite2D.texture = FLIP_TEXTURE[data["flipped"]]
+			elif !inputValues.has(true):
+				data["reset"] = true
+			data["last_input"] = inputs["I1"].values()
+			emit_signal("output","O1",data["flipped"])
+			calculating = false
 
 func wire_broke(inputPin : String,wire : TextureRect):
 	inputs[inputPin].erase(wire)
@@ -77,6 +79,7 @@ func output_pressed(out : String) -> void:
 func world_loaded():
 	on_update()
 	if data.has("last_input"):
+		print("world loadied ig")
 		calculate(data["last_input"],true)
 
 func on_update():

@@ -59,3 +59,18 @@ This branch is for unstable development of TU5 (v0.5.0)
 - Fixed death particles not spreading
 - Fixed opening and closing shop gui quickly causing the shop keeper to speak gibberish.
 - Added autosave setting
+## TU5.7 (v0.5.0:7)
+- Added new music
+- Added moss
+- Caves now generate on mud planets
+- Moss can be found in mud planet caves
+- Added grassy mud stone and blue mud flowers which generate in mud planet caves
+- Alpha Andromedae is no longer a background track
+- Yellow and Purple flowers now drop an item (themselves)
+- Fixed mountain parallax layer not showing on snowy terra planets
+- Added snow flowers that generate on snow terra planets
+- Updated boot logo to match the new SP Possibilities logo
+- Added Mini transporter (Boss)
+- Added trinanium crystal
+- Added gold bricks
+- Added timer blocks

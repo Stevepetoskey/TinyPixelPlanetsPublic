@@ -1,12 +1,14 @@
 extends Node
 
 var musicPool = {
-	"regular":[preload("res://Audio/music/TinyPlanets.ogg"),preload("res://Audio/music/Alpha-Andromedae.ogg"),preload("res://Audio/music/Cosmic-Wonders.ogg"),preload("res://Audio/music/The-Edge-of-Time.ogg"),preload("res://Audio/music/Tiny-Systems.ogg")],
-	"space":[preload("res://Audio/music/Found.ogg"),preload("res://Audio/music/Lost_in_space.ogg")]
+	"regular":[preload("res://Audio/music/TinyPlanets.ogg"),preload("res://Audio/music/Cosmic-Wonders.ogg"),preload("res://Audio/music/The-Edge-of-Time.ogg"),preload("res://Audio/music/Tiny-Systems.ogg"),preload("res://Audio/music/Universe-Gears.ogg")],
+	"space":[preload("res://Audio/music/Found.ogg"),preload("res://Audio/music/Lost_in_space.ogg")],
+	"chip":{238:preload("res://Audio/music/Alpha-Andromedae.ogg"),239:preload("res://Audio/music/Past.ogg"),240:preload("res://Audio/music/Tinkering-Machine.ogg")}
 	}
 
 var mode = "menu"
 var currentMusic = "regular"
+var inBossFight : bool = false
 
 var musicRng = RandomNumberGenerator.new()
 
@@ -22,6 +24,11 @@ func update_volume():
 	if Global.settings["music"] == 0:
 		$Music.volume_db = -100
 
+func stop_music():
+	$Music.stop()
+	$Music/MusicTimer.stop()
+	$Music/MusicTimer.start(musicRng.randf_range(220,420))
+
 func update_music():
 	match mode:
 		"game":
@@ -29,7 +36,29 @@ func update_music():
 			$Music.play()
 			$Music/MusicTimer.start(musicRng.randf_range(220,420))
 		"menu":
+			inBossFight = false
 			$Music.stop()
+			$BossMusic.stop()
+
+func play_boss_music(startFrom : String = "") -> void:
+	inBossFight = true
+	print("playing boss music")
+	$Music.stop()
+	$Music/MusicTimer.stop()
+	$BossMusic.play()
+	if startFrom != "":
+		$BossMusic.set("parameters/switch_to_clip",startFrom)
+	else:
+		$BossMusic.set("parameters/switch_to_clip","")
+
+func stop_boss_music() -> void:
+	inBossFight = false
+	$BossMusic.stop()
+	$Music/MusicTimer.start(musicRng.randf_range(220,420))
+
+func transistion_boss_music(transTo : String) -> void:
+	print("Transistioning boss music")
+	$BossMusic.set("parameters/switch_to_clip",transTo)
 
 func change_mode(type : String):
 	if mode != type:

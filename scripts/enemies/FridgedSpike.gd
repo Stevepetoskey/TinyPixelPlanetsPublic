@@ -96,7 +96,7 @@ func _physics_process(delta):
 				move_and_slide()
 				motion = velocity
 
-func on_damaged() -> void:
+func on_damaged(_knockback : float) -> void:
 	canDamage = false
 	state = "stone"
 	spit_timer.stop()
@@ -127,7 +127,7 @@ func _on_spit_timer_timeout() -> void:
 		spitting = true
 		body_texture.play("Spit")
 		await get_tree().create_timer(0.75).timeout
-		entities.spawn_fridged_spit(position,position.angle_to_point(player.position))
+		entities.spawn_linear_spit(position,position.angle_to_point(player.position),"fridged_spit")
 		if !seePlayer:
 			spit_timer.stop()
 		spitting = false

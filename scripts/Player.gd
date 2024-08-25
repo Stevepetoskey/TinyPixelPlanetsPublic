@@ -20,8 +20,6 @@ const NO_PLATFORM = 1
 @onready var main: Node2D = $".."
 @onready var swing_timer: Timer = $SwingTimer
 
-var motion = Vector2(0,0)
-
 var type = "player"
 var coyote = true
 var timerOn = false
@@ -41,11 +39,12 @@ var jetpackLevel : int = 0
 var jetpackFuel : int = 0
 var usingJetpack : bool = false
 var movementModifier : int = 0
+var knockedBack : bool = false
 
 var dead = false
 var flipped = false
 
-var enemies = []
+var toAttack = []
 
 var maxHealth = 50
 var health = 50
@@ -112,11 +111,11 @@ func _physics_process(_delta):
 		#Collision modifiers
 		if Input.is_action_pressed("down"):
 			if !world.hasGravity:
-				motion.y = JUMPSPEED
+				velocity.y = JUMPSPEED
 			collision_mask = NO_PLATFORM
-			if checkAllBlocks(30) and motion.y == 0:
+			if checkAllBlocks(30) and velocity.y == 0:
 				coyote = false
-				motion.y = 10
+				velocity.y = 10
 		else:
 			collision_mask = DEFAULT_LAYER
 		
@@ -125,34 +124,34 @@ func _physics_process(_delta):
 		if checkAllBlocks(117): #Swimming movement
 			inWater = true
 			if !is_on_floor():
-				motion.y += GRAVITY/ 2.0
+				velocity.y += GRAVITY/ 2.0
 			
 			var speed = MAX_SPEED + movementModifier
 			if Input.is_action_pressed("sprint"):
 				speed = SPRINT_SPEED + movementModifier
 			
 			if Input.is_action_pressed("move_left"):
-				if motion.x > -speed:
-					motion.x -= ACCEL
+				if velocity.x > -speed:
+					velocity.x -= ACCEL
 				else:
-					motion.x = move_toward(motion.x,0,FRICTION / 2.0)
+					velocity.x = move_toward(velocity.x,0,FRICTION / 2.0)
 			elif Input.is_action_pressed("move_right"):
-				if motion.x < speed:
-					motion.x += ACCEL
+				if velocity.x < speed:
+					velocity.x += ACCEL
 				else:
-					motion.x = move_toward(motion.x,0,FRICTION / 2.0)
+					velocity.x = move_toward(velocity.x,0,FRICTION / 2.0)
 			else:
-				motion.x = move_toward(motion.x,0,FRICTION / 2.0)
+				velocity.x = move_toward(velocity.x,0,FRICTION / 2.0)
 			
 			if Input.is_action_pressed("jump"):
-				if motion.y > -speed:
-					motion.y -= ACCEL
+				if velocity.y > -speed:
+					velocity.y -= ACCEL
 			elif Input.is_action_pressed("down"):
-				if motion.y < speed:
-					motion.y += ACCEL
+				if velocity.y < speed:
+					velocity.y += ACCEL
 			if !swinging:
 				if is_on_floor() or (is_on_wall() and $Textures/AnimationPlayer.current_animation == "idle"):
-					if abs(motion.x) > 0:
+					if abs(velocity.x) > 0:
 						$Textures/AnimationPlayer.play("walk")
 					else:
 						$Textures/AnimationPlayer.play("idle")
@@ -165,54 +164,55 @@ func _physics_process(_delta):
 				speed = SPRINT_SPEED
 			
 			if Input.is_action_pressed("move_left"):
-				if motion.x > -speed:
-					motion.x -= ACCEL
+				if velocity.x > -speed:
+					velocity.x -= ACCEL
 				else:
-					motion.x = move_toward(motion.x,0,FRICTION / 2.0)
+					velocity.x = move_toward(velocity.x,0,FRICTION / 2.0)
 			elif Input.is_action_pressed("move_right"):
-				if motion.x < speed:
-					motion.x += ACCEL
+				if velocity.x < speed:
+					velocity.x += ACCEL
 				else:
-					motion.x = move_toward(motion.x,0,FRICTION / 2.0)
+					velocity.x = move_toward(velocity.x,0,FRICTION / 2.0)
 			else:
-				motion.x = move_toward(motion.x,0,FRICTION / 2.0)
+				velocity.x = move_toward(velocity.x,0,FRICTION / 2.0)
 			
 			if Input.is_action_pressed("jump"):
-				if motion.y > -speed:
-					motion.y -= ACCEL
+				if velocity.y > -speed:
+					velocity.y -= ACCEL
 				else:
-					motion.y = move_toward(motion.y,0,FRICTION / 2.0)
+					velocity.y = move_toward(velocity.y,0,FRICTION / 2.0)
 			elif Input.is_action_pressed("down"):
-				if motion.y < speed:
-					motion.y += ACCEL
+				if velocity.y < speed:
+					velocity.y += ACCEL
 				else:
-					motion.y = move_toward(motion.y,0,FRICTION / 2.0)
+					velocity.y = move_toward(velocity.y,0,FRICTION / 2.0)
 			else:
-				motion.y = move_toward(motion.y,0,FRICTION / 2.0)
+				velocity.y = move_toward(velocity.y,0,FRICTION / 2.0)
 			
 			if !swinging:
 				if is_on_floor():
-					if motion.x == 0:
+					if velocity.x == 0:
 						$Textures/AnimationPlayer.play("idle")
 					else:
 						$Textures/AnimationPlayer.play("walk")
 				else:
 					$Textures/AnimationPlayer.play("jump")
 		elif world.hasGravity: #Regular movement
+			$JetpackParticles.emitting = usingJetpack and jetpackFuel > 0
 			if inWater:
 				inWater = false
-				motion.y = -JUMPSPEED
+				velocity.y = -JUMPSPEED
 				jumping = true
-			if !is_on_floor():
+			if !is_on_floor() or knockedBack:
+				knockedBack = false
 				if jetpackFuel <= 0 or !usingJetpack:
 					if !coyote:
-						motion.y += GRAVITY
+						velocity.y += GRAVITY
 					elif !timerOn:
 						$coyoteTimer.start()
 						timerOn = true
 			else:
 				jetpackFuel = 0
-				motion.y = 0
 				jumping = false
 				coyote = true
 			
@@ -221,26 +221,26 @@ func _physics_process(_delta):
 				speed = SPRINT_SPEED + movementModifier
 			
 			if Input.is_action_pressed("move_left"):
-				if motion.x > -speed:
-					motion.x -= ACCEL
+				if velocity.x > -speed:
+					velocity.x -= ACCEL
 				else:
-					motion.x = move_toward(motion.x,0,FRICTION)
+					velocity.x = move_toward(velocity.x,0,FRICTION)
 			elif Input.is_action_pressed("move_right"):
-				if motion.x < speed:
-					motion.x += ACCEL
+				if velocity.x < speed:
+					velocity.x += ACCEL
 				else:
-					motion.x = move_toward(motion.x,0,FRICTION)
+					velocity.x = move_toward(velocity.x,0,FRICTION)
 			else:
-				motion.x = move_toward(motion.x,0,FRICTION)
+				velocity.x = move_toward(velocity.x,0,FRICTION)
 			
 			if !swinging:
-				if motion.x == 0:
+				if velocity.x == 0:
 					$Textures/AnimationPlayer.play("idle")
 				else:
 					$Textures/AnimationPlayer.play("walk")
 			if jetpackLevel <= 0:
 				if Input.is_action_just_pressed("jump") and !jumping:
-					motion.y = -JUMPSPEED
+					velocity.y = -JUMPSPEED
 					jumping = true
 			elif Input.is_action_pressed("jump"):
 				usingJetpack = true
@@ -249,46 +249,43 @@ func _physics_process(_delta):
 						jetpackFuel = 10 * [0,1,2.5,5][jetpackLevel]
 					else:
 						jetpackFuel -= 1
-					motion.y = -JUMPSPEED
+					velocity.y = -JUMPSPEED
 					jumping = true
 			else:
 				usingJetpack = false
 		else: # no gravity Movement
 			if inWater:
 				inWater = false
-				motion.y = -JUMPSPEED
+				velocity.y = -JUMPSPEED
 				jumping = true
-			if Input.is_action_pressed("jump") and motion.y > -MAX_SPEED:
-				motion.y -= ACCEL
-			elif Input.is_action_pressed("down") and motion.y < MAX_SPEED:
-				motion.y += ACCEL
-			if Input.is_action_pressed("move_left") and motion.x > -MAX_SPEED:
-				motion.x -= ACCEL
-			elif Input.is_action_pressed("move_right") and motion.x < MAX_SPEED:
-				motion.x += ACCEL
+			if Input.is_action_pressed("jump") and velocity.y > -MAX_SPEED:
+				velocity.y -= ACCEL
+			elif Input.is_action_pressed("down") and velocity.y < MAX_SPEED:
+				velocity.y += ACCEL
+			if Input.is_action_pressed("move_left") and velocity.x > -MAX_SPEED:
+				velocity.x -= ACCEL
+			elif Input.is_action_pressed("move_right") and velocity.x < MAX_SPEED:
+				velocity.x += ACCEL
 			elif is_on_floor():
-				motion.x = move_toward(motion.x,0,FRICTION)
+				velocity.x = move_toward(velocity.x,0,FRICTION)
 			if !swinging:
 				if is_on_floor():
-					if motion.x == 0:
+					if velocity.x == 0:
 						$Textures/AnimationPlayer.play("idle")
 					else:
 						$Textures/AnimationPlayer.play("walk")
 				else:
 					$Textures/AnimationPlayer.play("jump")
 		
-		if (get_global_mouse_position().x - position.x < 0 or motion.x < 0) and !motion.x > 0:
+		if (get_global_mouse_position().x - position.x < 0 or velocity.x < 0) and !velocity.x > 0:
 			$Textures.set_global_transform(Transform2D(Vector2(-1,0),Vector2(0,1),Vector2(position.x,position.y)))
 			flipped = true
-		elif get_global_mouse_position().x - position.x > 0 or motion.x > 0:
+		elif get_global_mouse_position().x - position.x > 0 or velocity.x > 0:
 			$Textures.set_global_transform(Transform2D(Vector2(1,0),Vector2(0,1),Vector2(position.x,position.y)))
 			flipped = false
-		
-		set_velocity(motion)
-		set_up_direction(Vector2(0,-1))
-		set_floor_stop_on_slope_enabled(true)
+		#set_up_direction(Vector2(0,-1))
+		#set_floor_stop_on_slope_enabled(true)
 		move_and_slide()
-		motion = velocity
 
 func swing(loc):
 	var item = inventory.inventory[loc]["id"]
@@ -304,26 +301,40 @@ func swing(loc):
 			swing_timer.start(world.itemData[item]["speed"])
 		swingingWith = item
 		if world.itemData[item]["type"] == "weapon":
-			for enemy in entities.get_node("Hold").get_children():
+			$WeaponRange/CollisionShape2D.shape.radius = world.itemData[swingingWith]["range"]
+			await get_tree().physics_frame
+			for enemy : CharacterBody2D in toAttack:
 				var space_state = get_world_2d().direct_space_state #Ray to make sure no blocks in the way
 				var params = PhysicsRayQueryParameters2D.create(position,enemy.position,1,[self])
 				var result = space_state.intersect_ray(params)
-				if result.is_empty() and position.distance_to(enemy.position) < world.itemData[swingingWith]["range"] and sign(enemy.position.x - position.x) == sign(get_global_mouse_position().x - position.x):
-					var dmg = world.itemData[swingingWith]["dmg"]
-					var upgrades : Dictionary = get_item_upgrades(inventory.inventory[loc])
-					if upgrades.has("damage"):
-						dmg += upgrades["damage"] * 2
-					enemy.damage(dmg)
-					if upgrades.has("poison"):
-						enemy.poison(6,upgrades["poison"])
+				if result.is_empty() and sign(enemy.position.x - position.x) == sign(get_global_mouse_position().x - position.x):
+					match enemy.type:
+						"trinanium_charge":
+							print("sending em back")
+							print("old dir: ",enemy.direction)
+							enemy.update_direction(position.angle_to_point(enemy.position))
+							print("new dir: ",enemy.direction)
+						_:
+							var dmg = world.itemData[swingingWith]["dmg"]
+							var upgrades : Dictionary = get_item_upgrades(inventory.inventory[loc])
+							if upgrades.has("damage"):
+								dmg += upgrades["damage"] * 2
+							enemy.damage(dmg)
+							if upgrades.has("poison"):
+								enemy.poison(6,upgrades["poison"])
+			$WeaponRange/CollisionShape2D.shape.radius = 1
 
-func damage(dmg,enemyLevel = 1):
+func damage(dmg,enemyLevel : int = 1,knockback : float = 0.0):
 	if !dead and !Global.pause:
 		if !frozen and !poisoned:
 			modulate = Color("ff5959")
 		var totalDmg = int(round(dmg * max(1-(defPoints/(enemyLevel*25.0)),0)))
 		effects.floating_text(position, "-" + str(totalDmg), Color.RED)
 		health -= totalDmg
+		print(knockback)
+		knockedBack = true
+		velocity.x += knockback
+		velocity.y -= abs(knockback)
 		await get_tree().create_timer(0.5).timeout
 		if health < 0:
 			die()
@@ -378,12 +389,15 @@ func _on_blockTest_body_exited(body):
 
 func get_item_upgrades(itemData : Dictionary) -> Dictionary:
 	var upgrades : Dictionary
-	if itemData["data"].has("upgrades"):
-		for slot : String in itemData["data"]["upgrades"]:
-			if upgrades.has(itemData["data"]["upgrades"][slot]):
-				upgrades[itemData["data"]["upgrades"][slot]] += 1
-			else:
-				upgrades[itemData["data"]["upgrades"][slot]] = 1
+	if itemData.has("data"):
+		if itemData["data"].has("upgrades"):
+			for slot : String in itemData["data"]["upgrades"]:
+				if upgrades.has(itemData["data"]["upgrades"][slot]):
+					upgrades[itemData["data"]["upgrades"][slot]] += 1
+				else:
+					upgrades[itemData["data"]["upgrades"][slot]] = 1
+	else:
+		itemData["data"] = {}
 	return upgrades
 
 func _on_Armor_updated_armor(armorData):
@@ -394,6 +408,7 @@ func _on_Armor_updated_armor(armorData):
 		var wearing = {"pants":0,"shirt":0,"boots":0,"headwear":0}
 		defPoints = 0
 		movementModifier = 0
+		maxOxygen = 50
 		for armorType in armorData:
 			if !armorData[armorType].is_empty():
 				var id = armorData[armorType]["id"]
@@ -413,6 +428,8 @@ func _on_Armor_updated_armor(armorData):
 					display[set[armorType]] = load("res://textures/player/" + files[id]["folder"]+ "/" + files[id]["file"])
 					if ["Leggings","Pants"].has(armorType) and get_item_upgrades(armorData[armorType]).has("movement_speed"):
 						movementModifier += get_item_upgrades(armorData[armorType])["movement_speed"] * 2
+					elif ["Hat","Helmet"].has(armorType) and get_item_upgrades(armorData[armorType]).has("oxygen"):
+						maxOxygen += get_item_upgrades(armorData[armorType])["oxygen"] * 50
 				else:
 					if get_item_upgrades(armorData[armorType]).has("jetpack"):
 						jetpackLevel = get_item_upgrades(armorData[armorType])["jetpack"]
@@ -458,21 +475,24 @@ func _on_Armor_updated_armor(armorData):
 			canBreath = false
 		$"../CanvasLayer/Warnings/NoOxygen".visible = !canBreath
 		$"../CanvasLayer/Warnings/NoOxygen".modulate = Color.WHITE if currentBuff != "air_tight" else Color(1,1,1,0.5)
-		match StarSystem.find_planet_id(Global.currentPlanet).type["type"]:
-			"scorched":
-				currentTemp = 1
-				$"../CanvasLayer/Warnings/Fire".show()
-				$"../CanvasLayer/Warnings/Frozen".hide()
-				$"../CanvasLayer/Warnings/Fire".modulate = Color.WHITE if currentBuff != "heat_resistance" else Color(1,1,1,0.5)
-			"fridged":
-				currentTemp = -1
-				$"../CanvasLayer/Warnings/Frozen".show()
-				$"../CanvasLayer/Warnings/Fire".hide()
-				$"../CanvasLayer/Warnings/Frozen".modulate = Color.WHITE if currentBuff != "cold_resistance" else Color(1,1,1,0.5)
-			_:
-				currentTemp = 0
-				$"../CanvasLayer/Warnings/Fire".hide()
-				$"../CanvasLayer/Warnings/Frozen".hide()
+		if is_instance_valid(StarSystem.find_planet_id(Global.currentPlanet)):
+			match StarSystem.find_planet_id(Global.currentPlanet).type["type"]:
+				"scorched":
+					currentTemp = 1
+					$"../CanvasLayer/Warnings/Fire".show()
+					$"../CanvasLayer/Warnings/Frozen".hide()
+					$"../CanvasLayer/Warnings/Fire".modulate = Color.WHITE if currentBuff != "heat_resistance" else Color(1,1,1,0.5)
+				"fridged":
+					currentTemp = -1
+					$"../CanvasLayer/Warnings/Frozen".show()
+					$"../CanvasLayer/Warnings/Fire".hide()
+					$"../CanvasLayer/Warnings/Frozen".modulate = Color.WHITE if currentBuff != "cold_resistance" else Color(1,1,1,0.5)
+				_:
+					currentTemp = 0
+					$"../CanvasLayer/Warnings/Fire".hide()
+					$"../CanvasLayer/Warnings/Frozen".hide()
+		else:
+			currentTemp = 0
 		armorBuff = currentBuff
 
 func _on_AnimationPlayer_animation_finished(anim_name):
@@ -509,3 +529,11 @@ func _on_tick_timeout() -> void:
 
 func _on_swing_timer_timeout() -> void:
 	swinging = false
+
+func _on_weapon_range_area_entered(area: Area2D) -> void:
+	if !toAttack.has(area.get_parent()):
+		toAttack.append(area.get_parent())
+
+func _on_weapon_range_area_exited(area: Area2D) -> void:
+	if toAttack.has(area.get_parent()):
+		toAttack.erase(area.get_parent())

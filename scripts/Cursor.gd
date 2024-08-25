@@ -11,6 +11,7 @@ var REACH = 5
 @onready var sign_edit: Panel = $"../CanvasLayer/SignEdit"
 @onready var main: Node2D = $".."
 @onready var wire_hold: Node2D = $"../World/Wires"
+@onready var entities: Node2D = $"../Entities"
 
 var canPlace = true
 var currentLayer = 1
@@ -105,7 +106,7 @@ func _unhandled_input(_event):
 					141:
 						inventory.inventoryToggle(false,true,"skips_stones")
 			elif canInteract and world.worldRules["interact_with_blocks"]["value"] and (Input.is_action_just_pressed("build") or Input.is_action_just_pressed("build2")):
-				var currentBlock = world.get_block(cursorPos,currentLayer)
+				var currentBlock : BaseBlock = world.get_block(cursorPos,currentLayer)
 				match currentBlock.id:
 					12,158:
 						inventory.inventoryToggle(false,true,"crafting_table")
@@ -137,6 +138,17 @@ func _unhandled_input(_event):
 						$"../CanvasLayer/LineEditPopUp".pop_up(currentBlock,"Link block")
 					216:
 						inventory.inventoryToggle(false,true,"upgrade_table")
+					241:
+						$"../CanvasLayer/MusicPlayer".currentMusicPlayer = currentBlock
+						inventory.inventoryToggle(false,true,"music_player")
+					243:
+						$"../CanvasLayer/SliderPopUp".pop_up(currentBlock)
+					244:
+						if currentBlock.pos == Vector2(94,55) and Global.currentSystemId + "_"+ str(Global.currentPlanet) == "2340163271682_1":
+							entities.summon_entity("mini_transporter",(currentBlock.pos+Vector2(0,2)) * 8)
+						else:
+							inventory.add_to_inventory(244,1)
+						world.set_block(currentBlock.pos, currentLayer, 0, true)
 			elif Input.is_action_just_pressed("build2") and wireIn.size() > 0:
 				if is_instance_valid(wireIn[0]):
 					wireIn[0].break_wire()

@@ -24,6 +24,7 @@ func _ready():
 	maxHealth = 20
 	if new:
 		health = 20
+	connect("damaged",on_damaged)
 
 func _physics_process(delta):
 	if !Global.pause:
@@ -87,3 +88,6 @@ func _on_animation_player_animation_finished(anim_name: StringName) -> void:
 	match anim_name:
 		"seen":
 			state = "roam"
+
+func on_damaged(knockback : float) -> void:
+	motion.x += knockback

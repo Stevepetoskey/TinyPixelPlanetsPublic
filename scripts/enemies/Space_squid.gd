@@ -19,6 +19,7 @@ func _ready():
 	maxHealth = 50
 	if new:
 		health = 50
+	connect("damaged",on_damaged)
 
 func _physics_process(delta):
 	if !Global.pause:
@@ -79,3 +80,6 @@ func _on_AnimatedSprite_animation_finished() -> void:
 	match body.animation:
 		"thrust","hurt":
 			body.play("idle")
+
+func on_damaged(knockback : float) -> void:
+	motion.x += knockback

@@ -64,13 +64,29 @@ var recipes = {
 		{"recipe":[{"id":173,"amount":1}],"result":{"id":175,"amount":1}}, #Steel tiles
 		{"recipe":[{"id":173,"amount":6}],"result":{"id":172,"amount":1}}, #Steel door
 		{"recipe":[{"id":13,"amount":6}],"result":{"id":171,"amount":1}}, #Wood door
+		{"recipe":[{"id":126,"amount":1}],"result":{"id":222,"amount":2}}, #Red dye
+		{"recipe":[{"id":222,"amount":1},{"id":224,"amount":1}],"result":{"id":223,"amount":2}}, #Orange dye
+		{"recipe":[{"id":6,"amount":1}],"result":{"id":224,"amount":2}}, #Yellow dye
+		{"recipe":[{"id":224,"amount":1},{"id":226,"amount":1}],"result":{"id":225,"amount":2}}, #Yellow green dye
+		{"recipe":[{"id":217,"amount":1}],"result":{"id":226,"amount":2}}, #Green dye
+		{"recipe":[{"id":226,"amount":1},{"id":228,"amount":1}],"result":{"id":227,"amount":2}}, #Cyan dye
+		{"recipe":[{"id":218,"amount":1}],"result":{"id":228,"amount":2}}, #Blue dye
+		{"recipe":[{"id":222,"amount":1},{"id":228,"amount":1}],"result":{"id":229,"amount":2}}, #Purple dye
+		{"recipe":[{"id":7,"amount":1}],"result":{"id":230,"amount":2}}, #Pink dye
+		{"recipe":[{"id":222,"amount":1},{"id":232,"amount":1}],"result":{"id":231,"amount":2}}, #Maroon dye
+		{"recipe":[{"id":221,"amount":1}],"result":{"id":232,"amount":2}}, #Brown dye
+		{"recipe":[{"id":223,"amount":1},{"id":232,"amount":1}],"result":{"id":233,"amount":2}}, #Tan dye
+		{"recipe":[{"id":220,"amount":1}],"result":{"id":234,"amount":2}}, #White dye
+		{"recipe":[{"id":234,"amount":1},{"id":236,"amount":1}],"result":{"id":235,"amount":2}}, #Light gray dye
+		{"recipe":[{"id":234,"amount":1},{"id":237,"amount":1}],"result":{"id":236,"amount":2}}, #Gray dye
+		{"recipe":[{"id":52,"amount":1},{"id":222,"amount":1}],"result":{"id":166,"amount":2}}, #Red wire
 	],
 	"oven": [
 		{"recipe":[{"id":14,"amount":1}],"result":{"id":20,"amount":1}},
 		{"recipe":[{"id":18,"amount":1}],"result":{"id":17,"amount":1}},
 		{"recipe":[{"id":8,"amount":1}],"result":{"id":3,"amount":1}},
 		{"recipe":[{"id":25,"amount":1}],"result":{"id":26,"amount":1}},
-		{"recipe":[{"id":29,"amount":1}],"result":{"id":52,"amount":1}},
+		{"recipe":[{"id":29,"amount":1}],"result":{"id":52,"amount":1}}, # Copper
 		{"recipe":[{"id":55,"amount":1}],"result":{"id":56,"amount":1}},
 		{"recipe":[{"id":15,"amount":1}],"result":{"id":83,"amount":1}}, #Cracked stone bricks
 		{"recipe":[{"id":19,"amount":1}],"result":{"id":86,"amount":1}}, #Cracked mud bricks
@@ -83,6 +99,7 @@ var recipes = {
 		{"recipe":[{"id":153,"amount":1}],"result":{"id":165,"amount":1}}, #Iron (brown)
 		{"recipe":[{"id":192,"amount":1}],"result":{"id":193,"amount":1}}, #Gold (Sandstone)
 		{"recipe":[{"id":194,"amount":1}],"result":{"id":193,"amount":1}}, #Gold (Stone)
+		{"recipe":[{"id":5,"amount":2}],"result":{"id":237,"amount":1}}, #Black dye
 	],
 	"smithing_table": [
 		{"recipe":[{"id":52,"amount":6}],"result":{"id":88,"amount":1}}, #Copper block
@@ -93,6 +110,7 @@ var recipes = {
 		{"recipe":[{"id":88,"amount":4}],"result":{"id":134,"amount":4}}, #Copper bricks
 		{"recipe":[{"id":89,"amount":1}],"result":{"id":136,"amount":2}}, #Silver plate
 		{"recipe":[{"id":89,"amount":4}],"result":{"id":137,"amount":4}}, #Silver bricks
+		{"recipe":[{"id":195,"amount":4}],"result":{"id":245,"amount":4}}, #Gold bricks
 		{"recipe":[{"id":76,"amount":6}],"result":{"id":90,"amount":1}}, #Rhodonite block
 		{"recipe":[{"id":100,"amount":4}],"result":{"id":108,"amount":1}}, #Quartz block
 		{"recipe":[{"id":101,"amount":4}],"result":{"id":109,"amount":1}}, #Rose quartz block

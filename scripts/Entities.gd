@@ -10,6 +10,9 @@ var entities = {
 	"scorched_guard":preload("res://assets/enemies/ScorchedGuard.tscn"),
 	"fridged_spike":preload("res://assets/enemies/FridgedSpike.tscn"),
 	"fridged_spit":preload("res://assets/entities/fridged_spit.tscn"),
+	"mini_transporter":preload("res://assets/enemies/Transporter.tscn"),
+	"trinanium_charge":preload("res://assets/entities/trinanium_charge.tscn"),
+	"gold_spike":preload("res://assets/entities/gold_spike.tscn"),
 	}
 
 var loot = {
@@ -21,7 +24,10 @@ var loot = {
 	"magma_spit":[],
 	"scorched_guard":[{"id":191,"amount":[0,1]}],
 	"fridged_spike":[{"id":205,"amount":[0,1]}],
-	"fridged_spit":[]
+	"fridged_spit":[],
+	"mini_transporter":[],
+	"trinanium_charge":[],
+	"gold_spike":[]
 }
 
 var loaded = false
@@ -75,8 +81,8 @@ func spawn_spit(pos : Vector2, direction : float, distance : float) -> void:
 	newS.new = true
 	$Hold.add_child(newS)
 
-func spawn_fridged_spit(pos : Vector2, direction : float) -> void:
-	var newS = entities["fridged_spit"].instantiate()
+func spawn_linear_spit(pos : Vector2, direction : float, type : String) -> void:
+	var newS = entities[type].instantiate()
 	newS.position = pos
 	newS.direction = direction
 	newS.new = true

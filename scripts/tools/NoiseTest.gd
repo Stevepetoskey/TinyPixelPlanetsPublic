@@ -2,6 +2,7 @@ extends Node2D
 
 @export var worldSize = Vector2(128,64)
 @export var noise : Noise
+@export var caveNoise : Noise
 @export var noiseScale = 15
 @export var worldHeight = 20
 @export var asteroids : bool = false
@@ -12,7 +13,12 @@ var world : Dictionary = {}
 var img : Image
 
 func _ready() -> void:
-	Global.currentSave = "save2"
+	#Global.currentSave = "save2"
+	$Timer.start()
+	generate()
+
+func generate() -> void:
+	world.clear()
 	img = Image.create(worldSize.x,worldSize.y,false,Image.FORMAT_RGB8)
 	for x in range(worldSize.x):
 		for y in range(worldSize.y):
@@ -25,11 +31,10 @@ func _ready() -> void:
 				if y < height and y >= waterLevel:
 					set_block(Vector2(x,y),0,Color.BLUE)
 					set_block(Vector2(x,y),1,Color.BLUE)
-				elif y >= height:
+				elif y >= height and caveNoise.get_noise_2d(x,y) + min(0,(y-height-6)/4.0) < 0.35:
 					set_block(Vector2(x,y),0,Color.LIGHT_GRAY)
 					set_block(Vector2(x,y),1,Color.WHITE)
-	#generate_dungeon("scorched","boss_scorched",randi_range(15,30))
-	generate_dungeon("scorched","boss_scorched",randi_range(30,50))
+	#generate_dungeon("scorched","boss_scorched",randi_range(30,50))
 	for layer in range(2):
 		for x in range(worldSize.x):
 			for y in range(worldSize.y):
@@ -152,3 +157,6 @@ func generate_dungeon(dungeonGroup : String, startingPiece : String, dungeonSize
 				print("Chose room: ",chosenRoom["piece"]["file_name"])
 			else:
 				possibleRooms.erase(chosenRoom)
+
+func _on_timer_timeout() -> void:
+	generate()

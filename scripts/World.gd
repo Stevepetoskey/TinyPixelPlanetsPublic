@@ -4,7 +4,8 @@ const WIRE = preload("res://assets/blocks/wire.tscn")
 const BLOCK_SIZE = Vector2(8,8)
 
 @export var worldSize = Vector2(16,24)
-@export var worldNoise : FastNoiseLite
+@export var worldNoise : Noise
+@export var caveNoise : Noise
 @export var noiseScale : float = 15.0
 @export var worldHeight = 20
 @export var seaLevel : int = 50
@@ -32,7 +33,10 @@ var blockTypes = {
 	"door":preload("res://assets/blocks/Door.tscn"),
 	"ghost":preload("res://assets/blocks/GhostBlock.tscn"),
 	"button":preload("res://assets/blocks/Button.tscn"),
-	"spawner":preload("res://assets/blocks/Spawner.tscn")
+	"spawner":preload("res://assets/blocks/Spawner.tscn"),
+	"music_player":preload("res://assets/blocks/MusicPlayer.tscn"),
+	"spike":preload("res://assets/blocks/Spike.tscn"),
+	"timer_block":preload("res://assets/blocks/TimerBlock.tscn")
 }
 
 var currentPlanet : Object
@@ -42,9 +46,9 @@ var hasGravity = true
 
 var waterUpdateList = []
 
-var interactableBlocks = [12,16,28,91,145,158,159,167,169,171,176,185,186,189,216]
+var interactableBlocks = [12,16,28,91,145,158,159,167,169,171,176,185,186,189,216,241,243,244]
 var noCollisionBlocks = [0,6,7,9,11,30,117,167,121,122,123,128,142,143,145,155,156,167,168,169,170,171,172,187]
-var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,167,171,172,176,183,187,188,189,190,199,203,204]
+var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,167,171,172,176,183,187,188,189,190,199,203,204,217,218,219,220,242,244]
 
 var worldRules = {
 	"break_blocks":{"value":true,"type":"bool"},
@@ -155,8 +159,8 @@ var blockData = {
 	1:{"texture":preload("res://textures/blocks/grass_block.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":1,"amount":1}],"name":"Grass block","type":"block"},
 	2:{"texture":preload("res://textures/blocks/dirt.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":2,"amount":1}],"name":"Dirt","type":"simple"},
 	3:{"texture":preload("res://textures/blocks/stone.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":8,"amount":1}],"name":"Stone","type":"simple"},
-	6:{"texture":preload("res://textures/blocks/flower1.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Flower 1","can_place_on":[1,2,146,147],"type":"foliage"},
-	7:{"texture":preload("res://textures/blocks/flower2.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[],"name":"Flower 2","can_place_on":[1,2,146,147],"type":"foliage"},
+	6:{"texture":preload("res://textures/items/yellow_flower.png"),"hardness":0.1,"breakWith":"All","canHaverst":0,"drops":[{"id":6,"amount":1}],"name":"Yellow Flower","can_place_on":[1,2,146,147],"type":"foliage"},
+	7:{"texture":preload("res://textures/items/pink_flower.png"),"hardness":0.1,"breakWith":"All","canHaverst":0,"drops":[{"id":7,"amount":1}],"name":"Pink Flower","can_place_on":[1,2,146,147],"type":"foliage"},
 	8:{"texture":preload("res://textures/blocks/Cobble.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":8,"amount":1}],"name":"Cobble","type":"simple"},
 	9:{"texture":preload("res://textures/blocks/sapling.png"),"hardness":7,"breakWith":"Axe","canHaverst":1,"drops":[{"id":10,"amount":[3,6]},{"id":11,"amount":[0,3]}],"name":"Tree","type":"foliage"},
 	10:{"texture":preload("res://textures/blocks/log_front.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":10,"amount":1}],"name":"Log","type":"block"},
@@ -220,7 +224,7 @@ var blockData = {
 	122:{"texture":preload("res://textures/items/tomato_seeds.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":122,"amount":1}],"name":"Tomato seeds","can_place_on":[119,120],"type":"foliage"},
 	123:{"texture":preload("res://textures/items/corn_seeds.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":123,"amount":1}],"name":"Corn seeds","can_place_on":[119,120],"type":"foliage"},
 	124:{"texture":preload("res://textures/blocks/rhodonite_ore_stone.png"),"hardness":6,"breakWith":"Pickaxe","canHaverst":4,"drops":[{"id":74,"amount":1}],"name":"Rhodonite stone ore","type":"simple"},
-	128:{"texture":preload("res://textures/items/fig_tree.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":121,"amount":[0,1]},{"id":122,"amount":[0,1]},{"id":123,"amount":[0,1]}],"name":"Fig tree","can_place_on":[1,2],"type":"foliage"},
+	128:{"texture":preload("res://textures/items/fig_tree.png"),"hardness":0.1,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":121,"amount":[0,1]},{"id":122,"amount":[0,1]},{"id":123,"amount":[0,1]},{"id":221,"amount":[0,1]}],"name":"Fig tree","can_place_on":[1,2],"type":"foliage"},
 	133:{"texture":preload("res://textures/blocks/copper_plate.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":133,"amount":1}],"name":"Copper plate","type":"simple"},
 	134:{"texture":preload("res://textures/blocks/copper_bricks.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":134,"amount":1}],"name":"Copper bricks","type":"simple"},
 	135:{"texture":preload("res://textures/blocks/cracked_copper_bricks.png"),"hardness":4,"breakWith":"Pickaxe","canHaverst":2,"drops":[{"id":135,"amount":1}],"name":"Cracked copper bricks","type":"simple"},
@@ -290,6 +294,16 @@ var blockData = {
 	204:{"texture":preload("res://textures/blocks/permafrost_platform_full.png"),"hardness":2,"canHaverst":1,"drops":[{"id":204,"amount":1}],"name":"Permafrost platform","type":"platform"},
 	206:{"texture":preload("res://textures/blocks/fridged_spawner.png"),"hardness":6,"canHaverst":2,"drops":[],"name":"Fridged spawner","type":"spawner"},
 	216:{"texture":preload("res://textures/blocks/upgrade_table.png"),"hardness":5,"canHaverst":3,"drops":[{"id":216,"amount":1}],"name":"Upgrade table","type":"simple"},
+	217:{"texture":preload("res://textures/blocks/moss.png"),"hardness":0.1,"canHaverst":0,"drops":[{"id":217,"amount":1}],"name":"Moss","type":"foliage"},
+	218:{"texture":preload("res://textures/items/blue_mud_flower.png"),"hardness":0.1,"canHaverst":0,"drops":[{"id":218,"amount":1}],"name":"Blue mud flower","can_place_on":[1,2,146,147,219],"type":"foliage"},
+	219:{"texture":preload("res://textures/blocks/grassy_mud_stone.png"),"hardness":1.2,"canHaverst":1,"drops":[{"id":219,"amount":1}],"name":"Grassy mud stone","type":"simple"},
+	220:{"texture":preload("res://textures/blocks/snow_flower.png"),"hardness":0.1,"canHaverst":0,"drops":[{"id":220,"amount":1}],"name":"Snow flower","can_place_on":[1,2,21,24],"type":"foliage"},
+	221:{"texture":preload("res://textures/items/coffee_bean.png"),"hardness":0.1,"canHaverst":0,"drops":[{"id":221,"amount":1}],"name":"Coffee bean","can_place_on":[119,120],"type":"foliage"},
+	241:{"texture":preload("res://textures/blocks/music_player.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":241,"amount":1}],"name":"Music player","type":"music_player"},
+	242:{"texture":preload("res://textures/blocks/silver_spike_up.png"),"hardness":5,"canHaverst":3,"drops":[{"id":242,"amount":1}],"name":"Silver spike","type":"spike"},
+	243:{"texture":preload("res://textures/blocks/timer_block.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":243,"amount":1}],"name":"Timer block","type":"timer_block"},
+	244:{"texture":preload("res://textures/blocks/trinanium_crystal.png"),"hardness":5,"canHaverst":1,"drops":[{"id":244,"amount":1}],"name":"Trinanium crystal","type":"simple"},
+	245:{"texture":preload("res://textures/blocks/gold_bricks.png"),"hardness":5,"canHaverst":3,"drops":[{"id":245,"amount":1}],"name":"Gold bricks","type":"simple"},
 }
 
 var itemData = {
@@ -371,7 +385,25 @@ var itemData = {
 	213:{"texture":preload("res://textures/items/armor/fire_leggings.png"),"type":"armor","armor_data":{"armor_type":"pants","def":2,"speed":-1,"buff":[]},"name":"Fire leggings","desc":"[color=cornflowerblue]+2 Def\n-1 Speed[/color]\n[color=darkorchid]Heat resistance[/color]","stack_size":1},
 	214:{"texture":preload("res://textures/items/armor/fire_boots.png"),"type":"armor","armor_data":{"armor_type":"shoes","def":1,"speed":0,"buff":[]},"name":"Fire boots","desc":"[color=cornflowerblue]+1 Def\n+0 Speed[/color]\n[color=darkorchid]Heat resistance[/color]","stack_size":1},
 	215:{"texture":preload("res://textures/items/upgrade_module.png"),"type":"Item","name":"Upgrade module","stack_size":1,"starter_data":{"upgrade":"none"}},
-
+	222:{"texture":preload("res://textures/items/red_dye.png"),"type":"Item","name":"Red dye"},
+	223:{"texture":preload("res://textures/items/orange_dye.png"),"type":"Item","name":"Orange dye"},
+	224:{"texture":preload("res://textures/items/yellow_dye.png"),"type":"Item","name":"Yellow dye"},
+	225:{"texture":preload("res://textures/items/yellow_green_dye.png"),"type":"Item","name":"Yellow green dye"},
+	226:{"texture":preload("res://textures/items/green_dye.png"),"type":"Item","name":"Green dye"},
+	227:{"texture":preload("res://textures/items/cyan_dye.png"),"type":"Item","name":"Cyan dye"},
+	228:{"texture":preload("res://textures/items/blue_dye.png"),"type":"Item","name":"Blue dye"},
+	229:{"texture":preload("res://textures/items/purple_dye.png"),"type":"Item","name":"Purple dye"},
+	230:{"texture":preload("res://textures/items/pink_dye.png"),"type":"Item","name":"Pink dye"},
+	231:{"texture":preload("res://textures/items/maroon_dye.png"),"type":"Item","name":"Maroon dye"},
+	232:{"texture":preload("res://textures/items/brown_dye.png"),"type":"Item","name":"Brown dye"},
+	233:{"texture":preload("res://textures/items/tan_dye.png"),"type":"Item","name":"Tan dye"},
+	234:{"texture":preload("res://textures/items/white_dye.png"),"type":"Item","name":"White dye"},
+	235:{"texture":preload("res://textures/items/light_gray_dye.png"),"type":"Item","name":"Light gray dye"},
+	236:{"texture":preload("res://textures/items/gray_dye.png"),"type":"Item","name":"Gray dye"},
+	237:{"texture":preload("res://textures/items/black_dye.png"),"type":"Item","name":"Black dye"},
+	238:{"texture":preload("res://textures/items/music_chip_alpha_andromedae.png"),"type":"Item","name":"Music chip - Alpha Andromedae","stack_size":1},
+	239:{"texture":preload("res://textures/items/music_chip_past.png"),"type":"Item","name":"Music chip - Past","stack_size":1},
+	240:{"texture":preload("res://textures/items/music_chip_tinkering_machine.png"),"type":"Item","name":"Music chip - Tinkering Machine","stack_size":1},
 }
 
 var upgrades : Dictionary = { #upgrade:{
@@ -389,7 +421,8 @@ var upgrades : Dictionary = { #upgrade:{
 var fullGrownItemDrops = {
 	121:[{"id":121,"amount":[0,3]},{"id":125,"amount":[1,2]}],
 	122:[{"id":122,"amount":[0,3]},{"id":126,"amount":[1,2]}],
-	123:[{"id":123,"amount":[0,3]},{"id":127,"amount":[1,2]}]
+	123:[{"id":123,"amount":[0,3]},{"id":127,"amount":[1,2]}],
+	221:[{"id":221,"amount":[2,4]}]
 }
 
 signal update_blocks
@@ -415,8 +448,8 @@ func start_world():
 			worldSize = StarSystem.get_current_world_size()
 	$StaticBody2D/Right.position = Vector2(worldSize.x * BLOCK_SIZE.x + 2,(worldSize.y * BLOCK_SIZE.y) / 2)
 	$StaticBody2D/Right.shape.extents.y = (worldSize.y * BLOCK_SIZE.y) / 2
-	$"../Player/Camera2D".limit_right = worldSize.x * BLOCK_SIZE.x -4
-	$"../Player/Camera2D".limit_bottom = worldSize.y * BLOCK_SIZE.y + 24
+	$"../Player/PlayerCamera".limit_right = worldSize.x * BLOCK_SIZE.x -4
+	$"../Player/PlayerCamera".limit_bottom = worldSize.y * BLOCK_SIZE.y + 24
 	$StaticBody2D/Left.shape.extents.y = (worldSize.y * BLOCK_SIZE.y) / 2
 	$StaticBody2D/Left.position.y = (worldSize.y * BLOCK_SIZE.y) / 2 - 8
 	$StaticBody2D/Bottom.shape.extents.y = (worldSize.x * BLOCK_SIZE.x) / 2
@@ -466,6 +499,7 @@ func generateWorld(worldType : String):
 	seed(worldSeed)
 	worldNoise = generationData[worldType]["noise"]
 	worldNoise.seed = worldSeed
+	caveNoise.seed = worldSeed
 	noiseScale = generationData[worldType]["noise_scale"]
 	worldHeight = generationData[worldType]["world_height"]
 	if generationData[worldType].has("water_level"):
@@ -574,13 +608,36 @@ func generateWorld(worldType : String):
 					if height > worldSize.y - 4:
 						height = worldSize.y - 4
 					var pos = Vector2(x,y)
-					if y >= height and y < height+randi()%2+1:
-						set_block_all(pos,18)
-					elif y > height and y < height+4:
-						set_block_all(pos,17)
-					elif y >= height+4 and y < worldSize.y-1:
-						set_block_all(pos,3)
-					elif y == worldSize.y-1:
+					if caveNoise.get_noise_3d(x,y,2) + min(0,(y-height-6)/4.0) < 0.35:
+						if caveNoise.get_noise_3d(x,y,2) + min(0,(y-height-6)/4.0) < 0.25:
+							if y >= height and y < height+randi()%2+1:
+								set_block_all(pos,18)
+							elif y > height and y < height+4:
+								set_block_all(pos,17)
+							elif y >= height+4 and y < worldSize.y-1:
+								set_block_all(pos,3)
+						else:
+							if get_block_id(pos - Vector2(0,1),1) == 0 and randi_range(0,2) <2:
+								set_block(pos,1,219)
+								if randi_range(0,1) == 1:
+									set_block(pos - Vector2(0,1),1,218)
+							else:
+								set_block_all(pos,17)
+					elif y > height and randi_range(0,1) == 1:
+						set_block(pos,1,217)
+					if caveNoise.get_noise_3d(x,y,-5) + min(0,(y-height-6)/4.0) < 0.35:
+						if caveNoise.get_noise_3d(x,y,2) + min(0,(y-height-6)/4.0) < 0.25:
+							if y >= height and y < height+randi()%2+1:
+								set_block(pos,0,18)
+							elif y > height and y < height+4:
+								set_block(pos,0,17)
+							elif y >= height+4 and y < worldSize.y-1:
+								set_block(pos,0,3)
+						else:
+							set_block(pos,0,17)
+					elif y > height and randi_range(0,1) == 1:
+						set_block(pos,0,217)
+					if y == worldSize.y-1:
 						set_block_all(pos,144)
 		"snow":
 			for x in range(worldSize.x):
@@ -616,8 +673,11 @@ func generateWorld(worldType : String):
 					var pos = Vector2(x,y)
 					if y == height:
 						set_block_all(pos,24)
-						if get_block(pos - Vector2(0,2),1) == null and randi() % 5 == 1:
-							set_block(pos - Vector2(0,1),1,9)
+						if get_block(pos - Vector2(0,2),1) == null:
+							if randi() % 5 == 1:
+								set_block(pos - Vector2(0,1),1,9)
+							elif randi() % 7 == 1:
+								set_block(pos - Vector2(0,1),1,220)
 					elif y > height and y < height+3:
 						set_block_all(pos,2)
 					elif y >= height+3 and y < worldSize.y-1:
@@ -1091,9 +1151,10 @@ func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction 
 				inventory.remove_id_from_inventory(id,1)
 	elif action == "Break" and get_block(pos,layer) != null:
 		var block = get_block(pos,layer).id
-		if block == 91:
-			for item in get_block(pos,layer).data:
-				entities.spawn_item({"id":item["id"],"amount":item["amount"],"data":item["data"]},false,pos*BLOCK_SIZE)
+		match block:
+			91:
+				for item in get_block(pos,layer).data:
+					entities.spawn_item({"id":item["id"],"amount":item["amount"],"data":item["data"]},false,pos*BLOCK_SIZE)
 		if itemAction and !Global.godmode:
 			var itemsToDrop = blockData[block]["drops"]
 			match block:

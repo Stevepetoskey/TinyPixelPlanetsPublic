@@ -26,91 +26,73 @@ var lightColorDict = {}
 @export var defualtColor = Color.WHITE
 @export var nightColor = Color(0.43,0.39,0.49)
 
-@onready var sky = get_node("../ParallaxBackground/SkyLayer/sky")
-
-var oldTime = -1.0
+@onready var skyTexture = get_node("../ParallaxBackground/SkyLayer/sky")
+@onready var sky: Node2D = $"../ParallaxBackground2/Sky"
+var oldTime = -9999.0
 var active = false
+
+@onready var daySound: AudioStreamPlayer = $"../../sfx/DaySound"
+@onready var nightSound: AudioStreamPlayer = $"../../sfx/NightSound"
+@onready var constantSound: AudioStreamPlayer = $"../../sfx/ConstantSound"
 
 func _process(delta):
 	if active:
-		var time = get_node("../ParallaxBackground2/Sky").get_day_light()
-		var TOD = get_node("../ParallaxBackground2/Sky").get_day_type()
-		if time != oldTime:
-			get_node("../ParallaxBackground2/Sky").set_atmosphere(time*1)
-			if time == 1.0:
-				change_sounds(-5,0,-1000)
+		var time = sky.get_day_light()
+		var TOD = sky.get_day_type()
+		match TOD:
+			"day":
+				set_sounds(true,false)
+				daySound.volume_db = -10
 				Global.lightColor = lightColorDict.DAY
-				sky.modulate = skyColorDict.DAY
-				sky.show()
-			elif time == -1.0:
-				change_sounds(-1000,-1000,-15)
+				skyTexture.modulate = skyColorDict.DAY
+				skyTexture.show()
+			"night":
+				set_sounds(false,true)
+				nightSound.volume_db = -10
 				Global.lightColor = lightColorDict.NIGHT
-				sky.modulate = skyColorDict.NIGHT * Color(1,1,1,0)
-				sky.hide()
-			elif TOD =="sunset":
-				sky.show()
-				change_sounds(lerp(-5,-35,1-time),lerp(0,-35,1-time),lerp(-50,-15,1-time))
+				skyTexture.modulate = skyColorDict.NIGHT * Color(1,1,1,0)
+				skyTexture.hide()
+			"sunset":
+				set_sounds(true,true)
+				daySound.volume_db = lerp(-80,-10,time)
+				nightSound.volume_db = lerp(-10,-80,time)
+				skyTexture.show()
 				if time >= 0.5:
-					sky.modulate = lerp(skyColorDict.DAY,skyColorDict.SUNSET,1-(time-0.5)*2.0)
+					skyTexture.modulate = lerp(skyColorDict.DAY,skyColorDict.SUNSET,1-(time-0.5)*2.0)
 					Global.lightColor = lerp(lightColorDict.DAY,lightColorDict.SUNSET,1-(time-0.5)*2.0)
 				else:
-					sky.modulate = lerp(skyColorDict.SUNSET,skyColorDict.NIGHT * Color(1,1,1,0),1-(time*2.0))
+					skyTexture.modulate = lerp(skyColorDict.SUNSET,skyColorDict.NIGHT * Color(1,1,1,0),1-(time*2.0))
 					Global.lightColor = lerp(lightColorDict.SUNSET,lightColorDict.NIGHT,1-(time*2.0))
-			else:
-				change_sounds(lerp(-5,-35,1-time),lerp(0,-35,1-time),lerp(-50,-15,1-time))
-				sky.show()
+			"sunrise":
+				set_sounds(true,true)
+				daySound.volume_db = lerp(-80,-10,time)
+				nightSound.volume_db = lerp(-10,-80,time)
+				skyTexture.show()
 				if time <= 0.5:
 					Global.lightColor = lerp(lightColorDict.NIGHT,lightColorDict.SUNRISE,time*2.0)
-					sky.modulate = lerp(skyColorDict.NIGHT * Color(1,1,1,0),skyColorDict.SUNRISE,time*2.0)
+					skyTexture.modulate = lerp(skyColorDict.NIGHT * Color(1,1,1,0),skyColorDict.SUNRISE,time*2.0)
 				else:
 					Global.lightColor = lerp(lightColorDict.SUNRISE,lightColorDict.DAY,(time-.5)*2.0)
-					sky.modulate = lerp(skyColorDict.SUNRISE,skyColorDict.DAY,(time-.5)*2.0)
-			
-			$back.modulate = Global.lightColor
-			$front.modulate = Global.lightColor
-			$"../ParallaxBackground2/StormLayer".modulate = Global.lightColor
-			$"../../weather/Rain".modulate = Global.lightColor
-			$"../../weather/Snow".modulate = Global.lightColor
-			get_node("../../World/blocks").modulate = Global.lightColor
-			get_node("../../Player").modulate = Global.lightColor
-			get_node("../../Entities").modulate = Global.lightColor
+					skyTexture.modulate = lerp(skyColorDict.SUNRISE,skyColorDict.DAY,(time-.5)*2.0)
+		$back.modulate = Global.lightColor
+		$front.modulate = Global.lightColor
+		$"../ParallaxBackground2/StormLayer".modulate = Global.lightColor
+		$"../../weather/Rain".modulate = Global.lightColor
+		$"../../weather/Snow".modulate = Global.lightColor
+		get_node("../../World/blocks").modulate = Global.lightColor
+		get_node("../../Player").modulate = Global.lightColor
+		get_node("../../Entities").modulate = Global.lightColor
 		oldTime = time
 
-func change_sounds(volume1 : int,volume2 = -1000, volume3 = -1000) -> void:
-	match StarSystem.find_planet_id(Global.currentPlanet).type["type"]:
-		"terra":
-			if volume1 == -1000:
-				get_node("../../sfx/forest").stop()
-			else:
-				if !get_node("../../sfx/forest").playing:
-					get_node("../../sfx/forest").play()
-				get_node("../../sfx/forest").volume_db = volume1
-			if volume2 == -1000:
-				get_node("../../sfx/wind").stop()
-			else:
-				if !get_node("../../sfx/wind").playing:
-					get_node("../../sfx/wind").play()
-				get_node("../../sfx/wind").volume_db = volume2
-			if volume3 == -1000:
-				get_node("../../sfx/crickets").stop()
-			else:
-				if !get_node("../../sfx/crickets").playing:
-					get_node("../../sfx/crickets").play()
-				get_node("../../sfx/crickets").volume_db = volume3
-		"snow_terra","snow":
-			if volume1 == -1000:
-				get_node("../../sfx/winterWind").stop()
-			else:
-				if !get_node("../../sfx/winterWind").playing:
-					get_node("../../sfx/winterWind").play()
-				get_node("../../sfx/winterWind").volume_db = volume1
-		"ocean":
-			if volume1 == -1000:
-				$"../../sfx/Ocean".stop()
-			else:
-				if !$"../../sfx/Ocean".playing:
-					$"../../sfx/Ocean".play()
-				$"../../sfx/Ocean".volume_db = volume1
+func set_sounds(day : bool, night : bool) -> void:
+	if day and !daySound.playing:
+		daySound.play()
+	elif !day:
+		daySound.stop()
+	if night and !nightSound.playing:
+		nightSound.play()
+	elif !night:
+		nightSound.stop()
 
 func set_background(type : String):
 	match type:
@@ -142,10 +124,12 @@ func _on_World_world_loaded():
 	active = true
 	match StarSystem.find_planet_id(Global.currentPlanet).type["type"]:
 		"terra":
-			get_node("../../sfx/crickets").play()
-			get_node("../../sfx/forest").play()
-			get_node("../../sfx/wind").play()
+			daySound.stream = load("res://Audio/sfx/Ambience/mixkit-spring-forest-with-woodpeckers-1217.wav")
+			nightSound.stream = load("res://Audio/sfx/Ambience/mixkit-summer-crickets-loop-1788.ogg")
+			constantSound.stream = load("res://Audio/sfx/Ambience/mixkit-wind-in-the-forest-loop-1233.ogg")
+			constantSound.volume_db = -15
+			constantSound.play()
 		"snow_terra","snow":
-			get_node("../../sfx/winterWind").play()
+			daySound.stream = load("res://Audio/sfx/Ambience/mixkit-blizzard-cold-winds-1153.ogg")
 		"ocean":
-			$"../../sfx/Ocean".play()
+			daySound.stream = load("res://Audio/sfx/Ambience/mixkit-sea-waves-loop-1196.wav")

@@ -21,6 +21,7 @@ const ITEM_STACK_SIZE = 99
 @onready var shop: Control = $"../Shop"
 @onready var godmode: Control = $"../Godmode"
 @onready var upgrade: Control = $"../Upgrade"
+@onready var music_player: Control = $"../MusicPlayer"
 
 #{"id":int,"amount":int,"data":dictionary}
 var inventory : Array = []
@@ -273,6 +274,7 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 			shop.hide()
 			godmode.hide()
 			upgrade.clear()
+			music_player.hide()
 		"inventory","crafting_table","oven","smithing_table":
 			if !Global.godmode or mode != "inventory":
 				crafting.visible = setValue
@@ -281,6 +283,8 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 				godmode.pop_up(setValue)
 		"upgrade_table":
 			upgrade.pop_up()
+		"music_player":
+			music_player.pop_up()
 		"chest":
 			print("hide chest: ",setValue)
 			chest.visible = setValue

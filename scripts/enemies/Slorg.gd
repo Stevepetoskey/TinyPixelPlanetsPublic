@@ -16,6 +16,7 @@ var inAir = false
 @onready var body: AnimatedSprite2D = $Body
 
 func _ready():
+	connect("damaged",on_damaged)
 	maxHealth = 10
 	if new:
 		health = 10
@@ -121,3 +122,6 @@ func _on_HurtTimer_timeout():
 
 func _on_HitBox_body_exited(body):
 	$HurtTimer.stop()
+
+func on_damaged(knockback : float) -> void:
+	motion.x += knockback

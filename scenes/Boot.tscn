@@ -1,13 +1,13 @@
 [gd_scene load_steps=15 format=3 uid="uid://dhodwvt3h0pjb"]
 
 [ext_resource type="Texture2D" uid="uid://ccauc7twchxbh" path="res://textures/GUI/Menu/SPLogoTrinanium.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://c0hsrod1f3knr" path="res://textures/GUI/Menu/SPLogoPosibilities.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://bghwnru4rsyf" path="res://textures/GUI/Menu/clouds_mid.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://bw10j887nvuj4" path="res://textures/GUI/Menu/logoSky.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://dudi8m5q1mumg" path="res://textures/GUI/Menu/clouds_back.png" id="5"]
 [ext_resource type="Texture2D" uid="uid://maw0gdwbwa7p" path="res://textures/GUI/Menu/clouds_front.png" id="6"]
 [ext_resource type="Script" path="res://scripts/boot/Boot.gd" id="7"]
 [ext_resource type="Texture2D" uid="uid://docmqdn1y13fp" path="res://textures/GUI/Blank.png" id="8"]
+[ext_resource type="Texture2D" uid="uid://ddterm3eu5n8o" path="res://textures/GUI/Menu/shine.png" id="8_l5iov"]
 [ext_resource type="Texture2D" uid="uid://42ht6fsfva3r" path="res://textures/GUI/Menu/SPLogoCoreR.png" id="9"]
 
 [sub_resource type="Animation" id="1"]
@@ -51,38 +51,50 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("logo:modulate")
+tracks/3/path = NodePath("Core:scale")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Vector2(1, 1)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("Core:scale")
+tracks/4/path = NodePath("Core:texture")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [ExtResource("1")]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("Core:texture")
+tracks/5/path = NodePath("Core/SubViewportContainer/SubViewport/Sprite2D:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ExtResource("1")]
+"values": [Vector2(0, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Core/SubViewportContainer:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="2"]
@@ -96,61 +108,74 @@ tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
+"transitions": PackedFloat32Array(0.500001, 5.27803),
 "update": 0,
 "values": [Vector2(0, -160), Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="4"]
 resource_name = "fadeIn"
-length = 0.6
+length = 3.0
+step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("logo:modulate")
+tracks/0/path = NodePath("CanvasLayer/blank:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer/blank:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(5, 5, 5, 1), Color(1, 1, 1, 0)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Core:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Core:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.3, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(1, 1), Vector2(2, 2), Vector2(1, 1)]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Core:texture")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Core:texture")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [ExtResource("1"), ExtResource("9")]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Core/SubViewportContainer/SubViewport/Sprite2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(1.5, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(128, 128)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Core/SubViewportContainer:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="3"]
@@ -247,12 +272,26 @@ stretch_mode = 1
 position = Vector2(0, -160)
 
 [node name="Core" type="Sprite2D" parent="."]
+clip_children = 2
 texture = ExtResource("1")
 
-[node name="logo" type="Sprite2D" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Core"]
 visible = false
-modulate = Color(1, 1, 1, 0)
-texture = ExtResource("2")
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+
+[node name="SubViewport" type="SubViewport" parent="Core/SubViewportContainer"]
+transparent_bg = true
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+size = Vector2i(128, 128)
+render_target_update_mode = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="Core/SubViewportContainer/SubViewport"]
+rotation = 1.5708
+texture = ExtResource("8_l5iov")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
