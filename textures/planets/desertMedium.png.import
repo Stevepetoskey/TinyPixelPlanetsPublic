@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dqf4raeij36ws"
 path.s3tc="res://.godot/imported/desertMedium.png-3a2430ac5738aa73cb3b4c07483de115.s3tc.ctex"
+path.etc2="res://.godot/imported/desertMedium.png-3a2430ac5738aa73cb3b4c07483de115.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://textures/planets/desertMedium.png"
-dest_files=["res://.godot/imported/desertMedium.png-3a2430ac5738aa73cb3b4c07483de115.s3tc.ctex"]
+dest_files=["res://.godot/imported/desertMedium.png-3a2430ac5738aa73cb3b4c07483de115.s3tc.ctex", "res://.godot/imported/desertMedium.png-3a2430ac5738aa73cb3b4c07483de115.etc2.ctex"]
 
 [params]
 

@@ -310,7 +310,7 @@ offset_right = 89.0
 offset_bottom = 48.0
 theme = SubResource("22")
 scroll_horizontal = 67
-scroll_vertical = 128
+scroll_vertical = 100
 
 [node name="Control" type="Control" parent="AchievementMenu/ScrollContainer"]
 custom_minimum_size = Vector2(300, 300)

@@ -1,11 +1,11 @@
 [gd_scene load_steps=84 format=3 uid="uid://cishymc2t8s6j"]
 
 [ext_resource type="Theme" uid="uid://b02uwgbscq35l" path="res://themes/menu.tres" id="1_02jqt"]
-[ext_resource type="Texture2D" uid="uid://b7hykydguok1o" path="res://textures/GUI/Menu/TinyPixelTitle.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://c7fk7e4eo8qeg" path="res://textures/enviroment/space-2.png" id="3_1cnr8"]
 [ext_resource type="Texture2D" uid="uid://j3emyaxoa1jb" path="res://textures/enviroment/stars.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://c8m06gj7j6205" path="res://textures/GUI/Menu/planets/terra.png" id="5_edpud"]
 [ext_resource type="Script" path="res://scripts/menu/Menu.gd" id="6"]
+[ext_resource type="Texture2D" uid="uid://dar8x8nwlfl61" path="res://textures/GUI/Menu/NewTPPTitle.png" id="6_qgxn3"]
 [ext_resource type="Texture2D" uid="uid://5wtu4ovitgpf" path="res://textures/GUI/Menu/btns/settings.png" id="7_e52x4"]
 [ext_resource type="Texture2D" uid="uid://docmqdn1y13fp" path="res://textures/GUI/Blank.png" id="8"]
 [ext_resource type="Texture2D" uid="uid://dtafj6tkre8mq" path="res://textures/GUI/Menu/btns/settings_pressed.png" id="8_0o8l7"]
@@ -366,7 +366,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1, 1.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(46, 32), Vector2(46, 32), Vector2(46, 0)]
+"values": [Vector2(46, -16), Vector2(46, -16), Vector2(46, -52)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -605,7 +605,8 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Title" type="TextureRect" parent="Main"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -614,7 +615,9 @@ offset_left = -142.0
 offset_top = -64.0
 offset_right = 50.0
 offset_bottom = 128.0
-texture = ExtResource("3")
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_qgxn3")
 expand_mode = 1
 stretch_mode = 6
 
