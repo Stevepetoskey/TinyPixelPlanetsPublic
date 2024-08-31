@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 			move_and_slide()
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
-	if body.type != "fridged_spike":
+	if body.type != "frigid_spike":
 		body.damage(2)
 		body.freeze(1)
 		queue_free()

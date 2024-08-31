@@ -94,13 +94,13 @@ particles_anim_loop = false
 offsets = PackedFloat32Array(0.635417, 1)
 colors = PackedColorArray(0.827451, 0.937255, 1, 1, 0.639216, 1, 1, 0)
 
-[node name="FridgedSpike" type="CharacterBody2D" groups=["enemy"]]
+[node name="FrigidSpike" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
 collision_layer = 8
 script = ExtResource("1_335ag")
 hostile = true
 bluesDropRange = [5, 12]
-type = "fridged_spike"
+type = "frigid_spike"
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_e8phb")

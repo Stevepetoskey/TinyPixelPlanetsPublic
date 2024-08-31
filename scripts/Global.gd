@@ -1,7 +1,7 @@
 extends Node
 
-const CURRENTVER = "TU5 Beta 7 (v0.5.0:7)"
-const VER_NUMS = [0,5,0,7]
+const CURRENTVER = "TU5 (v0.5.0)"
+const VER_NUMS = [0,5,0,0]
 const ALLOW_VERSIONS = [
 	[0,4,1,0],
 	[0,4,2,0],
@@ -10,11 +10,12 @@ const ALLOW_VERSIONS = [
 	[0,5,0,4],
 	[0,5,0,5],
 	[0,5,0,6],
-	[0,5,0,7]
+	[0,5,0,7],
+	[0,5,0,0]
 ]
 #Incompatable versions:
 #[0,4,0,8] and [0,4,0,0] (as of TU4.1). Reason: Updated to godot 4
-const STABLE = false
+const STABLE = true
 
 var save_path = "user://" #place of the file
 var currentSave : String
@@ -57,6 +58,8 @@ var gamerulesBase = {
 	"custom_world_file":"",
 	"custom_generation":"",
 	"can_respawn":true,
+	"difficulty":"normal",
+	"start_with_godmode":false,
 }
 var gamerules = {}
 
@@ -177,10 +180,16 @@ func open_save(saveId : String) -> void:
 		new_save(saveId)
 	currentSave = saveId
 
+func teleport_to_planet(systemId : String, planet : int) -> void:
+	currentPlanet = planet
+	playerData["save_type"] = "planet"
+	StarSystem.systemDat = load_system(systemId)
+	StarSystem.load_system(false,true)
+
 func new_save(saveId : String):
 	playerData.clear()
-	godmode = false
-	gamerules = gamerulesBase.duplicate(true)
+	gamerules.merge(gamerulesBase.duplicate(true))
+	godmode = gamerules["start_with_godmode"]
 	bookmarks = default_bookmarks.duplicate(true)
 	meteorsAttacked = false
 	inTutorial = false
@@ -262,7 +271,7 @@ func save(saveType : String, saveData : Dictionary) -> void:
 	playerData["bookmarks"] = bookmarks
 	match saveType:
 		"planet":
-			playerData = saveData["player"]
+			playerData.merge(saveData["player"],true)
 			playerData["gamerules"] = gamerules
 			playerData["scenario"] = scenario
 			playerData["player_name"] = playerName

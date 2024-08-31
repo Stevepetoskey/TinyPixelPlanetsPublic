@@ -15,8 +15,6 @@ func _ready():
 	pos = position / world.BLOCK_SIZE
 	world.connect("update_blocks", Callable(self, "on_update"))
 	world.connect("world_loaded", Callable(self, "world_loaded"))
-	
-	collision_layer = 32
 	$Sprite2D.modulate = Color("#93ccfebb")
 	update_water_texture()
 

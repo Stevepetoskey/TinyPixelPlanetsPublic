@@ -74,3 +74,17 @@ This branch is for unstable development of TU5 (v0.5.0)
 - Added trinanium crystal
 - Added gold bricks
 - Added timer blocks
+## TU5.8 FINAL (v0.5.0:8)
+- Added death animation to the mini transporter
+- Added endgame locator
+- Endgame locators can be used to teleport to the endgame planet
+- Added the endgame planet as a new premade planet
+- Added stellar pig that only spawns on snowy terra planets and drops wool
+- Added wools in 14 different colors
+- Added wool work table
+- Coat armor is now craftable using wool
+- Fire armor is now craftable
+- Fixed other entities being able to pick up items for the player
+- Added ability to change between godmode and survival when creating a save
+- Added difficulties (easy, normal, and hard)
+- Added background for frigid planets

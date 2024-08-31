@@ -83,7 +83,7 @@ func _ready() -> void:
 		217:
 			var topBlock = world.get_block_id(pos-Vector2(0,1),layer)
 			if [0].has(topBlock):
-				world.build_event("Break", pos, layer)
+				world.build_event("Break", pos, layer,0,world.worldLoaded)
 
 func world_loaded():
 	on_update()

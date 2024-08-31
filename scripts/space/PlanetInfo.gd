@@ -25,7 +25,7 @@ func pop_up(planet : Area2D = null):
 	match planetRef.type["type"]:
 		"scorched":
 			text += "[color=firebrick]Extreme heat[/color]"
-		"fridged":
+		"frigid":
 			text += "[color=skyblue]Extreme cold[/color]"
 		_:
 			text += "[color=lawngreen]None[/color]"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://cishymc2t8s6j"]
+[gd_scene load_steps=84 format=3 uid="uid://cishymc2t8s6j"]
 
 [ext_resource type="Theme" uid="uid://b02uwgbscq35l" path="res://themes/menu.tres" id="1_02jqt"]
 [ext_resource type="Texture2D" uid="uid://b7hykydguok1o" path="res://textures/GUI/Menu/TinyPixelTitle.png" id="3"]
@@ -55,6 +55,7 @@
 [ext_resource type="Script" path="res://scripts/menu/Settings.gd" id="38"]
 [ext_resource type="Texture2D" uid="uid://bagm27s4g68pk" path="res://textures/GUI/Menu/btns/right_arrow_btn_pressed.png" id="38_iora8"]
 [ext_resource type="Texture2D" uid="uid://d0d3i82ri4ryu" path="res://textures/GUI/Menu/btns/right_arrow_btn_hover.png" id="39_jygb5"]
+[ext_resource type="Script" path="res://scripts/menu/game_setttings.gd" id="41_mxtld"]
 
 [sub_resource type="Curve2D" id="25"]
 _data = {
@@ -609,9 +610,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_top = 16.0
-offset_right = 192.0
-offset_bottom = 208.0
+offset_left = -142.0
+offset_top = -64.0
+offset_right = 50.0
+offset_bottom = 128.0
 texture = ExtResource("3")
 expand_mode = 1
 stretch_mode = 6
@@ -1364,6 +1366,20 @@ offset_right = 57.5
 offset_bottom = 26.5
 text = "Scenarios"
 
+[node name="GameSettingsBtn" type="Button" parent="World/character"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = 28.0
+offset_right = -5.0
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game Settings"
+
 [node name="CurrentScenario" type="HBoxContainer" parent="World/character"]
 visible = false
 layout_mode = 0
@@ -1384,6 +1400,72 @@ texture = ExtResource("37")
 layout_mode = 2
 theme_override_fonts/font = SubResource("FontFile_70c0w")
 text = "Meteor shower"
+
+[node name="GameSetttings" type="Control" parent="World"]
+visible = false
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("1_02jqt")
+script = ExtResource("41_mxtld")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="World/GameSetttings"]
+layout_mode = 2
+offset_left = 5.0
+offset_top = 11.0
+offset_right = 145.0
+offset_bottom = 118.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Mode" type="VBoxContainer" parent="World/GameSetttings/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ModeLbl" type="Label" parent="World/GameSetttings/VBoxContainer/Mode"]
+layout_mode = 2
+text = "Mode"
+horizontal_alignment = 1
+
+[node name="ModeBtn" type="Button" parent="World/GameSetttings/VBoxContainer/Mode"]
+layout_mode = 2
+text = "Survival"
+
+[node name="Difficulty" type="VBoxContainer" parent="World/GameSetttings/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="DifficultyLbl" type="Label" parent="World/GameSetttings/VBoxContainer/Difficulty"]
+layout_mode = 2
+text = "Difficulty"
+horizontal_alignment = 1
+
+[node name="DifficultyBtn" type="Button" parent="World/GameSetttings/VBoxContainer/Difficulty"]
+layout_mode = 2
+text = "Normal"
+
+[node name="DifficultyDesc" type="Label" parent="World/GameSetttings/VBoxContainer/Difficulty"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.156863, 0.360784, 0.768627, 1)
+text = "Lose blues on death"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="GameSettingsBtn" type="Button" parent="World/GameSetttings"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = 47.0
+offset_right = -5.0
+offset_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Character Edit"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(142, 100)
@@ -1686,6 +1768,10 @@ mouse_filter = 0
 [connection signal="pressed" from="World/character/Start" to="World/character" method="_on_Start_pressed"]
 [connection signal="pressed" from="World/character/back" to="World/character" method="_on_back_pressed"]
 [connection signal="pressed" from="World/character/Scenarios" to="World/character" method="_on_Scenarios_pressed"]
+[connection signal="pressed" from="World/character/GameSettingsBtn" to="World/character" method="_on_game_settings_btn_pressed"]
+[connection signal="pressed" from="World/GameSetttings/VBoxContainer/Mode/ModeBtn" to="World/GameSetttings" method="_on_mode_btn_pressed"]
+[connection signal="pressed" from="World/GameSetttings/VBoxContainer/Difficulty/DifficultyBtn" to="World/GameSetttings" method="_on_difficulty_btn_pressed"]
+[connection signal="pressed" from="World/GameSetttings/GameSettingsBtn" to="World/GameSetttings" method="_on_game_settings_btn_pressed"]
 [connection signal="pressed" from="Credits/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Scenarios/Done" to="World/character" method="_on_Done_pressed"]
 [connection signal="gui_input" from="DisableControls" to="Settings" method="_on_DisableControls_gui_input"]

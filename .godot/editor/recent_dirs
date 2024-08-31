@@ -1,8 +1,12 @@
+res://scripts/GUI
+res://shaders
+res://scripts/menu
+res://scripts/entities
+res://scenes
 res://scripts/enemies
 res://scripts
 res://scripts/GUI/main
 res://scripts/blocks
-res://shaders
 res://noise
 res://scripts/global
 res://assets/GUI
@@ -16,7 +20,3 @@ res://textures/blocks/misc/red_wire/
 /Users/chris/Desktop/HTMLTEST/TU4.2
 res://Audio/music
 res://Audio/sfx/Ambience
-res://textures/icons
-res://textures/planets
-res://scripts/enemies/Slorg
-res://scripts/GUI

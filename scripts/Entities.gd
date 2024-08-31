@@ -8,11 +8,13 @@ var entities = {
 	"rockius":preload("res://assets/enemies/Rockius.tscn"),
 	"magma_spit":preload("res://assets/entities/magma_spit.tscn"),
 	"scorched_guard":preload("res://assets/enemies/ScorchedGuard.tscn"),
-	"fridged_spike":preload("res://assets/enemies/FridgedSpike.tscn"),
-	"fridged_spit":preload("res://assets/entities/fridged_spit.tscn"),
+	"frigid_spike":preload("res://assets/enemies/FrigidSpike.tscn"),
+	"frigid_spit":preload("res://assets/entities/frigid_spit.tscn"),
 	"mini_transporter":preload("res://assets/enemies/Transporter.tscn"),
 	"trinanium_charge":preload("res://assets/entities/trinanium_charge.tscn"),
 	"gold_spike":preload("res://assets/entities/gold_spike.tscn"),
+	"stellar_pig":preload("res://assets/entities/StellarPig.tscn"),
+	"blue_jay":preload("res://assets/entities/BlueJay.tscn")
 	}
 
 var loot = {
@@ -23,11 +25,13 @@ var loot = {
 	"rockius":[],
 	"magma_spit":[],
 	"scorched_guard":[{"id":191,"amount":[0,1]}],
-	"fridged_spike":[{"id":205,"amount":[0,1]}],
-	"fridged_spit":[],
+	"frigid_spike":[{"id":205,"amount":[0,1]}],
+	"frigid_spit":[],
 	"mini_transporter":[],
 	"trinanium_charge":[],
-	"gold_spike":[]
+	"gold_spike":[],
+	"stellar_pig":[{"id":247,"amount":[1,3]}],
+	"blue_jay":[],
 }
 
 var loaded = false
@@ -70,7 +74,7 @@ func spawn_item(item : Dictionary, thrown = false, pos = $"../Player".position):
 	newI.data = item
 	if thrown:
 		newI.canPickup = false
-		newI.motion = Vector2(10*randf_range(-1,1),-5)
+		newI.velocity = Vector2(10*randf_range(-1,1),-5)
 	$Hold.add_child(newI)
 
 func spawn_spit(pos : Vector2, direction : float, distance : float) -> void:
@@ -89,32 +93,40 @@ func spawn_linear_spit(pos : Vector2, direction : float, type : String) -> void:
 	$Hold.add_child(newS)
 
 func spawn_blues(amount : int, thrown = false, pos = $"../Player".position):
-	var newB = entities["blues"].instantiate()
-	newB.position = pos
-	newB.data = {"amount":amount}
-	if thrown:
-		newB.canPickup = false
-		newB.motion = Vector2(10*randf_range(-1,1),-5)
-	$Hold.add_child(newB)
+	if amount > 0:
+		var newB = entities["blues"].instantiate()
+		newB.position = pos
+		newB.data = {"amount":amount}
+		if thrown:
+			newB.canPickup = false
+			newB.motion = Vector2(10*randf_range(-1,1),-5)
+		$Hold.add_child(newB)
 
 func _on_Spawn_timeout():
 	if loaded:
-		var hostileCount = 0
-		var maxH = int(5*(world.worldSize.x/128)) if world.worldRules["enemy_spawning"]["value"] else 0
-		var maxE = int(5*(world.worldSize.x/128)) if world.worldRules["entity_spawning"]["value"] else 0
-		for entity in $Hold.get_children():
+		var hostileCount : int = 0
+		var creatureCount : int = 0
+		var maxH : int = int(5*(world.worldSize.x/128)) if world.worldRules["enemy_spawning"]["value"] else 0
+		var maxE : int = int(5*(world.worldSize.x/128)) if world.worldRules["entity_spawning"]["value"] else 0
+		for entity : Entity in $Hold.get_children():
 			if entity.hostile:
 				hostileCount += 1
+			elif !["blues","item"].has(entity.type):
+				creatureCount += 1
 		for _i in range(int(randf_range(10,50))):
 			var pos = Vector2(randi()%int(world.worldSize.x),randi()%int(world.worldSize.y))
-			var hostileSpawns = StarSystem.hostileSpawn[StarSystem.find_planet_id(Global.currentPlanet).type["type"]]
-			if !hostileSpawns.is_empty() and hostileCount < maxH and world.get_block_id(pos,1) == 0 and world.get_block_id(pos,0) == 0 and world.get_block_id(pos + Vector2(0,1),1) != 0 and pos.distance_to(player.position) > 48:
-				var enemy = hostileSpawns[randi() %hostileSpawns.size()]
+			var hostileSpawns : Array = StarSystem.hostileSpawn[StarSystem.find_planet_id(Global.currentPlanet).type["type"]]
+			var creatureSpawns : Array = StarSystem.creatureSpawn[StarSystem.find_planet_id(Global.currentPlanet).type["type"]]
+			if !hostileSpawns.is_empty() and hostileCount < maxH and world.get_block_id(pos,1) == 0 and world.get_block_id(pos,0) == 0 and !world.noCollisionBlocks.has(world.get_block_id(pos + Vector2(0,1),1)) and pos.distance_to(player.position) > 48:
+				var enemy = hostileSpawns.pick_random()
 				print("Spawning: ",enemy)
-				var slorg = entities[enemy].instantiate()
-				slorg.position = pos * Vector2(8,8)
-				$Hold.add_child(slorg)
+				summon_entity(enemy,pos*Vector2(8,8))
 				hostileCount += 1
+			if !creatureSpawns.is_empty() and creatureCount < maxE and world.get_block_id(pos,1) == 0 and world.get_block_id(pos,0) == 0 and !world.noCollisionBlocks.has(world.get_block_id(pos + Vector2(0,1),1)):
+				var creature = creatureSpawns.pick_random()
+				print("Spawning: ",creature)
+				summon_entity(creature,pos*Vector2(8,8))
+				creatureCount += 1
 
 func _on_World_world_loaded():
 	if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere or StarSystem.find_planet_id(Global.currentPlanet).type["type"] == "asteroids":

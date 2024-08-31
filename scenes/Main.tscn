@@ -1,4 +1,4 @@
-[gd_scene load_steps=255 format=3 uid="uid://2c07adgn0vow"]
+[gd_scene load_steps=256 format=3 uid="uid://2c07adgn0vow"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c3rmyuwb7gd3m" path="res://textures/enviroment/sky.png" id="2"]
@@ -128,6 +128,7 @@
 [ext_resource type="Texture2D" uid="uid://jubrgfwjnpsj" path="res://textures/GUI/main/effects/fire.png" id="99_nicjf"]
 [ext_resource type="Texture2D" uid="uid://bh35fik5wk5y4" path="res://textures/GUI/main/effects/frozen.png" id="100_xdqdj"]
 [ext_resource type="Script" path="res://scripts/GUI/main/slider_pop_up.gd" id="104_kln4w"]
+[ext_resource type="Script" path="res://scripts/GUI/main/teleport_prompt.gd" id="105_ry0l8"]
 [ext_resource type="FastNoiseLite" uid="uid://c5g6yqr51sbl6" path="res://noise/Cave.tres" id="110_3l8vn"]
 [ext_resource type="Script" path="res://scripts/player_camera.gd" id="124_kgcw1"]
 [ext_resource type="AudioStream" uid="uid://i51amw3y2qy6" path="res://Audio/sfx/Ambience/The2.mp3" id="125_7ahbp"]
@@ -4796,6 +4797,70 @@ value = 0.25
 layout_mode = 2
 text = "Save"
 
+[node name="TeleportPrompt" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.0
+offset_top = -49.0
+offset_right = 79.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("60_dyqfb")
+script = ExtResource("105_ry0l8")
+
+[node name="TitleLbl" type="Label" parent="CanvasLayer/TeleportPrompt"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 13.0
+grow_horizontal = 2
+text = "Endgame Locator"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/TeleportPrompt"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -80.0
+offset_right = -4.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 6
+alignment = 2
+
+[node name="DescLbl" type="Label" parent="CanvasLayer/TeleportPrompt/VBoxContainer"]
+layout_mode = 2
+text = "Do you want to teleport to the endgame? (Your progress will be saved and you can return at any time)"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/TeleportPrompt/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="YesBtn" type="Button" parent="CanvasLayer/TeleportPrompt/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "Yes"
+
+[node name="NoBtn" type="Button" parent="CanvasLayer/TeleportPrompt/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "No"
+
 [node name="Black" type="TextureRect" parent="CanvasLayer"]
 modulate = Color(0, 0, 0, 1)
 anchors_preset = 15
@@ -5140,6 +5205,8 @@ script = ExtResource("47")
 [connection signal="pressed" from="CanvasLayer/LineEditPopUp/VBoxContainer/SaveBtn" to="CanvasLayer/LineEditPopUp" method="_on_save_btn_pressed"]
 [connection signal="value_changed" from="CanvasLayer/SliderPopUp/VBoxContainer/Slider" to="CanvasLayer/SliderPopUp" method="_on_slider_value_changed"]
 [connection signal="pressed" from="CanvasLayer/SliderPopUp/VBoxContainer/SaveBtn" to="CanvasLayer/SliderPopUp" method="_on_save_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/TeleportPrompt/VBoxContainer/HBoxContainer/YesBtn" to="CanvasLayer/TeleportPrompt" method="_on_yes_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/TeleportPrompt/VBoxContainer/HBoxContainer/NoBtn" to="CanvasLayer/TeleportPrompt" method="_on_no_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Respawn" to="CanvasLayer/Dead" method="_on_Respawn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Quit" to="CanvasLayer/Dead" method="_on_Quit_pressed"]
 [connection signal="text_changed" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_text_changed"]

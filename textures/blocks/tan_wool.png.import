@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmay0rhtna5gr"
-path="res://.godot/imported/fridged_icon.png-e2ddbb6cd523fd46a4a0f0e3ffb03dda.ctex"
+uid="uid://bywnlxaej684k"
+path="res://.godot/imported/tan_wool.png-a0f95c08ed215a64b09fbaa84aae5539.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/planets/fridged_icon.png"
-dest_files=["res://.godot/imported/fridged_icon.png-e2ddbb6cd523fd46a4a0f0e3ffb03dda.ctex"]
+source_file="res://textures/blocks/tan_wool.png"
+dest_files=["res://.godot/imported/tan_wool.png-a0f95c08ed215a64b09fbaa84aae5539.ctex"]
 
 [params]
 

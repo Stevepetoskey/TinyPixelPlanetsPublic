@@ -3,7 +3,7 @@ extends Control
 @onready var inventory = get_node("../Inventory")
 @onready var cursor = get_node("../../Cursor")
 @onready var world = get_node("../../World")
-@onready var player = get_node("../../Player")
+@onready var player: CharacterBody2D = $"../../Player"
 
 func popup():
 	if Global.gamerules["can_respawn"]:
@@ -21,6 +21,7 @@ func _on_Respawn_pressed():
 	Global.pause = false
 	player.health = player.maxHealth
 	player.oxygen = player.maxOxygen
+	player.collision_layer = 2
 	Global.save("planet",world.get_world_data())
 	await get_tree().process_frame
 	StarSystem.land(Global.currentPlanet)

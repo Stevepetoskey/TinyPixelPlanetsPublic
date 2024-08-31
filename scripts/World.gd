@@ -36,7 +36,8 @@ var blockTypes = {
 	"spawner":preload("res://assets/blocks/Spawner.tscn"),
 	"music_player":preload("res://assets/blocks/MusicPlayer.tscn"),
 	"spike":preload("res://assets/blocks/Spike.tscn"),
-	"timer_block":preload("res://assets/blocks/TimerBlock.tscn")
+	"timer_block":preload("res://assets/blocks/TimerBlock.tscn"),
+	"locator":preload("res://assets/blocks/Locator.tscn")
 }
 
 var currentPlanet : Object
@@ -46,9 +47,9 @@ var hasGravity = true
 
 var waterUpdateList = []
 
-var interactableBlocks = [12,16,28,91,145,158,159,167,169,171,176,185,186,189,216,241,243,244]
+var interactableBlocks = [12,16,28,91,145,158,159,167,169,171,176,185,186,189,216,241,243,244,246,263]
 var noCollisionBlocks = [0,6,7,9,11,30,117,167,121,122,123,128,142,143,145,155,156,167,168,169,170,171,172,187]
-var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,167,171,172,176,183,187,188,189,190,199,203,204,217,218,219,220,242,244]
+var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,167,171,172,176,183,187,188,189,190,199,203,204,217,218,219,220,242,244,246]
 
 var worldRules = {
 	"break_blocks":{"value":true,"type":"bool"},
@@ -119,7 +120,7 @@ var generationData = {
 		"noise_scale":25,
 		"world_height":20,
 	},
-	"fridged":{
+	"frigid":{
 		"noise":preload("res://noise/Terra.tres"),
 		"noise_scale":25,
 		"world_height":20,
@@ -133,7 +134,7 @@ var lootTables = { #{id:Block/Item id, amount:max amount, rarity: item chance, g
 		{"id":43,"amount":1,"rarity":3,"group":"clothes"},
 		{"id":44,"amount":1,"rarity":3,"group":"clothes"},
 		{"id":45,"amount":1,"rarity":3,"group":"clothes"},
-		{"id":215,"amount":1,"rarity":7,"group":"none"},
+		{"id":215,"amount":1,"rarity":2,"group":"none"},
 	],
 	"mines":[
 		{"id":193,"amount":3,"rarity":6,"group":"none"},
@@ -145,13 +146,13 @@ var lootTables = { #{id:Block/Item id, amount:max amount, rarity: item chance, g
 		{"id":37,"amount":1,"rarity":3,"group":"clothes"},
 		{"id":38,"amount":1,"rarity":3,"group":"clothes"},
 	],
-	"fridged":[
+	"frigid":[
 		{"id":56,"amount":5,"rarity":3,"group":"none"},
-		{"id":215,"amount":1,"rarity":7,"group":"none"},
+		{"id":215,"amount":1,"rarity":2,"group":"none"},
 	],
-	"fridged_boss":[
+	"frigid_boss":[
 		{"id":56,"amount":10,"rarity":3,"group":"none"},
-		{"id":215,"amount":1,"rarity":4,"group":"none"},
+		{"id":215,"amount":2,"rarity":1,"group":"none"},
 	]
 }
 
@@ -292,7 +293,7 @@ var blockData = {
 	202:{"texture":preload("res://textures/blocks/carved_permafrost_bricks.png"),"hardness":2.5,"canHaverst":1,"drops":[{"id":202,"amount":1}],"name":"Carved permafrost bricks","type":"simple"},
 	203:{"texture":preload("res://textures/blocks/permafrost_fence.png"),"hardness":2.5,"canHaverst":1,"drops":[{"id":203,"amount":1}],"name":"Permafrost fence","type":"block"},
 	204:{"texture":preload("res://textures/blocks/permafrost_platform_full.png"),"hardness":2,"canHaverst":1,"drops":[{"id":204,"amount":1}],"name":"Permafrost platform","type":"platform"},
-	206:{"texture":preload("res://textures/blocks/fridged_spawner.png"),"hardness":6,"canHaverst":2,"drops":[],"name":"Fridged spawner","type":"spawner"},
+	206:{"texture":preload("res://textures/blocks/fridged_spawner.png"),"hardness":6,"canHaverst":2,"drops":[],"name":"Frigid spawner","type":"spawner"},
 	216:{"texture":preload("res://textures/blocks/upgrade_table.png"),"hardness":5,"canHaverst":3,"drops":[{"id":216,"amount":1}],"name":"Upgrade table","type":"simple"},
 	217:{"texture":preload("res://textures/blocks/moss.png"),"hardness":0.1,"canHaverst":0,"drops":[{"id":217,"amount":1}],"name":"Moss","type":"foliage"},
 	218:{"texture":preload("res://textures/items/blue_mud_flower.png"),"hardness":0.1,"canHaverst":0,"drops":[{"id":218,"amount":1}],"name":"Blue mud flower","can_place_on":[1,2,146,147,219],"type":"foliage"},
@@ -304,6 +305,24 @@ var blockData = {
 	243:{"texture":preload("res://textures/blocks/timer_block.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":243,"amount":1}],"name":"Timer block","type":"timer_block"},
 	244:{"texture":preload("res://textures/blocks/trinanium_crystal.png"),"hardness":5,"canHaverst":1,"drops":[{"id":244,"amount":1}],"name":"Trinanium crystal","type":"simple"},
 	245:{"texture":preload("res://textures/blocks/gold_bricks.png"),"hardness":5,"canHaverst":3,"drops":[{"id":245,"amount":1}],"name":"Gold bricks","type":"simple"},
+	246:{"texture":preload("res://textures/blocks/endgame_locator.png"),"hardness":5,"canHaverst":3,"drops":[{"id":246,"amount":1}],"name":"Endgame locator","type":"locator"},
+	247:{"texture":preload("res://textures/blocks/white_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":247,"amount":1}],"name":"White wool","type":"simple"},
+	248:{"texture":preload("res://textures/blocks/light_gray_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":248,"amount":1}],"name":"Light gray wool","type":"simple"},
+	249:{"texture":preload("res://textures/blocks/gray_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":249,"amount":1}],"name":"Gray wool","type":"simple"},
+	250:{"texture":preload("res://textures/blocks/black_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":250,"amount":1}],"name":"Black wool","type":"simple"},
+	251:{"texture":preload("res://textures/blocks/red_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":251,"amount":1}],"name":"Red wool","type":"simple"},
+	252:{"texture":preload("res://textures/blocks/orange_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":252,"amount":1}],"name":"Orange wool","type":"simple"},
+	253:{"texture":preload("res://textures/blocks/yellow_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":253,"amount":1}],"name":"Yellow wool","type":"simple"},
+	254:{"texture":preload("res://textures/blocks/yellow_green_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":254,"amount":1}],"name":"Yellow green wool","type":"simple"},
+	255:{"texture":preload("res://textures/blocks/green_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":255,"amount":1}],"name":"Green wool","type":"simple"},
+	256:{"texture":preload("res://textures/blocks/cyan_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":256,"amount":1}],"name":"Cyan wool","type":"simple"},
+	257:{"texture":preload("res://textures/blocks/blue_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":257,"amount":1}],"name":"Blue wool","type":"simple"},
+	258:{"texture":preload("res://textures/blocks/purple_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":258,"amount":1}],"name":"Purple wool","type":"simple"},
+	259:{"texture":preload("res://textures/blocks/pink_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":259,"amount":1}],"name":"Pink wool","type":"simple"},
+	260:{"texture":preload("res://textures/blocks/brown_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":260,"amount":1}],"name":"Brown wool","type":"simple"},
+	261:{"texture":preload("res://textures/blocks/tan_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":261,"amount":1}],"name":"Tan wool","type":"simple"},
+	262:{"texture":preload("res://textures/blocks/maroon_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":262,"amount":1}],"name":"Maroon wool","type":"simple"},
+	263:{"texture":preload("res://textures/blocks/wool_work_table.png"),"hardness":2,"canHaverst":1,"drops":[{"id":263,"amount":1}],"name":"Wool work table","type":"simple"},
 }
 
 var itemData = {
@@ -479,8 +498,10 @@ func start_world():
 			armor.armor = {"Helmet":{"id":46,"amount":1,"data":{}},"Hat":{},"Chestplate":{"id":47,"amount":1,"data":{}},"Shirt":{},"Leggings":{"id":48,"amount":1,"data":{}},"Pants":{},"Boots":{"id":49,"amount":1,"data":{}},"Shoes":{}}
 			armor.emit_signal("updated_armor",armor.armor)
 		#Generates like normal, unless specified to generate a custom world
+		print("generating World")
 		generateWorld(worldType if Global.gamerules["custom_generation"] == "" else Global.gamerules["custom_generation"])
 	else:
+		print("loading world")
 		load_world_data()
 	enviroment.set_background(worldType)
 	emit_signal("world_loaded")
@@ -839,7 +860,7 @@ func generateWorld(worldType : String):
 			#Scorched dungeon
 			if true:#randi_range(1,2) == 1:
 				generate_dungeon("scorched","boss_scorched",randi_range(30,50))
-		"fridged":
+		"frigid":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
 					var height = (worldSize.y - (int(worldNoise.get_noise_1d(x) * noiseScale) + worldHeight))
@@ -867,7 +888,7 @@ func generateWorld(worldType : String):
 									pos.x += [-1,1].pick_random()
 								else:
 									pos.y += [-1,1].pick_random()
-			#Fridged dungeon
+			#frigid dungeon
 			if true:#randi_range(1,2) == 1:
 				generate_dungeon("fridged","boss_fridged",randi_range(30,50))
 
@@ -939,31 +960,33 @@ func generate_dungeon(dungeonGroup : String, startingPiece : String, dungeonSize
 				possibleRooms.erase(chosenRoom)
 
 func generate_block_from_structure(block : Dictionary, pos : Vector2) -> void:
-			match block["id"]:
-				187:
-					set_block(pos,block["layer"],0,false)
-				189:
-					var usedGroups = []
-					var chest = []
-					if lootTables.has(block["data"]["group"]):
-						while chest.is_empty():
-							for loot in lootTables[block["data"]["group"]]:
-								if !usedGroups.has(loot["group"]):
-									var amount : int = 0
-									for i in range(loot["amount"]):
-										amount += 1 if randi_range(0,loot["rarity"]) == 0 else 0
-									if amount > 0:
-										var data : Dictionary = {}
-										match loot["id"]:
-											215:
-												data = {"upgrade":upgrades.keys().pick_random()}
-										print("id: ",loot["id"]," data: ",data)
-										if loot["group"] != "none":
-											usedGroups.append(loot["group"])
-										chest.append({"id":loot["id"],"amount":amount,"data":data})
-					set_block(pos,block["layer"],91,false,chest)
-				_:
-					set_block(pos,block["layer"],block["id"],false,block["data"])
+	var gen : RandomNumberGenerator = RandomNumberGenerator.new()
+	gen.randomize()
+	match block["id"]:
+		187:
+			set_block(pos,block["layer"],0,false)
+		189:
+			var usedGroups = []
+			var chest = []
+			if lootTables.has(block["data"]["group"]):
+				while chest.is_empty():
+					for loot in lootTables[block["data"]["group"]]:
+						if !usedGroups.has(loot["group"]):
+							var amount : int = 0
+							for i in range(loot["amount"]):
+								amount += 1 if gen.randi_range(0,loot["rarity"]) == 0 else 0
+							if amount > 0:
+								var data : Dictionary = {}
+								match loot["id"]:
+									215:
+										data = {"upgrade":upgrades.keys()[gen.randi() % upgrades.keys().size()]}
+								print("id: ",loot["id"]," data: ",data)
+								if loot["group"] != "none":
+									usedGroups.append(loot["group"])
+								chest.append({"id":loot["id"],"amount":amount,"data":data})
+			set_block(pos,block["layer"],91,false,chest)
+		_:
+			set_block(pos,block["layer"],block["id"],false,block["data"])
 
 func get_world_data() -> Dictionary:
 	var data = {}
@@ -1171,8 +1194,11 @@ func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction 
 		set_block(pos,layer,0,true)
 
 func _on_GoUp_pressed():
-	Global.save("planet",get_world_data())
-	StarSystem.start_space()
+	Global.save("planet", get_world_data())
+	if Global.currentSystemId == "2340163271682" and Global.currentPlanet == 1:
+		Global.teleport_to_planet(Global.playerData["original_system"],Global.playerData["original_planet"])
+	else:
+		StarSystem.start_space()
 
 func _on_GlobalTick_timeout():
 	var toRemove = []

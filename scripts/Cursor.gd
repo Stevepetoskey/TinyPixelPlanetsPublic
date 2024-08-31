@@ -149,6 +149,35 @@ func _unhandled_input(_event):
 						else:
 							inventory.add_to_inventory(244,1)
 						world.set_block(currentBlock.pos, currentLayer, 0, true)
+					246:
+						var slot = {true:0,false:1}[Input.is_action_pressed("build")]
+						match inventory.inventory[slot]["id"]:
+							191:
+								if currentBlock.data["magma"] < 3:
+									currentBlock.data["magma"] += 1
+									currentBlock.updated_data()
+								elif currentBlock.data["coolant"] >= 3:
+									currentBlock.data["active"] = !currentBlock.data["active"]
+									currentBlock.updated_data()
+									if currentBlock.data["active"]:
+										$"../CanvasLayer/TeleportPrompt".show()
+							205:
+								if currentBlock.data["coolant"] < 3:
+									currentBlock.data["coolant"] += 1
+									currentBlock.updated_data()
+								elif currentBlock.data["magma"] >= 3:
+									currentBlock.data["active"] = !currentBlock.data["active"]
+									currentBlock.updated_data()
+									if currentBlock.data["active"]:
+										$"../CanvasLayer/TeleportPrompt".show()
+							_:
+								if currentBlock.data["magma"] >= 3 and currentBlock.data["coolant"] >= 3:
+									currentBlock.data["active"] = !currentBlock.data["active"]
+									currentBlock.updated_data()
+									if currentBlock.data["active"]:
+										$"../CanvasLayer/TeleportPrompt".show()
+					263:
+						inventory.inventoryToggle(false,true,"wool_work_table")
 			elif Input.is_action_just_pressed("build2") and wireIn.size() > 0:
 				if is_instance_valid(wireIn[0]):
 					wireIn[0].break_wire()

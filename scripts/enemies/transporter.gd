@@ -55,6 +55,7 @@ signal damaged
 
 func die():
 	randomize()
+	GlobalGui.complete_achievement("The end")
 	if hostile:
 		Global.killCount += 1
 		if Global.inTutorial and Global.tutorialStage == 0:
@@ -69,6 +70,12 @@ func die():
 		get_node("../..").spawn_blues(blueDrop,false,position)
 	effects.death_particles(position)
 	GlobalAudio.stop_boss_music()
+	$DieParticles.emitting = true
+	await get_tree().create_timer(2.0).timeout
+	$DieParticles.emitting = false
+	hide()
+	$"../..".spawn_item({"id":244,"amount":1,"data":{}},false,position)
+	await get_tree().create_timer(1.0).timeout
 	queue_free()
 
 func damage(hp,knockback : float = 0):
@@ -91,7 +98,7 @@ func damage(hp,knockback : float = 0):
 					_on_fallen_timer_timeout()
 				3:
 					GlobalAudio.stop_boss_music()
-					queue_free()
+					die()
 			data["stage"] += 1
 
 func freeze(time : float) -> void:

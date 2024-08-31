@@ -31,23 +31,24 @@ func _physics_process(delta):
 		if !is_on_floor():
 			inAir = true
 			motion.y += GRAVITY
+		var result : Dictionary
 		if position.distance_to(player.position) <= 64:
 			var space_state = get_world_2d().direct_space_state
 			var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self])
-			var result = space_state.intersect_ray(params)
-			if !result.is_empty() and result.collider == player:
-				if !seePlayer:
-					print("SEEN!")
-					$seeTimer.stop()
-					state = "pause"
-					animation_player.play("seen")
-				seePlayer = true
-				lostPlayer = false
-				seenPos = player.position
-			elif seePlayer and !lostPlayer:
-				print("lost the player")
-				lostPlayer = true
-				$seeTimer.start()
+			result = space_state.intersect_ray(params)
+		if !result.is_empty() and result.collider == player:
+			if !seePlayer:
+				print("SEEN!")
+				$seeTimer.stop()
+				state = "pause"
+				animation_player.play("seen")
+			seePlayer = true
+			lostPlayer = false
+			seenPos = player.position
+		elif seePlayer and !lostPlayer:
+			print("lost the player")
+			lostPlayer = true
+			$seeTimer.start()
 		match state:
 			"roam":
 				if !seePlayer:

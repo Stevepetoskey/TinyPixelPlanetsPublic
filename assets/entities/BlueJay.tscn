@@ -1,0 +1,125 @@
+[gd_scene load_steps=13 format=3 uid="uid://hd8pl2rs032e"]
+
+[ext_resource type="Script" path="res://scripts/entities/blue_jay.gd" id="1_sye7b"]
+[ext_resource type="Texture2D" uid="uid://cqbx7tnygv74x" path="res://textures/creatures/blue_jay/blue_jay1.png" id="2_de2w4"]
+[ext_resource type="Texture2D" uid="uid://cht7qg73smddq" path="res://textures/creatures/blue_jay/blue_jay6.png" id="3_feo2q"]
+[ext_resource type="Texture2D" uid="uid://b35svw4vvtp26" path="res://textures/creatures/blue_jay/blue_jay2.png" id="4_6fxy8"]
+[ext_resource type="Texture2D" uid="uid://drd0kefgcdgbn" path="res://textures/creatures/blue_jay/blue_jay3.png" id="5_f10y2"]
+[ext_resource type="Texture2D" uid="uid://btqag6na35tx8" path="res://textures/creatures/blue_jay/blue_jay4.png" id="6_ndup8"]
+[ext_resource type="Texture2D" uid="uid://clcfrxjbdeh77" path="res://textures/creatures/blue_jay/blue_jay5.png" id="7_u0l6w"]
+[ext_resource type="Texture2D" uid="uid://c6tjmejwtjxh4" path="res://textures/creatures/blue_jay/blue_jay7.png" id="8_urxum"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_64r3e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_de2w4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_feo2q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_de2w4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_feo2q")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_de2w4")
+}],
+"loop": false,
+"name": &"eat",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_6fxy8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_f10y2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ndup8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_u0l6w")
+}],
+"loop": true,
+"name": &"fly",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_de2w4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_de2w4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_urxum")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(6, 5)
+
+[sub_resource type="CircleShape2D" id="3"]
+radius = 4.0078
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v1ui1"]
+size = Vector2(4, 3)
+
+[node name="BlueJay" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 16
+script = ExtResource("1_sye7b")
+type = "blue_jay"
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_64r3e")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.5)
+shape = SubResource("2")
+
+[node name="seeTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 256
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("3")
+
+[node name="TrotTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FlyTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DespawnTimer" type="Timer" parent="."]
+wait_time = 60.0
+one_shot = true
+autostart = true
+
+[node name="BlockTest" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockTest"]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_v1ui1")
+
+[connection signal="animation_finished" from="Body" to="." method="_on_body_animation_finished"]
+[connection signal="timeout" from="seeTimer" to="." method="_on_seeTimer_timeout"]
+[connection signal="timeout" from="TrotTimer" to="." method="_on_trot_timer_timeout"]
+[connection signal="timeout" from="FlyTimer" to="." method="_on_fly_timer_timeout"]
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]
+[connection signal="body_entered" from="BlockTest" to="." method="_on_block_test_body_entered"]
+[connection signal="body_exited" from="BlockTest" to="." method="_on_block_test_body_exited"]

@@ -33,27 +33,28 @@ func _ready():
 
 func _physics_process(delta):
 	if !Global.pause:
+		var result : Dictionary
 		if position.distance_to(player.position) <= 96 and state != "stone":
 			var space_state = get_world_2d().direct_space_state
 			var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self,$HitBox])
-			var result = space_state.intersect_ray(params)
-			if !result.is_empty() and result.collider == player:
-				if !seePlayer:
-					$seeTimer.stop()
-					animation_player.play("seen")
-				if searchingForPlayer or !seePlayer:
-					spit_timer.start()
-				searchingForPlayer = false
-				seePlayer = true
-				lostPlayer = false
-				seenPos = player.position
-			elif seePlayer and !lostPlayer:
-				if !result.is_empty():
-					print(result.collider.name)
-				lostPlayer = true
-				searchingForPlayer = true
-				$seeTimer.start()
-				spit_timer.stop()
+			result = space_state.intersect_ray(params)
+		if !result.is_empty() and result.collider == player:
+			if !seePlayer:
+				$seeTimer.stop()
+				animation_player.play("seen")
+			if searchingForPlayer or !seePlayer:
+				spit_timer.start()
+			searchingForPlayer = false
+			seePlayer = true
+			lostPlayer = false
+			seenPos = player.position
+		elif seePlayer and !lostPlayer:
+			if !result.is_empty():
+				print(result.collider.name)
+			lostPlayer = true
+			searchingForPlayer = true
+			$seeTimer.start()
+			spit_timer.stop()
 		match state:
 			"roam":
 				if !seePlayer:
@@ -127,7 +128,7 @@ func _on_spit_timer_timeout() -> void:
 		spitting = true
 		body_texture.play("Spit")
 		await get_tree().create_timer(0.75).timeout
-		entities.spawn_linear_spit(position,position.angle_to_point(player.position),"fridged_spit")
+		entities.spawn_linear_spit(position,position.angle_to_point(player.position),"frigid_spit")
 		if !seePlayer:
 			spit_timer.stop()
 		spitting = false

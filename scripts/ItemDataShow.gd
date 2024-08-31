@@ -23,8 +23,8 @@ func display(data : Dictionary) -> void:
 				displayText += "\n[color=Palegoldenrod]" + world.upgrades[data["data"]["upgrade"]]["name"] + "[/color]"
 			if data["data"].has("upgrades"):
 				displayText += main.get_item_upgrade_text(data["data"])
-		match itemData["type"]:
-			"Bucket":
-				displayText += "\n[color=darkorchid]Water level: " + str(data["data"]["water_level"]) + "[/color]"
+		#match itemData["type"]:
+			#"Bucket":
+				#displayText += "\n[color=darkorchid]Water level: " + str(data["data"]["water_level"]) + "[/color]"
 		show()
 		text = displayText

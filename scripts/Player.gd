@@ -331,7 +331,6 @@ func damage(dmg,enemyLevel : int = 1,knockback : float = 0.0):
 		var totalDmg = int(round(dmg * max(1-(defPoints/(enemyLevel*25.0)),0)))
 		effects.floating_text(position, "-" + str(totalDmg), Color.RED)
 		health -= totalDmg
-		print(knockback)
 		knockedBack = true
 		velocity.x += knockback
 		velocity.y -= abs(knockback)
@@ -361,6 +360,19 @@ func poison(amount : float,dmg := 1) -> void:
 func die():
 	dead = true
 	effects.death_particles(position)
+	collision_layer = 0
+	await get_tree().physics_frame
+	match Global.gamerules["difficulty"]:
+		"normal":
+			entities.spawn_blues(Global.blues)
+			Global.blues = 0
+		"hard":
+			entities.spawn_blues(Global.blues)
+			Global.blues = 0
+			for item : Dictionary in inventory.inventory:
+				entities.spawn_item(item,true)
+			inventory.inventory.clear()
+			inventory.update_inventory()
 	hide()
 	get_node("../CanvasLayer/Dead").popup()
 
@@ -467,6 +479,10 @@ func _on_Armor_updated_armor(armorData):
 				if !wearing.values().has(requiredArmor):
 					hasBuff = false
 			if hasBuff:
+				if buff == "cold_resistance":
+					GlobalGui.complete_achievement("Winter ready")
+				elif buff == "heat_resistance":
+					GlobalGui.complete_achievement("Scorched ready")
 				currentBuff = buff
 				break
 		if StarSystem.find_planet_id(Global.currentPlanet) != null and StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
@@ -482,7 +498,7 @@ func _on_Armor_updated_armor(armorData):
 					$"../CanvasLayer/Warnings/Fire".show()
 					$"../CanvasLayer/Warnings/Frozen".hide()
 					$"../CanvasLayer/Warnings/Fire".modulate = Color.WHITE if currentBuff != "heat_resistance" else Color(1,1,1,0.5)
-				"fridged":
+				"frigid":
 					currentTemp = -1
 					$"../CanvasLayer/Warnings/Frozen".show()
 					$"../CanvasLayer/Warnings/Fire".hide()
@@ -511,10 +527,8 @@ func _on_tick_timeout() -> void:
 						oxygen = maxOxygen
 			elif oxygen > 0:
 				oxygen -= 1
-			elif health >0:
-				health -= 1
-				if health <= 0:
-					die()
+			else:
+				damage(1)
 		else:
 			if oxygen < maxOxygen:
 				oxygen += 1
@@ -525,7 +539,7 @@ func _on_tick_timeout() -> void:
 				if suitOxygen > suitOxygenMax:
 					suitOxygen = suitOxygenMax
 		if (currentTemp > 0 and armorBuff != "heat_resistance") or (currentTemp < 0 and armorBuff != "cold_resistance"):
-			health -= 1
+			damage(1)
 
 func _on_swing_timer_timeout() -> void:
 	swinging = false

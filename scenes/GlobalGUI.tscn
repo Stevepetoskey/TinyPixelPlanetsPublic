@@ -310,6 +310,7 @@ offset_right = 89.0
 offset_bottom = 48.0
 theme = SubResource("22")
 scroll_horizontal = 67
+scroll_vertical = 128
 
 [node name="Control" type="Control" parent="AchievementMenu/ScrollContainer"]
 custom_minimum_size = Vector2(300, 300)
@@ -529,6 +530,104 @@ script = ExtResource("12")
 from = "The mechanic"
 to = "Interplanetary"
 
+[node name="Line18" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
+offset_left = 142.0
+offset_top = 63.0
+offset_right = 174.0
+offset_bottom = 65.0
+rotation = 3.14159
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
+from = "Interplanetary"
+to = "Winter ready"
+
+[node name="Line19" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 71.0
+offset_right = 110.0
+offset_bottom = 73.0
+rotation = 1.5708
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
+from = "Winter ready"
+to = "Into ice"
+
+[node name="Line20" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 95.0
+offset_right = 110.0
+offset_bottom = 97.0
+rotation = 1.5708
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
+from = "Into ice"
+to = "Scorched ready"
+
+[node name="Line21" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 119.0
+offset_right = 110.0
+offset_bottom = 121.0
+rotation = 1.5708
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
+from = "Scorched ready"
+to = "Into lava"
+
+[node name="Line22" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 143.0
+offset_right = 110.0
+offset_bottom = 145.0
+rotation = 1.5708
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
+from = "Into lava"
+to = "Location needed"
+
+[node name="Line23" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 167.0
+offset_right = 110.0
+offset_bottom = 169.0
+rotation = 1.5708
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
+from = "Location needed"
+to = "The endgame"
+
+[node name="Line24" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 191.0
+offset_right = 110.0
+offset_bottom = 193.0
+rotation = 1.5708
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
+from = "The endgame"
+to = "The end"
+
 [node name="Line5" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
 layout_mode = 0
 offset_left = 150.0
@@ -660,6 +759,62 @@ offset_top = 32.0
 offset_right = 182.0
 offset_bottom = 48.0
 id = "Ready for battle"
+
+[node name="WinterReady" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 56.0
+offset_right = 110.0
+offset_bottom = 72.0
+id = "Winter ready"
+
+[node name="IntoIce" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 80.0
+offset_right = 110.0
+offset_bottom = 96.0
+id = "Into ice"
+
+[node name="ScorchedReady" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 104.0
+offset_right = 110.0
+offset_bottom = 120.0
+id = "Scorched ready"
+
+[node name="IntoLava" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 128.0
+offset_right = 110.0
+offset_bottom = 144.0
+id = "Into lava"
+
+[node name="LocationNeeded" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 152.0
+offset_right = 110.0
+offset_bottom = 168.0
+id = "Location needed"
+
+[node name="TheEndgame" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 176.0
+offset_right = 110.0
+offset_bottom = 192.0
+id = "The endgame"
+
+[node name="TheEnd" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 200.0
+offset_right = 110.0
+offset_bottom = 216.0
+id = "The end"
 
 [node name="Exterminator1" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
 layout_mode = 0

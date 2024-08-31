@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://d1rc1mphh6ott"]
+[gd_scene load_steps=26 format=3 uid="uid://d1rc1mphh6ott"]
 
 [ext_resource type="Script" path="res://scripts/enemies/transporter.gd" id="1_vnjj5"]
 [ext_resource type="Texture2D" uid="uid://cvqh56m2v58f0" path="res://textures/enemies/mini_transporter/mini_transporter1.png" id="2_o4qlq"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://b5stgh8t5e1lm" path="res://textures/enemies/mini_transporter/mini_transporter11.png" id="12_c6lvq"]
 [ext_resource type="Texture2D" uid="uid://c3m4duciut6ye" path="res://textures/enemies/mini_transporter/mini_transporter12.png" id="13_tyuba"]
 [ext_resource type="Texture2D" uid="uid://djn8eaivbcelu" path="res://textures/enemies/mini_transporter/mini_transporter13.png" id="14_enjkc"]
+[ext_resource type="Texture2D" uid="uid://bomt6j4xvrtmp" path="res://textures/particles/boss_explosion.png" id="17_cx71y"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4mtwm"]
 animations = [{
@@ -133,6 +134,12 @@ _data = {
 "activate": SubResource("Animation_0fnhg")
 }
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_3jamm"]
+particles_animation = true
+particles_anim_h_frames = 9
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
 [node name="MiniTransporter" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 8
 collision_mask = 0
@@ -211,6 +218,16 @@ one_shot = true
 [node name="FallenTimer" type="Timer" parent="."]
 wait_time = 15.0
 one_shot = true
+
+[node name="DieParticles" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_3jamm")
+emitting = false
+texture = ExtResource("17_cx71y")
+emission_shape = 3
+emission_rect_extents = Vector2(30, 60)
+gravity = Vector2(0, 0)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

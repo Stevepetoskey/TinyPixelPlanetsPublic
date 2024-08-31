@@ -25,6 +25,7 @@ var mHair = [0,2,4,5]
 @onready var load_save: Control = $"../loadSave"
 
 func open():
+	Global.gamerules.clear()
 	randomize()
 	if randi()%3 == 1:
 		var character = starterCharacters.keys()[randi()%starterCharacters.size()]
@@ -141,3 +142,7 @@ func _on_Scenarios_pressed():
 func _on_Done_pressed():
 	$"../../Scenarios".hide()
 	show()
+
+func _on_game_settings_btn_pressed() -> void:
+	$"../GameSetttings".open()
+	hide()

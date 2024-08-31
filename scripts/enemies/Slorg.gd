@@ -26,22 +26,23 @@ func _physics_process(delta):
 		if !is_on_floor() and !["attack","falling"].has(state) and !waitForAnimation:
 			body.play("falling")
 			state = "falling"
+		var result : Dictionary
 		if position.distance_to(player.position) <= 64 and is_on_floor():
 			var space_state = get_world_2d().direct_space_state
 			var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self])
-			var result = space_state.intersect_ray(params)
-			if !result.is_empty() and result.collider == player:
-				if !seePlayer:
-					$seeTimer.stop()
-					$Seen.show()
-					await get_tree().create_timer(1).timeout
-					$Seen.hide()
-				lostPlayer = false
-				seePlayer = true
-				seenPos = player.position
-			elif seePlayer and !lostPlayer:
-				lostPlayer = true
-				$seeTimer.start()
+			result = space_state.intersect_ray(params)
+		if !result.is_empty() and result.collider == player:
+			if !seePlayer:
+				$seeTimer.stop()
+				$Seen.show()
+				await get_tree().create_timer(1).timeout
+				$Seen.hide()
+			lostPlayer = false
+			seePlayer = true
+			seenPos = player.position
+		elif seePlayer and !lostPlayer:
+			lostPlayer = true
+			$seeTimer.start()
 		if !waitForAnimation or state == "attack":
 			match state:
 				"roam":
@@ -118,7 +119,7 @@ func _on_HitBox_body_entered(body):
 
 func _on_HurtTimer_timeout():
 	if !Global.pause:
-		player.health -= 2
+		player.damage(2)
 
 func _on_HitBox_body_exited(body):
 	$HurtTimer.stop()

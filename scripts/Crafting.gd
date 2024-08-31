@@ -7,6 +7,52 @@ const CRAFT_BTN = preload("res://assets/CraftBtn.tscn")
 @onready var world = $"../../World"
 @onready var recipes_container = $RecipesScroll/RecipesContainer
 
+var groups : Dictionary = {
+	"wool":{
+		"texture":[],
+		"ids":[247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262],
+		}
+}
+
+var colors : Dictionary = {
+	"wool":{
+		"white":247,
+		"light_gray":248,
+		"gray":249,
+		"black":250,
+		"red":251,
+		"orange":252,
+		"yellow":253,
+		"yellow_green":254,
+		"green":255,
+		"cyan":256,
+		"blue":257,
+		"purple":258,
+		"pink":259,
+		"brown":260,
+		"tan":261,
+		"maroon":262
+	},
+	"dye":{
+		"white":234,
+		"light_gray":235,
+		"gray":236,
+		"black":237,
+		"red":222,
+		"orange":223,
+		"yellow":224,
+		"yellow_green":225,
+		"green":226,
+		"cyan":227,
+		"blue":228,
+		"purple":229,
+		"pink":230,
+		"brown":232,
+		"tan":233,
+		"maroon":231
+	},
+}
+
 var recipes = {
 	"inventory": [
 		{"recipe":[{"id":10,"amount":1}],"result":{"id":13,"amount":4}}, #Planks
@@ -22,6 +68,7 @@ var recipes = {
 	"crafting_table": [
 		{"recipe":[{"id":10,"amount":1}],"result":{"id":13,"amount":4}},
 		{"recipe":[{"id":13,"amount":4}],"result":{"id":12,"amount":1}}, #Workbench
+		{"recipe":[{"id":13,"amount":4},{"id":247,"amount":2}],"result":{"id":263,"amount":1}}, #Wool work table
 		{"recipe":[{"id":78,"amount":4}],"result":{"id":12,"amount":1}}, #Workbench (With exotic wood)
 		{"recipe":[{"id":13,"amount":2}],"result":{"id":30,"amount":4}},
 		{"recipe":[{"id":8,"amount":4}],"result":{"id":16,"amount":1}},
@@ -80,6 +127,7 @@ var recipes = {
 		{"recipe":[{"id":234,"amount":1},{"id":236,"amount":1}],"result":{"id":235,"amount":2}}, #Light gray dye
 		{"recipe":[{"id":234,"amount":1},{"id":237,"amount":1}],"result":{"id":236,"amount":2}}, #Gray dye
 		{"recipe":[{"id":52,"amount":1},{"id":222,"amount":1}],"result":{"id":166,"amount":2}}, #Red wire
+		{"recipe":[{"id":193,"amount":9},{"id":165,"amount":6}],"result":{"id":246,"amount":1}}, #Endgame locator
 	],
 	"oven": [
 		{"recipe":[{"id":14,"amount":1}],"result":{"id":20,"amount":1}},
@@ -87,7 +135,8 @@ var recipes = {
 		{"recipe":[{"id":8,"amount":1}],"result":{"id":3,"amount":1}},
 		{"recipe":[{"id":25,"amount":1}],"result":{"id":26,"amount":1}},
 		{"recipe":[{"id":29,"amount":1}],"result":{"id":52,"amount":1}}, # Copper
-		{"recipe":[{"id":55,"amount":1}],"result":{"id":56,"amount":1}},
+		{"recipe":[{"id":55,"amount":1}],"result":{"id":56,"amount":1}}, #Silver (stone)
+		{"recipe":[{"id":200,"amount":1}],"result":{"id":56,"amount":1}}, #Silver (permafrost)
 		{"recipe":[{"id":15,"amount":1}],"result":{"id":83,"amount":1}}, #Cracked stone bricks
 		{"recipe":[{"id":19,"amount":1}],"result":{"id":86,"amount":1}}, #Cracked mud bricks
 		{"recipe":[{"id":23,"amount":1}],"result":{"id":87,"amount":1}}, #Cracked sandstone bricks
@@ -97,6 +146,7 @@ var recipes = {
 		{"recipe":[{"id":151,"amount":1}],"result":{"id":165,"amount":1}}, #Iron (pink)
 		{"recipe":[{"id":152,"amount":1}],"result":{"id":165,"amount":1}}, #Iron (white)
 		{"recipe":[{"id":153,"amount":1}],"result":{"id":165,"amount":1}}, #Iron (brown)
+		{"recipe":[{"id":179,"amount":1}],"result":{"id":165,"amount":1}}, #Iron (scorched)
 		{"recipe":[{"id":192,"amount":1}],"result":{"id":193,"amount":1}}, #Gold (Sandstone)
 		{"recipe":[{"id":194,"amount":1}],"result":{"id":193,"amount":1}}, #Gold (Stone)
 		{"recipe":[{"id":5,"amount":2}],"result":{"id":237,"amount":1}}, #Black dye
@@ -106,6 +156,7 @@ var recipes = {
 		{"recipe":[{"id":56,"amount":6}],"result":{"id":89,"amount":1}}, #Silver block
 		{"recipe":[{"id":193,"amount":6}],"result":{"id":195,"amount":1}}, #Gold block
 		{"recipe":[{"id":165,"amount":4}],"result":{"id":173,"amount":3}}, #Steel
+		{"recipe":[{"id":173,"amount":4}],"result":{"id":216,"amount":1}}, #Steel
 		{"recipe":[{"id":88,"amount":1}],"result":{"id":133,"amount":2}}, #Copper plate
 		{"recipe":[{"id":88,"amount":4}],"result":{"id":134,"amount":4}}, #Copper bricks
 		{"recipe":[{"id":89,"amount":1}],"result":{"id":136,"amount":2}}, #Silver plate
@@ -124,10 +175,14 @@ var recipes = {
 		{"recipe":[{"id":52,"amount":5}],"result":{"id":35,"amount":1}},
 		{"recipe":[{"id":52,"amount":7}],"result":{"id":37,"amount":1}},
 		{"recipe":[{"id":52,"amount":5}],"result":{"id":38,"amount":1}},
-		{"recipe":[{"id":56,"amount":5}],"result":{"id":39,"amount":1}},
-		{"recipe":[{"id":56,"amount":10}],"result":{"id":40,"amount":1}},
-		{"recipe":[{"id":56,"amount":7}],"result":{"id":41,"amount":1}},
-		{"recipe":[{"id":56,"amount":5}],"result":{"id":42,"amount":1}},
+		{"recipe":[{"id":56,"amount":5}],"result":{"id":39,"amount":1}}, #Silver helmet
+		{"recipe":[{"id":56,"amount":10}],"result":{"id":40,"amount":1}}, #Silver chestplate
+		{"recipe":[{"id":56,"amount":7}],"result":{"id":41,"amount":1}}, #Silver leggings
+		{"recipe":[{"id":56,"amount":5}],"result":{"id":42,"amount":1}}, #Silver boots
+		{"recipe":[{"id":165,"amount":5},{"id":205,"amount":1}],"result":{"id":211,"amount":1}}, #Fire helmet
+		{"recipe":[{"id":165,"amount":10},{"id":205,"amount":1}],"result":{"id":212,"amount":1}}, #Fire chestplate
+		{"recipe":[{"id":165,"amount":7},{"id":205,"amount":1}],"result":{"id":213,"amount":1}}, #Fire leggings
+		{"recipe":[{"id":165,"amount":5},{"id":205,"amount":1}],"result":{"id":214,"amount":1}}, #Fire boots
 		{"recipe":[{"id":5,"amount":2},{"id":52,"amount":4}],"result":{"id":63,"amount":1}}, #Copper axe
 		{"recipe":[{"id":5,"amount":1},{"id":52,"amount":2}],"result":{"id":64,"amount":1}}, #Copper dagger
 		{"recipe":[{"id":5,"amount":2},{"id":52,"amount":3}],"result":{"id":65,"amount":1}}, #Copper sword
@@ -142,10 +197,23 @@ var recipes = {
 		{"recipe":[{"id":5,"amount":3},{"id":56,"amount":2}],"result":{"id":130,"amount":1}}, #Silver Hoe
 		{"recipe":[{"id":56,"amount":3}],"result":{"id":132,"amount":1}}, #Silver Watering Can
 		{"recipe":[{"id":52,"amount":3}],"result":{"id":131,"amount":1}}, #Copper Watering Can
+
+	],
+	"wool_work_table":[
+		{"recipe":[{"id":247,"amount":5}],"result":{"id":207,"amount":1}}, #Coat hood
+		{"recipe":[{"id":247,"amount":10}],"result":{"id":208,"amount":1}}, #Coat
+		{"recipe":[{"id":247,"amount":7}],"result":{"id":209,"amount":1}}, #Coat pants
+		{"recipe":[{"id":247,"amount":5}],"result":{"id":210,"amount":1}}, #Coat boots
 	]
 }
 
 var currentMenu = "null"
+
+func _ready() -> void:
+	for woolColor : String in colors["wool"]:
+		for dyeColor : String in colors["dye"]:
+			if woolColor != dyeColor:
+				recipes["wool_work_table"].append({"recipe":[{"id":colors["wool"][woolColor],"amount":4},{"id":colors["dye"][dyeColor],"amount":1}],"result":{"id":colors["wool"][dyeColor],"amount":4}})
 
 func update_crafting(menu := "null") -> void:
 	if menu != "null":

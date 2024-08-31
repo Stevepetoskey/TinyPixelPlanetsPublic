@@ -23,22 +23,23 @@ func _ready():
 
 func _physics_process(delta):
 	if !Global.pause:
+		var result : Dictionary
 		if position.distance_to(player.position) <= 64:
 			var space_state = get_world_2d().direct_space_state
 			var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self])
-			var result = space_state.intersect_ray(params)
-			if !result.is_empty() and result.collider == player:
-				if !seePlayer:
-					$seeTimer.stop()
-					$Seen.show()
-					await get_tree().create_timer(1).timeout
-					$Seen.hide()
-				seePlayer = true
-				lostPlayer = false
-				seenPos = player.position
-			elif seePlayer and !lostPlayer:
-				lostPlayer = true
-				$seeTimer.start()
+			result = space_state.intersect_ray(params)
+		if !result.is_empty() and result.collider == player:
+			if !seePlayer:
+				$seeTimer.stop()
+				$Seen.show()
+				await get_tree().create_timer(1).timeout
+				$Seen.hide()
+			seePlayer = true
+			lostPlayer = false
+			seenPos = player.position
+		elif seePlayer and !lostPlayer:
+			lostPlayer = true
+			$seeTimer.start()
 		match state:
 			"roam":
 				if randi()%100 == 1 or seePlayer:

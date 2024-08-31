@@ -57,6 +57,12 @@ func add_to_inventory(id : int,amount : int,drop : bool = true,data := {}) -> Di
 			GlobalGui.complete_achievement("An upgrade")
 		98:
 			GlobalGui.complete_achievement("Top of the line")
+		205:
+			GlobalGui.complete_achievement("Into ice")
+		191:
+			GlobalGui.complete_achievement("Into lava")
+		246:
+			GlobalGui.complete_achievement("Location needed")
 	if world.get_item_data(id).has("type") and world.get_item_data(id)["type"] == "weapon":
 		GlobalGui.complete_achievement("Ready for battle")
 	$collect.play()
@@ -204,6 +210,8 @@ func update_inventory() -> void:
 	else:
 		slot1.hide()
 		slot2.hide()
+		jAction.get_node("Item").texture = null
+		kAction.get_node("Item").texture = null
 	crafting.update_crafting()
 
 func get_item_texture(id : int, loc : int):
@@ -275,7 +283,7 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 			godmode.hide()
 			upgrade.clear()
 			music_player.hide()
-		"inventory","crafting_table","oven","smithing_table":
+		"inventory","crafting_table","oven","smithing_table","wool_work_table":
 			if !Global.godmode or mode != "inventory":
 				crafting.visible = setValue
 				crafting.update_crafting(mode)
