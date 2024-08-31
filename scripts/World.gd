@@ -146,11 +146,11 @@ var lootTables = { #{id:Block/Item id, amount:max amount, rarity: item chance, g
 		{"id":37,"amount":1,"rarity":3,"group":"clothes"},
 		{"id":38,"amount":1,"rarity":3,"group":"clothes"},
 	],
-	"frigid":[
+	"fridged":[
 		{"id":56,"amount":5,"rarity":3,"group":"none"},
 		{"id":215,"amount":1,"rarity":2,"group":"none"},
 	],
-	"frigid_boss":[
+	"fridged_boss":[
 		{"id":56,"amount":10,"rarity":3,"group":"none"},
 		{"id":215,"amount":2,"rarity":1,"group":"none"},
 	]

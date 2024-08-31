@@ -108,7 +108,7 @@ func _on_Spawn_timeout():
 		var creatureCount : int = 0
 		var maxH : int = int(5*(world.worldSize.x/128)) if world.worldRules["enemy_spawning"]["value"] else 0
 		var maxE : int = int(5*(world.worldSize.x/128)) if world.worldRules["entity_spawning"]["value"] else 0
-		for entity : Entity in $Hold.get_children():
+		for entity in $Hold.get_children():
 			if entity.hostile:
 				hostileCount += 1
 			elif !["blues","item"].has(entity.type):

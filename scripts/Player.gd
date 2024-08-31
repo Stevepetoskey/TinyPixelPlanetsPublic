@@ -421,6 +421,7 @@ func _on_Armor_updated_armor(armorData):
 		defPoints = 0
 		movementModifier = 0
 		maxOxygen = 50
+		print(armorData)
 		for armorType in armorData:
 			if !armorData[armorType].is_empty():
 				var id = armorData[armorType]["id"]
@@ -443,13 +444,15 @@ func _on_Armor_updated_armor(armorData):
 					elif ["Hat","Helmet"].has(armorType) and get_item_upgrades(armorData[armorType]).has("oxygen"):
 						maxOxygen += get_item_upgrades(armorData[armorType])["oxygen"] * 50
 				else:
-					if get_item_upgrades(armorData[armorType]).has("jetpack"):
-						jetpackLevel = get_item_upgrades(armorData[armorType])["jetpack"]
-					else:
-						jetpackLevel = 0
+					if armorType == "Chestplate":
+						if get_item_upgrades(armorData[armorType]).has("jetpack"):
+							jetpackLevel = get_item_upgrades(armorData[armorType])["jetpack"]
+						else:
+							jetpackLevel = 0
 					display[set[armorType]] = load("res://textures/player/" + files[id]["folder"]+ "/" + gender + "/" + files[id]["file"])
 			elif ["Chestplate","Leggings","Boots","Helmet"].has(armorType):
-				jetpackLevel = 0
+				if armorType == "Chestplate":
+					jetpackLevel = 0
 				$"../CanvasLayer/Inventory/Armor".get_node(armorType + "Points").hide()
 		movementModifier *= 4
 		for sheet in display:

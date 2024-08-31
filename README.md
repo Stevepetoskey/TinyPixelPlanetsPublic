@@ -88,3 +88,5 @@ This branch is for unstable development of TU5 (v0.5.0)
 - Added ability to change between godmode and survival when creating a save
 - Added difficulties (easy, normal, and hard)
 - Added background for frigid planets
+## TU5 Touch-ups
+- Fixed not having full armor preventing jetpack usage

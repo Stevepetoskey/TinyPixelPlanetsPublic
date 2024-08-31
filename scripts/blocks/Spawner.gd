@@ -44,7 +44,7 @@ func spawn():
 			summon = "scorched_guard"
 			print("spawning")
 		206:
-			summon = "fridged_spike"
+			summon = "frigid_spike"
 	var hAmount = 0
 	for child in entities.get_node("Hold").get_children():
 		if child.is_in_group("enemy") and child.type == summon and Rect2(position - Vector2(48,48),Vector2(96,96)).has_point(child.position):

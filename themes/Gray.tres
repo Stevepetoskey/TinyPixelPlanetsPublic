@@ -1,20 +1,10 @@
-[gd_resource type="Theme" load_steps=23 format=3 uid="uid://bvlk5mt2axnwa"]
+[gd_resource type="Theme" load_steps=14 format=3 uid="uid://bvlk5mt2axnwa"]
 
-[ext_resource type="Texture2D" uid="uid://bfwm7q7ex0to6" path="res://textures/GUI/buttons/gray_btn_normal.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://cnobb6cmehhf4" path="res://textures/GUI/buttons/gray_btn_hover.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://7no752ox63d" path="res://textures/GUI/buttons/gray_btn_pressed.png" id="3"]
-[ext_resource type="Texture2D" uid="uid://yt38gkuyx7oq" path="res://textures/GUI/main/shop/tab_selected.png" id="5"]
-[ext_resource type="Texture2D" uid="uid://bc3ncctygtmi" path="res://textures/GUI/main/shop/tab.png" id="6"]
 [ext_resource type="FontVariation" uid="uid://c4nuc5bd0kohq" path="res://fonts/PixelPossFix.tres" id="7_4hyx0"]
-[ext_resource type="Texture2D" uid="uid://xqo8m25x5o10" path="res://textures/GUI/misc/gray_v_bar_handle.png" id="7_j2eja"]
-[ext_resource type="Texture2D" uid="uid://gnk4eoow4bqh" path="res://textures/GUI/GlobalGUI/Ach_completed.png" id="8"]
-[ext_resource type="Texture2D" uid="uid://wipux0gbsbaf" path="res://textures/GUI/misc/gray_v_bar_select.png" id="8_c41fb"]
-[ext_resource type="Texture2D" uid="uid://dkem6vnr65nje" path="res://textures/GUI/misc/gray_v_bar.png" id="9_7nu5q"]
 
 [sub_resource type="StyleBoxEmpty" id="30"]
 
 [sub_resource type="StyleBoxTexture" id="31"]
-texture = ExtResource("2")
 texture_margin_left = 1.0
 texture_margin_top = 2.0
 texture_margin_right = 1.0
@@ -22,7 +12,6 @@ texture_margin_bottom = 3.0
 region_rect = Rect2(0, 0, 8, 8)
 
 [sub_resource type="StyleBoxTexture" id="32"]
-texture = ExtResource("1")
 texture_margin_left = 1.0
 texture_margin_top = 2.0
 texture_margin_right = 1.0
@@ -30,7 +19,6 @@ texture_margin_bottom = 3.0
 region_rect = Rect2(0, 0, 8, 8)
 
 [sub_resource type="StyleBoxTexture" id="33"]
-texture = ExtResource("3")
 texture_margin_left = 1.0
 texture_margin_top = 3.0
 texture_margin_right = 1.0
@@ -38,7 +26,6 @@ texture_margin_bottom = 2.0
 region_rect = Rect2(0, 0, 8, 8)
 
 [sub_resource type="StyleBoxTexture" id="37"]
-texture = ExtResource("8")
 texture_margin_left = 1.0
 texture_margin_top = 2.0
 texture_margin_right = 1.0
@@ -48,36 +35,30 @@ region_rect = Rect2(0, 0, 16, 16)
 [sub_resource type="StyleBoxEmpty" id="34"]
 
 [sub_resource type="StyleBoxTexture" id="35"]
-texture = ExtResource("6")
 region_rect = Rect2(0, 0, 21, 9)
 
 [sub_resource type="StyleBoxTexture" id="36"]
-texture = ExtResource("5")
 region_rect = Rect2(0, 0, 21, 9)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_a7ip1"]
-texture = ExtResource("7_j2eja")
 texture_margin_left = 2.0
 texture_margin_top = 2.0
 texture_margin_right = 2.0
 texture_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f6gob"]
-texture = ExtResource("8_c41fb")
 texture_margin_left = 2.0
 texture_margin_top = 2.0
 texture_margin_right = 2.0
 texture_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0tj8n"]
-texture = ExtResource("8_c41fb")
 texture_margin_left = 2.0
 texture_margin_top = 2.0
 texture_margin_right = 2.0
 texture_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kmkq0"]
-texture = ExtResource("9_7nu5q")
 texture_margin_left = 2.0
 texture_margin_top = 2.0
 texture_margin_right = 2.0
