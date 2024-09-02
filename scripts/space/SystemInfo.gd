@@ -14,7 +14,10 @@ var planetTextures = {
 	"gas1":preload("res://textures/planets/gas1_small.png"),
 	"gas2":preload("res://textures/planets/gas2_small.png"),
 	"gas3":preload("res://textures/planets/gas3_small.png"),
-	"exotic":preload("res://textures/planets/exotic.png")
+	"exotic":preload("res://textures/planets/exotic.png"),
+	"grassland":preload("res://textures/planets/grassland.png"),
+	"scorched":preload("res://textures/planets/scorched.png"),
+	"frigid":preload("res://textures/planets/fridged.png"),
 }
 
 var planetTypeNames = {
@@ -29,7 +32,10 @@ var planetTypeNames = {
 	"gas1":"Gas Giant",
 	"gas2":"Gas Giant",
 	"gas3":"Gas Giant",
-	"exotic":"Exotic"
+	"exotic":"Exotic",
+	"grassland":"Grassland",
+	"scorched":"Scorched",
+	"frigid":"Frigid",
 }
 
 @onready var camera = $"../GalaxyView"

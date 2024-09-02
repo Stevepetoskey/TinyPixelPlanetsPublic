@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dj3pco2nduwvc"]
+
+[ext_resource type="Texture2D" uid="uid://beat5lx6t651b" path="res://textures/GUI/main/godmode/item_btn.png" id="1_4ncpk"]
+[ext_resource type="Texture2D" uid="uid://xam3htpyc387" path="res://textures/GUI/main/godmode/item_btn_pressed.png" id="2_01703"]
+[ext_resource type="Texture2D" uid="uid://bsl11e15aidsf" path="res://textures/GUI/main/godmode/item_btn_hover.png" id="3_k8tpi"]
+[ext_resource type="Script" path="res://scripts/GUI/main/godmode_item_btn.gd" id="4_wd7ma"]
+
+[node name="GodmodeItemBtn" type="TextureButton"]
+button_mask = 3
+texture_normal = ExtResource("1_4ncpk")
+texture_pressed = ExtResource("2_01703")
+texture_hover = ExtResource("3_k8tpi")
+script = ExtResource("4_wd7ma")
+
+[node name="Item" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch_mode = 3
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://dv66fau4co8jt"]
+
+[ext_resource type="Script" path="res://scripts/blocks/Lever.gd" id="1_n2e11"]
+[ext_resource type="Texture2D" uid="uid://cu5vena2jp7p5" path="res://textures/blocks/lever_off.png" id="2_mwa2p"]
+[ext_resource type="Texture2D" uid="uid://d2knl2pc7ytxv" path="res://textures/blocks/misc/logic_pin_bool.png" id="3_5tbjo"]
+
+[node name="Lever" type="StaticBody2D"]
+script = ExtResource("1_n2e11")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
+texture = ExtResource("2_mwa2p")
+region_rect = Rect2(0, 16, 8, 8)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2, -2)
+scale = Vector2(0.2, 0.2)
+rect = Rect2(-10, -10, 40, 40)
+
+[node name="shade" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.521569)
+
+[node name="Outputs" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="O1" type="TextureButton" parent="Outputs"]
+offset_left = 1.0
+offset_top = -2.0
+offset_right = 5.0
+offset_bottom = 2.0
+texture_normal = ExtResource("3_5tbjo")
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

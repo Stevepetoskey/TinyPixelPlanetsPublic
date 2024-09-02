@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://ba3g1qoudv6fs"]
+
+[ext_resource type="Script" path="res://scripts/enemies/fridged_spit.gd" id="1_lu8rc"]
+[ext_resource type="Texture2D" uid="uid://46o3eyitpnsi" path="res://textures/enemies/fridged_spike/spit.png" id="2_5moi7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ilb5p"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fm0sw"]
+radius = 3.0
+
+[node name="FrigidSpit" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_lu8rc")
+type = "frigid_spit"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_5moi7")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 26
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_ilb5p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fm0sw")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

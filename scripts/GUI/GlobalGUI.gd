@@ -3,8 +3,15 @@ extends CanvasLayer
 var achievements = {
 	"One small step":{"desc":"Mine your first block using your pickaxe","requires":"none","icon":preload("res://textures/items/armor/space_helmet.png")},
 	"An upgrade":{"desc":"Craft a stone pickaxe","requires":"One small step","icon":preload("res://textures/items/stone_pick.png")},
-	"The mechanic":{"desc":"Repair your ship","requires":"One small step","icon":preload("res://textures/ships/blue_ship_icon.png")},
+	"The mechanic":{"desc":"Fly your ship into space","requires":"One small step","icon":preload("res://textures/ships/blue_ship_icon.png")},
 	"Ready for battle":{"desc":"Craft a weapon","requires":"One small step","icon":preload("res://textures/items/barbed_club.png")},
+	"Winter ready":{"desc":"Suit up in full coat armor to survive on frigid planets","requires":"Interplanetary","icon":preload("res://textures/items/armor/coat.png")},
+	"Into ice":{"desc":"Collect a coolant shard from a frigid spike","requires":"Winter ready","icon":preload("res://textures/items/coolant_shard.png")},
+	"Scorched ready":{"desc":"Suit up in full fire armor to survive on scorched planets","requires":"Into ice","icon":preload("res://textures/items/armor/fire_chestplate.png")},
+	"Into lava":{"desc":"Collect a magma ball from a scorched guard","requires":"Scorched ready","icon":preload("res://textures/items/magma_ball.png")},
+	"Location needed":{"desc":"Craft a endgame locator","requires":"Into lava","icon":preload("res://textures/blocks/endgame_locator.png")},
+	"The endgame":{"desc":"Use a locator to teleport to the endgame planet","requires":"Location needed","icon":preload("res://textures/enemies/mini_transporter/trinanium_charge1.png")},
+	"The end":{"desc":"Defeat the rogue mini transporter","requires":"The endgame","icon":preload("res://textures/blocks/trinanium_crystal.png")},
 	"Top of the line":{"desc":"Craft a rhodonite pickaxe","requires":"An upgrade","icon":preload("res://textures/items/rhodonite_pick.png")},
 	"Exotic wear":{"desc":"Wear a full set of rhodonite armor","requires":"Top of the line","icon":preload("res://textures/items/rhodonite.png")},
 	"Interplanetary":{"desc":"Travel between two planets in the same star system","requires":"The mechanic","icon":preload("res://textures/planets/terra.png")},
@@ -26,8 +33,10 @@ var completedAchievements = []
 var backedUpRequest = []
 
 signal update_achievements
+signal autosave
 
 @onready var achievementPnl = $Achievement
+@onready var auto_save_timer: Timer = $AutoSaveTimer
 
 func _process(delta):
 	if GlobalAudio.mode != "menu":
@@ -45,6 +54,8 @@ func _process(delta):
 
 func _ready():
 	emit_signal("update_achievements",completedAchievements)
+	Global.entered_save.connect(entered_save)
+	Global.left_save.connect(left_save)
 
 func complete_achievement(achievement):
 	if !completedAchievements.has(achievement) and !Global.inTutorial:
@@ -79,3 +90,18 @@ func ach_pressed(id):
 		else:
 			$AchievementMenu/Desc/Desc.text = "Requires ???"
 	$AchievementMenu/Desc.show()
+
+func entered_save() -> void:
+	print("saving time at: ",GlobalData.autoSaveTimes[Global.settings["autosave_interval"]])
+	if Global.settings["autosave_interval"] != 0:
+		print("Started save timer")
+		auto_save_timer.start(GlobalData.autoSaveTimes[Global.settings["autosave_interval"]])
+
+func left_save() -> void:
+	print("stop autosave")
+	auto_save_timer.stop()
+
+func _on_auto_save_timer_timeout() -> void:
+	$AutosaveIcon/AnimationPlayer.play("pulse")
+	await get_tree().create_timer(2.0).timeout
+	autosave.emit()

@@ -1,0 +1,50 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6rlp5hwdlxfe"]
+
+[ext_resource type="Script" path="res://scripts/blocks/spike.gd" id="1_ir6j2"]
+[ext_resource type="Texture2D" uid="uid://cdu2wetg4lv1i" path="res://textures/blocks/silver_spike_up.png" id="2_a5f38"]
+[ext_resource type="Texture2D" uid="uid://d2knl2pc7ytxv" path="res://textures/blocks/misc/logic_pin_bool.png" id="3_3rj6p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4q5oa"]
+size = Vector2(8, 8)
+
+[node name="Spike" type="StaticBody2D"]
+script = ExtResource("1_ir6j2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
+texture = ExtResource("2_a5f38")
+region_rect = Rect2(0, 16, 8, 8)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2, -2)
+scale = Vector2(0.2, 0.2)
+rect = Rect2(-10, -10, 40, 40)
+
+[node name="shade" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.521569)
+
+[node name="Inputs" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="I1" type="TextureButton" parent="Inputs"]
+offset_left = -6.0
+offset_top = -2.0
+offset_right = -2.0
+offset_bottom = 2.0
+texture_normal = ExtResource("3_3rj6p")
+
+[node name="DamageArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 26
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea"]
+shape = SubResource("RectangleShape2D_4q5oa")
+
+[node name="DamageTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
+[connection signal="body_exited" from="DamageArea" to="." method="_on_damage_area_body_exited"]
+[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]

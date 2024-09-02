@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://c64cmyhcmuw4g"]
+[gd_scene load_steps=11 format=3 uid="uid://c64cmyhcmuw4g"]
 
 [ext_resource type="AudioStream" uid="uid://bnqgu4cqm0few" path="res://Audio/music/Found.ogg" id="1"]
 [ext_resource type="Script" path="res://scripts/Audio/GlobalAudio.gd" id="2"]
+[ext_resource type="AudioStream" uid="uid://c8k2bjs8poe5y" path="res://Audio/music/Boss-Fight-Intro.mp3" id="3_0fte4"]
+[ext_resource type="AudioStream" uid="uid://y7x1h8y0obnk" path="res://Audio/music/Boss-Fight.mp3" id="4_xbu6e"]
+[ext_resource type="AudioStream" uid="uid://dfngmcwjaahv7" path="res://Audio/music/Boss-fight-2.mp3" id="5_oqjbc"]
 
 [sub_resource type="Animation" id="1"]
 length = 0.001
@@ -55,6 +58,41 @@ _data = {
 "vol_up": SubResource("3")
 }
 
+[sub_resource type="AudioStreamInteractive" id="AudioStreamInteractive_llou0"]
+clip_count = 3
+clip_0/name = &"intro"
+clip_0/stream = ExtResource("3_0fte4")
+clip_0/auto_advance = 1
+clip_0/next_clip = 1
+clip_1/name = &"main"
+clip_1/stream = ExtResource("4_xbu6e")
+clip_1/auto_advance = 0
+clip_2/name = &"attack"
+clip_2/stream = ExtResource("5_oqjbc")
+clip_2/auto_advance = 1
+clip_2/next_clip = 1
+_transitions = {
+Vector2i(0, 1): {
+"fade_beats": 1,
+"fade_mode": 0,
+"from_time": 3,
+"to_time": 1
+},
+Vector2i(1, 2): {
+"fade_beats": 1,
+"fade_mode": 3,
+"from_time": 0,
+"hold_previous": true,
+"to_time": 1
+},
+Vector2i(2, 1): {
+"fade_beats": 1,
+"fade_mode": 3,
+"from_time": 0,
+"to_time": 2
+}
+}
+
 [node name="GlobalAudio" type="Node"]
 script = ExtResource("2")
 
@@ -67,5 +105,8 @@ libraries = {
 }
 
 [node name="MusicTimer" type="Timer" parent="Music"]
+
+[node name="BossMusic" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamInteractive_llou0")
 
 [connection signal="timeout" from="Music/MusicTimer" to="." method="_on_MusicTimer_timeout"]

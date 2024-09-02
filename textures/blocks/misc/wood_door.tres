@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://ckd8rwv58y3b"]
+
+[ext_resource type="Texture2D" uid="uid://bp6ajen6v7c2f" path="res://textures/blocks/door_closed.png" id="1_2go3h"]
+[ext_resource type="Texture2D" uid="uid://dedd3aek7brdt" path="res://textures/blocks/door_open.png" id="2_8ucgt"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_2go3h")
+}],
+"loop": true,
+"name": &"close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8ucgt")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_2go3h")
+}],
+"loop": true,
+"name": &"start_closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8ucgt")
+}],
+"loop": true,
+"name": &"start_open",
+"speed": 5.0
+}]

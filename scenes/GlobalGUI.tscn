@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://c835dpghcbrun"]
+[gd_scene load_steps=45 format=3 uid="uid://c835dpghcbrun"]
 
 [ext_resource type="Texture2D" uid="uid://gnk4eoow4bqh" path="res://textures/GUI/GlobalGUI/Ach_completed.png" id="1"]
 [ext_resource type="AudioStream" uid="uid://dudy73cxuvlnr" path="res://Audio/sfx/GUI/Achievement.ogg" id="3"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://cg77ke3bvhhcj" path="res://textures/GUI/space/v_bar_handle_select.png" id="21"]
 [ext_resource type="Texture2D" uid="uid://docmqdn1y13fp" path="res://textures/GUI/Blank.png" id="22"]
 [ext_resource type="Texture2D" uid="uid://408gg2awh54e" path="res://textures/GUI/GlobalGUI/Ach_Desc.png" id="23"]
+[ext_resource type="Texture2D" uid="uid://yv2k1paokuxx" path="res://textures/GUI/main/autosave.png" id="26_hyk7n"]
 
 [sub_resource type="StyleBoxTexture" id="1"]
 texture = ExtResource("5")
@@ -160,6 +161,67 @@ VScrollBar/styles/grabber_pressed = SubResource("15")
 VScrollBar/styles/scroll = SubResource("20")
 VSlider/styles/slider = SubResource("21")
 
+[sub_resource type="Animation" id="Animation_m4cg7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_usulq"]
+resource_name = "pulse"
+length = 4.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0.501961), Color(1, 1, 1, 1), Color(1, 1, 1, 0.501961), Color(1, 1, 1, 1), Color(1, 1, 1, 0.501961), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yn22e"]
+_data = {
+"RESET": SubResource("Animation_m4cg7"),
+"pulse": SubResource("Animation_usulq")
+}
+
 [node name="GlobalGUI" type="CanvasLayer"]
 layer = 100
 script = ExtResource("8")
@@ -248,6 +310,7 @@ offset_right = 89.0
 offset_bottom = 48.0
 theme = SubResource("22")
 scroll_horizontal = 67
+scroll_vertical = 100
 
 [node name="Control" type="Control" parent="AchievementMenu/ScrollContainer"]
 custom_minimum_size = Vector2(300, 300)
@@ -467,6 +530,104 @@ script = ExtResource("12")
 from = "The mechanic"
 to = "Interplanetary"
 
+[node name="Line18" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
+offset_left = 142.0
+offset_top = 63.0
+offset_right = 174.0
+offset_bottom = 65.0
+rotation = 3.14159
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
+from = "Interplanetary"
+to = "Winter ready"
+
+[node name="Line19" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 71.0
+offset_right = 110.0
+offset_bottom = 73.0
+rotation = 1.5708
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
+from = "Winter ready"
+to = "Into ice"
+
+[node name="Line20" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 95.0
+offset_right = 110.0
+offset_bottom = 97.0
+rotation = 1.5708
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
+from = "Into ice"
+to = "Scorched ready"
+
+[node name="Line21" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 119.0
+offset_right = 110.0
+offset_bottom = 121.0
+rotation = 1.5708
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
+from = "Scorched ready"
+to = "Into lava"
+
+[node name="Line22" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 143.0
+offset_right = 110.0
+offset_bottom = 145.0
+rotation = 1.5708
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
+from = "Into lava"
+to = "Location needed"
+
+[node name="Line23" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 167.0
+offset_right = 110.0
+offset_bottom = 169.0
+rotation = 1.5708
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
+from = "Location needed"
+to = "The endgame"
+
+[node name="Line24" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 191.0
+offset_right = 110.0
+offset_bottom = 193.0
+rotation = 1.5708
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("11")
+expand_mode = 1
+script = ExtResource("12")
+from = "The endgame"
+to = "The end"
+
 [node name="Line5" type="TextureRect" parent="AchievementMenu/ScrollContainer/Control/Lines"]
 layout_mode = 0
 offset_left = 150.0
@@ -545,9 +706,9 @@ id = "Explorer 2"
 [node name="Explorer3" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
 layout_mode = 0
 offset_left = 158.0
-offset_top = 120.0
+offset_top = 128.0
 offset_right = 174.0
-offset_bottom = 136.0
+offset_bottom = 144.0
 id = "Explorer 3"
 
 [node name="AnUpgrade" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
@@ -598,6 +759,62 @@ offset_top = 32.0
 offset_right = 182.0
 offset_bottom = 48.0
 id = "Ready for battle"
+
+[node name="WinterReady" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 56.0
+offset_right = 110.0
+offset_bottom = 72.0
+id = "Winter ready"
+
+[node name="IntoIce" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 80.0
+offset_right = 110.0
+offset_bottom = 96.0
+id = "Into ice"
+
+[node name="ScorchedReady" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 104.0
+offset_right = 110.0
+offset_bottom = 120.0
+id = "Scorched ready"
+
+[node name="IntoLava" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 128.0
+offset_right = 110.0
+offset_bottom = 144.0
+id = "Into lava"
+
+[node name="LocationNeeded" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 152.0
+offset_right = 110.0
+offset_bottom = 168.0
+id = "Location needed"
+
+[node name="TheEndgame" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 176.0
+offset_right = 110.0
+offset_bottom = 192.0
+id = "The endgame"
+
+[node name="TheEnd" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 200.0
+offset_right = 110.0
+offset_bottom = 216.0
+id = "The end"
 
 [node name="Exterminator1" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
 layout_mode = 0
@@ -726,4 +943,29 @@ offset_bottom = 48.0
 text = "One small step"
 autowrap_mode = 3
 
+[node name="AutoSaveTimer" type="Timer" parent="."]
+
+[node name="AutosaveIcon" type="TextureRect" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -21.0
+offset_top = -21.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("26_hyk7n")
+stretch_mode = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AutosaveIcon"]
+libraries = {
+"": SubResource("AnimationLibrary_yn22e")
+}
+
 [connection signal="pressed" from="AchievementMenu/BackBtn" to="." method="_on_BackBtn_pressed"]
+[connection signal="timeout" from="AutoSaveTimer" to="." method="_on_auto_save_timer_timeout"]

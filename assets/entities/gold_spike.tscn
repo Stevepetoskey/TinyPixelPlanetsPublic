@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://pdkurre1qkuv"]
+
+[ext_resource type="Script" path="res://scripts/enemies/gold_spike.gd" id="1_rwcpn"]
+[ext_resource type="Texture2D" uid="uid://pwc64lhpjek" path="res://textures/enemies/mini_transporter/gold_spike.png" id="2_3hrsc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fm0sw"]
+radius = 4.0
+
+[node name="GoldSpike" type="CharacterBody2D"]
+collision_layer = 0
+script = ExtResource("1_rwcpn")
+type = "gold_spike"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3hrsc")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 26
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Hitbox"]
+polygon = PackedVector2Array(-5, -5, 5, 0, -5, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fm0sw")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

@@ -71,6 +71,9 @@ var shopData = {
 var currentShop = ""
 var currentTab = "buy"
 
+var currentText : String
+var currentChar : int
+
 @onready var dialogue : RichTextLabel = $Dialogue
 @onready var face_texture : TextureRect = $Face
 @onready var buy_tab = $TabBar/BuyTab
@@ -78,6 +81,7 @@ var currentTab = "buy"
 @onready var item_container: GridContainer = $ItemScroll/ItemContainer
 @onready var inventory: Control = $"../Inventory"
 @onready var title: Label = $Title
+@onready var text_timer: Timer = $TextTimer
 
 func pop_up(shopID : String):
 	buy_tab.disabled = true
@@ -130,15 +134,14 @@ func shop_btn_pressed(loc : int, amount := 0) -> void:
 			play_dialogue("sell","cheerful")
 
 func play_dialogue(sample : String, face : String) -> void:
+	text_timer.stop()
 	var diaSamp : Array = shopData[currentShop]["dialogue"][sample].duplicate()
 	diaSamp.shuffle()
 	dialogue.text = ""
-	var finalText : String = diaSamp[0]
+	currentText = diaSamp[0]
+	currentChar = 0
 	face_texture.texture = shopData[currentShop]["face"][face]
-	for i in range(finalText.length()):
-		dialogue.text += finalText[i]
-		await get_tree().create_timer(0.05).timeout
-	dialogue.text = finalText
+	text_timer.start()
 
 func _on_BuyTab_pressed() -> void:
 	$TabBar/SellTab.disabled = false
@@ -151,3 +154,9 @@ func _on_SellTab_pressed() -> void:
 	$TabBar/BuyTab.disabled = false
 	currentTab = "sell"
 	update_list()
+
+func _on_text_timer_timeout() -> void:
+	dialogue.text += currentText[currentChar]
+	currentChar += 1
+	if currentChar >= currentText.length():
+		text_timer.stop()

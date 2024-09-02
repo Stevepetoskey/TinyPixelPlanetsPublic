@@ -25,7 +25,7 @@ func armor_btn_pressed(icon : Object):
 				if replace != null:
 					inventory.inventory[inventory.holdingRef] = replace
 				else:
-					inventory.inventory.remove_at(inventory.holdingRef)
+					inventory.remove_loc_from_inventory(inventory.holdingRef)
 				emit_signal("updated_armor",armor)
 			inventory.update_inventory()
 	elif !armor[icon.name].is_empty():
@@ -34,7 +34,7 @@ func armor_btn_pressed(icon : Object):
 		inventory.update_inventory()
 		emit_signal("updated_armor",armor)
 
-func mouse_in_btn(armorType : String):
+func mouse_in_bn(armorType : String):
 	if !armor[armorType].is_empty():
 		var itemData = world.get_item_data(armor[armorType]["id"])
 		if itemData.has("name"):
@@ -43,6 +43,10 @@ func mouse_in_btn(armorType : String):
 				text += "\n" + itemData["desc"]
 			$"../../ItemData".show()
 			$"../../ItemData".text = text
+
+func mouse_in_btn(armorType : String):
+	if !armor[armorType].is_empty():
+		$"../../ItemData".display(armor[armorType])
 
 func mouse_out_btn(_armorType : String):
 	$"../../ItemData".hide()

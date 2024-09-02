@@ -1,0 +1,18 @@
+[gd_resource type="AnimatedTexture" load_steps=5 format=3 uid="uid://cf20yefh175ax"]
+
+[ext_resource type="Texture2D" uid="uid://btari2l5nmlom" path="res://textures/blocks/misc/white_wire/white_wire1.png" id="1_2d1b5"]
+[ext_resource type="Texture2D" uid="uid://mrkjhd5l6buv" path="res://textures/blocks/misc/white_wire/white_wire2.png" id="2_srkk5"]
+[ext_resource type="Texture2D" uid="uid://bkyku1gslqx52" path="res://textures/blocks/misc/white_wire/white_wire3.png" id="3_rvddh"]
+[ext_resource type="Texture2D" uid="uid://t5swicqst7rx" path="res://textures/blocks/misc/white_wire/white_wire4.png" id="4_raept"]
+
+[resource]
+resource_local_to_scene = true
+frames = 4
+frame_0/texture = ExtResource("1_2d1b5")
+frame_0/duration = 0.5
+frame_1/texture = ExtResource("2_srkk5")
+frame_1/duration = 0.5
+frame_2/texture = ExtResource("3_rvddh")
+frame_2/duration = 0.5
+frame_3/texture = ExtResource("4_raept")
+frame_3/duration = 0.5

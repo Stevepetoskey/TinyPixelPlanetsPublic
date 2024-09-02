@@ -18,4 +18,4 @@ func _process(delta):
 		$Camera3D.position = Vector3(cos(camAngle)*offset,0,sin(camAngle)*offset)
 		$Camera3D.rotation.y = -camAngle + deg_to_rad(90)
 	else:
-		$DirectionalLight3D.rotation.y = angle
+		$DirectionalLight3D.rotation.y = angle + deg_to_rad(180)

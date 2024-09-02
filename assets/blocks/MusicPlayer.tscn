@@ -1,0 +1,145 @@
+[gd_scene load_steps=13 format=3 uid="uid://dk3nw0ypfto2v"]
+
+[ext_resource type="Script" path="res://scripts/blocks/music_player.gd" id="1_4w4ul"]
+[ext_resource type="Texture2D" uid="uid://dojcmqbi5jwjh" path="res://textures/blocks/music_player.png" id="2_mceli"]
+[ext_resource type="AudioStream" uid="uid://dr7ywughr50nj" path="res://Audio/music/Tinkering-Machine.ogg" id="3_cokw5"]
+[ext_resource type="Texture2D" uid="uid://c1ifwnw7jeffl" path="res://textures/particles/music_note.png" id="4_xxeb8"]
+[ext_resource type="Texture2D" uid="uid://d2knl2pc7ytxv" path="res://textures/blocks/misc/logic_pin_bool.png" id="5_wuu8t"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_y6fa6"]
+polygon = PackedVector2Array(-4, 4, 4, 4, 4, -4, -4, -4)
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(8, 8)
+
+[sub_resource type="Animation" id="Animation_eyhou"]
+resource_name = "playing"
+length = 6.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 0, 1), Color(0, 1, 0, 1), Color(0, 1, 1, 1), Color(0, 0, 1, 1), Color(1, 0, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MusicParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_0ly12"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MusicParticles:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qm40u"]
+_data = {
+"RESET": SubResource("Animation_0ly12"),
+"playing": SubResource("Animation_eyhou")
+}
+
+[sub_resource type="Gradient" id="Gradient_6g3wp"]
+offsets = PackedFloat32Array(0, 0.0720721, 0.617117, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="Gradient" id="Gradient_1t62e"]
+offsets = PackedFloat32Array(0, 0.166667, 0.333333, 0.5, 0.666667, 0.833333, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 1, 0, 1, 0, 1, 0.2, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 6
+
+[node name="MusicPlayer" type="StaticBody2D"]
+script = ExtResource("1_4w4ul")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2, -2)
+scale = Vector2(0.2, 0.2)
+rect = Rect2(-10, -10, 40, 40)
+
+[node name="RainCol" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_y6fa6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
+texture = ExtResource("2_mceli")
+region_rect = Rect2(16, 2.08165e-12, 8, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("1")
+
+[node name="shade" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.521569)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qm40u")
+}
+
+[node name="Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_cokw5")
+
+[node name="MusicParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 3
+lifetime = 2.0
+texture = ExtResource("4_xxeb8")
+emission_shape = 3
+emission_rect_extents = Vector2(4, 4)
+direction = Vector2(0, -1)
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 20.0
+color_ramp = SubResource("Gradient_6g3wp")
+color_initial_ramp = SubResource("Gradient_1t62e")
+
+[node name="Inputs" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="I1" type="TextureButton" parent="Inputs"]
+offset_left = -6.0
+offset_top = -2.0
+offset_right = -2.0
+offset_bottom = 2.0
+texture_normal = ExtResource("5_wuu8t")
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="finished" from="Music" to="." method="_on_music_finished"]

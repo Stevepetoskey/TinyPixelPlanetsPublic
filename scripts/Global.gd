@@ -1,14 +1,22 @@
 extends Node
 
-const CURRENTVER = "TU 4 (v0.4.2)"
-const VER_NUMS = [0,4,2,0]
+const CURRENTVER = "TU5.1 (v0.5.1)"
+const VER_NUMS = [0,5,1,0]
 const ALLOW_VERSIONS = [
 	[0,4,1,0],
-	[0,4,2,0]
+	[0,4,2,0],
+	[0,5,0,1],
+	[0,5,0,3],
+	[0,5,0,4],
+	[0,5,0,5],
+	[0,5,0,6],
+	[0,5,0,7],
+	[0,5,0,0],
+	[0,5,1,0]
 ]
 #Incompatable versions:
 #[0,4,0,8] and [0,4,0,0] (as of TU4.1). Reason: Updated to godot 4
-const STABLE = false
+const STABLE = true
 
 var save_path = "user://" #place of the file
 var currentSave : String
@@ -37,6 +45,7 @@ var default_bookmarks = [
 	]
 var default_settings = {
 	"music":10,
+	"autosave_interval":2,
 	"keybinds":{"build":{"event_type":"mouse","id":1},"build2":{"event_type":"mouse","id":2},"action1":{"event_type":"key","id":74},"action2":{"event_type":"key","id":75},"background_toggle":{"event_type":"key","id":66},"inventory":{"event_type":"key","id":69},"ach":{"event_type":"key","id":90},"fly":{"event_type":"key","id":70}}
 }
 var bookmarks : Array= []
@@ -50,6 +59,8 @@ var gamerulesBase = {
 	"custom_world_file":"",
 	"custom_generation":"",
 	"can_respawn":true,
+	"difficulty":"normal",
+	"start_with_godmode":false,
 }
 var gamerules = {}
 
@@ -60,6 +71,8 @@ var playerBase = {"skin":Color("F8DEC3"),"hair_style":"Short","hair_color":Color
 signal loaded_data
 signal screenshot
 signal saved_settings
+signal entered_save
+signal left_save
 
 func _ready():
 	if FileAccess.file_exists(save_path + "settings.dat"):
@@ -107,10 +120,12 @@ func open_tutorial():
 	dir.open(save_path + currentSave)
 	dir.make_dir("systems")
 	dir.make_dir("planets")
+	dir.make_dir("structures")
 	#DirAccess.copy_absolute("res://data/Tutorial",save_path + currentSave)
 	#copy_directory_recursively("res://data/Tutorial",save_path + currentSave)
 	copy_directory_recursively("res://data/Tutorial/planets",save_path + currentSave + "/planets",true)
 	copy_directory_recursively("res://data/Tutorial/systems",save_path + currentSave + "/systems",true)
+	copy_directory_recursively("res://data/structures",save_path + currentSave + "/structures",true)
 	currentPlanet = 3
 	starterPlanetId = 3
 	currentSystemId = "3941924765520"
@@ -135,6 +150,9 @@ func open_save(saveId : String) -> void:
 	new = true
 	if DirAccess.dir_exists_absolute(save_path + saveId):
 		if FileAccess.file_exists(save_path + saveId + "/playerData.dat"):
+			if !DirAccess.dir_exists_absolute(save_path + saveId + "/structures"): #For TU4.2 and before
+				DirAccess.make_dir_absolute(save_path + saveId + "/structures")
+				copy_directory_recursively("res://data/structures",save_path + saveId + "/structures",true)
 			var savegame = FileAccess.open(save_path + saveId + "/playerData.dat",FileAccess.READ)
 			playerData = savegame.get_var()
 			blues = playerData["blues"]
@@ -154,6 +172,7 @@ func open_save(saveId : String) -> void:
 			StarSystem.landedPlanetTypes = [] if !playerData.has("landed_planet_types") else playerData["landed_planet_types"]
 			GlobalGui.completedAchievements = [] if !playerData.has("achievements") else playerData["achievements"]
 			StarSystem.systemDat = load_system(playerData["current_system"])
+			entered_save.emit()
 			StarSystem.load_system()
 			new = false
 		else:
@@ -162,10 +181,16 @@ func open_save(saveId : String) -> void:
 		new_save(saveId)
 	currentSave = saveId
 
+func teleport_to_planet(systemId : String, planet : int) -> void:
+	currentPlanet = planet
+	playerData["save_type"] = "planet"
+	StarSystem.systemDat = load_system(systemId)
+	StarSystem.load_system(false,true)
+
 func new_save(saveId : String):
 	playerData.clear()
-	godmode = false
-	gamerules = gamerulesBase.duplicate(true)
+	gamerules.merge(gamerulesBase.duplicate(true))
+	godmode = gamerules["start_with_godmode"]
 	bookmarks = default_bookmarks.duplicate(true)
 	meteorsAttacked = false
 	inTutorial = false
@@ -188,10 +213,13 @@ func new_save(saveId : String):
 	dir.open(save_path + saveId)
 	dir.make_dir("systems")
 	dir.make_dir("planets")
+	dir.make_dir("structures")
 	copy_directory_recursively("res://data/pre_made_planets",save_path + saveId + "/planets",true)
 	copy_directory_recursively("res://data/pre_made_systems",save_path + saveId + "/systems",true)
+	copy_directory_recursively("res://data/structures",save_path + saveId + "/structures",true)
 	GlobalGui.completedAchievements = []
 	globalGameTime = 0
+	entered_save.emit()
 	var _er = get_tree().change_scene_to_file("res://scenes/Main.tscn")
 
 func new_planet() -> void:
@@ -208,6 +236,29 @@ func save_settings():
 	print("Saved settings")
 	emit_signal("saved_settings")
 
+func save_structure(data : Dictionary) -> void:
+	var file = FileAccess.open(save_path + currentSave + "/structures/" + data["file_name"] + ".dat",FileAccess.WRITE)
+	file.store_var(data)
+	print("saved structure: " + data["file_name"])
+
+func load_structures(group : String) -> Array:
+	var data = []
+	var dir = DirAccess.open(save_path + currentSave + "/structures")
+	dir.list_dir_begin()
+	var fileName : String = dir.get_next()
+	while (fileName != "" and fileName != "." and fileName != ".."):
+		if fileName.begins_with(group):
+			var file = FileAccess.open(save_path + currentSave + "/structures/" + fileName,FileAccess.READ)
+			data.append(file.get_var())
+		fileName = dir.get_next()
+	return data
+
+func load_structure(structureName : String) -> Dictionary:
+	if FileAccess.file_exists(save_path + currentSave + "/structures/" + structureName):
+		var file = FileAccess.open(save_path + currentSave + "/structures/" + structureName,FileAccess.READ)
+		return file.get_var()
+	return {}
+
 func save(saveType : String, saveData : Dictionary) -> void:
 	playerData["save_type"] = saveType
 	playerData["achievements"] = GlobalGui.completedAchievements
@@ -221,7 +272,7 @@ func save(saveType : String, saveData : Dictionary) -> void:
 	playerData["bookmarks"] = bookmarks
 	match saveType:
 		"planet":
-			playerData = saveData["player"]
+			playerData.merge(saveData["player"],true)
 			playerData["gamerules"] = gamerules
 			playerData["scenario"] = scenario
 			playerData["player_name"] = playerName

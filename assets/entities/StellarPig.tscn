@@ -1,0 +1,149 @@
+[gd_scene load_steps=17 format=3 uid="uid://7tvehdln6jjk"]
+
+[ext_resource type="Script" path="res://scripts/entities/stellar_pig.gd" id="1_1qmc1"]
+[ext_resource type="Texture2D" uid="uid://5pn1hwv1spin" path="res://textures/creatures/stellar_pig/stellar_pig1.png" id="2_5ihpy"]
+[ext_resource type="Texture2D" uid="uid://df0od5omslhh0" path="res://textures/creatures/stellar_pig/stellar_pig2.png" id="3_f52ur"]
+[ext_resource type="Texture2D" uid="uid://d1g7atpg28p5p" path="res://textures/creatures/stellar_pig/stellar_pig3.png" id="4_st5o8"]
+[ext_resource type="Texture2D" uid="uid://dx6c838vu7irw" path="res://textures/creatures/stellar_pig/stellar_pig4.png" id="5_bkg3v"]
+[ext_resource type="Texture2D" uid="uid://v61x36jcu6kh" path="res://textures/creatures/stellar_pig/stellar_pig5.png" id="6_2pv41"]
+[ext_resource type="Texture2D" uid="uid://br1nd4cw5vjwo" path="res://textures/creatures/stellar_pig/stellar_pig6.png" id="7_tkfer"]
+[ext_resource type="Texture2D" uid="uid://b4broywfo4l5b" path="res://textures/creatures/stellar_pig/stellar_pig7.png" id="8_7jkrj"]
+[ext_resource type="Texture2D" uid="uid://bgfht1wwsrhc6" path="res://textures/enemies/seen.png" id="9_jp5hg"]
+[ext_resource type="Texture2D" uid="uid://c124egyfvl6w3" path="res://textures/creatures/stellar_pig/stellar_pig8.png" id="9_ti4h0"]
+[ext_resource type="Texture2D" uid="uid://oeeq8smfl7pd" path="res://textures/creatures/stellar_pig/stellar_pig9.png" id="10_x2d4g"]
+[ext_resource type="Texture2D" uid="uid://cvs8lco0fxg8a" path="res://textures/creatures/stellar_pig/stellar_pig10.png" id="11_15wh8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6mro8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5ihpy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_f52ur")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5ihpy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_st5o8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_bkg3v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_2pv41")
+}],
+"loop": false,
+"name": &"sleep",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_tkfer")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_7jkrj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ti4h0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_x2d4g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_15wh8")
+}],
+"loop": true,
+"name": &"trot",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_2pv41")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_bkg3v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_st5o8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_5ihpy")
+}],
+"loop": false,
+"name": &"wake",
+"speed": 3.0
+}]
+
+[sub_resource type="RectangleShape2D" id="2"]
+size = Vector2(13, 8)
+
+[sub_resource type="CircleShape2D" id="3"]
+radius = 4.0078
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c4yl0"]
+size = Vector2(9, 4)
+
+[node name="StellarPig" type="CharacterBody2D"]
+z_index = 1
+collision_layer = 8
+script = ExtResource("1_1qmc1")
+bluesDropRange = [2, 7]
+type = "stellar_pig"
+
+[node name="Body" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_6mro8")
+animation = &"sleep"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 5)
+shape = SubResource("2")
+
+[node name="Seen" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, -9)
+texture = ExtResource("9_jp5hg")
+
+[node name="seeTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="HitBox" type="Area2D" parent="."]
+position = Vector2(0, 3)
+collision_layer = 256
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, -0.25)
+shape = SubResource("3")
+
+[node name="TrotTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="SleepTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="EnergyTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="BlockTest" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockTest"]
+position = Vector2(-0.5, 5)
+shape = SubResource("RectangleShape2D_c4yl0")
+
+[connection signal="animation_finished" from="Body" to="." method="_on_body_animation_finished"]
+[connection signal="timeout" from="seeTimer" to="." method="_on_seeTimer_timeout"]
+[connection signal="timeout" from="TrotTimer" to="." method="_on_trot_timer_timeout"]
+[connection signal="timeout" from="SleepTimer" to="." method="_on_sleep_timer_timeout"]
+[connection signal="timeout" from="EnergyTimer" to="." method="_on_energy_timer_timeout"]
+[connection signal="body_entered" from="BlockTest" to="." method="_on_block_test_body_entered"]
+[connection signal="body_exited" from="BlockTest" to="." method="_on_block_test_body_exited"]

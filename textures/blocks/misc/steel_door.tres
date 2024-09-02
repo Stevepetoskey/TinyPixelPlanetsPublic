@@ -1,0 +1,52 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://bpvym6vatw37d"]
+
+[ext_resource type="Texture2D" uid="uid://dfvgx1sxnxhge" path="res://textures/blocks/steel_door_3.png" id="1_8ldfd"]
+[ext_resource type="Texture2D" uid="uid://dfpgm3hayja81" path="res://textures/blocks/steel_door_2.png" id="2_62q53"]
+[ext_resource type="Texture2D" uid="uid://bmr4aukcxd878" path="res://textures/blocks/steel_door_1.png" id="3_6gpff"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8ldfd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_62q53")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_6gpff")
+}],
+"loop": false,
+"name": &"close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6gpff")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_62q53")
+}, {
+"duration": 1.0,
+"texture": ExtResource("1_8ldfd")
+}],
+"loop": false,
+"name": &"open",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_6gpff")
+}],
+"loop": false,
+"name": &"start_closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_8ldfd")
+}],
+"loop": false,
+"name": &"start_open",
+"speed": 5.0
+}]

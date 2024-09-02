@@ -2,6 +2,9 @@ extends Control
 
 @export var type = "planet"
 
+func _ready() -> void:
+	GlobalGui.autosave.connect(_on_Save_pressed)
+
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		match type:
@@ -30,6 +33,7 @@ func _on_Quit_pressed():
 	await get_tree().process_frame
 	$Black/AnimationPlayer.play("fadeIn")
 	await $Black/AnimationPlayer.animation_finished
+	Global.left_save.emit()
 	var _er = get_tree().change_scene_to_file("res://scenes/Menu.tscn")
 
 func _on_Save_pressed():

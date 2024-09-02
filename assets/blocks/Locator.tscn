@@ -1,0 +1,89 @@
+[gd_scene load_steps=13 format=3 uid="uid://cyseqvsorcpiu"]
+
+[ext_resource type="Script" path="res://assets/blocks/locator.gd" id="1_a5hky"]
+[ext_resource type="Texture2D" uid="uid://c64jqi4luavu" path="res://textures/blocks/endgame_locator.png" id="2_lsdpt"]
+[ext_resource type="Texture2D" uid="uid://b4wr5y5bacijt" path="res://textures/blocks/locator_magma_bar.png" id="3_hl6xc"]
+[ext_resource type="Texture2D" uid="uid://7c3yb2ynygy6" path="res://textures/blocks/locator_coolant_bar.png" id="4_yk6ls"]
+[ext_resource type="Texture2D" uid="uid://f8w3bgwc82y5" path="res://textures/blocks/locator_active.png" id="5_oxydv"]
+[ext_resource type="Texture2D" uid="uid://ddevlwmj5yjwo" path="res://textures/blocks/misc/locator_beam1.png" id="6_n34nh"]
+[ext_resource type="Texture2D" uid="uid://chkknne5hvb5a" path="res://textures/blocks/misc/locator_beam2.png" id="7_l5qvr"]
+[ext_resource type="Texture2D" uid="uid://bnl2n3dwltrpm" path="res://textures/blocks/misc/locator_beam3.png" id="8_hp42b"]
+[ext_resource type="Texture2D" uid="uid://c7fd4gsbpfwm1" path="res://textures/blocks/misc/locator_beam4.png" id="9_3ynda"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_y6fa6"]
+polygon = PackedVector2Array(-4, 4, 4, 4, 4, -4, -4, -4)
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(8, 8)
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_20ycy"]
+frames = 4
+frame_0/texture = ExtResource("6_n34nh")
+frame_0/duration = 0.1
+frame_1/texture = ExtResource("7_l5qvr")
+frame_1/duration = 0.1
+frame_2/texture = ExtResource("8_hp42b")
+frame_2/duration = 0.1
+frame_3/texture = ExtResource("9_3ynda")
+frame_3/duration = 0.1
+
+[node name="EndgameLocator" type="StaticBody2D"]
+script = ExtResource("1_a5hky")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2, -2)
+scale = Vector2(0.2, 0.2)
+rect = Rect2(-10, -10, 40, 40)
+
+[node name="RainCol" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_y6fa6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
+texture = ExtResource("2_lsdpt")
+region_rect = Rect2(16, 2.08165e-12, 8, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("1")
+
+[node name="shade" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.521569)
+
+[node name="MagmaBar" type="TextureProgressBar" parent="."]
+offset_left = -3.0
+offset_right = -2.0
+offset_bottom = 3.0
+max_value = 3.0
+fill_mode = 3
+texture_progress = ExtResource("3_hl6xc")
+
+[node name="CoolantBar" type="TextureProgressBar" parent="."]
+offset_left = 2.0
+offset_right = 3.0
+offset_bottom = 3.0
+max_value = 3.0
+fill_mode = 3
+texture_progress = ExtResource("4_yk6ls")
+
+[node name="Active" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(0, 2)
+texture = ExtResource("5_oxydv")
+
+[node name="BeamTest" type="RayCast2D" parent="."]
+target_position = Vector2(0, -512)
+
+[node name="Beam" type="TextureRect" parent="."]
+offset_left = 4.0
+offset_top = -4.0
+offset_right = 12.0
+offset_bottom = 16.0
+rotation = 3.14159
+texture = SubResource("AnimatedTexture_20ycy")
+stretch_mode = 1
+flip_h = true
+flip_v = true
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

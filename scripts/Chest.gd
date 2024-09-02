@@ -22,48 +22,48 @@ func update_chest(chest = currentChest):
 		itemNode.get_node("Amount").text = str(chestData[item]["amount"])
 		item_container.add_child(itemNode)
 
-func add_to_chest(id:int,amount:int) -> Dictionary:
+func add_to_chest(id:int,amount:int,data:Dictionary) -> Dictionary:
 	var chestData = currentChest.data
 	if amount > 0:
+		var itemData = world.get_item_data(id)
+		if itemData.has("starter_data") and data.is_empty():
+			data = itemData["starter_data"].duplicate(true)
+		var stackSize = ITEM_STACK_SIZE if !itemData.has("stack_size") else itemData["stack_size"]
 		for item in range(chestData.size()):
-			if chestData[item]["id"] == id:
-				if chestData[item]["amount"] + amount <= ITEM_STACK_SIZE:
+			if chestData[item]["id"] == id and chestData[item]["data"] == data:
+				if chestData[item]["amount"] + amount <= stackSize:
 					chestData[item]["amount"] += amount
 					amount = 0
 				else:
 					amount -= ITEM_STACK_SIZE - chestData[item]["amount"]
-					chestData[item]["amount"] = ITEM_STACK_SIZE
+					chestData[item]["amount"] = stackSize
 				update_chest()
 		if amount > 0:
 			while amount > 0:
 				if chestData.size() >= CHEST_SIZE:
-					return {"id":id,"amount":amount}
+					return {"id":id,"amount":amount,"data":data}
 				var newAmount = amount
-				if amount > ITEM_STACK_SIZE:
-					newAmount = ITEM_STACK_SIZE
-				chestData.append({"id":id,"amount":newAmount})
-				amount -= ITEM_STACK_SIZE
+				if amount > stackSize:
+					newAmount = stackSize
+				chestData.append({"id":id,"amount":newAmount,"data":data})
+				amount -= stackSize
 		update_chest()
 	return {}
 
 func chest_btn_clicked(loc,item):
-	var itemData = currentChest.data[loc]
+	var itemData : Dictionary = currentChest.data[loc]
+	if !itemData.has("data"):
+		itemData["data"] = {}
 	currentChest.data.remove_at(loc)
-	var leftover = inventory.add_to_inventory(itemData["id"],itemData["amount"])
+	var leftover = inventory.add_to_inventory(itemData["id"],itemData["amount"],true,itemData["data"])
 	if !leftover.is_empty():
-		add_to_chest(leftover["id"],leftover["amount"])
+		add_to_chest(leftover["id"],leftover["amount"],leftover["data"])
 	else:
 		update_chest()
 	inventory.update_inventory()
 
 func mouse_in_btn(loc : int):
-	var itemData = world.get_item_data(currentChest.data[loc]["id"])
-	if itemData.has("name"):
-		var text = itemData["name"]
-		if itemData.has("desc"):
-			text += "\n" + itemData["desc"]
-		$"../ItemData".show()
-		$"../ItemData".text = text
+	$"../ItemData".display(currentChest.data[loc])
 
 func mouse_out_btn(_loc : int):
 	$"../ItemData".hide()

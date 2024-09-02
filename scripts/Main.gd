@@ -8,13 +8,19 @@ extends Node2D
 @onready var weatherTimer = $weather/WeatherTimer
 @onready var title_timer: Timer = $CanvasLayer/Title/TitleTimer
 @onready var go_up: TextureButton = $CanvasLayer/Hotbar/GoUp
+@onready var world: Node2D = $World
 
 var currentWeather = "none"
 var worldType : String
 
 var weatherStartData = {}
 
+var togglePins = false
+
 signal weather_changed
+signal toggle_pins
+signal output_pressed
+signal input_pressed
 
 func _ready():
 	StarSystem.connect("start_meteors", Callable(self, "start_meteors"))
@@ -25,7 +31,12 @@ func _ready():
 
 func _process(delta):
 	$CanvasLayer/FPS.text = str(Engine.get_frames_per_second())
-	$weather.position = $Player/Camera2D.global_position - Vector2(142,120)
+	$weather.position = $Player/PlayerCamera.global_position - Vector2(142,120)
+
+func toggle_wire_visibility(toggle : bool):
+	$World/Wires.visible = toggle
+	togglePins = toggle
+	emit_signal("toggle_pins",toggle)
 
 func weather_event(random = true,time = [200,500], set = "none",start = true):
 	if !is_instance_valid(weatherAnimation):
@@ -74,7 +85,7 @@ func disable_godmode():
 	inventory.update_inventory()
 	inventory.add_to_inventory(4,1)
 	inventory.INVENTORY_SIZE = 20
-	armor.armor = {"Helmet":{"id":46,"amount":1},"Hat":{},"Chestplate":{"id":47,"amount":1},"Shirt":{},"Leggings":{"id":48,"amount":1},"Pants":{},"Boots":{"id":49,"amount":1},"Shoes":{}}
+	armor.armor = {"Helmet":{"id":46,"amount":1,"data":{}},"Hat":{},"Chestplate":{"id":47,"amount":1,"data":{}},"Shirt":{},"Leggings":{"id":48,"amount":1,"data":{}},"Pants":{},"Boots":{"id":49,"amount":1,"data":{}},"Shoes":{}}
 	armor.emit_signal("updated_armor",armor.armor)
 
 func start_meteors():
@@ -87,6 +98,20 @@ func display_text(textData : Dictionary):
 	title_timer.stop()
 	titleAnim.play("pop up")
 	title_timer.start(title.text.length() / 10.0)
+
+func get_item_upgrade_text(data : Dictionary) -> String:
+	var upgrades : Dictionary = {}
+	for slot in data["upgrades"]:
+		var upgrade : String = data["upgrades"][slot]
+		if upgrade != "" and world.upgrades.has(upgrade):
+			if !upgrades.has(upgrade):
+				upgrades[upgrade] = 1
+			else:
+				upgrades[upgrade] += 1
+	var upgradeText : String
+	for upgrade : String in upgrades:
+		upgradeText += "\n[color=Palegoldenrod]" + world.upgrades[upgrade]["name"] + " " + str(upgrades[upgrade]) + "[/color]"
+	return upgradeText
 
 func _on_WeatherTimer_timeout():
 	if currentWeather == "none":

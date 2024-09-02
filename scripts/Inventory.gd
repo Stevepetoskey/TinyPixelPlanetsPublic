@@ -7,9 +7,10 @@ const ITEM_PER_PAGE = 8
 var INVENTORY_SIZE = 20
 const ITEM_STACK_SIZE = 99
 
+@onready var main: Node2D = $"../.."
 @onready var world = get_node("../../World")
-@onready var slot1 = get_node("../Hotbar/InventoryBtn")
-@onready var slot2 = $"../Hotbar/InventoryBtn2"
+@onready var slot1: TextureButton = $"../Hotbar/InventoryBtn"
+@onready var slot2: TextureButton = $"../Hotbar/InventoryBtn2"
 @onready var jAction = get_node("../Hotbar/J")
 @onready var kAction = get_node("../Hotbar/K")
 @onready var cursor = get_node("../../Cursor")
@@ -18,18 +19,25 @@ const ITEM_STACK_SIZE = 99
 @onready var entities = $"../../Entities"
 @onready var item_container = $ItemScroll/ItemContainer
 @onready var shop: Control = $"../Shop"
+@onready var godmode: Control = $"../Godmode"
+@onready var upgrade: Control = $"../Upgrade"
+@onready var music_player: Control = $"../MusicPlayer"
 
-#{"id":1,"amount",2}
+#{"id":int,"amount":int,"data":dictionary}
 var inventory : Array = []
 var jRef = -1 #Where the j reference is located in inventory
 var kRef = -1
 var jId = 0
 var kId = 0
+var deleteHold = {}
 
 var holding = false
 var holdingRef = -1
 
-func _ready():
+func _ready() -> void:
+	for slot : TextureButton in [slot1,slot2]:
+		slot.mouse_entered.connect(mouse_in_btn.bind({slot1:0,slot2:1}[slot]))
+		slot.mouse_exited.connect(mouse_out_btn)
 	update_inventory()
 
 func _process(_delta):
@@ -42,44 +50,76 @@ func _process(_delta):
 		cursor.currentLayer = int(!bool(cursor.currentLayer))
 		$"../Hotbar/HBoxContainer/BGT".texture = [BACKGROUND_TEXTURE,FOREGROUND_TEXTURE][cursor.currentLayer]
 
-func add_to_inventory(id : int,amount : int,drop = true,data := {}) -> Dictionary:
-	if !Global.godmode:
-		match id: #For achievements
-			31:
-				GlobalGui.complete_achievement("An upgrade")
-			98:
-				GlobalGui.complete_achievement("Top of the line")
-		if world.get_item_data(id).has("type") and world.get_item_data(id)["type"] == "weapon":
-			GlobalGui.complete_achievement("Ready for battle")
-		$collect.play()
+func add_to_inventory(id : int,amount : int,drop : bool = true,data := {}) -> Dictionary:
+	print("data added: ",data)
+	match id: #For achievements
+		31:
+			GlobalGui.complete_achievement("An upgrade")
+		98:
+			GlobalGui.complete_achievement("Top of the line")
+		205:
+			GlobalGui.complete_achievement("Into ice")
+		191:
+			GlobalGui.complete_achievement("Into lava")
+		246:
+			GlobalGui.complete_achievement("Location needed")
+	if world.get_item_data(id).has("type") and world.get_item_data(id)["type"] == "weapon":
+		GlobalGui.complete_achievement("Ready for battle")
+	$collect.play()
+	if amount > 0:
+		var itemData = world.get_item_data(id)
+		if itemData.has("starter_data") and data.is_empty():
+			data = itemData["starter_data"].duplicate(true)
+		if ["weapon","tool","armor"].has(itemData["type"]) and !data.has("upgrades"):
+			data["upgrades"] = {"left":"","top":"","right":""}
+		var stackSize = ITEM_STACK_SIZE if !itemData.has("stack_size") else itemData["stack_size"]
+		for item in range(inventory.size()):
+			if inventory[item]["id"] == id and inventory[item]["data"] == data:
+				if inventory[item]["amount"] + amount <= stackSize:
+					inventory[item]["amount"] += amount
+					amount = 0
+				else:
+					amount -= stackSize - inventory[item]["amount"]
+					inventory[item]["amount"] = stackSize
 		if amount > 0:
-			for item in range(inventory.size()):
-				if inventory[item]["id"] == id:
-					if inventory[item]["amount"] + amount <= ITEM_STACK_SIZE:
-						inventory[item]["amount"] += amount
-						amount = 0
+			while amount > 0:
+				if inventory.size() >= INVENTORY_SIZE:
+					update_inventory()
+					if drop:
+						entities.spawn_item({"id":id,"amount":amount,"data":data},true)
+						return {}
 					else:
-						amount -= ITEM_STACK_SIZE - inventory[item]["amount"]
-						inventory[item]["amount"] = ITEM_STACK_SIZE
-			if amount > 0:
-				while amount > 0:
-					if inventory.size() >= INVENTORY_SIZE:
-						update_inventory()
-						if drop:
-							entities.spawn_item({"id":id,"amount":amount,"data":data},true)
-							return {}
-						else:
-							return {"id":id,"amount":amount,"data":data}
-					var newAmount = amount
-					if amount > ITEM_STACK_SIZE:
-						newAmount = ITEM_STACK_SIZE
-					inventory.append({"id":id,"amount":newAmount,"data":data})
-					amount -= ITEM_STACK_SIZE
-		update_inventory()
+						return {"id":id,"amount":amount,"data":data}
+				var newAmount = amount
+				if amount > stackSize:
+					newAmount = stackSize
+				inventory.append({"id":id,"amount":newAmount,"data":data})
+				amount -= stackSize
+	update_inventory()
 	return {}
 
+func insert_item_in_inventory(loc : int,item : Dictionary) -> void:
+	if loc < inventory.size():
+		if loc <= jRef:
+			jRef += 1
+		if loc <= kRef:
+			kRef += 1
+		inventory.insert(loc,item)
+	else:
+		inventory.append(item)
+
 func remove_loc_from_inventory(loc : int) -> void:
-	if loc < inventory.size() and !Global.godmode:
+	if loc < inventory.size():
+		if loc < jRef:
+			jRef -= 1
+		elif loc == jRef:
+			jRef = -1
+			jId = 0
+		if loc < kRef:
+			kRef -= 1
+		elif loc == kRef:
+			kRef = -1
+			kId = 0
 		inventory.remove_at(loc)
 		update_inventory()
 
@@ -123,36 +163,29 @@ func count_id(id : int) -> int:
 
 func update_inventory() -> void:
 	#updates blues amount
+	$ClearBtn.visible = Global.godmode
 	$Blues/Label.text = "*" + str(Global.blues)
-	
-	if Global.godmode:
-		INVENTORY_SIZE = world.blockData.size() + world.itemData.size() + 5
-		for block in world.blockData:
-			if find_item(block).is_empty():
-				inventory.append({"id":block,"amount":1})
-		for item in world.itemData:
-			if find_item(item).is_empty():
-				inventory.append({"id":item,"amount":1})
 	
 	holding = false
 	holdingRef = -1
 	
 	#Gets j and k refs
-	if !find_item(jId).is_empty():
-		jRef = inventory.find(find_item(jId))
-	else:
-		jRef = -1
-		jId = 0
-	if !find_item(kId).is_empty():
-		kRef = inventory.find(find_item(kId))
-	else:
-		kRef = -1
-		kId = 0
+	#if !find_item(jId).is_empty():
+		#jRef = inventory.find(find_item(jId))
+	#else:
+		#jRef = -1
+		#jId = 0
+	#if !find_item(kId).is_empty():
+		#kRef = inventory.find(find_item(kId))
+	#else:
+		#kRef = -1
+		#kId = 0
+	
+	#clears all items
+	for item in item_container.get_children():
+		item.queue_free()
 	
 	if !inventory.is_empty():
-		#clears all items
-		for item in item_container.get_children():
-			item.queue_free()
 		#Sets first slot's texture
 		slot1.show()
 		slot1.get_node("Amount").text = str(inventory[0]["amount"])
@@ -197,30 +230,28 @@ func update_inventory() -> void:
 	else:
 		slot1.hide()
 		slot2.hide()
+		jAction.get_node("Item").texture = null
+		kAction.get_node("Item").texture = null
 	crafting.update_crafting()
 
 func get_item_texture(id : int, loc : int):
 	match id:
 		113:
-			return load("res://textures/items/" +("water_" if inventory[loc].has("data") and inventory[loc]["data"].has("water") and inventory[loc]["data"]["water"] > 0 else "")+ "bucket.png")
+			return load("res://textures/items/silver_bucket_level_" + str(inventory[loc]["data"]["water_level"])+ ".png")
 		114:
-			return load("res://textures/items/" +("water_" if inventory[loc].has("data") and inventory[loc]["data"].has("water") and inventory[loc]["data"]["water"] > 0 else "")+ "copper_bucket.png")
+			return load("res://textures/items/copper_bucket_level_" + str(inventory[loc]["data"]["water_level"])+ ".png")
 		_:
 			return world.get_item_texture(id)
 
 func inv_btn_clicked(loc : int,item : Object):
 	if chest.visible:
-		var leftover = chest.add_to_chest(inventory[loc]["id"],inventory[loc]["amount"])
-		if loc == jRef:
-			jId = 0
-		if loc == kRef:
-			kId = 0
-		inventory.remove_at(loc)
+		var leftover = chest.add_to_chest(inventory[loc]["id"],inventory[loc]["amount"],inventory[loc]["data"])
+		remove_loc_from_inventory(loc)
 		if leftover.is_empty():
 			update_inventory()
 			chest.update_chest()
 		else:
-			add_to_inventory(leftover["id"],leftover["amount"])
+			add_to_inventory(leftover["id"],leftover["amount"],true,leftover["data"])
 	else:
 		if !holding:
 			holding = true
@@ -242,16 +273,10 @@ func inv_btn_clicked(loc : int,item : Object):
 			update_inventory()
 
 func mouse_in_btn(loc : int):
-	if inventory.size() > loc:
-		var itemData = world.get_item_data(inventory[loc]["id"])
-		if itemData.has("name"):
-			var text = itemData["name"]
-			if itemData.has("desc"):
-				text += "\n" + itemData["desc"]
-			$"../ItemData".show()
-			$"../ItemData".text = text
+	if inventory.size() > loc and visible:
+		$"../ItemData".display(inventory[loc])
 
-func mouse_out_btn(_loc : int):
+func mouse_out_btn():
 	$"../ItemData".hide()
 
 func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
@@ -260,6 +285,8 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 	holding = false
 	if toggle:
 		setValue = !visible
+		if !setValue:
+			mode = "close"
 	visible = setValue
 	Global.pause = setValue
 	if visible:
@@ -269,10 +296,21 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 			crafting.hide()
 			chest.hide()
 			shop.hide()
-		"inventory","crafting_table","oven","smithing_table":
-			crafting.visible = setValue
-			crafting.update_crafting(mode)
+			godmode.hide()
+			upgrade.clear()
+			music_player.hide()
+		"inventory","crafting_table","oven","smithing_table","wool_work_table":
+			if !Global.godmode or mode != "inventory":
+				crafting.visible = setValue
+				crafting.update_crafting(mode)
+			else:
+				godmode.pop_up(setValue)
+		"upgrade_table":
+			upgrade.pop_up()
+		"music_player":
+			music_player.pop_up()
 		"chest":
+			print("hide chest: ",setValue)
 			chest.visible = setValue
 			chest.update_chest(world.get_block(cursor.cursorPos,cursor.currentLayer))
 		"lily_mart","skips_stones":
@@ -280,35 +318,39 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 
 func inv_btn_action(location : int,action : String) -> void:
 	var item = inventory[location]["id"]
-	if world.itemData.has(item) and ["Tool","weapon","Hoe"].has(world.itemData[item]["type"]):
+	if world.itemData.has(item) and ["tool","weapon","Hoe"].has(world.itemData[item]["type"]):
 		$equip.play()
 		match action:
 			"j":
 				if jRef == location:
+					jRef = -1
 					jId = 0
 				elif kRef != location:
+					jRef = location
 					jId = item
 			"k":
 				if kRef == location:
+					kRef = -1
 					kId = 0
 				elif jRef != location:
+					kRef = location
 					kId = item
 	update_inventory()
 
 func _on_InventoryBtn_pressed():
 	if visible:
 		if chest.visible:
-			var leftover = chest.add_to_chest(inventory[0]["id"],inventory[0]["amount"])
+			var leftover = chest.add_to_chest(inventory[0]["id"],inventory[0]["amount"],inventory[0]["data"])
 			if jRef == 0:
 				jId = 0
 			if kRef == 0:
 				kId = 0
-			inventory.remove_at(0)
+			remove_loc_from_inventory(0)
 			if leftover.is_empty():
 				update_inventory()
 				chest.update_chest()
 			else:
-				add_to_inventory(leftover["id"],leftover["amount"])
+				add_to_inventory(leftover["id"],leftover["amount"],true,leftover["data"])
 		else:
 			if !holding:
 				holding = true
@@ -332,17 +374,17 @@ func _on_InventoryBtn_pressed():
 func _on_InventoryBtn2_pressed():
 	if visible:
 		if chest.visible:
-			var leftover = chest.add_to_chest(inventory[1]["id"],inventory[1]["amount"])
+			var leftover = chest.add_to_chest(inventory[1]["id"],inventory[1]["amount"],inventory[1]["data"])
 			if jRef == 1:
 				jId = 1
 			if kRef == 1:
 				kId = 1
-			inventory.remove_at(1)
+			remove_loc_from_inventory(1)
 			if leftover.is_empty():
 				update_inventory()
 				chest.update_chest()
 			else:
-				add_to_inventory(leftover["id"],leftover["amount"])
+				add_to_inventory(leftover["id"],leftover["amount"],true,leftover["data"])
 		else:
 			if !holding:
 				holding = true
@@ -362,3 +404,12 @@ func _on_InventoryBtn2_pressed():
 				inventory[holdingRef] = inventory[1].duplicate(true)
 				inventory[1] = new
 				update_inventory()
+
+func _on_clear_btn_pressed() -> void:
+	inventory = []
+	update_inventory()
+
+func _on_delete_item_btn_pressed() -> void:
+	if holding:
+		deleteHold = inventory[holdingRef].duplicate(true)
+		remove_loc_from_inventory(holdingRef)

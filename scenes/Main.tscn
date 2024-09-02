@@ -1,4 +1,4 @@
-[gd_scene load_steps=192 format=3 uid="uid://2c07adgn0vow"]
+[gd_scene load_steps=256 format=3 uid="uid://2c07adgn0vow"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c3rmyuwb7gd3m" path="res://textures/enviroment/sky.png" id="2"]
@@ -27,13 +27,9 @@
 [ext_resource type="Texture2D" uid="uid://dcwvytn78prs5" path="res://textures/GUI/main/hotbar/go_up_btn_hover.png" id="23_54wbw"]
 [ext_resource type="Texture2D" uid="uid://cg77ke3bvhhcj" path="res://textures/GUI/space/v_bar_handle_select.png" id="24"]
 [ext_resource type="Script" path="res://scripts/ArmorSlot.gd" id="25"]
-[ext_resource type="AudioStream" uid="uid://05eoqqltljlt" path="res://Audio/sfx/Ambience/mixkit-spring-forest-with-woodpeckers-1217.wav" id="26"]
-[ext_resource type="AudioStream" uid="uid://dmwt0ndwo6ccl" path="res://Audio/sfx/Ambience/mixkit-summer-crickets-loop-1788.ogg" id="27"]
-[ext_resource type="AudioStream" uid="uid://cjrqnidt14f0o" path="res://Audio/sfx/Ambience/mixkit-wind-in-the-forest-loop-1233.ogg" id="28"]
 [ext_resource type="AudioStream" uid="uid://kld8ru3vf0hc" path="res://Audio/sfx/Game/collect_item.ogg" id="29"]
 [ext_resource type="AudioStream" uid="uid://ilj5mfs024wp" path="res://Audio/sfx/GUI/inventory.ogg" id="30"]
 [ext_resource type="AudioStream" uid="uid://cmcadcgiyfugn" path="res://Audio/sfx/GUI/equip.ogg" id="31"]
-[ext_resource type="AudioStream" uid="uid://38w8ka0n5aut" path="res://Audio/sfx/Ambience/mixkit-blizzard-cold-winds-1153.ogg" id="32"]
 [ext_resource type="Texture2D" uid="uid://chpgk1wfbx8v2" path="res://textures/GUI/main/hotbar/k.png" id="33"]
 [ext_resource type="Texture2D" uid="uid://dro6l7qprs4d3" path="res://textures/GUI/main/hotbar/j.png" id="34"]
 [ext_resource type="Script" path="res://scripts/Main.gd" id="35"]
@@ -41,9 +37,13 @@
 [ext_resource type="Texture2D" uid="uid://b8yl13mcwhcxu" path="res://textures/GUI/main/break4.png" id="37"]
 [ext_resource type="Texture2D" uid="uid://dmceukhll6w76" path="res://textures/GUI/main/break2.png" id="38"]
 [ext_resource type="Texture2D" uid="uid://baijdpy2unnd0" path="res://textures/GUI/main/break3.png" id="39"]
+[ext_resource type="Texture2D" uid="uid://cewfc0igs8va1" path="res://textures/GUI/main/inventory/clear_btn.png" id="39_od4vt"]
 [ext_resource type="Script" path="res://scripts/Armor.gd" id="40"]
+[ext_resource type="Texture2D" uid="uid://qa4n71a3htkg" path="res://textures/GUI/main/inventory/clear_btn_pressed.png" id="40_fxihi"]
 [ext_resource type="Texture2D" uid="uid://w40dj0ncdwk8" path="res://textures/GUI/main/Armor/Btn.png" id="41"]
+[ext_resource type="Texture2D" uid="uid://d4blvfukgxyo8" path="res://textures/GUI/main/inventory/clear_btn_hover.png" id="41_rvmfq"]
 [ext_resource type="Texture2D" uid="uid://dt21m5af7l32j" path="res://textures/GUI/main/Armor/hat.png" id="42"]
+[ext_resource type="Texture2D" uid="uid://b8igi2tlv2rqh" path="res://textures/GUI/main/inventory/delete_item.png" id="42_ur3h4"]
 [ext_resource type="Script" path="res://scripts/Entities.gd" id="43"]
 [ext_resource type="Script" path="res://scripts/Bars.gd" id="44"]
 [ext_resource type="Texture2D" uid="uid://dc2440kvhp48n" path="res://textures/weather/rain.png" id="45"]
@@ -56,37 +56,82 @@
 [ext_resource type="Texture2D" uid="uid://bueaebvbfj4jw" path="res://textures/GUI/main/hotbar/hotbar1.png" id="55"]
 [ext_resource type="Texture2D" uid="uid://u27t1xjmaq7" path="res://textures/GUI/main/bigBar.png" id="56"]
 [ext_resource type="FontFile" uid="uid://boiyd3n1keevx" path="res://fonts/upheavtt.ttf" id="56_wca64"]
-[ext_resource type="Texture2D" uid="uid://bom5ygsohqxmw" path="res://textures/GUI/main/hotbar/O2-safe.png" id="58"]
+[ext_resource type="Script" path="res://scripts/GUI/main/Godmode.gd" id="57_keb65"]
 [ext_resource type="Shader" path="res://shaders/Pause.gdshader" id="58_564f8"]
 [ext_resource type="Script" path="res://scripts/GUI/SignEdit.gd" id="58_p8ek0"]
+[ext_resource type="Texture2D" uid="uid://kh521oks6k4s" path="res://textures/GUI/main/godmode/godmode_bg.png" id="58_rc7dj"]
 [ext_resource type="Texture2D" uid="uid://dieq04r77mkl" path="res://textures/GUI/space/buttons/color_btn.png" id="59_b30rk"]
+[ext_resource type="Texture2D" uid="uid://c6qqoitldaoyo" path="res://textures/GUI/main/godmode/tab_btn.png" id="59_khys4"]
+[ext_resource type="Script" path="res://scripts/GUI/main/LogicBlockEdit.gd" id="60_2s7q2"]
 [ext_resource type="Theme" uid="uid://b02uwgbscq35l" path="res://themes/menu.tres" id="60_dyqfb"]
+[ext_resource type="Texture2D" uid="uid://bgwlh0v4u7ckg" path="res://textures/GUI/main/godmode/tab_btn_pressed.png" id="60_xmnff"]
 [ext_resource type="Script" path="res://scripts/Commands.gd" id="61"]
+[ext_resource type="Texture2D" uid="uid://c2scp6jvapcg1" path="res://textures/GUI/main/godmode/tab_btn_hover.png" id="61_lmb5b"]
+[ext_resource type="Texture2D" uid="uid://dar211a01qnx1" path="res://textures/GUI/main/logic/and_btn.png" id="61_v3k1y"]
 [ext_resource type="Texture2D" uid="uid://dpqpaobomk0g" path="res://textures/GUI/main/inventory/item-toolbar.png" id="62"]
+[ext_resource type="Texture2D" uid="uid://8mn0dbsd5mox" path="res://textures/GUI/main/logic/and_btn_pressed.png" id="62_1oiqi"]
+[ext_resource type="Texture2D" uid="uid://ceyd16bt7g11j" path="res://textures/blocks/grass_block.png" id="62_msb4f"]
 [ext_resource type="Script" path="res://scripts/ItemDataShow.gd" id="63"]
+[ext_resource type="Texture2D" uid="uid://bv6gbdnyxnev3" path="res://textures/GUI/main/logic/or_btn.png" id="63_mfad1"]
+[ext_resource type="Texture2D" uid="uid://bp6ihch4qfy34" path="res://textures/blocks/logic_block_and.png" id="63_r3nvb"]
 [ext_resource type="Texture2D" uid="uid://cvq1t01u1jig3" path="res://textures/enviroment/light.png" id="64"]
+[ext_resource type="Texture2D" uid="uid://c1vhi3y881rsy" path="res://textures/items/tomato.png" id="64_bcqkm"]
+[ext_resource type="Texture2D" uid="uid://b42csi50rkx1p" path="res://textures/GUI/main/logic/or_btn_pressed.png" id="64_tkw1u"]
 [ext_resource type="Texture2D" uid="uid://btus3qrhw2igq" path="res://textures/enviroment/storm_bg.png" id="65"]
+[ext_resource type="Texture2D" uid="uid://shi627ctjorp" path="res://textures/items/silver_axe.png" id="65_pjfr3"]
+[ext_resource type="Texture2D" uid="uid://cxeo3tukb5o52" path="res://textures/GUI/main/logic/nand_btn.png" id="65_rkwro"]
 [ext_resource type="Texture2D" uid="uid://hq0q5oh5t744" path="res://textures/weather/snow.png" id="66"]
+[ext_resource type="Texture2D" uid="uid://cch3q0ycdtbn8" path="res://textures/items/water_copper_bucket.png" id="66_8qkex"]
+[ext_resource type="Texture2D" uid="uid://cyyqftw4mthc8" path="res://textures/items/armor/space_helmet.png" id="66_i8amm"]
+[ext_resource type="Texture2D" uid="uid://37qbun2wp7lw" path="res://textures/GUI/main/logic/nand_btn_pressed.png" id="66_klnxr"]
 [ext_resource type="FontVariation" uid="uid://c4nuc5bd0kohq" path="res://fonts/PixelPossFix.tres" id="66_oustp"]
 [ext_resource type="Script" path="res://scripts/enviroment/Meteors.gd" id="67"]
+[ext_resource type="Texture2D" uid="uid://cby3yuoltp7ry" path="res://textures/GUI/main/logic/nor_btn.png" id="67_rhacj"]
 [ext_resource type="Texture2D" uid="uid://deiwekva7e5yd" path="res://textures/GUI/main/hotbar/hotbar_panel.png" id="68"]
+[ext_resource type="Texture2D" uid="uid://ddqniq8ix80j5" path="res://textures/GUI/main/logic/nor_btn_pressed.png" id="68_46ew3"]
+[ext_resource type="Texture2D" uid="uid://4x6ubvrf5igt" path="res://textures/blocks/dev_link.png" id="68_dm17w"]
 [ext_resource type="Texture2D" uid="uid://dmf75orq48o76" path="res://textures/GUI/main/hotbar/forground.png" id="69"]
+[ext_resource type="Texture2D" uid="uid://d4mw43b7joeam" path="res://textures/GUI/main/logic/xor_btn.png" id="69_4xjca"]
 [ext_resource type="Texture2D" uid="uid://im3ftx86mtc3" path="res://textures/GUI/space/h_bar_handle_select.png" id="70"]
+[ext_resource type="Texture2D" uid="uid://gq6xylkb0lf4" path="res://textures/GUI/main/logic/xor_btn_pressed.png" id="70_gxdv6"]
 [ext_resource type="Texture2D" uid="uid://cgfxdpw0sxxxi" path="res://textures/GUI/space/h_bar_handle_hover.png" id="71"]
+[ext_resource type="Script" path="res://scripts/GUI/main/StructureSaveEdit.gd" id="71_3tamp"]
 [ext_resource type="Texture2D" uid="uid://cs2ptrjg2ll5k" path="res://textures/GUI/space/v_bar_handle_hover.png" id="72"]
+[ext_resource type="Script" path="res://scripts/GUI/main/DevChestEdit.gd" id="72_5q14t"]
 [ext_resource type="Texture2D" uid="uid://cn76yxyfhxg3v" path="res://textures/GUI/space/v_bar_handle.png" id="73"]
 [ext_resource type="Texture2D" uid="uid://45o7v1dsk3yx" path="res://textures/GUI/space/h_bar.png" id="74"]
 [ext_resource type="Texture2D" uid="uid://dqkgujgjvgj5g" path="res://textures/GUI/space/v_bar.png" id="75"]
+[ext_resource type="Script" path="res://scripts/GUI/main/Upgrade.gd" id="75_0dd7g"]
 [ext_resource type="Texture2D" uid="uid://cy2kr64p5herf" path="res://textures/GUI/space/h_bar_handle.png" id="76"]
+[ext_resource type="Texture2D" uid="uid://cbe2x144k6eci" path="res://textures/GUI/main/upgrade/background.png" id="76_lw3wt"]
 [ext_resource type="Texture2D" uid="uid://bes1uxqlw0hrb" path="res://textures/GUI/main/crafting/crafting_bg.png" id="77"]
+[ext_resource type="Texture2D" uid="uid://dtfa7tf4iexsu" path="res://textures/GUI/main/upgrade/main_slot.png" id="77_w74uk"]
+[ext_resource type="Texture2D" uid="uid://dbcxlsomp1g7b" path="res://textures/GUI/main/upgrade/main_slot_hover.png" id="78_gbxmp"]
 [ext_resource type="FontFile" uid="uid://diwuxgjxhgb06" path="res://fonts/PixelPossibilities.ttf" id="79"]
+[ext_resource type="Texture2D" uid="uid://xfgmpka4i7ho" path="res://textures/items/rhodonite_sword.png" id="79_atg4g"]
+[ext_resource type="Texture2D" uid="uid://c3wxj8ma11bxt" path="res://textures/GUI/main/upgrade/animations/left_item_slot_sheet.png" id="79_hj1c0"]
 [ext_resource type="Texture2D" uid="uid://bb4hsafmlev5c" path="res://textures/GUI/main/shop/shop_bg.png" id="80"]
-[ext_resource type="AudioStream" uid="uid://cjeky6rbgpg1r" path="res://Audio/sfx/Ambience/mixkit-sea-waves-loop-1196.wav" id="81"]
+[ext_resource type="Texture2D" uid="uid://cju88cr22c0na" path="res://textures/GUI/main/upgrade/animations/top_item_slot_sheet.png" id="80_wujuo"]
+[ext_resource type="Texture2D" uid="uid://djh8v1682610f" path="res://textures/GUI/main/upgrade/animations/right_item_slot_sheet.png" id="81_3oc2h"]
+[ext_resource type="Texture2D" uid="uid://c0uyc414d20xr" path="res://textures/items/upgrade_module.png" id="81_e54nj"]
 [ext_resource type="Texture2D" uid="uid://bqdiir8v4ncnx" path="res://textures/NPCs/faces/lily_cheerful.png" id="82"]
 [ext_resource type="AudioStream" uid="uid://duo4t1cbibbxx" path="res://Audio/sfx/Ambience/mixkit-light-rain-loop-1253.wav" id="83"]
+[ext_resource type="Script" path="res://scripts/GUI/main/music_player.gd" id="83_plk3y"]
+[ext_resource type="Texture2D" uid="uid://mnwx0jdd62pr" path="res://textures/GUI/main/music_player/music_player_bg.png" id="84_4fai7"]
+[ext_resource type="Texture2D" uid="uid://b6kxe5q4pgwpk" path="res://textures/GUI/main/music_player/slot.png" id="85_35fx5"]
 [ext_resource type="Script" path="res://scripts/GUI/Shop.gd" id="86"]
+[ext_resource type="Texture2D" uid="uid://dyamq4dw8xo88" path="res://textures/GUI/main/music_player/slot_hover.png" id="86_r0iqa"]
 [ext_resource type="Texture2D" uid="uid://yt38gkuyx7oq" path="res://textures/GUI/main/shop/tab_selected.png" id="87"]
+[ext_resource type="Texture2D" uid="uid://iges7aepbyai" path="res://textures/items/music_chip_alpha_andromedae.png" id="87_cghyt"]
 [ext_resource type="Texture2D" uid="uid://bc3ncctygtmi" path="res://textures/GUI/main/shop/tab.png" id="88"]
+[ext_resource type="Texture2D" uid="uid://0kw3pswgl7ra" path="res://textures/GUI/main/effects/no_oxygen.png" id="98_obupc"]
+[ext_resource type="Texture2D" uid="uid://jubrgfwjnpsj" path="res://textures/GUI/main/effects/fire.png" id="99_nicjf"]
+[ext_resource type="Texture2D" uid="uid://bh35fik5wk5y4" path="res://textures/GUI/main/effects/frozen.png" id="100_xdqdj"]
+[ext_resource type="Script" path="res://scripts/GUI/main/slider_pop_up.gd" id="104_kln4w"]
+[ext_resource type="Script" path="res://scripts/GUI/main/teleport_prompt.gd" id="105_ry0l8"]
+[ext_resource type="FastNoiseLite" uid="uid://c5g6yqr51sbl6" path="res://noise/Cave.tres" id="110_3l8vn"]
+[ext_resource type="Script" path="res://scripts/player_camera.gd" id="124_kgcw1"]
+[ext_resource type="AudioStream" uid="uid://i51amw3y2qy6" path="res://Audio/sfx/Ambience/The2.mp3" id="125_7ahbp"]
 
 [sub_resource type="VisualShaderNodeFloatOp" id="67"]
 output_port_for_preview = 0
@@ -421,50 +466,6 @@ region = Rect2(0, 12, 23, 2)
 atlas = ExtResource("17")
 region = Rect2(0, 5, 23, 2)
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_wja5i"]
-
-[sub_resource type="AtlasTexture" id="82"]
-atlas = SubResource("CompressedTexture2D_wja5i")
-region = Rect2(16, 0, 7, 7)
-
-[sub_resource type="Animation" id="83"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="84"]
-resource_name = "blink"
-length = 1.5
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_6ih42"]
-_data = {
-"RESET": SubResource("83"),
-"blink": SubResource("84")
-}
-
 [sub_resource type="LabelSettings" id="LabelSettings_5jsv6"]
 outline_size = 3
 outline_color = Color(0.431373, 0.458824, 0.552941, 1)
@@ -484,6 +485,16 @@ shadow_color = Color(0.372549, 0.407843, 0.521569, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_a5yvo"]
 font_color = Color(0.854902, 0.878431, 0.917647, 1)
 shadow_color = Color(0.372549, 0.407843, 0.521569, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_f71tw"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+outline_size = 3
+outline_color = Color(0.231373, 0.290196, 0.478431, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_h1jgf"]
+font_color = Color(0.854902, 0.878431, 0.917647, 1)
+outline_size = 3
+outline_color = Color(0.231373, 0.290196, 0.478431, 1)
 
 [sub_resource type="StyleBoxTexture" id="16"]
 texture = ExtResource("76")
@@ -532,16 +543,6 @@ VScrollBar/styles/grabber_pressed = SubResource("15")
 VScrollBar/styles/scroll = SubResource("20")
 VSlider/styles/slider = SubResource("112")
 
-[sub_resource type="LabelSettings" id="LabelSettings_f71tw"]
-font_color = Color(0.854902, 0.878431, 0.917647, 1)
-outline_size = 3
-outline_color = Color(0.231373, 0.290196, 0.478431, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_h1jgf"]
-font_color = Color(0.854902, 0.878431, 0.917647, 1)
-outline_size = 3
-outline_color = Color(0.231373, 0.290196, 0.478431, 1)
-
 [sub_resource type="LabelSettings" id="LabelSettings_xsdyu"]
 font_color = Color(0.854902, 0.878431, 0.917647, 1)
 outline_size = 3
@@ -551,6 +552,657 @@ outline_color = Color(0.266667, 0.235294, 0.384314, 1)
 font_color = Color(0.854902, 0.878431, 0.917647, 1)
 outline_size = 3
 outline_color = Color(0.266667, 0.235294, 0.384314, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_wilhb"]
+font_color = Color(0.994154, 0.772127, 0.757899, 1)
+outline_size = 3
+outline_color = Color(0.342634, 0.0358904, 0.066403, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88nlb"]
+atlas = ExtResource("79_hj1c0")
+region = Rect2(29, 2.08165e-12, 29, 27)
+
+[sub_resource type="Animation" id="Animation_wlq0u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(29, 2.08165e-12, 29, 27)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftSlotBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_wf4ee"]
+resource_name = "power"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(116, 2.08165e-12, 29, 27), Rect2(145, 2.08165e-12, 29, 27), Rect2(174, 2.08165e-12, 29, 27), Rect2(2.08165e-12, 2.08165e-12, 29, 27)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftSlotBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_nvbpb"]
+resource_local_to_scene = true
+resource_name = "remove"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(116, 2.08165e-12, 29, 27), Rect2(87, 2.08165e-12, 29, 27), Rect2(58, 2.08165e-12, 29, 27), Rect2(29, 2.08165e-12, 29, 27)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftSlotBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3kwvw"]
+resource_name = "start"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture:region")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(29, 2.08165e-12, 29, 27), Rect2(58, 2.08165e-12, 29, 27), Rect2(87, 2.08165e-12, 29, 27), Rect2(116, 2.08165e-12, 29, 27)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LeftSlotBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_puh5q"]
+resource_name = "unpower"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(2.08165e-12, 2.08165e-12, 29, 27), Rect2(174, 2.08165e-12, 29, 27), Rect2(145, 2.08165e-12, 29, 27), Rect2(116, 2.08165e-12, 29, 27)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LeftSlotBtn:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6pjqh"]
+_data = {
+"RESET": SubResource("Animation_wlq0u"),
+"power": SubResource("Animation_wf4ee"),
+"remove": SubResource("Animation_nvbpb"),
+"start": SubResource("Animation_3kwvw"),
+"unpower": SubResource("Animation_puh5q")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gilhv"]
+atlas = ExtResource("80_wujuo")
+region = Rect2(14, 2.08165e-12, 14, 40)
+margin = Rect2(0.1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+filter_clip = true
+
+[sub_resource type="Animation" id="Animation_ef3rd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(14, 2.08165e-12, 14, 40)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TopSlotBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_mrytc"]
+resource_name = "power"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(56, 2.08165e-12, 14, 40), Rect2(70, 2.08165e-12, 14, 40), Rect2(84, 2.08165e-12, 14, 40), Rect2(2.08165e-12, 2.08165e-12, 14, 40)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TopSlotBtn:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_yj3bx"]
+resource_local_to_scene = true
+resource_name = "remove"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(56, 2.08165e-12, 14, 40), Rect2(42, 2.08165e-12, 14, 40), Rect2(28, 2.08165e-12, 14, 40), Rect2(14, 2.08165e-12, 14, 40)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TopSlotBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3wmlr"]
+resource_local_to_scene = true
+resource_name = "start"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(14, 2.08165e-12, 14, 40), Rect2(28, 2.08165e-12, 14, 40), Rect2(42, 2.08165e-12, 14, 40), Rect2(56, 2.08165e-12, 14, 40)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TopSlotBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_t3y27"]
+resource_name = "unpower"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(2.08165e-12, 2.08165e-12, 14, 40), Rect2(84, 2.08165e-12, 14, 40), Rect2(70, 2.08165e-12, 14, 40), Rect2(56, 2.08165e-12, 14, 40)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("TopSlotBtn:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4dlmm"]
+_data = {
+"RESET": SubResource("Animation_ef3rd"),
+"power": SubResource("Animation_mrytc"),
+"remove": SubResource("Animation_yj3bx"),
+"start": SubResource("Animation_3wmlr"),
+"unpower": SubResource("Animation_t3y27")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ltsjs"]
+atlas = ExtResource("81_3oc2h")
+region = Rect2(29, 2.08165e-12, 29, 27)
+
+[sub_resource type="Animation" id="Animation_doqaj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightSlotBtn:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:texture:region")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(29, 2.08165e-12, 29, 27)]
+}
+
+[sub_resource type="Animation" id="Animation_cvvwd"]
+resource_name = "power"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightSlotBtn:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:texture:region")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(116, 2.08165e-12, 29, 27), Rect2(145, 2.08165e-12, 29, 27), Rect2(174, 2.08165e-12, 29, 27), Rect2(2.08165e-12, 2.08165e-12, 29, 27)]
+}
+
+[sub_resource type="Animation" id="Animation_f41t2"]
+resource_name = "remove"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightSlotBtn:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:texture:region")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(116, 2.08165e-12, 29, 27), Rect2(87, 2.08165e-12, 29, 27), Rect2(58, 2.08165e-12, 29, 27), Rect2(29, 2.08165e-12, 29, 27)]
+}
+
+[sub_resource type="Animation" id="Animation_t4bpu"]
+resource_name = "start"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightSlotBtn:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:texture:region")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(29, 2.08165e-12, 29, 27), Rect2(58, 2.08165e-12, 29, 27), Rect2(87, 2.08165e-12, 29, 27), Rect2(116, 2.08165e-12, 29, 27)]
+}
+
+[sub_resource type="Animation" id="Animation_i1rtu"]
+resource_name = "unpower"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RightSlotBtn:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:texture:region")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(2.08165e-12, 2.08165e-12, 29, 27), Rect2(174, 2.08165e-12, 29, 27), Rect2(145, 2.08165e-12, 29, 27), Rect2(116, 2.08165e-12, 29, 27)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6c7h1"]
+_data = {
+"RESET": SubResource("Animation_doqaj"),
+"power": SubResource("Animation_cvvwd"),
+"remove": SubResource("Animation_f41t2"),
+"start": SubResource("Animation_t4bpu"),
+"unpower": SubResource("Animation_i1rtu")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_c7ud0"]
+font_color = Color(0.117647, 0.0784314, 0.137255, 1)
+outline_size = 3
+outline_color = Color(0.760784, 0.780392, 0.788235, 1)
 
 [sub_resource type="Animation" id="11"]
 length = 0.001
@@ -844,6 +1496,9 @@ _data = {
 
 [sub_resource type="RectangleShape2D" id="121"]
 size = Vector2(8, 8)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8j75d"]
+radius = 100.0
 
 [sub_resource type="Environment" id="32"]
 background_mode = 4
@@ -2390,6 +3045,7 @@ collision_mode = 2
 script = ExtResource("35")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="CloudLayer1" type="ParallaxBackground" parent="CanvasLayer"]
 layer = -99
@@ -2538,6 +3194,34 @@ max_value = 200.0
 value = 200.0
 texture_under = SubResource("80")
 texture_progress = SubResource("81")
+
+[node name="Warnings" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 152.0
+offset_right = -20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+mouse_filter = 2
+theme_override_constants/separation = 2
+
+[node name="NoOxygen" type="TextureRect" parent="CanvasLayer/Warnings"]
+visible = false
+layout_mode = 2
+texture = ExtResource("98_obupc")
+stretch_mode = 3
+
+[node name="Fire" type="TextureRect" parent="CanvasLayer/Warnings"]
+visible = false
+layout_mode = 2
+texture = ExtResource("99_nicjf")
+stretch_mode = 3
+
+[node name="Frozen" type="TextureRect" parent="CanvasLayer/Warnings"]
+visible = false
+layout_mode = 2
+texture = ExtResource("100_xdqdj")
+stretch_mode = 3
 
 [node name="Hotbar" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -2699,20 +3383,6 @@ theme_override_constants/separation = 0
 [node name="BGT" type="TextureRect" parent="CanvasLayer/Hotbar/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("69")
-
-[node name="O2" type="TextureRect" parent="CanvasLayer/Hotbar/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("58")
-
-[node name="Warning" type="TextureRect" parent="CanvasLayer/Hotbar/HBoxContainer"]
-visible = false
-layout_mode = 2
-texture = SubResource("82")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Hotbar/HBoxContainer/Warning"]
-libraries = {
-"": SubResource("AnimationLibrary_6ih42")
-}
 
 [node name="Coords" type="Label" parent="CanvasLayer/Hotbar"]
 visible = false
@@ -2937,13 +3607,14 @@ offset_left = 6.0
 offset_top = -65.0
 offset_right = 110.0
 offset_bottom = -12.0
-theme = SubResource("113")
+theme = ExtResource("12_23g2f")
+horizontal_scroll_mode = 0
 
 [node name="ItemContainer" type="GridContainer" parent="CanvasLayer/Inventory/ItemScroll"]
 layout_mode = 2
 theme_override_constants/h_separation = 2
 theme_override_constants/v_separation = 2
-columns = 2
+columns = 3
 
 [node name="Title" type="Label" parent="CanvasLayer/Inventory"]
 layout_mode = 0
@@ -2954,6 +3625,33 @@ offset_bottom = 12.0
 text = "Inventory"
 label_settings = SubResource("LabelSettings_f71tw")
 horizontal_alignment = 1
+
+[node name="ClearBtn" type="TextureButton" parent="CanvasLayer/Inventory"]
+visible = false
+layout_mode = 0
+offset_left = 5.0
+offset_top = 62.0
+offset_right = 17.0
+offset_bottom = 74.0
+texture_normal = ExtResource("39_od4vt")
+texture_pressed = ExtResource("40_fxihi")
+texture_hover = ExtResource("41_rvmfq")
+
+[node name="DeleteItemBtn" type="TextureButton" parent="CanvasLayer/Inventory"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -26.0
+offset_right = 50.0
+offset_bottom = -2.0
+grow_horizontal = 0
+grow_vertical = 0
+texture_normal = ExtResource("42_ur3h4")
+stretch_mode = 3
 
 [node name="Crafting" type="Control" parent="CanvasLayer"]
 visible = false
@@ -3013,9 +3711,6 @@ theme = SubResource("113")
 
 [node name="RecipesContainer" type="VBoxContainer" parent="CanvasLayer/Crafting/RecipesScroll"]
 layout_mode = 2
-
-[node name="Pause" parent="CanvasLayer" instance=ExtResource("12")]
-visible = false
 
 [node name="Chest" type="Control" parent="CanvasLayer"]
 visible = false
@@ -3184,6 +3879,450 @@ text = "Sell"
 horizontal_alignment = 1
 uppercase = true
 
+[node name="TextTimer" type="Timer" parent="CanvasLayer/Shop"]
+wait_time = 0.05
+
+[node name="Godmode" type="Control" parent="CanvasLayer"]
+visible = false
+custom_minimum_size = Vector2(116, 141)
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("12_23g2f")
+script = ExtResource("57_keb65")
+
+[node name="BG" type="TextureRect" parent="CanvasLayer/Godmode"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("58_rc7dj")
+stretch_mode = 3
+
+[node name="Title" type="Label" parent="CanvasLayer/Godmode"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 114.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
+theme_override_colors/font_outline_color = Color(0.231373, 0.290196, 0.482353, 1)
+text = "Godmode"
+label_settings = SubResource("LabelSettings_h1jgf")
+horizontal_alignment = 1
+
+[node name="Tabs" type="HBoxContainer" parent="CanvasLayer/Godmode"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 5.0
+offset_top = 16.0
+offset_right = -5.0
+offset_bottom = 28.0
+grow_horizontal = 2
+theme_override_constants/separation = 0
+
+[node name="building_blocks" type="TextureButton" parent="CanvasLayer/Godmode/Tabs"]
+layout_mode = 2
+texture_normal = ExtResource("59_khys4")
+texture_pressed = ExtResource("60_xmnff")
+texture_hover = ExtResource("61_lmb5b")
+texture_disabled = ExtResource("60_xmnff")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Godmode/Tabs/building_blocks"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3")
+stretch_mode = 3
+
+[node name="nature_blocks" type="TextureButton" parent="CanvasLayer/Godmode/Tabs"]
+layout_mode = 2
+texture_normal = ExtResource("59_khys4")
+texture_pressed = ExtResource("60_xmnff")
+texture_hover = ExtResource("61_lmb5b")
+texture_disabled = ExtResource("60_xmnff")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Godmode/Tabs/nature_blocks"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("62_msb4f")
+stretch_mode = 3
+
+[node name="functional_blocks" type="TextureButton" parent="CanvasLayer/Godmode/Tabs"]
+layout_mode = 2
+texture_normal = ExtResource("59_khys4")
+texture_pressed = ExtResource("60_xmnff")
+texture_hover = ExtResource("61_lmb5b")
+texture_disabled = ExtResource("60_xmnff")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Godmode/Tabs/functional_blocks"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("63_r3nvb")
+stretch_mode = 3
+
+[node name="food" type="TextureButton" parent="CanvasLayer/Godmode/Tabs"]
+layout_mode = 2
+texture_normal = ExtResource("59_khys4")
+texture_pressed = ExtResource("60_xmnff")
+texture_hover = ExtResource("61_lmb5b")
+texture_disabled = ExtResource("60_xmnff")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Godmode/Tabs/food"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("64_bcqkm")
+stretch_mode = 3
+
+[node name="tools" type="TextureButton" parent="CanvasLayer/Godmode/Tabs"]
+layout_mode = 2
+texture_normal = ExtResource("59_khys4")
+texture_pressed = ExtResource("60_xmnff")
+texture_hover = ExtResource("61_lmb5b")
+texture_disabled = ExtResource("60_xmnff")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Godmode/Tabs/tools"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("65_pjfr3")
+stretch_mode = 3
+
+[node name="wearables" type="TextureButton" parent="CanvasLayer/Godmode/Tabs"]
+layout_mode = 2
+texture_normal = ExtResource("59_khys4")
+texture_pressed = ExtResource("60_xmnff")
+texture_hover = ExtResource("61_lmb5b")
+texture_disabled = ExtResource("60_xmnff")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Godmode/Tabs/wearables"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("66_i8amm")
+stretch_mode = 3
+
+[node name="misc" type="TextureButton" parent="CanvasLayer/Godmode/Tabs"]
+layout_mode = 2
+texture_normal = ExtResource("59_khys4")
+texture_pressed = ExtResource("60_xmnff")
+texture_hover = ExtResource("61_lmb5b")
+texture_disabled = ExtResource("60_xmnff")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Godmode/Tabs/misc"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("66_8qkex")
+stretch_mode = 3
+
+[node name="dev" type="TextureButton" parent="CanvasLayer/Godmode/Tabs"]
+layout_mode = 2
+texture_normal = ExtResource("59_khys4")
+texture_pressed = ExtResource("60_xmnff")
+texture_hover = ExtResource("61_lmb5b")
+texture_disabled = ExtResource("60_xmnff")
+
+[node name="Icon" type="TextureRect" parent="CanvasLayer/Godmode/Tabs/dev"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("68_dm17w")
+stretch_mode = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Godmode"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 29.0
+offset_right = -6.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="ItemHold" type="GridContainer" parent="CanvasLayer/Godmode/ScrollContainer"]
+layout_mode = 2
+theme_override_constants/h_separation = 2
+columns = 7
+
+[node name="Upgrade" type="Control" parent="CanvasLayer"]
+visible = false
+custom_minimum_size = Vector2(116, 141)
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("12_23g2f")
+script = ExtResource("75_0dd7g")
+
+[node name="BG" type="TextureRect" parent="CanvasLayer/Upgrade"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("76_lw3wt")
+stretch_mode = 3
+
+[node name="Title" type="Label" parent="CanvasLayer/Upgrade"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 114.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
+theme_override_colors/font_outline_color = Color(0.231373, 0.290196, 0.482353, 1)
+text = "Upgrade"
+label_settings = SubResource("LabelSettings_wilhb")
+horizontal_alignment = 1
+
+[node name="ItemHold" type="Control" parent="CanvasLayer/Upgrade"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 14.0
+offset_right = -2.0
+offset_bottom = -67.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Mainslot" type="TextureButton" parent="CanvasLayer/Upgrade/ItemHold"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -7.0
+offset_top = 12.0
+offset_right = 7.0
+offset_bottom = 26.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("77_w74uk")
+texture_hover = ExtResource("78_gbxmp")
+
+[node name="Item" type="TextureRect" parent="CanvasLayer/Upgrade/ItemHold/Mainslot"]
+layout_mode = 0
+offset_right = 14.0
+offset_bottom = 14.0
+mouse_filter = 2
+texture = ExtResource("79_atg4g")
+stretch_mode = 3
+
+[node name="LeftSlot" type="TextureRect" parent="CanvasLayer/Upgrade/ItemHold"]
+visible = false
+layout_mode = 0
+offset_left = 20.0
+offset_top = 29.0
+offset_right = 49.0
+offset_bottom = 56.0
+texture = SubResource("AtlasTexture_88nlb")
+stretch_mode = 3
+
+[node name="Animation" type="AnimationPlayer" parent="CanvasLayer/Upgrade/ItemHold/LeftSlot"]
+libraries = {
+"": SubResource("AnimationLibrary_6pjqh")
+}
+
+[node name="LeftSlotBtn" type="TextureButton" parent="CanvasLayer/Upgrade/ItemHold/LeftSlot"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_top = 13.0
+offset_right = 14.0
+offset_bottom = 27.0
+texture_normal = ExtResource("81_e54nj")
+stretch_mode = 3
+
+[node name="TopSlot" type="TextureRect" parent="CanvasLayer/Upgrade/ItemHold"]
+visible = false
+layout_mode = 0
+offset_left = 49.0
+offset_top = 2.0
+offset_right = 63.0
+offset_bottom = 42.0
+texture = SubResource("AtlasTexture_gilhv")
+stretch_mode = 3
+
+[node name="Animation" type="AnimationPlayer" parent="CanvasLayer/Upgrade/ItemHold/TopSlot"]
+libraries = {
+"": SubResource("AnimationLibrary_4dlmm")
+}
+
+[node name="TopSlotBtn" type="TextureButton" parent="CanvasLayer/Upgrade/ItemHold/TopSlot"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_top = 11.0
+offset_right = 14.0
+offset_bottom = 25.0
+texture_normal = ExtResource("81_e54nj")
+stretch_mode = 3
+
+[node name="RightSlot" type="TextureRect" parent="CanvasLayer/Upgrade/ItemHold"]
+visible = false
+layout_mode = 0
+offset_left = 63.0
+offset_top = 29.0
+offset_right = 92.0
+offset_bottom = 56.0
+texture = SubResource("AtlasTexture_ltsjs")
+stretch_mode = 3
+
+[node name="RightSlotBtn" type="TextureButton" parent="CanvasLayer/Upgrade/ItemHold/RightSlot"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 15.0
+offset_top = 13.0
+offset_right = 29.0
+offset_bottom = 27.0
+texture_normal = ExtResource("81_e54nj")
+stretch_mode = 3
+
+[node name="Animation" type="AnimationPlayer" parent="CanvasLayer/Upgrade/ItemHold/RightSlot"]
+libraries = {
+"": SubResource("AnimationLibrary_6c7h1")
+}
+
+[node name="MusicPlayer" type="Control" parent="CanvasLayer"]
+visible = false
+custom_minimum_size = Vector2(116, 141)
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("12_23g2f")
+script = ExtResource("83_plk3y")
+
+[node name="BG" type="TextureRect" parent="CanvasLayer/MusicPlayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("84_4fai7")
+stretch_mode = 3
+
+[node name="Title" type="Label" parent="CanvasLayer/MusicPlayer"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 114.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
+theme_override_colors/font_outline_color = Color(0.231373, 0.290196, 0.482353, 1)
+text = "Music Player"
+label_settings = SubResource("LabelSettings_c7ud0")
+horizontal_alignment = 1
+
+[node name="MusicChipSlot" type="TextureButton" parent="CanvasLayer/MusicPlayer"]
+layout_mode = 0
+offset_left = 51.0
+offset_top = 38.0
+offset_right = 65.0
+offset_bottom = 52.0
+texture_normal = ExtResource("85_35fx5")
+texture_hover = ExtResource("86_r0iqa")
+
+[node name="ItemTexture" type="TextureRect" parent="CanvasLayer/MusicPlayer/MusicChipSlot"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("87_cghyt")
+stretch_mode = 3
+
+[node name="Data" type="ScrollContainer" parent="CanvasLayer/MusicPlayer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 77.0
+offset_right = -2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MusicPlayer/Data"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TitleLbl" type="Label" parent="CanvasLayer/MusicPlayer/Data/VBoxContainer"]
+layout_mode = 2
+text = "Alpha Andromedae"
+horizontal_alignment = 1
+
+[node name="ByLbl" type="Label" parent="CanvasLayer/MusicPlayer/Data/VBoxContainer"]
+layout_mode = 2
+text = "The_Mad_duck"
+horizontal_alignment = 1
+
 [node name="SignEdit" type="Panel" parent="CanvasLayer"]
 visible = false
 custom_minimum_size = Vector2(180, 110)
@@ -3350,6 +4489,378 @@ grow_horizontal = 2
 grow_vertical = 0
 text = "Lock"
 
+[node name="LogicBlockEdit" type="Panel" parent="CanvasLayer"]
+visible = false
+custom_minimum_size = Vector2(180, 75)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -90.0
+offset_top = -37.5
+offset_right = 90.0
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("60_dyqfb")
+script = ExtResource("60_2s7q2")
+
+[node name="SelectLbl" type="Label" parent="CanvasLayer/LogicBlockEdit"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 13.0
+grow_horizontal = 2
+text = "Select Logic Mode"
+horizontal_alignment = 1
+
+[node name="DoneBtn" type="Button" parent="CanvasLayer/LogicBlockEdit"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = -18.0
+offset_right = -3.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Done"
+
+[node name="LogicBtns" type="HBoxContainer" parent="CanvasLayer/LogicBlockEdit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 16.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="and" type="TextureButton" parent="CanvasLayer/LogicBlockEdit/LogicBtns"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("61_v3k1y")
+texture_pressed = ExtResource("62_1oiqi")
+stretch_mode = 3
+
+[node name="or" type="TextureButton" parent="CanvasLayer/LogicBlockEdit/LogicBtns"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("63_mfad1")
+texture_pressed = ExtResource("64_tkw1u")
+stretch_mode = 3
+
+[node name="nand" type="TextureButton" parent="CanvasLayer/LogicBlockEdit/LogicBtns"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("65_rkwro")
+texture_pressed = ExtResource("66_klnxr")
+stretch_mode = 3
+
+[node name="nor" type="TextureButton" parent="CanvasLayer/LogicBlockEdit/LogicBtns"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("67_rhacj")
+texture_pressed = ExtResource("68_46ew3")
+stretch_mode = 3
+
+[node name="xor" type="TextureButton" parent="CanvasLayer/LogicBlockEdit/LogicBtns"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("69_4xjca")
+texture_pressed = ExtResource("70_gxdv6")
+stretch_mode = 3
+
+[node name="StructureSaveEdit" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.5
+offset_top = -41.0
+offset_right = 61.5
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("60_dyqfb")
+script = ExtResource("71_3tamp")
+
+[node name="TitleLbl" type="Label" parent="CanvasLayer/StructureSaveEdit"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 13.0
+grow_horizontal = 2
+text = "Structure save"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/StructureSaveEdit"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 13.0
+offset_right = 119.0
+offset_bottom = 85.0
+theme_override_constants/separation = 6
+
+[node name="Position" type="HBoxContainer" parent="CanvasLayer/StructureSaveEdit/VBoxContainer"]
+layout_mode = 2
+
+[node name="XLbl" type="Label" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Position"]
+layout_mode = 2
+text = "X:"
+
+[node name="XEdit" type="SpinBox" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Position"]
+layout_mode = 2
+max_value = 256.0
+
+[node name="YLbl" type="Label" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Position"]
+layout_mode = 2
+text = "Y:"
+
+[node name="YEdit" type="SpinBox" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Position"]
+layout_mode = 2
+max_value = 128.0
+
+[node name="Size" type="HBoxContainer" parent="CanvasLayer/StructureSaveEdit/VBoxContainer"]
+layout_mode = 2
+
+[node name="WLbl" type="Label" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Size"]
+layout_mode = 2
+text = "W:"
+
+[node name="WidthEdit" type="SpinBox" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Size"]
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+
+[node name="HLbl" type="Label" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Size"]
+layout_mode = 2
+text = "H:"
+
+[node name="HeightEdit" type="SpinBox" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Size"]
+layout_mode = 2
+min_value = 1.0
+value = 1.0
+
+[node name="Name" type="HBoxContainer" parent="CanvasLayer/StructureSaveEdit/VBoxContainer"]
+layout_mode = 2
+
+[node name="NameLbl" type="Label" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Name"]
+layout_mode = 2
+text = "Name:"
+
+[node name="NameEdit" type="LineEdit" parent="CanvasLayer/StructureSaveEdit/VBoxContainer/Name"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "file name"
+
+[node name="BackBtn" type="Button" parent="CanvasLayer/StructureSaveEdit"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -17.0
+offset_right = -62.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Back"
+
+[node name="SaveBtn" type="Button" parent="CanvasLayer/StructureSaveEdit"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 62.0
+offset_top = -17.0
+offset_right = -2.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Save"
+
+[node name="LineEditPopUp" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.5
+offset_top = -32.5
+offset_right = 61.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("60_dyqfb")
+script = ExtResource("72_5q14t")
+
+[node name="TitleLbl" type="Label" parent="CanvasLayer/LineEditPopUp"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 13.0
+grow_horizontal = 2
+text = "Dev chest"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/LineEditPopUp"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 13.0
+offset_right = 119.0
+offset_bottom = 69.0
+theme_override_constants/separation = 6
+
+[node name="GroupLbl" type="Label" parent="CanvasLayer/LineEditPopUp/VBoxContainer"]
+layout_mode = 2
+text = "Group:"
+horizontal_alignment = 1
+
+[node name="GroupEdit" type="LineEdit" parent="CanvasLayer/LineEditPopUp/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "h"
+
+[node name="SaveBtn" type="Button" parent="CanvasLayer/LineEditPopUp/VBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="SliderPopUp" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -61.5
+offset_top = -32.5
+offset_right = 61.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("60_dyqfb")
+script = ExtResource("104_kln4w")
+
+[node name="TitleLbl" type="Label" parent="CanvasLayer/SliderPopUp"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 13.0
+grow_horizontal = 2
+text = "Timer Block"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SliderPopUp"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 13.0
+offset_right = 119.0
+offset_bottom = 69.0
+theme_override_constants/separation = 6
+
+[node name="TimeLbl" type="Label" parent="CanvasLayer/SliderPopUp/VBoxContainer"]
+layout_mode = 2
+text = "Wait time: 60 seconds"
+horizontal_alignment = 1
+
+[node name="Slider" type="HSlider" parent="CanvasLayer/SliderPopUp/VBoxContainer"]
+layout_mode = 2
+min_value = 0.25
+max_value = 60.0
+step = 0.25
+value = 0.25
+
+[node name="SaveBtn" type="Button" parent="CanvasLayer/SliderPopUp/VBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="TeleportPrompt" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -79.0
+offset_top = -49.0
+offset_right = 79.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("60_dyqfb")
+script = ExtResource("105_ry0l8")
+
+[node name="TitleLbl" type="Label" parent="CanvasLayer/TeleportPrompt"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = -3.0
+offset_bottom = 13.0
+grow_horizontal = 2
+text = "Endgame Locator"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/TeleportPrompt"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -80.0
+offset_right = -4.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 6
+alignment = 2
+
+[node name="DescLbl" type="Label" parent="CanvasLayer/TeleportPrompt/VBoxContainer"]
+layout_mode = 2
+text = "Do you want to teleport to the endgame? (Your progress will be saved and you can return at any time)"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/TeleportPrompt/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="YesBtn" type="Button" parent="CanvasLayer/TeleportPrompt/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "Yes"
+
+[node name="NoBtn" type="Button" parent="CanvasLayer/TeleportPrompt/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 2
+text = "No"
+
 [node name="Black" type="TextureRect" parent="CanvasLayer"]
 modulate = Color(0, 0, 0, 1)
 anchors_preset = 15
@@ -3465,25 +4976,32 @@ libraries = {
 [node name="TitleTimer" type="Timer" parent="CanvasLayer/Title"]
 one_shot = true
 
-[node name="ItemData" type="Label" parent="CanvasLayer"]
+[node name="ItemData" type="RichTextLabel" parent="CanvasLayer"]
 visible = false
-offset_right = 20.0
-offset_bottom = 8.0
+clip_contents = false
+offset_right = 72.0
+offset_bottom = 20.0
 size_flags_horizontal = 12
 size_flags_vertical = 12
 theme = ExtResource("12_23g2f")
-text = "Coppeickax"
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 script = ExtResource("63")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="CanvasLayer/ItemData"]
 show_behind_parent = true
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -2.0
 offset_top = -1.0
 offset_right = 2.0
 offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("62")
 patch_margin_left = 3
 patch_margin_top = 3
@@ -3501,8 +5019,12 @@ theme = ExtResource("12_23g2f")
 text = "Tiny Pixel Planets TU4.1 Godot 4 Port (Development Build)"
 horizontal_alignment = 1
 
+[node name="Pause" parent="CanvasLayer" instance=ExtResource("12")]
+visible = false
+
 [node name="World" type="Node2D" parent="."]
 script = ExtResource("1")
+caveNoise = ExtResource("110_3l8vn")
 worldHeight = 30
 
 [node name="blocks" type="Node2D" parent="World"]
@@ -3528,6 +5050,9 @@ wait_time = 0.1
 autostart = true
 
 [node name="Deleting" type="Node2D" parent="World"]
+
+[node name="Wires" type="Node2D" parent="World"]
+visible = false
 
 [node name="Cursor" type="Sprite2D" parent="."]
 z_index = 5
@@ -3562,11 +5087,12 @@ shape = SubResource("121")
 z_index = 2
 position = Vector2(30, -6)
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="PlayerCamera" type="Camera2D" parent="Player"]
 offset = Vector2(0, -30)
 limit_left = 0
 limit_smoothed = true
 position_smoothing_enabled = true
+script = ExtResource("124_kgcw1")
 
 [node name="Light3D" type="PointLight2D" parent="Player"]
 visible = false
@@ -3581,31 +5107,30 @@ shadow_enabled = true
 texture = ExtResource("64")
 texture_scale = 2.0
 
+[node name="FocusArea" type="Area2D" parent="Player"]
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/FocusArea"]
+shape = SubResource("CircleShape2D_8j75d")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("32")
 
 [node name="sfx" type="Node" parent="."]
 
-[node name="crickets" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource("27")
-volume_db = -35.0
-
-[node name="forest" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource("26")
-volume_db = -35.0
-
-[node name="wind" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource("28")
-volume_db = -35.0
-
-[node name="winterWind" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource("32")
-
-[node name="Ocean" type="AudioStreamPlayer" parent="sfx"]
-stream = ExtResource("81")
-
 [node name="Rain" type="AudioStreamPlayer" parent="sfx"]
 stream = ExtResource("83")
+
+[node name="DaySound" type="AudioStreamPlayer" parent="sfx"]
+
+[node name="NightSound" type="AudioStreamPlayer" parent="sfx"]
+
+[node name="ConstantSound" type="AudioStreamPlayer" parent="sfx"]
+
+[node name="The" type="AudioStreamPlayer" parent="sfx"]
+stream = ExtResource("125_7ahbp")
+volume_db = -10.0
 
 [node name="Entities" type="Node2D" parent="."]
 script = ExtResource("43")
@@ -3646,19 +5171,42 @@ lifetime = 10.0
 z_index = 5
 script = ExtResource("47")
 
+[connection signal="input_pressed" from="." to="Cursor" method="_on_main_input_pressed"]
+[connection signal="output_pressed" from="." to="Cursor" method="_on_main_output_pressed"]
 [connection signal="timeout" from="CanvasLayer/Enviroment/Meteors/MeteorTimer" to="CanvasLayer/Enviroment/Meteors" method="_on_MeteorTimer_timeout"]
 [connection signal="timeout" from="CanvasLayer/Enviroment/Meteors/StageProgress" to="CanvasLayer/Enviroment/Meteors" method="_on_StageProgress_timeout"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn" to="CanvasLayer/Inventory" method="_on_InventoryBtn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn2" to="CanvasLayer/Inventory" method="_on_InventoryBtn2_pressed"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/GoUp" to="World" method="_on_GoUp_pressed"]
 [connection signal="updated_armor" from="CanvasLayer/Inventory/Armor" to="Player" method="_on_Armor_updated_armor"]
+[connection signal="pressed" from="CanvasLayer/Inventory/ClearBtn" to="CanvasLayer/Inventory" method="_on_clear_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/Inventory/DeleteItemBtn" to="CanvasLayer/Inventory" method="_on_delete_item_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Shop/TabBar/BuyTab" to="CanvasLayer/Shop" method="_on_BuyTab_pressed"]
 [connection signal="pressed" from="CanvasLayer/Shop/TabBar/SellTab" to="CanvasLayer/Shop" method="_on_SellTab_pressed"]
+[connection signal="timeout" from="CanvasLayer/Shop/TextTimer" to="CanvasLayer/Shop" method="_on_text_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/Upgrade/ItemHold/Mainslot" to="CanvasLayer/Upgrade" method="_on_mainslot_pressed"]
+[connection signal="mouse_entered" from="CanvasLayer/MusicPlayer/MusicChipSlot" to="CanvasLayer/MusicPlayer" method="_on_music_chip_slot_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/MusicPlayer/MusicChipSlot" to="CanvasLayer/MusicPlayer" method="_on_music_chip_slot_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/MusicPlayer/MusicChipSlot" to="CanvasLayer/MusicPlayer" method="_on_music_chip_slot_pressed"]
 [connection signal="text_changed" from="CanvasLayer/SignEdit/TextEdit" to="CanvasLayer/SignEdit" method="_on_text_edit_text_changed"]
 [connection signal="pressed" from="CanvasLayer/SignEdit/HBoxContainer/ModeBtn" to="CanvasLayer/SignEdit" method="_on_mode_btn_pressed"]
 [connection signal="value_changed" from="CanvasLayer/SignEdit/HBoxContainer/RadiusInt" to="CanvasLayer/SignEdit" method="_on_radius_int_value_changed"]
 [connection signal="pressed" from="CanvasLayer/SignEdit/CloseBtn" to="CanvasLayer/SignEdit" method="_on_close_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/SignEdit/LockBtn" to="CanvasLayer/SignEdit" method="_on_lock_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/LogicBlockEdit/DoneBtn" to="CanvasLayer/LogicBlockEdit" method="_on_done_btn_pressed"]
+[connection signal="value_changed" from="CanvasLayer/StructureSaveEdit/VBoxContainer/Position/XEdit" to="CanvasLayer/StructureSaveEdit" method="_on_x_edit_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/StructureSaveEdit/VBoxContainer/Position/YEdit" to="CanvasLayer/StructureSaveEdit" method="_on_y_edit_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/StructureSaveEdit/VBoxContainer/Size/WidthEdit" to="CanvasLayer/StructureSaveEdit" method="_on_width_edit_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/StructureSaveEdit/VBoxContainer/Size/HeightEdit" to="CanvasLayer/StructureSaveEdit" method="_on_height_edit_value_changed"]
+[connection signal="text_changed" from="CanvasLayer/StructureSaveEdit/VBoxContainer/Name/NameEdit" to="CanvasLayer/StructureSaveEdit" method="_on_name_edit_text_changed"]
+[connection signal="pressed" from="CanvasLayer/StructureSaveEdit/BackBtn" to="CanvasLayer/StructureSaveEdit" method="_on_back_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/StructureSaveEdit/SaveBtn" to="CanvasLayer/StructureSaveEdit" method="_on_save_btn_pressed"]
+[connection signal="text_changed" from="CanvasLayer/LineEditPopUp/VBoxContainer/GroupEdit" to="CanvasLayer/LineEditPopUp" method="_on_group_edit_text_changed"]
+[connection signal="pressed" from="CanvasLayer/LineEditPopUp/VBoxContainer/SaveBtn" to="CanvasLayer/LineEditPopUp" method="_on_save_btn_pressed"]
+[connection signal="value_changed" from="CanvasLayer/SliderPopUp/VBoxContainer/Slider" to="CanvasLayer/SliderPopUp" method="_on_slider_value_changed"]
+[connection signal="pressed" from="CanvasLayer/SliderPopUp/VBoxContainer/SaveBtn" to="CanvasLayer/SliderPopUp" method="_on_save_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/TeleportPrompt/VBoxContainer/HBoxContainer/YesBtn" to="CanvasLayer/TeleportPrompt" method="_on_yes_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/TeleportPrompt/VBoxContainer/HBoxContainer/NoBtn" to="CanvasLayer/TeleportPrompt" method="_on_no_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Respawn" to="CanvasLayer/Dead" method="_on_Respawn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Dead/VBoxContainer/Quit" to="CanvasLayer/Dead" method="_on_Quit_pressed"]
 [connection signal="text_changed" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_text_changed"]
@@ -3674,5 +5222,7 @@ script = ExtResource("47")
 [connection signal="animation_finished" from="Cursor/break/AnimationPlayer" to="Cursor" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="Cursor/ShopTest" to="Cursor" method="_on_ShopTest_body_entered"]
 [connection signal="body_exited" from="Cursor/ShopTest" to="Cursor" method="_on_ShopTest_body_exited"]
+[connection signal="area_entered" from="Player/FocusArea" to="Player/PlayerCamera" method="_on_focus_area_area_entered"]
+[connection signal="area_exited" from="Player/FocusArea" to="Player/PlayerCamera" method="_on_focus_area_area_exited"]
 [connection signal="timeout" from="Entities/Spawn" to="Entities" method="_on_Spawn_timeout"]
 [connection signal="timeout" from="weather/WeatherTimer" to="." method="_on_WeatherTimer_timeout"]

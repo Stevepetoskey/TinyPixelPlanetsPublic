@@ -1,0 +1,91 @@
+[gd_scene load_steps=9 format=3 uid="uid://ddf68gdyg2ihe"]
+
+[ext_resource type="Script" path="res://scripts/blocks/piston.gd" id="1_b2jwk"]
+[ext_resource type="Texture2D" uid="uid://b31ydl87ivuha" path="res://textures/blocks/piston.png" id="2_55tww"]
+[ext_resource type="Texture2D" uid="uid://d2knl2pc7ytxv" path="res://textures/blocks/misc/logic_pin_bool.png" id="3_sd0ls"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_y6fa6"]
+polygon = PackedVector2Array(-4, 4, 4, 4, 4, -4, -4, -4)
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(8, 8)
+
+[sub_resource type="Animation" id="Animation_0ly12"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_eyhou"]
+resource_name = "playing"
+length = 6.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3, 4, 5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 0, 1), Color(0, 1, 0, 1), Color(0, 1, 1, 1), Color(0, 0, 1, 1), Color(1, 0, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qm40u"]
+_data = {
+"RESET": SubResource("Animation_0ly12"),
+"playing": SubResource("Animation_eyhou")
+}
+
+[node name="Piston" type="StaticBody2D"]
+script = ExtResource("1_b2jwk")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2, -2)
+scale = Vector2(0.2, 0.2)
+rect = Rect2(-10, -10, 40, 40)
+
+[node name="RainCol" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_y6fa6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
+texture = ExtResource("2_55tww")
+region_rect = Rect2(16, 2.08165e-12, 8, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("1")
+
+[node name="shade" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.521569)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qm40u")
+}
+
+[node name="Inputs" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="I1" type="TextureButton" parent="Inputs"]
+offset_left = -6.0
+offset_top = -2.0
+offset_right = -2.0
+offset_bottom = 2.0
+texture_normal = ExtResource("3_sd0ls")
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

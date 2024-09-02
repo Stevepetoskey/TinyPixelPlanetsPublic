@@ -11,7 +11,6 @@ var seenPos = Vector2(0,0)
 var state = "roam"
 var motion := Vector2(0,0)
 var animating = false
-var canDamage = true
 
 @onready var player = get_node("../../../Player")
 @onready var body: AnimatedSprite2D = $Body
@@ -20,31 +19,33 @@ func _ready():
 	maxHealth = 50
 	if new:
 		health = 50
+	connect("damaged",on_damaged)
 
 func _physics_process(delta):
 	if !Global.pause:
+		var result : Dictionary
 		if position.distance_to(player.position) <= 64:
 			var space_state = get_world_2d().direct_space_state
 			var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self])
-			var result = space_state.intersect_ray(params)
-			if !result.is_empty() and result.collider == player:
-				if !seePlayer:
-					$seeTimer.stop()
-					lostPlayer = false
-					$Seen.show()
-					await get_tree().create_timer(1).timeout
-					$Seen.hide()
-				seePlayer = true
-				seenPos = player.position
-			elif seePlayer and !lostPlayer:
-				lostPlayer = true
-				$seeTimer.start()
+			result = space_state.intersect_ray(params)
+		if !result.is_empty() and result.collider == player:
+			if !seePlayer:
+				$seeTimer.stop()
+				$Seen.show()
+				await get_tree().create_timer(1).timeout
+				$Seen.hide()
+			seePlayer = true
+			lostPlayer = false
+			seenPos = player.position
+		elif seePlayer and !lostPlayer:
+			lostPlayer = true
+			$seeTimer.start()
 		match state:
 			"roam":
 				if randi()%100 == 1 or seePlayer:
 					var dir = deg_to_rad(randf_range(0,360))
 					if seePlayer:
-						dir = position.angle_to_point(player.position)
+						dir = position.angle_to_point(seenPos)
 					rotation = dir + deg_to_rad(90)
 					body.play("thrust")
 					state = "in_motion"
@@ -66,9 +67,8 @@ func _on_seeTimer_timeout():
 	lostPlayer = false
 
 func _on_HitBox_body_entered(body):
-	if canDamage:
-		body.damage(2)
-		$HurtTimer.start()
+	body.damage(2)
+	$HurtTimer.start()
 
 func _on_HurtTimer_timeout():
 	if !Global.pause:
@@ -81,3 +81,6 @@ func _on_AnimatedSprite_animation_finished() -> void:
 	match body.animation:
 		"thrust","hurt":
 			body.play("idle")
+
+func on_damaged(knockback : float) -> void:
+	motion.x += knockback

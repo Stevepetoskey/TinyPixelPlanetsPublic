@@ -88,7 +88,10 @@ var weatherEvents = {
 	"snow":["snow","blizzard"],
 	"snow_terra":["snow","blizzard"],
 	"asteroids":["none"],
-	"ocean":["rain","showers"]
+	"ocean":["rain","showers"],
+	"grassland":["rain"],
+	"scorched":["none"],
+	"frigid":["snow","blizzard"]
 }
 
 var typeNames = {
@@ -103,7 +106,10 @@ var typeNames = {
 	"gas2":"Gas giant",
 	"gas3":"Gas giant",
 	"asteroids":"Asteroids",
-	"ocean":"Ocean"
+	"ocean":"Ocean",
+	"grassland":"Grassland",
+	"scorched":"Scorched",
+	"frigid":"Frigid"
 }
 
 var hostileSpawn = {
@@ -115,7 +121,25 @@ var hostileSpawn = {
 	"snow":[],
 	"snow_terra":["slorg"],
 	"asteroids":["space_squid"],
-	"ocean":[]
+	"ocean":[],
+	"grassland":["slorg"],
+	"scorched":[],
+	"frigid":[],
+}
+
+var creatureSpawn = {
+	"terra":["blue_jay"],
+	"desert":[],
+	"mud":[],
+	"exotic":[],
+	"stone":[],
+	"snow":[],
+	"snow_terra":["stellar_pig","blue_jay"],
+	"asteroids":[],
+	"ocean":[],
+	"grassland":["blue_jay"],
+	"scorched":[],
+	"frigid":[],
 }
 
 var sizeNames = {
@@ -145,6 +169,12 @@ var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra
 	"asteroids":{"texture":preload("res://textures/planets/asteroids.png"),"size":sizeTypes.small,"type":"asteroids"},
 	"small_ocean":{"texture":preload("res://textures/planets/ocean.png"),"size":sizeTypes.small,"type":"ocean"},
 	"ocean":{"texture":preload("res://textures/planets/oceanMedium.png"),"size":sizeTypes.medium,"type":"ocean"},
+	"small_grassland":{"texture":preload("res://textures/planets/grassland.png"),"size":sizeTypes.small,"type":"grassland"},
+	"grassland":{"texture":preload("res://textures/planets/grasslandMedium.png"),"size":sizeTypes.medium,"type":"grassland"},
+	"small_scorched":{"texture":preload("res://textures/planets/scorched.png"),"size":sizeTypes.small,"type":"scorched"},
+	"scorched":{"texture":preload("res://textures/planets/scorchedMedium.png"),"size":sizeTypes.medium,"type":"scorched"},
+	"small_frigid":{"texture":preload("res://textures/planets/fridged.png"),"size":sizeTypes.small,"type":"frigid"},
+	"frigid":{"texture":preload("res://textures/planets/fridgedMedium.png"),"size":sizeTypes.medium,"type":"frigid"},
 	#"commet":{"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"},
 }
 
@@ -187,18 +217,20 @@ func start_game():
 		await self.found_system
 		Global.currentPlanet = find_planet("type","terra").id
 		Global.starterPlanetId = Global.currentPlanet
-		if Global.scenario == "meteor": #Adds the commet if meteor scenario
-			var commet = PLANET.instantiate()
-			commet.id = get_system_bodies().size()
-			commet.type = {"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"}
-			commet.hasAtmosphere = false
-			commet.orbitalDistance = 500
-			commet.orbitingBody = find_planet_id(Global.currentPlanet)
-			commet.orbitalSpeed = 0
-			commet.rotationSpeed = 0
-			commet.currentOrbit = deg_to_rad(randi() % 360)
-			commet.currentRot = deg_to_rad(randi() % 360)
-			$system.add_child(commet)
+		Global.playerData["original_system"] = Global.currentSystemId
+		Global.playerData["original_planet"] = Global.currentPlanet
+		#if Global.scenario == "meteor": #Adds the commet if meteor scenario
+			#var commet = PLANET.instantiate()
+			#commet.id = get_system_bodies().size()
+			#commet.type = {"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"}
+			#commet.hasAtmosphere = false
+			#commet.orbitalDistance = 500
+			#commet.orbitingBody = find_planet_id(Global.currentPlanet)
+			#commet.orbitalSpeed = 0
+			#commet.rotationSpeed = 0
+			#commet.currentOrbit = deg_to_rad(randi() % 360)
+			#commet.currentRot = deg_to_rad(randi() % 360)
+			#$system.add_child(commet)
 		print("Current Planet: ", find_planet_id(Global.currentPlanet).pName)
 	planetReady = true
 	print("---Planet Ready---")
@@ -285,7 +317,9 @@ func new_game():
 		print(planet.pName + " Type: " + planet.type["type"])
 	emit_signal("found_system")
 
-func load_system(entering = false):
+func load_system(entering = false, teleporting := false):
+	get_tree().change_scene_to_file("res://scenes/loading.tscn")
+	await get_tree().create_timer(3.0).timeout
 	visitedPlanets.clear()
 	Global.currentSystemId = systemDat["system_id"]
 	Global.currentSystem = systemDat["system_seed"]
@@ -305,6 +339,8 @@ func load_system(entering = false):
 		for id in systemDat["planets"]:
 			var planetDat = systemDat["planets"][id]
 			var planet = PLANET.instantiate()
+			if planetDat["planet_type"] == "fridged":
+				planetData["planet_type"] = "frigid"
 			planet.id = id
 			planet.hasAtmosphere = planetDat["has_atmosphere"]
 			match planetDat["planet_type"]:
@@ -323,7 +359,10 @@ func load_system(entering = false):
 			$system.add_child(planet)
 		match Global.playerData["save_type"]:
 			"planet":
-				var _er = get_tree().change_scene_to_file("res://scenes/Main.tscn")
+				if teleporting:
+					Global.new_planet()
+				else:
+					var _er = get_tree().change_scene_to_file("res://scenes/Main.tscn")
 			"system","galaxy":
 				print("entering system final")
 				var _er = get_tree().change_scene_to_file("res://scenes/PlanetSelect.tscn")
@@ -379,7 +418,7 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 	var planetType
 	var planets = []
 	for planetDat in planetData:
-		if (planetData[planetDat]["size"] < maxSize or (maxSize == 0 and planetData[planetDat]["size"] == 0)) and !["terra","snow","snow_terra","exotic","ocean"].has(planetData[planetDat]["type"]):
+		if (planetData[planetDat]["size"] < maxSize or (maxSize == 0 and planetData[planetDat]["size"] == 0)) and !["terra","snow","snow_terra","frigid","exotic","ocean","grassland","scorched"].has(planetData[planetDat]["type"]):
 			planets.append(planetData[planetDat])
 	planets.shuffle()
 	planetType = planets[0]
@@ -425,12 +464,23 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 				type = "ocean"
 		planet.type = planetData[size + type]
 		planet.hasAtmosphere = true
+	elif !currentStarData["habital"].is_empty() and abs(planet.orbitalDistance-orbitBody.orbitalDistance) < currentStarData["habital"][currentStarData["habital"].size()-1]:
+		match randi() % 6:
+			0:
+				planet.type = planetData[size + "grassland"]
+				planet.hasAtmosphere = true
+			1:
+				planet.type = planetData[size + "scorched"]
+				planet.hasAtmosphere = true
 	elif !currentStarData["habital"].is_empty() and abs(planet.orbitalDistance-orbitBody.orbitalDistance) > currentStarData["habital"][currentStarData["habital"].size()-1]:
 		if randi() % 3 ==1:
 			planet.type = planetData[size + "snow"]
 			planet.hasAtmosphere = true
 		elif randi() % 4 ==1:
 			planet.type = planetData[size + "snow_terra"]
+			planet.hasAtmosphere = true
+		elif randi() % 4 == 1:
+			planet.type = planetData[size + "frigid"]
 			planet.hasAtmosphere = true
 	
 	$system.add_child(planet)

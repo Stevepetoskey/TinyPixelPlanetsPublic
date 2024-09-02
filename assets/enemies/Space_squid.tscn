@@ -63,6 +63,7 @@ z_index = 1
 collision_layer = 8
 script = ExtResource("4")
 hostile = true
+bluesDropRange = [5, 12]
 type = "space_squid"
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
@@ -85,7 +86,7 @@ one_shot = true
 
 [node name="HitBox" type="Area2D" parent="."]
 position = Vector2(0, 3)
-collision_layer = 0
+collision_layer = 256
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
