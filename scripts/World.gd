@@ -49,7 +49,7 @@ var waterUpdateList = []
 
 var interactableBlocks = [12,16,28,91,145,158,159,167,169,171,176,185,186,189,216,241,243,244,246,263]
 var noCollisionBlocks = [0,6,7,9,11,30,117,167,121,122,123,128,142,143,145,155,156,167,168,169,170,171,172,187]
-var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,167,171,172,176,183,187,188,189,190,199,203,204,217,218,219,220,242,244,246]
+var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,167,171,172,176,183,187,188,189,190,199,203,204,206,217,218,219,220,242,244,246]
 
 var worldRules = {
 	"break_blocks":{"value":true,"type":"bool"},
@@ -135,6 +135,9 @@ var lootTables = { #{id:Block/Item id, amount:max amount, rarity: item chance, g
 		{"id":44,"amount":1,"rarity":3,"group":"clothes"},
 		{"id":45,"amount":1,"rarity":3,"group":"clothes"},
 		{"id":215,"amount":1,"rarity":2,"group":"none"},
+		{"id":238,"amount":1,"rarity":6,"group":"music_chip"},
+		{"id":239,"amount":1,"rarity":6,"group":"music_chip"},
+		{"id":240,"amount":1,"rarity":6,"group":"music_chip"}
 	],
 	"mines":[
 		{"id":193,"amount":3,"rarity":6,"group":"none"},
@@ -145,14 +148,23 @@ var lootTables = { #{id:Block/Item id, amount:max amount, rarity: item chance, g
 		{"id":36,"amount":1,"rarity":3,"group":"clothes"},
 		{"id":37,"amount":1,"rarity":3,"group":"clothes"},
 		{"id":38,"amount":1,"rarity":3,"group":"clothes"},
+		{"id":238,"amount":1,"rarity":6,"group":"music_chip"},
+		{"id":239,"amount":1,"rarity":6,"group":"music_chip"},
+		{"id":240,"amount":1,"rarity":6,"group":"music_chip"}
 	],
 	"fridged":[
 		{"id":56,"amount":5,"rarity":3,"group":"none"},
 		{"id":215,"amount":1,"rarity":2,"group":"none"},
+		{"id":238,"amount":1,"rarity":6,"group":"music_chip"},
+		{"id":239,"amount":1,"rarity":6,"group":"music_chip"},
+		{"id":240,"amount":1,"rarity":6,"group":"music_chip"}
 	],
 	"fridged_boss":[
 		{"id":56,"amount":10,"rarity":3,"group":"none"},
 		{"id":215,"amount":2,"rarity":1,"group":"none"},
+		{"id":238,"amount":1,"rarity":3,"group":"music_chip"},
+		{"id":239,"amount":1,"rarity":3,"group":"music_chip"},
+		{"id":240,"amount":1,"rarity":3,"group":"music_chip"}
 	]
 }
 
@@ -356,7 +368,7 @@ var itemData = {
 	57:{"texture":preload("res://textures/items/silver_pick.png"),"type":"tool","strength":4,"speed":6,"big_texture":preload("res://textures/weapons/silver_pick.png"),"name":"Silver pickaxe","desc":"[color=cornflowerblue]+4 Strength\n+6 Speed[/color]","stack_size":1},
 	58:{"texture":preload("res://textures/items/wood_club.png"),"type":"weapon","weapon_type":"Club","dmg":3,"speed":1,"range":32,"big_texture":preload("res://textures/weapons/wood_club.png"),"name":"Wood club","desc":"[color=cornflowerblue]+3 Damage\n+1 Speed\n+2 Range[/color]","stack_size":1},
 	59:{"texture":preload("res://textures/items/wood_axe_big.png"),"type":"weapon","weapon_type":"Axe","dmg":4,"speed":2,"range":32,"big_texture":preload("res://textures/weapons/wood_axe.png"),"name":"Wood axe","desc":"[color=cornflowerblue]+4 Damage\n+2 Speed\n+2 Range[/color]","stack_size":1},
-	60:{"texture":preload("res://textures/items/wood_machete_big.png"),"type":"weapon","weapon_type":"Machete","dmg":1,"speed":0.1,"range":16,"name":"Wood machete","desc":"[color=cornflowerblue]+1 Damage\n+0.1 Speed\n+1 Range[/color]","stack_size":1},
+	60:{"texture":preload("res://textures/items/wood_machete_big.png"),"type":"weapon","weapon_type":"Machete","dmg":1,"speed":0.1,"range":16,"big_texture":preload("res://textures/weapons/wood_machete.png"),"name":"Wood machete","desc":"[color=cornflowerblue]+1 Damage\n+0.1 Speed\n+1 Range[/color]","stack_size":1},
 	61:{"texture":preload("res://textures/items/wood_sword.png"),"type":"weapon","weapon_type":"Sword","dmg":2,"speed":0.5,"range":32,"big_texture":preload("res://textures/weapons/wood_sword.png"),"name":"Wood sword","desc":"[color=cornflowerblue]+2 Damage\n+0.5 Speed\n+2 Range[/color]","stack_size":1},
 	62:{"texture":preload("res://textures/items/barbed_club.png"),"type":"weapon","weapon_type":"Club","dmg":5,"speed":1,"range":32,"big_texture":preload("res://textures/weapons/barbed_club.png"),"name":"Barbed club","desc":"[color=cornflowerblue]+5 Damage\n+1 Speed\n+2 Range[/color]","stack_size":1},
 	63:{"texture":preload("res://textures/items/copper_axe.png"),"type":"weapon","weapon_type":"Axe","dmg":7,"speed":2,"range":32,"big_texture":preload("res://textures/weapons/copper_axe.png"),"name":"Copper axe","desc":"[color=cornflowerblue]+7 Damage\n+2 Speed\n+2 Range[/color]","stack_size":1},
@@ -858,7 +870,7 @@ func generateWorld(worldType : String):
 								else:
 									pos.y += [-1,1].pick_random()
 			#Scorched dungeon
-			if true:#randi_range(1,2) == 1:
+			if randi_range(1,2) == 1:
 				generate_dungeon("scorched","boss_scorched",randi_range(30,50))
 		"frigid":
 			for x in range(worldSize.x):
@@ -889,7 +901,7 @@ func generateWorld(worldType : String):
 								else:
 									pos.y += [-1,1].pick_random()
 			#frigid dungeon
-			if true:#randi_range(1,2) == 1:
+			if randi_range(1,2) == 1:
 				generate_dungeon("fridged","boss_fridged",randi_range(30,50))
 
 func generate_dungeon(dungeonGroup : String, startingPiece : String, dungeonSize : int, replaceFloorBlock := [], keepOnGround := false) -> void:
@@ -969,7 +981,7 @@ func generate_block_from_structure(block : Dictionary, pos : Vector2) -> void:
 			var usedGroups = []
 			var chest = []
 			if lootTables.has(block["data"]["group"]):
-				while chest.is_empty():
+				while chest.size() < 2:
 					for loot in lootTables[block["data"]["group"]]:
 						if !usedGroups.has(loot["group"]):
 							var amount : int = 0
@@ -980,7 +992,6 @@ func generate_block_from_structure(block : Dictionary, pos : Vector2) -> void:
 								match loot["id"]:
 									215:
 										data = {"upgrade":upgrades.keys()[gen.randi() % upgrades.keys().size()]}
-								print("id: ",loot["id"]," data: ",data)
 								if loot["group"] != "none":
 									usedGroups.append(loot["group"])
 								chest.append({"id":loot["id"],"amount":amount,"data":data})

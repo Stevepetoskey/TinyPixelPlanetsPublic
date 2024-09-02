@@ -706,9 +706,9 @@ id = "Explorer 2"
 [node name="Explorer3" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]
 layout_mode = 0
 offset_left = 158.0
-offset_top = 120.0
+offset_top = 128.0
 offset_right = 174.0
-offset_bottom = 136.0
+offset_bottom = 144.0
 id = "Explorer 3"
 
 [node name="AnUpgrade" parent="AchievementMenu/ScrollContainer/Control" instance=ExtResource("20_7t6a1")]

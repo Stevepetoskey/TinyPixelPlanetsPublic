@@ -90,3 +90,12 @@ This branch is for unstable development of TU5 (v0.5.0)
 - Added background for frigid planets
 ## TU5 Touch-ups
 - Fixed not having full armor preventing jetpack usage
+## TU5.1
+- Fixed frigid spawner not showing blocks behind it
+- Added music chips to dungeon and mine loot tables
+- Improved dungeon loot rates (Chest now must generate with at least two items, instead of one)
+- Scorched and frigid dungeons now don't always generate on the respective planets
+- Fixed swinging the wooden machete crashing the game
+- Fixed action slots referencing wrong item when multiple of the same item is in the inventory
+- Fixed explorer 3 achievement not aligning correctly
+- Improved entity spawning system

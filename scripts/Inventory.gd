@@ -98,8 +98,28 @@ func add_to_inventory(id : int,amount : int,drop : bool = true,data := {}) -> Di
 	update_inventory()
 	return {}
 
+func insert_item_in_inventory(loc : int,item : Dictionary) -> void:
+	if loc < inventory.size():
+		if loc <= jRef:
+			jRef += 1
+		if loc <= kRef:
+			kRef += 1
+		inventory.insert(loc,item)
+	else:
+		inventory.append(item)
+
 func remove_loc_from_inventory(loc : int) -> void:
 	if loc < inventory.size():
+		if loc < jRef:
+			jRef -= 1
+		elif loc == jRef:
+			jRef = -1
+			jId = 0
+		if loc < kRef:
+			kRef -= 1
+		elif loc == kRef:
+			kRef = -1
+			kId = 0
 		inventory.remove_at(loc)
 		update_inventory()
 
@@ -150,16 +170,16 @@ func update_inventory() -> void:
 	holdingRef = -1
 	
 	#Gets j and k refs
-	if !find_item(jId).is_empty():
-		jRef = inventory.find(find_item(jId))
-	else:
-		jRef = -1
-		jId = 0
-	if !find_item(kId).is_empty():
-		kRef = inventory.find(find_item(kId))
-	else:
-		kRef = -1
-		kId = 0
+	#if !find_item(jId).is_empty():
+		#jRef = inventory.find(find_item(jId))
+	#else:
+		#jRef = -1
+		#jId = 0
+	#if !find_item(kId).is_empty():
+		#kRef = inventory.find(find_item(kId))
+	#else:
+		#kRef = -1
+		#kId = 0
 	
 	#clears all items
 	for item in item_container.get_children():
@@ -226,11 +246,7 @@ func get_item_texture(id : int, loc : int):
 func inv_btn_clicked(loc : int,item : Object):
 	if chest.visible:
 		var leftover = chest.add_to_chest(inventory[loc]["id"],inventory[loc]["amount"],inventory[loc]["data"])
-		if loc == jRef:
-			jId = 0
-		if loc == kRef:
-			kId = 0
-		inventory.remove_at(loc)
+		remove_loc_from_inventory(loc)
 		if leftover.is_empty():
 			update_inventory()
 			chest.update_chest()
@@ -307,13 +323,17 @@ func inv_btn_action(location : int,action : String) -> void:
 		match action:
 			"j":
 				if jRef == location:
+					jRef = -1
 					jId = 0
 				elif kRef != location:
+					jRef = location
 					jId = item
 			"k":
 				if kRef == location:
+					kRef = -1
 					kId = 0
 				elif jRef != location:
+					kRef = location
 					kId = item
 	update_inventory()
 
@@ -325,7 +345,7 @@ func _on_InventoryBtn_pressed():
 				jId = 0
 			if kRef == 0:
 				kId = 0
-			inventory.remove_at(0)
+			remove_loc_from_inventory(0)
 			if leftover.is_empty():
 				update_inventory()
 				chest.update_chest()
@@ -359,7 +379,7 @@ func _on_InventoryBtn2_pressed():
 				jId = 1
 			if kRef == 1:
 				kId = 1
-			inventory.remove_at(1)
+			remove_loc_from_inventory(1)
 			if leftover.is_empty():
 				update_inventory()
 				chest.update_chest()
@@ -392,5 +412,4 @@ func _on_clear_btn_pressed() -> void:
 func _on_delete_item_btn_pressed() -> void:
 	if holding:
 		deleteHold = inventory[holdingRef].duplicate(true)
-		inventory.remove_at(holdingRef)
-		update_inventory()
+		remove_loc_from_inventory(holdingRef)

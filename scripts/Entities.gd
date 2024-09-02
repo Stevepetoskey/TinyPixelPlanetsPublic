@@ -113,20 +113,26 @@ func _on_Spawn_timeout():
 				hostileCount += 1
 			elif !["blues","item"].has(entity.type):
 				creatureCount += 1
-		for _i in range(int(randf_range(10,50))):
+		for _i in range(randi_range(0,2)):
 			var pos = Vector2(randi()%int(world.worldSize.x),randi()%int(world.worldSize.y))
+			while world.get_block_id(pos,1) != 0 or world.get_block_id(pos,0) != 0 or world.noCollisionBlocks.has(world.get_block_id(pos + Vector2(0,1),1)):
+				pos = Vector2(randi()%int(world.worldSize.x),randi()%int(world.worldSize.y))
 			var hostileSpawns : Array = StarSystem.hostileSpawn[StarSystem.find_planet_id(Global.currentPlanet).type["type"]]
 			var creatureSpawns : Array = StarSystem.creatureSpawn[StarSystem.find_planet_id(Global.currentPlanet).type["type"]]
-			if !hostileSpawns.is_empty() and hostileCount < maxH and world.get_block_id(pos,1) == 0 and world.get_block_id(pos,0) == 0 and !world.noCollisionBlocks.has(world.get_block_id(pos + Vector2(0,1),1)) and pos.distance_to(player.position) > 48:
-				var enemy = hostileSpawns.pick_random()
-				print("Spawning: ",enemy)
-				summon_entity(enemy,pos*Vector2(8,8))
-				hostileCount += 1
-			if !creatureSpawns.is_empty() and creatureCount < maxE and world.get_block_id(pos,1) == 0 and world.get_block_id(pos,0) == 0 and !world.noCollisionBlocks.has(world.get_block_id(pos + Vector2(0,1),1)):
-				var creature = creatureSpawns.pick_random()
-				print("Spawning: ",creature)
-				summon_entity(creature,pos*Vector2(8,8))
-				creatureCount += 1
+			print("spawning")
+			match randi_range(0,1):
+				0:
+					if !hostileSpawns.is_empty() and hostileCount < maxH and pos.distance_to(player.position) > 48:
+						var enemy = hostileSpawns.pick_random()
+						print("Spawning: ",enemy)
+						summon_entity(enemy,pos*Vector2(8,8))
+						hostileCount += 1
+				1:
+					if !creatureSpawns.is_empty() and creatureCount < maxE:
+						var creature = creatureSpawns.pick_random()
+						print("Spawning: ",creature)
+						summon_entity(creature,pos*Vector2(8,8))
+						creatureCount += 1
 
 func _on_World_world_loaded():
 	if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere or StarSystem.find_planet_id(Global.currentPlanet).type["type"] == "asteroids":

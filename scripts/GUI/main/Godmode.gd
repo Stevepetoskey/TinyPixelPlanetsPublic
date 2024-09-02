@@ -65,5 +65,5 @@ func inv_btn_action(id : int,data : Dictionary,mode := 0) -> void:
 	var stackSize = inventory.ITEM_STACK_SIZE if !itemData.has("stack_size") else itemData["stack_size"]
 	var actualData : Dictionary = {} if !world.get_item_data(id).has("starter_data") else world.get_item_data(id)["starter_data"]
 	actualData.merge(data,true)
-	inventory.inventory.insert(mode,{"id":id,"amount":stackSize,"data":actualData.duplicate(true)})
+	inventory.insert_item_in_inventory(mode,{"id":id,"amount":stackSize,"data":actualData.duplicate(true)})
 	inventory.update_inventory()

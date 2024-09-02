@@ -1,7 +1,7 @@
 extends Node
 
-const CURRENTVER = "TU5 (v0.5.0)"
-const VER_NUMS = [0,5,0,0]
+const CURRENTVER = "TU5.1 (v0.5.1)"
+const VER_NUMS = [0,5,1,0]
 const ALLOW_VERSIONS = [
 	[0,4,1,0],
 	[0,4,2,0],
@@ -11,7 +11,8 @@ const ALLOW_VERSIONS = [
 	[0,5,0,5],
 	[0,5,0,6],
 	[0,5,0,7],
-	[0,5,0,0]
+	[0,5,0,0],
+	[0,5,1,0]
 ]
 #Incompatable versions:
 #[0,4,0,8] and [0,4,0,0] (as of TU4.1). Reason: Updated to godot 4
