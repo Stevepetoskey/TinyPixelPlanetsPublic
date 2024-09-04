@@ -265,9 +265,9 @@ func inv_btn_clicked(loc : int,item : Object):
 			elif holdingRef == kRef:
 				kRef = loc
 			elif loc == jRef:
-				jRef == holdingRef
+				jRef = holdingRef
 			elif loc == kRef:
-				kRef == holdingRef
+				kRef = holdingRef
 			inventory[holdingRef] = inventory[loc].duplicate(true)
 			inventory[loc] = new
 			update_inventory()
@@ -364,9 +364,10 @@ func _on_InventoryBtn_pressed():
 				elif holdingRef == kRef:
 					kRef = 0
 				elif 0 == jRef:
-					jRef == holdingRef
+					jRef = holdingRef
+					print("bruh: ",jRef)
 				elif 0 == kRef:
-					kRef == holdingRef
+					kRef = holdingRef
 				inventory[holdingRef] = inventory[0].duplicate(true)
 				inventory[0] = new
 				update_inventory()
@@ -398,9 +399,9 @@ func _on_InventoryBtn2_pressed():
 				elif holdingRef == kRef:
 					kRef = 1
 				elif 1 == jRef:
-					jRef == holdingRef
+					jRef = holdingRef
 				elif 1 == kRef:
-					kRef == holdingRef
+					kRef = holdingRef
 				inventory[holdingRef] = inventory[1].duplicate(true)
 				inventory[1] = new
 				update_inventory()

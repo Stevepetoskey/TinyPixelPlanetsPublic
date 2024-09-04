@@ -1,12 +1,13 @@
 [gd_scene load_steps=15 format=3 uid="uid://dffn4624whn2n"]
 
-[ext_resource type="Script" path="res://scripts/enemies/FridgedSpike.gd" id="1_335ag"]
-[ext_resource type="Texture2D" uid="uid://dhureelo7j7yg" path="res://textures/enemies/fridged_spike/fridged_spike4.png" id="2_03ri8"]
-[ext_resource type="Texture2D" uid="uid://c0032a5n3dnwe" path="res://textures/enemies/fridged_spike/fridged_spike1.png" id="3_xxtk6"]
-[ext_resource type="Texture2D" uid="uid://b2q7poxm0rki2" path="res://textures/enemies/fridged_spike/fridged_spike2.png" id="4_ftfcm"]
-[ext_resource type="Texture2D" uid="uid://dlpgdfk3lhk1q" path="res://textures/enemies/fridged_spike/fridged_spike3.png" id="5_15vcc"]
+[ext_resource type="Script" path="res://scripts/enemies/FrigidSpike.gd" id="1_335ag"]
+[ext_resource type="Texture2D" uid="uid://dhureelo7j7yg" path="res://textures/enemies/fridged_spike/frigid_spike4.png" id="2_03ri8"]
+[ext_resource type="Texture2D" uid="uid://c0032a5n3dnwe" path="res://textures/enemies/fridged_spike/frigid_spike1.png" id="3_xxtk6"]
+[ext_resource type="Texture2D" uid="uid://b2q7poxm0rki2" path="res://textures/enemies/fridged_spike/frigid_spike2.png" id="4_ftfcm"]
+[ext_resource type="Texture2D" uid="uid://dlpgdfk3lhk1q" path="res://textures/enemies/fridged_spike/frigid_spike3.png" id="5_15vcc"]
 [ext_resource type="Texture2D" uid="uid://c0vcca8re2qi5" path="res://textures/particles/puff.png" id="7_3qtwy"]
 [ext_resource type="Texture2D" uid="uid://bgfht1wwsrhc6" path="res://textures/enemies/seen.png" id="11_vnmd0"]
+
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e8phb"]
 resource_local_to_scene = true

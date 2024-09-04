@@ -17,7 +17,7 @@ var planetTextures = {
 	"exotic":preload("res://textures/planets/exotic.png"),
 	"grassland":preload("res://textures/planets/grassland.png"),
 	"scorched":preload("res://textures/planets/scorched.png"),
-	"frigid":preload("res://textures/planets/fridged.png"),
+	"frigid":preload("res://textures/planets/frigid.png"),
 }
 
 var planetTypeNames = {

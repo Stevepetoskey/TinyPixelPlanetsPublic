@@ -305,7 +305,7 @@ var blockData = {
 	202:{"texture":preload("res://textures/blocks/carved_permafrost_bricks.png"),"hardness":2.5,"canHaverst":1,"drops":[{"id":202,"amount":1}],"name":"Carved permafrost bricks","type":"simple"},
 	203:{"texture":preload("res://textures/blocks/permafrost_fence.png"),"hardness":2.5,"canHaverst":1,"drops":[{"id":203,"amount":1}],"name":"Permafrost fence","type":"block"},
 	204:{"texture":preload("res://textures/blocks/permafrost_platform_full.png"),"hardness":2,"canHaverst":1,"drops":[{"id":204,"amount":1}],"name":"Permafrost platform","type":"platform"},
-	206:{"texture":preload("res://textures/blocks/fridged_spawner.png"),"hardness":6,"canHaverst":2,"drops":[],"name":"Frigid spawner","type":"spawner"},
+	206:{"texture":preload("res://textures/blocks/frigid_spawner.png"),"hardness":6,"canHaverst":2,"drops":[],"name":"Frigid spawner","type":"spawner"},
 	216:{"texture":preload("res://textures/blocks/upgrade_table.png"),"hardness":5,"canHaverst":3,"drops":[{"id":216,"amount":1}],"name":"Upgrade table","type":"simple"},
 	217:{"texture":preload("res://textures/blocks/moss.png"),"hardness":0.1,"canHaverst":0,"drops":[{"id":217,"amount":1}],"name":"Moss","type":"foliage"},
 	218:{"texture":preload("res://textures/items/blue_mud_flower.png"),"hardness":0.1,"canHaverst":0,"drops":[{"id":218,"amount":1}],"name":"Blue mud flower","can_place_on":[1,2,146,147,219],"type":"foliage"},

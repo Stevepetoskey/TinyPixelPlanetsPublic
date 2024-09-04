@@ -31,7 +31,7 @@ func generate() -> void:
 				if y < height and y >= waterLevel:
 					set_block(Vector2(x,y),0,Color.BLUE)
 					set_block(Vector2(x,y),1,Color.BLUE)
-				elif y >= height and caveNoise.get_noise_2d(x,y) + min(0,(y-height-6)/4.0) < 0.35:
+				elif y >= height: #and caveNoise.get_noise_2d(x,y) + min(0,(y-height-6)/4.0) < 0.35:
 					set_block(Vector2(x,y),0,Color.LIGHT_GRAY)
 					set_block(Vector2(x,y),1,Color.WHITE)
 	#generate_dungeon("scorched","boss_scorched",randi_range(30,50))

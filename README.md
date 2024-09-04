@@ -99,3 +99,6 @@ This branch is for unstable development of TU5 (v0.5.0)
 - Fixed action slots referencing wrong item when multiple of the same item is in the inventory
 - Fixed explorer 3 achievement not aligning correctly
 - Improved entity spawning system
+## TU5.2
+- Fixed moving an item referencing a action slot switching the reference with other item
+- Fixed problems relating to frigid planets textures
