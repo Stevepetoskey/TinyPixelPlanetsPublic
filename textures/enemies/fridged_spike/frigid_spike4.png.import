@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dhureelo7j7yg"
-path="res://.godot/imported/fridged_spike4.png-add9aaef82386767d1ecdb465fc38ae9.ctex"
+path="res://.godot/imported/frigid_spike4.png-f5e90c094d42ab888257bb5c6a87dc5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/enemies/fridged_spike/fridged_spike4.png"
-dest_files=["res://.godot/imported/fridged_spike4.png-add9aaef82386767d1ecdb465fc38ae9.ctex"]
+source_file="res://textures/enemies/fridged_spike/frigid_spike4.png"
+dest_files=["res://.godot/imported/frigid_spike4.png-f5e90c094d42ab888257bb5c6a87dc5e.ctex"]
 
 [params]
 

@@ -1,7 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://ba3g1qoudv6fs"]
 
-[ext_resource type="Script" path="res://scripts/enemies/fridged_spit.gd" id="1_lu8rc"]
+[ext_resource type="Script" path="res://scripts/enemies/frigid_spit.gd" id="1_lu8rc"]
 [ext_resource type="Texture2D" uid="uid://46o3eyitpnsi" path="res://textures/enemies/fridged_spike/spit.png" id="2_5moi7"]
+
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ilb5p"]
 radius = 3.0

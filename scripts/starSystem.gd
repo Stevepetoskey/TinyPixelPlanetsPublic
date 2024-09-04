@@ -173,8 +173,8 @@ var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra
 	"grassland":{"texture":preload("res://textures/planets/grasslandMedium.png"),"size":sizeTypes.medium,"type":"grassland"},
 	"small_scorched":{"texture":preload("res://textures/planets/scorched.png"),"size":sizeTypes.small,"type":"scorched"},
 	"scorched":{"texture":preload("res://textures/planets/scorchedMedium.png"),"size":sizeTypes.medium,"type":"scorched"},
-	"small_frigid":{"texture":preload("res://textures/planets/fridged.png"),"size":sizeTypes.small,"type":"frigid"},
-	"frigid":{"texture":preload("res://textures/planets/fridgedMedium.png"),"size":sizeTypes.medium,"type":"frigid"},
+	"small_frigid":{"texture":preload("res://textures/planets/frigid.png"),"size":sizeTypes.small,"type":"frigid"},
+	"frigid":{"texture":preload("res://textures/planets/frigidMedium.png"),"size":sizeTypes.medium,"type":"frigid"},
 	#"commet":{"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"},
 }
 

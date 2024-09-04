@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlpgdfk3lhk1q"
-path="res://.godot/imported/fridged_spike3.png-97fb83bcb29d323ee5fe2df4e1048127.ctex"
+uid="uid://cqul5rtiue82p"
+path="res://.godot/imported/frigid_spawner.png-5a1af7bd80ddf3a33ecb1b83842d15a8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/enemies/fridged_spike/fridged_spike3.png"
-dest_files=["res://.godot/imported/fridged_spike3.png-97fb83bcb29d323ee5fe2df4e1048127.ctex"]
+source_file="res://textures/blocks/frigid_spawner.png"
+dest_files=["res://.godot/imported/frigid_spawner.png-5a1af7bd80ddf3a33ecb1b83842d15a8.ctex"]
 
 [params]
 
