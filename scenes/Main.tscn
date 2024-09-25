@@ -1,4 +1,4 @@
-[gd_scene load_steps=256 format=3 uid="uid://2c07adgn0vow"]
+[gd_scene load_steps=267 format=3 uid="uid://2c07adgn0vow"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://c3rmyuwb7gd3m" path="res://textures/enviroment/sky.png" id="2"]
@@ -130,8 +130,19 @@
 [ext_resource type="Script" path="res://scripts/GUI/main/slider_pop_up.gd" id="104_kln4w"]
 [ext_resource type="Script" path="res://scripts/GUI/main/teleport_prompt.gd" id="105_ry0l8"]
 [ext_resource type="FastNoiseLite" uid="uid://c5g6yqr51sbl6" path="res://noise/Cave.tres" id="110_3l8vn"]
+[ext_resource type="Theme" uid="uid://bb1fxr1s43xy3" path="res://themes/menu_alt.tres" id="110_hd2va"]
+[ext_resource type="Texture2D" uid="uid://dk1djpluitw6c" path="res://textures/GUI/buttons/minus_btn.png" id="116_0uvhl"]
+[ext_resource type="Texture2D" uid="uid://c275lrph4jc38" path="res://textures/GUI/buttons/minus_btn_pressed.png" id="117_a2768"]
+[ext_resource type="Texture2D" uid="uid://bhygsogrjwbgc" path="res://textures/GUI/buttons/minus_btn_hover.png" id="118_hhvrh"]
+[ext_resource type="Texture2D" uid="uid://cgdvx3s46j666" path="res://textures/GUI/buttons/0_btn.png" id="119_7pbki"]
+[ext_resource type="Texture2D" uid="uid://cdlwo2r6lqxlc" path="res://textures/GUI/buttons/0_btn_pressed.png" id="120_h504k"]
+[ext_resource type="Texture2D" uid="uid://b2vaf1v1wkat2" path="res://textures/GUI/buttons/0_btn_hover.png" id="121_fjie8"]
+[ext_resource type="Texture2D" uid="uid://bwkwcn25acg4b" path="res://textures/GUI/buttons/plus_button.png" id="122_isq27"]
+[ext_resource type="Texture2D" uid="uid://cluygsnwwuy3h" path="res://textures/GUI/buttons/plus_btn_pressed.png" id="123_ybcnv"]
 [ext_resource type="Script" path="res://scripts/player_camera.gd" id="124_kgcw1"]
+[ext_resource type="Texture2D" uid="uid://dq5sf44txlykl" path="res://textures/GUI/buttons/plus_btn_hover.png" id="124_tx4gj"]
 [ext_resource type="AudioStream" uid="uid://i51amw3y2qy6" path="res://Audio/sfx/Ambience/The2.mp3" id="125_7ahbp"]
+[ext_resource type="Script" path="res://scripts/misc/photo_cam.gd" id="133_pewce"]
 
 [sub_resource type="VisualShaderNodeFloatOp" id="67"]
 output_port_for_preview = 0
@@ -3045,11 +3056,13 @@ collision_mode = 2
 script = ExtResource("35")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
 layer = 2
 
 [node name="CloudLayer1" type="ParallaxBackground" parent="CanvasLayer"]
 layer = -99
 visible = false
+scroll_ignore_camera_zoom = true
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="CanvasLayer/CloudLayer1"]
 motion_scale = Vector2(0, 0.1)
@@ -3059,6 +3072,7 @@ position = Vector2(-39, -43)
 texture = ExtResource("46")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
+scroll_ignore_camera_zoom = true
 
 [node name="Space" type="Sprite2D" parent="CanvasLayer/ParallaxBackground"]
 position = Vector2(120, 120)
@@ -3076,6 +3090,7 @@ centered = false
 
 [node name="ParallaxBackground2" type="ParallaxBackground" parent="CanvasLayer"]
 layer = -90
+scroll_ignore_camera_zoom = true
 
 [node name="Sky" type="Node2D" parent="CanvasLayer/ParallaxBackground2"]
 position = Vector2(120, 120)
@@ -3093,6 +3108,7 @@ centered = false
 
 [node name="Enviroment" type="ParallaxBackground" parent="CanvasLayer"]
 layer = -80
+scroll_ignore_camera_zoom = true
 script = ExtResource("21")
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Enviroment"]
@@ -3224,6 +3240,7 @@ texture = ExtResource("100_xdqdj")
 stretch_mode = 3
 
 [node name="Hotbar" type="Control" parent="CanvasLayer"]
+process_mode = 3
 layout_mode = 3
 anchor_right = 1.0
 anchor_bottom = 0.141
@@ -3395,6 +3412,7 @@ text = "X: 32, Y: 5"
 label_settings = SubResource("LabelSettings_5jsv6")
 
 [node name="Inventory" type="Control" parent="CanvasLayer"]
+process_mode = 3
 visible = false
 layout_mode = 3
 anchors_preset = 0
@@ -3713,6 +3731,7 @@ theme = SubResource("113")
 layout_mode = 2
 
 [node name="Chest" type="Control" parent="CanvasLayer"]
+process_mode = 3
 visible = false
 layout_mode = 3
 anchors_preset = 3
@@ -4882,7 +4901,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("12_23g2f")
+theme = ExtResource("60_dyqfb")
 script = ExtResource("49")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Dead"]
@@ -4920,6 +4939,7 @@ text = "Respawn"
 
 [node name="Quit" type="Button" parent="CanvasLayer/Dead/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("110_hd2va")
 text = "Quit"
 
 [node name="FPS" type="Label" parent="CanvasLayer"]
@@ -5021,6 +5041,45 @@ horizontal_alignment = 1
 
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("12")]
 visible = false
+
+[node name="CameraControls" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CameraControls"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -13.0
+offset_right = 40.0
+offset_bottom = -1.0
+grow_vertical = 0
+theme_override_constants/separation = 1
+
+[node name="LessSpeedBtn" type="TextureButton" parent="CanvasLayer/CameraControls/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("116_0uvhl")
+texture_pressed = ExtResource("117_a2768")
+texture_hover = ExtResource("118_hhvrh")
+
+[node name="SetSpeedBtn" type="TextureButton" parent="CanvasLayer/CameraControls/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("119_7pbki")
+texture_pressed = ExtResource("120_h504k")
+texture_hover = ExtResource("121_fjie8")
+
+[node name="MoreSpeedBtn" type="TextureButton" parent="CanvasLayer/CameraControls/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("122_isq27")
+texture_pressed = ExtResource("123_ybcnv")
+texture_hover = ExtResource("124_tx4gj")
 
 [node name="World" type="Node2D" parent="."]
 script = ExtResource("1")
@@ -5171,6 +5230,10 @@ lifetime = 10.0
 z_index = 5
 script = ExtResource("47")
 
+[node name="PhotoCam" type="Camera2D" parent="."]
+enabled = false
+script = ExtResource("133_pewce")
+
 [connection signal="input_pressed" from="." to="Cursor" method="_on_main_input_pressed"]
 [connection signal="output_pressed" from="." to="Cursor" method="_on_main_output_pressed"]
 [connection signal="timeout" from="CanvasLayer/Enviroment/Meteors/MeteorTimer" to="CanvasLayer/Enviroment/Meteors" method="_on_MeteorTimer_timeout"]
@@ -5212,6 +5275,9 @@ script = ExtResource("47")
 [connection signal="text_changed" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_text_changed"]
 [connection signal="text_submitted" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_Commands_text_entered"]
 [connection signal="timeout" from="CanvasLayer/Title/TitleTimer" to="." method="_on_title_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/CameraControls/HBoxContainer/LessSpeedBtn" to="PhotoCam" method="_on_less_speed_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/CameraControls/HBoxContainer/SetSpeedBtn" to="PhotoCam" method="_on_set_speed_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/CameraControls/HBoxContainer/MoreSpeedBtn" to="PhotoCam" method="_on_more_speed_btn_pressed"]
 [connection signal="world_loaded" from="World" to="." method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="CanvasLayer/ParallaxBackground/Space" method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="CanvasLayer/Enviroment" method="_on_World_world_loaded"]

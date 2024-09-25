@@ -32,70 +32,69 @@ func _ready():
 	connect("damaged",on_damaged)
 
 func _physics_process(delta):
-	if !Global.pause:
-		var result : Dictionary
-		if position.distance_to(player.position) <= 96 and state != "stone":
-			var space_state = get_world_2d().direct_space_state
-			var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self,$HitBox])
-			result = space_state.intersect_ray(params)
-		if !result.is_empty() and result.collider == player:
+	var result : Dictionary
+	if position.distance_to(player.position) <= 96 and state != "stone":
+		var space_state = get_world_2d().direct_space_state
+		var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self,$HitBox])
+		result = space_state.intersect_ray(params)
+	if !result.is_empty() and result.collider == player:
+		if !seePlayer:
+			$seeTimer.stop()
+			animation_player.play("seen")
+		if searchingForPlayer or !seePlayer:
+			spit_timer.start()
+		searchingForPlayer = false
+		seePlayer = true
+		lostPlayer = false
+		seenPos = player.position
+	elif seePlayer and !lostPlayer:
+		if !result.is_empty():
+			print(result.collider.name)
+		lostPlayer = true
+		searchingForPlayer = true
+		$seeTimer.start()
+		spit_timer.stop()
+	match state:
+		"roam":
 			if !seePlayer:
-				$seeTimer.stop()
-				animation_player.play("seen")
-			if searchingForPlayer or !seePlayer:
-				spit_timer.start()
-			searchingForPlayer = false
-			seePlayer = true
-			lostPlayer = false
-			seenPos = player.position
-		elif seePlayer and !lostPlayer:
-			if !result.is_empty():
-				print(result.collider.name)
-			lostPlayer = true
-			searchingForPlayer = true
-			$seeTimer.start()
-			spit_timer.stop()
-		match state:
-			"roam":
-				if !seePlayer:
-					if randi()%(100 if goInDir == -1000 else 50) == 1:
-						goInDir = [-1000,-1000,deg_to_rad(randi_range(1,360))].pick_random()
-				elif !lostPlayer:
-					if !spitting:
-						if position.distance_to(player.position) <= 64:
-							if position.distance_to(player.position) < 48:
-								goInDir = position.angle_to_point(player.position)
-							else:
-								goInDir = -1000
-						else:
+				if randi()%(100 if goInDir == -1000 else 50) == 1:
+					goInDir = [-1000,-1000,deg_to_rad(randi_range(1,360))].pick_random()
+			elif !lostPlayer:
+				if !spitting:
+					if position.distance_to(player.position) <= 64:
+						if position.distance_to(player.position) < 48:
 							goInDir = position.angle_to_point(player.position)
+						else:
+							goInDir = -1000
 					else:
-						goInDir = -1000
+						goInDir = position.angle_to_point(player.position)
 				else:
-					goInDir =  position.angle_to_point(seenPos)
-				if goInDir != -1000:
-					motion = Vector2(cos(goInDir)*MAX_SPEED,sin(goInDir)*MAX_SPEED)
-				else:
-					motion = Vector2(0,0)
-				if abs(motion.x) > 0.5:
-					body_texture.flip_h = motion.x < 0
-				elif seePlayer:
-					body_texture.flip_h = player.position < position
-				velocity = motion
-				set_up_direction(Vector2(0,-1))
-				move_and_slide()
-				motion = velocity
-			"stone":
-				if !is_on_floor():
-					motion.y += GRAVITY
-					inAir = true
-				else:
-					inAir = false
-				motion.x = move_toward(motion.x,0,ACCEL/2)
-				velocity = motion
-				set_up_direction(Vector2(0,-1))
-				move_and_slide()
-				motion = velocity
+					goInDir = -1000
+			else:
+				goInDir =  position.angle_to_point(seenPos)
+			if goInDir != -1000:
+				motion = Vector2(cos(goInDir)*MAX_SPEED,sin(goInDir)*MAX_SPEED)
+			else:
+				motion = Vector2(0,0)
+			if abs(motion.x) > 0.5:
+				body_texture.flip_h = motion.x < 0
+			elif seePlayer:
+				body_texture.flip_h = player.position < position
+			velocity = motion
+			set_up_direction(Vector2(0,-1))
+			move_and_slide()
+			motion = velocity
+		"stone":
+			if !is_on_floor():
+				motion.y += GRAVITY
+				inAir = true
+			else:
+				inAir = false
+			motion.x = move_toward(motion.x,0,ACCEL/2)
+			velocity = motion
+			set_up_direction(Vector2(0,-1))
+			move_and_slide()
+			motion = velocity
 
 func on_damaged(_knockback : float) -> void:
 	canDamage = false
@@ -117,23 +116,21 @@ func _on_HitBox_body_entered(body):
 	$HurtTimer.start()
 
 func _on_HurtTimer_timeout():
-	if !Global.pause:
-		player.health -= 2
+	player.health -= 2
 
 func _on_HitBox_body_exited(body):
 	$HurtTimer.stop()
 
 func _on_spit_timer_timeout() -> void:
-	if !Global.pause:
-		spitting = true
-		body_texture.play("Spit")
-		await get_tree().create_timer(0.75).timeout
-		entities.spawn_linear_spit(position,position.angle_to_point(player.position),"frigid_spit")
-		if !seePlayer:
-			spit_timer.stop()
-		spitting = false
-		if state == "roam":
-			body_texture.play("Idle")
+	spitting = true
+	body_texture.play("Spit")
+	await get_tree().create_timer(0.75).timeout
+	entities.spawn_linear_spit(position,position.angle_to_point(player.position),"frigid_spit")
+	if !seePlayer:
+		spit_timer.stop()
+	spitting = false
+	if state == "roam":
+		body_texture.play("Idle")
 
 func _on_stone_timer_timeout() -> void:
 	canDamage = true

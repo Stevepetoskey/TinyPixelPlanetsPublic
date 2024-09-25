@@ -32,74 +32,73 @@ func _ready():
 	fly_timer.start(randf_range(10,30))
 
 func _physics_process(delta):
-	if !Global.pause:
-		var result : Dictionary
-		if position.distance_to(player.position) <= 64 and state != "sleep":
-			var space_state = get_world_2d().direct_space_state
-			var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self])
-			result = space_state.intersect_ray(params)
-		if !result.is_empty() and result.collider == player:
-			lostPlayer = false
-			seePlayer = true
-			seenPos = player.position
-		elif seePlayer and !lostPlayer:
-			lostPlayer = true
-			$seeTimer.start()
-		if !waitForAnimation:
-			if !is_on_floor() and !flying:
-				velocity.y += GRAVITY
-			match state:
-				"idle":
-					flying = false
-					velocity.x = 0
-					if seePlayer and !lostPlayer:
-						begin_fly_away()
-					if randi_range(0,100) == 1:
-						body.play("eat")
-					if randi_range(0,150) == 1:
-						body.play("idle")
-						setMotion = [MAX_SPEED,-MAX_SPEED].pick_random()
-						trot_timer.start(randf_range(1,5))
-						state = "roam"
-				"roam":
-					flying = false
-					if is_on_floor():
-						if is_on_wall():
-							velocity.y = -JUMPSPEED
-						else:
-							velocity.y = -JUMPSPEED/4.0
-					if seePlayer and !lostPlayer:
-						begin_fly_away()
-					velocity.x = setMotion
-					body.flip_h = velocity.x < 0
-				"fly_away":
-					flying = true
+	var result : Dictionary
+	if position.distance_to(player.position) <= 64 and state != "sleep":
+		var space_state = get_world_2d().direct_space_state
+		var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self])
+		result = space_state.intersect_ray(params)
+	if !result.is_empty() and result.collider == player:
+		lostPlayer = false
+		seePlayer = true
+		seenPos = player.position
+	elif seePlayer and !lostPlayer:
+		lostPlayer = true
+		$seeTimer.start()
+	if !waitForAnimation:
+		if !is_on_floor() and !flying:
+			velocity.y += GRAVITY
+		match state:
+			"idle":
+				flying = false
+				velocity.x = 0
+				if seePlayer and !lostPlayer:
+					begin_fly_away()
+				if randi_range(0,100) == 1:
+					body.play("eat")
+				if randi_range(0,150) == 1:
+					body.play("idle")
+					setMotion = [MAX_SPEED,-MAX_SPEED].pick_random()
+					trot_timer.start(randf_range(1,5))
+					state = "roam"
+			"roam":
+				flying = false
+				if is_on_floor():
 					if is_on_wall():
-						flyDir = deg_to_rad(270)
+						velocity.y = -JUMPSPEED
 					else:
-						flyDir = position.angle_to_point(player.position) + deg_to_rad(180)
-					velocity = Vector2(cos(flyDir)*MAX_SPEED,sin(flyDir)*MAX_SPEED)
-					#velocity.x = MAX_SPEED * sign(position.x - player.position.x)
-					#velocity.y = 0 if position.y <= flyToHeight else -MAX_SPEED
-					if lostPlayer or !seePlayer:
-						begin_fly_roam(false)
-					body.flip_h = velocity.x < 0
-				"fly_roam":
-					flying = true
-					if is_on_floor() and canLand:
-						land()
-					if is_on_wall():
-						flyDir = Vector2(-cos(flyDir),sin(flyDir)).angle()
-					if is_on_ceiling() or is_on_floor():
-						flyDir = Vector2(cos(flyDir),-sin(flyDir)).angle()
-					if !canLand:
-						flyDir += deg_to_rad(randf_range(-2,2))
-					velocity = Vector2(cos(flyDir)*MAX_SPEED,sin(flyDir)*MAX_SPEED)
-					#if randi_range(0,50) == 1:
-						#velocity.x = [MAX_SPEED,-MAX_SPEED].pick_random()
-					#velocity.y = 0 if position.y <= flyToHeight else -MAX_SPEED
-					body.flip_h = velocity.x < 0
-			move_and_slide()
+						velocity.y = -JUMPSPEED/4.0
+				if seePlayer and !lostPlayer:
+					begin_fly_away()
+				velocity.x = setMotion
+				body.flip_h = velocity.x < 0
+			"fly_away":
+				flying = true
+				if is_on_wall():
+					flyDir = deg_to_rad(270)
+				else:
+					flyDir = position.angle_to_point(player.position) + deg_to_rad(180)
+				velocity = Vector2(cos(flyDir)*MAX_SPEED,sin(flyDir)*MAX_SPEED)
+				#velocity.x = MAX_SPEED * sign(position.x - player.position.x)
+				#velocity.y = 0 if position.y <= flyToHeight else -MAX_SPEED
+				if lostPlayer or !seePlayer:
+					begin_fly_roam(false)
+				body.flip_h = velocity.x < 0
+			"fly_roam":
+				flying = true
+				if is_on_floor() and canLand:
+					land()
+				if is_on_wall():
+					flyDir = Vector2(-cos(flyDir),sin(flyDir)).angle()
+				if is_on_ceiling() or is_on_floor():
+					flyDir = Vector2(cos(flyDir),-sin(flyDir)).angle()
+				if !canLand:
+					flyDir += deg_to_rad(randf_range(-2,2))
+				velocity = Vector2(cos(flyDir)*MAX_SPEED,sin(flyDir)*MAX_SPEED)
+				#if randi_range(0,50) == 1:
+					#velocity.x = [MAX_SPEED,-MAX_SPEED].pick_random()
+				#velocity.y = 0 if position.y <= flyToHeight else -MAX_SPEED
+				body.flip_h = velocity.x < 0
+		move_and_slide()
 
 func begin_fly_away() -> void:
 	state = "fly_away"

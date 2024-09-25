@@ -132,6 +132,7 @@ func _ready():
 		hitbackStage = data["stage"]
 	if !data.has("original_height"):
 		data["original_height"] = position.y - 58
+		data["original_x"] = position.x
 	if data.has("state"):
 		state = data["state"]
 		match state:
@@ -147,25 +148,25 @@ func _ready():
 	activate()
 
 func _physics_process(delta: float) -> void:
-	if !Global.pause:
-		data["state"] = state
-		match state:
-			"idle":
-				position.y = setHeight
-				goToPos = Vector2(player.position.x + (80 if position.x > player.position.x else -80),position.y)
-				if body_texture.flip_h != (position.x < player.position.x):
-					flip(position.x < player.position.x)
-				if goToPos.x-4 > position.x or goToPos.x+4 < position.x:
-					velocity.x = MAX_SPEED if goToPos.x > position.x else -MAX_SPEED
-				else:
-					velocity.x = 0
-			"slam":
-				goToPos = Vector2(player.position.x,position.y)
-				if goToPos.x-4 > position.x or goToPos.x+4 < position.x:
-					velocity.x = MAX_SPEED if goToPos.x > position.x else -MAX_SPEED
-				else:
-					velocity.x = 0
-		move_and_slide()
+	data["state"] = state
+	match state:
+		"idle":
+			position.y = setHeight
+			goToPos = Vector2(player.position.x + (80 if position.x > player.position.x else -80),position.y)
+			if body_texture.flip_h != (position.x < player.position.x):
+				flip(position.x < player.position.x)
+			if goToPos.x-4 > position.x or goToPos.x+4 < position.x:
+				velocity.x = MAX_SPEED if goToPos.x > position.x else -MAX_SPEED
+			else:
+				velocity.x = 0
+		"slam":
+			goToPos = Vector2(player.position.x,position.y)
+			if goToPos.x-4 > position.x or goToPos.x+4 < position.x:
+				velocity.x = MAX_SPEED if goToPos.x > position.x else -MAX_SPEED
+			else:
+				velocity.x = 0
+	move_and_slide()
+	position.x = clampf(position.x,data["original_x"]-224,data["original_x"]+224)
 
 func flip(flip : bool) -> void:
 	var face : String = {false:"left",true:"right"}[flip]
@@ -242,14 +243,13 @@ func _on_hit_box_body_entered(body: Node2D) -> void:
 
 func _on_choose_move_timer_timeout() -> void:
 	print("timeout")
-	if !Global.pause:
-		match randi_range(0,4):
-			0:
-				shoot_charge()
-			1,2:
-				shoot_spikes()
-			3,4:
-				begin_slam()
+	match randi_range(0,4):
+		0:
+			shoot_charge()
+		1,2:
+			shoot_spikes()
+		3,4:
+			begin_slam()
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	print(area.get_parent().data)

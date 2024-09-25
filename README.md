@@ -102,3 +102,13 @@ This branch is for unstable development of TU5 (v0.5.0)
 ## TU5.2
 - Fixed moving an item referencing a action slot switching the reference with other item
 - Fixed problems relating to frigid planets textures
+- Improved pause
+## TU5.3  (Batch with 5.2)
+- Fixed coffee plants only dropping 1 coffee bean
+- Fixed crops growing a stage when loading a save
+- Fixed grass and tall grass not being transparent
+- Fixed not being able to place pinecones on snowy grass
+- Fixed buttons on death screen only being text
+- Fixed locator not taking coolant shards or magma balls from inventory
+- Fixed action slots not saving (TU5.1 bug)
+- Fixed Mini Transporter boss being able to escape arena

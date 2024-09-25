@@ -40,6 +40,7 @@ var jetpackFuel : int = 0
 var usingJetpack : bool = false
 var movementModifier : int = 0
 var knockedBack : bool = false
+var inControl : bool = true
 
 var dead = false
 var flipped = false
@@ -95,7 +96,7 @@ func _ready():
 	_on_Armor_updated_armor(armor.armor)
 
 func _physics_process(_delta):
-	if !dead and !Global.pause and !frozen:
+	if !dead and !frozen:
 		#Swinging process
 		if inventory.inventory.size() > 0:
 			if Input.is_action_pressed("build"):
@@ -125,30 +126,30 @@ func _physics_process(_delta):
 			inWater = true
 			if !is_on_floor():
 				velocity.y += GRAVITY/ 2.0
-			
-			var speed = MAX_SPEED + movementModifier
-			if Input.is_action_pressed("sprint"):
-				speed = SPRINT_SPEED + movementModifier
-			
-			if Input.is_action_pressed("move_left"):
-				if velocity.x > -speed:
-					velocity.x -= ACCEL
+			if inControl:
+				var speed = MAX_SPEED + movementModifier
+				if Input.is_action_pressed("sprint"):
+					speed = SPRINT_SPEED + movementModifier
+				
+				if Input.is_action_pressed("move_left"):
+					if velocity.x > -speed:
+						velocity.x -= ACCEL
+					else:
+						velocity.x = move_toward(velocity.x,0,FRICTION / 2.0)
+				elif Input.is_action_pressed("move_right"):
+					if velocity.x < speed:
+						velocity.x += ACCEL
+					else:
+						velocity.x = move_toward(velocity.x,0,FRICTION / 2.0)
 				else:
 					velocity.x = move_toward(velocity.x,0,FRICTION / 2.0)
-			elif Input.is_action_pressed("move_right"):
-				if velocity.x < speed:
-					velocity.x += ACCEL
-				else:
-					velocity.x = move_toward(velocity.x,0,FRICTION / 2.0)
-			else:
-				velocity.x = move_toward(velocity.x,0,FRICTION / 2.0)
-			
-			if Input.is_action_pressed("jump"):
-				if velocity.y > -speed:
-					velocity.y -= ACCEL
-			elif Input.is_action_pressed("down"):
-				if velocity.y < speed:
-					velocity.y += ACCEL
+				
+				if Input.is_action_pressed("jump"):
+					if velocity.y > -speed:
+						velocity.y -= ACCEL
+				elif Input.is_action_pressed("down"):
+					if velocity.y < speed:
+						velocity.y += ACCEL
 			if !swinging:
 				if is_on_floor() or (is_on_wall() and $Textures/AnimationPlayer.current_animation == "idle"):
 					if abs(velocity.x) > 0:
@@ -159,35 +160,36 @@ func _physics_process(_delta):
 					$Textures/AnimationPlayer.play("swim")
 		elif Global.godmode and flying: 
 			#Flying movement
-			var speed = MAX_SPEED
-			if Input.is_action_pressed("sprint"):
-				speed = SPRINT_SPEED
-			
-			if Input.is_action_pressed("move_left"):
-				if velocity.x > -speed:
-					velocity.x -= ACCEL
+			if inControl:
+				var speed = MAX_SPEED
+				if Input.is_action_pressed("sprint"):
+					speed = SPRINT_SPEED
+				
+				if Input.is_action_pressed("move_left"):
+					if velocity.x > -speed:
+						velocity.x -= ACCEL
+					else:
+						velocity.x = move_toward(velocity.x,0,FRICTION / 2.0)
+				elif Input.is_action_pressed("move_right"):
+					if velocity.x < speed:
+						velocity.x += ACCEL
+					else:
+						velocity.x = move_toward(velocity.x,0,FRICTION / 2.0)
 				else:
 					velocity.x = move_toward(velocity.x,0,FRICTION / 2.0)
-			elif Input.is_action_pressed("move_right"):
-				if velocity.x < speed:
-					velocity.x += ACCEL
-				else:
-					velocity.x = move_toward(velocity.x,0,FRICTION / 2.0)
-			else:
-				velocity.x = move_toward(velocity.x,0,FRICTION / 2.0)
-			
-			if Input.is_action_pressed("jump"):
-				if velocity.y > -speed:
-					velocity.y -= ACCEL
-				else:
-					velocity.y = move_toward(velocity.y,0,FRICTION / 2.0)
-			elif Input.is_action_pressed("down"):
-				if velocity.y < speed:
-					velocity.y += ACCEL
+				
+				if Input.is_action_pressed("jump"):
+					if velocity.y > -speed:
+						velocity.y -= ACCEL
+					else:
+						velocity.y = move_toward(velocity.y,0,FRICTION / 2.0)
+				elif Input.is_action_pressed("down"):
+					if velocity.y < speed:
+						velocity.y += ACCEL
+					else:
+						velocity.y = move_toward(velocity.y,0,FRICTION / 2.0)
 				else:
 					velocity.y = move_toward(velocity.y,0,FRICTION / 2.0)
-			else:
-				velocity.y = move_toward(velocity.y,0,FRICTION / 2.0)
 			
 			if !swinging:
 				if is_on_floor():
@@ -216,58 +218,60 @@ func _physics_process(_delta):
 				jumping = false
 				coyote = true
 			
-			var speed = MAX_SPEED + movementModifier
-			if Input.is_action_pressed("sprint"):
-				speed = SPRINT_SPEED + movementModifier
-			
-			if Input.is_action_pressed("move_left"):
-				if velocity.x > -speed:
-					velocity.x -= ACCEL
-				else:
-					velocity.x = move_toward(velocity.x,0,FRICTION)
-			elif Input.is_action_pressed("move_right"):
-				if velocity.x < speed:
-					velocity.x += ACCEL
-				else:
-					velocity.x = move_toward(velocity.x,0,FRICTION)
-			else:
-				velocity.x = move_toward(velocity.x,0,FRICTION)
-			
-			if !swinging:
-				if velocity.x == 0:
-					$Textures/AnimationPlayer.play("idle")
-				else:
-					$Textures/AnimationPlayer.play("walk")
-			if jetpackLevel <= 0:
-				if Input.is_action_just_pressed("jump") and !jumping:
-					velocity.y = -JUMPSPEED
-					jumping = true
-			elif Input.is_action_pressed("jump"):
-				usingJetpack = true
-				if !jumping or jetpackFuel > 0:
-					if !jumping:
-						jetpackFuel = 10 * [0,1,2.5,5][jetpackLevel]
+			if inControl:
+				var speed = MAX_SPEED + movementModifier
+				if Input.is_action_pressed("sprint"):
+					speed = SPRINT_SPEED + movementModifier
+				
+				if Input.is_action_pressed("move_left"):
+					if velocity.x > -speed:
+						velocity.x -= ACCEL
 					else:
-						jetpackFuel -= 1
-					velocity.y = -JUMPSPEED
-					jumping = true
-			else:
-				usingJetpack = false
+						velocity.x = move_toward(velocity.x,0,FRICTION)
+				elif Input.is_action_pressed("move_right"):
+					if velocity.x < speed:
+						velocity.x += ACCEL
+					else:
+						velocity.x = move_toward(velocity.x,0,FRICTION)
+				else:
+					velocity.x = move_toward(velocity.x,0,FRICTION)
+				
+				if !swinging:
+					if velocity.x == 0:
+						$Textures/AnimationPlayer.play("idle")
+					else:
+						$Textures/AnimationPlayer.play("walk")
+				if jetpackLevel <= 0:
+					if Input.is_action_just_pressed("jump") and !jumping:
+						velocity.y = -JUMPSPEED
+						jumping = true
+				elif Input.is_action_pressed("jump"):
+					usingJetpack = true
+					if !jumping or jetpackFuel > 0:
+						if !jumping:
+							jetpackFuel = 10 * [0,1,2.5,5][jetpackLevel]
+						else:
+							jetpackFuel -= 1
+						velocity.y = -JUMPSPEED
+						jumping = true
+				else:
+					usingJetpack = false
 		else: # no gravity Movement
 			if inWater:
 				inWater = false
 				velocity.y = -JUMPSPEED
 				jumping = true
-			if Input.is_action_pressed("jump") and velocity.y > -MAX_SPEED:
-				velocity.y -= ACCEL
-			elif Input.is_action_pressed("down") and velocity.y < MAX_SPEED:
-				velocity.y += ACCEL
-			if Input.is_action_pressed("move_left") and velocity.x > -MAX_SPEED:
-				velocity.x -= ACCEL
-			elif Input.is_action_pressed("move_right") and velocity.x < MAX_SPEED:
-				velocity.x += ACCEL
-			elif is_on_floor():
-				velocity.x = move_toward(velocity.x,0,FRICTION)
+			if inControl:
+				if Input.is_action_pressed("jump") and velocity.y > -MAX_SPEED:
+					velocity.y -= ACCEL
+				elif Input.is_action_pressed("down") and velocity.y < MAX_SPEED:
+					velocity.y += ACCEL
+				if Input.is_action_pressed("move_left") and velocity.x > -MAX_SPEED:
+					velocity.x -= ACCEL
+				elif Input.is_action_pressed("move_right") and velocity.x < MAX_SPEED:
+					velocity.x += ACCEL
+				elif is_on_floor():
+					velocity.x = move_toward(velocity.x,0,FRICTION)
 			if !swinging:
 				if is_on_floor():
 					if velocity.x == 0:
@@ -325,7 +329,7 @@ func swing(loc):
 			$WeaponRange/CollisionShape2D.shape.radius = 1
 
 func damage(dmg,enemyLevel : int = 1,knockback : float = 0.0):
-	if !dead and !Global.pause:
+	if !dead:
 		if !frozen and !poisoned:
 			modulate = Color("ff5959")
 		var totalDmg = int(round(dmg * max(1-(defPoints/(enemyLevel*25.0)),0)))
@@ -519,30 +523,29 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		swinging = false
 
 func _on_tick_timeout() -> void:
-	if !Global.pause:
-		if !canBreath:
-			if armorBuff == "air_tight" and suitOxygen > 0:
-				suitOxygen -= 1
-				if oxygen < maxOxygen:
-					oxygen += 1
-					suitOxygen -= 1
-					if oxygen > maxOxygen:
-						oxygen = maxOxygen
-			elif oxygen > 0:
-				oxygen -= 1
-			else:
-				damage(1)
-		else:
+	if !canBreath:
+		if armorBuff == "air_tight" and suitOxygen > 0:
+			suitOxygen -= 1
 			if oxygen < maxOxygen:
 				oxygen += 1
+				suitOxygen -= 1
 				if oxygen > maxOxygen:
 					oxygen = maxOxygen
-			if suitOxygen < suitOxygenMax:
-				suitOxygen += 5
-				if suitOxygen > suitOxygenMax:
-					suitOxygen = suitOxygenMax
-		if (currentTemp > 0 and armorBuff != "heat_resistance") or (currentTemp < 0 and armorBuff != "cold_resistance"):
+		elif oxygen > 0:
+			oxygen -= 1
+		else:
 			damage(1)
+	else:
+		if oxygen < maxOxygen:
+			oxygen += 1
+			if oxygen > maxOxygen:
+				oxygen = maxOxygen
+		if suitOxygen < suitOxygenMax:
+			suitOxygen += 5
+			if suitOxygen > suitOxygenMax:
+				suitOxygen = suitOxygenMax
+	if (currentTemp > 0 and armorBuff != "heat_resistance") or (currentTemp < 0 and armorBuff != "cold_resistance"):
+		damage(1)
 
 func _on_swing_timer_timeout() -> void:
 	swinging = false

@@ -223,6 +223,7 @@ _data = {
 }
 
 [node name="GlobalGUI" type="CanvasLayer"]
+process_mode = 3
 layer = 100
 script = ExtResource("8")
 
@@ -285,6 +286,7 @@ libraries = {
 stream = ExtResource("3")
 
 [node name="AchievementMenu" type="TextureRect" parent="."]
+process_mode = 3
 visible = false
 offset_right = 284.0
 offset_bottom = 160.0

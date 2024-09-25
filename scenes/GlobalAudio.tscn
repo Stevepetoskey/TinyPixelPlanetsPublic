@@ -94,6 +94,7 @@ Vector2i(2, 1): {
 }
 
 [node name="GlobalAudio" type="Node"]
+process_mode = 3
 script = ExtResource("2")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]

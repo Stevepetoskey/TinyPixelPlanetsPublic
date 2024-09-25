@@ -11,7 +11,7 @@ extends Panel
 var selectedBlock : BaseBlock
 
 func pop_up(block : BaseBlock):
-	Global.pause = true
+	get_tree().paused = true
 	selectedBlock = block
 	var data = selectedBlock.data
 	save_btn.disabled = data["file_name"].is_empty()
@@ -24,7 +24,7 @@ func pop_up(block : BaseBlock):
 
 func _on_back_btn_pressed() -> void:
 	hide()
-	Global.pause = false
+	get_tree().paused = false
 
 func _on_save_btn_pressed() -> void:
 	var structureRect : Rect2 = Rect2(Vector2(int(x_edit.value),int(y_edit.value)),Vector2(int(width_edit.value),int(height_edit.value)))

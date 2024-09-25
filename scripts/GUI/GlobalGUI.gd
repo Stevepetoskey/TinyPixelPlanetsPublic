@@ -40,7 +40,7 @@ signal autosave
 
 func _process(delta):
 	if GlobalAudio.mode != "menu":
-		if Input.is_action_just_pressed("ach") and (!Global.pause or $AchievementMenu.visible):
+		if Input.is_action_just_pressed("ach") and (!get_tree().paused or $AchievementMenu.visible):
 			if !$AchievementMenu.visible:
 				pop_up_ach()
 			else:

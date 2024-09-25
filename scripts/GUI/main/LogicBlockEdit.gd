@@ -9,7 +9,7 @@ func _ready() -> void:
 		btn.pressed.connect(logic_btn_pressed.bind(btn.name))
 
 func pop_up(logicBlock : LogicBlock) -> void:
-	Global.pause = true
+	get_tree().paused = true
 	selectedLogicBlock = logicBlock
 	set_mode(logicBlock.data["mode"])
 	show()
@@ -25,4 +25,4 @@ func logic_btn_pressed(mode : String) -> void:
 
 func _on_done_btn_pressed() -> void:
 	hide()
-	Global.pause = false
+	get_tree().paused = false

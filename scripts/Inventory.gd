@@ -44,9 +44,9 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel") and visible:
 		await get_tree().process_frame
 		inventoryToggle(false,false,"close")
-	if Input.is_action_just_pressed("inventory") and (!Global.pause or visible):
+	if Input.is_action_just_pressed("inventory") and (!get_tree().paused or visible):
 		inventoryToggle()
-	if Input.is_action_just_pressed("background_toggle") and !Global.pause:
+	if Input.is_action_just_pressed("background_toggle") and !get_tree().paused:
 		cursor.currentLayer = int(!bool(cursor.currentLayer))
 		$"../Hotbar/HBoxContainer/BGT".texture = [BACKGROUND_TEXTURE,FOREGROUND_TEXTURE][cursor.currentLayer]
 
@@ -211,14 +211,20 @@ func update_inventory() -> void:
 			slot2.hide()
 		
 		#Sets J and K ref's texture
-		if jRef != -1:
-			jAction.get_node("Item").texture = world.get_item_texture(inventory[jRef]["id"])
+		if jRef < inventory.size():
+			if jRef != -1:
+				jAction.get_node("Item").texture = world.get_item_texture(inventory[jRef]["id"])
+			else:
+				jAction.get_node("Item").texture = null
 		else:
-			jAction.get_node("Item").texture = null
-		if kRef != -1:
-			kAction.get_node("Item").texture = world.get_item_texture(inventory[kRef]["id"])
+			jRef = -1
+		if kRef < inventory.size():
+			if kRef != -1:
+				kAction.get_node("Item").texture = world.get_item_texture(inventory[kRef]["id"])
+			else:
+				kAction.get_node("Item").texture = null
 		else:
-			kAction.get_node("Item").texture = null
+			kRef = -1
 		
 		#Creates items
 		for itemLoc in range(2,inventory.size()):
@@ -288,7 +294,7 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 		if !setValue:
 			mode = "close"
 	visible = setValue
-	Global.pause = setValue
+	get_tree().paused = setValue
 	if visible:
 		update_inventory()
 	match mode:
@@ -408,6 +414,8 @@ func _on_InventoryBtn2_pressed():
 
 func _on_clear_btn_pressed() -> void:
 	inventory = []
+	jRef = -1
+	kRef = -1
 	update_inventory()
 
 func _on_delete_item_btn_pressed() -> void:

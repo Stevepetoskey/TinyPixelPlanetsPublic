@@ -31,7 +31,7 @@ var wiring = false
 var currentWire : TextureRect = null
 
 func _process(_delta):
-	if !Global.pause:
+	if !get_tree().paused:
 		if (inventory.inventory.size() > 0 and wires.has(inventory.inventory[0]["id"])) or (inventory.inventory.size() > 1 and wires.has(inventory.inventory[1]["id"])):
 			if !pinsShown:
 				pinsShown = true
@@ -97,7 +97,7 @@ func _process(_delta):
 		oldBlockPos = blockPos
 
 func _unhandled_input(_event):
-	if !wiring and !Global.pause and cursorPos.x < world.worldSize.x and cursorPos.x >= 0 and cursorPos.y < world.worldSize.y and cursorPos.y >= 0:
+	if !wiring and !get_tree().paused and cursorPos.x < world.worldSize.x and cursorPos.x >= 0 and cursorPos.y < world.worldSize.y and cursorPos.y >= 0:
 		if Input.is_action_pressed("build") or Input.is_action_pressed("build2"):
 			if currentShop != null: #Tests if cursor is in a shop
 				match currentShop.id:
@@ -151,31 +151,34 @@ func _unhandled_input(_event):
 						world.set_block(currentBlock.pos, currentLayer, 0, true)
 					246:
 						var slot = {true:0,false:1}[Input.is_action_pressed("build")]
-						match inventory.inventory[slot]["id"]:
-							191:
-								if currentBlock.data["magma"] < 3:
-									currentBlock.data["magma"] += 1
-									currentBlock.updated_data()
-								elif currentBlock.data["coolant"] >= 3:
-									currentBlock.data["active"] = !currentBlock.data["active"]
-									currentBlock.updated_data()
-									if currentBlock.data["active"]:
-										$"../CanvasLayer/TeleportPrompt".show()
-							205:
-								if currentBlock.data["coolant"] < 3:
-									currentBlock.data["coolant"] += 1
-									currentBlock.updated_data()
-								elif currentBlock.data["magma"] >= 3:
-									currentBlock.data["active"] = !currentBlock.data["active"]
-									currentBlock.updated_data()
-									if currentBlock.data["active"]:
-										$"../CanvasLayer/TeleportPrompt".show()
-							_:
-								if currentBlock.data["magma"] >= 3 and currentBlock.data["coolant"] >= 3:
-									currentBlock.data["active"] = !currentBlock.data["active"]
-									currentBlock.updated_data()
-									if currentBlock.data["active"]:
-										$"../CanvasLayer/TeleportPrompt".show()
+						if inventory.inventory.size() > slot:
+							match inventory.inventory[slot]["id"]:
+								191:
+									if currentBlock.data["magma"] < 3:
+										currentBlock.data["magma"] += 1
+										currentBlock.updated_data()
+										inventory.remove_amount_at_loc(slot,1)
+									elif currentBlock.data["coolant"] >= 3:
+										currentBlock.data["active"] = !currentBlock.data["active"]
+										currentBlock.updated_data()
+										if currentBlock.data["active"]:
+											$"../CanvasLayer/TeleportPrompt".show()
+								205:
+									if currentBlock.data["coolant"] < 3:
+										currentBlock.data["coolant"] += 1
+										currentBlock.updated_data()
+										inventory.remove_amount_at_loc(slot,1)
+									elif currentBlock.data["magma"] >= 3:
+										currentBlock.data["active"] = !currentBlock.data["active"]
+										currentBlock.updated_data()
+										if currentBlock.data["active"]:
+											$"../CanvasLayer/TeleportPrompt".show()
+								_:
+									if currentBlock.data["magma"] >= 3 and currentBlock.data["coolant"] >= 3:
+										currentBlock.data["active"] = !currentBlock.data["active"]
+										currentBlock.updated_data()
+										if currentBlock.data["active"]:
+											$"../CanvasLayer/TeleportPrompt".show()
 					263:
 						inventory.inventoryToggle(false,true,"wool_work_table")
 			elif Input.is_action_just_pressed("build2") and wireIn.size() > 0:
@@ -197,7 +200,7 @@ func _unhandled_input(_event):
 				tool_action(inventory.inventory[ref]["id"],ref)
 		elif breaking:
 			stop_breaking()
-	elif wiring and !Global.pause:
+	elif wiring and !get_tree().paused:
 		if Input.is_action_just_pressed("build2"):
 			wiring = false
 			if is_instance_valid(currentWire):

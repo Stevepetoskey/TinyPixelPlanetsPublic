@@ -46,8 +46,9 @@ func _ready() -> void:
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
 			var plant = {121:"wheat",122:"tomato",123:"corn",221:"coffee"}[id]
 			if data.has("tick_wait"):
+				print(data["tick_wait"])
 				$Sprite2D.texture = load("res://textures/blocks/plants/"+ plant +"/" + plant + "_stage_" + str(data["plant_stage"]) + ".png")
-				if data["plant_stage"] < 3:
+				if data["plant_stage"] < 3 and data["tick_wait"] > 0:
 					$Tick.start()
 			else:
 				$Sprite2D.texture = load("res://textures/blocks/plants/"+ plant+"/"+ plant+"_stage_0.png")

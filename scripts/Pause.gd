@@ -19,9 +19,10 @@ func toggle_pause(toggle = true, setValue = false):
 	if toggle:
 		setValue = !visible
 	visible = setValue
-	Global.pause = setValue
+	get_tree().paused = setValue
 
 func _on_Quit_pressed():
+	get_tree().paused = false
 	GlobalGui.close_ach()
 	match type:
 		"planet":

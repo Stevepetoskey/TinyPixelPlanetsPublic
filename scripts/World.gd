@@ -49,7 +49,7 @@ var waterUpdateList = []
 
 var interactableBlocks = [12,16,28,91,145,158,159,167,169,171,176,185,186,189,216,241,243,244,246,263]
 var noCollisionBlocks = [0,6,7,9,11,30,117,167,121,122,123,128,142,143,145,155,156,167,168,169,170,171,172,187]
-var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,167,171,172,176,183,187,188,189,190,199,203,204,206,217,218,219,220,242,244,246]
+var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,160,161,167,171,172,176,183,187,188,189,190,199,203,204,206,217,218,219,220,242,244,246]
 
 var worldRules = {
 	"break_blocks":{"value":true,"type":"bool"},
@@ -177,7 +177,7 @@ var blockData = {
 	8:{"texture":preload("res://textures/blocks/Cobble.png"),"hardness":0.75,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":8,"amount":1}],"name":"Cobble","type":"simple"},
 	9:{"texture":preload("res://textures/blocks/sapling.png"),"hardness":7,"breakWith":"Axe","canHaverst":1,"drops":[{"id":10,"amount":[3,6]},{"id":11,"amount":[0,3]}],"name":"Tree","type":"foliage"},
 	10:{"texture":preload("res://textures/blocks/log_front.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":10,"amount":1}],"name":"Log","type":"block"},
-	11:{"texture":preload("res://textures/items/pinecone.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[{"id":11,"amount":1}],"name":"Pinecone","can_place_on":[1,2],"type":"foliage"},
+	11:{"texture":preload("res://textures/items/pinecone.png"),"hardness":0,"breakWith":"All","canHaverst":0,"drops":[{"id":11,"amount":1}],"name":"Pinecone","can_place_on":[1,2,24],"type":"foliage"},
 	12:{"texture":preload("res://textures/blocks/crafting_table.png"),"hardness":2,"breakWith":"Axe","canHaverst":1,"drops":[{"id":12,"amount":1}],"name":"Workbench","type":"simple"},
 	13:{"texture":preload("res://textures/blocks/planks.png"),"hardness":1,"breakWith":"Axe","canHaverst":1,"drops":[{"id":13,"amount":1}],"name":"Planks","type":"simple"},
 	14:{"texture":preload("res://textures/blocks/sand.png"),"hardness":0.3,"breakWith":"Shovel","canHaverst":0,"drops":[{"id":14,"amount":1}],"name":"Sand","type":"block"},
@@ -399,8 +399,8 @@ var itemData = {
 	127:{"texture":preload("res://textures/items/corn.png"),"type":"Food","name":"Corn","regen":4,"desc":"[color=cornflowerblue]+4 HP[/color]"},
 	129:{"texture":preload("res://textures/items/stone_hoe.png"),"type":"Hoe","name":"Stone hoe","big_texture":preload("res://textures/weapons/stone_hoe.png"),"stack_size":1},
 	130:{"texture":preload("res://textures/items/silver_hoe.png"),"type":"Hoe","name":"Silver hoe","big_texture":preload("res://textures/weapons/silver_hoe.png"),"stack_size":1},
-	131:{"texture":preload("res://textures/items/copper_watering_can.png"),"type":"Watering_can","name":"Copper watering can","big_texture":preload("res://textures/weapons/copper_watering_can.png"),"stack_size":1},
-	132:{"texture":preload("res://textures/items/silver_watering_can.png"),"type":"Watering_can","name":"Silver watering can","big_texture":preload("res://textures/weapons/silver_watering_can.png"),"stack_size":1},
+	131:{"texture":preload("res://textures/items/copper_watering_can.png"),"type":"Watering_can","name":"Copper watering can","big_texture":preload("res://textures/weapons/copper_watering_can.png"),"stack_size":1,"starter_data":{"water_level":0}},
+	132:{"texture":preload("res://textures/items/silver_watering_can.png"),"type":"Watering_can","name":"Silver watering can","big_texture":preload("res://textures/weapons/silver_watering_can.png"),"stack_size":1,"starter_data":{"water_level":0}},
 	140:{"texture":preload("res://textures/items/bread.png"),"type":"Food","name":"Bread","regen":8,"desc":"[color=cornflowerblue]+8 HP[/color]"},
 	165:{"texture":preload("res://textures/items/iron.png"),"type":"Item","name":"Iron"},
 	166:{"texture":preload("res://textures/items/red_wires.png"),"type":"wire","name":"Red wire"},
@@ -463,7 +463,7 @@ signal blocks_changed
 func _ready():
 	var _er = StarSystem.connect("planet_ready", start_world)
 	_er = Global.connect("loaded_data", start_world)
-	Global.pause = false
+	get_tree().paused = false
 	if Global.gameStart:
 		StarSystem.start_game()
 
@@ -1002,7 +1002,7 @@ func generate_block_from_structure(block : Dictionary, pos : Vector2) -> void:
 func get_world_data() -> Dictionary:
 	var data = {}
 	data["player"] = {
-		"armor":armor.armor,"inventory":inventory.inventory,"inventory_refs":{"j":inventory.jId,"k":inventory.kId},"health":player.health,"max_health":player.maxHealth,"oxygen":player.oxygen,"suit_oxygen":player.suitOxygen,"max_oxygen":player.maxOxygen,"suit_oxygen_max":player.suitOxygenMax,"current_planet":Global.currentPlanet,"current_system":Global.currentSystemId,"pos":player.position,"save_type":"planet","achievements":GlobalGui.completedAchievements,
+		"armor":armor.armor,"inventory":inventory.inventory,"inventory_refs":{"j":inventory.jRef,"k":inventory.kRef},"health":player.health,"max_health":player.maxHealth,"oxygen":player.oxygen,"suit_oxygen":player.suitOxygen,"max_oxygen":player.maxOxygen,"suit_oxygen_max":player.suitOxygenMax,"current_planet":Global.currentPlanet,"current_system":Global.currentSystemId,"pos":player.position,"save_type":"planet","achievements":GlobalGui.completedAchievements,
 		"misc_stats":{"meteor_stage":meteors.stage,"meteor_progress_time_left":$"../CanvasLayer/Enviroment/Meteors/StageProgress".time_left}
 	}
 	data["system"] = StarSystem.get_system_data()
@@ -1059,8 +1059,8 @@ func load_player_data() -> void:
 	armor.armor = playerData["armor"]
 	armor.emit_signal("updated_armor",armor.armor)
 	if playerData.has("inventory_refs"):
-		inventory.jId = playerData["inventory_refs"]["j"]
-		inventory.kId = playerData["inventory_refs"]["k"]
+		inventory.jRef = playerData["inventory_refs"]["j"]
+		inventory.kRef = playerData["inventory_refs"]["k"]
 		inventory.update_inventory()
 
 func load_world_data() -> void:#data : Dictionary) -> void:
@@ -1191,10 +1191,8 @@ func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction 
 					entities.spawn_item({"id":item["id"],"amount":item["amount"],"data":item["data"]},false,pos*BLOCK_SIZE)
 		if itemAction and !Global.godmode:
 			var itemsToDrop = blockData[block]["drops"]
-			match block:
-				121,122,123:
-					if get_block(pos,layer).data["plant_stage"] >= 3:
-						itemsToDrop = fullGrownItemDrops[block]
+			if fullGrownItemDrops.has(block) and get_block(pos,layer).data["plant_stage"] >= 3:
+				itemsToDrop = fullGrownItemDrops[block]
 			for i in range(itemsToDrop.size()):
 				if typeof(itemsToDrop[i]["amount"]) != TYPE_ARRAY:
 					entities.spawn_item({"id":itemsToDrop[i]["id"],"amount":itemsToDrop[i]["amount"],"data":{}},false,pos*BLOCK_SIZE)

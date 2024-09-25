@@ -21,7 +21,7 @@ func _process(delta):
 func _unhandled_input(event):
 	if Input.is_key_pressed(KEY_SHIFT) and Input.is_key_pressed(KEY_C):
 		show()
-		Global.pause = true
+		get_tree().paused = true
 
 func to_bool(s: String) -> bool: #Credit to Poobslag
 	var result: bool
@@ -34,7 +34,7 @@ func to_bool(s: String) -> bool: #Credit to Poobslag
 func _on_Commands_text_entered(new_text : String):
 	hide()
 	clear()
-	Global.pause = false
+	get_tree().paused = false
 	new_text = new_text.to_lower()
 	var commands = new_text.split(" ")
 	match commands[0]:

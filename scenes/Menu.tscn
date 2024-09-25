@@ -529,6 +529,7 @@ VScrollBar/styles/scroll = SubResource("33")
 VSlider/styles/slider = SubResource("34")
 
 [node name="Menu" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

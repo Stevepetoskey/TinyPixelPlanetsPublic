@@ -13,12 +13,12 @@ func popup():
 	GlobalGui.close_ach()
 	inventory.inventoryToggle(false)
 	get_node("../Pause").toggle_pause(false)
-	Global.pause = true
+	get_tree().paused = true
 	show()
 
 
 func _on_Respawn_pressed():
-	Global.pause = false
+	get_tree().paused = false
 	player.health = player.maxHealth
 	player.oxygen = player.maxOxygen
 	player.collision_layer = 2
