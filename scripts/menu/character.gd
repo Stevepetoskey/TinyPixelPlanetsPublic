@@ -85,15 +85,18 @@ func _on_Name_text_changed(new_text):
 	charName = new_text
 
 func _on_back_pressed():
+	GlobalAudio.play_ui_sound("button_pressed")
 	hide()
 	load_save.cancel()
 
 func _on_Start_pressed():
+	GlobalAudio.play_ui_sound("button_pressed")
 	Global.playerBase = {"skin":skinColors[skinCol],"hair_style":hairStyles[hairSty],"hair_color":hairColors[hairCol],"sex":sex}
 	Global.playerName = charName
 	load_save.start()
 
 func left(type : String):
+	GlobalAudio.play_ui_sound("button_pressed")
 	match type:
 		"SkinCol":
 			skinCol -= 1
@@ -110,6 +113,7 @@ func left(type : String):
 	update_char()
 
 func right(type : String):
+	GlobalAudio.play_ui_sound("button_pressed")
 	match type:
 		"SkinCol":
 			skinCol += 1
@@ -126,23 +130,28 @@ func right(type : String):
 	update_char()
 
 func _on_Female_pressed():
+	GlobalAudio.play_ui_sound("button_pressed")
 	sex = "Woman"
 	genCharacter(sex)
 	update_char()
 
 func _on_Male_pressed():
+	GlobalAudio.play_ui_sound("button_pressed")
 	sex = "Guy"
 	genCharacter(sex)
 	update_char()
 
 func _on_Scenarios_pressed():
+	GlobalAudio.play_ui_sound("button_pressed")
 	hide()
 	$"../../Scenarios".show()
 
 func _on_Done_pressed():
+	GlobalAudio.play_ui_sound("button_pressed")
 	$"../../Scenarios".hide()
 	show()
 
 func _on_game_settings_btn_pressed() -> void:
+	GlobalAudio.play_ui_sound("button_pressed")
 	$"../GameSetttings".open()
 	hide()

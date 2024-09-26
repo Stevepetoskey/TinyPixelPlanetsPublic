@@ -24,6 +24,7 @@ func _ready():
 	$AnimationPlayer.play("buttons")
 
 func _on_Play_pressed():
+	GlobalAudio.play_ui_sound("button_pressed")
 	$Main.hide()
 	$World/character.hide()
 	$World/loadSave.show()
@@ -31,21 +32,26 @@ func _on_Play_pressed():
 	$World.show()
 
 func _on_back_pressed():
+	GlobalAudio.play_ui_sound("button_pressed")
 	$Credits.hide()
 	$World.hide()
 	$Main.show()
 
 func _on_Credits_pressed():
+	GlobalAudio.play_ui_sound("button_pressed")
 	$Main.hide()
 	$Credits.show()
 
 func _on_Tutorial_pressed():
+	GlobalAudio.play_ui_sound("button_pressed")
 	$World/loadSave.start(true)
 
 func _on_Settings_pressed() -> void:
+	GlobalAudio.play_ui_sound("button_pressed")
 	$Main.hide()
 	$Settings.show()
 
 func _on_Back_pressed() -> void:
+	GlobalAudio.play_ui_sound("button_pressed")
 	$Settings.hide()
 	$Main.show()

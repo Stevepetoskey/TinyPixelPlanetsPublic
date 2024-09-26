@@ -25,6 +25,7 @@ func open() -> void:
 	show()
 
 func _on_mode_btn_pressed() -> void:
+	GlobalAudio.play_ui_sound("button_pressed")
 	if Global.gamerules.has("start_with_godmode"):
 		Global.gamerules["start_with_godmode"] = !Global.gamerules["start_with_godmode"]
 	else:
@@ -32,6 +33,7 @@ func _on_mode_btn_pressed() -> void:
 	mode_btn.text = "Godmode" if Global.gamerules["start_with_godmode"] else "Survival"
 
 func _on_difficulty_btn_pressed() -> void:
+	GlobalAudio.play_ui_sound("button_pressed")
 	if Global.gamerules.has("difficulty"):
 		var currentDifficulty = Global.gamerules["difficulty"]
 		Global.gamerules["difficulty"] = "easy" if difficulties.keys().find(currentDifficulty) + 1 >= difficulties.size() else difficulties.keys()[difficulties.keys().find(currentDifficulty) + 1]
@@ -42,5 +44,6 @@ func _on_difficulty_btn_pressed() -> void:
 
 
 func _on_game_settings_btn_pressed() -> void:
+	GlobalAudio.play_ui_sound("button_pressed")
 	character.show()
 	hide()

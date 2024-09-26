@@ -6,6 +6,10 @@ var musicPool = {
 	"chip":{238:preload("res://Audio/music/Alpha-Andromedae.ogg"),239:preload("res://Audio/music/Past.ogg"),240:preload("res://Audio/music/Tinkering-Machine.ogg")}
 	}
 
+var uiPool : Dictionary = {
+	"button_pressed":preload("res://Audio/sfx/GUI/bong_001.ogg")
+}
+
 var mode = "menu"
 var currentMusic = "regular"
 var inBossFight : bool = false
@@ -50,6 +54,11 @@ func play_boss_music(startFrom : String = "") -> void:
 		$BossMusic.set("parameters/switch_to_clip",startFrom)
 	else:
 		$BossMusic.set("parameters/switch_to_clip","")
+
+func play_ui_sound(sfx : String) -> void:
+	if uiPool.has(sfx):
+		$UI.stream = uiPool[sfx]
+		$UI.play()
 
 func stop_boss_music() -> void:
 	inBossFight = false

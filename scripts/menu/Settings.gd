@@ -44,6 +44,7 @@ func _ready() -> void:
 		keybind.get_node("KeyBind").connect("pressed", Callable(self, "keybind_button_pressed").bind(keybind.get_node("KeyBind")))
 
 func keybind_button_pressed(keybindBtn : Button) -> void:
+	GlobalAudio.play_ui_sound("button_pressed")
 	keybindBtn.text = "> <"
 	changingKeybind = keybindBtn.get_parent().name
 	disable_controls.show()
@@ -80,6 +81,7 @@ func _on_MusicSlider_value_changed(value: float) -> void:
 	Global.save_settings()
 
 func _on_auto_save_btn_pressed() -> void:
+	GlobalAudio.play_ui_sound("button_pressed")
 	Global.settings["autosave_interval"] += 1
 	if Global.settings["autosave_interval"] >= autoSaveText.size():
 		Global.settings["autosave_interval"] = 0

@@ -112,3 +112,4 @@ This branch is for unstable development of TU5 (v0.5.0)
 - Fixed locator not taking coolant shards or magma balls from inventory
 - Fixed action slots not saving (TU5.1 bug)
 - Fixed Mini Transporter boss being able to escape arena
+- Added Sound effects to menu

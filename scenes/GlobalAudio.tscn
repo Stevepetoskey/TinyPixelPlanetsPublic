@@ -110,4 +110,6 @@ libraries = {
 [node name="BossMusic" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamInteractive_llou0")
 
+[node name="UI" type="AudioStreamPlayer" parent="."]
+
 [connection signal="timeout" from="Music/MusicTimer" to="." method="_on_MusicTimer_timeout"]
