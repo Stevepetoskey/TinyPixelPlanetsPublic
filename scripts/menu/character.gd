@@ -16,11 +16,11 @@ var randMNames = ["Kevin","Robert","Josue","Oliver","Unique Name","Patrick","Ben
 var randFNames = ["Olivia","Emma","Aria","Lily","Zoe","Naomi","Ruby","Natalia","Navaeh","Jade","Clara","Maria","Julia","Charlie","Daisy","Ashley","Scarlet"]
 
 var skinColors = [Color("EED0B6"),Color("F8DEC3"),Color("EDE0C8"),Color("EEC695"),Color("E8BE94"),Color("ECBF84"),Color("CD9564"),Color("AD8B66"),Color("986842"),Color("7F4829"),Color("5B3E2A"),Color("442917")]
-var hairColors = [Color("aa8866"),Color("debe99"),Color("241c11"),Color("4f1a00"),Color("9a3300"),Color("4b3832"),Color("3c2f2f"),Color("f6a192"),Color("c2f2d0"),Color("ffcb85")]
-var hairStyles = ["Short","Long","Beard","Farmer","Bald","Beard_bald"]
+var hairColors = [Color("aa8866"),Color("debe99"),Color("241c11"),Color("4f1a00"),Color("9a3300"),Color("4b3832"),Color("3c2f2f"),Color("f6a192"),Color("c2f2d0"),Color("ffcb85"),Color("df3e23"),Color("588dbe")]
+var hairStyles = ["Short","Long","Beard","Farmer","Bald","Beard_bald","Low_cut","Waves","Ponytail"]
 
-var fHair = [0,1,3,4]
-var mHair = [0,2,4,5]
+var fHair = [0,1,3,4,6,7,8]
+var mHair = [0,2,4,5,6,7,8]
 
 @onready var load_save: Control = $"../loadSave"
 

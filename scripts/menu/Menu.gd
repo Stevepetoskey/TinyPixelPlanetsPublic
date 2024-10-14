@@ -44,7 +44,8 @@ func _on_Credits_pressed():
 
 func _on_Tutorial_pressed():
 	GlobalAudio.play_ui_sound("button_pressed")
-	$World/loadSave.start(true)
+	OS.shell_open("https://youtube.com/playlist?list=PL5pzkf2g-ciXHFKapja76b7q-Qtil4Ccf&si=K6aRkljHK7sD4QfJ")
+	#$World/loadSave.start(true)
 
 func _on_Settings_pressed() -> void:
 	GlobalAudio.play_ui_sound("button_pressed")

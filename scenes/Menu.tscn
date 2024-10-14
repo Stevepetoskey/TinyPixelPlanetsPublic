@@ -645,7 +645,7 @@ text = "Play"
 [node name="Tutorial" type="Button" parent="Main/Buttons"]
 custom_minimum_size = Vector2(2.08165e-12, 18)
 layout_mode = 2
-text = "Tutorial"
+text = "Walkthrough"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Main/Buttons"]
 layout_mode = 2
