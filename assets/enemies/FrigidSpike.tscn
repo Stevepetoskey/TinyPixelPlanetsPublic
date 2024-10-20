@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://c0vcca8re2qi5" path="res://textures/particles/puff.png" id="7_3qtwy"]
 [ext_resource type="Texture2D" uid="uid://bgfht1wwsrhc6" path="res://textures/enemies/seen.png" id="11_vnmd0"]
 
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_e8phb"]
 resource_local_to_scene = true
 animations = [{

@@ -22,6 +22,7 @@ func _ready():
 		$Sprite2D.texture = DISPLAY_TEXTURE[false]
 	else:
 		$Sprite2D.texture = DISPLAY_TEXTURE[data["toggled"]]
+		calculate_light(data["toggled"])
 	pos = position / world.BLOCK_SIZE
 	world.connect("update_blocks", Callable(self, "on_update"))
 	world.connect("world_loaded", Callable(self, "world_loaded"))
@@ -29,6 +30,22 @@ func _ready():
 func input_called(inputPin : String,value,wire : TextureRect):
 	inputs[inputPin][wire] = value
 	calculate()
+
+func calculate_light(on : bool) -> void:
+	if on:
+		match layer:
+			0:
+				if world.transparentBlocks.has(world.get_block_id(pos,1)):
+					world.set_light(pos, Color.WHITE, Color("0C000005"))
+			1:
+				world.set_light(pos, Color.WHITE, Color("0C0000FF"))
+	else:
+		match layer:
+			0:
+				if world.transparentBlocks.has(world.get_block_id(pos,1)):
+					world.set_light(pos, Color("00000000"), Color("00000000"))
+			1:
+				world.set_light(pos, Color.BLACK, Color.BLACK)
 
 func calculate(inputValues := [],ignoreTick := false):
 	if inputValues.is_empty():
@@ -39,6 +56,7 @@ func calculate(inputValues := [],ignoreTick := false):
 		var on = inputValues.has(true)
 		data["last_input"] = inputs["I1"].values()
 		data["toggled"] = on
+		calculate_light(on)
 		$Sprite2D.texture = DISPLAY_TEXTURE[on]
 		calculating = false
 

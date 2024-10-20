@@ -14,6 +14,13 @@ const lightColorDictAtmo = {
 	NIGHT = Color("6d5e79")
 }
 
+const lightIntensityDict = {
+	SUNSET = 7,
+	DAY = 12,
+	SUNRISE = 7,
+	NIGHT = 3
+}
+
 const lightColorDictNoAtmo = {
 	SUNSET = Color(0.75,0.75,0.75),
 	DAY = Color.WHITE,
@@ -44,12 +51,14 @@ func _process(delta):
 				set_sounds(true,false)
 				daySound.volume_db = -10
 				Global.lightColor = lightColorDict.DAY
+				Global.lightIntensity = lightIntensityDict.DAY
 				skyTexture.modulate = skyColorDict.DAY
 				skyTexture.show()
 			"night":
 				set_sounds(false,true)
 				nightSound.volume_db = -10
 				Global.lightColor = lightColorDict.NIGHT
+				Global.lightIntensity = lightIntensityDict.NIGHT
 				skyTexture.modulate = skyColorDict.NIGHT * Color(1,1,1,0)
 				skyTexture.hide()
 			"sunset":
@@ -60,9 +69,11 @@ func _process(delta):
 				if time >= 0.5:
 					skyTexture.modulate = lerp(skyColorDict.DAY,skyColorDict.SUNSET,1-(time-0.5)*2.0)
 					Global.lightColor = lerp(lightColorDict.DAY,lightColorDict.SUNSET,1-(time-0.5)*2.0)
+					Global.lightIntensity = lerp(lightIntensityDict.DAY,lightIntensityDict.SUNSET,1-(time-0.5)*2.0)
 				else:
 					skyTexture.modulate = lerp(skyColorDict.SUNSET,skyColorDict.NIGHT * Color(1,1,1,0),1-(time*2.0))
 					Global.lightColor = lerp(lightColorDict.SUNSET,lightColorDict.NIGHT,1-(time*2.0))
+					Global.lightIntensity = lerp(lightIntensityDict.SUNSET,lightIntensityDict.NIGHT,1-(time-0.5)*2.0)
 			"sunrise":
 				set_sounds(true,true)
 				daySound.volume_db = lerp(-80,-10,time)
@@ -71,17 +82,21 @@ func _process(delta):
 				if time <= 0.5:
 					Global.lightColor = lerp(lightColorDict.NIGHT,lightColorDict.SUNRISE,time*2.0)
 					skyTexture.modulate = lerp(skyColorDict.NIGHT * Color(1,1,1,0),skyColorDict.SUNRISE,time*2.0)
+					Global.lightIntensity = lerp(lightIntensityDict.NIGHT,lightIntensityDict.SUNRISE,1-(time-0.5)*2.0)
 				else:
 					Global.lightColor = lerp(lightColorDict.SUNRISE,lightColorDict.DAY,(time-.5)*2.0)
+					Global.lightIntensity = lerp(lightIntensityDict.SUNRISE,lightIntensityDict.DAY,1-(time-0.5)*2.0)
 					skyTexture.modulate = lerp(skyColorDict.SUNRISE,skyColorDict.DAY,(time-.5)*2.0)
 		$back.modulate = Global.lightColor
 		$front.modulate = Global.lightColor
 		$"../ParallaxBackground2/StormLayer".modulate = Global.lightColor
-		$"../../weather/Rain".modulate = Global.lightColor
-		$"../../weather/Snow".modulate = Global.lightColor
-		get_node("../../World/blocks").modulate = Global.lightColor
-		get_node("../../Player").modulate = Global.lightColor
-		get_node("../../Entities").modulate = Global.lightColor
+		#$"../../weather/Rain".modulate = Global.lightColor
+		#$"../../weather/Snow".modulate = Global.lightColor
+		#get_node("../../World/blocks").modulate = Global.lightColor
+		#get_node("../../Player").modulate = Global.lightColor
+		#get_node("../../Entities").modulate = Global.lightColor
+		$"../../LightingViewport/SubViewport/LightRect".material.set_shader_parameter("natural_light_color",Vector3(Global.lightColor.r,Global.lightColor.g,Global.lightColor.b))
+		$"../../LightingViewport/SubViewport/LightRect".material.set_shader_parameter("natural_light_intensity",Global.lightIntensity)
 		oldTime = time
 
 func set_sounds(day : bool, night : bool) -> void:

@@ -9,6 +9,7 @@ const BLOCK_SIZE = Vector2(8,8)
 @export var noiseScale : float = 15.0
 @export var worldHeight = 20
 @export var seaLevel : int = 50
+@export var worldType : String
 
 @onready var inventory = $"../CanvasLayer/Inventory"
 @onready var enviroment = $"../CanvasLayer/Enviroment"
@@ -49,7 +50,10 @@ var waterUpdateList = []
 
 var interactableBlocks = [12,16,28,91,145,158,159,167,169,171,176,185,186,189,216,241,243,244,246,263]
 var noCollisionBlocks = [0,6,7,9,11,30,117,167,121,122,123,128,142,143,145,155,156,167,168,169,170,171,172,187]
-var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,160,161,167,171,172,176,183,187,188,189,190,199,203,204,206,217,218,219,220,242,244,246]
+var transparentBlocks = [0,1,6,7,9,11,12,20,24,10,28,30,69,76,79,80,81,85,91,117,119,120,121,122,123,145,158,159,155,156,154,146,160,161,167,171,172,176,183,187,188,189,190,199,203,204,206,217,218,219,220,242,244,246,264,265,266,267,268,269,270,271,272]
+
+var lightMap : Image
+var lightIntensityMap : Image
 
 var worldRules = {
 	"break_blocks":{"value":true,"type":"bool"},
@@ -335,6 +339,22 @@ var blockData = {
 	261:{"texture":preload("res://textures/blocks/tan_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":261,"amount":1}],"name":"Tan wool","type":"simple"},
 	262:{"texture":preload("res://textures/blocks/maroon_wool.png"),"hardness":0.4,"canHaverst":0,"drops":[{"id":262,"amount":1}],"name":"Maroon wool","type":"simple"},
 	263:{"texture":preload("res://textures/blocks/wool_work_table.png"),"hardness":2,"canHaverst":1,"drops":[{"id":263,"amount":1}],"name":"Wool work table","type":"simple"},
+	264:{"texture":preload("res://textures/blocks/cyan_led_lamp.png"),"hardness":0.75,"canHaverst":1,"drops":[{"id":264,"amount":1}],"name":"Cyan LED lamp","type":"simple","light_color":Color("50c2fc"),"light_intensity":8},
+	265:{"texture":preload("res://textures/blocks/red_led_lamp.png"),"hardness":0.75,"canHaverst":0,"drops":[{"id":265,"amount":1}],"name":"Red LED lamp","type":"simple","light_color":Color("e34848"),"light_intensity":8},
+	266:{"texture":preload("res://textures/blocks/orange_led_lamp.png"),"hardness":0.75,"canHaverst":0,"drops":[{"id":266,"amount":1}],"name":"Orange LED lamp","type":"simple","light_color":Color("ff9751"),"light_intensity":8},
+	267:{"texture":preload("res://textures/blocks/yellow_led_lamp.png"),"hardness":0.75,"canHaverst":0,"drops":[{"id":267,"amount":1}],"name":"Yellow LED lamp","type":"simple","light_color":Color("ffdc61"),"light_intensity":8},
+	268:{"texture":preload("res://textures/blocks/yellow_green_led_lamp.png"),"hardness":0.75,"canHaverst":0,"drops":[{"id":268,"amount":1}],"name":"Yellow green LED lamp","type":"simple","light_color":Color("b5c36a"),"light_intensity":8},
+	269:{"texture":preload("res://textures/blocks/green_led_lamp.png"),"hardness":0.75,"canHaverst":0,"drops":[{"id":269,"amount":1}],"name":"Green LED lamp","type":"simple","light_color":Color("28c044"),"light_intensity":8},
+	270:{"texture":preload("res://textures/blocks/blue_led_lamp.png"),"hardness":0.75,"canHaverst":0,"drops":[{"id":270,"amount":1}],"name":"Blue LED lamp","type":"simple","light_color":Color("5991f6"),"light_intensity":8},
+	271:{"texture":preload("res://textures/blocks/purple_led_lamp.png"),"hardness":0.75,"canHaverst":0,"drops":[{"id":271,"amount":1}],"name":"Purple LED lamp","type":"simple","light_color":Color("9f5da7"),"light_intensity":8},
+	272:{"texture":preload("res://textures/blocks/pink_led_lamp.png"),"hardness":0.75,"canHaverst":0,"drops":[{"id":272,"amount":1}],"name":"Pink LED lamp","type":"simple","light_color":Color("e08ac6"),"light_intensity":8},
+	273:{"texture":preload("res://textures/blocks/quartz_bricks_1.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":273,"amount":1}],"name":"Quartz bricks","type":"block"},
+	274:{"texture":preload("res://textures/blocks/rose_quartz_bricks_1.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":274,"amount":1}],"name":"Rose quartz bricks","type":"block"},
+	275:{"texture":preload("res://textures/blocks/purple_quartz_bricks_1.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":275,"amount":1}],"name":"Purple quartz bricks","type":"block"},
+	276:{"texture":preload("res://textures/blocks/blue_quartz_bricks_1.png"),"hardness":4.5,"breakWith":"Pickaxe","canHaverst":3,"drops":[{"id":276,"amount":1}],"name":"Blue quartz bricks","type":"block"},
+	277:{"texture":preload("res://textures/blocks/asteroid_rock_bricks.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":277,"amount":1}],"name":"Asteroid rock bricks","type":"simple"},
+	278:{"texture":preload("res://textures/blocks/carved_asteroid_rock.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":278,"amount":1}],"name":"Carved asteroid rock","type":"simple"},
+	279:{"texture":preload("res://textures/blocks/polished_asteroid_rock.png"),"hardness":2,"breakWith":"Pickaxe","canHaverst":1,"drops":[{"id":279,"amount":1}],"name":"Polished asteroid rock","type":"simple"},
 }
 
 var itemData = {
@@ -477,6 +497,11 @@ func start_world():
 			worldSize = Vector2(256,32)
 		"":
 			worldSize = StarSystem.get_current_world_size()
+	$"../LightingViewport/SubViewport/LightRect".material.set_shader_parameter("world_size",worldSize)
+	lightMap = Image.create(worldSize.x,worldSize.y,false,Image.FORMAT_RGBA8)
+	lightIntensityMap = Image.create(worldSize.x,worldSize.y,false,Image.FORMAT_RGBA8)
+	lightMap.fill(Color.WHITE)
+	lightIntensityMap.fill(Color("FF000005"))
 	$StaticBody2D/Right.position = Vector2(worldSize.x * BLOCK_SIZE.x + 2,(worldSize.y * BLOCK_SIZE.y) / 2)
 	$StaticBody2D/Right.shape.extents.y = (worldSize.y * BLOCK_SIZE.y) / 2
 	$"../Player/PlayerCamera".limit_right = worldSize.x * BLOCK_SIZE.x -4
@@ -486,7 +511,7 @@ func start_world():
 	$StaticBody2D/Bottom.shape.extents.y = (worldSize.x * BLOCK_SIZE.x) / 2
 	$StaticBody2D/Bottom.position = Vector2((worldSize.x * BLOCK_SIZE.x) / 2,worldSize.y * BLOCK_SIZE.y)
 	var currentPlanetData = StarSystem.find_planet_id(Global.currentPlanet)
-	var worldType = currentPlanetData.type["type"]
+	worldType = currentPlanetData.type["type"]
 	get_node("../CanvasLayer/Black").show()
 	if !currentPlanetData.hasAtmosphere:
 		get_node("../CanvasLayer/ParallaxBackground/SkyLayer").hide()
@@ -521,6 +546,7 @@ func start_world():
 	worldLoaded = true
 	get_node("../CanvasLayer/Black/AnimationPlayer").play("fadeOut")
 	await get_tree().process_frame
+	update_light_texture()
 	emit_signal("update_blocks")
 	Global.gameStart = false
 	inventory.update_inventory()
@@ -1120,6 +1146,12 @@ func get_block_id(pos : Vector2, layer : int) -> int:
 		return get_block(pos,layer).id
 	return 0
 
+func set_light(pos : Vector2, lightMapValue : Color, lightIntensityMapValue : Color, updateMaps := true) -> void:
+	lightIntensityMap.set_pixelv(pos,lightIntensityMapValue)
+	lightMap.set_pixelv(pos,lightMapValue)
+	if updateMaps:
+		update_light_texture()
+
 func set_block_all(pos: Vector2, id : int) -> void:
 	set_block(pos,0,id)
 	set_block(pos,1,id)
@@ -1131,8 +1163,34 @@ func set_block(pos : Vector2, layer : int, id : int, update = false, data = {}) 
 		if blockData[blockAtPos.id]["type"] == "door":
 			blockAtPos.emit_signal("destroyed")
 		blockAtPos.queue_free()
+		if id == 0:
+			match layer:
+				0:
+					if transparentBlocks.has(get_block_id(pos,1)) and pos.y >= generationData[worldType]["world_height"] + generationData[worldType]["noise_scale"]:
+						set_light(pos,Color.WHITE,Color("FF000005"),update)
+				1:
+					if transparentBlocks.has(get_block_id(pos,0)) and pos.y >= generationData[worldType]["world_height"] + generationData[worldType]["noise_scale"]:
+						set_light(pos,Color.WHITE,Color("FF000005"),update)
+					else:
+						set_light(pos,Color("00000000"),Color("00000000"),update)
 	if id > 0:
 		var block = blockTypes[blockData[id]["type"]].instantiate()
+		var block_data = get_item_data(id)
+		match layer:
+			0:
+				if transparentBlocks.has(get_block_id(pos,1)):
+					if block_data.has("light_color"):
+						set_light(pos,block_data["light_color"],Color("0" + str(block_data["light_intensity"]) + "000005"),update)
+					elif !transparentBlocks.has(id) or pos.y >= generationData[worldType]["world_height"] + generationData[worldType]["noise_scale"]:
+						set_light(pos,Color("00000000"),Color("00000000"),update)
+			1:
+				if !transparentBlocks.has(id):
+					if block_data.has("light_color"):
+						set_light(pos,block_data["light_color"],Color("0" + str(block_data["light_intensity"]) + "0000FF"),update)
+					else:
+						set_light(pos,Color.BLACK,Color.BLACK,update)
+				elif block_data.has("light_color"):
+					set_light(pos,block_data["light_color"],Color("0" + str(block_data["light_intensity"]) + "000005"),update)
 		block.position = pos * BLOCK_SIZE
 		block.pos = pos
 		block.id = id
@@ -1169,6 +1227,10 @@ func update_area(pos):
 				get_block(Vector2(x,y),1).on_update()
 			if get_block(Vector2(x,y),0) != null:
 				get_block(Vector2(x,y),0).on_update()
+
+func update_light_texture() -> void:
+	$"../LightingViewport/SubViewport/LightRect".material.set_shader_parameter("light_map",ImageTexture.create_from_image(lightMap))
+	$"../LightingViewport/SubViewport/LightRect".material.set_shader_parameter("light_intensity_map",ImageTexture.create_from_image(lightIntensityMap))
 
 func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction = true) -> void:
 	if action == "Build" and [0,6,7,117].has(get_block_id(pos,layer)) and blockData.has(id) and (!blockData[id].has("can_place_on") or blockData[id]["can_place_on"].has(get_block_id(pos + Vector2(0,1),layer))):

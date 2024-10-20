@@ -70,6 +70,14 @@ func _ready():
 		189:
 			if data.is_empty():
 				data["group"] = ""
+		273:
+			texture.texture = load("res://textures/blocks/quartz_bricks_1.png") if fmod(pos.x,2.0) == 0 else load("res://textures/blocks/quartz_bricks_2.png")
+		274:
+			texture.texture = load("res://textures/blocks/rose_quartz_bricks_1.png") if fmod(pos.x,2.0) == 0 else load("res://textures/blocks/rose_quartz_bricks_2.png")
+		275:
+			texture.texture = load("res://textures/blocks/purple_quartz_bricks_1.png") if fmod(pos.x,2.0) == 0 else load("res://textures/blocks/purple_quartz_bricks_2.png")
+		276:
+			texture.texture = load("res://textures/blocks/blue_quartz_bricks_1.png") if fmod(pos.x,2.0) == 0 else load("res://textures/blocks/blue_quartz_bricks_2.png")
 
 func world_loaded():
 	on_update()

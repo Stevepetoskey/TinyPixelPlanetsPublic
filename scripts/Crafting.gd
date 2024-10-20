@@ -74,6 +74,9 @@ var recipes = {
 		{"recipe":[{"id":8,"amount":4}],"result":{"id":16,"amount":1}},
 		{"recipe":[{"id":17,"amount":4}],"result":{"id":19,"amount":4}},
 		{"recipe":[{"id":3,"amount":4}],"result":{"id":15,"amount":4}}, #Stone bricks
+		{"recipe":[{"id":112,"amount":4}],"result":{"id":277,"amount":4}}, #Asteroid rock bricks
+		{"recipe":[{"id":112,"amount":2}],"result":{"id":278,"amount":2}}, #Carved asteroid rock
+		{"recipe":[{"id":112,"amount":1}],"result":{"id":279,"amount":1}}, #Polished asteroid rock
 		{"recipe":[{"id":22,"amount":4}],"result":{"id":23,"amount":4}},
 		{"recipe":[{"id":13,"amount":1}],"result":{"id":5,"amount":3}}, #sticks
 		{"recipe":[{"id":78,"amount":1}],"result":{"id":5,"amount":3}}, #sticks (With exotic wood)
@@ -97,7 +100,7 @@ var recipes = {
 		{"recipe":[{"id":13,"amount":8}],"result":{"id":91,"amount":1}}, #Chest
 		{"recipe":[{"id":78,"amount":8}],"result":{"id":91,"amount":1}}, #Chest (With exotic wood)
 		{"recipe":[{"id":56,"amount":1}],"result":{"id":113,"amount":1}}, #Silver bucket
-		{"recipe":[{"id":52,"amount":1}],"result":{"id":115,"amount":1}}, #Copper bucket
+		{"recipe":[{"id":52,"amount":1}],"result":{"id":114,"amount":1}}, #Copper bucket
 		{"recipe":[{"id":5,"amount":2},{"id":13,"amount":3}],"result":{"id":145,"amount":2}}, #Wood sign
 		{"recipe":[{"id":148,"amount":4}],"result":{"id":162,"amount":4}}, #Polished pink granite
 		{"recipe":[{"id":149,"amount":4}],"result":{"id":163,"amount":4}}, #Polished white granite
@@ -167,6 +170,10 @@ var recipes = {
 		{"recipe":[{"id":101,"amount":4}],"result":{"id":109,"amount":1}}, #Rose quartz block
 		{"recipe":[{"id":102,"amount":4}],"result":{"id":110,"amount":1}}, #Puple quartz block
 		{"recipe":[{"id":103,"amount":4}],"result":{"id":111,"amount":1}}, #Blue quartz block
+		{"recipe":[{"id":108,"amount":4}],"result":{"id":273,"amount":4}}, #Quartz bricks
+		{"recipe":[{"id":109,"amount":4}],"result":{"id":274,"amount":4}}, #Rose quartz bricks
+		{"recipe":[{"id":110,"amount":4}],"result":{"id":275,"amount":4}}, #Puple quartz bricks
+		{"recipe":[{"id":111,"amount":4}],"result":{"id":276,"amount":4}}, #Blue quartz bricks
 		{"recipe":[{"id":5,"amount":3},{"id":13,"amount":3}],"result":{"id":4,"amount":1}},
 		{"recipe":[{"id":5,"amount":3},{"id":3,"amount":3}],"result":{"id":31,"amount":1}},
 		{"recipe":[{"id":5,"amount":3},{"id":52,"amount":3}],"result":{"id":53,"amount":1}},

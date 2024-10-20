@@ -55,7 +55,7 @@ func damage(hp,knockback : float = 0):
 		emit_signal("damaged",knockback)
 		await get_tree().create_timer(0.5).timeout
 		if !frozen and !poisoned:
-			modulate = Global.lightColor
+			modulate = Color.WHITE
 		if health <= 0:
 			die()
 
@@ -63,7 +63,7 @@ func freeze(time : float) -> void:
 	modulate = Color("75b2ff")
 	frozen = true
 	await get_tree().create_timer(time).timeout
-	modulate = Global.lightColor
+	modulate = Color.WHITE
 	frozen = false
 
 func poison(amount : float,dmg := 1) -> void:
@@ -74,4 +74,4 @@ func poison(amount : float,dmg := 1) -> void:
 		damage(dmg)
 		if i == amount - 1:
 			poisoned = false
-			modulate = Global.lightColor
+			modulate = Color.WHITE
