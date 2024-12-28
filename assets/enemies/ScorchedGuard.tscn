@@ -130,6 +130,7 @@ _data = {
 
 [node name="ScorchedGuard" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
+use_parent_material = true
 collision_layer = 8
 script = ExtResource("1_svgyy")
 hostile = true
@@ -137,6 +138,7 @@ bluesDropRange = [5, 12]
 type = "scorched_guard"
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_wsys2")
 animation = &"Spit"
 

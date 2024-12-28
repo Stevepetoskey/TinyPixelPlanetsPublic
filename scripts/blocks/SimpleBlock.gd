@@ -20,7 +20,7 @@ func _ready():
 func on_update():
 	if layer < 1:
 		var blockLayer1 = world.get_block_id(pos,1)
-		if world.transparentBlocks.has(blockLayer1) and ([0,10,77].has(blockLayer1) or id != blockLayer1):
+		if GlobalData.blockData[blockLayer1]["transparent"] and ([0,10,77].has(blockLayer1) or id != blockLayer1):
 			show()
 		else:
 			hide()

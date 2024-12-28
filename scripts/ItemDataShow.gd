@@ -13,7 +13,7 @@ func _process(delta):
 	size = Vector2(0,0)
 
 func display(data : Dictionary) -> void:
-	var itemData = world.get_item_data(data["id"])
+	var itemData = GlobalData.get_item_data(data["id"])
 	if itemData.has("name"):
 		var displayText = itemData["name"]
 		if itemData.has("desc"):

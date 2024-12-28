@@ -23,7 +23,6 @@ var data = {}
 signal damaged
 
 func _ready():
-	modulate = Global.lightColor
 	if !get_node("../../../World").hasGravity:
 		GRAVITY = 0
 

@@ -1,0 +1,39 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://clpb2j2pmd0qj"]
+
+[ext_resource type="Texture2D" uid="uid://cno4hfa6vbo8h" path="res://textures/GUI/main/crafting/craft_btn.png" id="1_6vde2"]
+[ext_resource type="Texture2D" uid="uid://4ritdos34u0j" path="res://textures/GUI/main/crafting/craft_btn_disabled.png" id="1_b32cu"]
+[ext_resource type="Texture2D" uid="uid://1bj2i72ncfoo" path="res://textures/GUI/main/crafting/craft_btn_hover.png" id="2_f073u"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_h80s7"]
+texture = ExtResource("1_b32cu")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ahlds"]
+texture = ExtResource("2_f073u")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iuqlb"]
+texture = ExtResource("1_6vde2")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2dqga"]
+texture = ExtResource("1_6vde2")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[resource]
+Button/styles/disabled = SubResource("StyleBoxTexture_h80s7")
+Button/styles/hover = SubResource("StyleBoxTexture_ahlds")
+Button/styles/normal = SubResource("StyleBoxTexture_iuqlb")
+Button/styles/pressed = SubResource("StyleBoxTexture_2dqga")

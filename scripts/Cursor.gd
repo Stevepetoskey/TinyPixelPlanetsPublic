@@ -74,7 +74,9 @@ func _process(_delta):
 		blockPos = position / world.BLOCK_SIZE
 		cursorPos = blockPos
 		
-		if world.interactableBlocks.has(world.get_block_id(cursorPos,currentLayer)) or currentShop != null:
+		var blockAtPos : int = world.get_block_id(cursorPos,currentLayer)
+		
+		if (blockAtPos != 0 and GlobalData.blockData[blockAtPos]["interactable"]) or currentShop != null:
 			texture = load("res://textures/GUI/main/interactable_cursor.png")
 			canInteract = true
 		else:
@@ -126,7 +128,7 @@ func _unhandled_input(_event):
 						currentBlock.flip_lever()
 					169:
 						$"../CanvasLayer/LogicBlockEdit".pop_up(currentBlock)
-					171:
+					171,301:
 						currentBlock.mainBlock.interact()
 					176:
 						currentBlock.pressed_btn()
@@ -190,9 +192,9 @@ func _unhandled_input(_event):
 			elif (Input.is_action_pressed("build") and inventory.inventory.size() > 0) or (Input.is_action_pressed("build2") and inventory.inventory.size() > 1):
 				var slot = 0 if Input.is_action_pressed("build") or inventory.inventory.size() < 2 else 1
 				var selectedId = inventory.inventory[slot]["id"]
-				if (currentLayer == 0 or canPlace) and world.blockData.has(selectedId) and world.worldRules["place_blocks"]["value"]:
+				if (currentLayer == 0 or canPlace) and GlobalData.blockData.has(selectedId) and world.worldRules["place_blocks"]["value"]:
 					world.build_event("Build",cursorPos,currentLayer,selectedId)#Vector2(int(position.x),int(position.y)),1,inventory.inventory[0]["id"])
-				elif world.itemData.has(selectedId):
+				elif GlobalData.itemData.has(selectedId):
 					tool_action(selectedId,slot)
 		elif Input.is_action_pressed("action1") or Input.is_action_pressed("action2"):
 			var ref = inventory.jRef	if Input.is_action_pressed("action1") else inventory.kRef
@@ -208,7 +210,7 @@ func _unhandled_input(_event):
 				currentWire = null
 
 func tool_action(itemId : int, ref := 0) -> void:
-	var itemSelect = world.itemData[itemId]
+	var itemSelect = GlobalData.itemData[itemId]
 	match itemSelect["type"]:
 		"Bucket","Watering_can":
 			if world.get_block_id(cursorPos,currentLayer) == 117 and world.worldRules["break_blocks"]["value"]:
@@ -248,8 +250,8 @@ func tool_action(itemId : int, ref := 0) -> void:
 					blockAtPos.update_water_texture()
 					blockAtPos.on_update()
 		"tool":
-			if !breaking and world.get_block_id(cursorPos,currentLayer) > 0 and itemSelect["strength"] >= world.blockData[world.get_block_id(cursorPos,currentLayer)]["canHaverst"] and (world.worldRules["break_blocks"]["value"] or (world.get_block_id(cursorPos,currentLayer) == 8 and Global.inTutorial)):
-				var hardness = world.blockData[world.get_block_id(cursorPos,currentLayer)]["hardness"]
+			if !breaking and world.get_block_id(cursorPos,currentLayer) > 0 and itemSelect["strength"] >= GlobalData.blockData[world.get_block_id(cursorPos,currentLayer)]["canHaverst"] and (world.worldRules["break_blocks"]["value"] or (world.get_block_id(cursorPos,currentLayer) == 8 and Global.inTutorial)):
+				var hardness = GlobalData.blockData[world.get_block_id(cursorPos,currentLayer)]["hardness"]
 				if hardness <= 0:
 					world.build_event("Break",position / world.BLOCK_SIZE,currentLayer)
 				else:

@@ -92,12 +92,14 @@ size = Vector2(9, 4)
 
 [node name="StellarPig" type="CharacterBody2D"]
 z_index = 1
+use_parent_material = true
 collision_layer = 8
 script = ExtResource("1_1qmc1")
 bluesDropRange = [2, 7]
 type = "stellar_pig"
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_6mro8")
 animation = &"sleep"
 

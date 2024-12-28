@@ -35,14 +35,14 @@ func calculate_light(on : bool) -> void:
 	if on:
 		match layer:
 			0:
-				if world.transparentBlocks.has(world.get_block_id(pos,1)):
+				if GlobalData.blockData[world.get_block_id(pos,1)]["transparent"]:
 					world.set_light(pos, Color.WHITE, Color("0C000005"))
 			1:
 				world.set_light(pos, Color.WHITE, Color("0C0000FF"))
 	else:
 		match layer:
 			0:
-				if world.transparentBlocks.has(world.get_block_id(pos,1)):
+				if GlobalData.blockData[world.get_block_id(pos,1)]["transparent"]:
 					world.set_light(pos, Color("00000000"), Color("00000000"))
 			1:
 				world.set_light(pos, Color.BLACK, Color.BLACK)
@@ -78,7 +78,7 @@ func world_loaded():
 
 func on_update():
 	if layer < 1:
-		if world.transparentBlocks.has(world.get_block_id(pos,1)) and ([0,10,77].has(world.get_block_id(pos,1)) or id != world.get_block_id(pos,1)):
+		if GlobalData.blockData[world.get_block_id(pos,1)]["transparent"] and ([0,10,77].has(world.get_block_id(pos,1)) or id != world.get_block_id(pos,1)):
 			show()
 		else:
 			hide()

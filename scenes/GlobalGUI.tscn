@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://c835dpghcbrun"]
+[gd_scene load_steps=48 format=3 uid="uid://c835dpghcbrun"]
 
 [ext_resource type="Texture2D" uid="uid://gnk4eoow4bqh" path="res://textures/GUI/GlobalGUI/Ach_completed.png" id="1"]
 [ext_resource type="AudioStream" uid="uid://dudy73cxuvlnr" path="res://Audio/sfx/GUI/Achievement.ogg" id="3"]
@@ -26,6 +26,8 @@
 [ext_resource type="Texture2D" uid="uid://docmqdn1y13fp" path="res://textures/GUI/Blank.png" id="22"]
 [ext_resource type="Texture2D" uid="uid://408gg2awh54e" path="res://textures/GUI/GlobalGUI/Ach_Desc.png" id="23"]
 [ext_resource type="Texture2D" uid="uid://yv2k1paokuxx" path="res://textures/GUI/main/autosave.png" id="26_hyk7n"]
+[ext_resource type="Theme" uid="uid://b02uwgbscq35l" path="res://themes/menu.tres" id="27_sm2y7"]
+[ext_resource type="Script" path="res://scripts/GUI/tutorial_popup.gd" id="28_r5hjh"]
 
 [sub_resource type="StyleBoxTexture" id="1"]
 texture = ExtResource("5")
@@ -222,6 +224,8 @@ _data = {
 "pulse": SubResource("Animation_usulq")
 }
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_igmsx"]
+
 [node name="GlobalGUI" type="CanvasLayer"]
 process_mode = 3
 layer = 100
@@ -239,8 +243,7 @@ expand_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = 284.0
-offset_right = 415.0
+offset_right = 131.0
 offset_bottom = 20.0
 grow_horizontal = 0
 theme = ExtResource("3_m7phy")
@@ -969,5 +972,58 @@ libraries = {
 "": SubResource("AnimationLibrary_yn22e")
 }
 
+[node name="TutorialPopup" type="Panel" parent="."]
+visible = false
+offset_right = 94.0
+offset_bottom = 121.0
+theme = ExtResource("27_sm2y7")
+script = ExtResource("28_r5hjh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TutorialPopup"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title" type="Label" parent="TutorialPopup/VBoxContainer"]
+layout_mode = 2
+text = "Tutorial Popup"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Icon" type="TextureRect" parent="TutorialPopup/VBoxContainer"]
+visible = false
+layout_mode = 2
+stretch_mode = 5
+
+[node name="HSeparator" type="HSeparator" parent="TutorialPopup/VBoxContainer"]
+modulate = Color(0.156863, 0.360784, 0.768627, 1)
+layout_mode = 2
+
+[node name="Content" type="RichTextLabel" parent="TutorialPopup/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_igmsx")
+text = "Welcome to Tiny Pixel Planets! These tutorial popups will help you progress through the game. You can find all tutorials by pressing \"esc\"."
+visible_characters_behavior = 1
+
+[node name="OkBtn" type="Button" parent="TutorialPopup/VBoxContainer"]
+layout_mode = 2
+text = "Ok!"
+
+[node name="ShowTimer" type="Timer" parent="TutorialPopup"]
+
+[node name="TextTimer" type="Timer" parent="TutorialPopup"]
+one_shot = true
+
 [connection signal="pressed" from="AchievementMenu/BackBtn" to="." method="_on_BackBtn_pressed"]
 [connection signal="timeout" from="AutoSaveTimer" to="." method="_on_auto_save_timer_timeout"]
+[connection signal="pressed" from="TutorialPopup/VBoxContainer/OkBtn" to="TutorialPopup" method="_on_ok_btn_pressed"]
+[connection signal="timeout" from="TutorialPopup/ShowTimer" to="TutorialPopup" method="_on_show_timer_timeout"]
+[connection signal="timeout" from="TutorialPopup/TextTimer" to="TutorialPopup" method="_on_text_timer_timeout"]

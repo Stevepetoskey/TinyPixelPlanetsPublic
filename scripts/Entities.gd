@@ -14,7 +14,8 @@ var entities = {
 	"trinanium_charge":preload("res://assets/entities/trinanium_charge.tscn"),
 	"gold_spike":preload("res://assets/entities/gold_spike.tscn"),
 	"stellar_pig":preload("res://assets/entities/StellarPig.tscn"),
-	"blue_jay":preload("res://assets/entities/BlueJay.tscn")
+	"blue_jay":preload("res://assets/entities/BlueJay.tscn"),
+	"shork":preload("res://assets/enemies/Shork.tscn")
 	}
 
 var loot = {
@@ -32,6 +33,7 @@ var loot = {
 	"gold_spike":[],
 	"stellar_pig":[{"id":247,"amount":[1,3]}],
 	"blue_jay":[],
+	"shork":[],
 }
 
 var loaded = false
@@ -115,7 +117,7 @@ func _on_Spawn_timeout():
 				creatureCount += 1
 		for _i in range(randi_range(0,2)):
 			var pos = Vector2(randi()%int(world.worldSize.x),randi()%int(world.worldSize.y))
-			while world.get_block_id(pos,1) != 0 or world.get_block_id(pos,0) != 0 or world.noCollisionBlocks.has(world.get_block_id(pos + Vector2(0,1),1)):
+			while world.get_block_id(pos,1) != 0 or world.get_block_id(pos,0) != 0 or !GlobalData.blockData[world.get_block_id(pos + Vector2(0,1),1)]["can_collide"]:
 				pos = Vector2(randi()%int(world.worldSize.x),randi()%int(world.worldSize.y))
 			var hostileSpawns : Array = StarSystem.hostileSpawn[StarSystem.find_planet_id(Global.currentPlanet).type["type"]]
 			var creatureSpawns : Array = StarSystem.creatureSpawn[StarSystem.find_planet_id(Global.currentPlanet).type["type"]]

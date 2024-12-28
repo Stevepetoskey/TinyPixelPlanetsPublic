@@ -4,10 +4,11 @@ var toFocus : Array = []
 var previousPos : Vector2i
 
 func _process(delta: float) -> void:
-	if Vector2i(global_position/8) != previousPos:
-		previousPos = Vector2i(global_position/8)
-		$"../../LightingViewport".position = Vector2(previousPos) * 8 - Vector2(16,8)
-		$"../../LightingViewport/SubViewport/LightRect".material.set_shader_parameter("position",previousPos-Vector2i(19,18))
+	$"../../LightRenderViewport/LightRender".cameraCenterPos = get_screen_center_position()
+	#if Vector2i(get_screen_center_position()/8) != previousPos:
+		#previousPos = Vector2i(get_screen_center_position()/8)
+		#$"../../LightingViewport".position = Vector2(previousPos) * 8 - Vector2(16,8)
+		#$"../../LightingViewport/SubViewport/LightRect".material.set_shader_parameter("position",previousPos-Vector2i(19,18))
 
 func _physics_process(delta: float) -> void:
 	if GlobalAudio.inBossFight and !toFocus.is_empty():

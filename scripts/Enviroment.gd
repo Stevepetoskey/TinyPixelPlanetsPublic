@@ -1,27 +1,27 @@
 extends ParallaxBackground
 
-const skyColorDict = {
+var skyColorDict = {
 	SUNSET = Color("ff462d"),
 	DAY = Color.WHITE,
 	SUNRISE = Color("ffd190"),
 	NIGHT = Color("3d1b63")
 }
 
-const lightColorDictAtmo = {
+var lightColorDictAtmo = {
 	SUNSET = Color("F6635C"),
 	DAY = Color.WHITE,
 	SUNRISE = Color("ffa948"),
-	NIGHT = Color("6d5e79")
+	NIGHT = Color("403548")
 }
 
-const lightIntensityDict = {
+var lightIntensityDict = {
 	SUNSET = 7,
 	DAY = 12,
 	SUNRISE = 7,
 	NIGHT = 3
 }
 
-const lightColorDictNoAtmo = {
+var lightColorDictNoAtmo = {
 	SUNSET = Color(0.75,0.75,0.75),
 	DAY = Color.WHITE,
 	SUNRISE = Color(0.75,0.75,0.75),
@@ -73,7 +73,7 @@ func _process(delta):
 				else:
 					skyTexture.modulate = lerp(skyColorDict.SUNSET,skyColorDict.NIGHT * Color(1,1,1,0),1-(time*2.0))
 					Global.lightColor = lerp(lightColorDict.SUNSET,lightColorDict.NIGHT,1-(time*2.0))
-					Global.lightIntensity = lerp(lightIntensityDict.SUNSET,lightIntensityDict.NIGHT,1-(time-0.5)*2.0)
+					Global.lightIntensity = lerp(lightIntensityDict.SUNSET,lightIntensityDict.NIGHT,1-(time*2.0))
 			"sunrise":
 				set_sounds(true,true)
 				daySound.volume_db = lerp(-80,-10,time)
@@ -82,10 +82,10 @@ func _process(delta):
 				if time <= 0.5:
 					Global.lightColor = lerp(lightColorDict.NIGHT,lightColorDict.SUNRISE,time*2.0)
 					skyTexture.modulate = lerp(skyColorDict.NIGHT * Color(1,1,1,0),skyColorDict.SUNRISE,time*2.0)
-					Global.lightIntensity = lerp(lightIntensityDict.NIGHT,lightIntensityDict.SUNRISE,1-(time-0.5)*2.0)
+					Global.lightIntensity = lerp(lightIntensityDict.NIGHT,lightIntensityDict.SUNRISE,time*2.0)
 				else:
 					Global.lightColor = lerp(lightColorDict.SUNRISE,lightColorDict.DAY,(time-.5)*2.0)
-					Global.lightIntensity = lerp(lightIntensityDict.SUNRISE,lightIntensityDict.DAY,1-(time-0.5)*2.0)
+					Global.lightIntensity = lerp(lightIntensityDict.SUNRISE,lightIntensityDict.DAY,(time-.5)*2.0)
 					skyTexture.modulate = lerp(skyColorDict.SUNRISE,skyColorDict.DAY,(time-.5)*2.0)
 		$back.modulate = Global.lightColor
 		$front.modulate = Global.lightColor
@@ -95,8 +95,8 @@ func _process(delta):
 		#get_node("../../World/blocks").modulate = Global.lightColor
 		#get_node("../../Player").modulate = Global.lightColor
 		#get_node("../../Entities").modulate = Global.lightColor
-		$"../../LightingViewport/SubViewport/LightRect".material.set_shader_parameter("natural_light_color",Vector3(Global.lightColor.r,Global.lightColor.g,Global.lightColor.b))
-		$"../../LightingViewport/SubViewport/LightRect".material.set_shader_parameter("natural_light_intensity",Global.lightIntensity)
+		$"../../LightRenderViewport/LightRender".get_node("LightingViewport/SubViewport/LightRect").material.set_shader_parameter("natural_light_color",Vector3(Global.lightColor.r,Global.lightColor.g,Global.lightColor.b))
+		$"../../LightRenderViewport/LightRender".get_node("LightingViewport/SubViewport/LightRect").material.set_shader_parameter("natural_light_intensity",Global.lightIntensity)
 		oldTime = time
 
 func set_sounds(day : bool, night : bool) -> void:
@@ -132,12 +132,18 @@ func set_background(type : String):
 					$back.motion_offset.y += 20
 
 func _on_World_world_loaded():
+	var planetType : String = StarSystem.find_planet_id(Global.currentPlanet).type["type"]
+	if StarSystem.lightData.has(planetType):
+		skyColorDict = StarSystem.lightData[planetType]["sky_color"]
+		lightColorDictAtmo = StarSystem.lightData[planetType]["light_color_atmo"]
+		lightColorDictNoAtmo = StarSystem.lightData[planetType]["light_color_no_atmo"]
+		lightIntensityDict = StarSystem.lightData[planetType]["light_intensity"]
 	if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
 		lightColorDict = lightColorDictAtmo
 	else:
 		lightColorDict = lightColorDictNoAtmo
 	active = true
-	match StarSystem.find_planet_id(Global.currentPlanet).type["type"]:
+	match planetType:
 		"terra":
 			daySound.stream = load("res://Audio/sfx/Ambience/mixkit-spring-forest-with-woodpeckers-1217.wav")
 			nightSound.stream = load("res://Audio/sfx/Ambience/mixkit-summer-crickets-loop-1788.ogg")

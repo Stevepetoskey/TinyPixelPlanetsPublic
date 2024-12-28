@@ -26,6 +26,9 @@ func _ready():
 	else:
 		$GalaxyView.position = sectorCoords
 		$CurrentSelector.position = sectorCoords
+	if !GlobalGui.completedTutorials.has("galaxy") and Global.gamerules["tutorial"]:
+		GlobalGui.display_tutorial("space","galaxy","right",true)
+		await GlobalGui.tutorial_closed
 
 func pos_to_seed(pos : Vector2) -> int:
 	var strSeed = str(int(pos.y))
@@ -125,4 +128,7 @@ func system_pressed(system):
 func _on_BookmarkBtn_toggled(button_pressed: bool) -> void:
 	if button_pressed:
 		$CanvasLayer/Bookmarks.pop_up()
+		if !GlobalGui.completedTutorials.has("versitalis"):
+			GlobalGui.display_tutorial("space","versitalis","right",true)
+			await GlobalGui.tutorial_closed
 	$CanvasLayer/Bookmarks.visible = button_pressed

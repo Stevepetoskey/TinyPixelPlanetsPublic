@@ -21,6 +21,7 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 size = Vector2(8, 4)
 
 [node name="Spawner" type="StaticBody2D"]
+use_parent_material = true
 script = ExtResource("1_ob8p8")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
@@ -47,6 +48,7 @@ anim_offset_max = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 2
+use_parent_material = true
 texture = ExtResource("3_rynhy")
 region_rect = Rect2(16, 2.08165e-12, 8, 8)
 

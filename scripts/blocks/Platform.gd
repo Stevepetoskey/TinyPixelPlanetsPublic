@@ -17,7 +17,7 @@ func _ready():
 	if world.worldLoaded and visible_on_screen_notifier_2d.is_on_screen():
 		var textures = PLATFORM_TEXTURES
 		var side = {[true,true]:"full",[true,false]:"left",[false,true]:"right",[false,false]:"mid"}
-		var around = [!world.transparentBlocks.has(world.get_block_id(pos - Vector2(1,0),layer)),!world.transparentBlocks.has(world.get_block_id(pos + Vector2(1,0),layer))]
+		var around = [!GlobalData.blockData[world.get_block_id(pos - Vector2(1,0),layer)]["transparent"],!GlobalData.blockData[world.get_block_id(pos + Vector2(1,0),layer)]["transparent"]]
 		$Sprite2D.texture = load(textures[id] + side[around] + ".png")
 	pos = position / world.BLOCK_SIZE
 	world.connect("update_blocks", Callable(self, "on_update"))
@@ -28,7 +28,7 @@ func world_loaded():
 
 func on_update():
 	if layer < 1:
-		if world.transparentBlocks.has(world.get_block_id(pos,1)) and ([0,10,77].has(world.get_block_id(pos,1)) or id != world.get_block_id(pos,1)):
+		if GlobalData.blockData[world.get_block_id(pos,1)]["transparent"] and ([0,10,77].has(world.get_block_id(pos,1)) or id != world.get_block_id(pos,1)):
 			show()
 		else:
 			hide()
@@ -47,7 +47,7 @@ func on_update():
 	if world.worldLoaded and visible_on_screen_notifier_2d.is_on_screen():
 		var textures = PLATFORM_TEXTURES
 		var side = {[true,true]:"full",[true,false]:"left",[false,true]:"right",[false,false]:"mid"}
-		var around = [!world.transparentBlocks.has(world.get_block_id(pos - Vector2(1,0),layer)),!world.transparentBlocks.has(world.get_block_id(pos + Vector2(1,0),layer))]
+		var around = [!GlobalData.blockData[world.get_block_id(pos - Vector2(1,0),layer)]["transparent"],!GlobalData.blockData[world.get_block_id(pos + Vector2(1,0),layer)]["transparent"]]
 		$Sprite2D.texture = load(textures[id] + side[around] + ".png")
 
 func _on_VisibilityNotifier2D_screen_entered():

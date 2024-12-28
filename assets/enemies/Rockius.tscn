@@ -101,12 +101,14 @@ _data = {
 
 [node name="Rockius" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
+use_parent_material = true
 collision_layer = 8
 script = ExtResource("3")
 bluesDropRange = [3, 10]
 type = "rockius"
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
 sprite_frames = SubResource("1")
 animation = &"Idle"
 

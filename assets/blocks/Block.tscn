@@ -10,6 +10,7 @@ polygon = PackedVector2Array(-4, 4, 4, 4, 4, -4, -4, -4)
 size = Vector2(8, 8)
 
 [node name="AdvanceBlock" type="StaticBody2D"]
+use_parent_material = true
 script = ExtResource("1_6x2si")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
@@ -22,6 +23,7 @@ occluder = SubResource("OccluderPolygon2D_y6fa6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 2
+use_parent_material = true
 texture = ExtResource("2_ekh2o")
 region_rect = Rect2(16, 2.08165e-12, 8, 8)
 

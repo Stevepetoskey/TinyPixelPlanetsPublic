@@ -1418,7 +1418,7 @@ layout_mode = 2
 offset_left = 5.0
 offset_top = 11.0
 offset_right = 145.0
-offset_bottom = 118.0
+offset_bottom = 117.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -1456,6 +1456,11 @@ theme_override_colors/font_color = Color(0.156863, 0.360784, 0.768627, 1)
 text = "Lose blues on death"
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="TutorialsBtn" type="CheckButton" parent="World/GameSetttings/VBoxContainer"]
+layout_mode = 2
+text = "Tutorials"
+alignment = 1
 
 [node name="GameSettingsBtn" type="Button" parent="World/GameSetttings"]
 layout_mode = 1
@@ -1775,6 +1780,7 @@ mouse_filter = 0
 [connection signal="pressed" from="World/character/GameSettingsBtn" to="World/character" method="_on_game_settings_btn_pressed"]
 [connection signal="pressed" from="World/GameSetttings/VBoxContainer/Mode/ModeBtn" to="World/GameSetttings" method="_on_mode_btn_pressed"]
 [connection signal="pressed" from="World/GameSetttings/VBoxContainer/Difficulty/DifficultyBtn" to="World/GameSetttings" method="_on_difficulty_btn_pressed"]
+[connection signal="toggled" from="World/GameSetttings/VBoxContainer/TutorialsBtn" to="World/GameSetttings" method="_on_tutorials_btn_toggled"]
 [connection signal="pressed" from="World/GameSetttings/GameSettingsBtn" to="World/GameSetttings" method="_on_game_settings_btn_pressed"]
 [connection signal="pressed" from="Credits/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Scenarios/Done" to="World/character" method="_on_Done_pressed"]

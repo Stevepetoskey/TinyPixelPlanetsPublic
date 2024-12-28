@@ -18,14 +18,14 @@ func update_chest(chest = currentChest):
 	for item in range(0,chestData.size()):
 		var itemNode = CHEST_BTN.instantiate()
 		itemNode.loc = item
-		itemNode.get_node("Sprite2D").texture = world.get_item_texture(chestData[item]["id"])
+		itemNode.get_node("Item").set_item(chestData[item])
 		itemNode.get_node("Amount").text = str(chestData[item]["amount"])
 		item_container.add_child(itemNode)
 
 func add_to_chest(id:int,amount:int,data:Dictionary) -> Dictionary:
 	var chestData = currentChest.data
 	if amount > 0:
-		var itemData = world.get_item_data(id)
+		var itemData = GlobalData.get_item_data(id)
 		if itemData.has("starter_data") and data.is_empty():
 			data = itemData["starter_data"].duplicate(true)
 		var stackSize = ITEM_STACK_SIZE if !itemData.has("stack_size") else itemData["stack_size"]

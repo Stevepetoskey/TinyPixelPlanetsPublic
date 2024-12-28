@@ -1,11 +1,14 @@
 extends Control
 
 const CRAFT_BTN = preload("res://assets/CraftBtn.tscn")
+const CRAFT_ITEM = preload("res://assets/GUI/craft_item.tscn")
 
 @onready var inventory = get_node("../Inventory")
 @onready var ITEM_PER_PAGE = inventory.ITEM_PER_PAGE
 @onready var world = $"../../World"
 @onready var recipes_container = $RecipesScroll/RecipesContainer
+@onready var recipe_data: VBoxContainer = $RecipeData
+@onready var craft_btn: Button = $CraftBtn
 
 var groups : Dictionary = {
 	"wool":{
@@ -64,9 +67,11 @@ var recipes = {
 		{"recipe":[{"id":157,"amount":1}],"result":{"id":5,"amount":3}}, #sticks (With acacia wood)
 		{"recipe":[{"id":154,"amount":1}],"result":{"id":157,"amount":4}}, #Acacia planks
 		{"recipe":[{"id":157,"amount":4}],"result":{"id":158,"amount":1}}, #Acacia workbench
+		{"recipe":[{"id":297,"amount":1}],"result":{"id":300,"amount":4}}, #Willow planks
 	],
 	"crafting_table": [
-		{"recipe":[{"id":10,"amount":1}],"result":{"id":13,"amount":4}},
+		{"recipe":[{"id":10,"amount":1}],"result":{"id":13,"amount":4}}, #Planks
+		{"recipe":[{"id":297,"amount":1}],"result":{"id":300,"amount":4}}, #Willow planks
 		{"recipe":[{"id":13,"amount":4}],"result":{"id":12,"amount":1}}, #Workbench
 		{"recipe":[{"id":13,"amount":4},{"id":247,"amount":2}],"result":{"id":263,"amount":1}}, #Wool work table
 		{"recipe":[{"id":78,"amount":4}],"result":{"id":12,"amount":1}}, #Workbench (With exotic wood)
@@ -74,6 +79,8 @@ var recipes = {
 		{"recipe":[{"id":8,"amount":4}],"result":{"id":16,"amount":1}},
 		{"recipe":[{"id":17,"amount":4}],"result":{"id":19,"amount":4}},
 		{"recipe":[{"id":3,"amount":4}],"result":{"id":15,"amount":4}}, #Stone bricks
+		{"recipe":[{"id":280,"amount":4}],"result":{"id":282,"amount":4}}, #Smooth stone bricks
+		{"recipe":[{"id":282,"amount":4}],"result":{"id":281,"amount":4}}, #Carved Smooth stone bricks
 		{"recipe":[{"id":112,"amount":4}],"result":{"id":277,"amount":4}}, #Asteroid rock bricks
 		{"recipe":[{"id":112,"amount":2}],"result":{"id":278,"amount":2}}, #Carved asteroid rock
 		{"recipe":[{"id":112,"amount":1}],"result":{"id":279,"amount":1}}, #Polished asteroid rock
@@ -136,6 +143,7 @@ var recipes = {
 		{"recipe":[{"id":14,"amount":1}],"result":{"id":20,"amount":1}},
 		{"recipe":[{"id":18,"amount":1}],"result":{"id":17,"amount":1}},
 		{"recipe":[{"id":8,"amount":1}],"result":{"id":3,"amount":1}},
+		{"recipe":[{"id":3,"amount":1}],"result":{"id":280,"amount":1}}, #Smooth stone
 		{"recipe":[{"id":25,"amount":1}],"result":{"id":26,"amount":1}},
 		{"recipe":[{"id":29,"amount":1}],"result":{"id":52,"amount":1}}, # Copper
 		{"recipe":[{"id":55,"amount":1}],"result":{"id":56,"amount":1}}, #Silver (stone)
@@ -215,12 +223,19 @@ var recipes = {
 }
 
 var currentMenu = "null"
+var selectedRecipe : Dictionary
 
 func _ready() -> void:
 	for woolColor : String in colors["wool"]:
 		for dyeColor : String in colors["dye"]:
 			if woolColor != dyeColor:
 				recipes["wool_work_table"].append({"recipe":[{"id":colors["wool"][woolColor],"amount":4},{"id":colors["dye"][dyeColor],"amount":1}],"result":{"id":colors["wool"][dyeColor],"amount":4}})
+
+func close() -> void:
+	hide()
+	recipe_data.hide()
+	craft_btn.hide()
+	selectedRecipe = {}
 
 func update_crafting(menu := "null") -> void:
 	if menu != "null":
@@ -230,11 +245,21 @@ func update_crafting(menu := "null") -> void:
 		for recipe in recipes_container.get_children():
 			recipe.queue_free()
 		var recipesSelect = get_available_recipes(currentMenu)
-		for recipeID in range(recipesSelect.size()):
+		if !recipesSelect.has(selectedRecipe):
+			recipe_data.hide()
+			craft_btn.hide()
+		for recipe in recipesSelect:
 			var item = CRAFT_BTN.instantiate()
-			item.loc = recipeID
 			recipes_container.add_child(item)
-			item.init(recipesSelect[recipeID])
+			item.init(recipe)
+			if recipe == selectedRecipe:
+				item.disabled = true
+			if !can_craft(recipe).has(false):
+				recipes_container.move_child(item,0)
+			else:
+				item.self_modulate = Color(1,0.5,0.5)
+	if !selectedRecipe.is_empty():
+		update_recipe_data()
 
 func get_available_recipes(menu : String) -> Array:
 	var availableRecipes = []
@@ -251,23 +276,48 @@ func get_recipe_ids(recipe : Array) -> Array:
 		ids.append(item["id"])
 	return ids
 
+func can_craft(recipe : Dictionary) -> Array:
+	var canCraft : Array = []
+	for item : Dictionary in recipe["recipe"]:
+		canCraft.append(inventory.count_id(item["id"]) >= item["amount"])
+	return canCraft
+
+func update_recipe_data():
+	if !get_available_recipes(currentMenu).has(selectedRecipe):
+		recipe_data.hide()
+		craft_btn.hide()
+	else:
+		var resultId = selectedRecipe["result"]["id"]
+		$RecipeData/ItemName.text = GlobalData.get_item_data(resultId)["name"]
+		$RecipeData/InventoryAmount.text = str(inventory.count_id(resultId)) + " in inventory"
+		for craftItem : HBoxContainer in $RecipeData/Recipe.get_children():
+			craftItem.queue_free()
+		var canCraftArray = can_craft(selectedRecipe)
+		for item : Dictionary in selectedRecipe["recipe"]:
+			var craftItem = CRAFT_ITEM.instantiate()
+			craftItem.get_node("TextureRect").texture = GlobalData.get_item_texture(item["id"])
+			craftItem.get_node("Label").text = str(item["amount"]) + " (" + str(inventory.count_id(item["id"])) + ")"
+			if item["amount"] > inventory.count_id(item["id"]):
+				craftItem.modulate = Color(1,0.5,0.5)
+			$RecipeData/Recipe.add_child(craftItem)
+		craft_btn.disabled = canCraftArray.has(false)
+		recipe_data.show()
+		craft_btn.show()
+
 func recipe_clicked(recipeRef : Dictionary):
-	var recipesSelect = recipeRef
-	var recipe1 = recipesSelect["recipe"][0]
-	var item1 = inventory.find_item(recipe1["id"])
-	var item2 = null
-	var recipe2
-	if recipesSelect["recipe"].size() > 1:
-		recipe2 = recipesSelect["recipe"][1]
-		item2 = inventory.find_item(recipe2["id"])
-	if !item1.is_empty() and item1["amount"] >= recipe1["amount"] and (item2 == null or (!item2.is_empty() and item2["amount"] >= recipe2["amount"])):
-		inventory.remove_id_from_inventory(recipe1["id"],recipe1["amount"])
-		if item2 != null:
-			inventory.remove_id_from_inventory(recipe2["id"],recipe2["amount"])
-		inventory.add_to_inventory(recipesSelect["result"]["id"],recipesSelect["result"]["amount"])
+	for recipeBtn : Button in recipes_container.get_children():
+		recipeBtn.disabled = recipeBtn.recipeRef == recipeRef
+	selectedRecipe = recipeRef
+	update_recipe_data()
 
 func mouse_in_btn(recipeRef : Dictionary):
 	$"../ItemData".display(recipeRef["result"])
 
 func mouse_out_btn(_recipeRef : Dictionary):
 	$"../ItemData".hide()
+
+func _on_craft_btn_pressed() -> void:
+	if !can_craft(selectedRecipe).has(false):
+		for item : Dictionary in selectedRecipe["recipe"]:
+			inventory.remove_id_from_inventory(item["id"],item["amount"])
+		inventory.add_to_inventory(selectedRecipe["result"]["id"],selectedRecipe["result"]["amount"])

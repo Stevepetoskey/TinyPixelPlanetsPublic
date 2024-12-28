@@ -16,6 +16,11 @@ func _ready() -> void:
 	#Global.currentSave = "save2"
 	$Timer.start()
 	generate()
+	#var items = ["tomato","corn","coffee bean","wheat","red glowshroom","blue glowshroom","raw meat"]
+	#for item in items:
+		#print(item, " ->")
+		#for i in range(1,5):
+			#
 
 func generate() -> void:
 	world.clear()

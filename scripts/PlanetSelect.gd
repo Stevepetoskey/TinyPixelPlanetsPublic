@@ -30,6 +30,20 @@ func _ready():
 	else:
 		$ship.position = Vector2(0,-StarSystem.currentStarData["min_distance"]/2.0)
 	Global.playerData["save_type"] = "system"
+	if Global.gamerules["tutorial"]:
+		await get_tree().create_timer(1.0).timeout
+		if !GlobalGui.completedTutorials.has("star_system"):
+			GlobalGui.display_tutorial("space","star_system","right",true)
+			await GlobalGui.tutorial_closed
+		if !GlobalGui.completedTutorials.has("star_system2"):
+			GlobalGui.display_tutorial("space","star_system2","right",true)
+			await GlobalGui.tutorial_closed
+		if !GlobalGui.completedTutorials.has("star_system3"):
+			GlobalGui.display_tutorial("space","star_system3","right",true)
+			await GlobalGui.tutorial_closed
+		if !GlobalGui.completedTutorials.has("bookmarks"):
+			GlobalGui.display_tutorial("space","bookmarks","right",true)
+			await GlobalGui.tutorial_closed
 
 func _process(delta: float) -> void:
 	$Cursor.global_position = get_global_mouse_position()

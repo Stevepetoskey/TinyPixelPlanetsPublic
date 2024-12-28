@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 const GRAVITY = 4
 const ACCEL = 8
-const MAX_SPEED = 30
-const SPRINT_SPEED = 60
+const MAX_SPEED = 45
+const SPRINT_SPEED = 70
 const FRICTION = 4
 const JUMPSPEED = 75
 
@@ -293,19 +293,19 @@ func _physics_process(_delta):
 
 func swing(loc):
 	var item = inventory.inventory[loc]["id"]
-	if world.itemData.has(item) and item > 0 and ["tool","weapon","Hoe","Watering_can"].has(world.itemData[item]["type"]) and !swinging:
-		$Textures/Weapon.texture = world.itemData[item]["big_texture"]
-		if world.itemData[item]["type"] == "Watering_can":
+	if GlobalData.itemData.has(item) and item > 0 and ["tool","weapon","Hoe","Watering_can"].has(GlobalData.itemData[item]["type"]) and !swinging:
+		$Textures/Weapon.texture = GlobalData.get_item_big_texture(item)
+		if GlobalData.itemData[item]["type"] == "Watering_can":
 			if !swinging:
 				$Textures/AnimationPlayer.play("water")
 		else:
 			$Textures/AnimationPlayer.play("swing")
 		swinging = true
-		if world.itemData[item]["type"] == "weapon":
-			swing_timer.start(world.itemData[item]["speed"])
+		if GlobalData.itemData[item]["type"] == "weapon":
+			swing_timer.start(GlobalData.itemData[item]["speed"])
 		swingingWith = item
-		if world.itemData[item]["type"] == "weapon":
-			$WeaponRange/CollisionShape2D.shape.radius = world.itemData[swingingWith]["range"]
+		if GlobalData.itemData[item]["type"] == "weapon":
+			$WeaponRange/CollisionShape2D.shape.radius = GlobalData.itemData[swingingWith]["range"]
 			await get_tree().physics_frame
 			for enemy : CharacterBody2D in toAttack:
 				var space_state = get_world_2d().direct_space_state #Ray to make sure no blocks in the way
@@ -319,7 +319,7 @@ func swing(loc):
 							enemy.update_direction(position.angle_to_point(enemy.position))
 							print("new dir: ",enemy.direction)
 						_:
-							var dmg = world.itemData[swingingWith]["dmg"]
+							var dmg = GlobalData.itemData[swingingWith]["dmg"]
 							var upgrades : Dictionary = get_item_upgrades(inventory.inventory[loc])
 							if upgrades.has("damage"):
 								dmg += upgrades["damage"] * 2
@@ -360,6 +360,10 @@ func poison(amount : float,dmg := 1) -> void:
 		if i == amount - 1:
 			poisoned = false
 			modulate = Color.WHITE
+
+func change_modulate(color : Color) -> void:
+	for sprite : Sprite2D in $Textures.get_children():
+		sprite.material.set_shader_parameter("modulate",color)
 
 func die():
 	dead = true
@@ -431,8 +435,8 @@ func _on_Armor_updated_armor(armorData):
 				var id = armorData[armorType]["id"]
 				wearing[set[armorType]] = id
 				if ["Chestplate","Leggings","Boots","Helmet"].has(armorType):
-					var def = world.itemData[id]["armor_data"]["def"]
-					movementModifier += world.itemData[id]["armor_data"]["speed"]
+					var def = GlobalData.itemData[id]["armor_data"]["def"]
+					movementModifier += GlobalData.itemData[id]["armor_data"]["speed"]
 					if get_item_upgrades(armorData[armorType]).has("protection"):
 						def += get_item_upgrades(armorData[armorType])["protection"]
 					if def > 0:
@@ -519,7 +523,7 @@ func _on_Armor_updated_armor(armorData):
 		armorBuff = currentBuff
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if ["swing","water"].has(anim_name) and world.itemData[swingingWith]["type"] != "weapon":
+	if ["swing","water"].has(anim_name) and GlobalData.itemData[swingingWith]["type"] != "weapon":
 		swinging = false
 
 func _on_tick_timeout() -> void:

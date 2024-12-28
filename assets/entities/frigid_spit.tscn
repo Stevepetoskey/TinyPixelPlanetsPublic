@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://scripts/enemies/frigid_spit.gd" id="1_lu8rc"]
 [ext_resource type="Texture2D" uid="uid://46o3eyitpnsi" path="res://textures/enemies/fridged_spike/spit.png" id="2_5moi7"]
 
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_ilb5p"]
 radius = 3.0
 
@@ -11,11 +10,13 @@ radius = 3.0
 radius = 3.0
 
 [node name="FrigidSpit" type="CharacterBody2D"]
+use_parent_material = true
 collision_layer = 0
 script = ExtResource("1_lu8rc")
 type = "frigid_spit"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
 texture = ExtResource("2_5moi7")
 
 [node name="Hitbox" type="Area2D" parent="."]

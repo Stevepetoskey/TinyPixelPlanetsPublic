@@ -60,6 +60,7 @@ height = 12.0
 
 [node name="Space Squid" type="CharacterBody2D" groups=["enemy"]]
 z_index = 1
+use_parent_material = true
 collision_layer = 8
 script = ExtResource("4")
 hostile = true
@@ -67,6 +68,7 @@ bluesDropRange = [5, 12]
 type = "space_squid"
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
 sprite_frames = SubResource("4")
 animation = &"thrust"
 frame = 5

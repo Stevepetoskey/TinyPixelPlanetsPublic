@@ -1,7 +1,5 @@
 extends Sprite2D
 
-const TIME_FACTOR = 10 #10
-
 @export var orbitalSpeed = 1
 @export var rotationSpeed = 1
 @export var orbitalDistance = 5
@@ -27,11 +25,11 @@ func _process(delta):
 			main.emit_signal("start_meteors")
 			queue_free()
 	if rad_to_deg(currentOrbit) < 359:
-		currentOrbit += deg_to_rad((delta * (orbitalSpeed / float(orbitalDistance))) / TIME_FACTOR)
+		currentOrbit += deg_to_rad((delta * (orbitalSpeed / float(orbitalDistance))) / GlobalData.timeFactor)
 	else:
 		currentOrbit = deg_to_rad(0)
 	if rad_to_deg(currentRot) < 359:
-		currentRot += deg_to_rad((delta * rotationSpeed) / TIME_FACTOR)
+		currentRot += deg_to_rad((delta * rotationSpeed) / GlobalData.timeFactor)
 	else:
 		currentRot = deg_to_rad(0)
 	position = orbitingBody.position + Vector2(cos(currentOrbit) * orbitalDistance,sin(currentOrbit) * orbitalDistance)

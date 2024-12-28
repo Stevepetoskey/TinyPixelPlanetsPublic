@@ -78,6 +78,8 @@ func _ready():
 			texture.texture = load("res://textures/blocks/purple_quartz_bricks_1.png") if fmod(pos.x,2.0) == 0 else load("res://textures/blocks/purple_quartz_bricks_2.png")
 		276:
 			texture.texture = load("res://textures/blocks/blue_quartz_bricks_1.png") if fmod(pos.x,2.0) == 0 else load("res://textures/blocks/blue_quartz_bricks_2.png")
+		282:
+			texture.texture = load("res://textures/blocks/smooth_stone_bricks_1.png") if fmod(pos.y,2.0) == 0 else load("res://textures/blocks/smooth_stone_bricks_2.png")
 
 func world_loaded():
 	on_update()
@@ -88,7 +90,7 @@ func weather_changed(weather):
 
 func on_update():
 	if layer < 1:
-		if world.transparentBlocks.has(world.get_block_id(pos,1)) and ([0,10,77].has(world.get_block_id(pos,1)) or id != world.get_block_id(pos,1)):
+		if GlobalData.blockData[world.get_block_id(pos,1)]["transparent"] and ([0,10,77].has(world.get_block_id(pos,1)) or id != world.get_block_id(pos,1)):
 			show()
 		else:
 			hide()
@@ -107,13 +109,13 @@ func on_update():
 	
 	if world.worldLoaded and (visible_on_screen_notifier_2d.is_on_screen() or [14,18].has(id)):
 		match id:
-			10,77,154: #logs
+			10,77,154,297: #logs
 				if world.get_block_id(pos - Vector2(0,1),layer) == id or world.get_block_id(pos + Vector2(0,1),layer) == id:
-					texture.texture = {10:load("res://textures/blocks/log_v.png"),77:load("res://textures/blocks/exotic_log_v.png"),154:load("res://textures/blocks/acacia_log_v.png")}[id]
+					texture.texture = {10:load("res://textures/blocks/log_v.png"),77:load("res://textures/blocks/exotic_log_v.png"),154:load("res://textures/blocks/acacia_log_v.png"),297:load("res://textures/blocks/willow_log_v.png")}[id]
 				elif world.get_block_id(pos - Vector2(1,0),layer) == id or world.get_block_id(pos + Vector2(1,0),layer) == id:
-					texture.texture = {10:load("res://textures/blocks/log_h.png"),77:load("res://textures/blocks/exotic_log_h.png"),154:load("res://textures/blocks/acacia_log_h.png")}[id]
+					texture.texture = {10:load("res://textures/blocks/log_h.png"),77:load("res://textures/blocks/exotic_log_h.png"),154:load("res://textures/blocks/acacia_log_h.png"),297:preload("res://textures/blocks/willow_log_h.png")}[id]
 				else:
-					texture.texture = {10:load("res://textures/blocks/log_front.png"),77:load("res://textures/blocks/exotic_log_front.png"),154:load("res://textures/blocks/acacia_log_front.png")}[id]
+					texture.texture = {10:load("res://textures/blocks/log_front.png"),77:load("res://textures/blocks/exotic_log_front.png"),154:load("res://textures/blocks/acacia_log_front.png"),297:preload("res://textures/blocks/willow_log_front.png")}[id]
 			18,14:
 				if !falling and pos.y < world.worldSize.y -1:
 					if pos.y < world.worldSize.y - 1 and FALL_BLOCKS.has(world.get_block_id(pos + Vector2(0,1),layer)):
@@ -180,19 +182,19 @@ func on_update():
 					texture.region_rect.position = Vector2(0,8)
 			183,203:
 				var choices = {[false,false,false]:Vector2(16,16),[true,false,false]:Vector2(16,0),[false,true,false]:Vector2(16,16),[false,false,true]:Vector2(0,0),[true,true,false]:Vector2(16,8),[false,true,true]:Vector2(0,8),[true,false,true]:Vector2(8,0),[true,true,true]:Vector2(8,8)}
-				var sides = get_sides_vector2([183,203],true,world.transparentBlocks)
+				var sides = get_sides_vector2([183,203],true)
 				texture.region_rect.position = choices[[sides[Vector2(-1,0)],sides[Vector2(0,-1)],sides[Vector2(1,0)]]]
 
 func get_sides(blockId : int) -> Dictionary:
 	return {"left":world.get_block_id(pos - Vector2(1,0),layer) == blockId,"right":world.get_block_id(pos + Vector2(1,0),layer) == blockId,"top":world.get_block_id(pos - Vector2(0,1),layer) == blockId,"bottom":world.get_block_id(pos + Vector2(0,1),layer) == blockId,"rightTop":world.get_block_id(pos + Vector2(1,-1),layer) == blockId,"leftTop":world.get_block_id(pos - Vector2(1,1),layer) == blockId,"bottomRight":world.get_block_id(pos + Vector2(1,1),layer) == blockId,"bottomLeft":world.get_block_id(pos + Vector2(-1,1),layer) == blockId}
 
-func get_sides_vector2(blockIds : Array,whiteListMode : bool = false, ignoreBlocks : Array = []) -> Dictionary:
+func get_sides_vector2(blockIds : Array,whiteListMode : bool = false) -> Dictionary:
 	var sides = {}
 	for x in range(-1,2):
 		for y in range(-1,2):
 			if !(x==0 and y==0):
 				if whiteListMode:
-					sides[Vector2(x,y)] = !ignoreBlocks.has(world.get_block_id(pos + Vector2(x,y),layer)) or blockIds.has(world.get_block_id(pos + Vector2(x,y),layer))
+					sides[Vector2(x,y)] = !GlobalData.blockData[world.get_block_id(pos + Vector2(x,y),layer)]["transparent"] or blockIds.has(world.get_block_id(pos + Vector2(x,y),layer))
 				else:
 					sides[Vector2(x,y)] = blockIds.has(world.get_block_id(pos + Vector2(x,y),layer))
 	return sides

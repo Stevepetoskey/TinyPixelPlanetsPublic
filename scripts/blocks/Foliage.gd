@@ -85,6 +85,19 @@ func _ready() -> void:
 			var topBlock = world.get_block_id(pos-Vector2(0,1),layer)
 			if [0].has(topBlock):
 				world.build_event("Break", pos, layer,0,world.worldLoaded)
+		294,295:
+			if !data.has("size"):
+				data["size"] = randi_range(0,1)
+			if data["size"] > 0:
+				position.y -= 4
+				$Sprite2D.texture = load("res://textures/blocks/tall_" + {294:"blue",295:"pink"}[id] + "_glow_mushroom.png")
+		299:
+			z_index -= 1
+			$Sprite2D.texture = load("res://textures/blocks/plants/willow_tree/willow_tree_1.png")
+			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
+			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
+			#position.x += 0.5
+			position -= Vector2(12,44)
 
 func world_loaded():
 	on_update()
@@ -94,7 +107,7 @@ func on_update():
 		match id:
 			6,7,160,161,196:
 				var bottomBlock = world.get_block_id(pos+Vector2(0,1),layer)
-				if !world.blockData[id]["can_place_on"].has(bottomBlock):
+				if !GlobalData.blockData[id]["can_place_on"].has(float(bottomBlock)):
 					world.build_event("Break", pos, layer)
 			121,122,123,221:
 				var bottomBlock = world.get_block(pos+Vector2(0,1),layer)

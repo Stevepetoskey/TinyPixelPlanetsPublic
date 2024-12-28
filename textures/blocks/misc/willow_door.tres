@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" load_steps=3 format=3 uid="uid://cwx84ta42diwm"]
+
+[ext_resource type="Texture2D" uid="uid://cyf6gkwghdd28" path="res://textures/blocks/willow_door_closed.png" id="1_pnbpl"]
+[ext_resource type="Texture2D" uid="uid://b8dstcoal38r4" path="res://textures/blocks/willow_door_open.png" id="2_b7tat"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_pnbpl")
+}],
+"loop": true,
+"name": &"close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_b7tat")
+}],
+"loop": true,
+"name": &"open",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_pnbpl")
+}],
+"loop": true,
+"name": &"start_closed",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_b7tat")
+}],
+"loop": true,
+"name": &"start_open",
+"speed": 5.0
+}]

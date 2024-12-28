@@ -4,6 +4,7 @@ extends Control
 @onready var mode_btn: Button = $VBoxContainer/Mode/ModeBtn
 @onready var difficulty_btn: Button = $VBoxContainer/Difficulty/DifficultyBtn
 @onready var difficulty_desc: Label = $VBoxContainer/Difficulty/DifficultyDesc
+@onready var tutorials_btn: CheckButton = $VBoxContainer/TutorialsBtn
 
 var difficulties : Dictionary = {
 	"easy":{"title":"Easy","desc":"Lose nothing on death"},
@@ -12,6 +13,7 @@ var difficulties : Dictionary = {
 	}
 
 func open() -> void:
+	#Default gamerules are set after creating a save, so this will know the gamerules have not been set yet if they don't exist
 	if Global.gamerules.has("difficulty"):
 		difficulty_btn.text = difficulties[Global.gamerules["difficulty"]]["title"]
 		difficulty_desc.text = difficulties[Global.gamerules["difficulty"]]["desc"]
@@ -22,6 +24,10 @@ func open() -> void:
 		mode_btn.text = "Godmode" if Global.gamerules["start_with_godmode"] else "Survival"
 	else:
 		mode_btn.text = "Survival"
+	if Global.gamerules.has("tutorial"):
+		tutorials_btn.button_pressed = Global.gamerules["tutorial"]
+	else:
+		tutorials_btn.button_pressed = Global.settings["tutorial_autoset_to"]
 	show()
 
 func _on_mode_btn_pressed() -> void:
@@ -47,3 +53,11 @@ func _on_game_settings_btn_pressed() -> void:
 	GlobalAudio.play_ui_sound("button_pressed")
 	character.show()
 	hide()
+
+func _on_tutorials_btn_toggled(toggled_on: bool) -> void:
+	print("button toggled")
+	GlobalAudio.play_ui_sound("button_pressed")
+	Global.gamerules["tutorial"] = toggled_on
+	Global.settings["tutorial_autoset_to"] = toggled_on
+	print(Global.gamerules["tutorial"])
+	Global.save_settings()

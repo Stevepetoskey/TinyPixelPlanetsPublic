@@ -1,7 +1,7 @@
 extends Node
 
-const CURRENTVER = "TU6 Beta 1 (v0.6.1)"
-const VER_NUMS = [0,6,0,1]
+const CURRENTVER = "TU6 Beta 2 (v0.6.2)"
+const VER_NUMS = [0,6,0,2]
 const ALLOW_VERSIONS = [
 	[0,4,1,0],
 	[0,4,2,0],
@@ -15,7 +15,8 @@ const ALLOW_VERSIONS = [
 	[0,5,1,0],
 	[0,5,2,0],
 	[0,5,3,0],
-	[0,6,0,1]
+	[0,6,0,1],
+	[0,6,0,2]
 ]
 #Incompatable versions:
 #[0,4,0,8] and [0,4,0,0] (as of TU4.1). Reason: Updated to godot 4
@@ -36,6 +37,7 @@ var scenario = "sandbox"
 var starterPlanetId : int
 var godmode = false
 var pause = false
+var showTutorials : bool = true
 var enemySpawning = true
 var entitySpawning = true
 var inTutorial = false
@@ -49,6 +51,7 @@ var default_bookmarks = [
 var default_settings = {
 	"music":10,
 	"autosave_interval":2,
+	"tutorial_autoset_to":true,
 	"keybinds":{"build":{"event_type":"mouse","id":1},"build2":{"event_type":"mouse","id":2},"action1":{"event_type":"key","id":74},"action2":{"event_type":"key","id":75},"background_toggle":{"event_type":"key","id":66},"inventory":{"event_type":"key","id":69},"ach":{"event_type":"key","id":90},"fly":{"event_type":"key","id":70}}
 }
 var bookmarks : Array= []
@@ -64,6 +67,7 @@ var gamerulesBase = {
 	"can_respawn":true,
 	"difficulty":"normal",
 	"start_with_godmode":false,
+	"tutorial":true
 }
 var gamerules = {}
 
@@ -82,6 +86,10 @@ func _ready():
 	if FileAccess.file_exists(save_path + "settings.dat"):
 		var file = FileAccess.open(save_path + "settings.dat",FileAccess.READ)
 		settings = file.get_var()
+		#Ensures settings are up to date with current version
+		for default : String in default_settings:
+			if !settings.has(default):
+				settings[default] = default_settings[default]
 	else:
 		settings = default_settings.duplicate(true)
 		save_settings()
@@ -175,6 +183,7 @@ func open_save(saveId : String) -> void:
 			meteorsAttacked = false if !playerData.has("misc_stats") else playerData["misc_stats"]["meteors_attacked"]
 			StarSystem.landedPlanetTypes = [] if !playerData.has("landed_planet_types") else playerData["landed_planet_types"]
 			GlobalGui.completedAchievements = [] if !playerData.has("achievements") else playerData["achievements"]
+			GlobalGui.completedTutorials = [] if !playerData.has("tutorials") else playerData["tutorials"]
 			StarSystem.systemDat = load_system(playerData["current_system"])
 			entered_save.emit()
 			StarSystem.load_system()
@@ -193,6 +202,9 @@ func teleport_to_planet(systemId : String, planet : int) -> void:
 
 func new_save(saveId : String):
 	playerData.clear()
+	#Sets tutorial to the last choice
+	if !gamerules.has("tutorial"):
+		gamerules["tutorial"] = settings["tutorial_autoset_to"]
 	gamerules.merge(gamerulesBase.duplicate(true))
 	godmode = gamerules["start_with_godmode"]
 	bookmarks = default_bookmarks.duplicate(true)
@@ -211,7 +223,7 @@ func new_save(saveId : String):
 			gamerules["can_respawn"] = false
 	blues = 0
 	killCount = 0
-	StarSystem.landedPlanetTypes = []
+	StarSystem.landedPlanetTypes.clear()
 	var dir = DirAccess.open(save_path)
 	dir.make_dir(saveId)
 	dir.open(save_path + saveId)
@@ -221,7 +233,8 @@ func new_save(saveId : String):
 	copy_directory_recursively("res://data/pre_made_planets",save_path + saveId + "/planets",true)
 	copy_directory_recursively("res://data/pre_made_systems",save_path + saveId + "/systems",true)
 	copy_directory_recursively("res://data/structures",save_path + saveId + "/structures",true)
-	GlobalGui.completedAchievements = []
+	GlobalGui.completedAchievements.clear()
+	GlobalGui.completedTutorials.clear()
 	globalGameTime = 0
 	entered_save.emit()
 	var _er = get_tree().change_scene_to_file("res://scenes/Main.tscn")
@@ -266,6 +279,7 @@ func load_structure(structureName : String) -> Dictionary:
 func save(saveType : String, saveData : Dictionary) -> void:
 	playerData["save_type"] = saveType
 	playerData["achievements"] = GlobalGui.completedAchievements
+	playerData["tutorials"] = GlobalGui.completedTutorials
 	playerData["kill_count"] = killCount
 	playerData["landed_planet_types"] = StarSystem.landedPlanetTypes
 	playerData["scenario"] = scenario
@@ -333,6 +347,15 @@ func load_data(path : String) -> Dictionary:
 	else:
 		lData = {}
 	return lData
+
+func load_json_data(path : String) -> Dictionary:
+	var jData : Dictionary = {}
+	if FileAccess.file_exists(path):
+		var file = FileAccess.open(path,FileAccess.READ)
+		var parse = JSON.parse_string(file.get_as_text())
+		if parse is Dictionary:
+			jData = parse
+	return jData
 
 func delete(dir : String) -> void:
 	if DirAccess.dir_exists_absolute(save_path + dir):

@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://br7pamytrlhqh"]
+
+[ext_resource type="Shader" path="res://shaders/item_upgrade.gdshader" id="1_a8usp"]
+[ext_resource type="Texture2D" uid="uid://3mablbc2i558" path="res://textures/items/rhodonite_pick.png" id="2_u0y3g"]
+[ext_resource type="Script" path="res://scripts/GUI/main/item_gui.gd" id="3_1yi1v"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tjdju"]
+resource_local_to_scene = true
+shader = ExtResource("1_a8usp")
+shader_parameter/bottom_color = Color(1.471, 0, 2.004, 0.271)
+shader_parameter/top_color = Color(0, 1.47843, 2, 0.270588)
+shader_parameter/wave_amp = 0.046
+shader_parameter/wave_size = 1.0
+shader_parameter/wave_time_mul = 0.58
+shader_parameter/total_phases = 4
+shader_parameter/useShine = false
+
+[node name="ItemGUI" type="TextureRect"]
+material = SubResource("ShaderMaterial_tjdju")
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("2_u0y3g")
+stretch_mode = 3
+script = ExtResource("3_1yi1v")

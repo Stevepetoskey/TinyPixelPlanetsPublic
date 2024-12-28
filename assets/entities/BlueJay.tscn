@@ -74,11 +74,13 @@ size = Vector2(4, 3)
 
 [node name="BlueJay" type="CharacterBody2D"]
 z_index = 1
+use_parent_material = true
 collision_layer = 16
 script = ExtResource("1_sye7b")
 type = "blue_jay"
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_64r3e")
 animation = &"idle"
 

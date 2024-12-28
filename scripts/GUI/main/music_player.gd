@@ -21,7 +21,7 @@ func pop_up() -> void:
 func update_data() -> void:
 	var currentChip : Dictionary = currentMusicPlayer.data["current_track"]
 	if discData.has(currentChip["id"]):
-		item_texture.texture = world.get_item_texture(currentChip["id"])
+		item_texture.texture = GlobalData.get_item_texture(currentChip["id"])
 		title_lbl.text = discData[currentChip["id"]]["title"]
 		by_lbl.text = discData[currentChip["id"]]["by"]
 	else:

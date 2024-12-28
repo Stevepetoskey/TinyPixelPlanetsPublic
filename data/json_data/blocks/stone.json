@@ -1,0 +1,12 @@
+{
+	"id":3,
+	"texture":"blocks/stone.png",
+	"hardness":2,
+	"canHaverst":1,
+	"drops":[{"id":8,"amount":1}],
+	"name":"Stone",
+	"type":"simple",
+	"transparent":false,
+	"can_collide":true,
+	"interactable":false
+}

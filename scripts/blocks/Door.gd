@@ -13,9 +13,9 @@ signal destroyed
 
 func _ready():
 	match id:
-		171:
+		171,301:
 			$Texture.position.x = 4
-	$Texture.sprite_frames = world.blockData[id]["door_animation"]
+	$Texture.sprite_frames = load("res://textures/" + GlobalData.blockData[id]["door_animation"])
 	inputs["I1"] = {}
 	input_node.offset = position
 	main.connect("toggle_pins",toggle_pins)
@@ -53,18 +53,19 @@ func interact():
 		wait = false
 
 func calculate(inputValues := [],ignoreTick := false):
-	if inputValues.is_empty():
-		inputValues = inputs["I1"].values()
-	if !calculating or ignoreTick:
-		calculating = true
-		await get_tree().create_timer(0.02).timeout
-		var on = inputValues.has(true)
-		data["last_input"] = inputs["I1"].values()
-		if on != data["opened"]:
-			data["opened"] = on
-			collision_layer = max_col_layer if !data["opened"] else 0
-			$Texture.play("open" if on else "close")
-		calculating = false
+	if get_tree() != null:
+		if inputValues.is_empty():
+			inputValues = inputs["I1"].values()
+		if !calculating or ignoreTick:
+			calculating = true
+			await get_tree().create_timer(0.02).timeout
+			var on = inputValues.has(true)
+			data["last_input"] = inputs["I1"].values()
+			if on != data["opened"]:
+				data["opened"] = on
+				collision_layer = max_col_layer if !data["opened"] else 0
+				$Texture.play("open" if on else "close")
+			calculating = false
 
 func wire_broke(inputPin : String,wire : TextureRect):
 	inputs[inputPin].erase(wire)
@@ -88,7 +89,7 @@ func world_loaded():
 
 func on_update():
 	if layer < 1:
-		if world.transparentBlocks.has(world.get_block_id(pos,1)) and ([0,10,77].has(world.get_block_id(pos,1)) or id != world.get_block_id(pos,1)):
+		if GlobalData.blockData[world.get_block_id(pos,1)]["transparent"] and ([0,10,77].has(world.get_block_id(pos,1)) or id != world.get_block_id(pos,1)):
 			show()
 		else:
 			hide()

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://ct43p4kfy3aye"]
+
+[ext_resource type="Theme" uid="uid://der0x8rw3vflt" path="res://themes/Blue.tres" id="1_hyddp"]
+[ext_resource type="Texture2D" uid="uid://nbi7nxx8fo6g" path="res://textures/blocks/smooth_stone.png" id="1_ogxp0"]
+
+[node name="CraftItem" type="HBoxContainer"]
+theme = ExtResource("1_hyddp")
+theme_override_constants/separation = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "2"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_ogxp0")

@@ -21,6 +21,7 @@ gravity = Vector3(0, -10, 0)
 [node name="GPUParticles2D" type="GPUParticles2D"]
 z_index = 10
 material = SubResource("1")
+use_parent_material = true
 emitting = false
 amount = 12
 process_material = SubResource("2")

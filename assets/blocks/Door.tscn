@@ -8,10 +8,12 @@
 size = Vector2(3, 24)
 
 [node name="Door" type="StaticBody2D"]
+use_parent_material = true
 script = ExtResource("1_5sgly")
 
 [node name="Texture" type="AnimatedSprite2D" parent="."]
 light_mask = 2
+use_parent_material = true
 position = Vector2(2.08165e-12, 2.08165e-12)
 sprite_frames = ExtResource("2_dfd2d")
 animation = &"start_closed"

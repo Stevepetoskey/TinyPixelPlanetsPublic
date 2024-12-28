@@ -105,7 +105,7 @@ void fragment() {
 						float light = 1.0 - (dis / lightIntensity);
 						if (lastWallDis > -0.001) {
 							float wallDistance = dis - lastWallDis;
-							float lightWallLost = wallDistance * 1.5;
+							float lightWallLost = wallDistance * 1.5 - 1.5;
 							light = 1.0 - ((dis + lightWallLost)/ lightIntensity);
 						}
 

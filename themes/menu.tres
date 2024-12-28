@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=36 format=3 uid="uid://b02uwgbscq35l"]
+[gd_resource type="Theme" load_steps=38 format=3 uid="uid://b02uwgbscq35l"]
 
 [ext_resource type="FontVariation" uid="uid://c4nuc5bd0kohq" path="res://fonts/PixelPossFix.tres" id="1_34cyi"]
 [ext_resource type="Texture2D" uid="uid://bxs1tl342yhqg" path="res://textures/GUI/space/space_btn_hover.png" id="2_vci7x"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://df88wx2t7pu7m" path="res://textures/GUI/space/space_btn_pressed.png" id="4_51o6t"]
 [ext_resource type="Texture2D" uid="uid://dnn80m6vcarqi" path="res://textures/GUI/Menu/slider_grabber.png" id="5_df7x2"]
 [ext_resource type="Texture2D" uid="uid://bapii56ulxirf" path="res://textures/GUI/space/Space_panel.png" id="5_l0a6i"]
+[ext_resource type="Texture2D" uid="uid://ivtsm20ramo4" path="res://textures/GUI/Menu/btns/check_mark_on.png" id="5_s3mp5"]
+[ext_resource type="Texture2D" uid="uid://cbfktkfw6y1ui" path="res://textures/GUI/Menu/btns/check_mark_off.png" id="6_4poad"]
 [ext_resource type="Texture2D" uid="uid://cxcm2r5qlatfm" path="res://textures/GUI/Menu/slider_progress.png" id="6_h0i7d"]
 [ext_resource type="Texture2D" uid="uid://chrutco2wkhom" path="res://textures/GUI/misc/v_bar_handle.png" id="6_rv35f"]
 [ext_resource type="Texture2D" uid="uid://b0cdnqtj7uul0" path="res://textures/GUI/Menu/slider_back.png" id="7_00yqr"]
@@ -148,6 +150,16 @@ Button/styles/focus = SubResource("StyleBoxEmpty_akq3g")
 Button/styles/hover = SubResource("StyleBoxTexture_j5526")
 Button/styles/normal = SubResource("StyleBoxTexture_yw0av")
 Button/styles/pressed = SubResource("StyleBoxTexture_6rqqw")
+CheckBox/icons/checked = ExtResource("5_s3mp5")
+CheckBox/icons/checked_disabled = null
+CheckBox/icons/radio_checked = null
+CheckBox/icons/radio_checked_disabled = null
+CheckBox/icons/radio_unchecked = null
+CheckBox/icons/radio_unchecked_disabled = null
+CheckBox/icons/unchecked = ExtResource("6_4poad")
+CheckBox/icons/unchecked_disabled = null
+CheckButton/icons/checked = ExtResource("5_s3mp5")
+CheckButton/icons/unchecked = ExtResource("6_4poad")
 HSlider/icons/grabber = ExtResource("5_df7x2")
 HSlider/icons/grabber_disabled = ExtResource("5_df7x2")
 HSlider/icons/grabber_highlight = ExtResource("5_df7x2")
