@@ -28,6 +28,12 @@ func get_item_data(item_id : int) -> Dictionary:
 		return itemData[item_id]
 	return {}
 
+func get_item_stack_size(item_id : int) -> int:
+	if get_item_data(item_id).has("stack_size"):
+		return get_item_data(item_id)["stack_size"]
+	else:
+		return 99
+
 func get_item_texture(item_id : int) -> Texture2D:
 	if blockData.has(item_id):
 		return load("res://textures/" + blockData[item_id]["texture"])

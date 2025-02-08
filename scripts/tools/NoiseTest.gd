@@ -13,6 +13,7 @@ var world : Dictionary = {}
 var img : Image
 
 func _ready() -> void:
+	print([122,145].hash() == [145,122].hash())
 	#Global.currentSave = "save2"
 	$Timer.start()
 	generate()

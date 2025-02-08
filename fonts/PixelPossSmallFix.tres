@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://bqvvrmeooarid"]
+
+[ext_resource type="FontFile" uid="uid://c72erwxvdt2b6" path="res://fonts/PixelpossiblitiesSmall.ttf" id="1_m12ir"]
+
+[resource]
+base_font = ExtResource("1_m12ir")
+spacing_top = -5

@@ -515,7 +515,7 @@
 	"texture":"items/corn.png",
 	"type":"Food",
 	"name":"Corn",
-	"regen":4,
+	"regen":2,
 	"desc":"[color=cornflowerblue]+4 HP[/color]"
 },
 "129":{
@@ -550,10 +550,10 @@
 },
 "140":{
 	"texture":"items/bread.png",
-	"type":"Food",
+	"type":"cooked_food",
 	"name":"Bread",
-	"regen":8,
-	"desc":"[color=cornflowerblue]+8 HP[/color]"
+	"stack_size":1,
+	"starter_data":{"regen":0}
 },
 "165":{
 	"texture":"items/iron.png",
@@ -764,4 +764,116 @@
 	"type":"Item",
 	"name":"Red diamond"
 },
+"304":{
+	"texture":"items/raw_meat.png",
+	"type":"Food",
+	"name":"Raw meat",
+	"regen":4,
+	"desc":"[color=cornflowerblue]+3 HP[/color]"
+},
+"305":{
+	"texture":"items/tomato_soup.png",
+	"type":"cooked_food",
+	"name":"Tomato soup",
+	"stack_size":1,
+	"starter_data":{"regen":0}
+},
+"306":{
+	"texture":"items/boiled_corn.png",
+	"type":"cooked_food",
+	"name":"Boiled corn",
+	"stack_size":1,
+	"starter_data":{"regen":0}
+},
+"307":{
+	"texture":"items/mushroom_platter.png",
+	"type":"cooked_food",
+	"name":"Mushroom platter",
+	"stack_size":1,
+	"starter_data":{"regen":0}
+},
+"308":{
+	"texture":"items/cooked_meat.png",
+	"type":"cooked_food",
+	"name":"Cooked meat",
+	"stack_size":1,
+	"starter_data":{"regen":0}
+},
+"309":{
+	"texture":"items/salad.png",
+	"type":"cooked_food",
+	"name":"Salad",
+	"stack_size":1,
+	"starter_data":{"regen":0}
+},
+"310":{
+	"texture":"items/diced_tomatoes_and_meat.png",
+	"type":"cooked_food",
+	"name":"Diced tomatoes and meat",
+	"stack_size":1,
+	"starter_data":{"regen":0}
+},
+"311":{
+	"texture":"items/diced_mushrooms_and_meat.png",
+	"type":"cooked_food",
+	"name":"Diced mushrooms and meat",
+	"stack_size":1,
+	"starter_data":{"regen":0}
+},
+"312":{
+	"texture":"items/corn_with_meat.png",
+	"type":"cooked_food",
+	"name":"Corn with meat",
+	"stack_size":1,
+	"starter_data":{"regen":0}
+},
+"313":{
+	"texture":"items/burger.png",
+	"type":"cooked_food",
+	"name":"burger",
+	"stack_size":1,
+	"starter_data":{"regen":0}
+},
+"314":{
+	"texture":"items/tomato_burger.png",
+	"type":"cooked_food",
+	"name":"Tomato burger",
+	"stack_size":1,
+	"starter_data":{"regen":0}
+},
+"315":{
+	"texture":"items/mushroom_burger.png",
+	"type":"cooked_food",
+	"name":"Mushroom burger",
+	"stack_size":1,
+	"starter_data":{"regen":0}
+},
+"316":{
+	"texture":"items/corn_burger.png",
+	"type":"cooked_food",
+	"name":"Corn burger",
+	"stack_size":1,
+	"starter_data":{"regen":0}
+},
+"317":{
+	"texture":"items/glow_stew.png",
+	"type":"cooked_food",
+	"name":"Glow stew",
+	"stack_size":1,
+	"starter_data":{"regen":0}
+},
+"318":{
+	"texture":"items/salad_with_meat.png",
+	"type":"cooked_food",
+	"name":"Salad with meat",
+	"stack_size":1,
+	"starter_data":{"regen":0}
+},
+"319":{
+	"texture":"items/pure_slop.png",
+	"type":"Food",
+	"name":"Pure slop",
+	"regen":2,
+	"desc":"[color=cornflowerblue]+2 HP[/color]"
+}
 }

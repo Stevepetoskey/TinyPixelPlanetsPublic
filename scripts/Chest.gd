@@ -9,6 +9,7 @@ var currentChest = null
 @onready var inventory = $"../Inventory"
 @onready var ITEM_STACK_SIZE = inventory.ITEM_STACK_SIZE
 @onready var item_container = $ItemScroll/ItemContainer
+@onready var transfer_ui: NinePatchRect = $"../Inventory/TransferUI"
 
 func update_chest(chest = currentChest):
 	currentChest = chest
@@ -52,15 +53,9 @@ func add_to_chest(id:int,amount:int,data:Dictionary) -> Dictionary:
 
 func chest_btn_clicked(loc,item):
 	var itemData : Dictionary = currentChest.data[loc]
-	if !itemData.has("data"):
+	if !itemData.has("data"): #Ensures parity from older version where not all items were required to have the data tag
 		itemData["data"] = {}
-	currentChest.data.remove_at(loc)
-	var leftover = inventory.add_to_inventory(itemData["id"],itemData["amount"],true,itemData["data"])
-	if !leftover.is_empty():
-		add_to_chest(leftover["id"],leftover["amount"],leftover["data"])
-	else:
-		update_chest()
-	inventory.update_inventory()
+	transfer_ui.begin_transfer(itemData,"inventory",loc,"chest")
 
 func mouse_in_btn(loc : int):
 	$"../ItemData".display(currentChest.data[loc])

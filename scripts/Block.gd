@@ -80,6 +80,9 @@ func _ready():
 			texture.texture = load("res://textures/blocks/blue_quartz_bricks_1.png") if fmod(pos.x,2.0) == 0 else load("res://textures/blocks/blue_quartz_bricks_2.png")
 		282:
 			texture.texture = load("res://textures/blocks/smooth_stone_bricks_1.png") if fmod(pos.y,2.0) == 0 else load("res://textures/blocks/smooth_stone_bricks_2.png")
+		320:
+			if data.is_empty():
+				data = {"fuel":{"id":0,"amount":0,"data":{}},"cooks_left":0,"max_fuel":0}
 
 func world_loaded():
 	on_update()

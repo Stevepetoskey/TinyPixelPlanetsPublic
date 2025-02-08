@@ -17,6 +17,8 @@ func _process(_delta):
 			inventory.inv_btn_action(loc,"j")
 		if Input.is_action_just_pressed("action2"):
 			inventory.inv_btn_action(loc,"k")
+		if Input.is_action_just_pressed("build2"):
+			inventory.inv_btn_action(loc,"right_click")
 
 func _pressed() -> void:
 	inventory.inv_btn_clicked(loc,self)

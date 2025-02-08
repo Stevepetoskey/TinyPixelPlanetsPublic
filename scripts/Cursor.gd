@@ -183,6 +183,8 @@ func _unhandled_input(_event):
 											$"../CanvasLayer/TeleportPrompt".show()
 					263:
 						inventory.inventoryToggle(false,true,"wool_work_table")
+					320:
+						inventory.inventoryToggle(false,true,"cooking_pot")
 			elif Input.is_action_just_pressed("build2") and wireIn.size() > 0:
 				if is_instance_valid(wireIn[0]):
 					wireIn[0].break_wire()
@@ -269,6 +271,12 @@ func tool_action(itemId : int, ref := 0) -> void:
 				inventory.remove_amount_at_loc(ref,1)
 				player.health += itemSelect["regen"]
 				effects.floating_text(player.position, "+" + str(itemSelect["regen"]), Color.GREEN)
+		"cooked_food":
+			if player.health < player.maxHealth:
+				var regen : int = inventory.inventory[ref]["data"]["regen"]
+				player.health = min(player.maxHealth,player.health + regen)
+				inventory.remove_amount_at_loc(ref,1)
+				effects.floating_text(player.position, "+" + str(regen), Color.GREEN)
 
 func get_item_upgrades(itemData : Dictionary) -> Dictionary:
 	var upgrades : Dictionary

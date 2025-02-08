@@ -22,6 +22,8 @@ const ITEM_STACK_SIZE = 99
 @onready var godmode: Control = $"../Godmode"
 @onready var upgrade: Control = $"../Upgrade"
 @onready var music_player: Control = $"../MusicPlayer"
+@onready var cooking_pot: Control = $"../CookingPot"
+@onready var transfer_ui: NinePatchRect = $TransferUI
 
 var blockTutorials : Dictionary = {12:"crafting_table",16:"oven",28:"smithing_table",30:"platforms",91:"chests",159:"chests",121:"seeds",122:"seeds",123:"seeds",221:"seeds",145:"signs",167:"lever",168:"display_block",169:"logic_block",170:"flip_block",171:"doors",172:"doors",301:"doors",176:"button",216:"upgrade_table",241:"music_player",243:"timer_block",246:"endgame_locator",263:"wool_work_table"}
 var itemTutorials : Dictionary = {113:"buckets",114:"buckets",115:"buckets",116:"buckets",129:"hoes",130:"hoes",131:"watering_cans",132:"watering_cans",166:"wires",191:"magma_ball",205:"coolant_shard",215:"upgrade_module",238:"music_chips",239:"music_chips",240:"music_chips"}
@@ -145,6 +147,7 @@ func remove_loc_from_inventory(loc : int) -> void:
 func remove_amount_at_loc(loc : int,amount : int) -> void:
 	if loc < inventory.size() and !Global.godmode:
 		inventory[loc]["amount"] -= amount
+		print("removed!")
 		if inventory[loc]["amount"] <= 0:
 			remove_loc_from_inventory(loc)
 		else:
@@ -259,34 +262,79 @@ func update_inventory() -> void:
 		kAction.get_node("Item").texture = null
 	crafting.update_crafting()
 
-func inv_btn_clicked(loc : int,item : Object):
-	if chest.visible:
-		var leftover = chest.add_to_chest(inventory[loc]["id"],inventory[loc]["amount"],inventory[loc]["data"])
-		remove_loc_from_inventory(loc)
-		if leftover.is_empty():
+func transfer_items(itemData : Dictionary, to : String, loc : int) -> void:
+	match to:
+		"chest":
+			if jRef == loc:
+				jId = 0
+				jRef = -1
+			if kRef == loc:
+				kId = 0
+				kRef = -1
+			var leftover = chest.add_to_chest(itemData["id"],itemData["amount"],itemData["data"])
+			inventory[loc]["amount"] -= itemData["amount"]
+			if inventory[loc]["amount"] <= 0:
+				remove_loc_from_inventory(loc)
+			if leftover.is_empty():
+				update_inventory()
+				chest.update_chest()
+			else:
+				add_to_inventory(leftover["id"],leftover["amount"],true,leftover["data"])
+		"inventory":
+			var leftover = add_to_inventory(itemData["id"],itemData["amount"],true,itemData["data"])
+			transfer_ui.finished_transfer(leftover)
 			update_inventory()
-			chest.update_chest()
-		else:
-			add_to_inventory(leftover["id"],leftover["amount"],true,leftover["data"])
-	else:
-		if !holding:
-			holding = true
-			holdingRef = loc
-			item.texture_normal = load("res://textures/GUI/main/inventory/inventory_holding.png")
-		else:
-			$change.play()
-			var new = inventory[holdingRef].duplicate(true)
-			if holdingRef == jRef:
-				jRef = loc
-			elif holdingRef == kRef:
-				kRef = loc
-			elif loc == jRef:
-				jRef = holdingRef
-			elif loc == kRef:
-				kRef = holdingRef
-			inventory[holdingRef] = inventory[loc].duplicate(true)
-			inventory[loc] = new
+		"cooking_pot_fuel":
+			print("Sending item: ",itemData)
+			var leftover : int = 0
+			cooking_pot.currentPot.data["fuel"]["id"] = itemData["id"]
+			if cooking_pot.currentPot.data["fuel"]["amount"] + itemData["amount"] <= GlobalData.get_item_stack_size(itemData["id"]):
+				cooking_pot.currentPot.data["fuel"]["amount"] += itemData["amount"]
+			else:
+				leftover = cooking_pot.currentPot.data["fuel"]["amount"] + itemData["amount"] - GlobalData.get_item_stack_size(itemData["id"])
+			inventory[loc]["amount"] -= itemData["amount"] - leftover
+			if inventory[loc]["amount"] <= 0:
+				remove_loc_from_inventory(loc)
 			update_inventory()
+			cooking_pot.update_textures()
+
+func btn_clicked(loc : int, item : TextureButton) -> void:
+	if !transfer_ui.visible and visible:
+		if chest.visible:
+			transfer_ui.begin_transfer(inventory[loc],"chest",loc)
+		elif cooking_pot.visible:
+			if cooking_pot.fuel.has(inventory[loc]["id"]) and [0,inventory[loc]["id"]].has(cooking_pot.currentPot.data["fuel"]["id"]):
+				transfer_ui.begin_transfer(inventory[loc],"cooking_pot_fuel",loc)
+			elif cooking_pot.ingredients.has(inventory[loc]["id"]) and cooking_pot.add_to_pot(inventory[loc]):
+				remove_amount_at_loc(loc,1)
+		else:
+			if !holding:
+				holding = true
+				holdingRef = loc
+				match item:
+					slot1:
+						item.texture_normal = load("res://textures/GUI/main/hotbar/hotbar1_selected.png")
+					slot2:
+						item.texture_normal = load("res://textures/GUI/main/hotbar/hotbar2_selected.png")
+					_:
+						item.texture_normal = load("res://textures/GUI/main/inventory/inventory_holding.png")
+			else:
+				$change.play()
+				var new = inventory[holdingRef].duplicate(true)
+				if holdingRef == jRef:
+					jRef = loc
+				elif holdingRef == kRef:
+					kRef = loc
+				elif loc == jRef:
+					jRef = holdingRef
+				elif loc == kRef:
+					kRef = holdingRef
+				inventory[holdingRef] = inventory[loc].duplicate(true)
+				inventory[loc] = new
+				update_inventory()
+
+func inv_btn_clicked(loc : int,item : TextureButton):
+	btn_clicked(loc,item)
 
 func mouse_in_btn(loc : int):
 	if inventory.size() > loc and visible:
@@ -298,6 +346,7 @@ func mouse_out_btn():
 func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 	GlobalGui.close_ach()
 	$"../ItemData".hide()
+	transfer_ui.hide()
 	holding = false
 	if toggle:
 		setValue = !visible
@@ -315,6 +364,7 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 			godmode.hide()
 			upgrade.clear()
 			music_player.hide()
+			cooking_pot.clear()
 		"inventory","crafting_table","oven","smithing_table","wool_work_table":
 			opened_inventory.emit()
 			if !Global.godmode or mode != "inventory":
@@ -332,6 +382,9 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 			chest.update_chest(world.get_block(cursor.cursorPos,cursor.currentLayer))
 		"lily_mart","skips_stones":
 			shop.pop_up(mode)
+		"cooking_pot":
+			cooking_pot.currentPot = world.get_block(cursor.cursorPos,cursor.currentLayer)
+			cooking_pot.pop_up()
 
 func inv_btn_action(location : int,action : String) -> void:
 	var item = inventory[location]["id"]
@@ -355,73 +408,10 @@ func inv_btn_action(location : int,action : String) -> void:
 	update_inventory()
 
 func _on_InventoryBtn_pressed():
-	if visible:
-		if chest.visible:
-			var leftover = chest.add_to_chest(inventory[0]["id"],inventory[0]["amount"],inventory[0]["data"])
-			if jRef == 0:
-				jId = 0
-			if kRef == 0:
-				kId = 0
-			remove_loc_from_inventory(0)
-			if leftover.is_empty():
-				update_inventory()
-				chest.update_chest()
-			else:
-				add_to_inventory(leftover["id"],leftover["amount"],true,leftover["data"])
-		else:
-			if !holding:
-				holding = true
-				holdingRef = 0
-				slot1.texture_normal = load("res://textures/GUI/main/hotbar/hotbar1_selected.png")
-			else:
-				$change.play()
-				var new = inventory[holdingRef].duplicate(true)
-				if holdingRef == jRef:
-					jRef = 0
-				elif holdingRef == kRef:
-					kRef = 0
-				elif 0 == jRef:
-					jRef = holdingRef
-					print("bruh: ",jRef)
-				elif 0 == kRef:
-					kRef = holdingRef
-				inventory[holdingRef] = inventory[0].duplicate(true)
-				inventory[0] = new
-				update_inventory()
+	btn_clicked(0,slot1)
 
 func _on_InventoryBtn2_pressed():
-	if visible:
-		if chest.visible:
-			var leftover = chest.add_to_chest(inventory[1]["id"],inventory[1]["amount"],inventory[1]["data"])
-			if jRef == 1:
-				jId = 1
-			if kRef == 1:
-				kId = 1
-			remove_loc_from_inventory(1)
-			if leftover.is_empty():
-				update_inventory()
-				chest.update_chest()
-			else:
-				add_to_inventory(leftover["id"],leftover["amount"],true,leftover["data"])
-		else:
-			if !holding:
-				holding = true
-				holdingRef = 1
-				slot2.texture_normal = load("res://textures/GUI/main/hotbar/hotbar2_selected.png")
-			else:
-				$change.play()
-				var new = inventory[holdingRef].duplicate(true)
-				if holdingRef == jRef:
-					jRef = 1
-				elif holdingRef == kRef:
-					kRef = 1
-				elif 1 == jRef:
-					jRef = holdingRef
-				elif 1 == kRef:
-					kRef = holdingRef
-				inventory[holdingRef] = inventory[1].duplicate(true)
-				inventory[1] = new
-				update_inventory()
+	btn_clicked(1,slot2)
 
 func _on_clear_btn_pressed() -> void:
 	inventory = []

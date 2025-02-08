@@ -2366,7 +2366,7 @@
 	"can_collide":true,
 	"interactable":false
 },
-"304":{
+"320":{
 	"texture":"blocks/cooking_pot_unlit.png",
 	"hardness":5,
 	"canHaverst":3,
