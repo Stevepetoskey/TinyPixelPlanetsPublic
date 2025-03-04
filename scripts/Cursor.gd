@@ -262,6 +262,8 @@ func tool_action(itemId : int, ref := 0) -> void:
 						speedModifier += get_item_upgrades(inventory.inventory[ref])["speed"] * max(1,itemSelect["speed"]/2.0)
 					$break/AnimationPlayer.speed_scale = (1 / float(hardness)) * speedModifier
 					$break/AnimationPlayer.play("break")
+					_on_break_sound_timer_timeout()
+					$BreakSoundTimer.start()
 					breaking = true
 		"Hoe":
 			if [1,2].has(world.get_block_id(cursorPos,currentLayer)):
@@ -290,6 +292,7 @@ func get_item_upgrades(itemData : Dictionary) -> Dictionary:
 
 func stop_breaking():
 	breaking = false
+	$BreakSoundTimer.stop()
 	$break/AnimationPlayer.play("RESET")
 
 func _on_playerTest_body_entered(_body):
@@ -302,8 +305,9 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "break" and breaking:
 		breaking = false
 		$break/AnimationPlayer.play("RESET")
+		$BreakSoundTimer.stop()
 		GlobalGui.complete_achievement("One small step")
-		world.build_event("Break",position / world.BLOCK_SIZE,currentLayer)
+		world.build_event("Break",cursorPos,currentLayer)
 
 func _on_ShopTest_body_entered(body):
 	currentShop = body
@@ -359,3 +363,6 @@ func _on_main_input_pressed(logicBlock : LogicBlock, pin : String) -> void:
 		if good:
 			currentWire.setup()
 			currentWire = null
+
+func _on_break_sound_timer_timeout() -> void:
+	GlobalAudio.play_block_audio_2d(world.get_block_id(cursorPos,currentLayer),"step",position)

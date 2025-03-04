@@ -261,6 +261,45 @@ var tutorials : Dictionary = {
 	}
 }
 
+var idToTutorial : Dictionary = {
+	12:"crafting_table",
+	16:"oven",
+	28:"smithing_table",
+	91:"chests",
+	159:"chests",
+	121:"seeds",
+	122:"seeds",
+	123:"seeds",
+	221:"seeds",
+	145:"signs",
+	167:"lever",
+	168:"display_block",
+	169:"logic_block",
+	170:"flip_block",
+	171:"doors",
+	172:"doors",
+	301:"doors",
+	176:"button",
+	216:"upgrade_table",
+	241:"music_player",
+	243:"timer_block",
+	246:"endgame_locator",
+	263:"wool_work_table",
+	113:"buckets",
+	114:"buckets",
+	129:"hoes",
+	130:"hoes",
+	131:"watering_cans",
+	132:"watering_cans",
+	166:"wires",
+	191:"magma_ball",
+	205:"coolant_shard",
+	215:"upgrade_module",
+	238:"music_chips",
+	239:"music_chips",
+	240:"music_chips"
+}
+
 var completedTutorials : Array = []
 var completedAchievements : Array = []
 

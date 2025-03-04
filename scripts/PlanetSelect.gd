@@ -11,6 +11,7 @@ var pause = false
 signal system_loaded
 
 func _ready():
+	get_tree().paused = false #Makes sure the scene is never left paused when going to new scene
 	if StarSystem.loadFromGalaxy:
 		print("From galaxy!")
 		loading_animations.play("start")
@@ -78,9 +79,10 @@ func get_save_data() -> Dictionary:
 	return {"player":{"pos":$ship.position},"system":StarSystem.get_system_data()}
 
 func discover_planet(id : int):
-	StarSystem.visitedPlanets.append(id)
-	print(StarSystem.visitedPlanets)
-	nav.update_nav()
+	if !StarSystem.visitedPlanets.has(id):
+		StarSystem.visitedPlanets.append(id)
+		print(StarSystem.visitedPlanets)
+		nav.update_nav()
 
 func _on_Galaxy_pressed():
 	StarSystem.leave_star_system()

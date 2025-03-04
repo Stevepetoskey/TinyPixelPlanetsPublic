@@ -37,10 +37,21 @@ var lightColorDict = {}
 @onready var sky: Node2D = $"../ParallaxBackground2/Sky"
 var oldTime = -9999.0
 var active = false
+var maxVolume : float
 
-@onready var daySound: AudioStreamPlayer = $"../../sfx/DaySound"
-@onready var nightSound: AudioStreamPlayer = $"../../sfx/NightSound"
-@onready var constantSound: AudioStreamPlayer = $"../../sfx/ConstantSound"
+@onready var environment_sfx: Node = $"../../EnvironmentSFX"
+@onready var daySound: AudioStreamPlayer = $"../../EnvironmentSFX/DaySound"
+@onready var nightSound: AudioStreamPlayer = $"../../EnvironmentSFX/NightSound"
+@onready var constantSound: AudioStreamPlayer = $"../../EnvironmentSFX/ConstantSound"
+
+func _ready() -> void:
+	update_audio()
+	Global.audio_changed.connect(update_audio)
+
+func update_audio() -> void:
+	maxVolume = GlobalAudio.get_volume("environment")
+	for sfx : AudioStreamPlayer in environment_sfx.get_children():
+		sfx.volume_db = GlobalAudio.get_volume("environment")
 
 func _process(delta):
 	if active:
@@ -49,22 +60,22 @@ func _process(delta):
 		match TOD:
 			"day":
 				set_sounds(true,false)
-				daySound.volume_db = -10
+				daySound.volume_db = maxVolume
 				Global.lightColor = lightColorDict.DAY
 				Global.lightIntensity = lightIntensityDict.DAY
 				skyTexture.modulate = skyColorDict.DAY
 				skyTexture.show()
 			"night":
 				set_sounds(false,true)
-				nightSound.volume_db = -10
+				nightSound.volume_db = maxVolume
 				Global.lightColor = lightColorDict.NIGHT
 				Global.lightIntensity = lightIntensityDict.NIGHT
 				skyTexture.modulate = skyColorDict.NIGHT * Color(1,1,1,0)
 				skyTexture.hide()
 			"sunset":
 				set_sounds(true,true)
-				daySound.volume_db = lerp(-80,-10,time)
-				nightSound.volume_db = lerp(-10,-80,time)
+				daySound.volume_db = lerp(maxVolume-100,maxVolume,time)
+				nightSound.volume_db = lerp(maxVolume,maxVolume-100,time)
 				skyTexture.show()
 				if time >= 0.5:
 					skyTexture.modulate = lerp(skyColorDict.DAY,skyColorDict.SUNSET,1-(time-0.5)*2.0)
@@ -76,8 +87,8 @@ func _process(delta):
 					Global.lightIntensity = lerp(lightIntensityDict.SUNSET,lightIntensityDict.NIGHT,1-(time*2.0))
 			"sunrise":
 				set_sounds(true,true)
-				daySound.volume_db = lerp(-80,-10,time)
-				nightSound.volume_db = lerp(-10,-80,time)
+				daySound.volume_db = lerp(maxVolume-100,maxVolume,time)
+				nightSound.volume_db = lerp(maxVolume,maxVolume-100,time)
 				skyTexture.show()
 				if time <= 0.5:
 					Global.lightColor = lerp(lightColorDict.NIGHT,lightColorDict.SUNRISE,time*2.0)
@@ -148,7 +159,6 @@ func _on_World_world_loaded():
 			daySound.stream = load("res://Audio/sfx/Ambience/mixkit-spring-forest-with-woodpeckers-1217.wav")
 			nightSound.stream = load("res://Audio/sfx/Ambience/mixkit-summer-crickets-loop-1788.ogg")
 			constantSound.stream = load("res://Audio/sfx/Ambience/mixkit-wind-in-the-forest-loop-1233.ogg")
-			constantSound.volume_db = -15
 			constantSound.play()
 		"snow_terra","snow":
 			daySound.stream = load("res://Audio/sfx/Ambience/mixkit-blizzard-cold-winds-1153.ogg")

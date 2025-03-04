@@ -23,3 +23,16 @@ This branch is for unstable development of TU6 (v0.6.0)
 - Removed bread from oven crafting
 - Added new tutorial system and replaced the old tutorial button with a walkthrough button.
 - Started work on implementing Character V3 model. Pushing out this update incase I destroy everything while adding character.
+## TU6 beta 4 (v0.6.0:4)
+- Changed sex ids from Guy and Woman to male and female
+- Updated character model and armors to Model v3
+- Updated settings menu, now each category has it's own tab
+- Added sound effects and environment audio sliders under audio settings
+- Settings menu can now be accessed from the in game pause menu
+- Added walking sfx
+- Player walk animation now varries with player speed
+- Player now uses oxygen when underwater
+- Bubbles now form from player when underwater
+- Fixed being able to discover the same planet multiple times
+- Fixed leaving planet with inventory open freezing the game
+- Added placing and breaking sound effects

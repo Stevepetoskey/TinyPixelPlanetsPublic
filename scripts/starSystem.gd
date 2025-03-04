@@ -182,7 +182,7 @@ var hostileSpawn = {
 	"grassland":["slorg"],
 	"scorched":[],
 	"frigid":[],
-	"mystical":[]
+	"mystical":["shork"]
 }
 
 var creatureSpawn = {
@@ -273,25 +273,13 @@ signal start_meteors
 
 func start_game():
 	print("---start game---")
-	if Global.new:
+	if Global.newPlanet and Global.gameStart:
 		new_game()
 		await self.found_system
 		Global.currentPlanet = find_planet("type","terra").id
 		Global.starterPlanetId = Global.currentPlanet
 		Global.playerData["original_system"] = Global.currentSystemId
 		Global.playerData["original_planet"] = Global.currentPlanet
-		#if Global.scenario == "meteor": #Adds the commet if meteor scenario
-			#var commet = PLANET.instantiate()
-			#commet.id = get_system_bodies().size()
-			#commet.type = {"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"}
-			#commet.hasAtmosphere = false
-			#commet.orbitalDistance = 500
-			#commet.orbitingBody = find_planet_id(Global.currentPlanet)
-			#commet.orbitalSpeed = 0
-			#commet.rotationSpeed = 0
-			#commet.currentOrbit = deg_to_rad(randi() % 360)
-			#commet.currentRot = deg_to_rad(randi() % 360)
-			#$system.add_child(commet)
 		print("Current Planet: ", find_planet_id(Global.currentPlanet).pName)
 	planetReady = true
 	print("---Planet Ready---")

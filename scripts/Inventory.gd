@@ -74,7 +74,7 @@ func add_to_inventory(id : int,amount : int,drop : bool = true,data := {}) -> Di
 			GlobalGui.complete_achievement("Location needed")
 	if GlobalData.get_item_data(id).has("type") and GlobalData.get_item_data(id)["type"] == "weapon":
 		GlobalGui.complete_achievement("Ready for battle")
-	$collect.play()
+	GlobalAudio.play_sound_effect("Game/collect_item.ogg")
 	if amount > 0:
 		var itemData = GlobalData.get_item_data(id)
 		if itemData.has("starter_data") and data.is_empty():
@@ -319,7 +319,7 @@ func btn_clicked(loc : int, item : TextureButton) -> void:
 					_:
 						item.texture_normal = load("res://textures/GUI/main/inventory/inventory_holding.png")
 			else:
-				$change.play()
+				GlobalAudio.play_sound_effect("GUI/inventory.ogg")
 				var new = inventory[holdingRef].duplicate(true)
 				if holdingRef == jRef:
 					jRef = loc
@@ -389,7 +389,7 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 func inv_btn_action(location : int,action : String) -> void:
 	var item = inventory[location]["id"]
 	if GlobalData.itemData.has(item) and ["tool","weapon","Hoe"].has(GlobalData.itemData[item]["type"]):
-		$equip.play()
+		GlobalAudio.play_sound_effect("GUI/equip.ogg")
 		match action:
 			"j":
 				if jRef == location:

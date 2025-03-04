@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccku8crixriaw"
-path="res://.godot/imported/Waves.png-4f734590cee31a531c8a1d57661b839e.ctex"
+path="res://.godot/imported/Waves.png-43b3daaf7b91cad4ce69d91e66950f7a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/player/Hair/Waves.png"
-dest_files=["res://.godot/imported/Waves.png-4f734590cee31a531c8a1d57661b839e.ctex"]
+source_file="res://textures/player/hair/Waves.png"
+dest_files=["res://.godot/imported/Waves.png-43b3daaf7b91cad4ce69d91e66950f7a.ctex"]
 
 [params]
 

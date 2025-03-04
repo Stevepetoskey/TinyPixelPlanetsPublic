@@ -15,6 +15,7 @@
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
+	"sound_file":"grass",
 	"exclude_shade_sides":["top"]
 },
 "2":{
@@ -24,6 +25,7 @@
 	"drops":[{"id":2,"amount":1}],
 	"name":"Dirt",
 	"type":"simple",
+	"sound_file":"grass",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -35,6 +37,7 @@
 	"drops":[{"id":8,"amount":1}],
 	"name":"Stone",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -47,6 +50,7 @@
 	"name":"Yellow Flower",
 	"can_place_on":[1,2,146,147],
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -60,6 +64,7 @@
 	"name":"Pink Flower",
 	"can_place_on":[1,2,146,147],
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -72,6 +77,7 @@
 	"drops":[{"id":8,"amount":1}],
 	"name":"Cobble",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -83,6 +89,7 @@
 	"drops":[{"id":10,"amount":[3,6]},{"id":11,"amount":[0,3]}],
 	"name":"Tree",
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -95,6 +102,7 @@
 	"drops":[{"id":10,"amount":1}],
 	"name":"Log",
 	"type":"block",
+	"sound_file":"wood",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -108,6 +116,7 @@
 	"name":"Pinecone",
 	"can_place_on":[1,2,24],
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -120,6 +129,7 @@
 	"drops":[{"id":12,"amount":1}],
 	"name":"Workbench",
 	"type":"simple",
+	"sound_file":"wood",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":true,
@@ -132,6 +142,7 @@
 	"drops":[{"id":13,"amount":1}],
 	"name":"Planks",
 	"type":"simple",
+	"sound_file":"wood",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -143,6 +154,7 @@
 	"drops":[{"id":14,"amount":1}],
 	"name":"Sand",
 	"type":"block",
+	"sound_file":"sand",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -154,6 +166,7 @@
 	"drops":[{"id":15,"amount":1}],
 	"name":"Stone bricks",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -165,6 +178,7 @@
 	"drops":[{"id":16,"amount":1}],
 	"name":"Oven",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":true
@@ -176,6 +190,7 @@
 	"drops":[{"id":17,"amount":1}],
 	"name":"Mud stone",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -187,6 +202,7 @@
 	"drops":[{"id":18,"amount":1}],
 	"name":"Mud stone dust",
 	"type":"block",
+	"sound_file":"sand",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -198,6 +214,7 @@
 	"drops":[{"id":19,"amount":1}],
 	"name":"Mud stone bricks",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -209,6 +226,7 @@
 	"drops":[{"id":20,"amount":1}],
 	"name":"Glass",
 	"type":"block",
+	"sound_file":"glass",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -221,6 +239,7 @@
 	"drops":[{"id":21,"amount":1}],
 	"name":"Snow block",
 	"type":"simple",
+	"sound_file":"snow",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -232,6 +251,7 @@
 	"drops":[{"id":22,"amount":1}],
 	"name":"Sandstone",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -243,6 +263,7 @@
 	"drops":[{"id":23,"amount":1}],
 	"name":"Sandstone bricks",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -254,6 +275,7 @@
 	"drops":[{"id":24,"amount":1}],
 	"name":"Grass snow",
 	"type":"block",
+	"sound_file":"snow",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -266,6 +288,7 @@
 	"drops":[{"id":25,"amount":1}],
 	"name":"Clay",
 	"type":"simple",
+	"sound_file":"grass",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -277,6 +300,7 @@
 	"drops":[{"id":26,"amount":1}],
 	"name":"Bricks",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -288,6 +312,7 @@
 	"drops":[{"id":27,"amount":1}],
 	"name":"Brick shingles",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -299,6 +324,7 @@
 	"drops":[{"id":28,"amount":1}],
 	"name":"Smithing table",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":true,
@@ -311,6 +337,7 @@
 	"drops":[{"id":29,"amount":1}],
 	"name":"Copper ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -322,6 +349,7 @@
 	"drops":[{"id":30,"amount":1}],
 	"name":"Wood platform",
 	"type":"platform",
+	"sound_file":"wood",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -334,6 +362,7 @@
 	"drops":[{"id":55,"amount":1}],
 	"name":"Silver ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false,
@@ -345,6 +374,7 @@
 	"drops":[{"id":69,"amount":1}],
 	"name":"Exotic grass block",
 	"type":"simple",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -357,6 +387,7 @@
 	"drops":[{"id":70,"amount":1}],
 	"name":"Exotic dirt",
 	"type":"simple",
+	"sound_file":"grass",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -368,6 +399,7 @@
 	"drops":[{"id":71,"amount":1}],
 	"name":"Exotic stone",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -379,6 +411,7 @@
 	"drops":[{"id":72,"amount":1}],
 	"name":"Exotic stone bricks",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -390,6 +423,7 @@
 	"drops":[{"id":74,"amount":1}],
 	"name":"Rhodonite ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -401,6 +435,7 @@
 	"drops":[{"id":75,"amount":1}],
 	"name":"Carved exotic stone",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -412,6 +447,7 @@
 	"drops":[{"id":77,"amount":[3,6]},{"id":85,"amount":[0,3]}],
 	"name":"Exotic tree",
 	"type":"foliage",
+	"sound_file":"wood",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -424,6 +460,7 @@
 	"drops":[{"id":77,"amount":1}],
 	"name":"Exotic log",
 	"type":"block",
+	"sound_file":"wood",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -436,6 +473,7 @@
 	"drops":[{"id":78,"amount":1}],
 	"name":"Exotic planks",
 	"type":"simple",
+	"sound_file":"wood",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -447,6 +485,7 @@
 	"drops":[{"id":79,"amount":1}],
 	"name":"Exotic wood window",
 	"type":"block",
+	"sound_file":"glass",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -459,6 +498,7 @@
 	"drops":[{"id":80,"amount":1}],
 	"name":"Wood window",
 	"type":"block",
+	"sound_file":"glass",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -471,6 +511,7 @@
 	"drops":[{"id":81,"amount":1}],
 	"name":"Copper window",
 	"type":"block",
+	"sound_file":"glass",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -483,6 +524,7 @@
 	"drops":[{"id":82,"amount":1}],
 	"name":"Mossy stone bricks",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -494,6 +536,7 @@
 	"drops":[{"id":83,"amount":1}],
 	"name":"Cracked stone bricks",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -505,6 +548,7 @@
 	"drops":[{"id":84,"amount":1}],
 	"name":"Mossy cobble",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -517,6 +561,7 @@
 	"name":"Exotic sapling",
 	"can_place_on":[69,70],
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -529,6 +574,7 @@
 	"drops":[{"id":86,"amount":1}],
 	"name":"Cracked mud bricks",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -540,6 +586,7 @@
 	"drops":[{"id":87,"amount":1}],
 	"name":"Cracked sandstone bricks",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -551,6 +598,7 @@
 	"drops":[{"id":88,"amount":1}],
 	"name":"Copper block",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -562,6 +610,7 @@
 	"drops":[{"id":89,"amount":1}],
 	"name":"Silver block",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false,
@@ -574,6 +623,7 @@
 	"drops":[{"id":90,"amount":1}],
 	"name":"Rhodonite block",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -585,6 +635,7 @@
 	"drops":[{"id":91,"amount":1}],
 	"name":"Chest",
 	"type":"block",
+	"sound_file":"wood",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":true,
@@ -598,6 +649,7 @@
 	"drops":[{"id":100,"amount":[1,3]}],
 	"name":"Quartz ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -609,6 +661,7 @@
 	"drops":[{"id":101,"amount":[1,3]}],
 	"name":"Rose quartz ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -620,6 +673,7 @@
 	"drops":[{"id":102,"amount":[1,3]}],
 	"name":"Purple quartz ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -631,6 +685,7 @@
 	"drops":[{"id":103,"amount":[1,3]}],
 	"name":"Blue quartz ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -642,6 +697,7 @@
 	"drops":[{"id":108,"amount":1}],
 	"name":"Quartz block",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -653,6 +709,7 @@
 	"drops":[{"id":109,"amount":1}],
 	"name":"Rose quartz block",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -664,6 +721,7 @@
 	"drops":[{"id":110,"amount":1}],
 	"name":"Purple quartz block",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -675,6 +733,7 @@
 	"drops":[{"id":111,"amount":1}],
 	"name":"Blue quartz block",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -686,6 +745,7 @@
 	"drops":[{"id":112,"amount":1}],
 	"name":"Asteroid rock",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -697,6 +757,7 @@
 	"drops":[],
 	"name":"Water",
 	"type":"water",
+	"sound_file":"none",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -708,6 +769,7 @@
 	"drops":[{"id":118,"amount":1}],
 	"name":"Wet sand",
 	"type":"simple",
+	"sound_file":"sand",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -719,6 +781,7 @@
 	"drops":[{"id":2,"amount":1}],
 	"name":"Farmland",
 	"type":"block",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -731,6 +794,7 @@
 	"drops":[{"id":2,"amount":1}],
 	"name":"Wet farmland",
 	"type":"simple",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -744,6 +808,7 @@
 	"name":"Wheat seeds",
 	"can_place_on":[119,120],
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -757,6 +822,7 @@
 	"name":"Tomato seeds",
 	"can_place_on":[119,120],
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -770,6 +836,7 @@
 	"name":"Corn seeds",
 	"can_place_on":[119,120],
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -782,6 +849,7 @@
 	"drops":[{"id":74,"amount":1}],
 	"name":"Rhodonite stone ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -794,6 +862,7 @@
 	"name":"Fig tree",
 	"can_place_on":[1,2],
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":false,
 	"can_collide":false,
 	"interactable":false,
@@ -806,6 +875,7 @@
 	"drops":[{"id":133,"amount":1}],
 	"name":"Copper plate",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -817,6 +887,7 @@
 	"drops":[{"id":134,"amount":1}],
 	"name":"Copper bricks",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -828,6 +899,7 @@
 	"drops":[{"id":135,"amount":1}],
 	"name":"Cracked copper bricks",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -839,6 +911,7 @@
 	"drops":[{"id":136,"amount":1}],
 	"name":"Silver plate",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -850,6 +923,7 @@
 	"drops":[{"id":137,"amount":1}],
 	"name":"Silver bricks",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -861,6 +935,7 @@
 	"drops":[{"id":138,"amount":1}],
 	"name":"Silver bricks",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -872,6 +947,7 @@
 	"drops":[],
 	"name":"Lily Mart",
 	"type":"lily_mart",
+	"sound_file":"none",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":true,
@@ -884,6 +960,7 @@
 	"drops":[],
 	"name":"Skip's stones",
 	"type":"skips_stones",
+	"sound_file":"none",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":true,
@@ -896,6 +973,7 @@
 	"drops":[{"id":142,"amount":1}],
 	"name":"Poster 1",
 	"type":"foliage",
+	"sound_file":"none",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -908,6 +986,7 @@
 	"drops":[{"id":143,"amount":1}],
 	"name":"Poster 2",
 	"type":"foliage",
+	"sound_file":"none",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -920,6 +999,7 @@
 	"drops":[{"id":144,"amount":1}],
 	"name":"Bottom rock",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -931,6 +1011,7 @@
 	"drops":[{"id":145,"amount":1}],
 	"name":"Wood sign",
 	"type":"sign",
+	"sound_file":"wood",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":true,
@@ -943,6 +1024,7 @@
 	"drops":[{"id":146,"amount":1}],
 	"name":"Dry grass block",
 	"type":"block",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -955,6 +1037,7 @@
 	"drops":[{"id":147,"amount":1}],
 	"name":"Dry dirt",
 	"type":"simple",
+	"sound_file":"sand",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -966,6 +1049,7 @@
 	"drops":[{"id":148,"amount":1}],
 	"name":"Pink granite",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -977,6 +1061,7 @@
 	"drops":[{"id":149,"amount":1}],
 	"name":"White granite",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -988,6 +1073,7 @@
 	"drops":[{"id":150,"amount":1}],
 	"name":"Brown granite",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -999,6 +1085,7 @@
 	"drops":[{"id":151,"amount":1}],
 	"name":"Iron ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1010,6 +1097,7 @@
 	"drops":[{"id":152,"amount":1}],
 	"name":"Iron ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1021,6 +1109,7 @@
 	"drops":[{"id":153,"amount":1}],
 	"name":"Iron ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1032,6 +1121,7 @@
 	"drops":[{"id":154,"amount":1}],
 	"name":"Acacia log",
 	"type":"block",
+	"sound_file":"wood",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -1044,6 +1134,7 @@
 	"drops":[{"id":154,"amount":[3,6]},{"id":156,"amount":[0,3]}],
 	"name":"Acacia tree",
 	"type":"foliage",
+	"sound_file":"wood",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -1057,6 +1148,7 @@
 	"name":"Acacia sapling",
 	"can_place_on":[146,147],
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -1069,6 +1161,7 @@
 	"drops":[{"id":157,"amount":1}],
 	"name":"Acacia planks",
 	"type":"simple",
+	"sound_file":"wood",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1080,6 +1173,7 @@
 	"drops":[{"id":158,"amount":1}],
 	"name":"Workbench",
 	"type":"simple",
+	"sound_file":"wood",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":true,
@@ -1092,6 +1186,7 @@
 	"drops":[{"id":159,"amount":1}],
 	"name":"Chest",
 	"type":"block",
+	"sound_file":"wood",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":true,
@@ -1105,6 +1200,7 @@
 	"name":"Grass",
 	"can_place_on":[1,2,146,147],
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -1118,6 +1214,7 @@
 	"name":"Tall grass",
 	"can_place_on":[1,2,146,147],
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -1130,6 +1227,7 @@
 	"drops":[{"id":162,"amount":1}],
 	"name":"Polished pink granite",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1141,6 +1239,7 @@
 	"drops":[{"id":163,"amount":1}],
 	"name":"Polished white granite",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1152,6 +1251,7 @@
 	"drops":[{"id":164,"amount":1}],
 	"name":"Polished brown granite",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1163,6 +1263,7 @@
 	"drops":[{"id":167,"amount":1}],
 	"name":"Lever",
 	"type":"lever",
+	"sound_file":"stone",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":true,
@@ -1175,6 +1276,7 @@
 	"drops":[{"id":168,"amount":1}],
 	"name":"Display block",
 	"type":"display_block",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":false,
 	"interactable":false
@@ -1186,6 +1288,7 @@
 	"drops":[{"id":169,"amount":1}],
 	"name":"Logic block",
 	"type":"logic_block",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":false,
 	"interactable":false
@@ -1197,6 +1300,7 @@
 	"drops":[{"id":170,"amount":1}],
 	"name":"Flip block",
 	"type":"flip_block",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":false,
 	"interactable":false
@@ -1208,6 +1312,7 @@
 	"drops":[{"id":171,"amount":1}],
 	"name":"Wood door",
 	"type":"door",
+	"sound_file":"wood",
 	"door_animation":"blocks/misc/wood_door.tres",
 	"transparent":true,
 	"can_collide":false,
@@ -1221,6 +1326,7 @@
 	"drops":[{"id":172,"amount":1}],
 	"name":"Steel door",
 	"type":"door",
+	"sound_file":"metal",
 	"door_animation":"blocks/misc/steel_door.tres",
 	"transparent":true,
 	"can_collide":false,
@@ -1234,6 +1340,7 @@
 	"drops":[{"id":173,"amount":1}],
 	"name":"Steel",
 	"type":"block",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1245,6 +1352,7 @@
 	"drops":[{"id":174,"amount":1}],
 	"name":"Taped steel",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1256,6 +1364,7 @@
 	"drops":[{"id":175,"amount":1}],
 	"name":"Steel tiles",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1267,6 +1376,7 @@
 	"drops":[{"id":176,"amount":1}],
 	"name":"Button",
 	"type":"button",
+	"sound_file":"stone",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":true,
@@ -1279,6 +1389,7 @@
 	"drops":[{"id":177,"amount":1}],
 	"name":"Scorched rock",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1290,6 +1401,7 @@
 	"drops":[{"id":178,"amount":1}],
 	"name":"Scorched pebbles",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1301,6 +1413,7 @@
 	"drops":[{"id":179,"amount":1}],
 	"name":"Scorched iron ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1312,6 +1425,7 @@
 	"drops":[{"id":180,"amount":1}],
 	"name":"Scorched bricks",
 	"type":"block",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1323,6 +1437,7 @@
 	"drops":[{"id":181,"amount":1}],
 	"name":"Carved scorched bricks",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1334,6 +1449,7 @@
 	"drops":[{"id":182,"amount":1}],
 	"name":"Magma scorched bricks",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1345,6 +1461,7 @@
 	"drops":[{"id":183,"amount":1}],
 	"name":"Scorched brick fence",
 	"type":"block",
+	"sound_file":"stone",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -1357,6 +1474,7 @@
 	"drops":[{"id":184,"amount":1}],
 	"name":"Magma",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1368,6 +1486,7 @@
 	"drops":[{"id":185,"amount":1}],
 	"name":"Dev link block",
 	"type":"block",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1379,6 +1498,7 @@
 	"drops":[{"id":186,"amount":1}],
 	"name":"Structure save block",
 	"type":"block",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":true
@@ -1391,6 +1511,7 @@
 	"drops":[],
 	"name":"Air hold",
 	"type":"foliage",
+	"sound_file":"none",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -1403,6 +1524,7 @@
 	"drops":[{"id":188,"amount":1}],
 	"name":"Scorched platform",
 	"type":"platform",
+	"sound_file":"stone",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -1415,6 +1537,7 @@
 	"drops":[{"id":189,"amount":1}],
 	"name":"Dev chest",
 	"type":"block",
+	"sound_file":"wood",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":true,
@@ -1425,8 +1548,9 @@
 	"hardness":6,
 	"canHaverst":2,
 	"drops":[],
-	"name":"Scorched spawner"
-	,"type":"spawner",
+	"name":"Scorched spawner",
+	"type":"spawner",
+	"sound_file":"metal",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -1439,6 +1563,7 @@
 	"drops":[{"id":192,"amount":1}],
 	"name":"Gold ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1450,6 +1575,7 @@
 	"drops":[{"id":194,"amount":1}],
 	"name":"Gold ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1461,6 +1587,7 @@
 	"drops":[{"id":195,"amount":1}],
 	"name":"Gold block",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1473,6 +1600,7 @@
 	"name":"Desert shrub",
 	"can_place_on":[1,2,146,147,14],
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -1485,6 +1613,7 @@
 	"drops":[{"id":197,"amount":1}],
 	"name":"Permafrost",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1496,6 +1625,7 @@
 	"drops":[{"id":198,"amount":1}],
 	"name":"Permafrost slush",
 	"type":"simple",
+	"sound_file":"snow",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1507,6 +1637,7 @@
 	"drops":[{"id":199,"amount":1}],
 	"name":"Top permafrost slush",
 	"type":"simple",
+	"sound_file":"snow",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -1519,6 +1650,7 @@
 	"drops":[{"id":200,"amount":1}],
 	"name":"Silver ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1530,6 +1662,7 @@
 	"drops":[{"id":201,"amount":1}],
 	"name":"Permafrost bricks",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1541,6 +1674,7 @@
 	"drops":[{"id":202,"amount":1}],
 	"name":"Carved permafrost bricks",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1552,6 +1686,7 @@
 	"drops":[{"id":203,"amount":1}],
 	"name":"Permafrost fence",
 	"type":"block",
+	"sound_file":"stone",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -1564,6 +1699,7 @@
 	"drops":[{"id":204,"amount":1}],
 	"name":"Permafrost platform",
 	"type":"platform",
+	"sound_file":"stone",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -1576,6 +1712,7 @@
 	"drops":[],
 	"name":"Frigid spawner",
 	"type":"spawner",
+	"sound_file":"metal",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -1588,6 +1725,7 @@
 	"drops":[{"id":216,"amount":1}],
 	"name":"Upgrade table",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":true
@@ -1599,6 +1737,7 @@
 	"drops":[{"id":217,"amount":1}],
 	"name":"Moss",
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -1612,6 +1751,7 @@
 	"name":"Blue mud flower",
 	"can_place_on":[1,2,146,147,219],
 	"type":"foliage",
+	"sound_file":"greass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -1624,6 +1764,7 @@
 	"drops":[{"id":219,"amount":1}],
 	"name":"Grassy mud stone",
 	"type":"simple",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -1637,6 +1778,7 @@
 	"name":"Snow flower",
 	"can_place_on":[1,2,21,24],
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -1650,6 +1792,7 @@
 	"name":"Coffee bean",
 	"can_place_on":[119,120],
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -1662,6 +1805,7 @@
 	"drops":[{"id":241,"amount":1}],
 	"name":"Music player",
 	"type":"music_player",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":true
@@ -1673,6 +1817,7 @@
 	"drops":[{"id":242,"amount":1}],
 	"name":"Silver spike",
 	"type":"spike",
+	"sound_file":"metal",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -1685,6 +1830,7 @@
 	"drops":[{"id":243,"amount":1}],
 	"name":"Timer block",
 	"type":"timer_block",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":false,
 	"interactable":true
@@ -1696,6 +1842,7 @@
 	"drops":[{"id":244,"amount":1}],
 	"name":"Trinanium crystal",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":true,
@@ -1708,6 +1855,7 @@
 	"drops":[{"id":245,"amount":1}],
 	"name":"Gold bricks",
 	"type":"simple",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1719,6 +1867,7 @@
 	"drops":[{"id":246,"amount":1}],
 	"name":"Endgame locator",
 	"type":"locator",
+	"sound_file":"metal",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":true,
@@ -1731,6 +1880,7 @@
 	"drops":[{"id":247,"amount":1}],
 	"name":"White wool",
 	"type":"simple",
+	"sound_file":"wool",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1742,6 +1892,7 @@
 	"drops":[{"id":248,"amount":1}],
 	"name":"Light gray wool",
 	"type":"simple",
+	"sound_file":"wool",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1753,6 +1904,7 @@
 	"drops":[{"id":249,"amount":1}],
 	"name":"Gray wool",
 	"type":"simple",
+	"sound_file":"wool",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1764,6 +1916,7 @@
 	"drops":[{"id":250,"amount":1}],
 	"name":"Black wool",
 	"type":"simple",
+	"sound_file":"wool",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1775,6 +1928,7 @@
 	"drops":[{"id":251,"amount":1}],
 	"name":"Red wool",
 	"type":"simple",
+	"sound_file":"wool",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1786,6 +1940,7 @@
 	"drops":[{"id":252,"amount":1}],
 	"name":"Orange wool",
 	"type":"simple",
+	"sound_file":"wool",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1797,6 +1952,7 @@
 	"drops":[{"id":253,"amount":1}],
 	"name":"Yellow wool",
 	"type":"simple",
+	"sound_file":"wool",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1808,6 +1964,7 @@
 	"drops":[{"id":254,"amount":1}],
 	"name":"Yellow green wool",
 	"type":"simple",
+	"sound_file":"wool",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1819,6 +1976,7 @@
 	"drops":[{"id":255,"amount":1}],
 	"name":"Green wool",
 	"type":"simple",
+	"sound_file":"wool",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1830,6 +1988,7 @@
 	"drops":[{"id":256,"amount":1}],
 	"name":"Cyan wool",
 	"type":"simple",
+	"sound_file":"wool",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1841,6 +2000,7 @@
 	"drops":[{"id":257,"amount":1}],
 	"name":"Blue wool",
 	"type":"simple",
+	"sound_file":"wool",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1852,6 +2012,7 @@
 	"drops":[{"id":258,"amount":1}],
 	"name":"Purple wool",
 	"type":"simple",
+	"sound_file":"wool",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1863,6 +2024,7 @@
 	"drops":[{"id":259,"amount":1}],
 	"name":"Pink wool",
 	"type":"simple",
+	"sound_file":"wool",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1874,6 +2036,7 @@
 	"drops":[{"id":260,"amount":1}],
 	"name":"Brown wool",
 	"type":"simple",
+	"sound_file":"wool",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1885,6 +2048,7 @@
 	"drops":[{"id":261,"amount":1}],
 	"name":"Tan wool",
 	"type":"simple",
+	"sound_file":"wool",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1896,6 +2060,7 @@
 	"drops":[{"id":262,"amount":1}],
 	"name":"Maroon wool",
 	"type":"simple",
+	"sound_file":"wool",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -1907,6 +2072,7 @@
 	"drops":[{"id":263,"amount":1}],
 	"name":"Wool work table",
 	"type":"simple",
+	"sound_file":"wood",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":true
@@ -1918,6 +2084,7 @@
 	"drops":[{"id":264,"amount":1}],
 	"name":"Cyan LED lamp",
 	"type":"simple",
+	"sound_file":"metal",
 	"light_color":"50c2fc",
 	"light_intensity":8,
 	"transparent":true,
@@ -1932,6 +2099,7 @@
 	"drops":[{"id":265,"amount":1}],
 	"name":"Red LED lamp",
 	"type":"simple",
+	"sound_file":"metal",
 	"light_color":"e34848",
 	"light_intensity":8,
 	"transparent":true,
@@ -1946,6 +2114,7 @@
 	"drops":[{"id":266,"amount":1}],
 	"name":"Orange LED lamp",
 	"type":"simple",
+	"sound_file":"metal",
 	"light_color":"ff9751",
 	"light_intensity":8,
 	"transparent":true,
@@ -1960,6 +2129,7 @@
 	"drops":[{"id":267,"amount":1}],
 	"name":"Yellow LED lamp",
 	"type":"simple",
+	"sound_file":"metal",
 	"light_color":"ffdc61",
 	"light_intensity":8,
 	"transparent":true,
@@ -1974,6 +2144,7 @@
 	"drops":[{"id":268,"amount":1}],
 	"name":"Yellow green LED lamp",
 	"type":"simple",
+	"sound_file":"metal",
 	"light_color":"b5c36a",
 	"light_intensity":8,
 	"transparent":true,
@@ -1988,6 +2159,7 @@
 	"drops":[{"id":269,"amount":1}],
 	"name":"Green LED lamp",
 	"type":"simple",
+	"sound_file":"metal",
 	"light_color":"28c044",
 	"light_intensity":8,
 	"transparent":true,
@@ -2002,6 +2174,7 @@
 	"drops":[{"id":270,"amount":1}],
 	"name":"Blue LED lamp",
 	"type":"simple",
+	"sound_file":"metal",
 	"light_color":"5991f6",
 	"light_intensity":8,
 	"transparent":true,
@@ -2016,6 +2189,7 @@
 	"drops":[{"id":271,"amount":1}],
 	"name":"Purple LED lamp",
 	"type":"simple",
+	"sound_file":"metal",
 	"light_color":"9f5da7",
 	"light_intensity":8,
 	"transparent":true,
@@ -2030,6 +2204,7 @@
 	"drops":[{"id":272,"amount":1}],
 	"name":"Pink LED lamp",
 	"type":"simple",
+	"sound_file":"metal",
 	"light_color":"e08ac6",
 	"light_intensity":8,
 	"transparent":true,
@@ -2044,6 +2219,7 @@
 	"drops":[{"id":273,"amount":1}],
 	"name":"Quartz bricks",
 	"type":"block",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2055,6 +2231,7 @@
 	"drops":[{"id":274,"amount":1}],
 	"name":"Rose quartz bricks",
 	"type":"block",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2066,6 +2243,7 @@
 	"drops":[{"id":275,"amount":1}],
 	"name":"Purple quartz bricks",
 	"type":"block",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2077,6 +2255,7 @@
 	"drops":[{"id":276,"amount":1}],
 	"name":"Blue quartz bricks",
 	"type":"block",
+	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2088,6 +2267,7 @@
 	"drops":[{"id":277,"amount":1}],
 	"name":"Asteroid rock bricks",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2099,6 +2279,7 @@
 	"drops":[{"id":278,"amount":1}],
 	"name":"Carved asteroid rock",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2110,6 +2291,7 @@
 	"drops":[{"id":279,"amount":1}],
 	"name":"Polished asteroid rock",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2121,6 +2303,7 @@
 	"drops":[{"id":280,"amount":1}],
 	"name":"Smooth stone",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2132,6 +2315,7 @@
 	"drops":[{"id":281,"amount":1}],
 	"name":"Carved smooth stone bricks",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2143,6 +2327,7 @@
 	"drops":[{"id":282,"amount":1}],
 	"name":"Smooth stone bricks",
 	"type":"block",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2154,6 +2339,7 @@
 	"drops":[{"id":283,"amount":1}],
 	"name":"Mystical grass block",
 	"type":"simple",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -2166,6 +2352,7 @@
 	"drops":[{"id":284,"amount":1}],
 	"name":"Mystical dirt",
 	"type":"simple",
+	"sound_file":"grass",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2177,6 +2364,7 @@
 	"drops":[{"id":286,"amount":1}],
 	"name":"Mystical stone",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2188,6 +2376,7 @@
 	"drops":[{"id":286,"amount":1}],
 	"name":"Mystical cobble",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2199,6 +2388,7 @@
 	"drops":[{"id":287,"amount":1}],
 	"name":"White diamond ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2210,6 +2400,7 @@
 	"drops":[{"id":288,"amount":1}],
 	"name":"Yellow diamond ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2221,6 +2412,7 @@
 	"drops":[{"id":289,"amount":1}],
 	"name":"Red diamond ore",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2232,6 +2424,7 @@
 	"drops":[{"id":293,"amount":1}],
 	"name":"White ball of pure light",
 	"type":"simple",
+	"sound_file":"metal",
 	"light_color":"FFFFFF",
 	"light_intensity":12,
 	"transparent":true,
@@ -2247,6 +2440,7 @@
 	"name":"Blue glow mushroom",
 	"can_place_on":[1,2,146,147,283,284],
 	"type":"foliage",
+	"sound_file":"grass",
 	"light_color":"41b8f6",
 	"light_intensity":5,
 	"transparent":true,
@@ -2262,6 +2456,7 @@
 	"name":"Pink glow mushroom",
 	"can_place_on":[1,2,146,147,283,284],
 	"type":"foliage",
+	"sound_file":"grass",
 	"light_color":"ff538c",
 	"light_intensity":5,
 	"transparent":true,
@@ -2277,6 +2472,7 @@
 	"name":"Glow flower",
 	"can_place_on":[1,2,146,147,283,284],
 	"type":"foliage",
+	"sound_file":"grass",
 	"light_color":"b47ae3",
 	"light_intensity":6,
 	"transparent":true,
@@ -2291,6 +2487,7 @@
 	"drops":[{"id":297,"amount":1}],
 	"name":"Willow log",
 	"type":"block",
+	"sound_file":"wood",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":false,
@@ -2303,6 +2500,7 @@
 	"drops":[{"id":298,"amount":1}],
 	"name":"Willow sapling",
 	"type":"foliage",
+	"sound_file":"grass",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -2315,6 +2513,7 @@
 	"drops":[{"id":297,"amount":[5,10]},{"id":298,"amount":[0,3]}],
 	"name":"Willow tree",
 	"type":"foliage",
+	"sound_file":"wood",
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -2327,6 +2526,7 @@
 	"drops":[{"id":300,"amount":1}],
 	"name":"Willow planks",
 	"type":"simple",
+	"sound_file":"wood",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2338,6 +2538,7 @@
 	"drops":[{"id":301,"amount":1}],
 	"name":"Willow door",
 	"type":"door",
+	"sound_file":"wood",
 	"door_animation":"blocks/misc/willow_door.tres",
 	"transparent":true,
 	"can_collide":false,
@@ -2350,7 +2551,7 @@
 	"canHaverst":4,
 	"drops":[{"id":302,"amount":1}],
 	"name":"Mystical stone bricks",
-	"type":"simple",
+	"type":"simple","sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2362,6 +2563,7 @@
 	"drops":[{"id":303,"amount":1}],
 	"name":"Carved mystical stone bricks",
 	"type":"simple",
+	"sound_file":"stone",
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
@@ -2373,6 +2575,7 @@
 	"drops":[{"id":304,"amount":1}],
 	"name":"Cooking pot",
 	"type":"block",
+	"sound_file":"metal",
 	"transparent":true,
 	"can_collide":true,
 	"interactable":true,

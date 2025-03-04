@@ -13,11 +13,11 @@ const BLOCK_SIZE = Vector2(8,8)
 @export var lightFalloffHeight : int = 0
 
 @onready var inventory = $"../CanvasLayer/Inventory"
-@onready var enviroment = $"../CanvasLayer/Enviroment"
+@onready var environment = $"../CanvasLayer/Environment"
 @onready var armor = $"../CanvasLayer/Inventory/Armor"
 @onready var player = $"../Player"
 @onready var entities = $"../Entities"
-@onready var meteors = $"../CanvasLayer/Enviroment/Meteors"
+@onready var meteors = $"../CanvasLayer/Environment/Meteors"
 
 var blockTypes = {
 	"block":preload("res://assets/blocks/Block.tscn"),
@@ -215,18 +215,14 @@ func _ready():
 
 func start_world():
 	print("World started")
+	#Waits for planet data to be ready
 	if !StarSystem.planetReady:
 		await StarSystem.planet_ready
-	#world size stuff
-	match Global.gamerules["custom_generation"]:
-		"meteor":
-			worldSize = Vector2(256,32)
-		"":
-			worldSize = StarSystem.get_current_world_size()
+	worldSize = StarSystem.get_current_world_size()
 	var currentPlanetData = StarSystem.find_planet_id(Global.currentPlanet)
 	worldType = currentPlanetData.type["type"]
-	lightFalloffHeight = worldSize.y#worldSize.y - (generationData[worldType]["world_height"] + (generationData[worldType]["noise_scale"] * 2))
-	print("light fall off: ",lightFalloffHeight)
+	#Inits light renderer
+	lightFalloffHeight = worldSize.y
 	$"../LightRenderViewport/LightRender".get_node("LightingViewport/SubViewport/LightRect").material.set_shader_parameter("world_size",worldSize)
 	lightMap = Image.create(worldSize.x,worldSize.y,false,Image.FORMAT_RGBA8)
 	lightIntensityMap = Image.create(worldSize.x,worldSize.y,false,Image.FORMAT_RGBA8)
@@ -234,6 +230,7 @@ func start_world():
 	lightIntensityMap.fill(Color("FF000005"))
 	lightIntensityMap.fill_rect(Rect2(Vector2(0,lightFalloffHeight),Vector2(worldSize.x,worldSize.y-lightFalloffHeight)),Color("00000000"))
 	lightMap.fill_rect(Rect2(Vector2(0,lightFalloffHeight),Vector2(worldSize.x,worldSize.y-lightFalloffHeight)),Color("00000000"))
+	#Inits world borders and camera borders
 	$StaticBody2D/Right.position = Vector2(worldSize.x * BLOCK_SIZE.x + 2,(worldSize.y * BLOCK_SIZE.y) / 2)
 	$StaticBody2D/Right.shape.extents.y = (worldSize.y * BLOCK_SIZE.y) / 2
 	$"../Player/PlayerCamera".limit_right = worldSize.x * BLOCK_SIZE.x -4
@@ -242,20 +239,17 @@ func start_world():
 	$StaticBody2D/Left.position.y = (worldSize.y * BLOCK_SIZE.y) / 2 - 8
 	$StaticBody2D/Bottom.shape.extents.y = (worldSize.x * BLOCK_SIZE.x) / 2
 	$StaticBody2D/Bottom.position = Vector2((worldSize.x * BLOCK_SIZE.x) / 2,worldSize.y * BLOCK_SIZE.y)
-	get_node("../CanvasLayer/Black").show()
+	#Hides atmosphere layer if planet does not have atmosphere
 	if !currentPlanetData.hasAtmosphere:
-		get_node("../CanvasLayer/ParallaxBackground/SkyLayer").hide()
+		$"../CanvasLayer/ParallaxBackground/SkyLayer".hide()
 	if worldType == "asteroids":
 		hasGravity = false
-	if !Global.gameStart:
+	if !Global.gameStart: #erases pos if landing on a planet
 		Global.playerData.erase("pos")
-	if Global.inTutorial:
-		player.gender = "Guy"
-		armor.armor = {"Helmet":{},"Hat":{},"Chestplate":{"id":32,"amount":1,"data":{}},"Shirt":{},"Leggings":{"id":33,"amount":1,"data":{}},"Pants":{},"Boots":{"id":34,"amount":1,"data":{}},"Shoes":{}}
-		armor.emit_signal("updated_armor",armor.armor)
-	elif !(Global.gameStart and Global.new):
+	if !(Global.newPlanet and Global.gameStart): #Loads player data if not new
+		print("LOADING PLAYER DATA")
 		load_player_data()
-	if Global.new or Global.load_planet(Global.currentSystemId,Global.currentPlanet).is_empty(): #This is if this is a new planet
+	if Global.newPlanet or Global.load_planet(Global.currentSystemId,Global.currentPlanet).is_empty(): #Generates if is new planet
 		if Global.gameStart: #This is if the game is a new save
 			player.health = Global.gamerules["starting_hp"]
 			player.maxHealth = Global.gamerules["max_hp"]
@@ -270,17 +264,18 @@ func start_world():
 	else:
 		print("loading world")
 		load_world_data()
-	enviroment.set_background(worldType)
-	emit_signal("world_loaded")
-	get_node("../CanvasLayer/ParallaxBackground2/Sky").init_sky()
+	environment.set_background(worldType)
+	world_loaded.emit()
+	$"../CanvasLayer/ParallaxBackground2/Sky".init_sky()
 	worldLoaded = true
-	get_node("../CanvasLayer/Black/AnimationPlayer").play("fadeOut")
+	$"../CanvasLayer/Black/AnimationPlayer".play("fadeOut")
 	await get_tree().process_frame
 	update_light_texture()
-	emit_signal("update_blocks")
+	update_blocks.emit()
 	Global.gameStart = false
 	inventory.update_inventory()
 	Global.save("planet",get_world_data())
+	Global.gameStart = false
 
 func generateWorld(worldType : String):
 	var worldSeed = int(Global.currentSystemId) + Global.currentPlanet
@@ -802,7 +797,7 @@ func get_world_data() -> Dictionary:
 	var data = {}
 	data["player"] = {
 		"armor":armor.armor,"inventory":inventory.inventory,"inventory_refs":{"j":inventory.jRef,"k":inventory.kRef},"health":player.health,"max_health":player.maxHealth,"oxygen":player.oxygen,"suit_oxygen":player.suitOxygen,"max_oxygen":player.maxOxygen,"suit_oxygen_max":player.suitOxygenMax,"current_planet":Global.currentPlanet,"current_system":Global.currentSystemId,"pos":player.position,"save_type":"planet","achievements":GlobalGui.completedAchievements,
-		"misc_stats":{"meteor_stage":meteors.stage,"meteor_progress_time_left":$"../CanvasLayer/Enviroment/Meteors/StageProgress".time_left}
+		"misc_stats":{"meteor_stage":meteors.stage,"meteor_progress_time_left":$"../CanvasLayer/Environment/Meteors/StageProgress".time_left}
 	}
 	data["system"] = StarSystem.get_system_data()
 	data["planet"] = {"blocks":get_blocks_data(),"entities":entities.get_entity_data(),"rules":worldRules,"left_at_time":Global.globalGameTime,"current_weather":$"..".currentWeather,"weather_time_left":$"../weather/WeatherTimer".time_left,"wires":[]}
@@ -840,8 +835,11 @@ func get_structure_blocks(area : Rect2) -> Dictionary:
 func load_player_data() -> void:
 	#Loads player data
 	var playerData = Global.playerData.duplicate(true)
-	Global.playerBase = {"skin":playerData["skin"],"hair_style":playerData["hair_style"],"hair_color":playerData["hair_color"],"sex":playerData["sex"]}
+	print("INVENTORY: ", playerData["inventory"])
+	Global.playerBase = {"skin":playerData["skin"],"hair_style":playerData["hair_style"],"hair_color":playerData["hair_color"],"sex":playerData["sex"],"eye_color":playerData["eye_color"],"eye_style":playerData["eye_style"]}
 	player.get_node("Textures/body").modulate = playerData["skin"]
+	if !["male","female"].has(playerData["sex"]): #Ensures parity with pre TU6 saves
+		playerData["sex"] = {"Guy":"male","Woman":"female"}[playerData["sex"]]
 	player.gender = playerData["sex"]
 	player.health = playerData["health"]
 	player.oxygen = playerData["oxygen"]
@@ -850,10 +848,9 @@ func load_player_data() -> void:
 	player.maxOxygen = playerData["max_oxygen"]
 	player.suitOxygenMax = playerData["suit_oxygen_max"]
 	var inventorySet : Array = playerData["inventory"]
-	if playerData["version"][1] < 5: #adds item data to every item in the inventory if before TU5
-		for item : Dictionary in inventorySet:
-			if !item.has("data"):
-				item["data"] = {}
+	for item : Dictionary in inventorySet: #adds item data to every item in the inventory if before TU5
+		if !item.has("data"):
+			item["data"] = {}
 	inventory.inventory = inventorySet
 	armor.armor = playerData["armor"]
 	armor.emit_signal("updated_armor",armor.armor)
@@ -1004,11 +1001,13 @@ func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction 
 				if ![0,6,7,117].has(get_block_id(pos + Vector2(0,y),layer)):
 					canPlace = false
 		if canPlace:
+			GlobalAudio.play_block_audio_2d(id,"place",pos * BLOCK_SIZE)
 			set_block(pos,layer,id,true)
 			if itemAction:
 				inventory.remove_id_from_inventory(id,1)
 	elif action == "Break" and get_block(pos,layer) != null:
-		var block = get_block(pos,layer).id
+		var block : int = get_block_id(pos,layer)
+		GlobalAudio.play_block_audio_2d(block,"break",pos * BLOCK_SIZE)
 		match block:
 			91:
 				for item in get_block(pos,layer).data:

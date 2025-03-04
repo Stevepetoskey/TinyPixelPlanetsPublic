@@ -1,7 +1,7 @@
 extends Node
 
-const CURRENTVER = "TU6 Beta 3 (v0.6.3)"
-const VER_NUMS = [0,6,0,3]
+const CURRENTVER = "TU6 Beta 4 (v0.6.4)"
+const VER_NUMS = [0,6,0,4]
 const ALLOW_VERSIONS = [
 	[0,4,1,0],
 	[0,4,2,0],
@@ -17,7 +17,8 @@ const ALLOW_VERSIONS = [
 	[0,5,3,0],
 	[0,6,0,1],
 	[0,6,0,2],
-	[0,6,0,3]
+	[0,6,0,3],
+	[0,6,0,4]
 ]
 #Incompatable versions:
 #[0,4,0,8] and [0,4,0,0] (as of TU4.1). Reason: Updated to godot 4
@@ -25,8 +26,8 @@ const STABLE = false
 
 var save_path = "user://" #place of the file
 var currentSave : String
-var new = true
-var gameStart = true
+var newPlanet : bool = true
+var gameStart : bool = true
 var currentPlanet : int
 var currentSystem : int
 var currentSystemId : String
@@ -51,6 +52,8 @@ var default_bookmarks = [
 	]
 var default_settings = {
 	"music":10,
+	"sfx":10,
+	"environment":10,
 	"autosave_interval":2,
 	"tutorial_autoset_to":true,
 	"keybinds":{"build":{"event_type":"mouse","id":1},"build2":{"event_type":"mouse","id":2},"action1":{"event_type":"key","id":74},"action2":{"event_type":"key","id":75},"background_toggle":{"event_type":"key","id":66},"inventory":{"event_type":"key","id":69},"ach":{"event_type":"key","id":90},"fly":{"event_type":"key","id":70}}
@@ -75,13 +78,14 @@ var gamerules = {}
 var lightColor : Color = Color.WHITE
 var lightIntensity : float = 12
 
-var playerBase = {"skin":Color("F8DEC3"),"hair_style":"Short","hair_color":Color("debe99"),"sex":"Guy"}
+var playerBase = {"skin":Color("F8DEC3"),"hair_style":"Short","hair_color":Color("debe99"),"sex":"male"}
 
 signal loaded_data
 signal screenshot
 signal saved_settings
 signal entered_save
 signal left_save
+signal audio_changed
 
 func _ready():
 	if FileAccess.file_exists(save_path + "settings.dat"):
@@ -119,53 +123,16 @@ func save_exists(saveId : String) -> bool:
 		return true
 	return false
 
-func open_tutorial():
-	tutorialStage = 0
-	inTutorial = true
-	currentSave = "save4"
-	gameStart = true
-	new = false
-	if DirAccess.dir_exists_absolute(save_path + currentSave):
-		DirAccess.remove_absolute(save_path + currentSave)
-		#remove_recursive(save_path + currentSave)
-	var dir = DirAccess.open(save_path)
-	dir.make_dir(currentSave)
-	dir.open(save_path + currentSave)
-	dir.make_dir("systems")
-	dir.make_dir("planets")
-	dir.make_dir("structures")
-	#DirAccess.copy_absolute("res://data/Tutorial",save_path + currentSave)
-	#copy_directory_recursively("res://data/Tutorial",save_path + currentSave)
-	copy_directory_recursively("res://data/Tutorial/planets",save_path + currentSave + "/planets",true)
-	copy_directory_recursively("res://data/Tutorial/systems",save_path + currentSave + "/systems",true)
-	copy_directory_recursively("res://data/structures",save_path + currentSave + "/structures",true)
-	currentPlanet = 3
-	starterPlanetId = 3
-	currentSystemId = "3941924765520"
-	godmode = false
-	gamerules = gamerulesBase.duplicate(true)
-	bookmarks = default_bookmarks.duplicate(true)
-	meteorsAttacked = false
-	blues = 0
-	killCount = 0
-	GlobalGui.completedAchievements = []
-	globalGameTime = 0
-	playerData.clear()
-	playerData["save_type"] = "planet"
-	StarSystem.landedPlanetTypes = []
-	StarSystem.systemDat = load_system(currentSystemId)
-	StarSystem.load_system()
-
 func open_save(saveId : String) -> void:
 	inTutorial = false
 	currentSave = saveId
 	gameStart = true
-	new = true
 	if DirAccess.dir_exists_absolute(save_path + saveId):
 		if FileAccess.file_exists(save_path + saveId + "/playerData.dat"):
 			if !DirAccess.dir_exists_absolute(save_path + saveId + "/structures"): #For TU4.2 and before
 				DirAccess.make_dir_absolute(save_path + saveId + "/structures")
 				copy_directory_recursively("res://data/structures",save_path + saveId + "/structures",true)
+			newPlanet = false
 			var savegame = FileAccess.open(save_path + saveId + "/playerData.dat",FileAccess.READ)
 			playerData = savegame.get_var()
 			blues = playerData["blues"]
@@ -188,8 +155,8 @@ func open_save(saveId : String) -> void:
 			StarSystem.systemDat = load_system(playerData["current_system"])
 			entered_save.emit()
 			StarSystem.load_system()
-			new = false
 		else:
+			newPlanet = true
 			new_save(saveId)
 	else:
 		new_save(saveId)
@@ -243,10 +210,15 @@ func new_save(saveId : String):
 func new_planet() -> void:
 	var _er = get_tree().change_scene_to_file("res://scenes/Main.tscn")
 	await get_tree().process_frame
-	new = true
+	newPlanet = true
 	if FileAccess.file_exists(save_path + currentSave + "/planets/" + str(currentSystemId) + "_" + str(currentPlanet) + ".dat"):
-		new = false
+		newPlanet = false
 	emit_signal("loaded_data")
+
+func change_volume_settings(category,value) -> void:
+	settings[category] = value
+	save_settings()
+	audio_changed.emit()
 
 func save_settings():
 	var file = FileAccess.open(save_path + "settings.dat",FileAccess.WRITE)
@@ -295,8 +267,8 @@ func save(saveType : String, saveData : Dictionary) -> void:
 			playerData["gamerules"] = gamerules
 			playerData["scenario"] = scenario
 			playerData["player_name"] = playerName
-			playerData["skin"] = playerBase["skin"];playerData["hair_color"] = playerBase["hair_color"];playerData["hair_style"] = playerBase["hair_style"]
-			playerData["sex"] = playerBase["sex"]
+			print(playerBase)
+			playerData.merge(playerBase)
 			playerData["starter_planet"] = starterPlanetId
 			playerData["godmode"] = godmode
 			playerData["blues"] = blues

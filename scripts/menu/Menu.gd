@@ -8,6 +8,8 @@ func _process(delta: float) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Global.audio_changed.connect(update_audio)
+	update_audio()
 	$Version.text = Global.CURRENTVER
 	$Planet.texture = [load("res://textures/GUI/Menu/planets/terra.png"),load("res://textures/GUI/Menu/planets/mud.png"),load("res://textures/GUI/Menu/planets/desert.png")].pick_random()
 	moon_move.play("default")
@@ -22,6 +24,9 @@ func _ready():
 	await $AnimationPlayer.animation_finished
 	$Main/Buttons.show()
 	$AnimationPlayer.play("buttons")
+
+func update_audio() -> void:
+	$AudioStreamPlayer.volume_db = GlobalAudio.get_volume("music")
 
 func _on_Play_pressed():
 	GlobalAudio.play_ui_sound("button_pressed")
@@ -50,9 +55,8 @@ func _on_Tutorial_pressed():
 func _on_Settings_pressed() -> void:
 	GlobalAudio.play_ui_sound("button_pressed")
 	$Main.hide()
-	$Settings.show()
+	$Settings.display_settings()
 
-func _on_Back_pressed() -> void:
+func _on_settings_settings_closed() -> void:
 	GlobalAudio.play_ui_sound("button_pressed")
-	$Settings.hide()
 	$Main.show()

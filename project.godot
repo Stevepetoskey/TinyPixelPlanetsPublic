@@ -8,6 +8,10 @@
 
 config_version=5
 
+[animation]
+
+warnings/check_invalid_track_paths=false
+
 [application]
 
 config/name="Tiny Pixel Planets"
@@ -37,6 +41,7 @@ settings/fps/force_fps=60
 
 window/size/viewport_width=284
 window/size/viewport_height=160
+window/size/always_on_top=true
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"

@@ -51,21 +51,31 @@ func toggle_wire_visibility(toggle : bool):
 	togglePins = toggle
 	emit_signal("toggle_pins",toggle)
 
-func weather_event(random = true,time = [200,500], set = "none",start = true):
+func weather_event(random = true,time = [200,500], weatherSet = "none",start = true):
 	if !is_instance_valid(weatherAnimation):
 		await self.ready
 	var weatherRandom = RandomNumberGenerator.new()
 	weatherRandom.seed = randi()
 	if random:
-		set = StarSystem.weatherEvents[worldType][weatherRandom.randi()%StarSystem.weatherEvents[worldType].size()]
-	print("starting weather: ",set)
-	currentWeather = set
-	emit_signal("weather_changed",set)
-	weatherAnimation.play(set + ("" if start else "_no_start"))
+		weatherSet = StarSystem.weatherEvents[worldType][weatherRandom.randi()%StarSystem.weatherEvents[worldType].size()]
+	print("starting weather: ",weatherSet)
+	currentWeather = weatherSet
+	emit_signal("weather_changed",weatherSet)
+	weatherAnimation.play(weatherSet + ("" if start else "_no_start"))
 	weatherTimer.start(weatherRandom.randf_range(time[0],time[1]))
 
-func set_weather(random = true,time = [200,500], set = "none",start = true):
-	weatherStartData = {"random":random,"time":time,"set":set,"start":start}
+func set_weather_volume(from : int, to : int) -> void:
+	if from == -1:
+		from = GlobalAudio.get_volume("environment")
+	if to == -1:
+		to = GlobalAudio.get_volume("environment")
+	$EnvironmentSFX/Rain.volume_db = from
+	if to == -2:
+		return
+	var tween = create_tween().tween_property($EnvironmentSFX/Rain,"volume_db",to,1.5)
+
+func set_weather(random = true,time = [200,500], weatherSet = "none",start = true):
+	weatherStartData = {"random":random,"time":time,"set":weatherSet,"start":start}
 
 func new_tutorial_stage():
 	match Global.tutorialStage:
@@ -73,9 +83,13 @@ func new_tutorial_stage():
 			go_up.show()
 			display_text({"text":"Go to space by clicking the 'Go Up' button","text_color":Color.WHITE})
 
-func _on_World_world_loaded():
+func update_keybinds():
 	$CanvasLayer/Hotbar/K/Keybind.text = "?" if Global.settings["keybinds"]["action2"]["event_type"] == "mouse" else char(Global.settings["keybinds"]["action2"]["id"])
 	$CanvasLayer/Hotbar/J/Keybind.text = "?" if Global.settings["keybinds"]["action1"]["event_type"] == "mouse" else char(Global.settings["keybinds"]["action1"]["id"])
+
+func _on_World_world_loaded():
+	Global.saved_settings.connect(update_keybinds)
+	update_keybinds()
 	worldType = StarSystem.find_planet_id(Global.currentPlanet).type["type"]
 	if weatherStartData.is_empty():
 		weather_event(false,[0,500])

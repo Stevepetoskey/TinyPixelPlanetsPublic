@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://rcu1gjenp1bt"]
+[gd_scene load_steps=64 format=3 uid="uid://rcu1gjenp1bt"]
 
 [ext_resource type="Texture2D" uid="uid://c7fk7e4eo8qeg" path="res://textures/enviroment/space-2.png" id="1"]
 [ext_resource type="Script" path="res://scripts/PlanetSelect.gd" id="2"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://bwui75sagu74l" path="res://textures/GUI/space/edit_btn.png" id="31"]
 [ext_resource type="Texture2D" uid="uid://biwdw6yi8s11d" path="res://textures/GUI/space/edit_btn_selected.png" id="32"]
 [ext_resource type="Texture2D" uid="uid://dikst6cin2a3t" path="res://textures/GUI/space/buttons/right_btn_hover.png" id="33"]
+[ext_resource type="PackedScene" uid="uid://cwe5faynqk6l8" path="res://assets/GUI/settings.tscn" id="33_b6qg0"]
 [ext_resource type="Texture2D" uid="uid://bshyluxbvfb60" path="res://textures/GUI/loading/warp/bar.png" id="33_ki8rc"]
 [ext_resource type="Texture2D" uid="uid://0ydsvimi35u6" path="res://textures/GUI/space/buttons/right_btn_pressed.png" id="34"]
 [ext_resource type="Texture2D" uid="uid://bl246wyxhjiml" path="res://textures/GUI/space/buttons/left_btn_pressed.png" id="35"]
@@ -808,6 +809,8 @@ flip_v = true
 libraries = {
 "": SubResource("AnimationLibrary_xu7ho")
 }
+
+[node name="Settings" parent="CanvasLayer" instance=ExtResource("33_b6qg0")]
 
 [node name="system" type="Node2D" parent="."]
 

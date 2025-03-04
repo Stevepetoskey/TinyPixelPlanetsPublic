@@ -19,6 +19,10 @@ const NO_PLATFORM = 1
 @onready var entities = get_node("../Entities")
 @onready var main: Node2D = $".."
 @onready var swing_timer: Timer = $SwingTimer
+@onready var textures: Node2D = $Textures
+@onready var clothes: Node2D = $Textures/Clothes
+@onready var player_animations: AnimationPlayer = $Textures/AnimationPlayer
+
 
 var type = "player"
 var coyote = true
@@ -26,8 +30,9 @@ var timerOn = false
 var jumping = false
 var swinging : bool = false
 var swingingWith : int = 0
-var currentBlocksOn = []
-var canBreath = true
+var currentBlocksOn : Array = []
+var currentBlocksOnHead : Array = []
+var canBreath : bool = true
 var currentTemp : int = 0
 var flying = false
 var defPoints = 0
@@ -41,6 +46,11 @@ var usingJetpack : bool = false
 var movementModifier : int = 0
 var knockedBack : bool = false
 var inControl : bool = true
+var createBubble : bool = true
+var underWater : bool = false
+var currentWearing : Dictionary
+
+var eyeTexture : ImageTexture
 
 var dead = false
 var flipped = false
@@ -55,7 +65,7 @@ var oxygen = 50
 var suitOxygen = 500
 var suitOxygenMax = 500
 
-var gender = "Guy"
+var gender = "male"
 var files = {32:{"folder":"Tops","file":"Shirt.png"},
 	33:{"folder":"Bottoms","file":"Jeans.png"},
 	34:{"folder":"Shoes","file":"Black.png"},
@@ -86,8 +96,23 @@ var files = {32:{"folder":"Tops","file":"Shirt.png"},
 	214:{"folder":"Shoes","file":"Fire.png"},
 	}
 
+var clothesSpritesheets : Dictionary = {
+	46:{"name":"space","contains":["head"]},
+	47:{"name":"space","contains":["left_arm","right_arm","torso"]},
+	48:{"name":"space","contains":["left_leg","right_leg"]},
+	49:{"name":"space","contains":["shoes"]},
+	35:{"name":"copper","contains":["head"]},
+	36:{"name":"copper","contains":["left_arm","right_arm","torso"]},
+	37:{"name":"copper","contains":["left_leg","right_leg"]},
+	38:{"name":"copper","contains":["shoes"]},
+	39:{"name":"silver","contains":["head"]},
+	40:{"name":"silver","contains":["left_arm","right_arm","torso"]},
+	41:{"name":"silver","contains":["left_leg","right_leg"]},
+	42:{"name":"silver","contains":["shoes"]},
+}
+
 func _ready():
-	$Textures/body.texture = load("res://textures/player/Body/" + gender + ".png")
+	update_character()
 	if health < 0:
 		dead = true
 		effects.death_particles(position)
@@ -114,7 +139,7 @@ func _physics_process(_delta):
 			if !world.hasGravity:
 				velocity.y = JUMPSPEED
 			collision_mask = NO_PLATFORM
-			if checkAllBlocks(30) and velocity.y == 0:
+			if (checkAllBlocks(30) or checkAllBlocks(188) or checkAllBlocks(204)) and velocity.y == 0:
 				coyote = false
 				velocity.y = 10
 		else:
@@ -124,6 +149,14 @@ func _physics_process(_delta):
 			flying = !flying
 		if checkAllBlocks(117): #Swimming movement
 			inWater = true
+			if checkHeadBlocks(117):
+				update_breathing("water",true)
+				if createBubble: #Creates bubbles
+					createBubble = false
+					effects.create_single_particle(position + Vector2(2,-4),"bubble")
+					$BubbleTimer.start()
+			elif underWater:
+				update_breathing("water",false)
 			if !is_on_floor():
 				velocity.y += GRAVITY/ 2.0
 			if inControl:
@@ -151,13 +184,13 @@ func _physics_process(_delta):
 					if velocity.y < speed:
 						velocity.y += ACCEL
 			if !swinging:
-				if is_on_floor() or (is_on_wall() and $Textures/AnimationPlayer.current_animation == "idle"):
+				if is_on_floor() or (is_on_wall() and player_animations.current_animation == "idle"):
 					if abs(velocity.x) > 0:
-						$Textures/AnimationPlayer.play("walk")
+						player_animations.play("walk")
 					else:
-						$Textures/AnimationPlayer.play("idle")
+						player_animations.play("idle")
 				else:
-					$Textures/AnimationPlayer.play("swim")
+					player_animations.play("swim")
 		elif Global.godmode and flying: 
 			#Flying movement
 			if inControl:
@@ -194,11 +227,11 @@ func _physics_process(_delta):
 			if !swinging:
 				if is_on_floor():
 					if velocity.x == 0:
-						$Textures/AnimationPlayer.play("idle")
+						player_animations.play("idle")
 					else:
-						$Textures/AnimationPlayer.play("walk")
+						player_animations.play("walk")
 				else:
-					$Textures/AnimationPlayer.play("jump")
+					player_animations.play("jump")
 		elif world.hasGravity: #Regular movement
 			$JetpackParticles.emitting = usingJetpack and jetpackFuel > 0
 			if inWater:
@@ -238,9 +271,9 @@ func _physics_process(_delta):
 				
 				if !swinging:
 					if velocity.x == 0:
-						$Textures/AnimationPlayer.play("idle")
+						player_animations.play("idle")
 					else:
-						$Textures/AnimationPlayer.play("walk")
+						player_animations.play("walk")
 				if jetpackLevel <= 0:
 					if Input.is_action_just_pressed("jump") and !jumping:
 						velocity.y = -JUMPSPEED
@@ -275,11 +308,11 @@ func _physics_process(_delta):
 			if !swinging:
 				if is_on_floor():
 					if velocity.x == 0:
-						$Textures/AnimationPlayer.play("idle")
+						player_animations.play("idle")
 					else:
-						$Textures/AnimationPlayer.play("walk")
+						player_animations.play("walk")
 				else:
-					$Textures/AnimationPlayer.play("jump")
+					player_animations.play("jump")
 		
 		if (get_global_mouse_position().x - position.x < 0 or velocity.x < 0) and !velocity.x > 0:
 			$Textures.set_global_transform(Transform2D(Vector2(-1,0),Vector2(0,1),Vector2(position.x,position.y)))
@@ -287,8 +320,10 @@ func _physics_process(_delta):
 		elif get_global_mouse_position().x - position.x > 0 or velocity.x > 0:
 			$Textures.set_global_transform(Transform2D(Vector2(1,0),Vector2(0,1),Vector2(position.x,position.y)))
 			flipped = false
-		#set_up_direction(Vector2(0,-1))
-		#set_floor_stop_on_slope_enabled(true)
+		if player_animations.current_animation == "walk":
+			player_animations.speed_scale = abs(velocity.x) / 40.0
+		else:
+			player_animations.speed_scale = 1
 		move_and_slide()
 
 func swing(loc):
@@ -297,9 +332,9 @@ func swing(loc):
 		$Textures/Weapon.texture = GlobalData.get_item_big_texture(item)
 		if GlobalData.itemData[item]["type"] == "Watering_can":
 			if !swinging:
-				$Textures/AnimationPlayer.play("water")
+				player_animations.play("water")
 		else:
-			$Textures/AnimationPlayer.play("swing")
+			player_animations.play("swing")
 		swinging = true
 		if GlobalData.itemData[item]["type"] == "weapon":
 			swing_timer.start(GlobalData.itemData[item]["speed"])
@@ -314,10 +349,7 @@ func swing(loc):
 				if result.is_empty() and sign(enemy.position.x - position.x) == sign(get_global_mouse_position().x - position.x):
 					match enemy.type:
 						"trinanium_charge":
-							print("sending em back")
-							print("old dir: ",enemy.direction)
 							enemy.update_direction(position.angle_to_point(enemy.position))
-							print("new dir: ",enemy.direction)
 						_:
 							var dmg = GlobalData.itemData[swingingWith]["dmg"]
 							var upgrades : Dictionary = get_item_upgrades(inventory.inventory[loc])
@@ -389,15 +421,21 @@ func _on_coyoteTimer_timeout():
 	timerOn = false
 
 func checkAllBlocks(id : int) -> bool:
-	if currentBlocksOn.size() == 0:
-		return false
-	for block in currentBlocksOn:
-		if block.id != id:
-			return false
-	return true
+	if currentBlocksOn.size() > 0:
+		for block in currentBlocksOn:
+			if block.id == id:
+				return true
+	return false
+
+func checkHeadBlocks(id : int) -> bool:
+	if currentBlocksOnHead.size() > 0:
+		for block in currentBlocksOnHead:
+			if block.id == id:
+				return true
+	return false
 
 func _on_blockTest_body_entered(body):
-	if body.id == 145:
+	if body.id == 145: #Sign area functionality
 		if body.data["mode"] == "Area":
 			main.display_text(body.data)
 	elif !currentBlocksOn.has(body):
@@ -420,20 +458,38 @@ func get_item_upgrades(itemData : Dictionary) -> Dictionary:
 		itemData["data"] = {}
 	return upgrades
 
-func _on_Armor_updated_armor(armorData):
+func update_character() -> void:
+	gender = Global.playerBase["sex"]
+	$Textures/body.texture = load("res://textures/player/base/" + gender + ".png")
+	if !Global.playerBase.has("eye_color"):
+		Global.playerBase["eye_color"] = Color.RED
+		Global.playerBase["eye_style"] = 2 if gender == "female" else 3
+	else:
+		eyeTexture = GlobalData.get_eye_texture()
+		$Textures/eyes.texture = eyeTexture
+
+func get_armor_buff() -> String:
+	for buff in GlobalData.armor_buffs:
+		var hasBuff = true
+		for requiredArmor in GlobalData.armor_buffs[buff]["requires"]:
+			if !currentWearing.values().has(requiredArmor):
+				hasBuff = false
+		if hasBuff:
+			return buff
+	return "none"
+
+func _on_Armor_updated_armor(armorData : Dictionary):
 	if world != null:
-		$Textures/body.texture = load("res://textures/player/Body/" + gender + ".png")
-		var set = {"Shirt":"shirt","Chestplate":"shirt","Pants":"pants","Leggings":"pants","Boots":"boots","Shoes":"boots","Hat":"headwear","Helmet":"headwear"}
-		var display = {"pants":null,"shirt":null,"boots":null,"headwear":null}
-		var wearing = {"pants":0,"shirt":0,"boots":0,"headwear":0}
+		update_character()
+		var type : Dictionary = {"Shirt":"shirt","Chestplate":"shirt","Pants":"pants","Leggings":"pants","Boots":"boots","Shoes":"boots","Hat":"headwear","Helmet":"headwear"}
+		var wearing : Dictionary = {"pants":0,"shirt":0,"boots":0,"headwear":0}
 		defPoints = 0
 		movementModifier = 0
 		maxOxygen = 50
-		print(armorData)
 		for armorType in armorData:
 			if !armorData[armorType].is_empty():
 				var id = armorData[armorType]["id"]
-				wearing[set[armorType]] = id
+				wearing[type[armorType]] = id
 				if ["Chestplate","Leggings","Boots","Helmet"].has(armorType):
 					var def = GlobalData.itemData[id]["armor_data"]["def"]
 					movementModifier += GlobalData.itemData[id]["armor_data"]["speed"]
@@ -446,7 +502,6 @@ func _on_Armor_updated_armor(armorData):
 					else:
 						armor.get_node(armorType + "Points").hide()
 				if !["Shirt","Chestplate"].has(armorType):
-					display[set[armorType]] = load("res://textures/player/" + files[id]["folder"]+ "/" + files[id]["file"])
 					if ["Leggings","Pants"].has(armorType) and get_item_upgrades(armorData[armorType]).has("movement_speed"):
 						movementModifier += get_item_upgrades(armorData[armorType])["movement_speed"] * 2
 					elif ["Hat","Helmet"].has(armorType) and get_item_upgrades(armorData[armorType]).has("oxygen"):
@@ -457,51 +512,44 @@ func _on_Armor_updated_armor(armorData):
 							jetpackLevel = get_item_upgrades(armorData[armorType])["jetpack"]
 						else:
 							jetpackLevel = 0
-					display[set[armorType]] = load("res://textures/player/" + files[id]["folder"]+ "/" + gender + "/" + files[id]["file"])
 			elif ["Chestplate","Leggings","Boots","Helmet"].has(armorType):
 				if armorType == "Chestplate":
 					jetpackLevel = 0
 				$"../CanvasLayer/Inventory/Armor".get_node(armorType + "Points").hide()
 		movementModifier *= 4
-		for sheet in display:
-			if display[sheet] == null:
-				match sheet:
+		for layer : Sprite2D in $Textures/Clothes.get_children():
+			layer.hide()
+		for clothesType : String in wearing:
+			var wearingId : int = wearing[clothesType]
+			if wearingId == 0:
+				match clothesType:
 					"headwear":
-						$Textures/headwear.show()
-						$Textures/headwear.modulate = Global.playerBase["hair_color"]
-						$Textures/headwear.texture = load("res://textures/player/Hair/" + Global.playerBase["hair_style"] + ".png")
+						$Textures/Clothes/head.show()
+						$Textures/Clothes/head.modulate = Global.playerBase["hair_color"]
+						$Textures/Clothes/head.texture = load("res://textures/player/hair/" + Global.playerBase["hair_style"] + ".png")
 					"shirt":
-						$Textures/shirt.show()
-						$Textures/shirt.texture = load("res://textures/player/Body/underTop-" + gender + ".png")
+						if gender == "female":
+							$Textures/Clothes/torso.show()
+							$Textures/Clothes/torso.texture = load("res://textures/player/wearables/torso/undergarments_female.png")
 					"pants":
-						$Textures/pants.show()
-						$Textures/pants.texture = load("res://textures/player/Body/under-" + gender + ".png")
-					_:
-						$Textures.get_node(sheet).hide()
+						$Textures/Clothes/left_leg.show()
+						$Textures/Clothes/right_leg.show()
+						$Textures/Clothes/left_leg.texture = load("res://textures/player/wearables/left_leg/undergarments.png")
+						$Textures/Clothes/right_leg.texture = load("res://textures/player/wearables/right_leg/undergarments.png")
 			else:
-				if sheet == "headwear":
-					$Textures/headwear.modulate = Color.WHITE
-				$Textures.get_node(sheet).show()
-				$Textures.get_node(sheet).texture = display[sheet]
-		var currentBuff = ""
-		for buff in GlobalData.armor_buffs:
-			var hasBuff = true
-			for requiredArmor in GlobalData.armor_buffs[buff]["requires"]:
-				if !wearing.values().has(requiredArmor):
-					hasBuff = false
-			if hasBuff:
-				if buff == "cold_resistance":
-					GlobalGui.complete_achievement("Winter ready")
-				elif buff == "heat_resistance":
-					GlobalGui.complete_achievement("Scorched ready")
-				currentBuff = buff
-				break
-		if StarSystem.find_planet_id(Global.currentPlanet) != null and StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere:
-			canBreath = true
-		else:
-			canBreath = false
-		$"../CanvasLayer/Warnings/NoOxygen".visible = !canBreath
-		$"../CanvasLayer/Warnings/NoOxygen".modulate = Color.WHITE if currentBuff != "air_tight" else Color(1,1,1,0.5)
+				if clothesType == "headwear":
+					$Textures/Clothes/head.modulate = Color.WHITE
+				for layer : String in clothesSpritesheets[wearingId]["contains"]:
+					clothes.get_node(layer).show()
+					clothes.get_node(layer).texture = load("res://textures/player/wearables/" + layer + "/"+ clothesSpritesheets[wearingId]["name"] + (("_" + gender) if layer == "torso" else "") +".png")
+		currentWearing = wearing
+		var currentBuff = get_armor_buff()
+		match currentBuff:
+			"cold_resistance":
+				GlobalGui.complete_achievement("Winter ready")
+			"heat_resistance":
+				GlobalGui.complete_achievement("Scorched ready")
+		update_breathing("atmo",StarSystem.find_planet_id(Global.currentPlanet) != null and StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere)
 		if is_instance_valid(StarSystem.find_planet_id(Global.currentPlanet)):
 			match StarSystem.find_planet_id(Global.currentPlanet).type["type"]:
 				"scorched":
@@ -522,12 +570,26 @@ func _on_Armor_updated_armor(armorData):
 			currentTemp = 0
 		armorBuff = currentBuff
 
+func step() -> void:
+	if currentBlocksOn.size() > 0:
+		GlobalAudio.play_block_audio_2d(currentBlocksOn[0].id,"step",position)
+
 func _on_AnimationPlayer_animation_finished(anim_name):
-	if ["swing","water"].has(anim_name) and GlobalData.itemData[swingingWith]["type"] != "weapon":
-		swinging = false
+	match anim_name:
+		"swing","water":
+			if GlobalData.itemData[swingingWith]["type"] != "weapon":
+				swinging = false
+
+func update_breathing(setTo : String, value : bool) -> void:
+	if setTo == "atmo":
+		canBreath = value
+	else:
+		underWater = value
+	$"../CanvasLayer/Warnings/NoOxygen".visible = !canBreath or underWater
+	$"../CanvasLayer/Warnings/NoOxygen".modulate = Color.WHITE if get_armor_buff() != "air_tight" else Color(1,1,1,0.5)
 
 func _on_tick_timeout() -> void:
-	if !canBreath:
+	if !canBreath or underWater:
 		if armorBuff == "air_tight" and suitOxygen > 0:
 			suitOxygen -= 1
 			if oxygen < maxOxygen:
@@ -561,3 +623,14 @@ func _on_weapon_range_area_entered(area: Area2D) -> void:
 func _on_weapon_range_area_exited(area: Area2D) -> void:
 	if toAttack.has(area.get_parent()):
 		toAttack.erase(area.get_parent())
+
+func _on_head_test_body_entered(body: Node2D) -> void:
+	if !currentBlocksOnHead.has(body):
+		currentBlocksOnHead.append(body)
+
+func _on_head_test_body_exited(body: Node2D) -> void:
+	if currentBlocksOnHead.has(body):
+		currentBlocksOnHead.erase(body)
+
+func _on_bubble_timer_timeout() -> void:
+	createBubble = true
