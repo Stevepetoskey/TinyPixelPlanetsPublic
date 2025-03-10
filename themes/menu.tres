@@ -150,6 +150,7 @@ Button/styles/focus = SubResource("StyleBoxEmpty_akq3g")
 Button/styles/hover = SubResource("StyleBoxTexture_j5526")
 Button/styles/normal = SubResource("StyleBoxTexture_yw0av")
 Button/styles/pressed = SubResource("StyleBoxTexture_6rqqw")
+CheckBox/fonts/font = ExtResource("8_v4m0t")
 CheckBox/icons/checked = ExtResource("5_s3mp5")
 CheckBox/icons/checked_disabled = null
 CheckBox/icons/radio_checked = null

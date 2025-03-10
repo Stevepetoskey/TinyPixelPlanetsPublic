@@ -19,6 +19,7 @@ var fuel : Dictionary = { #How many recipes you can make with each fuel
 	78:{"fuel":2},
 	85:{"fuel":1},
 	128:{"fuel":1},
+	323:{"fuel":10}
 }
 
 var recipes = [

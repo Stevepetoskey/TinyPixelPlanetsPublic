@@ -8,9 +8,8 @@ var lostPlayer = false
 var seenPos = Vector2(0,0)
 var waitForAnimation = false
 
-var state = "roam"
-var motion = Vector2(0,0)
-var inAir = false
+var state := "roam"
+var inAir := false
 
 @onready var player = get_node("../../../Player")
 @onready var body: AnimatedSprite2D = $Body
@@ -53,34 +52,25 @@ func _physics_process(delta):
 					inAir = false
 					waitForAnimation = true
 					body.play("land")
-					motion = Vector2(0,0)
+					velocity = Vector2(0,0)
 				else:
-					motion.y += GRAVITY
+					velocity.y += GRAVITY
 					inAir = true
 			"jump":
 				state = "falling"
 			"attack":
 				if !is_on_floor():
-					motion.y += GRAVITY
+					velocity.y += GRAVITY
 					inAir = true
 				elif inAir:
 					inAir = false
 					body.play("land")
 					waitForAnimation = true
-					motion = Vector2(0,0)
+					velocity = Vector2(0,0)
 					state = "roam"
 				else:
 					state = "roam"
-		if motion.y < 0 or ["jump","attack"].has(state):
-			set_velocity(motion)
-			set_up_direction(Vector2(0,-1))
-			move_and_slide()
-			motion.y = velocity.y
-		else:
-			set_velocity(motion)
-			set_up_direction(Vector2(0,-1))
-			move_and_slide()
-			motion = velocity
+		move_and_slide()
 
 
 func _on_AnimatedSprite_animation_finished():
@@ -94,16 +84,13 @@ func _on_AnimatedSprite_animation_finished():
 					dir = 1 if randi()%2 == 1 else -1
 				else:
 					dir = 1 * sign(seenPos.x - position.x)
-				motion = Vector2(MAX_SPEED * dir,-JUMPSPEED)
+				velocity = Vector2(MAX_SPEED * dir,-JUMPSPEED)
 				inAir = true
 				state = nextState
 				if state == "attack":
 					body.play("attack")
-					motion.y -= JUMPSPEED/2.0
-					set_velocity(motion)
-					set_up_direction(Vector2(0,-1))
+					velocity.y -= JUMPSPEED/2.0
 					move_and_slide()
-					motion.y = velocity.y
 			"land":
 				state = "roam"
 
@@ -123,4 +110,4 @@ func _on_HitBox_body_exited(body):
 	$HurtTimer.stop()
 
 func on_damaged(knockback : float) -> void:
-	motion.x += knockback
+	velocity.x += knockback

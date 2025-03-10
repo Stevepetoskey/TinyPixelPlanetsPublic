@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 const GRAVITY = 4
 const ACCEL = 8
@@ -147,16 +148,13 @@ func _physics_process(_delta):
 		
 		if Input.is_action_just_pressed("fly"):
 			flying = !flying
-		if checkAllBlocks(117): #Swimming movement
+		if checkHeadBlocks(117): #Swimming movement
 			inWater = true
-			if checkHeadBlocks(117):
-				update_breathing("water",true)
-				if createBubble: #Creates bubbles
-					createBubble = false
-					effects.create_single_particle(position + Vector2(2,-4),"bubble")
-					$BubbleTimer.start()
-			elif underWater:
-				update_breathing("water",false)
+			update_breathing("water",true)
+			if createBubble: #Creates bubbles
+				createBubble = false
+				effects.create_single_particle(position + Vector2(2,-4),"bubble")
+				$BubbleTimer.start()
 			if !is_on_floor():
 				velocity.y += GRAVITY/ 2.0
 			if inControl:
@@ -193,6 +191,7 @@ func _physics_process(_delta):
 					player_animations.play("swim")
 		elif Global.godmode and flying: 
 			#Flying movement
+			update_breathing("water",false)
 			if inControl:
 				var speed = MAX_SPEED
 				if Input.is_action_pressed("sprint"):
@@ -233,6 +232,7 @@ func _physics_process(_delta):
 				else:
 					player_animations.play("jump")
 		elif world.hasGravity: #Regular movement
+			update_breathing("water",false)
 			$JetpackParticles.emitting = usingJetpack and jetpackFuel > 0
 			if inWater:
 				inWater = false
@@ -290,6 +290,7 @@ func _physics_process(_delta):
 				else:
 					usingJetpack = false
 		else: # no gravity Movement
+			update_breathing("water",false)
 			if inWater:
 				inWater = false
 				velocity.y = -JUMPSPEED

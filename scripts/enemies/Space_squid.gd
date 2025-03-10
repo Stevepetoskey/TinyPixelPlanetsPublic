@@ -9,7 +9,6 @@ var lostPlayer = false
 var seenPos = Vector2(0,0)
 
 var state = "roam"
-var motion := Vector2(0,0)
 var animating = false
 
 @onready var player = get_node("../../../Player")
@@ -51,15 +50,13 @@ func _physics_process(delta):
 				animating = true
 				await get_tree().create_timer(0.5).timeout
 				animating = false
-				motion = Vector2(cos(dir)*MAX_SPEED,sin(dir)*MAX_SPEED)
-	if motion.length() > 0.5:
-		motion -= motion * FRICTION
+				velocity = Vector2(cos(dir)*MAX_SPEED,sin(dir)*MAX_SPEED)
+	if velocity.length() > 0.5:
+		velocity -= velocity * FRICTION
 	elif !animating:
-		motion = Vector2(0,0)
+		velocity = Vector2(0,0)
 		state = "roam"
-	set_velocity(motion)
 	move_and_slide()
-	motion = velocity
 
 func _on_seeTimer_timeout():
 	seePlayer = false
@@ -81,4 +78,4 @@ func _on_AnimatedSprite_animation_finished() -> void:
 			body.play("idle")
 
 func on_damaged(knockback : float) -> void:
-	motion.x += knockback
+	velocity.x += knockback

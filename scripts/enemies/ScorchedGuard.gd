@@ -8,10 +8,9 @@ var seePlayer = false
 var lostPlayer = false
 var seenPos = Vector2(0,0)
 
-var state = "down"
-var motion = Vector2(0,0)
-var inAir = false
-var spitting = false
+var state := "down"
+var inAir := false
+var spitting := false
 
 var goInDir = 0
 
@@ -32,7 +31,7 @@ func _ready():
 func _physics_process(delta):
 	if !is_on_floor():
 		inAir = true
-		motion.y += GRAVITY
+		velocity.y += GRAVITY
 	var result : Dictionary
 	if position.distance_to(player.position) <= 96:
 		var space_state = get_world_2d().direct_space_state
@@ -76,19 +75,16 @@ func _physics_process(delta):
 			else:
 				goInDir = -1 if seenPos.x < position.x else 1
 			if is_on_wall() and is_on_floor():
-				motion.y = -JUMPSPEED
+				velocity.y = -JUMPSPEED
 			if goInDir != 0:
-				motion.x = move_toward(motion.x,MAX_SPEED*goInDir,ACCEL)
+				velocity.x = move_toward(velocity.x,MAX_SPEED*goInDir,ACCEL)
 			else:
-				motion.x = move_toward(motion.x,0,ACCEL/2.0)
-			if abs(motion.x) > 0.5:
-				body_texture.flip_h = motion.x < 0
+				velocity.x = move_toward(velocity.x,0,ACCEL/2.0)
+			if abs(velocity.x) > 0.5:
+				body_texture.flip_h = velocity.x < 0
 			elif seePlayer:
 				body_texture.flip_h = player.position < position
-			set_velocity(motion)
-			set_up_direction(Vector2(0,-1))
 			move_and_slide()
-			motion = velocity
 
 func _on_seeTimer_timeout():
 	print("Gave up")

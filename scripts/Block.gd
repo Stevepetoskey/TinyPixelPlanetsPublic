@@ -67,6 +67,8 @@ func _ready():
 		186:
 			if !data.has("pos"):
 				data = {"pos":Vector2(0,0),"size":Vector2(1,1),"file_name":""}
+			if !data.has("load_raw"):
+				data["load_raw"] = false
 		189:
 			if data.is_empty():
 				data["group"] = ""

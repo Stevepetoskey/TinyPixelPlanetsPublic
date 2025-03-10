@@ -17,7 +17,6 @@ var shootFromPos : Dictionary = {
 
 var state = "down"
 var facingDir : String = "left"
-var motion = Vector2(0,0)
 var inAir = false
 var spitting = false
 var goToPos = Vector2(0,0)

@@ -36,3 +36,9 @@ This branch is for unstable development of TU6 (v0.6.0)
 - Fixed being able to discover the same planet multiple times
 - Fixed leaving planet with inventory open freezing the game
 - Added placing and breaking sound effects
+## TU6 beta 5 (v0.6.0:5)
+- Added coal ore (stone and sandstone) and coal
+- Added torches
+- Made some improvements to the light rendering algorithm
+- Structure save block have been renamed to Structure block, and can now load structures.
+- All entities now use built in velocity for movement to be inline with Godot 4 structures

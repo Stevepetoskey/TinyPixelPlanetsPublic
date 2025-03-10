@@ -68,6 +68,7 @@ var recipes = {
 		{"recipe":[{"id":154,"amount":1}],"result":{"id":157,"amount":4}}, #Acacia planks
 		{"recipe":[{"id":157,"amount":4}],"result":{"id":158,"amount":1}}, #Acacia workbench
 		{"recipe":[{"id":297,"amount":1}],"result":{"id":300,"amount":4}}, #Willow planks
+		{"recipe":[{"id":5,"amount":1},{"id":323,"amount":2}],"result":{"id":321,"amount":4}}, #Torch
 	],
 	"crafting_table": [
 		{"recipe":[{"id":10,"amount":1}],"result":{"id":13,"amount":4}}, #Planks
@@ -75,6 +76,7 @@ var recipes = {
 		{"recipe":[{"id":13,"amount":4}],"result":{"id":12,"amount":1}}, #Workbench
 		{"recipe":[{"id":13,"amount":4},{"id":247,"amount":2}],"result":{"id":263,"amount":1}}, #Wool work table
 		{"recipe":[{"id":78,"amount":4}],"result":{"id":12,"amount":1}}, #Workbench (With exotic wood)
+		{"recipe":[{"id":5,"amount":1},{"id":323,"amount":2}],"result":{"id":321,"amount":4}}, #Torch
 		{"recipe":[{"id":13,"amount":2}],"result":{"id":30,"amount":4}},
 		{"recipe":[{"id":8,"amount":4}],"result":{"id":16,"amount":1}},
 		{"recipe":[{"id":17,"amount":4}],"result":{"id":19,"amount":4}},

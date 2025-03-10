@@ -96,8 +96,10 @@ z_index = 1
 use_parent_material = true
 collision_layer = 8
 script = ExtResource("6")
+canDie = null
 hostile = true
 bluesDropRange = [2, 7]
+loot = null
 type = "slorg"
 
 [node name="Body" type="AnimatedSprite2D" parent="."]

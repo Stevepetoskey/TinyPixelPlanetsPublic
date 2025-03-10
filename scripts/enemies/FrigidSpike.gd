@@ -8,10 +8,9 @@ var seePlayer = false
 var lostPlayer = false
 var seenPos = Vector2(0,0)
 
-var state = "down"
-var motion = Vector2(0,0)
-var inAir = false
-var spitting = false
+var state := "down"
+var inAir := false
+var spitting := false
 var searchingForPlayer : bool = false
 
 var goInDir = 0
@@ -73,28 +72,22 @@ func _physics_process(delta):
 			else:
 				goInDir =  position.angle_to_point(seenPos)
 			if goInDir != -1000:
-				motion = Vector2(cos(goInDir)*MAX_SPEED,sin(goInDir)*MAX_SPEED)
+				velocity = Vector2(cos(goInDir)*MAX_SPEED,sin(goInDir)*MAX_SPEED)
 			else:
-				motion = Vector2(0,0)
-			if abs(motion.x) > 0.5:
-				body_texture.flip_h = motion.x < 0
+				velocity = Vector2(0,0)
+			if abs(velocity.x) > 0.5:
+				body_texture.flip_h = velocity.x < 0
 			elif seePlayer:
 				body_texture.flip_h = player.position < position
-			velocity = motion
-			set_up_direction(Vector2(0,-1))
 			move_and_slide()
-			motion = velocity
 		"stone":
 			if !is_on_floor():
-				motion.y += GRAVITY
+				velocity.y += GRAVITY
 				inAir = true
 			else:
 				inAir = false
-			motion.x = move_toward(motion.x,0,ACCEL/2)
-			velocity = motion
-			set_up_direction(Vector2(0,-1))
+			velocity.x = move_toward(velocity.x,0,ACCEL/2)
 			move_and_slide()
-			motion = velocity
 
 func on_damaged(_knockback : float) -> void:
 	canDamage = false
@@ -102,7 +95,7 @@ func on_damaged(_knockback : float) -> void:
 	spit_timer.stop()
 	body_texture.play("Hurt")
 	$Puff.emitting = true
-	motion = Vector2(-30 if player.position > position else 30, -JUMPSPEED)
+	velocity = Vector2(-30 if player.position > position else 30, -JUMPSPEED)
 	collision_layer = 0
 	$StoneTimer.start()
 

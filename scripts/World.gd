@@ -39,7 +39,9 @@ var blockTypes = {
 	"music_player":preload("res://assets/blocks/MusicPlayer.tscn"),
 	"spike":preload("res://assets/blocks/Spike.tscn"),
 	"timer_block":preload("res://assets/blocks/TimerBlock.tscn"),
-	"locator":preload("res://assets/blocks/Locator.tscn")
+	"locator":preload("res://assets/blocks/Locator.tscn"),
+	"torch":preload("res://assets/blocks/Torch.tscn"),
+	"fan":preload("res://assets/blocks/Fan.tscn")
 }
 
 var currentPlanet : Object
@@ -331,6 +333,15 @@ func generateWorld(worldType : String):
 								pos.x += [-1,1].pick_random()
 							else:
 								pos.y += [-1,1].pick_random()
+					if y >= 0 and randi_range(0,50) == 1: #coal ore
+						var pos = Vector2(x,y)
+						for i in range(randi_range(3,6)):
+							if get_block_id(pos,1) == 3:
+								set_block(pos,randi_range(0,1),322)
+							if randi_range(0,1) == 1:
+								pos.x += [-1,1].pick_random()
+							else:
+								pos.y += [-1,1].pick_random()
 		"stone":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -379,6 +390,15 @@ func generateWorld(worldType : String):
 						for i in range(randi_range(2,4)):
 							if get_block_id(pos,1) == 22:
 								set_block(pos,randi_range(0,1),192,false)
+							if randi_range(0,1) == 1:
+								pos.x += [-1,1].pick_random()
+							else:
+								pos.y += [-1,1].pick_random()
+					if y >= 0 and randi_range(0,50) == 1: #coal ore
+						var pos = Vector2(x,y)
+						for i in range(randi_range(6,12)):
+							if get_block_id(pos,1) == 22:
+								set_block(pos,randi_range(0,1),324)
 							if randi_range(0,1) == 1:
 								pos.x += [-1,1].pick_random()
 							else:
@@ -908,6 +928,21 @@ func set_light(pos : Vector2, lightMapValue : Color, lightIntensityMapValue : Co
 	if updateMaps:
 		update_light_texture()
 
+func set_block_light(pos : Vector2, layer : int, id : int,color : Color, intensity : int, update := true) -> void:
+	var block_data = GlobalData.get_item_data(id)
+	match layer:
+		0:
+			if GlobalData.blockData[get_block_id(pos,1)]["transparent"]:
+				if block_data.has("light_color"):
+					set_light(pos,color,get_light_intensity(intensity),update)
+				elif !block_data["transparent"] or pos.y >= lightFalloffHeight:
+					set_light(pos,Color("00000000"),Color("00000000"),update)
+		1:
+			if block_data.has("light_color"):
+				set_light(pos,color,get_light_intensity(intensity),update)
+			elif !GlobalData.blockData[id]["transparent"]:
+				set_light(pos,Color.BLACK,Color.BLACK,update)
+
 func set_block_all(pos: Vector2, id : int) -> void:
 	set_block(pos,0,id)
 	set_block(pos,1,id)
@@ -915,7 +950,7 @@ func set_block_all(pos: Vector2, id : int) -> void:
 func get_light_intensity(intensity : int) -> Color:
 	return Color((("0" + str(intensity)) if intensity < 10 else str(intensity)) + "000005")
 
-func set_block(pos : Vector2, layer : int, id : int, update = false, data = {}) -> void:
+func set_block(pos : Vector2, layer : int, id : int, update := false, data = {}) -> void:
 	var blockAtPos = get_block(pos,layer)
 	if blockAtPos != null or (id == 0 and blockAtPos != null):
 		$blocks.remove_child(blockAtPos)
@@ -935,21 +970,10 @@ func set_block(pos : Vector2, layer : int, id : int, update = false, data = {}) 
 	if id > 0:
 		var block = blockTypes[GlobalData.blockData[id]["type"]].instantiate()
 		var block_data = GlobalData.get_item_data(id)
-		match layer:
-			0:
-				if GlobalData.blockData[get_block_id(pos,1)]["transparent"]:
-					if block_data.has("light_color"):
-						set_light(pos,Color(block_data["light_color"]),get_light_intensity(block_data["light_intensity"]),update)
-					elif !block_data["transparent"] or pos.y >= lightFalloffHeight:
-						set_light(pos,Color("00000000"),Color("00000000"),update)
-			1:
-				if !GlobalData.blockData[id]["transparent"]:
-					if block_data.has("light_color"):
-						set_light(pos,block_data["light_color"],get_light_intensity(block_data["light_intensity"]),update)
-					else:
-						set_light(pos,Color.BLACK,Color.BLACK,update)
-				elif block_data.has("light_color"):
-					set_light(pos,block_data["light_color"],get_light_intensity(block_data["light_intensity"]),update)
+		if block_data.has("light_color"):
+			set_block_light(pos,layer,id,Color(block_data["light_color"]),block_data["light_intensity"] ,update)
+		else:
+			set_block_light(pos,layer,id,Color.BLACK,0,update)
 		block.position = pos * BLOCK_SIZE
 		block.pos = pos
 		block.id = id

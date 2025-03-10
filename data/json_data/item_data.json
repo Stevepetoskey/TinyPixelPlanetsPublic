@@ -875,5 +875,10 @@
 	"name":"Pure slop",
 	"regen":2,
 	"desc":"[color=cornflowerblue]+2 HP[/color]"
+},
+"323":{
+	"texture":"items/coal.png",
+	"type":"Item",
+	"name":"Coal"
 }
 }

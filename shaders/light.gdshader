@@ -39,18 +39,18 @@ void fragment() {
 						lightIntensity = natural_light_intensity;
 						light_color = natural_light_color;
 					}
-					float dis = distance(snapped_uv + 0.5, rayStart);
+					float dis = distance(rayStart,snapped_uv + 0.5);
 					bool affected = true;
 					bool inWall = false;
 					float lastWallDis = -1.0;
-
+					//Begins raycasting if distance is within the light intensity
 					if (dis <= lightIntensity) {
 						vec2 rayDir = normalize((snapped_uv + 0.5) - rayStart);
 						vec2 rayUnitStep = vec2(sqrt(1.0 + (rayDir.y / rayDir.x) * (rayDir.y / rayDir.x)),sqrt(1.0 + (rayDir.x / rayDir.y) * (rayDir.x / rayDir.y)));
 						ivec2 mapCheck = ivec2(int(x),int(y));
 						vec2 rayLen1D;
 						ivec2 vStep;
-
+						//Gets ray and step data for walking the ray
 						if (rayDir.x < 0.0) {
 							vStep.x = -1;
 							rayLen1D.x = (rayStart.x - float(mapCheck.x)) * rayUnitStep.x;
@@ -72,13 +72,14 @@ void fragment() {
 							breakout += 1;
 							if (rayLen1D.x < rayLen1D.y) {
 								mapCheck.x += vStep.x;
-								currentDistance = rayLen1D.x;
+								//currentDistance = rayLen1D.x;
 								rayLen1D.x += rayUnitStep.x;
 							} else {
 								mapCheck.y += vStep.y;
-								currentDistance = rayLen1D.y;
+								//currentDistance = rayLen1D.y;
 								rayLen1D.y += rayUnitStep.y;
 							}
+							currentDistance = distance(rayStart,vec2(mapCheck) + 0.5);
 							if (mapCheck.x < 0 || mapCheck.x >= int(world_size.x) || mapCheck.y < 0 || mapCheck.y >= int(world_size.y)) {
 								affected = false;
 								break;
@@ -89,11 +90,11 @@ void fragment() {
 								if (lastWallDis < -0.001) {
 									lastWallDis = currentDistance;
 								}
-							} else if (currentColor.a <= 0.5 && inWall) {
+							} else if (currentColor.a <= 0.5 && inWall) { //Block will not recive light if the light has to travel from a wall to nothing
 								affected = false;
 								break;
 							}
-							if (mapCheck.x == int(snapped_uv.x) && mapCheck.y == int(snapped_uv.y)) {
+							if (mapCheck.x == int(snapped_uv.x) && mapCheck.y == int(snapped_uv.y)) {//Break out of loop when the ray has reached the block
 								break;
 							}
 						}
@@ -102,17 +103,15 @@ void fragment() {
 					}
 
 					if (affected) {
-						float light = 1.0 - (dis / lightIntensity);
-						if (lastWallDis > -0.001) {
-							float wallDistance = dis - lastWallDis;
-							float lightWallLost = wallDistance * 1.5 - 1.5;
-							light = 1.0 - ((dis + lightWallLost)/ lightIntensity);
+						float light = clamp(1.0 - (dis / lightIntensity),0.0,1.0);
+						if (inWall) {
+							light = clamp(1.0 - (lastWallDis + (dis - lastWallDis) * 2.0)/ lightIntensity,0.0,1.0);
 						}
 
 						//if (inWall) {
-							//COLOR = vec4(1.0,0.0,0.0,1.0);
+							//finalColor = vec4(1.0,0.0,0.0,1.0);
 						//} else {
-							//COLOR = vec4(0.0,1.0,0.0,1.0);
+							//finalColor = vec4(0.0,1.0,0.0,1.0);
 						//}
 						finalColor.rgb = max(finalColor.rgb, light_color * light);
 					}

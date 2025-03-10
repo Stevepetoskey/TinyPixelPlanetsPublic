@@ -101,7 +101,7 @@ func spawn_blues(amount : int, thrown = false, pos = $"../Player".position):
 		newB.data = {"amount":amount}
 		if thrown:
 			newB.canPickup = false
-			newB.motion = Vector2(10*randf_range(-1,1),-5)
+			newB.velocity = Vector2(10*randf_range(-1,1),-5)
 		$Hold.add_child(newB)
 
 func _on_Spawn_timeout():

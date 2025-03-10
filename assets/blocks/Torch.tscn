@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://dc3v0rtwm8fxl"]
+
+[ext_resource type="Script" path="res://scripts/blocks/torch.gd" id="1_i2tiv"]
+[ext_resource type="Texture2D" uid="uid://ctmr7nsvugtjy" path="res://textures/blocks/ice_lantern1.png" id="2_0tac8"]
+[ext_resource type="Texture2D" uid="uid://68va0hqwxcqd" path="res://textures/blocks/torch1.png" id="2_t3jip"]
+[ext_resource type="Texture2D" uid="uid://d6kqfi4sbfmp" path="res://textures/blocks/torch2.png" id="3_88xiv"]
+[ext_resource type="Texture2D" uid="uid://deuowdb66xmi4" path="res://textures/blocks/ice_lantern2.png" id="3_tt4dq"]
+[ext_resource type="Texture2D" uid="uid://cegvx0wpplw4f" path="res://textures/blocks/lantern1.png" id="4_t2a80"]
+[ext_resource type="Texture2D" uid="uid://dxrjr41dyn2m1" path="res://textures/blocks/lantern2.png" id="5_mjr6h"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_x3vwt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_0tac8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_tt4dq")
+}],
+"loop": true,
+"name": &"ice_lantern",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_t2a80")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_mjr6h")
+}],
+"loop": true,
+"name": &"lantern",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_t3jip")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_88xiv")
+}],
+"loop": true,
+"name": &"torch",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(8, 8)
+
+[node name="Torch" type="StaticBody2D"]
+use_parent_material = true
+script = ExtResource("1_i2tiv")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2, -2)
+scale = Vector2(0.2, 0.2)
+rect = Rect2(-10, -10, 40, 40)
+
+[node name="Texture" type="AnimatedSprite2D" parent="."]
+light_mask = 2
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_x3vwt")
+animation = &"lantern"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("1")
+disabled = true
+
+[node name="shade" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.521569)
+
+[node name="Tick" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+autostart = true
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="timeout" from="Tick" to="." method="_on_tick_timeout"]
