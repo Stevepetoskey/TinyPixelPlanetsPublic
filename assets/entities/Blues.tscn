@@ -91,6 +91,7 @@ radius = 8.0
 [node name="Blues" type="CharacterBody2D"]
 z_index = 5
 collision_layer = 16
+collision_mask = 513
 script = ExtResource("1")
 canDie = false
 type = "blues"

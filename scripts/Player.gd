@@ -9,8 +9,8 @@ const FRICTION = 4
 const JUMPSPEED = 75
 
 #Collision
-const DEFAULT_LAYER = 5
-const NO_PLATFORM = 1
+const DEFAULT_LAYER = 517
+const NO_PLATFORM = 513
 
 @onready var cursor = get_node("../Cursor")
 @onready var armor = get_node("../CanvasLayer/Inventory/Armor")

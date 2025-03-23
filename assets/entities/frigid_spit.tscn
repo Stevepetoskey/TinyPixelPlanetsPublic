@@ -12,6 +12,7 @@ radius = 3.0
 [node name="FrigidSpit" type="CharacterBody2D"]
 use_parent_material = true
 collision_layer = 0
+collision_mask = 513
 script = ExtResource("1_lu8rc")
 type = "frigid_spit"
 

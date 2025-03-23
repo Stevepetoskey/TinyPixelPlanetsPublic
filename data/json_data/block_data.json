@@ -1493,7 +1493,7 @@
 	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,
-	"interactable":false
+	"interactable":true
 },
 "186":{
 	"texture":"blocks/structure_save.png",
@@ -1501,7 +1501,7 @@
 	"canHaverst":1,
 	"drops":[{"id":186,"amount":1}],
 	"name":"Structure block",
-	"type":"block",
+	"type":"structure_block",
 	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":true,

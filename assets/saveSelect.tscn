@@ -30,20 +30,27 @@ texture_pressed = ExtResource("4_fisrb")
 texture_hover = ExtResource("5_to14t")
 
 [node name="Label" type="Label" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
 offset_left = 23.0
-offset_right = 79.0
 offset_bottom = 13.0
+grow_horizontal = 2
 theme_override_fonts/font = ExtResource("2")
 text = "SAVE 1"
 clip_text = true
 
 [node name="stats" type="Label" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = 23.0
-offset_top = 10.0
-offset_right = 78.0
-offset_bottom = 24.0
+offset_top = -17.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_colors/font_color = Color(0.768627, 0.768627, 0.768627, 1)
 theme_override_fonts/font = ExtResource("2")
 text = "EMPTY"

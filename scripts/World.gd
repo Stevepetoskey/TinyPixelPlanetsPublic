@@ -41,7 +41,8 @@ var blockTypes = {
 	"timer_block":preload("res://assets/blocks/TimerBlock.tscn"),
 	"locator":preload("res://assets/blocks/Locator.tscn"),
 	"torch":preload("res://assets/blocks/Torch.tscn"),
-	"fan":preload("res://assets/blocks/Fan.tscn")
+	"fan":preload("res://assets/blocks/Fan.tscn"),
+	"structure_block":preload("res://assets/blocks/StructureBlock.tscn")
 }
 
 var currentPlanet : Object
@@ -134,6 +135,36 @@ var generationData = {
 		"world_height":20,
 		"water_level":47
 	}
+}
+
+var structureData = {
+	"frigid_dungeon":{
+		"dungeon_generation":true,
+		"starting_piece":"boss_frigid",
+		"max_size":50,
+		"replace_floor_blocks":[],
+		"keep_on_ground":false,
+		"group":"frigid",
+		"has_ends":true
+	},
+	"scorched_dungeon":{
+		"dungeon_generation":true,
+		"starting_piece":"boss_scorched",
+		"max_size":50,
+		"replace_floor_blocks":[],
+		"keep_on_ground":false,
+		"group":"scorched",
+		"has_ends":true
+	},
+	"mines":{
+		"dungeon_generation":true,
+		"starting_piece":"mines_shaft",
+		"max_size":30,
+		"replace_floor_blocks":[13],
+		"keep_on_ground":true,
+		"group":"mines",
+		"has_ends":false
+	},
 }
 
 var lootTables = { #{id:Block/Item id, amount:max amount, rarity: item chance, group: what group it is in to prevent more than one from a group
@@ -405,7 +436,7 @@ func generateWorld(worldType : String):
 								pos.y += [-1,1].pick_random()
 			if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere and randi_range(0,1) == 0:
 				#mines
-				generate_dungeon("mines","mines_shaft",randi_range(15,30),[13],true)
+				generate_structure("mines")
 		"mud":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -643,7 +674,7 @@ func generateWorld(worldType : String):
 									pos.y += [-1,1].pick_random()
 			#Scorched dungeon
 			if randi_range(1,2) == 1:
-				generate_dungeon("scorched","boss_scorched",randi_range(30,50))
+				generate_structure("scorched_dungeon")
 		"frigid":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -674,7 +705,7 @@ func generateWorld(worldType : String):
 									pos.y += [-1,1].pick_random()
 			#frigid dungeon
 			if randi_range(1,2) == 1:
-				generate_dungeon("fridged","boss_fridged",randi_range(30,50))
+				generate_structure("frigid_dungeon")
 		"mystical":
 			for x in range(worldSize.x):
 				for y in range(worldSize.y):
@@ -718,11 +749,28 @@ func generateWorld(worldType : String):
 							else:
 								pos.y += [-1,1].pick_random()
 
-func generate_dungeon(dungeonGroup : String, startingPiece : String, dungeonSize : int, replaceFloorBlock := [], keepOnGround := false) -> void:
-	var dungeonPieces = Global.load_structures(dungeonGroup)
-	var dungeonBossRoom = Global.load_structure(startingPiece + ".dat")
-	var pos = Vector2(randi_range(0,worldSize.x-12),0)
-	var size = dungeonBossRoom["size"]
+func generate_structure(structure : String) -> void:
+	var data : Dictionary = structureData[structure]
+	if data["dungeon_generation"]:
+		generate_dungeon(data["group"],data["starting_piece"],data["max_size"],data["replace_floor_blocks"],data["keep_on_ground"],data["has_ends"])
+	else:
+		var structureDict : Dictionary = Global.load_structure(data["group"] + ".dat")
+		var pos : Vector2 = Vector2(randi_range(0,worldSize.x-structureDict["size"].x),randi_range(0,worldSize.y-structureDict["size"].y))
+		if data["keep_on_ground"]:
+			pos.y = (worldSize.y - (int(worldNoise.get_noise_1d(pos.x) * noiseScale) + worldHeight))
+		generate_blocks_from_structure(structureDict["structure"]["blocks"],pos,data["replace_floor_block"])
+
+func generate_blocks_from_structure(structure : Array, pos : Vector2, replaceFloorBlock :=[]) -> void:
+	for block : Dictionary in structure:
+		if replaceFloorBlock.is_empty() or !replaceFloorBlock.has(block["id"]) or get_block(block["position"],block["layer"]) == null:
+			generate_block_from_structure(block,block["position"] + pos)
+
+func generate_dungeon(dungeonGroup : String, startingPiece : String, dungeonSize : int, replaceFloorBlock := [], keepOnGround := false, hasEnds := false) -> void:
+	var dungeonPieces : Array = Global.load_structures(dungeonGroup)
+	var endPieces : Array = Global.load_structures("end" + dungeonGroup)
+	var dungeonBossRoom : Dictionary = Global.load_structure(startingPiece + ".dat")
+	var size : Vector2 = dungeonBossRoom["size"]
+	var pos : Vector2 = Vector2(randi_range(0,worldSize.x-size.x),0)
 	pos.y = (worldSize.y - (int(worldNoise.get_noise_1d(pos.x) * noiseScale) + worldHeight))
 	while !Rect2(Vector2(0,0),worldSize).encloses(Rect2(pos,size)):
 		pos.y -= 1
@@ -730,12 +778,10 @@ func generate_dungeon(dungeonGroup : String, startingPiece : String, dungeonSize
 			return
 	var currentId = 0
 	var openLinks = {0:[]}
-	var dungeon = {0:{"position":pos,"size":dungeonBossRoom["size"]}}
+	var dungeon = {0:{"position":pos,"size":size}}
 	for link in dungeonBossRoom["structure"]["link_blocks"]:
 		openLinks[currentId].append(link)
-	for block in dungeonBossRoom["structure"]["blocks"]:
-		if replaceFloorBlock.is_empty() or !replaceFloorBlock.has(block["id"]):
-			generate_block_from_structure(block,block["position"] + pos)
+	generate_blocks_from_structure(dungeonBossRoom["structure"]["blocks"],pos,replaceFloorBlock)
 	for room in range(dungeonSize):
 		currentId = room + 1
 		var selectedLinkRoom : int = openLinks.keys().pick_random()
@@ -747,7 +793,8 @@ func generate_dungeon(dungeonGroup : String, startingPiece : String, dungeonSize
 			selectedLinkRoom = openLinks.keys().pick_random()
 		var selectedLink : Dictionary = openLinks[selectedLinkRoom].pick_random()
 		var possibleRooms : Array = []
-		for piece in dungeonPieces:
+		var chooseFrom : Array = dungeonPieces if randi_range(0,4) <= 3 else endPieces
+		for piece in chooseFrom:
 			for link in piece["structure"]["link_blocks"]:
 				if (selectedLink.has("group") and link.has("group") and selectedLink["group"] == link["group"]) or (!selectedLink.has("group") and !link.has("group")):
 					var side1 = link["side"]
@@ -778,18 +825,68 @@ func generate_dungeon(dungeonGroup : String, startingPiece : String, dungeonSize
 				for link in chosenRoom["piece"]["structure"]["link_blocks"]:
 					if link["position"] != link2["position"]:
 						openLinks[currentId].append(link)
-				for block in chosenRoom["piece"]["structure"]["blocks"]:
-					if replaceFloorBlock.is_empty() or !replaceFloorBlock.has(block["id"]):
-						generate_block_from_structure(block,block["position"] + originPos)
+				generate_blocks_from_structure(chosenRoom["piece"]["structure"]["blocks"],originPos,replaceFloorBlock)
 				roomChosen = true
 			else:
 				possibleRooms.erase(chosenRoom)
+	#This loop ensures all rooms are closed
+	if hasEnds:
+		while !openLinks.is_empty():
+			var selectedLinkRoom : int = openLinks.keys()[0]
+			#Removes any rooms with no available links
+			while openLinks[selectedLinkRoom].is_empty():
+				openLinks.erase(selectedLinkRoom)
+				if openLinks.is_empty():
+					return
+				selectedLinkRoom = openLinks.keys().pick_random()
+			var selectedLink : Dictionary = openLinks[selectedLinkRoom][0]
+			var possibleRooms : Array = []
+			var chooseFrom : Array = endPieces
+			for piece in chooseFrom:
+				for link in piece["structure"]["link_blocks"]:
+					if (selectedLink.has("group") and link.has("group") and selectedLink["group"] == link["group"]) or (!selectedLink.has("group") and !link.has("group")):
+						var side1 = link["side"]
+						var side2 = selectedLink["side"]
+						if (side1.x == -side2.x and side1.x != 0) or (side1.y == -side2.y and side1.y != 0):
+							possibleRooms.append({"piece":piece,"link":link})
+							break
+			var roomChosen = false
+			while !roomChosen and !possibleRooms.is_empty():
+				var chosenRoom = possibleRooms.pick_random()
+				var link1Pos = selectedLink["position"] + dungeon[selectedLinkRoom]["position"]
+				var link2 = chosenRoom["link"]
+				var originPos : Vector2
+				if link2["side"].x != 0:
+					originPos = Vector2(link1Pos.x+selectedLink["side"].x-(chosenRoom["piece"]["size"].x-1 if selectedLink["side"].x < 0 else 0),-(link2["position"].y-link1Pos.y))
+				else:
+					originPos = Vector2(-(link2["position"].x-link1Pos.x),link1Pos.y+selectedLink["side"].y-(chosenRoom["piece"]["size"].y-1 if selectedLink["side"].y < 0 else 0))
+				var canPlace = true
+				for oldRoom in dungeon:
+					if Rect2(dungeon[oldRoom]["position"],dungeon[oldRoom]["size"]).intersects(Rect2(originPos,chosenRoom["piece"]["size"])) or !Rect2(Vector2(0,0),worldSize).encloses(Rect2(originPos,chosenRoom["piece"]["size"])) or (keepOnGround and originPos.y + chosenRoom["piece"]["size"].y < (worldSize.y - (int(worldNoise.get_noise_1d(originPos.x) * noiseScale) + worldHeight))):
+						canPlace = false
+				if canPlace:
+					dungeon[currentId] = {"position":originPos,"size":chosenRoom["piece"]["size"]}
+					openLinks[selectedLinkRoom].erase(selectedLink)
+					if openLinks[selectedLinkRoom].is_empty():
+						openLinks.erase(selectedLinkRoom)
+					openLinks[currentId] = []
+					for link in chosenRoom["piece"]["structure"]["link_blocks"]:
+						if link["position"] != link2["position"]:
+							openLinks[currentId].append(link)
+					generate_blocks_from_structure(chosenRoom["piece"]["structure"]["blocks"],originPos,replaceFloorBlock)
+					roomChosen = true
+				else:
+					possibleRooms.erase(chosenRoom)
+			if possibleRooms.is_empty() and !roomChosen:
+				openLinks[selectedLinkRoom].erase(selectedLink)
+				if openLinks[selectedLinkRoom].is_empty():
+					openLinks.erase(selectedLinkRoom)
 
 func generate_block_from_structure(block : Dictionary, pos : Vector2) -> void:
 	var gen : RandomNumberGenerator = RandomNumberGenerator.new()
 	gen.randomize()
 	match block["id"]:
-		187:
+		187,185:
 			set_block(pos,block["layer"],0,false)
 		189:
 			var usedGroups = []
@@ -838,6 +935,7 @@ func get_structure_blocks(area : Rect2) -> Dictionary:
 	var blocks = {"blocks":[],"link_blocks":[]}
 	for block in $blocks.get_children():
 		if (GlobalData.blockData[block.id]["type"] != "door" or block.mainBlock == block) and area.has_point(block.pos):
+			blocks["blocks"].append({"id":block.id,"layer":block.layer,"position":block.pos - area.position ,"data":block.data})
 			match block.id:
 				185:
 					var pos = block.pos - area.position
@@ -847,9 +945,6 @@ func get_structure_blocks(area : Rect2) -> Dictionary:
 					if !block.data["group"].is_empty():
 						linkData["group"] = block.data["group"]
 					blocks["link_blocks"].append(linkData)
-					blocks["blocks"].append({"id":187,"layer":block.layer,"position":block.pos - area.position,"data":block.data})
-				_:
-					blocks["blocks"].append({"id":block.id,"layer":block.layer,"position":block.pos - area.position ,"data":block.data})
 	return blocks
 
 func load_player_data() -> void:

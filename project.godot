@@ -198,6 +198,7 @@ pause_camera={
 2d_physics/layer_7="shops"
 2d_physics/layer_8="signs"
 2d_physics/layer_9="enemy_hitbox"
+2d_physics/layer_10="wall"
 
 [physics]
 

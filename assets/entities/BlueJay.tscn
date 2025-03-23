@@ -76,6 +76,7 @@ size = Vector2(4, 3)
 z_index = 1
 use_parent_material = true
 collision_layer = 16
+collision_mask = 513
 script = ExtResource("1_sye7b")
 type = "blue_jay"
 

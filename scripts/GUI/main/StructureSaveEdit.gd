@@ -29,7 +29,7 @@ func _on_back_btn_pressed() -> void:
 	get_tree().paused = false
 
 func _on_save_btn_pressed() -> void:
-	var structureRect : Rect2 = Rect2(Vector2(int(x_edit.value),int(y_edit.value)),Vector2(int(width_edit.value),int(height_edit.value)))
+	var structureRect : Rect2 = Rect2(Vector2(int(x_edit.value) + selectedBlock.pos.x,int(y_edit.value) + selectedBlock.pos.y),Vector2(int(width_edit.value),int(height_edit.value)))
 	var data = {"structure":world.get_structure_blocks(structureRect),"size":structureRect.size,"file_name":name_edit.text}
 	Global.save_structure(data)
 	_on_back_btn_pressed()
@@ -40,15 +40,19 @@ func _on_name_edit_text_changed(new_text: String) -> void:
 
 func _on_x_edit_value_changed(value: float) -> void:
 	selectedBlock.data["pos"].x = int(value)
+	selectedBlock.queue_redraw()
 
 func _on_y_edit_value_changed(value: float) -> void:
 	selectedBlock.data["pos"].y = int(value)
+	selectedBlock.queue_redraw()
 
 func _on_width_edit_value_changed(value: float) -> void:
 	selectedBlock.data["size"].x = int(value)
+	selectedBlock.queue_redraw()
 
 func _on_height_edit_value_changed(value: float) -> void:
 	selectedBlock.data["size"].y = int(value)
+	selectedBlock.queue_redraw()
 
 func _on_load_btn_pressed() -> void:
 	var structure : Dictionary = Global.load_structure(name_edit.text + ".dat")

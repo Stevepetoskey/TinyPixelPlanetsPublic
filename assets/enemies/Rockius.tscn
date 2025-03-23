@@ -103,6 +103,7 @@ _data = {
 z_index = 1
 use_parent_material = true
 collision_layer = 8
+collision_mask = 513
 script = ExtResource("3")
 bluesDropRange = [3, 10]
 type = "rockius"

@@ -42,3 +42,12 @@ This branch is for unstable development of TU6 (v0.6.0)
 - Made some improvements to the light rendering algorithm
 - Structure save block have been renamed to Structure block, and can now load structures.
 - All entities now use built in velocity for movement to be inline with Godot 4 structures
+- Structure blocks now highlight the selected area
+- Structure blocks now save from the local position of the block instead of the global position in the world
+- Fixed completely empty worlds freezing the game (this was caused by the creature spawning process)
+- Fixed reaching the bottom of the world (below bottom rock) crashing the game
+- Mines now generate with wooden floor if no blocks are underneath
+- Dungeons now have the option to always try and close off open exits
+- Complete overhual of the frigid dungeon
+- Added fan blocks
+- Remade scorched dungeons

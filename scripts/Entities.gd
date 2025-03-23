@@ -117,8 +117,10 @@ func _on_Spawn_timeout():
 				creatureCount += 1
 		for _i in range(randi_range(0,2)):
 			var pos = Vector2(randi()%int(world.worldSize.x),randi()%int(world.worldSize.y))
-			while world.get_block_id(pos,1) != 0 or world.get_block_id(pos,0) != 0 or !GlobalData.blockData[world.get_block_id(pos + Vector2(0,1),1)]["can_collide"]:
+			var attemps : int = 0
+			while (world.get_block_id(pos,1) != 0 or world.get_block_id(pos,0) != 0 or !GlobalData.blockData[world.get_block_id(pos + Vector2(0,1),1)]["can_collide"]) and attemps < 100:
 				pos = Vector2(randi()%int(world.worldSize.x),randi()%int(world.worldSize.y))
+				attemps += 1
 			var hostileSpawns : Array = StarSystem.hostileSpawn[StarSystem.find_planet_id(Global.currentPlanet).type["type"]]
 			var creatureSpawns : Array = StarSystem.creatureSpawn[StarSystem.find_planet_id(Global.currentPlanet).type["type"]]
 			print("spawning")

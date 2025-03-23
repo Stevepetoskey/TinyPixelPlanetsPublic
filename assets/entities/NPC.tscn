@@ -116,6 +116,7 @@ _data = {
 
 [node name="NPC" type="CharacterBody2D"]
 use_parent_material = true
+collision_mask = 513
 script = ExtResource("2")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
