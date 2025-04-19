@@ -9,9 +9,9 @@ extends Node2D
 @onready var title_timer: Timer = $CanvasLayer/Title/TitleTimer
 @onready var go_up: TextureButton = $CanvasLayer/Hotbar/GoUp
 @onready var world: Node2D = $World
-@onready var lightTexture : ViewportTexture = $LightingViewport/SubViewport.get_texture()
 
 var currentWeather = "none"
+var showFPS : bool = false
 var worldType : String
 var lastLightUpdatePos : Vector2i
 var lastLightImage : Image
@@ -26,6 +26,7 @@ signal input_pressed
 signal gathered_wood
 
 func _ready():
+	$CanvasLayer/DebugMenu/VER.text = Global.CURRENTVER
 	StarSystem.connect("start_meteors", Callable(self, "start_meteors"))
 	$CanvasLayer/Black.show()
 	if !Global.gamerules["can_leave_planet"] or ( Global.inTutorial and Global.tutorialStage < 1):
@@ -33,7 +34,11 @@ func _ready():
 	Global.connect("screenshot", Callable(self, "screenshot"))
 
 func _process(delta):
-	$CanvasLayer/FPS.text = str(Engine.get_frames_per_second())
+	if showFPS:
+		$CanvasLayer/DebugMenu/FPS.text = "FPS: " + str(Engine.get_frames_per_second())
+	if Input.is_action_just_pressed("debug"):
+		showFPS = !showFPS
+		$CanvasLayer/DebugMenu.visible = showFPS
 	$weather.position = $Player/PlayerCamera.global_position - Vector2(142,120)
 	#var camera_offset = ($Player/PlayerCamera.get_screen_center_position() - Vector2(lastLightUpdatePos * 8))/8.0
 	#if camera_offset.x >= 1 or camera_offset.y >= 1:

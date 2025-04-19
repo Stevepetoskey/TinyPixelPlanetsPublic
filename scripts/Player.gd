@@ -67,35 +67,6 @@ var suitOxygen = 500
 var suitOxygenMax = 500
 
 var gender = "male"
-var files = {32:{"folder":"Tops","file":"Shirt.png"},
-	33:{"folder":"Bottoms","file":"Jeans.png"},
-	34:{"folder":"Shoes","file":"Black.png"},
-	35:{"folder":"Headwear","file":"Copper.png"},
-	36:{"folder":"Tops","file":"Copper.png"},
-	37:{"folder":"Bottoms","file":"Copper.png"},
-	38:{"folder":"Shoes","file":"Copper.png"},
-	39:{"folder":"Headwear","file":"Silver.png"},
-	40:{"folder":"Tops","file":"Silver.png"},
-	41:{"folder":"Bottoms","file":"Silver.png"},
-	42:{"folder":"Shoes","file":"Silver.png"},
-	43:{"folder":"Tops","file":"Tuxedo.png"},
-	44:{"folder":"Bottoms","file":"Slacks.png"},
-	45:{"folder":"Headwear","file":"Top_hat.png"},
-	46:{"folder":"Headwear","file":"Space.png"},
-	47:{"folder":"Tops","file":"Space.png"},
-	48:{"folder":"Bottoms","file":"Space.png"},
-	49:{"folder":"Shoes","file":"Space.png"},
-	50:{"folder":"Tops","file":"Red_Dress.png"},
-	51:{"folder":"Bottoms","file":"Red_Dress.png"},
-	207:{"folder":"Headwear","file":"Coat.png"},
-	208:{"folder":"Tops","file":"Coat.png"},
-	209:{"folder":"Bottoms","file":"Coat.png"},
-	210:{"folder":"Shoes","file":"Coat.png"},
-	211:{"folder":"Headwear","file":"Fire.png"},
-	212:{"folder":"Tops","file":"Fire.png"},
-	213:{"folder":"Bottoms","file":"Fire.png"},
-	214:{"folder":"Shoes","file":"Fire.png"},
-	}
 
 var clothesSpritesheets : Dictionary = {
 	46:{"name":"space","contains":["head"]},
@@ -110,6 +81,14 @@ var clothesSpritesheets : Dictionary = {
 	40:{"name":"silver","contains":["left_arm","right_arm","torso"]},
 	41:{"name":"silver","contains":["left_leg","right_leg"]},
 	42:{"name":"silver","contains":["shoes"]},
+	211:{"name":"fire","contains":["head"]},
+	212:{"name":"fire","contains":["left_arm","right_arm","torso"]},
+	213:{"name":"fire","contains":["left_leg","right_leg"]},
+	214:{"name":"fire","contains":["shoes"]},
+	207:{"name":"coat","contains":["head"]},
+	208:{"name":"coat","contains":["left_arm","right_arm","torso"]},
+	209:{"name":"coat","contains":["left_leg","right_leg"]},
+	210:{"name":"coat","contains":["shoes"]},
 }
 
 func _ready():
@@ -343,11 +322,13 @@ func swing(loc):
 		if GlobalData.itemData[item]["type"] == "weapon":
 			$WeaponRange/CollisionShape2D.shape.radius = GlobalData.itemData[swingingWith]["range"]
 			await get_tree().physics_frame
+			print(toAttack)
 			for enemy : CharacterBody2D in toAttack:
 				var space_state = get_world_2d().direct_space_state #Ray to make sure no blocks in the way
 				var params = PhysicsRayQueryParameters2D.create(position,enemy.position,1,[self])
 				var result = space_state.intersect_ray(params)
 				if result.is_empty() and sign(enemy.position.x - position.x) == sign(get_global_mouse_position().x - position.x):
+					print(enemy)
 					match enemy.type:
 						"trinanium_charge":
 							enemy.update_direction(position.angle_to_point(enemy.position))
@@ -357,6 +338,7 @@ func swing(loc):
 							if upgrades.has("damage"):
 								dmg += upgrades["damage"] * 2
 							enemy.damage(dmg)
+							print("damaged")
 							if upgrades.has("poison"):
 								enemy.poison(6,upgrades["poison"])
 			$WeaponRange/CollisionShape2D.shape.radius = 1

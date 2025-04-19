@@ -14,7 +14,13 @@ var groups : Dictionary = {
 	"wool":{
 		"texture":[],
 		"ids":[247,248,249,250,251,252,253,254,255,256,257,258,259,260,261,262],
-		}
+	},
+	"planks":{
+		"ids":[13,78,157,300]
+	},
+	"no_exotic_planks":{
+		"ids":[13,157,300]
+	},
 }
 
 var colors : Dictionary = {
@@ -74,6 +80,7 @@ var recipes = {
 		{"recipe":[{"id":10,"amount":1}],"result":{"id":13,"amount":4}}, #Planks
 		{"recipe":[{"id":297,"amount":1}],"result":{"id":300,"amount":4}}, #Willow planks
 		{"recipe":[{"id":13,"amount":4}],"result":{"id":12,"amount":1}}, #Workbench
+		{"recipe":[{"id":3,"amount":4},{"id":10,"amount":1}],"result":{"id":320,"amount":1}}, #Cooking pot
 		{"recipe":[{"id":13,"amount":4},{"id":247,"amount":2}],"result":{"id":263,"amount":1}}, #Wool work table
 		{"recipe":[{"id":78,"amount":4}],"result":{"id":12,"amount":1}}, #Workbench (With exotic wood)
 		{"recipe":[{"id":5,"amount":1},{"id":323,"amount":2}],"result":{"id":321,"amount":4}}, #Torch
@@ -86,6 +93,8 @@ var recipes = {
 		{"recipe":[{"id":112,"amount":4}],"result":{"id":277,"amount":4}}, #Asteroid rock bricks
 		{"recipe":[{"id":112,"amount":2}],"result":{"id":278,"amount":2}}, #Carved asteroid rock
 		{"recipe":[{"id":112,"amount":1}],"result":{"id":279,"amount":1}}, #Polished asteroid rock
+		{"recipe":[{"id":285,"amount":4}],"result":{"id":302,"amount":4}}, #Mystical stone bricks
+		{"recipe":[{"id":285,"amount":4}],"result":{"id":303,"amount":4}}, #Carved mystical stone bricks
 		{"recipe":[{"id":22,"amount":4}],"result":{"id":23,"amount":4}},
 		{"recipe":[{"id":13,"amount":1}],"result":{"id":5,"amount":3}}, #sticks
 		{"recipe":[{"id":78,"amount":1}],"result":{"id":5,"amount":3}}, #sticks (With exotic wood)
@@ -121,8 +130,8 @@ var recipes = {
 		{"recipe":[{"id":5,"amount":2},{"id":157,"amount":3}],"result":{"id":61,"amount":1}}, #(Acacia) Wood sword
 		{"recipe":[{"id":173,"amount":1}],"result":{"id":174,"amount":1}}, #Taped steel
 		{"recipe":[{"id":173,"amount":1}],"result":{"id":175,"amount":1}}, #Steel tiles
-		{"recipe":[{"id":173,"amount":6}],"result":{"id":172,"amount":1}}, #Steel door
 		{"recipe":[{"id":13,"amount":6}],"result":{"id":171,"amount":1}}, #Wood door
+		{"recipe":[{"id":300,"amount":6}],"result":{"id":301,"amount":1}}, #Willow door
 		{"recipe":[{"id":126,"amount":1}],"result":{"id":222,"amount":2}}, #Red dye
 		{"recipe":[{"id":222,"amount":1},{"id":224,"amount":1}],"result":{"id":223,"amount":2}}, #Orange dye
 		{"recipe":[{"id":6,"amount":1}],"result":{"id":224,"amount":2}}, #Yellow dye
@@ -146,6 +155,7 @@ var recipes = {
 		{"recipe":[{"id":18,"amount":1}],"result":{"id":17,"amount":1}},
 		{"recipe":[{"id":8,"amount":1}],"result":{"id":3,"amount":1}},
 		{"recipe":[{"id":3,"amount":1}],"result":{"id":280,"amount":1}}, #Smooth stone
+		{"recipe":[{"id":286,"amount":1}],"result":{"id":285,"amount":1}}, #Mystical stone
 		{"recipe":[{"id":25,"amount":1}],"result":{"id":26,"amount":1}},
 		{"recipe":[{"id":29,"amount":1}],"result":{"id":52,"amount":1}}, # Copper
 		{"recipe":[{"id":55,"amount":1}],"result":{"id":56,"amount":1}}, #Silver (stone)
@@ -213,13 +223,30 @@ var recipes = {
 		{"recipe":[{"id":5,"amount":3},{"id":56,"amount":2}],"result":{"id":130,"amount":1}}, #Silver Hoe
 		{"recipe":[{"id":56,"amount":3}],"result":{"id":132,"amount":1}}, #Silver Watering Can
 		{"recipe":[{"id":52,"amount":3}],"result":{"id":131,"amount":1}}, #Copper Watering Can
-
+		{"recipe":[{"id":175,"amount":3},{"id":323,"amount":1}],"result":{"id":325,"amount":2}}, #Lantern
+		{"recipe":[{"id":197,"amount":3},{"id":323,"amount":1}],"result":{"id":326,"amount":2}}, #Ice lantern
+		{"recipe":[{"id":165,"amount":6},{"id":13,"amount":3}],"result":{"id":328,"amount":1}}, #Tech workbench
 	],
 	"wool_work_table":[
 		{"recipe":[{"id":247,"amount":5}],"result":{"id":207,"amount":1}}, #Coat hood
 		{"recipe":[{"id":247,"amount":10}],"result":{"id":208,"amount":1}}, #Coat
 		{"recipe":[{"id":247,"amount":7}],"result":{"id":209,"amount":1}}, #Coat pants
 		{"recipe":[{"id":247,"amount":5}],"result":{"id":210,"amount":1}}, #Coat boots
+	],
+	"tech_workbench":[
+		{"recipe":[{"id":89,"amount":4},{"id":166,"amount":1}],"result":{"id":169,"amount":1}}, #Logic block
+		{"recipe":[{"id":89,"amount":4},{"id":166,"amount":1}],"result":{"id":168,"amount":1}}, #Display block
+		{"recipe":[{"id":173,"amount":1},{"id":5,"amount":2}],"result":{"id":167,"amount":1}}, #Lever
+		{"recipe":[{"id":89,"amount":4},{"id":166,"amount":1}],"result":{"id":170,"amount":1}}, #Flip block
+		{"recipe":[{"id":173,"amount":1},{"id":13,"amount":1}],"result":{"id":176,"amount":1}}, #Button
+		{"recipe":[{"id":173,"amount":6}],"result":{"id":172,"amount":1}}, #Steel door
+		{"recipe":[{"id":89,"amount":4},{"id":166,"amount":1}],"result":{"id":241,"amount":1}}, #Music player
+		{"recipe":[{"id":89,"amount":2},{"id":52,"amount":2}],"result":{"id":242,"amount":1}}, #Silver spike
+		{"recipe":[{"id":89,"amount":4},{"id":166,"amount":1}],"result":{"id":243,"amount":1}}, #Timer block
+		{"recipe":[{"id":56,"amount":2},{"id":168,"amount":1},{"id":222,"amount":1}],"result":{"id":265,"amount":1}}, #Red LED lamp
+		{"recipe":[{"id":56,"amount":2},{"id":168,"amount":1},{"id":223,"amount":1}],"result":{"id":266,"amount":1}}, #Orange LED lamp
+		{"recipe":[{"id":56,"amount":2},{"id":168,"amount":1},{"id":224,"amount":1}],"result":{"id":267,"amount":1}}, #Yellow LED lamp
+		{"recipe":[{"id":56,"amount":2},{"id":168,"amount":1},{"id":225,"amount":1}],"result":{"id":268,"amount":1}}, #Yellow Green LED lamp
 	]
 }
 
@@ -280,7 +307,13 @@ func get_recipe_ids(recipe : Array) -> Array:
 func can_craft(recipe : Dictionary) -> Array:
 	var canCraft : Array = []
 	for item : Dictionary in recipe["recipe"]:
-		canCraft.append(inventory.count_id(item["id"]) >= item["amount"])
+		var totalCount : int = 0
+		if item.has("group"):
+			for groupItem : int in groups[item["group"]]:
+				totalCount += inventory.count_id(groupItem)
+		else:
+			totalCount = inventory.count_id(item["id"])
+		canCraft.append(totalCount >= item["amount"])
 	return canCraft
 
 func update_recipe_data():
@@ -299,7 +332,7 @@ func update_recipe_data():
 			craftItem.get_node("TextureRect").texture = GlobalData.get_item_texture(item["id"])
 			craftItem.get_node("Label").text = str(item["amount"]) + " (" + str(inventory.count_id(item["id"])) + ")"
 			if item["amount"] > inventory.count_id(item["id"]):
-				craftItem.modulate = Color(1,0.5,0.5)
+				craftItem.modulate = Color(1,0.75,0.75)
 			$RecipeData/Recipe.add_child(craftItem)
 		craft_btn.disabled = canCraftArray.has(false)
 		recipe_data.show()
@@ -320,5 +353,6 @@ func mouse_out_btn(_recipeRef : Dictionary):
 func _on_craft_btn_pressed() -> void:
 	if !can_craft(selectedRecipe).has(false):
 		for item : Dictionary in selectedRecipe["recipe"]:
+			#if item.has("group"):
 			inventory.remove_id_from_inventory(item["id"],item["amount"])
 		inventory.add_to_inventory(selectedRecipe["result"]["id"],selectedRecipe["result"]["amount"])

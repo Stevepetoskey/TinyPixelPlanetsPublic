@@ -365,7 +365,7 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 			upgrade.clear()
 			music_player.hide()
 			cooking_pot.clear()
-		"inventory","crafting_table","oven","smithing_table","wool_work_table":
+		"inventory","crafting_table","oven","smithing_table","wool_work_table","tech_workbench":
 			opened_inventory.emit()
 			if !Global.godmode or mode != "inventory":
 				crafting.visible = setValue

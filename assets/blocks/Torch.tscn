@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dc3v0rtwm8fxl"]
+[gd_scene load_steps=12 format=3 uid="uid://dc3v0rtwm8fxl"]
 
 [ext_resource type="Script" path="res://scripts/blocks/torch.gd" id="1_i2tiv"]
 [ext_resource type="Texture2D" uid="uid://ctmr7nsvugtjy" path="res://textures/blocks/ice_lantern1.png" id="2_0tac8"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://deuowdb66xmi4" path="res://textures/blocks/ice_lantern2.png" id="3_tt4dq"]
 [ext_resource type="Texture2D" uid="uid://cegvx0wpplw4f" path="res://textures/blocks/lantern1.png" id="4_t2a80"]
 [ext_resource type="Texture2D" uid="uid://dxrjr41dyn2m1" path="res://textures/blocks/lantern2.png" id="5_mjr6h"]
+[ext_resource type="Texture2D" uid="uid://dg0o2drl5ds3c" path="res://textures/blocks/torch_side1.png" id="8_csglq"]
+[ext_resource type="Texture2D" uid="uid://bxpdv1wrl2b3s" path="res://textures/blocks/torch_side2.png" id="9_4glde"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_x3vwt"]
 animations = [{
@@ -42,6 +44,17 @@ animations = [{
 "loop": true,
 "name": &"torch",
 "speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_csglq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_4glde")
+}],
+"loop": true,
+"name": &"torch_side",
+"speed": 2.0
 }]
 
 [sub_resource type="RectangleShape2D" id="1"]
@@ -60,7 +73,7 @@ rect = Rect2(-10, -10, 40, 40)
 light_mask = 2
 use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_x3vwt")
-animation = &"lantern"
+animation = &"torch_side"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

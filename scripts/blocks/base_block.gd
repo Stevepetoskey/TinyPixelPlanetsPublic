@@ -10,3 +10,9 @@ var pos : Vector2
 @onready var main = $"../../.."
 
 var data = {}
+
+signal destroyed
+
+func ghost_block_block_destroyed():
+	world.set_block(pos,layer,0,true)
+	destroyed.emit()

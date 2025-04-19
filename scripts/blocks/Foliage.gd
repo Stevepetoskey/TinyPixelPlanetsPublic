@@ -20,7 +20,7 @@ func _ready() -> void:
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
 			position.x += 0.5
-			position.y -= 23
+			position.y += 2
 		6,7,218:
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
@@ -33,7 +33,7 @@ func _ready() -> void:
 			$Sprite2D.texture = load("res://textures/blocks/exotic_tree1.png")
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
-			position.y -= 21
+			position.y -= 3
 		11:
 			$Sprite2D.texture = load("res://textures/blocks/sapling.png")
 			$check.start(randf_range(120,600))
@@ -68,7 +68,7 @@ func _ready() -> void:
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
 			#position.x += 0.5
-			position.y -= 46
+			position.y += 2
 		156:
 			z_index -= 1
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
@@ -97,7 +97,7 @@ func _ready() -> void:
 			$Sprite2D.material = load("res://shaders/tree_shader.tres").duplicate(true)
 			$Sprite2D.material.set_shader_parameter("offset",position.x/8.0)
 			#position.x += 0.5
-			position -= Vector2(12,44)
+			position -= Vector2(12,28.5)
 
 func world_loaded():
 	on_update()

@@ -26,7 +26,7 @@
 },
 "32":{
 	"texture":"items/armor/shirt.png",
-	"type":"armor",
+	"type":"armor_broken",
 	"armor_data":{"armor_type":"shirt","def":0,"speed":0,"buff":[]},
 	"name":"Shirt",
 	"desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]",
@@ -34,7 +34,7 @@
 },
 "33":{
 	"texture":"items/armor/jeans.png",
-	"type":"armor",
+	"type":"armor_broken",
 	"armor_data":{"armor_type":"pants","def":0,"speed":0,"buff":[]},
 	"name":"Jeans",
 	"desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]",
@@ -42,7 +42,7 @@
 },
 "34":{
 	"texture":"items/armor/black_shoes.png",
-	"type":"armor",
+	"type":"armor_broken",
 	"armor_data":{"armor_type":"shoes","def":0,"speed":0,"buff":[]},
 	"name":"Black shoes",
 	"desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]",
@@ -114,7 +114,7 @@
 },
 "43":{
 	"texture":"items/armor/tuxedo.png",
-	"type":"armor",
+	"type":"armor_broken",
 	"armor_data":{"armor_type":"shirt","def":0,"speed":0,"buff":[]},
 	"name":"Tuxedo",
 	"desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]",
@@ -122,7 +122,7 @@
 },
 "44":{
 	"texture":"items/armor/slacks.png",
-	"type":"armor",
+	"type":"armor_broken",
 	"armor_data":{"armor_type":"pants","def":0,"speed":0,"buff":[]},
 	"name":"Slacks",
 	"desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]",
@@ -130,7 +130,7 @@
 },
 "45":{
 	"texture":"items/armor/top_hat.png",
-	"type":"armor",
+	"type":"armor_broken",
 	"armor_data":{"armor_type":"helmet","def":0,"speed":0,"buff":[]},
 	"name":"Top hat",
 	"desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]",
@@ -170,7 +170,7 @@
 },
 "50":{
 	"texture":"items/armor/red_dress.png",
-	"type":"armor",
+	"type":"armor_broken",
 	"armor_data":{"armor_type":"shirt","def":0,"speed":0,"buff":[]},
 	"name":"Red dress top",
 	"desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]",
@@ -178,7 +178,7 @@
 },
 "51":{
 	"texture":"items/armor/red_dress_bottom.png",
-	"type":"armor",
+	"type":"armor_broken",
 	"armor_data":{"armor_type":"pants","def":0,"speed":-1,"buff":[]},
 	"name":"Red dress bottom",
 	"desc":"[color=cornflowerblue]+0 Def\n+0 Speed[/color]",
@@ -775,98 +775,98 @@
 	"texture":"items/tomato_soup.png",
 	"type":"cooked_food",
 	"name":"Tomato soup",
-	"stack_size":1,
+	"stack_size":16,
 	"starter_data":{"regen":0}
 },
 "306":{
 	"texture":"items/boiled_corn.png",
 	"type":"cooked_food",
 	"name":"Boiled corn",
-	"stack_size":1,
+	"stack_size":16,
 	"starter_data":{"regen":0}
 },
 "307":{
 	"texture":"items/mushroom_platter.png",
 	"type":"cooked_food",
 	"name":"Mushroom platter",
-	"stack_size":1,
+	"stack_size":16,
 	"starter_data":{"regen":0}
 },
 "308":{
 	"texture":"items/cooked_meat.png",
 	"type":"cooked_food",
 	"name":"Cooked meat",
-	"stack_size":1,
+	"stack_size":16,
 	"starter_data":{"regen":0}
 },
 "309":{
 	"texture":"items/salad.png",
 	"type":"cooked_food",
 	"name":"Salad",
-	"stack_size":1,
+	"stack_size":16,
 	"starter_data":{"regen":0}
 },
 "310":{
 	"texture":"items/diced_tomatoes_and_meat.png",
 	"type":"cooked_food",
 	"name":"Diced tomatoes and meat",
-	"stack_size":1,
+	"stack_size":16,
 	"starter_data":{"regen":0}
 },
 "311":{
 	"texture":"items/diced_mushrooms_and_meat.png",
 	"type":"cooked_food",
 	"name":"Diced mushrooms and meat",
-	"stack_size":1,
+	"stack_size":16,
 	"starter_data":{"regen":0}
 },
 "312":{
 	"texture":"items/corn_with_meat.png",
 	"type":"cooked_food",
 	"name":"Corn with meat",
-	"stack_size":1,
+	"stack_size":16,
 	"starter_data":{"regen":0}
 },
 "313":{
 	"texture":"items/burger.png",
 	"type":"cooked_food",
 	"name":"burger",
-	"stack_size":1,
+	"stack_size":16,
 	"starter_data":{"regen":0}
 },
 "314":{
 	"texture":"items/tomato_burger.png",
 	"type":"cooked_food",
 	"name":"Tomato burger",
-	"stack_size":1,
+	"stack_size":16,
 	"starter_data":{"regen":0}
 },
 "315":{
 	"texture":"items/mushroom_burger.png",
 	"type":"cooked_food",
 	"name":"Mushroom burger",
-	"stack_size":1,
+	"stack_size":16,
 	"starter_data":{"regen":0}
 },
 "316":{
 	"texture":"items/corn_burger.png",
 	"type":"cooked_food",
 	"name":"Corn burger",
-	"stack_size":1,
+	"stack_size":16,
 	"starter_data":{"regen":0}
 },
 "317":{
 	"texture":"items/glow_stew.png",
 	"type":"cooked_food",
 	"name":"Glow stew",
-	"stack_size":1,
+	"stack_size":16,
 	"starter_data":{"regen":0}
 },
 "318":{
 	"texture":"items/salad_with_meat.png",
 	"type":"cooked_food",
 	"name":"Salad with meat",
-	"stack_size":1,
+	"stack_size":16,
 	"starter_data":{"regen":0}
 },
 "319":{

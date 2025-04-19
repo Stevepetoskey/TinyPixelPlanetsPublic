@@ -4,3 +4,6 @@ extends BaseBlock
 
 func _ready():
 	animations.play("idle")
+
+func on_update() -> void:
+	pass

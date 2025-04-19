@@ -35,6 +35,6 @@ func _on_Area2D_body_entered(body):
 			tween.set_parallel()
 			tween.tween_property(self,"position",body.position,1)
 			tween.tween_property(self,"modulate",Color(1,1,1,0),1)
-			await tween.finished
 			inventory.add_to_inventory(data["id"],data["amount"],true,data["data"])
+			await tween.finished
 			queue_free()

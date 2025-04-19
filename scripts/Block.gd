@@ -13,11 +13,12 @@ var fallPos : Vector2
 
 func _ready():
 	z_index = layer
-	if layer < 1:
-		modulate = Color(0.68,0.68,0.68)
+	if layer < 1 or !GlobalData.get_item_data(id)["can_collide"]:
 		mainCol.disabled = true
 		rain_col.queue_free()
-		z_index -= 1
+		if layer < 1:
+			modulate = Color(0.68,0.68,0.68)
+			z_index -= 1
 	
 	pos = position / world.BLOCK_SIZE
 	world.connect("update_blocks", Callable(self, "on_update"))
@@ -80,12 +81,15 @@ func _ready():
 		320:
 			if data.is_empty():
 				data = {"fuel":{"id":0,"amount":0,"data":{}},"cooks_left":0,"max_fuel":0}
+		328:
+			texture.texture = load("res://textures/blocks/tech_workbench.png")
+			texture.position += Vector2(4,4)
 
 func world_loaded():
 	on_update()
 
 func weather_changed(weather):
-	if ["rain","showers","snow","blizzard"].has(weather):
+	if ["rain","showers","snow","blizzard"].has(weather) and [1,24,146,119].has(id):
 		$check.start(randf_range(10,30))
 
 func on_update():

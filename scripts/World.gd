@@ -336,7 +336,7 @@ func generateWorld(worldType : String):
 						if y <= seaLevel:
 							set_block_all(pos,1)
 							if get_block(pos - Vector2(0,2),1) == null and randi() % 5 == 1:
-								set_block(pos - Vector2(0,1),1,9)
+								set_block(pos - Vector2(0,4),1,9)
 							elif get_block(pos - Vector2(0,1),1) == null:
 								if randi() % 3 == 1:
 									set_block(pos - Vector2(0,1),1,6)
@@ -925,10 +925,11 @@ func get_world_data() -> Dictionary:
 func get_blocks_data(withinArea : bool = false,area : Rect2 = Rect2()) -> Array:
 	var blocks = []
 	for block in $blocks.get_children():
-		if (GlobalData.blockData[block.id]["type"] != "door" or block.mainBlock == block) and (!withinArea or area.has_point(block.pos)):
-			if block.id == 186:
-				print(block.data)
-			blocks.append({"id":block.id,"layer":block.layer,"position":block.pos if !withinArea else block.pos - area.position ,"data":block.data})
+		if !withinArea or area.has_point(block.pos):
+			var data : Dictionary = {"id":block.id,"layer":block.layer,"position":block.pos if !withinArea else block.pos - area.position ,"data":block.data}
+			if block is GhostBlock:
+				data["main_block_loc"] = block.mainBlockLoc
+			blocks.append(data)
 	return blocks
 
 func get_structure_blocks(area : Rect2) -> Dictionary:
@@ -996,7 +997,10 @@ func load_world_data() -> void:#data : Dictionary) -> void:
 	elif worldRules["world_spawn_x"]["value"] >= 0 and worldRules["world_spawn_y"]["value"] >= 0:
 		player.position = Vector2(worldRules["world_spawn_x"]["value"]*4,worldRules["world_spawn_y"]["value"]*4)
 	for block in planetData["blocks"]:
-		set_block(block["position"],block["layer"],block["id"],false,block["data"])
+		if block.has("main_block_loc"):
+			set_ghost_block(block["position"],block["id"],block["layer"],block["main_block_loc"])
+		else:
+			set_block(block["position"],block["layer"],block["id"],false,block["data"],false)
 	if planetData.has("wires"): #For older versions
 		for wireData in planetData["wires"]:
 			var wire = WIRE.instantiate()
@@ -1045,12 +1049,26 @@ func set_block_all(pos: Vector2, id : int) -> void:
 func get_light_intensity(intensity : int) -> Color:
 	return Color((("0" + str(intensity)) if intensity < 10 else str(intensity)) + "000005")
 
-func set_block(pos : Vector2, layer : int, id : int, update := false, data = {}) -> void:
+func set_ghost_block(pos : Vector2,id : int, layer : int, mainBlockPos : Vector2) -> void:
+	print("PLACING GHOST BLOCK: ",pos)
+	var newBlockAtPos = get_block(pos,layer)
+	if newBlockAtPos != null:
+		$blocks.remove_child(newBlockAtPos)
+		newBlockAtPos.destroyed.emit()
+		newBlockAtPos.queue_free()
+	var ghostBlock : GhostBlock = blockTypes["ghost"].instantiate()
+	ghostBlock.position = (pos) * BLOCK_SIZE
+	ghostBlock.mainBlockLoc = mainBlockPos
+	ghostBlock.pos = pos
+	ghostBlock.id = id
+	ghostBlock.name = str(pos.x) + "," + str(pos.y) + "," + str(layer)
+	$blocks.add_child(ghostBlock)
+
+func set_block(pos : Vector2, layer : int, id : int, update := false, data = {}, new := true) -> void:
 	var blockAtPos = get_block(pos,layer)
 	if blockAtPos != null or (id == 0 and blockAtPos != null):
 		$blocks.remove_child(blockAtPos)
-		if GlobalData.blockData[blockAtPos.id]["type"] == "door":
-			blockAtPos.emit_signal("destroyed")
+		blockAtPos.destroyed.emit()
 		blockAtPos.queue_free()
 		if id == 0:
 			match layer:
@@ -1069,39 +1087,76 @@ func set_block(pos : Vector2, layer : int, id : int, update := false, data = {})
 			set_block_light(pos,layer,id,Color(block_data["light_color"]),block_data["light_intensity"] ,update)
 		else:
 			set_block_light(pos,layer,id,Color.BLACK,0,update)
-		block.position = pos * BLOCK_SIZE
-		block.pos = pos
 		block.id = id
 		block.layer = layer
 		block.data = data
-		block.name = str(pos.x) + "," + str(pos.y) + "," + str(layer)
 		if block.has_node("Sprite2D"):
 			block.get_node("Sprite2D").texture = GlobalData.get_item_texture(id)
+		if GlobalData.get_item_data(id).has("custom_area") and new: #adds ghost blocks if needed (not when loading block)
+			print_rich("[color=red]SETTING BLOCK IGNORE![/color]")
+			print("pos before: ",pos)
+			pos = can_place_big_block(id,pos,layer)["pos"]
+			print("pos after: ",pos)
+			var area : Array = GlobalData.get_item_data(id)["custom_area"]
+			var xMin : int = -floor(0.5 * area[0] - 0.5)
+			var xMax : int = floor(0.5 * area[0] + 1)
+			var yMin : int = -floor(0.5 * area[1] - 0.5)
+			var yMax : int = floor(0.5 * area[1] + 1)
+			print("Setting blocks between: ",Vector2(xMin,yMin), " and ", Vector2(xMax,yMax))
+			for x in range(xMin,xMax):
+				for y in range(yMin,yMax):
+					if !(x == 0 and y == 0): #prevents adding ghost block ontop of main block
+						set_ghost_block(pos + Vector2(x,y),id,layer,pos)
+		block.position = pos * BLOCK_SIZE
+		block.pos = pos
+		block.name = str(pos.x) + "," + str(pos.y) + "," + str(layer)
 		$blocks.add_child(block)
-		if GlobalData.blockData[id]["type"] == "door": #adds ghost blocks for door
-			for y in [-1,1]:
-				var newBlockAtPos = get_block(pos + Vector2(0,y),layer)
-				if newBlockAtPos != null:
-					$blocks.remove_child(newBlockAtPos)
-					if GlobalData.blockData[newBlockAtPos.id]["type"] == "door":
-						newBlockAtPos.emit_signal("destroyed")
-					newBlockAtPos.queue_free()
-				var ghostBlock = blockTypes["ghost"].instantiate()
-				ghostBlock.destroyed.connect(block.ghost_block_block_destroyed)
-				ghostBlock.position = (pos + Vector2(0,y)) * BLOCK_SIZE
-				ghostBlock.mainBlock = block
-				ghostBlock.pos = pos + Vector2(0,y)
-				ghostBlock.id = id
-				ghostBlock.name = str(pos.x) + "," + str(pos.y+y) + "," + str(layer)
-				$blocks.add_child(ghostBlock)
 	emit_signal("blocks_changed")
 	if update:
 		update_area(pos)
 
+func can_place_big_block(id : int, pos : Vector2, layer : int) -> Dictionary:
+	print("Checking from: ",pos)
+	var area : Array = GlobalData.get_item_data(id)["custom_area"]
+	var xMin : int = -floor(0.5 * area[0] - 0.5)
+	var xMax : int = floor(0.5 * area[0] + 1)
+	var yMin : int = -floor(0.5 * area[1] - 0.5)
+	var yMax : int = floor(0.5 * area[1] + 1)
+	print(area)
+	print(xMin)
+	print(xMax)
+	print(yMin)
+	print(yMax)
+	print("REVERSED VARS:")
+	print(-xMax + 1)
+	print( -1 * xMin + 1)
+	print(-yMax + 1)
+	print( -1 * yMin + 1)
+	for newX : int in range(-xMax + 1,-1 * xMin + 1):
+		for newY : int in range(-yMax + 1,-1 * yMin + 1):
+			print("Current check: ", Vector2(newX,newY))
+			var canPlace = true
+			for x in range(xMin,xMax):
+				if GlobalData.get_item_data(id).has("support_by") and !GlobalData.get_item_data(get_block_id(pos + Vector2(x,yMax + newY),layer))["can_collide"]:
+					canPlace = false
+					break
+				for y in range(yMin,yMax):
+					if !GlobalData.get_item_data(get_block_id(pos + Vector2(x + newX,y + newY),layer)).has("place_on"):
+						canPlace = false
+						break
+				if !canPlace:
+					break
+			if canPlace:
+				print("can place at: ",pos + Vector2(newX,newY))
+				pos += Vector2(newX,newY)
+				return {"can_place":true,"pos":pos}
+	printerr("Cannot place block!")
+	return {"can_place":false,"pos":pos}
+
 func update_area(pos):
 	for x in range(pos.x-1,pos.x+2):
 		for y in range(pos.y-1,pos.y+2):
-			if Vector2(x,y) != pos and get_block(Vector2(x,y),1) != null:
+			if get_block(Vector2(x,y),1) != null:
 				get_block(Vector2(x,y),1).on_update()
 			if get_block(Vector2(x,y),0) != null:
 				get_block(Vector2(x,y),0).on_update()
@@ -1111,17 +1166,22 @@ func update_light_texture() -> void:
 	$"../LightRenderViewport/LightRender".get_node("LightingViewport/SubViewport/LightRect").material.set_shader_parameter("light_intensity_map",ImageTexture.create_from_image(lightIntensityMap))
 
 func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction = true) -> void:
-	if action == "Build" and [0,6,7,117].has(get_block_id(pos,layer)) and GlobalData.blockData.has(id) and (!GlobalData.blockData[id].has("can_place_on") or GlobalData.blockData[id]["can_place_on"].has(float(get_block_id(pos + Vector2(0,1),layer)))):
+	if action == "Build" and GlobalData.blockData.has(id) and (!GlobalData.blockData[id].has("can_place_on") or GlobalData.blockData[id]["can_place_on"].has(float(get_block_id(pos + Vector2(0,1),layer)))) and GlobalData.get_item_data(get_block_id(pos,layer)).has("place_on"):
 		var canPlace = true
-		if GlobalData.blockData[id]["type"] == "door": #Makes sure all blocks are clear for the door
-			if [0,6,7,117].has(get_block_id(pos + Vector2(0,2),layer)):
-				canPlace = false
-			for y in [-1,1]:
-				if ![0,6,7,117].has(get_block_id(pos + Vector2(0,y),layer)):
-					canPlace = false
+		#Makes sure all blocks are clear for blocks with ghost blocks (such as doors)
+		if GlobalData.get_item_data(id).has("custom_area"):
+			print_rich("[color=blue]CHECKING![/color]")
+			var result : Dictionary = can_place_big_block(id,pos,layer)
+			canPlace = result["can_place"]
+		elif GlobalData.get_item_data(id).has("support_by"): #Makes sure blocks that need support, are supported
+			canPlace = false
+			var check : Dictionary = {"back":Vector2(0,0),"left":Vector2(-1,0),"right":Vector2(1,0),"top":Vector2(0,-1),"floor":Vector2(0,1)}
+			for look : String in GlobalData.get_item_data(id)["support_by"]:
+				if (look == "back" and layer == 1 and GlobalData.get_item_data(get_block_id(pos,0))["can_collide"]) or GlobalData.get_item_data(get_block_id(pos + check[look],layer))["can_collide"]:
+					canPlace = true
 		if canPlace:
 			GlobalAudio.play_block_audio_2d(id,"place",pos * BLOCK_SIZE)
-			set_block(pos,layer,id,true)
+			set_block(pos,layer,id,true,{},true)
 			if itemAction:
 				inventory.remove_id_from_inventory(id,1)
 	elif action == "Break" and get_block(pos,layer) != null:

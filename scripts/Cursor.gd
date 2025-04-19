@@ -129,7 +129,10 @@ func _unhandled_input(_event):
 					169:
 						$"../CanvasLayer/LogicBlockEdit".pop_up(currentBlock)
 					171,301:
-						currentBlock.mainBlock.interact()
+						if currentBlock is GhostBlock:
+							world.get_block(currentBlock.mainBlockLoc,currentBlock.layer).interact()
+						else:
+							currentBlock.interact()
 					176:
 						currentBlock.pressed_btn()
 					186:
@@ -185,6 +188,8 @@ func _unhandled_input(_event):
 						inventory.inventoryToggle(false,true,"wool_work_table")
 					320:
 						inventory.inventoryToggle(false,true,"cooking_pot")
+					328:
+						inventory.inventoryToggle(false,true,"tech_workbench")
 			elif Input.is_action_just_pressed("build2") and wireIn.size() > 0:
 				if is_instance_valid(wireIn[0]):
 					wireIn[0].break_wire()

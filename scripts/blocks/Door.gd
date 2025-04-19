@@ -6,10 +6,7 @@ const SHADE_TEX = preload("res://textures/blocks/shade.png")
 @onready var input_node: CanvasLayer = $Inputs
 
 var max_col_layer : int
-var mainBlock = self
 var wait = false
-
-signal destroyed
 
 func _ready():
 	match id:
@@ -77,10 +74,6 @@ func toggle_pins(toggle : bool) -> void:
 func input_pressed(input : String) -> void:
 	print("input was pressed")
 	main.emit_signal("input_pressed",self,input)
-
-func ghost_block_block_destroyed():
-	world.set_block(pos,layer,0,true)
-	emit_signal("destroyed")
 
 func world_loaded():
 	on_update()

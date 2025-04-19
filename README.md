@@ -51,3 +51,12 @@ This branch is for unstable development of TU6 (v0.6.0)
 - Complete overhual of the frigid dungeon
 - Added fan blocks
 - Remade scorched dungeons
+## TU6 beta 6 (v0.6.0:6)
+- Fixed blocks not updating in the forground when breaking the block directly behind it
+- Fixed hovering over buckets in crafting crashing the game (was not a issue in TU5.2)
+- Doors no longer have to be placed from the middle of the door
+- Added custom_area tag to blocks that allow blocks to be any size (in blocks that is)
+- Trees no longer have to be mined from the bottom most block
+- Removed decorational clothes for now because without an artist, updating every armor to the new model will make this update come out too late
+- Changed texture for display blocks
+- This will be the final update before the trailer (beta 7 will be the final beta for TU6!)

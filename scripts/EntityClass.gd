@@ -9,11 +9,11 @@ var frozen : bool = false
 var poisoned : bool = false
 var canDamage : bool = true
 
-@export var canDie = true
+@export var canDie := true
 @export var hostile = false
-@export var bluesDropRange = [0,0]
-@export var loot = []
-var new = true
+@export var bluesDropRange : Array = [0,0]
+@export var loot : Array = []
+var new : bool = true
 var data = {}
 @export var type : String
 
@@ -46,11 +46,15 @@ func die():
 	queue_free()
 
 func damage(hp,knockback : float = 0):
+	print("damaged slorg")
+	print(canDamage)
+	print(canDie)
 	if canDie and canDamage:
 		if !frozen and !poisoned:
 			modulate = Color("ff5959")
 		effects.floating_text(position, "-" + str(hp), Color.RED)
 		health -= hp
+		print(health)
 		emit_signal("damaged",knockback)
 		await get_tree().create_timer(0.5).timeout
 		if !frozen and !poisoned:

@@ -36,6 +36,7 @@ func display(data : Dictionary) -> void:
 				displayText += "\n[color=cornflowerblue]+" + str(data["data"]["regen"]) + " HP[/color]"
 		match itemData["type"]:
 			"Bucket":
-				displayText += "\n[color=darkorchid]Water level: " + str(data["data"]["water_level"]) + "[/color]"
+				if data.has("data"):
+					displayText += "\n[color=darkorchid]Water level: " + str(data["data"]["water_level"]) + "[/color]"
 		show()
 		text = displayText

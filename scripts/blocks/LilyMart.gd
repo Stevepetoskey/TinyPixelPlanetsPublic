@@ -5,3 +5,6 @@ extends BaseBlock
 func _ready():
 	position.y -= 4
 	animations.play("idle")
+
+func on_update() -> void:
+	pass

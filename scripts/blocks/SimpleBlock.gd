@@ -5,6 +5,7 @@ const SHADE_TEX = preload("res://textures/blocks/shade.png")
 @onready var mainCol : CollisionShape2D = $CollisionShape2D
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @onready var rain_col: LightOccluder2D = $RainCol
+@onready var texture: Sprite2D = $Sprite2D
 
 func _ready():
 	z_index = layer

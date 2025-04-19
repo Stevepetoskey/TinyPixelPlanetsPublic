@@ -1,18 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://8rtiiymejqcy"]
 
 [ext_resource type="Script" path="res://scripts/blocks/DisplayBlock.gd" id="1_a10fc"]
-[ext_resource type="Texture2D" uid="uid://bkrepxw3wkq7w" path="res://textures/blocks/display_block_off.png" id="2_sn8h7"]
+[ext_resource type="Texture2D" uid="uid://cfqj8cywokt2x" path="res://textures/blocks/display_block_atlas.png" id="2_8bsgs"]
 [ext_resource type="Texture2D" uid="uid://d2knl2pc7ytxv" path="res://textures/blocks/misc/logic_pin_bool.png" id="3_wdy8l"]
 
 [node name="DisplayBlock" type="StaticBody2D"]
 use_parent_material = true
 script = ExtResource("1_a10fc")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Texture" type="Sprite2D" parent="."]
 light_mask = 2
 use_parent_material = true
-texture = ExtResource("2_sn8h7")
-region_rect = Rect2(0, 16, 8, 8)
+texture = ExtResource("2_8bsgs")
+region_rect = Rect2(56, 16, 8, 8)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(-2, -2)
@@ -31,6 +31,9 @@ offset_top = -2.0
 offset_right = -2.0
 offset_bottom = 2.0
 texture_normal = ExtResource("3_wdy8l")
+
+[node name="Frame" type="Node2D" parent="."]
+use_parent_material = true
 
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

@@ -49,11 +49,21 @@ func on_update():
 							$shade.add_child(shade)
 						elif world.get_block_id(pos + Vector2(x,y),1) == 0 and $shade.has_node(str(x) + str(y)):
 							$shade.get_node(str(x) + str(y)).queue_free()
-	#
-	#if world.worldLoaded and (visible_on_screen_notifier_2d.is_on_screen() or [14,18].has(id)):
-		#match id:
-			#321:
-				#pass
+	if world.worldLoaded and visible_on_screen_notifier_2d.is_on_screen():
+		match id:
+			321:
+				var supports : Array = []
+				for checkPos : Vector2 in [Vector2(-1,0),Vector2(1,0),Vector2(0,1),Vector2(0,0)]:
+					if (checkPos == Vector2(0,0) and layer == 1 and GlobalData.get_item_data(world.get_block_id(pos,0))["can_collide"]) or GlobalData.get_item_data(world.get_block_id(pos + checkPos,layer))["can_collide"]:
+						supports.append(checkPos)
+				if supports.is_empty():
+					world.build_event("Break", pos, layer)
+				elif supports.has(Vector2(0,0)) or supports.has(Vector2(0,1)):
+					$Texture.play("torch")
+					$Texture.flip_h = false
+				else:
+					$Texture.play("torch_side")
+					$Texture.flip_h = !supports.has(Vector2(-1,0))
 
 func get_sides(blockId : int) -> Dictionary:
 	return {"left":world.get_block_id(pos - Vector2(1,0),layer) == blockId,"right":world.get_block_id(pos + Vector2(1,0),layer) == blockId,"top":world.get_block_id(pos - Vector2(0,1),layer) == blockId,"bottom":world.get_block_id(pos + Vector2(0,1),layer) == blockId,"rightTop":world.get_block_id(pos + Vector2(1,-1),layer) == blockId,"leftTop":world.get_block_id(pos - Vector2(1,1),layer) == blockId,"bottomRight":world.get_block_id(pos + Vector2(1,1),layer) == blockId,"bottomLeft":world.get_block_id(pos + Vector2(-1,1),layer) == blockId}

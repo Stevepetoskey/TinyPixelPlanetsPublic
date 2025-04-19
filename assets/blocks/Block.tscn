@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dwi5kfm4rxnlu"]
 
 [ext_resource type="Script" path="res://scripts/Block.gd" id="1_6x2si"]
-[ext_resource type="Texture2D" uid="uid://cqldybxxnrt5v" path="res://textures/blocks/scorched_brick_fence_atlas.png" id="2_ekh2o"]
+[ext_resource type="Texture2D" uid="uid://cxlf6mt32br23" path="res://textures/blocks/bricks.png" id="4_pjqv0"]
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_y6fa6"]
 polygon = PackedVector2Array(-4, 4, 4, 4, 4, -4, -4, -4)
@@ -19,12 +19,13 @@ scale = Vector2(0.2, 0.2)
 rect = Rect2(-10, -10, 40, 40)
 
 [node name="RainCol" type="LightOccluder2D" parent="."]
+visible = false
 occluder = SubResource("OccluderPolygon2D_y6fa6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 2
 use_parent_material = true
-texture = ExtResource("2_ekh2o")
+texture = ExtResource("4_pjqv0")
 region_rect = Rect2(16, 2.08165e-12, 8, 8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

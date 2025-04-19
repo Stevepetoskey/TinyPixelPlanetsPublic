@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhy7kv30bq0no"
-path="res://.godot/imported/latern1.png-c6c3108ad5db79c95717b180a3d9e160.ctex"
+uid="uid://btibip50xykqb"
+path="res://.godot/imported/0.png-375a49fa7bcc9c79da0ac4fe0df994c4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/blocks/latern1.png"
-dest_files=["res://.godot/imported/latern1.png-c6c3108ad5db79c95717b180a3d9e160.ctex"]
+source_file="res://textures/blocks/display/on/sides/0.png"
+dest_files=["res://.godot/imported/0.png-375a49fa7bcc9c79da0ac4fe0df994c4.ctex"]
 
 [params]
 

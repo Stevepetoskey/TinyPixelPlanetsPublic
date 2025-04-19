@@ -9,8 +9,6 @@ const SHADE_TEX = preload("res://textures/blocks/shade.png")
 @onready var music: AudioStreamPlayer2D = $Music
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-signal destroyed
-
 func _ready():
 	inputs["I1"] = {}
 	input_node.offset = position

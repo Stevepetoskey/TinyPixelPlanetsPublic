@@ -31,7 +31,7 @@ var loot = {
 	"mini_transporter":[],
 	"trinanium_charge":[],
 	"gold_spike":[],
-	"stellar_pig":[{"id":247,"amount":[1,3]}],
+	"stellar_pig":[{"id":247,"amount":[1,3]},{"id":304,"amount":[1,2]}],
 	"blue_jay":[],
 	"shork":[],
 }

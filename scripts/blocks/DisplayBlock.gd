@@ -1,10 +1,37 @@
 extends LogicBlock
 
 const SHADE_TEX = preload("res://textures/blocks/shade.png")
-const DISPLAY_TEXTURE = {false:preload("res://textures/blocks/display_block_off.png"),true:preload("res://textures/blocks/display_block_on.png")}
+const frameIds : Dictionary = {
+	[Vector2i(-1,0),Vector2i(0,-1)]:0,
+	[Vector2i(0,-1),Vector2i(-1,0)]:0,
+	[Vector2i(-1,0),Vector2i(0,1)]:1,
+	[Vector2i(0,1),Vector2i(-1,0)]:1,
+	[Vector2i(0,1),Vector2i(1,0)]:2,
+	[Vector2i(1,0),Vector2i(0,1)]:2,
+	[Vector2i(1,0),Vector2i(0,-1)]:3,
+	[Vector2i(0,-1),Vector2i(1,0)]:3,
+}
+const miniFramesIds : Dictionary = {
+	[0,1]:0,
+	[1,0]:0,
+	[1,2]:1,
+	[2,1]:1,
+	[2,3]:2,
+	[3,2]:2,
+	[3,0]:3,
+	[0,3]:3
+}
+const sideIds : Dictionary = {
+	Vector2i(-1,0):0,
+	Vector2i(0,1):1,
+	Vector2i(1,0):2,
+	Vector2i(0,-1):3
+}
 
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @onready var input_node: CanvasLayer = $Inputs
+@onready var texture: Sprite2D = $Texture
+@onready var frame_hold: Node2D = $Frame
 
 func _ready():
 	inputs["I1"] = {}
@@ -19,10 +46,8 @@ func _ready():
 		z_index -= 1
 	if !data.has("toggled"):
 		data = {"toggled":false}
-		$Sprite2D.texture = DISPLAY_TEXTURE[false]
-	else:
-		$Sprite2D.texture = DISPLAY_TEXTURE[data["toggled"]]
-		calculate_light(data["toggled"])
+	calculate_light(data["toggled"])
+	change_frame()
 	pos = position / world.BLOCK_SIZE
 	world.connect("update_blocks", Callable(self, "on_update"))
 	world.connect("world_loaded", Callable(self, "world_loaded"))
@@ -57,7 +82,7 @@ func calculate(inputValues := [],ignoreTick := false):
 		data["last_input"] = inputs["I1"].values()
 		data["toggled"] = on
 		calculate_light(on)
-		$Sprite2D.texture = DISPLAY_TEXTURE[on]
+		change_frame()
 		calculating = false
 
 func wire_broke(inputPin : String,wire : TextureRect):
@@ -75,6 +100,42 @@ func world_loaded():
 	on_update()
 	if data.has("last_input"):
 		calculate(data["last_input"],true)
+
+func change_frame() -> void:
+	var frameArray : Array = []
+	for frame : Sprite2D in frame_hold.get_children():
+		frame_hold.remove_child(frame)
+		frame.queue_free()
+	var children : Dictionary = {"sides":[],"frames":[],"dots":[],"mini_frames":[]}
+	var sides = {Vector2i(-1,0):world.get_block_id(pos - Vector2(1,0),layer) == 168,Vector2i(1,0):world.get_block_id(pos + Vector2(1,0),layer) == 168,Vector2i(0,-1):world.get_block_id(pos - Vector2(0,1),layer) == 168,Vector2i(0,1):world.get_block_id(pos + Vector2(0,1),layer) == 168}
+	var mode : String = "on" if data["toggled"] else "off"
+	if !sides.values().has(true):
+		texture.texture = load("res://textures/blocks/display/" + mode+"/default.png")
+	else:
+		texture.texture = load("res://textures/blocks/display/"+ mode+ "/bg.png")
+		for side : Vector2i in sides:
+			if !sides[side]:
+				var addLine : bool = true
+				for frameTest : Vector2i in [Vector2i(side.y,side.x),Vector2i(side.y,side.x) * Vector2i(-1,-1)]:
+					if !sides[frameTest]:
+						addLine = false
+						if !children["frames"].has(frameIds[[side,frameTest]]):
+							children["frames"].append(frameIds[[side,frameTest]])
+				if addLine:
+					children["sides"].append(sideIds[side])
+			else:
+				for dotTest : Vector2i in [Vector2i(side.y,side.x),Vector2i(side.y,side.x) * Vector2i(-1,-1)]:
+					if sides[dotTest] and !world.get_block_id(pos + Vector2(side + dotTest),layer) == 168 and !children["dots"].has(frameIds[[side,dotTest]]):
+						children["dots"].append(frameIds[[side,dotTest]])
+		if children["frames"].size() > 1:
+			children["mini_frames"].append(miniFramesIds[children["frames"]])
+			children["frames"].clear()
+		for type : String in children:
+			for id : int in children[type]:
+				var sprite : Sprite2D = Sprite2D.new()
+				sprite.texture = load("res://textures/blocks/display/" + mode+ "/" + type+ "/" + str(id)+ ".png")
+				sprite.use_parent_material = true
+				frame_hold.add_child(sprite)
 
 func on_update():
 	if layer < 1:
@@ -94,6 +155,8 @@ func on_update():
 							$shade.add_child(shade)
 						elif world.get_block_id(pos + Vector2(x,y),1) == 0 and $shade.has_node(str(x) + str(y)):
 							$shade.get_node(str(x) + str(y)).queue_free()
+	change_frame()
+
 
 func _on_VisibilityNotifier2D_screen_entered():
 	on_update()

@@ -3,7 +3,8 @@
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
-	"exclude_shade_sides":["top","bottom","left","right"]
+	"exclude_shade_sides":["top","bottom","left","right"],
+	"place_on":true
 },
 "1":{
 	"texture":"blocks/grass_block.png",
@@ -54,6 +55,7 @@
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
+	"place_on":true,
 	"exclude_shade_sides":["top","left","right","bottom"]
 },
 "7":{
@@ -68,6 +70,7 @@
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
+	"place_on":true,
 	"exclude_shade_sides":["top","left","right","bottom"]
 },
 "8":{
@@ -90,6 +93,8 @@
 	"name":"Tree",
 	"type":"foliage",
 	"sound_file":"grass",
+	"custom_area":[1,7],
+	"support_by":["floor"],
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -448,6 +453,8 @@
 	"name":"Exotic tree",
 	"type":"foliage",
 	"sound_file":"wood",
+	"custom_area":[1,4],
+	"support_by":["floor"],
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -637,7 +644,7 @@
 	"type":"block",
 	"sound_file":"wood",
 	"transparent":true,
-	"can_collide":true,
+	"can_collide":false,
 	"interactable":true,
 	"exclude_shade_sides":["top","left","right"]
 },
@@ -760,7 +767,8 @@
 	"sound_file":"none",
 	"transparent":false,
 	"can_collide":true,
-	"interactable":false
+	"interactable":false,
+	"place_on":true
 },
 "118":{
 	"texture":"blocks/wet_sand.png",
@@ -866,6 +874,7 @@
 	"transparent":false,
 	"can_collide":false,
 	"interactable":false,
+	"place_on":true,
 	"exclude_shade_sides":["top","left","right","bottom"]
 },
 "133":{
@@ -1135,6 +1144,8 @@
 	"name":"Acacia tree",
 	"type":"foliage",
 	"sound_file":"wood",
+	"custom_area":[1,13],
+	"support_by":["floor"],
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -1204,6 +1215,7 @@
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
+	"place_on":true,
 	"exclude_shade_sides":["top","left","right","bottom"]
 },
 "161":{
@@ -1218,6 +1230,7 @@
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
+	"place_on":true,
 	"exclude_shade_sides":["top","left","right","bottom"]
 },
 "162":{
@@ -1270,7 +1283,7 @@
 	"exclude_shade_sides":["top","left","right","bottom"]
 },
 "168":{
-	"texture":"blocks/display_block_off.png",
+	"texture":"blocks/display/off/default.png",
 	"hardness":0.75,
 	"canHaverst":1,
 	"drops":[{"id":168,"amount":1}],
@@ -1291,7 +1304,7 @@
 	"sound_file":"metal",
 	"transparent":false,
 	"can_collide":false,
-	"interactable":false
+	"interactable":true
 },
 "170":{
 	"texture":"blocks/flip_block_off.png",
@@ -1314,6 +1327,8 @@
 	"type":"door",
 	"sound_file":"wood",
 	"door_animation":"blocks/misc/wood_door.tres",
+	"custom_area":[1,3],
+	"support_by":["floor"],
 	"transparent":true,
 	"can_collide":false,
 	"interactable":true,
@@ -1328,6 +1343,8 @@
 	"type":"door",
 	"sound_file":"metal",
 	"door_animation":"blocks/misc/steel_door.tres",
+	"custom_area":[1,3],
+	"support_by":["floor"],
 	"transparent":true,
 	"can_collide":false,
 	"interactable":true,
@@ -1610,6 +1627,7 @@
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
+	"place_on":true,
 	"exclude_shade_sides":["top","left","right","bottom"]
 },
 "197":{
@@ -1749,6 +1767,7 @@
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
+	"place_on":true,
 	"exclude_shade_sides":["top","left","right","bottom"]
 },
 "218":{
@@ -1763,6 +1782,7 @@
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
+	"place_on":true,
 	"exclude_shade_sides":["top","left","right","bottom"]
 },
 "219":{
@@ -1790,6 +1810,7 @@
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
+	"place_on":true,
 	"exclude_shade_sides":["top","left","right","bottom"]
 },
 "221":{
@@ -2486,6 +2507,7 @@
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
+	"place_on":true,
 	"exclude_shade_sides":["top","left","right","bottom"]
 },
 "297":{
@@ -2522,6 +2544,8 @@
 	"name":"Willow tree",
 	"type":"foliage",
 	"sound_file":"wood",
+	"custom_area":[1,5],
+	"support_by":["floor"],
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
@@ -2548,6 +2572,8 @@
 	"type":"door",
 	"sound_file":"wood",
 	"door_animation":"blocks/misc/willow_door.tres",
+	"custom_area":[1,3],
+	"support_by":["floor"],
 	"transparent":true,
 	"can_collide":false,
 	"interactable":true,
@@ -2602,7 +2628,8 @@
 	"transparent":true,
 	"can_collide":false,
 	"interactable":false,
-	"exclude_shade_sides":["top","left","right","bottom"]
+	"exclude_shade_sides":["top","left","right","bottom"],
+	"support_by":["back","left","right","floor"]
 },
 "322":{
 	"texture":"blocks/coal_ore_stone.png",
@@ -2669,5 +2696,19 @@
 	"transparent":false,
 	"can_collide":true,
 	"interactable":false
-}
+},
+"328":{
+	"texture":"blocks/tech_workbench_icon.png",
+	"hardness":5,
+	"canHaverst":3,
+	"drops":[{"id":328,"amount":1}],
+	"name":"Tech workbench",
+	"type":"block",
+	"custom_area":[2,2],
+	"support_by":["floor"],
+	"sound_file":"metal",
+	"transparent":true,
+	"can_collide":false,
+	"interactable":true
+},
 }
