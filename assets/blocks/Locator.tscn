@@ -28,6 +28,7 @@ frame_3/texture = ExtResource("9_3ynda")
 frame_3/duration = 0.1
 
 [node name="EndgameLocator" type="StaticBody2D"]
+use_parent_material = true
 script = ExtResource("1_a5hky")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
@@ -40,6 +41,7 @@ occluder = SubResource("OccluderPolygon2D_y6fa6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 2
+use_parent_material = true
 texture = ExtResource("2_lsdpt")
 region_rect = Rect2(16, 2.08165e-12, 8, 8)
 
@@ -51,6 +53,7 @@ shape = SubResource("1")
 modulate = Color(1, 1, 1, 0.521569)
 
 [node name="MagmaBar" type="TextureProgressBar" parent="."]
+use_parent_material = true
 offset_left = -3.0
 offset_right = -2.0
 offset_bottom = 3.0
@@ -59,6 +62,7 @@ fill_mode = 3
 texture_progress = ExtResource("3_hl6xc")
 
 [node name="CoolantBar" type="TextureProgressBar" parent="."]
+use_parent_material = true
 offset_left = 2.0
 offset_right = 3.0
 offset_bottom = 3.0

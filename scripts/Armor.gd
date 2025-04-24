@@ -14,7 +14,7 @@ func _ready():
 
 func armor_btn_pressed(icon : Object):
 	if inventory.holding:
-		var itemData = world.get_item_data(inventory.inventory[inventory.holdingRef]["id"])
+		var itemData = GlobalData.get_item_data(inventory.inventory[inventory.holdingRef]["id"])
 		if itemData.has("type") and itemData["type"] == "armor":
 			var armorType = itemData["armor_data"]["armor_type"]
 			if icon.type == armorType:
@@ -36,7 +36,7 @@ func armor_btn_pressed(icon : Object):
 
 func mouse_in_bn(armorType : String):
 	if !armor[armorType].is_empty():
-		var itemData = world.get_item_data(armor[armorType]["id"])
+		var itemData = GlobalData.get_item_data(armor[armorType]["id"])
 		if itemData.has("name"):
 			var text = itemData["name"]
 			if itemData.has("desc"):

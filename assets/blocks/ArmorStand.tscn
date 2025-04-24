@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://lowqqm45ut2f"]
+
+[ext_resource type="Script" path="res://scripts/blocks/armor_stand.gd" id="1_o0fcr"]
+[ext_resource type="Texture2D" uid="uid://cxlf6mt32br23" path="res://textures/blocks/bricks.png" id="2_wqici"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q414f"]
+size = Vector2(8, 8)
+
+[node name="ArmorStand" type="StaticBody2D"]
+use_parent_material = true
+script = ExtResource("1_o0fcr")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2, -2)
+scale = Vector2(0.2, 0.2)
+rect = Rect2(-10, -10, 40, 40)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
+use_parent_material = true
+texture = ExtResource("2_wqici")
+region_rect = Rect2(16, 2.08165e-12, 8, 8)
+
+[node name="shade" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.521569)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_q414f")
+disabled = true
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

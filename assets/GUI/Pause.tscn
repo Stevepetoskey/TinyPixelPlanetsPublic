@@ -103,6 +103,7 @@ _data = {
 }
 
 [node name="Pause" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -137,6 +138,11 @@ text = "Continue"
 layout_mode = 2
 text = "Save"
 
+[node name="Settings" type="Button" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Settings"
+
 [node name="Quit" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 text = "Quit"
@@ -162,5 +168,6 @@ libraries = {
 
 [connection signal="pressed" from="VBoxContainer/Continue" to="." method="_on_Continue_pressed"]
 [connection signal="pressed" from="VBoxContainer/Save" to="." method="_on_Save_pressed"]
+[connection signal="pressed" from="VBoxContainer/Settings" to="." method="_on_settings_pressed"]
 [connection signal="pressed" from="VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="pressed" from="VBoxContainer/Achievements" to="." method="_on_Achievements_pressed"]

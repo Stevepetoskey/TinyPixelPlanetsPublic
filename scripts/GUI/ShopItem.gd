@@ -16,7 +16,7 @@ var loc = 0
 @onready var shop: Control = $"../../.."
 
 func _ready() -> void:
-	item.texture = world.get_item_texture(id)
+	item.texture = GlobalData.get_item_texture(id)
 	match mode:
 		"buy":
 			down_btn.hide()

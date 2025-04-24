@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bgijwg7o26uc"
-path="res://.godot/imported/Bald.png-e0a8e0339e6fd2eab4f30175c62ad10c.ctex"
+path="res://.godot/imported/Bald.png-b7f857b6efec42eed614bf1abdcc218a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/player/Hair/Bald.png"
-dest_files=["res://.godot/imported/Bald.png-e0a8e0339e6fd2eab4f30175c62ad10c.ctex"]
+source_file="res://textures/player/hair/Bald.png"
+dest_files=["res://.godot/imported/Bald.png-b7f857b6efec42eed614bf1abdcc218a.ctex"]
 
 [params]
 

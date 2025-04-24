@@ -9,11 +9,11 @@ var frozen : bool = false
 var poisoned : bool = false
 var canDamage : bool = true
 
-@export var canDie = true
+@export var canDie := true
 @export var hostile = false
-@export var bluesDropRange = [0,0]
-@export var loot = []
-var new = true
+@export var bluesDropRange : Array = [0,0]
+@export var loot : Array = []
+var new : bool = true
 var data = {}
 @export var type : String
 
@@ -23,7 +23,6 @@ var data = {}
 signal damaged
 
 func _ready():
-	modulate = Global.lightColor
 	if !get_node("../../../World").hasGravity:
 		GRAVITY = 0
 
@@ -31,9 +30,6 @@ func die():
 	randomize()
 	if hostile:
 		Global.killCount += 1
-		if Global.inTutorial and Global.tutorialStage == 0:
-			Global.tutorialStage = 1
-			main.new_tutorial_stage()
 	var blueDrop = randi_range(bluesDropRange[0],bluesDropRange[1])
 	for item in loot:
 		print("might drop: ",item["id"])
@@ -47,15 +43,19 @@ func die():
 	queue_free()
 
 func damage(hp,knockback : float = 0):
+	print("damaged slorg")
+	print(canDamage)
+	print(canDie)
 	if canDie and canDamage:
 		if !frozen and !poisoned:
 			modulate = Color("ff5959")
 		effects.floating_text(position, "-" + str(hp), Color.RED)
 		health -= hp
+		print(health)
 		emit_signal("damaged",knockback)
 		await get_tree().create_timer(0.5).timeout
 		if !frozen and !poisoned:
-			modulate = Global.lightColor
+			modulate = Color.WHITE
 		if health <= 0:
 			die()
 
@@ -63,7 +63,7 @@ func freeze(time : float) -> void:
 	modulate = Color("75b2ff")
 	frozen = true
 	await get_tree().create_timer(time).timeout
-	modulate = Global.lightColor
+	modulate = Color.WHITE
 	frozen = false
 
 func poison(amount : float,dmg := 1) -> void:
@@ -74,4 +74,4 @@ func poison(amount : float,dmg := 1) -> void:
 		damage(dmg)
 		if i == amount - 1:
 			poisoned = false
-			modulate = Global.lightColor
+			modulate = Color.WHITE

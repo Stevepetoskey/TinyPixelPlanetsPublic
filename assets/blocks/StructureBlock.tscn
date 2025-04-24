@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://3ncrewp7qwjk"]
+
+[ext_resource type="Script" path="res://scripts/blocks/structure_block.gd" id="1_6d6sn"]
+[ext_resource type="Texture2D" uid="uid://cqldybxxnrt5v" path="res://textures/blocks/scorched_brick_fence_atlas.png" id="2_mioyj"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_y6fa6"]
+polygon = PackedVector2Array(-4, 4, 4, 4, 4, -4, -4, -4)
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(8, 8)
+
+[node name="StructureBlock" type="StaticBody2D"]
+use_parent_material = true
+script = ExtResource("1_6d6sn")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2, -2)
+scale = Vector2(0.2, 0.2)
+rect = Rect2(-10, -10, 40, 40)
+
+[node name="RainCol" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_y6fa6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+light_mask = 2
+use_parent_material = true
+texture = ExtResource("2_mioyj")
+region_rect = Rect2(16, 2.08165e-12, 8, 8)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("1")
+
+[node name="shade" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.521569)
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

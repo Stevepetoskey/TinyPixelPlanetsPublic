@@ -1,25 +1,28 @@
-extends TextureButton
+extends Button
 
-const COMPLETED = preload("res://textures/GUI/GlobalGUI/Ach_completed.png")
-const UNLOCKED = preload("res://textures/GUI/GlobalGUI/Ach_shown.png")
-const LOCKED = preload("res://textures/GUI/GlobalGUI/Ach_unkown.png")
+const UNKOWN = preload("res://textures/GUI/GlobalGUI/ach_unkown_overlay.png")
+const LOCKED = preload("res://textures/GUI/GlobalGUI/ach_locked.png")
 
 @export var id : String
 
 @onready var main = $"../../../.."
+@onready var overlay: TextureRect = $Overlay
 
 func _ready():
 	main.connect("update_achievements", Callable(self, "update_ach"))
 
 func update_ach(list):
 	$Icon.show()
+	overlay.show()
+	theme = load("res://themes/menu.tres")
 	$Icon.texture = main.achievements[id]["icon"]
 	if list.has(id):
-		texture_normal = COMPLETED
+		theme = load("res://themes/menu_alt.tres")
+		overlay.hide()
 	elif list.has(main.achievements[id]["requires"]):
-		texture_normal = UNLOCKED
+		overlay.texture = LOCKED
 	else:
-		texture_normal = LOCKED
+		overlay.texture = UNKOWN
 		$Icon.hide()
 
 func _pressed():

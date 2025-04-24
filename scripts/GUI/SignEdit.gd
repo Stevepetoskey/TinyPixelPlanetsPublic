@@ -13,7 +13,7 @@ func _ready() -> void:
 
 func pop_up(sign):
 	currentSign = sign
-	Global.pause = true
+	get_tree().paused = true
 	text_edit.text = currentSign.data["text"]
 	text_edit.add_theme_color_override("font_color",currentSign.data["text_color"])
 	mode_btn.text = currentSign.data["mode"]
@@ -50,11 +50,11 @@ func _on_radius_int_value_changed(value: float) -> void:
 	currentSign.mainCol.shape.size = Vector2(value*16,value*16)
 
 func _on_close_btn_pressed() -> void:
-	Global.pause = false
+	get_tree().paused = false
 	hide()
 
 func _on_lock_btn_pressed() -> void:
 	currentSign.data["locked"] = true
 	currentSign.get_node("Sprite2D").texture = load("res://textures/blocks/sign.png")
-	Global.pause = false
+	get_tree().paused = false
 	hide()

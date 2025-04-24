@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dximli82ctyua"
-path="res://.godot/imported/Beard_bald.png-6c15dc3b75f2b50f5fe72581a1f4e411.ctex"
+path="res://.godot/imported/Beard_bald.png-c57bd971756ccdfa91cbd2aba29723f4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/player/Hair/Beard_bald.png"
-dest_files=["res://.godot/imported/Beard_bald.png-6c15dc3b75f2b50f5fe72581a1f4e411.ctex"]
+source_file="res://textures/player/hair/Beard_bald.png"
+dest_files=["res://.godot/imported/Beard_bald.png-c57bd971756ccdfa91cbd2aba29723f4.ctex"]
 
 [params]
 

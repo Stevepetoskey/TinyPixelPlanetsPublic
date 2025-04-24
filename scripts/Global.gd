@@ -1,7 +1,7 @@
 extends Node
 
-const CURRENTVER = "TU5.1 (v0.5.1)"
-const VER_NUMS = [0,5,1,0]
+const CURRENTVER = "TU6 (v0.6.0)"
+const VER_NUMS = [0,6,0,0]
 const ALLOW_VERSIONS = [
 	[0,4,1,0],
 	[0,4,2,0],
@@ -12,7 +12,16 @@ const ALLOW_VERSIONS = [
 	[0,5,0,6],
 	[0,5,0,7],
 	[0,5,0,0],
-	[0,5,1,0]
+	[0,5,1,0],
+	[0,5,2,0],
+	[0,5,3,0],
+	[0,6,0,1],
+	[0,6,0,2],
+	[0,6,0,3],
+	[0,6,0,4],
+	[0,6,0,5],
+	[0,6,0,6],
+	[0,6,0,0],
 ]
 #Incompatable versions:
 #[0,4,0,8] and [0,4,0,0] (as of TU4.1). Reason: Updated to godot 4
@@ -20,8 +29,9 @@ const STABLE = true
 
 var save_path = "user://" #place of the file
 var currentSave : String
-var new = true
-var gameStart = true
+var newPlanet : bool = true
+var gameStart : bool = true
+var newSave : bool = true
 var currentPlanet : int
 var currentSystem : int
 var currentSystemId : String
@@ -29,15 +39,12 @@ var playerData = {}
 var playerName = ""
 var blues = 0
 var killCount = 0
-var scenario = "sandbox"
+var scenario : String = "sandbox"
 var starterPlanetId : int
-var godmode = false
-var pause = false
-var enemySpawning = true
-var entitySpawning = true
-var inTutorial = false
-var tutorialStage = 0
-var meteorsAttacked = false
+var godmode : bool = false
+var showTutorials : bool = true
+var enemySpawning : bool = true
+var entitySpawning : bool = true
 var globalGameTime : int = 0
 var gameTimeTimer : Timer = Timer.new()
 var default_bookmarks = [
@@ -45,7 +52,11 @@ var default_bookmarks = [
 	]
 var default_settings = {
 	"music":10,
+	"sfx":10,
+	"environment":10,
 	"autosave_interval":2,
+	"vsync_mode":1,
+	"tutorial_autoset_to":true,
 	"keybinds":{"build":{"event_type":"mouse","id":1},"build2":{"event_type":"mouse","id":2},"action1":{"event_type":"key","id":74},"action2":{"event_type":"key","id":75},"background_toggle":{"event_type":"key","id":66},"inventory":{"event_type":"key","id":69},"ach":{"event_type":"key","id":90},"fly":{"event_type":"key","id":70}}
 }
 var bookmarks : Array= []
@@ -61,26 +72,34 @@ var gamerulesBase = {
 	"can_respawn":true,
 	"difficulty":"normal",
 	"start_with_godmode":false,
+	"tutorial":true
 }
 var gamerules = {}
 
-var lightColor = Color.WHITE
+var lightColor : Color = Color.WHITE
+var lightIntensity : float = 12
 
-var playerBase = {"skin":Color("F8DEC3"),"hair_style":"Short","hair_color":Color("debe99"),"sex":"Guy"}
+var playerBase = {"skin":Color("F8DEC3"),"hair_style":"Short","hair_color":Color("debe99"),"sex":"male"}
 
 signal loaded_data
 signal screenshot
 signal saved_settings
 signal entered_save
 signal left_save
+signal audio_changed
 
 func _ready():
 	if FileAccess.file_exists(save_path + "settings.dat"):
 		var file = FileAccess.open(save_path + "settings.dat",FileAccess.READ)
 		settings = file.get_var()
+		#Ensures settings are up to date with current version
+		for default : String in default_settings:
+			if !settings.has(default):
+				settings[default] = default_settings[default]
 	else:
 		settings = default_settings.duplicate(true)
 		save_settings()
+	ProjectSettings.set_setting("display/window/vsync/vsync_mode",settings["vsync_mode"])
 	gameTimeTimer.connect("timeout", Callable(self, "game_time_second"))
 	gameTimeTimer.autostart = true
 	add_child(gameTimeTimer)
@@ -106,53 +125,16 @@ func save_exists(saveId : String) -> bool:
 		return true
 	return false
 
-func open_tutorial():
-	tutorialStage = 0
-	inTutorial = true
-	currentSave = "save4"
-	gameStart = true
-	new = false
-	if DirAccess.dir_exists_absolute(save_path + currentSave):
-		DirAccess.remove_absolute(save_path + currentSave)
-		#remove_recursive(save_path + currentSave)
-	var dir = DirAccess.open(save_path)
-	dir.make_dir(currentSave)
-	dir.open(save_path + currentSave)
-	dir.make_dir("systems")
-	dir.make_dir("planets")
-	dir.make_dir("structures")
-	#DirAccess.copy_absolute("res://data/Tutorial",save_path + currentSave)
-	#copy_directory_recursively("res://data/Tutorial",save_path + currentSave)
-	copy_directory_recursively("res://data/Tutorial/planets",save_path + currentSave + "/planets",true)
-	copy_directory_recursively("res://data/Tutorial/systems",save_path + currentSave + "/systems",true)
-	copy_directory_recursively("res://data/structures",save_path + currentSave + "/structures",true)
-	currentPlanet = 3
-	starterPlanetId = 3
-	currentSystemId = "3941924765520"
-	godmode = false
-	gamerules = gamerulesBase.duplicate(true)
-	bookmarks = default_bookmarks.duplicate(true)
-	meteorsAttacked = false
-	blues = 0
-	killCount = 0
-	GlobalGui.completedAchievements = []
-	globalGameTime = 0
-	playerData.clear()
-	playerData["save_type"] = "planet"
-	StarSystem.landedPlanetTypes = []
-	StarSystem.systemDat = load_system(currentSystemId)
-	StarSystem.load_system()
-
 func open_save(saveId : String) -> void:
-	inTutorial = false
 	currentSave = saveId
 	gameStart = true
-	new = true
+	newSave = false
 	if DirAccess.dir_exists_absolute(save_path + saveId):
 		if FileAccess.file_exists(save_path + saveId + "/playerData.dat"):
 			if !DirAccess.dir_exists_absolute(save_path + saveId + "/structures"): #For TU4.2 and before
 				DirAccess.make_dir_absolute(save_path + saveId + "/structures")
 				copy_directory_recursively("res://data/structures",save_path + saveId + "/structures",true)
+			newPlanet = false
 			var savegame = FileAccess.open(save_path + saveId + "/playerData.dat",FileAccess.READ)
 			playerData = savegame.get_var()
 			blues = playerData["blues"]
@@ -168,14 +150,14 @@ func open_save(saveId : String) -> void:
 			playerName = "Jerry" if !playerData.has("player_name") else playerData["player_name"]
 			scenario = "sandbox" if !playerData.has("scenario") else  playerData["scenario"]
 			globalGameTime = 0 if !playerData.has("game_time") else playerData["game_time"]
-			meteorsAttacked = false if !playerData.has("misc_stats") else playerData["misc_stats"]["meteors_attacked"]
 			StarSystem.landedPlanetTypes = [] if !playerData.has("landed_planet_types") else playerData["landed_planet_types"]
 			GlobalGui.completedAchievements = [] if !playerData.has("achievements") else playerData["achievements"]
+			GlobalGui.completedTutorials = [] if !playerData.has("tutorials") else playerData["tutorials"]
 			StarSystem.systemDat = load_system(playerData["current_system"])
 			entered_save.emit()
 			StarSystem.load_system()
-			new = false
 		else:
+			newPlanet = true
 			new_save(saveId)
 	else:
 		new_save(saveId)
@@ -188,12 +170,14 @@ func teleport_to_planet(systemId : String, planet : int) -> void:
 	StarSystem.load_system(false,true)
 
 func new_save(saveId : String):
+	newSave = true
 	playerData.clear()
+	#Sets tutorial to the last choice
+	if !gamerules.has("tutorial"):
+		gamerules["tutorial"] = settings["tutorial_autoset_to"]
 	gamerules.merge(gamerulesBase.duplicate(true))
 	godmode = gamerules["start_with_godmode"]
 	bookmarks = default_bookmarks.duplicate(true)
-	meteorsAttacked = false
-	inTutorial = false
 	match scenario:
 		"temple":
 			gamerules["can_leave_planet"] = false
@@ -207,7 +191,7 @@ func new_save(saveId : String):
 			gamerules["can_respawn"] = false
 	blues = 0
 	killCount = 0
-	StarSystem.landedPlanetTypes = []
+	StarSystem.landedPlanetTypes.clear()
 	var dir = DirAccess.open(save_path)
 	dir.make_dir(saveId)
 	dir.open(save_path + saveId)
@@ -217,7 +201,8 @@ func new_save(saveId : String):
 	copy_directory_recursively("res://data/pre_made_planets",save_path + saveId + "/planets",true)
 	copy_directory_recursively("res://data/pre_made_systems",save_path + saveId + "/systems",true)
 	copy_directory_recursively("res://data/structures",save_path + saveId + "/structures",true)
-	GlobalGui.completedAchievements = []
+	GlobalGui.completedAchievements.clear()
+	GlobalGui.completedTutorials.clear()
 	globalGameTime = 0
 	entered_save.emit()
 	var _er = get_tree().change_scene_to_file("res://scenes/Main.tscn")
@@ -225,10 +210,15 @@ func new_save(saveId : String):
 func new_planet() -> void:
 	var _er = get_tree().change_scene_to_file("res://scenes/Main.tscn")
 	await get_tree().process_frame
-	new = true
+	newPlanet = true
 	if FileAccess.file_exists(save_path + currentSave + "/planets/" + str(currentSystemId) + "_" + str(currentPlanet) + ".dat"):
-		new = false
+		newPlanet = false
 	emit_signal("loaded_data")
+
+func change_volume_settings(category,value) -> void:
+	settings[category] = value
+	save_settings()
+	audio_changed.emit()
 
 func save_settings():
 	var file = FileAccess.open(save_path + "settings.dat",FileAccess.WRITE)
@@ -262,6 +252,7 @@ func load_structure(structureName : String) -> Dictionary:
 func save(saveType : String, saveData : Dictionary) -> void:
 	playerData["save_type"] = saveType
 	playerData["achievements"] = GlobalGui.completedAchievements
+	playerData["tutorials"] = GlobalGui.completedTutorials
 	playerData["kill_count"] = killCount
 	playerData["landed_planet_types"] = StarSystem.landedPlanetTypes
 	playerData["scenario"] = scenario
@@ -276,14 +267,13 @@ func save(saveType : String, saveData : Dictionary) -> void:
 			playerData["gamerules"] = gamerules
 			playerData["scenario"] = scenario
 			playerData["player_name"] = playerName
-			playerData["skin"] = playerBase["skin"];playerData["hair_color"] = playerBase["hair_color"];playerData["hair_style"] = playerBase["hair_style"]
-			playerData["sex"] = playerBase["sex"]
+			print(playerBase)
+			playerData.merge(playerBase)
 			playerData["starter_planet"] = starterPlanetId
 			playerData["godmode"] = godmode
 			playerData["blues"] = blues
 			playerData["kill_count"] = killCount
 			playerData["landed_planet_types"] = StarSystem.landedPlanetTypes
-			playerData["misc_stats"]["meteors_attacked"] = meteorsAttacked
 			playerData["game_time"] = globalGameTime
 			playerData["version"] = VER_NUMS
 			playerData["bookmarks"] = bookmarks
@@ -329,6 +319,15 @@ func load_data(path : String) -> Dictionary:
 	else:
 		lData = {}
 	return lData
+
+func load_json_data(path : String) -> Dictionary:
+	var jData : Dictionary = {}
+	if FileAccess.file_exists(path):
+		var file = FileAccess.open(path,FileAccess.READ)
+		var parse = JSON.parse_string(file.get_as_text())
+		if parse is Dictionary:
+			jData = parse
+	return jData
 
 func delete(dir : String) -> void:
 	if DirAccess.dir_exists_absolute(save_path + dir):

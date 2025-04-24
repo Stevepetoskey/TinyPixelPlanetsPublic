@@ -1,0 +1,13 @@
+{
+	"id":1,
+	"texture":"blocks/grass_block.png",
+	"hardness":0.3,
+	"canHaverst":0,
+	"drops":[{"id":1,"amount":1}],
+	"name":"Grass block",
+	"type":"block",
+	"transparent":true,
+	"can_collide":true,
+	"interactable":false,
+	"exclude_shade_sides":["top"]
+}

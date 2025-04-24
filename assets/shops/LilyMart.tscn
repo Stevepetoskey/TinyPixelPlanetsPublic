@@ -1,71 +1,82 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=3 uid="uid://8a2twuvpm6oh"]
 
-[ext_resource path="res://textures/NPCs/farmer.png" type="Texture2D" id=1]
-[ext_resource path="res://textures/NPCs/Buildings/lily_market_back.png" type="Texture2D" id=2]
-[ext_resource path="res://textures/NPCs/Buildings/lily_market_front.png" type="Texture2D" id=3]
-[ext_resource path="res://scripts/blocks/LilyMart.gd" type="Script" id=4]
+[ext_resource type="Texture2D" uid="uid://6uy7wvswhtw8" path="res://textures/NPCs/farmer.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://7eudvxvmibo5" path="res://textures/NPCs/Buildings/lily_market_back.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://0v3r1jhnwjxe" path="res://textures/NPCs/Buildings/lily_market_front.png" id="3"]
+[ext_resource type="Script" path="res://scripts/blocks/LilyMart.gd" id="4"]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id="1"]
 length = 0.001
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Lily:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ 3 ]
+"values": [3]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id="2"]
 resource_name = "idle"
-loop = true
+loop_mode = 1
 step = 0.25
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Lily:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.25, 0.5, 0.75, 1 ),
-"transitions": PackedFloat32Array( 1, 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [ 3, 4, 5, 4, 3 ]
+"values": [3, 4, 5, 4, 3]
 }
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 26, 23.5 )
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eu1yf"]
+_data = {
+"RESET": SubResource("1"),
+"idle": SubResource("2")
+}
+
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(52, 47)
 
 [node name="LilyMart" type="StaticBody2D"]
+use_parent_material = true
 collision_layer = 64
 collision_mask = 0
-script = ExtResource( 4 )
+script = ExtResource("4")
 
 [node name="Back" type="Sprite2D" parent="."]
-texture = ExtResource( 2 )
+use_parent_material = true
+texture = ExtResource("2")
 
 [node name="Lily" type="Sprite2D" parent="."]
-position = Vector2( 3, 9 )
-texture = ExtResource( 1 )
+use_parent_material = true
+position = Vector2(3, 9)
+texture = ExtResource("1")
 hframes = 3
 vframes = 6
 frame = 3
 
 [node name="Front" type="Sprite2D" parent="."]
-texture = ExtResource( 3 )
+use_parent_material = true
+texture = ExtResource("3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-playback_speed = 0.5
-anims/RESET = SubResource( 1 )
-anims/idle = SubResource( 2 )
+libraries = {
+"": SubResource("AnimationLibrary_eu1yf")
+}
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
+use_parent_material = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 0.5 )
-shape = SubResource( 3 )
+position = Vector2(0, 0.5)
+shape = SubResource("3")

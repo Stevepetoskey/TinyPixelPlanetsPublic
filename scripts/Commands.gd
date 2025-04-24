@@ -12,7 +12,8 @@ var commandList = [
 	"godmode [enable/ disable]",
 	"summon [entity] [x position] [y position]",
 	"displaycoordinates [bool]",
-	"weather [weather event]"
+	"weather [weather event]",
+	"timespeed [speed (10 is default)]"
 ]
 
 func _process(delta):
@@ -21,7 +22,7 @@ func _process(delta):
 func _unhandled_input(event):
 	if Input.is_key_pressed(KEY_SHIFT) and Input.is_key_pressed(KEY_C):
 		show()
-		Global.pause = true
+		get_tree().paused = true
 
 func to_bool(s: String) -> bool: #Credit to Poobslag
 	var result: bool
@@ -34,7 +35,7 @@ func to_bool(s: String) -> bool: #Credit to Poobslag
 func _on_Commands_text_entered(new_text : String):
 	hide()
 	clear()
-	Global.pause = false
+	get_tree().paused = false
 	new_text = new_text.to_lower()
 	var commands = new_text.split(" ")
 	match commands[0]:
@@ -106,6 +107,15 @@ func _on_Commands_text_entered(new_text : String):
 					print("Unkown weather event " + weather)
 			else:
 				print("Incorrect parameters for the weather command")
+		"timespeed":
+			if commands.size() == 2:
+				var speed : String = commands[1]
+				if speed.is_valid_float():
+					GlobalData.timeFactor = float(speed)
+				else:
+					print("Value must be a float value")
+			else:
+				print("Incorrect parameters for the timespeed command")
 
 func return_text_matches(toMatch : Array, matchTo : String) -> Array:
 	var matches : Array = toMatch.duplicate()

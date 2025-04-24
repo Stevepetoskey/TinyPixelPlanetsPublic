@@ -1,24 +1,32 @@
-[gd_scene load_steps=6 format=3 uid="uid://by2s22r1icpuh"]
+[gd_scene load_steps=8 format=3 uid="uid://by2s22r1icpuh"]
 
 [ext_resource type="Texture2D" uid="uid://b8mwc38d4yexe" path="res://textures/GUI/main/inventory/inventory_normal.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://cjefuit7vryf7" path="res://textures/blocks/Cobble.png" id="3"]
 [ext_resource type="Script" path="res://scripts/InventoryBtn.gd" id="4"]
 [ext_resource type="Texture2D" uid="uid://dn7e5bnue4wcp" path="res://textures/GUI/main/inventory/inventory_click.png" id="5"]
+[ext_resource type="PackedScene" uid="uid://br7pamytrlhqh" path="res://assets/GUI/item_gui.tscn" id="5_vr1k2"]
 [ext_resource type="Theme" uid="uid://bvlk5mt2axnwa" path="res://themes/Gray.tres" id="5_x7g18"]
+[ext_resource type="Shader" path="res://shaders/item_upgrade.gdshader" id="6_2cxpf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bilt2"]
+resource_local_to_scene = true
+shader = ExtResource("6_2cxpf")
+shader_parameter/bottom_color = Color(1.471, 0, 2.004, 0.271)
+shader_parameter/top_color = Color(0, 1.47843, 2, 0.270588)
+shader_parameter/wave_amp = 0.046
+shader_parameter/wave_size = 1.0
+shader_parameter/wave_time_mul = 0.58
+shader_parameter/total_phases = 4
+shader_parameter/useShine = false
 
 [node name="InventoryBtn" type="TextureButton"]
 anchors_preset = -1
 anchor_right = 0.2
 anchor_bottom = 0.087
-offset_right = -24.8
-offset_bottom = 0.0800004
+offset_right = -25.8
+offset_bottom = 0.0799999
 texture_normal = ExtResource("2")
 texture_pressed = ExtResource("5")
 script = ExtResource("4")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(6, 7)
-texture = ExtResource("3")
 
 [node name="Amount" type="Label" parent="."]
 layout_mode = 0
@@ -30,6 +38,14 @@ theme = ExtResource("5_x7g18")
 theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
 text = "*123"
 clip_text = true
+
+[node name="ItemGUI" parent="." instance=ExtResource("5_vr1k2")]
+material = SubResource("ShaderMaterial_bilt2")
+layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 10.0
+offset_bottom = 11.0
 
 [connection signal="mouse_entered" from="." to="." method="_on_InventoryBtn_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_InventoryBtn_mouse_exited"]

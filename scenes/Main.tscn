@@ -1,6 +1,7 @@
-[gd_scene load_steps=256 format=3 uid="uid://2c07adgn0vow"]
+[gd_scene load_steps=292 format=3 uid="uid://2c07adgn0vow"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1"]
+[ext_resource type="Shader" path="res://shaders/global_light_test.gdshader" id="1_4wm78"]
 [ext_resource type="Texture2D" uid="uid://c3rmyuwb7gd3m" path="res://textures/enviroment/sky.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://cxlf6mt32br23" path="res://textures/blocks/bricks.png" id="3"]
 [ext_resource type="Texture2D" uid="uid://bolugbajn3c14" path="res://textures/GUI/main/cursor.png" id="5"]
@@ -21,15 +22,14 @@
 [ext_resource type="FontFile" uid="uid://c72erwxvdt2b6" path="res://fonts/PixelpossiblitiesSmall.ttf" id="19_36l8u"]
 [ext_resource type="Texture2D" uid="uid://dhnnswc6ucpvg" path="res://textures/enviroment/backgrounds/terra_front.png" id="20"]
 [ext_resource type="Script" path="res://scripts/Enviroment.gd" id="21"]
+[ext_resource type="PackedScene" uid="uid://br7pamytrlhqh" path="res://assets/GUI/item_gui.tscn" id="21_e4up3"]
 [ext_resource type="Texture2D" uid="uid://c3gi3tckbsqa" path="res://textures/GUI/main/hotbar/go_up_btn.png" id="21_u37ji"]
 [ext_resource type="Texture2D" uid="uid://kusgl6ud38f6" path="res://textures/enviroment/backgrounds/terra_back.png" id="22"]
 [ext_resource type="Texture2D" uid="uid://i4c2a0l1rg2h" path="res://textures/GUI/main/hotbar/go_up_btn_pressed.png" id="22_0y4l0"]
+[ext_resource type="Shader" path="res://shaders/item_upgrade.gdshader" id="22_e5fa6"]
 [ext_resource type="Texture2D" uid="uid://dcwvytn78prs5" path="res://textures/GUI/main/hotbar/go_up_btn_hover.png" id="23_54wbw"]
 [ext_resource type="Texture2D" uid="uid://cg77ke3bvhhcj" path="res://textures/GUI/space/v_bar_handle_select.png" id="24"]
 [ext_resource type="Script" path="res://scripts/ArmorSlot.gd" id="25"]
-[ext_resource type="AudioStream" uid="uid://kld8ru3vf0hc" path="res://Audio/sfx/Game/collect_item.ogg" id="29"]
-[ext_resource type="AudioStream" uid="uid://ilj5mfs024wp" path="res://Audio/sfx/GUI/inventory.ogg" id="30"]
-[ext_resource type="AudioStream" uid="uid://cmcadcgiyfugn" path="res://Audio/sfx/GUI/equip.ogg" id="31"]
 [ext_resource type="Texture2D" uid="uid://chpgk1wfbx8v2" path="res://textures/GUI/main/hotbar/k.png" id="33"]
 [ext_resource type="Texture2D" uid="uid://dro6l7qprs4d3" path="res://textures/GUI/main/hotbar/j.png" id="34"]
 [ext_resource type="Script" path="res://scripts/Main.gd" id="35"]
@@ -47,14 +47,18 @@
 [ext_resource type="Script" path="res://scripts/Entities.gd" id="43"]
 [ext_resource type="Script" path="res://scripts/Bars.gd" id="44"]
 [ext_resource type="Texture2D" uid="uid://dc2440kvhp48n" path="res://textures/weather/rain.png" id="45"]
-[ext_resource type="Texture2D" uid="uid://2mpdkbqjvljn" path="res://textures/weather/Cloud_Large1.png" id="46"]
 [ext_resource type="Script" path="res://scripts/Effects.gd" id="47"]
+[ext_resource type="Texture2D" uid="uid://dce32w5n6yrws" path="res://textures/GUI/main/inventory/transfer_background.png" id="47_iw2q2"]
 [ext_resource type="Texture2D" uid="uid://bu4jjvitxquwi" path="res://textures/enviroment/space-3.png" id="48"]
+[ext_resource type="Script" path="res://scripts/GUI/main/transfer_ui.gd" id="48_6steu"]
 [ext_resource type="Script" path="res://scripts/Dead.gd" id="49"]
+[ext_resource type="Theme" uid="uid://cennao6ws76rx" path="res://themes/transfer.tres" id="49_qr103"]
+[ext_resource type="PackedScene" uid="uid://ct43p4kfy3aye" path="res://assets/GUI/craft_item.tscn" id="50_4okii"]
 [ext_resource type="Script" path="res://scripts/Chest.gd" id="52"]
 [ext_resource type="Texture2D" uid="uid://d380irrpct8nn" path="res://textures/GUI/main/hotbar/hotbar2.png" id="54"]
 [ext_resource type="Texture2D" uid="uid://bueaebvbfj4jw" path="res://textures/GUI/main/hotbar/hotbar1.png" id="55"]
 [ext_resource type="Texture2D" uid="uid://u27t1xjmaq7" path="res://textures/GUI/main/bigBar.png" id="56"]
+[ext_resource type="Theme" uid="uid://der0x8rw3vflt" path="res://themes/Blue.tres" id="56_6yffu"]
 [ext_resource type="FontFile" uid="uid://boiyd3n1keevx" path="res://fonts/upheavtt.ttf" id="56_wca64"]
 [ext_resource type="Script" path="res://scripts/GUI/main/Godmode.gd" id="57_keb65"]
 [ext_resource type="Shader" path="res://shaders/Pause.gdshader" id="58_564f8"]
@@ -62,6 +66,7 @@
 [ext_resource type="Texture2D" uid="uid://kh521oks6k4s" path="res://textures/GUI/main/godmode/godmode_bg.png" id="58_rc7dj"]
 [ext_resource type="Texture2D" uid="uid://dieq04r77mkl" path="res://textures/GUI/space/buttons/color_btn.png" id="59_b30rk"]
 [ext_resource type="Texture2D" uid="uid://c6qqoitldaoyo" path="res://textures/GUI/main/godmode/tab_btn.png" id="59_khys4"]
+[ext_resource type="Theme" uid="uid://clpb2j2pmd0qj" path="res://themes/dark_blue.tres" id="59_y6k07"]
 [ext_resource type="Script" path="res://scripts/GUI/main/LogicBlockEdit.gd" id="60_2s7q2"]
 [ext_resource type="Theme" uid="uid://b02uwgbscq35l" path="res://themes/menu.tres" id="60_dyqfb"]
 [ext_resource type="Texture2D" uid="uid://bgwlh0v4u7ckg" path="res://textures/GUI/main/godmode/tab_btn_pressed.png" id="60_xmnff"]
@@ -85,7 +90,6 @@
 [ext_resource type="Texture2D" uid="uid://cyyqftw4mthc8" path="res://textures/items/armor/space_helmet.png" id="66_i8amm"]
 [ext_resource type="Texture2D" uid="uid://37qbun2wp7lw" path="res://textures/GUI/main/logic/nand_btn_pressed.png" id="66_klnxr"]
 [ext_resource type="FontVariation" uid="uid://c4nuc5bd0kohq" path="res://fonts/PixelPossFix.tres" id="66_oustp"]
-[ext_resource type="Script" path="res://scripts/enviroment/Meteors.gd" id="67"]
 [ext_resource type="Texture2D" uid="uid://cby3yuoltp7ry" path="res://textures/GUI/main/logic/nor_btn.png" id="67_rhacj"]
 [ext_resource type="Texture2D" uid="uid://deiwekva7e5yd" path="res://textures/GUI/main/hotbar/hotbar_panel.png" id="68"]
 [ext_resource type="Texture2D" uid="uid://ddqniq8ix80j5" path="res://textures/GUI/main/logic/nor_btn_pressed.png" id="68_46ew3"]
@@ -108,12 +112,10 @@
 [ext_resource type="Texture2D" uid="uid://dtfa7tf4iexsu" path="res://textures/GUI/main/upgrade/main_slot.png" id="77_w74uk"]
 [ext_resource type="Texture2D" uid="uid://dbcxlsomp1g7b" path="res://textures/GUI/main/upgrade/main_slot_hover.png" id="78_gbxmp"]
 [ext_resource type="FontFile" uid="uid://diwuxgjxhgb06" path="res://fonts/PixelPossibilities.ttf" id="79"]
-[ext_resource type="Texture2D" uid="uid://xfgmpka4i7ho" path="res://textures/items/rhodonite_sword.png" id="79_atg4g"]
 [ext_resource type="Texture2D" uid="uid://c3wxj8ma11bxt" path="res://textures/GUI/main/upgrade/animations/left_item_slot_sheet.png" id="79_hj1c0"]
 [ext_resource type="Texture2D" uid="uid://bb4hsafmlev5c" path="res://textures/GUI/main/shop/shop_bg.png" id="80"]
 [ext_resource type="Texture2D" uid="uid://cju88cr22c0na" path="res://textures/GUI/main/upgrade/animations/top_item_slot_sheet.png" id="80_wujuo"]
 [ext_resource type="Texture2D" uid="uid://djh8v1682610f" path="res://textures/GUI/main/upgrade/animations/right_item_slot_sheet.png" id="81_3oc2h"]
-[ext_resource type="Texture2D" uid="uid://c0uyc414d20xr" path="res://textures/items/upgrade_module.png" id="81_e54nj"]
 [ext_resource type="Texture2D" uid="uid://bqdiir8v4ncnx" path="res://textures/NPCs/faces/lily_cheerful.png" id="82"]
 [ext_resource type="AudioStream" uid="uid://duo4t1cbibbxx" path="res://Audio/sfx/Ambience/mixkit-light-rain-loop-1253.wav" id="83"]
 [ext_resource type="Script" path="res://scripts/GUI/main/music_player.gd" id="83_plk3y"]
@@ -124,14 +126,36 @@
 [ext_resource type="Texture2D" uid="uid://yt38gkuyx7oq" path="res://textures/GUI/main/shop/tab_selected.png" id="87"]
 [ext_resource type="Texture2D" uid="uid://iges7aepbyai" path="res://textures/items/music_chip_alpha_andromedae.png" id="87_cghyt"]
 [ext_resource type="Texture2D" uid="uid://bc3ncctygtmi" path="res://textures/GUI/main/shop/tab.png" id="88"]
+[ext_resource type="Script" path="res://scripts/GUI/main/cooking_pot.gd" id="91_64b02"]
+[ext_resource type="Texture2D" uid="uid://c0utabosuaoah" path="res://textures/GUI/main/cooking_pot/cooking_pot_bg.png" id="91_r6cf5"]
+[ext_resource type="Texture2D" uid="uid://5ly0wt3gm6kx" path="res://textures/GUI/main/cooking_pot/item_slot.png" id="94_aqewn"]
+[ext_resource type="Texture2D" uid="uid://cjri1af54g2lg" path="res://textures/GUI/main/cooking_pot/item_slot_hover.png" id="95_e65pb"]
+[ext_resource type="Texture2D" uid="uid://bs0xwn0tmjmrr" path="res://textures/GUI/main/cooking_pot/fuel_bar_back.png" id="96_2n770"]
+[ext_resource type="Texture2D" uid="uid://defuq7eucgutg" path="res://textures/GUI/main/cooking_pot/fuel_bar_front.png" id="97_x8fcp"]
 [ext_resource type="Texture2D" uid="uid://0kw3pswgl7ra" path="res://textures/GUI/main/effects/no_oxygen.png" id="98_obupc"]
 [ext_resource type="Texture2D" uid="uid://jubrgfwjnpsj" path="res://textures/GUI/main/effects/fire.png" id="99_nicjf"]
 [ext_resource type="Texture2D" uid="uid://bh35fik5wk5y4" path="res://textures/GUI/main/effects/frozen.png" id="100_xdqdj"]
 [ext_resource type="Script" path="res://scripts/GUI/main/slider_pop_up.gd" id="104_kln4w"]
 [ext_resource type="Script" path="res://scripts/GUI/main/teleport_prompt.gd" id="105_ry0l8"]
 [ext_resource type="FastNoiseLite" uid="uid://c5g6yqr51sbl6" path="res://noise/Cave.tres" id="110_3l8vn"]
+[ext_resource type="Theme" uid="uid://bb1fxr1s43xy3" path="res://themes/menu_alt.tres" id="110_hd2va"]
+[ext_resource type="Texture2D" uid="uid://dk1djpluitw6c" path="res://textures/GUI/buttons/minus_btn.png" id="116_0uvhl"]
+[ext_resource type="Texture2D" uid="uid://c275lrph4jc38" path="res://textures/GUI/buttons/minus_btn_pressed.png" id="117_a2768"]
+[ext_resource type="Texture2D" uid="uid://bhygsogrjwbgc" path="res://textures/GUI/buttons/minus_btn_hover.png" id="118_hhvrh"]
+[ext_resource type="Texture2D" uid="uid://cgdvx3s46j666" path="res://textures/GUI/buttons/0_btn.png" id="119_7pbki"]
+[ext_resource type="Texture2D" uid="uid://cdlwo2r6lqxlc" path="res://textures/GUI/buttons/0_btn_pressed.png" id="120_h504k"]
+[ext_resource type="Texture2D" uid="uid://b2vaf1v1wkat2" path="res://textures/GUI/buttons/0_btn_hover.png" id="121_fjie8"]
+[ext_resource type="Texture2D" uid="uid://bwkwcn25acg4b" path="res://textures/GUI/buttons/plus_button.png" id="122_isq27"]
+[ext_resource type="Texture2D" uid="uid://cluygsnwwuy3h" path="res://textures/GUI/buttons/plus_btn_pressed.png" id="123_ybcnv"]
 [ext_resource type="Script" path="res://scripts/player_camera.gd" id="124_kgcw1"]
+[ext_resource type="Texture2D" uid="uid://dq5sf44txlykl" path="res://textures/GUI/buttons/plus_btn_hover.png" id="124_tx4gj"]
 [ext_resource type="AudioStream" uid="uid://i51amw3y2qy6" path="res://Audio/sfx/Ambience/The2.mp3" id="125_7ahbp"]
+[ext_resource type="Script" path="res://scripts/misc/photo_cam.gd" id="133_pewce"]
+[ext_resource type="PackedScene" uid="uid://cwe5faynqk6l8" path="res://assets/GUI/settings.tscn" id="135_wgqg4"]
+[ext_resource type="PackedScene" uid="uid://dig86d24vp8xv" path="res://assets/enviroment/light_render.tscn" id="146_ue3uy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_44uky"]
+shader = ExtResource("1_4wm78")
 
 [sub_resource type="VisualShaderNodeFloatOp" id="67"]
 output_port_for_preview = 0
@@ -447,8 +471,52 @@ region = Rect2(0, 0, 98, 8)
 atlas = ExtResource("56")
 region = Rect2(0, 8, 98, 8)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5mm7r"]
+resource_local_to_scene = true
+shader = ExtResource("22_e5fa6")
+shader_parameter/bottom_color = Color(1.471, 0, 2.004, 0.271)
+shader_parameter/top_color = Color(0, 1.47843, 2, 0.270588)
+shader_parameter/wave_amp = 0.046
+shader_parameter/wave_size = 1.0
+shader_parameter/wave_time_mul = 0.58
+shader_parameter/total_phases = 4
+shader_parameter/useShine = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7u2aq"]
+resource_local_to_scene = true
+shader = ExtResource("22_e5fa6")
+shader_parameter/bottom_color = Color(1.471, 0, 2.004, 0.271)
+shader_parameter/top_color = Color(0, 1.47843, 2, 0.270588)
+shader_parameter/wave_amp = 0.046
+shader_parameter/wave_size = 1.0
+shader_parameter/wave_time_mul = 0.58
+shader_parameter/total_phases = 4
+shader_parameter/useShine = false
+
 [sub_resource type="LabelSettings" id="LabelSettings_omix6"]
 font = ExtResource("19_36l8u")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eyk3o"]
+resource_local_to_scene = true
+shader = ExtResource("22_e5fa6")
+shader_parameter/bottom_color = Color(1.471, 0, 2.004, 0.271)
+shader_parameter/top_color = Color(0, 1.47843, 2, 0.270588)
+shader_parameter/wave_amp = 0.046
+shader_parameter/wave_size = 1.0
+shader_parameter/wave_time_mul = 0.58
+shader_parameter/total_phases = 4
+shader_parameter/useShine = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rtfcw"]
+resource_local_to_scene = true
+shader = ExtResource("22_e5fa6")
+shader_parameter/bottom_color = Color(1.471, 0, 2.004, 0.271)
+shader_parameter/top_color = Color(0, 1.47843, 2, 0.270588)
+shader_parameter/wave_amp = 0.046
+shader_parameter/wave_size = 1.0
+shader_parameter/wave_time_mul = 0.58
+shader_parameter/total_phases = 4
+shader_parameter/useShine = false
 
 [sub_resource type="AtlasTexture" id="54"]
 atlas = ExtResource("17")
@@ -557,6 +625,17 @@ outline_color = Color(0.266667, 0.235294, 0.384314, 1)
 font_color = Color(0.994154, 0.772127, 0.757899, 1)
 outline_size = 3
 outline_color = Color(0.342634, 0.0358904, 0.066403, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7ciq2"]
+resource_local_to_scene = true
+shader = ExtResource("22_e5fa6")
+shader_parameter/bottom_color = Color(1.471, 0, 2.004, 0.271)
+shader_parameter/top_color = Color(0, 1.47843, 2, 0.270588)
+shader_parameter/wave_amp = 0.046
+shader_parameter/wave_size = 1.0
+shader_parameter/wave_time_mul = 0.58
+shader_parameter/total_phases = 4
+shader_parameter/useShine = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_88nlb"]
 atlas = ExtResource("79_hj1c0")
@@ -770,6 +849,17 @@ _data = {
 "start": SubResource("Animation_3kwvw"),
 "unpower": SubResource("Animation_puh5q")
 }
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5lf2n"]
+resource_local_to_scene = true
+shader = ExtResource("22_e5fa6")
+shader_parameter/bottom_color = Color(1.471, 0, 2.004, 0.271)
+shader_parameter/top_color = Color(0, 1.47843, 2, 0.270588)
+shader_parameter/wave_amp = 0.046
+shader_parameter/wave_size = 1.0
+shader_parameter/wave_time_mul = 0.58
+shader_parameter/total_phases = 4
+shader_parameter/useShine = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gilhv"]
 atlas = ExtResource("80_wujuo")
@@ -987,9 +1077,31 @@ _data = {
 "unpower": SubResource("Animation_t3y27")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_p5ixq"]
+resource_local_to_scene = true
+shader = ExtResource("22_e5fa6")
+shader_parameter/bottom_color = Color(1.471, 0, 2.004, 0.271)
+shader_parameter/top_color = Color(0, 1.47843, 2, 0.270588)
+shader_parameter/wave_amp = 0.046
+shader_parameter/wave_size = 1.0
+shader_parameter/wave_time_mul = 0.58
+shader_parameter/total_phases = 4
+shader_parameter/useShine = false
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ltsjs"]
 atlas = ExtResource("81_3oc2h")
 region = Rect2(29, 2.08165e-12, 29, 27)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rhlo8"]
+resource_local_to_scene = true
+shader = ExtResource("22_e5fa6")
+shader_parameter/bottom_color = Color(1.471, 0, 2.004, 0.271)
+shader_parameter/top_color = Color(0, 1.47843, 2, 0.270588)
+shader_parameter/wave_amp = 0.046
+shader_parameter/wave_size = 1.0
+shader_parameter/wave_time_mul = 0.58
+shader_parameter/total_phases = 4
+shader_parameter/useShine = false
 
 [sub_resource type="Animation" id="Animation_doqaj"]
 length = 0.001
@@ -1203,6 +1315,65 @@ _data = {
 font_color = Color(0.117647, 0.0784314, 0.137255, 1)
 outline_size = 3
 outline_color = Color(0.760784, 0.780392, 0.788235, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rajl6"]
+resource_local_to_scene = true
+shader = ExtResource("22_e5fa6")
+shader_parameter/bottom_color = Color(1.471, 0, 2.004, 0.271)
+shader_parameter/top_color = Color(0, 1.47843, 2, 0.270588)
+shader_parameter/wave_amp = 0.046
+shader_parameter/wave_size = 1.0
+shader_parameter/wave_time_mul = 0.58
+shader_parameter/total_phases = 4
+shader_parameter/useShine = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fsory"]
+resource_local_to_scene = true
+shader = ExtResource("22_e5fa6")
+shader_parameter/bottom_color = Color(1.471, 0, 2.004, 0.271)
+shader_parameter/top_color = Color(0, 1.47843, 2, 0.270588)
+shader_parameter/wave_amp = 0.046
+shader_parameter/wave_size = 1.0
+shader_parameter/wave_time_mul = 0.58
+shader_parameter/total_phases = 4
+shader_parameter/useShine = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g7cc3"]
+resource_local_to_scene = true
+shader = ExtResource("22_e5fa6")
+shader_parameter/bottom_color = Color(1.471, 0, 2.004, 0.271)
+shader_parameter/top_color = Color(0, 1.47843, 2, 0.270588)
+shader_parameter/wave_amp = 0.046
+shader_parameter/wave_size = 1.0
+shader_parameter/wave_time_mul = 0.58
+shader_parameter/total_phases = 4
+shader_parameter/useShine = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2i32g"]
+resource_local_to_scene = true
+shader = ExtResource("22_e5fa6")
+shader_parameter/bottom_color = Color(1.471, 0, 2.004, 0.271)
+shader_parameter/top_color = Color(0, 1.47843, 2, 0.270588)
+shader_parameter/wave_amp = 0.046
+shader_parameter/wave_size = 1.0
+shader_parameter/wave_time_mul = 0.58
+shader_parameter/total_phases = 4
+shader_parameter/useShine = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6c55r"]
+resource_local_to_scene = true
+shader = ExtResource("22_e5fa6")
+shader_parameter/bottom_color = Color(1.471, 0, 2.004, 0.271)
+shader_parameter/top_color = Color(0, 1.47843, 2, 0.270588)
+shader_parameter/wave_amp = 0.046
+shader_parameter/wave_size = 1.0
+shader_parameter/wave_time_mul = 0.58
+shader_parameter/total_phases = 4
+shader_parameter/useShine = false
+
+[sub_resource type="LabelSettings" id="LabelSettings_o5h8a"]
+outline_size = 3
+outline_color = Color(0.454902, 0.541176, 0.643137, 1)
 
 [sub_resource type="Animation" id="11"]
 length = 0.001
@@ -1501,8 +1672,11 @@ size = Vector2(8, 8)
 radius = 100.0
 
 [sub_resource type="Environment" id="32"]
-background_mode = 4
-glow_enabled = true
+background_mode = 3
+glow_strength = 2.0
+glow_hdr_threshold = 1.5
+glow_hdr_scale = 1.0
+adjustment_saturation = 0.01
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ovjk6"]
 particle_flag_align_y = true
@@ -1512,7 +1686,7 @@ emission_box_extents = Vector3(240, 1, 1)
 direction = Vector3(0.5, 1, 0)
 spread = 5.0
 initial_velocity_min = 100.0
-initial_velocity_max = 200.0
+initial_velocity_max = 350.0
 gravity = Vector3(2.08165e-12, 2.08165e-12, 2.08165e-12)
 color = Color(0.79, 0.8985, 1, 0.619608)
 turbulence_noise_scale = 100.0
@@ -1643,7 +1817,7 @@ tracks/9/keys = {
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("../sfx/Rain:playing")
+tracks/10/path = NodePath("../EnvironmentSFX/Rain:playing")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
@@ -1655,58 +1829,46 @@ tracks/10/keys = {
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("../sfx/Rain:volume_db")
+tracks/11/path = NodePath("Rain:process_material:initial_velocity_min")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [100.0]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("Rain:process_material:initial_velocity_min")
+tracks/12/path = NodePath("Snow:process_material:initial_velocity_min")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [100.0]
+"values": [20.0]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("Snow:process_material:initial_velocity_min")
+tracks/13/path = NodePath("Snow:process_material:initial_velocity_max")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [20.0]
+"values": [30.0]
 }
 tracks/14/type = "value"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("Snow:process_material:initial_velocity_max")
+tracks/14/path = NodePath("Rain:lifetime")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [30.0]
-}
-tracks/15/type = "value"
-tracks/15/imported = false
-tracks/15/enabled = true
-tracks/15/path = NodePath("Rain:lifetime")
-tracks/15/interp = 1
-tracks/15/loop_wrap = true
-tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -2030,7 +2192,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("../sfx/Rain:playing")
+tracks/3/path = NodePath("../EnvironmentSFX/Rain:playing")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -2118,7 +2280,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("../sfx/Rain:playing")
+tracks/6/path = NodePath("../EnvironmentSFX/Rain:playing")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -2130,19 +2292,19 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../sfx/Rain:volume_db")
+tracks/7/path = NodePath("Rain:process_material:initial_velocity_min")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-20.0, 0.0]
+"values": [200.0]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Rain:process_material:initial_velocity_min")
+tracks/8/path = NodePath("Rain:process_material:initial_velocity_max")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -2154,26 +2316,28 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Rain:process_material:initial_velocity_max")
+tracks/9/path = NodePath("Rain:lifetime")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [200.0]
+"values": [2.5]
 }
-tracks/10/type = "value"
+tracks/10/type = "method"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Rain:lifetime")
+tracks/10/path = NodePath("..")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [2.5]
+"values": [{
+"args": [-20, -1],
+"method": &"set_weather_volume"
+}]
 }
 
 [sub_resource type="Animation" id="108"]
@@ -2254,7 +2418,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("../sfx/Rain:playing")
+tracks/6/path = NodePath("../EnvironmentSFX/Rain:playing")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -2266,19 +2430,19 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../sfx/Rain:volume_db")
+tracks/7/path = NodePath("Rain:process_material:initial_velocity_min")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [100.0]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Rain:process_material:initial_velocity_min")
+tracks/8/path = NodePath("Rain:process_material:initial_velocity_max")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -2290,26 +2454,28 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Rain:process_material:initial_velocity_max")
+tracks/9/path = NodePath("Rain:lifetime")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [100.0]
+"values": [2.5]
 }
-tracks/10/type = "value"
+tracks/10/type = "method"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Rain:lifetime")
+tracks/10/path = NodePath("..")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [2.5]
+"values": [{
+"args": [-1, -2],
+"method": &"set_weather_volume"
+}]
 }
 
 [sub_resource type="Animation" id="98"]
@@ -2366,7 +2532,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../sfx/Rain:playing")
+tracks/4/path = NodePath("../EnvironmentSFX/Rain:playing")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -2375,17 +2541,19 @@ tracks/4/keys = {
 "update": 1,
 "values": [true, false]
 }
-tracks/5/type = "value"
+tracks/5/type = "method"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("../sfx/Rain:volume_db")
+tracks/5/path = NodePath("..")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, -20.0]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [-1, -20],
+"method": &"set_weather_volume"
+}]
 }
 
 [sub_resource type="Animation" id="99"]
@@ -2466,7 +2634,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("../sfx/Rain:playing")
+tracks/6/path = NodePath("../EnvironmentSFX/Rain:playing")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -2478,50 +2646,52 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../sfx/Rain:volume_db")
+tracks/7/path = NodePath("Rain:process_material:initial_velocity_min")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-20.0, 0.0]
+"values": [250.0]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Rain:process_material:initial_velocity_min")
+tracks/8/path = NodePath("Rain:process_material:initial_velocity_max")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [250.0]
+"values": [275.0]
 }
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Rain:process_material:initial_velocity_max")
+tracks/9/path = NodePath("Rain:lifetime")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [275.0]
+"values": [0.75]
 }
-tracks/10/type = "value"
+tracks/10/type = "method"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("Rain:lifetime")
+tracks/10/path = NodePath("..")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.75]
+"values": [{
+"args": [-20, -1],
+"method": &"set_weather_volume"
+}]
 }
 
 [sub_resource type="Animation" id="109"]
@@ -2602,7 +2772,7 @@ tracks/5/keys = {
 tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("../sfx/Rain:playing")
+tracks/6/path = NodePath("../EnvironmentSFX/Rain:playing")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
@@ -2614,38 +2784,40 @@ tracks/6/keys = {
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("../sfx/Rain:volume_db")
+tracks/7/path = NodePath("Rain:process_material:initial_velocity_min")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.0]
+"values": [350.0]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("Rain:process_material:initial_velocity_min")
+tracks/8/path = NodePath("Rain:lifetime")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [350.0]
+"values": [0.75]
 }
-tracks/9/type = "value"
+tracks/9/type = "method"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("Rain:lifetime")
+tracks/9/path = NodePath("..")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.75]
+"values": [{
+"args": [-1, -2],
+"method": &"set_weather_volume"
+}]
 }
 
 [sub_resource type="Animation" id="100"]
@@ -2702,26 +2874,28 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../sfx/Rain:volume_db")
+tracks/4/path = NodePath("../EnvironmentSFX/Rain:playing")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
 "times": PackedFloat32Array(0, 1.5),
 "transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [0.0, -20.0]
+"update": 1,
+"values": [true, false]
 }
-tracks/5/type = "value"
+tracks/5/type = "method"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("../sfx/Rain:playing")
+tracks/5/path = NodePath("..")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 1.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [-1, -20],
+"method": &"set_weather_volume"
+}]
 }
 
 [sub_resource type="Animation" id="101"]
@@ -3042,23 +3216,15 @@ turbulence_influence_max = 0.01
 collision_mode = 2
 
 [node name="Main" type="Node2D"]
+material = SubResource("ShaderMaterial_44uky")
 script = ExtResource("35")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
 layer = 2
 
-[node name="CloudLayer1" type="ParallaxBackground" parent="CanvasLayer"]
-layer = -99
-visible = false
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="CanvasLayer/CloudLayer1"]
-motion_scale = Vector2(0, 0.1)
-
-[node name="CloudLarge1" type="Sprite2D" parent="CanvasLayer/CloudLayer1/ParallaxLayer"]
-position = Vector2(-39, -43)
-texture = ExtResource("46")
-
 [node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
+scroll_ignore_camera_zoom = true
 
 [node name="Space" type="Sprite2D" parent="CanvasLayer/ParallaxBackground"]
 position = Vector2(120, 120)
@@ -3076,6 +3242,7 @@ centered = false
 
 [node name="ParallaxBackground2" type="ParallaxBackground" parent="CanvasLayer"]
 layer = -90
+scroll_ignore_camera_zoom = true
 
 [node name="Sky" type="Node2D" parent="CanvasLayer/ParallaxBackground2"]
 position = Vector2(120, 120)
@@ -3091,11 +3258,12 @@ modulate = Color(1, 1, 1, 0)
 texture = ExtResource("65")
 centered = false
 
-[node name="Enviroment" type="ParallaxBackground" parent="CanvasLayer"]
+[node name="Environment" type="ParallaxBackground" parent="CanvasLayer"]
 layer = -80
+scroll_ignore_camera_zoom = true
 script = ExtResource("21")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Enviroment"]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Environment"]
 visible = false
 material = SubResource("22")
 anchors_preset = 15
@@ -3110,42 +3278,33 @@ texture = ExtResource("2")
 expand_mode = 1
 stretch_mode = 2
 
-[node name="Meteors" type="Node2D" parent="CanvasLayer/Enviroment"]
-z_index = -81
-script = ExtResource("67")
-
-[node name="MeteorTimer" type="Timer" parent="CanvasLayer/Enviroment/Meteors"]
-one_shot = true
-
-[node name="StageProgress" type="Timer" parent="CanvasLayer/Enviroment/Meteors"]
-
-[node name="back" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
+[node name="back" type="ParallaxLayer" parent="CanvasLayer/Environment"]
 modulate = Color(1, 0.662745, 0.282353, 1)
 texture_repeat = 2
 motion_scale = Vector2(0.1, 0.1)
 motion_offset = Vector2(2.08165e-12, 40)
 motion_mirroring = Vector2(640, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Enviroment/back"]
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Environment/back"]
 texture = ExtResource("22")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 640, 180)
 
-[node name="front" type="ParallaxLayer" parent="CanvasLayer/Enviroment"]
+[node name="front" type="ParallaxLayer" parent="CanvasLayer/Environment"]
 modulate = Color(0.427451, 0.368627, 0.47451, 1)
 texture_repeat = 2
 motion_scale = Vector2(0.3, 0.3)
 motion_offset = Vector2(2.08165e-12, 55)
 motion_mirroring = Vector2(640, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Enviroment/front"]
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Environment/front"]
 texture = ExtResource("20")
 centered = false
 region_enabled = true
 region_rect = Rect2(0, 0, 640, 180)
 
-[node name="Underground" type="Sprite2D" parent="CanvasLayer/Enviroment/front"]
+[node name="Underground" type="Sprite2D" parent="CanvasLayer/Environment/front"]
 position = Vector2(2.08165e-12, 180)
 texture = ExtResource("12_itho0")
 centered = false
@@ -3224,6 +3383,7 @@ texture = ExtResource("100_xdqdj")
 stretch_mode = 3
 
 [node name="Hotbar" type="Control" parent="CanvasLayer"]
+process_mode = 3
 layout_mode = 3
 anchor_right = 1.0
 anchor_bottom = 0.141
@@ -3251,13 +3411,13 @@ offset_bottom = 12.0
 text = "*33"
 clip_text = true
 
-[node name="Item" type="TextureRect" parent="CanvasLayer/Hotbar/InventoryBtn"]
+[node name="Item" parent="CanvasLayer/Hotbar/InventoryBtn" instance=ExtResource("21_e4up3")]
+material = SubResource("ShaderMaterial_5mm7r")
 layout_mode = 0
 offset_left = 4.0
 offset_top = 4.0
 offset_right = 12.0
 offset_bottom = 12.0
-texture = ExtResource("3")
 
 [node name="InventoryBtn2" type="TextureButton" parent="CanvasLayer/Hotbar"]
 layout_mode = 0
@@ -3275,13 +3435,13 @@ offset_bottom = 12.0
 text = "*33"
 clip_text = true
 
-[node name="Item" type="TextureRect" parent="CanvasLayer/Hotbar/InventoryBtn2"]
+[node name="Item" parent="CanvasLayer/Hotbar/InventoryBtn2" instance=ExtResource("21_e4up3")]
+material = SubResource("ShaderMaterial_7u2aq")
 layout_mode = 0
 offset_left = 3.0
 offset_top = 4.0
 offset_right = 11.0
 offset_bottom = 12.0
-texture = ExtResource("3")
 
 [node name="K" type="TextureRect" parent="CanvasLayer/Hotbar"]
 layout_mode = 0
@@ -3290,13 +3450,6 @@ offset_top = 3.0
 offset_right = 134.0
 offset_bottom = 16.0
 texture = ExtResource("33")
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/Hotbar/K"]
-layout_mode = 0
-offset_left = 11.0
-offset_top = 3.0
-offset_right = 19.0
-offset_bottom = 11.0
 
 [node name="Keybind" type="Label" parent="CanvasLayer/Hotbar/K"]
 layout_mode = 0
@@ -3308,19 +3461,20 @@ label_settings = SubResource("LabelSettings_omix6")
 horizontal_alignment = 1
 uppercase = true
 
+[node name="Item" parent="CanvasLayer/Hotbar/K" instance=ExtResource("21_e4up3")]
+material = SubResource("ShaderMaterial_eyk3o")
+layout_mode = 0
+offset_left = 13.0
+offset_top = 3.0
+offset_right = 21.0
+offset_bottom = 11.0
+
 [node name="J" type="TextureRect" parent="CanvasLayer/Hotbar"]
 layout_mode = 0
 offset_left = 99.0
 offset_right = 122.0
 offset_bottom = 13.0
 texture = ExtResource("34")
-
-[node name="Item" type="TextureRect" parent="CanvasLayer/Hotbar/J"]
-layout_mode = 0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 10.0
-offset_bottom = 10.0
 
 [node name="Keybind" type="Label" parent="CanvasLayer/Hotbar/J"]
 layout_mode = 0
@@ -3332,6 +3486,14 @@ text = "J"
 label_settings = SubResource("LabelSettings_omix6")
 horizontal_alignment = 1
 uppercase = true
+
+[node name="Item" parent="CanvasLayer/Hotbar/J" instance=ExtResource("21_e4up3")]
+material = SubResource("ShaderMaterial_rtfcw")
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 10.0
+offset_bottom = 10.0
 
 [node name="GoUp" type="TextureButton" parent="CanvasLayer/Hotbar"]
 layout_mode = 0
@@ -3395,6 +3557,7 @@ text = "X: 32, Y: 5"
 label_settings = SubResource("LabelSettings_5jsv6")
 
 [node name="Inventory" type="Control" parent="CanvasLayer"]
+process_mode = 3
 visible = false
 layout_mode = 3
 anchors_preset = 0
@@ -3418,15 +3581,6 @@ offset_left = 2.0
 offset_top = 60.0
 offset_right = 101.0
 offset_bottom = -20.0
-
-[node name="collect" type="AudioStreamPlayer" parent="CanvasLayer/Inventory"]
-stream = ExtResource("29")
-
-[node name="change" type="AudioStreamPlayer" parent="CanvasLayer/Inventory"]
-stream = ExtResource("30")
-
-[node name="equip" type="AudioStreamPlayer" parent="CanvasLayer/Inventory"]
-stream = ExtResource("31")
 
 [node name="Armor" type="TextureRect" parent="CanvasLayer/Inventory"]
 layout_mode = 0
@@ -3653,6 +3807,106 @@ grow_vertical = 0
 texture_normal = ExtResource("42_ur3h4")
 stretch_mode = 3
 
+[node name="TransferUI" type="NinePatchRect" parent="CanvasLayer/Inventory"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 59.0
+offset_top = -19.5
+offset_right = 109.0
+offset_bottom = 29.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("47_iw2q2")
+patch_margin_left = 4
+patch_margin_top = 11
+patch_margin_right = 4
+patch_margin_bottom = 4
+script = ExtResource("48_6steu")
+
+[node name="Title" type="Label" parent="CanvasLayer/Inventory/TransferUI"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 7.0
+grow_horizontal = 2
+text = "Transfer"
+horizontal_alignment = 1
+
+[node name="Amount" type="Label" parent="CanvasLayer/Inventory/TransferUI"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -14.5
+offset_bottom = -4.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "99/99"
+horizontal_alignment = 1
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Inventory/TransferUI"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 4.0
+offset_top = -4.5
+offset_right = -4.0
+offset_bottom = 2.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("49_qr103")
+value = 100.0
+
+[node name="PercentBtns" type="HBoxContainer" parent="CanvasLayer/Inventory/TransferUI"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -20.0
+offset_right = -1.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("49_qr103")
+theme_override_constants/separation = 0
+
+[node name="Btn25" type="Button" parent="CanvasLayer/Inventory/TransferUI/PercentBtns"]
+layout_mode = 2
+text = "25%"
+
+[node name="Btn50" type="Button" parent="CanvasLayer/Inventory/TransferUI/PercentBtns"]
+layout_mode = 2
+text = "50%"
+
+[node name="Btn75" type="Button" parent="CanvasLayer/Inventory/TransferUI/PercentBtns"]
+layout_mode = 2
+text = "75%"
+
+[node name="DoneBtn" type="Button" parent="CanvasLayer/Inventory/TransferUI"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -11.0
+offset_right = -1.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("49_qr103")
+text = "DONE"
+
 [node name="Crafting" type="Control" parent="CanvasLayer"]
 visible = false
 layout_mode = 3
@@ -3675,17 +3929,6 @@ anchor_bottom = 1.0
 texture = ExtResource("77")
 expand_mode = 1
 
-[node name="recipes" type="Control" parent="CanvasLayer/Crafting"]
-anchors_preset = 0
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -34.0
-offset_top = -158.0
-offset_right = 38.0
-offset_bottom = -38.0
-
 [node name="Title" type="Label" parent="CanvasLayer/Crafting"]
 layout_mode = 0
 offset_left = 2.0
@@ -3699,20 +3942,84 @@ label_settings = SubResource("LabelSettings_h1jgf")
 horizontal_alignment = 1
 
 [node name="RecipesScroll" type="ScrollContainer" parent="CanvasLayer/Crafting"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 6.0
-offset_top = -125.0
-offset_right = -6.0
+offset_top = -124.0
+offset_right = -73.0
 offset_bottom = -5.0
-theme = SubResource("113")
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("12_23g2f")
+horizontal_scroll_mode = 0
 
-[node name="RecipesContainer" type="VBoxContainer" parent="CanvasLayer/Crafting/RecipesScroll"]
+[node name="RecipesContainer" type="GridContainer" parent="CanvasLayer/Crafting/RecipesScroll"]
+layout_mode = 2
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
+columns = 2
+
+[node name="RecipeData" type="VBoxContainer" parent="CanvasLayer/Crafting"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -71.0
+offset_top = 16.0
+offset_right = -2.0
+offset_bottom = -19.0
+grow_horizontal = 0
+grow_vertical = 2
+theme = ExtResource("56_6yffu")
+
+[node name="ItemName" type="Label" parent="CanvasLayer/Crafting/RecipeData"]
+layout_mode = 2
+text = "Smooth stone bricks"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/Crafting/RecipeData"]
 layout_mode = 2
 
+[node name="InventoryAmount" type="Label" parent="CanvasLayer/Crafting/RecipeData"]
+layout_mode = 2
+text = "99 in inventory"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/Crafting/RecipeData"]
+layout_mode = 2
+
+[node name="Recipe" type="HFlowContainer" parent="CanvasLayer/Crafting/RecipeData"]
+layout_mode = 2
+alignment = 1
+
+[node name="CraftItem" parent="CanvasLayer/Crafting/RecipeData/Recipe" instance=ExtResource("50_4okii")]
+layout_mode = 2
+
+[node name="CraftBtn" type="Button" parent="CanvasLayer/Crafting"]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -70.0
+offset_top = -18.0
+offset_right = -3.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("59_y6k07")
+text = "Craft"
+
 [node name="Chest" type="Control" parent="CanvasLayer"]
+process_mode = 3
 visible = false
 layout_mode = 3
 anchors_preset = 3
@@ -4159,13 +4466,13 @@ grow_vertical = 2
 texture_normal = ExtResource("77_w74uk")
 texture_hover = ExtResource("78_gbxmp")
 
-[node name="Item" type="TextureRect" parent="CanvasLayer/Upgrade/ItemHold/Mainslot"]
+[node name="Item" parent="CanvasLayer/Upgrade/ItemHold/Mainslot" instance=ExtResource("21_e4up3")]
+material = SubResource("ShaderMaterial_7ciq2")
 layout_mode = 0
-offset_right = 14.0
-offset_bottom = 14.0
-mouse_filter = 2
-texture = ExtResource("79_atg4g")
-stretch_mode = 3
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 11.0
+offset_bottom = 11.0
 
 [node name="LeftSlot" type="TextureRect" parent="CanvasLayer/Upgrade/ItemHold"]
 visible = false
@@ -4188,8 +4495,22 @@ layout_mode = 0
 offset_top = 13.0
 offset_right = 14.0
 offset_bottom = 27.0
-texture_normal = ExtResource("81_e54nj")
 stretch_mode = 3
+
+[node name="Item" parent="CanvasLayer/Upgrade/ItemHold/LeftSlot/LeftSlotBtn" instance=ExtResource("21_e4up3")]
+material = SubResource("ShaderMaterial_5lf2n")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TopSlot" type="TextureRect" parent="CanvasLayer/Upgrade/ItemHold"]
 visible = false
@@ -4212,8 +4533,22 @@ layout_mode = 0
 offset_top = 11.0
 offset_right = 14.0
 offset_bottom = 25.0
-texture_normal = ExtResource("81_e54nj")
 stretch_mode = 3
+
+[node name="Item" parent="CanvasLayer/Upgrade/ItemHold/TopSlot/TopSlotBtn" instance=ExtResource("21_e4up3")]
+material = SubResource("ShaderMaterial_p5ixq")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="RightSlot" type="TextureRect" parent="CanvasLayer/Upgrade/ItemHold"]
 visible = false
@@ -4232,8 +4567,22 @@ offset_left = 15.0
 offset_top = 13.0
 offset_right = 29.0
 offset_bottom = 27.0
-texture_normal = ExtResource("81_e54nj")
 stretch_mode = 3
+
+[node name="Item" parent="CanvasLayer/Upgrade/ItemHold/RightSlot/RightSlotBtn" instance=ExtResource("21_e4up3")]
+material = SubResource("ShaderMaterial_rhlo8")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Animation" type="AnimationPlayer" parent="CanvasLayer/Upgrade/ItemHold/RightSlot"]
 libraries = {
@@ -4321,6 +4670,239 @@ horizontal_alignment = 1
 [node name="ByLbl" type="Label" parent="CanvasLayer/MusicPlayer/Data/VBoxContainer"]
 layout_mode = 2
 text = "The_Mad_duck"
+horizontal_alignment = 1
+
+[node name="CookingPot" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -116.0
+offset_top = -141.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("12_23g2f")
+script = ExtResource("91_64b02")
+
+[node name="BG" type="TextureRect" parent="CanvasLayer/CookingPot"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource("91_r6cf5")
+expand_mode = 1
+
+[node name="Title" type="Label" parent="CanvasLayer/CookingPot"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 114.0
+offset_bottom = 12.0
+theme_override_colors/font_color = Color(0.854902, 0.878431, 0.917647, 1)
+theme_override_colors/font_outline_color = Color(0.231373, 0.290196, 0.482353, 1)
+text = "Cooking Pot"
+label_settings = SubResource("LabelSettings_h1jgf")
+horizontal_alignment = 1
+
+[node name="CookBtn" type="Button" parent="CanvasLayer/CookingPot"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -70.0
+offset_top = -18.0
+offset_right = -3.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("59_y6k07")
+text = "Cook"
+
+[node name="Top" type="Control" parent="CanvasLayer/CookingPot"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.0
+offset_top = -25.0
+offset_right = 15.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Slot1" type="TextureButton" parent="CanvasLayer/CookingPot/Top"]
+layout_mode = 1
+offset_right = 14.0
+offset_bottom = 14.0
+texture_normal = ExtResource("94_aqewn")
+texture_pressed = ExtResource("95_e65pb")
+texture_hover = ExtResource("95_e65pb")
+
+[node name="Item" parent="CanvasLayer/CookingPot/Top/Slot1" instance=ExtResource("21_e4up3")]
+material = SubResource("ShaderMaterial_rajl6")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Slot2" type="TextureButton" parent="CanvasLayer/CookingPot/Top"]
+layout_mode = 1
+offset_left = 16.0
+offset_top = -0.5
+offset_right = 30.0
+offset_bottom = 13.5
+texture_normal = ExtResource("94_aqewn")
+texture_pressed = ExtResource("95_e65pb")
+texture_hover = ExtResource("95_e65pb")
+
+[node name="Item" parent="CanvasLayer/CookingPot/Top/Slot2" instance=ExtResource("21_e4up3")]
+material = SubResource("ShaderMaterial_fsory")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Slot3" type="TextureButton" parent="CanvasLayer/CookingPot/Top"]
+layout_mode = 1
+offset_top = 16.0
+offset_right = 14.0
+offset_bottom = 30.0
+texture_normal = ExtResource("94_aqewn")
+texture_pressed = ExtResource("95_e65pb")
+texture_hover = ExtResource("95_e65pb")
+
+[node name="Item" parent="CanvasLayer/CookingPot/Top/Slot3" instance=ExtResource("21_e4up3")]
+material = SubResource("ShaderMaterial_g7cc3")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Slot4" type="TextureButton" parent="CanvasLayer/CookingPot/Top"]
+layout_mode = 1
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 30.0
+offset_bottom = 30.0
+texture_normal = ExtResource("94_aqewn")
+texture_pressed = ExtResource("95_e65pb")
+texture_hover = ExtResource("95_e65pb")
+
+[node name="Item" parent="CanvasLayer/CookingPot/Top/Slot4" instance=ExtResource("21_e4up3")]
+material = SubResource("ShaderMaterial_2i32g")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Bottom" type="Control" parent="CanvasLayer/CookingPot"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -13.0
+offset_top = -48.0
+offset_right = 14.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="FuelSlot" type="TextureButton" parent="CanvasLayer/CookingPot/Bottom"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 15.0
+offset_bottom = 15.0
+texture_normal = ExtResource("94_aqewn")
+texture_pressed = ExtResource("95_e65pb")
+texture_hover = ExtResource("95_e65pb")
+
+[node name="Item" parent="CanvasLayer/CookingPot/Bottom/FuelSlot" instance=ExtResource("21_e4up3")]
+material = SubResource("ShaderMaterial_6c55r")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AmountLbl" type="Label" parent="CanvasLayer/CookingPot/Bottom/FuelSlot"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -10.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "4"
+label_settings = SubResource("LabelSettings_o5h8a")
+
+[node name="FuelProgress" type="TextureProgressBar" parent="CanvasLayer/CookingPot/Bottom"]
+layout_mode = 0
+offset_left = 18.0
+offset_right = 26.0
+offset_bottom = 16.0
+fill_mode = 3
+texture_under = ExtResource("96_2n770")
+texture_progress = ExtResource("97_x8fcp")
+
+[node name="Label" type="Label" parent="CanvasLayer/CookingPot/Bottom"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -10.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Fuel"
 horizontal_alignment = 1
 
 [node name="SignEdit" type="Panel" parent="CanvasLayer"]
@@ -4586,9 +5168,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -61.5
-offset_top = -41.0
+offset_top = -52.5
 offset_right = 61.5
-offset_bottom = 41.0
+offset_bottom = 52.5
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("60_dyqfb")
@@ -4603,7 +5185,7 @@ offset_top = 3.0
 offset_right = -3.0
 offset_bottom = 13.0
 grow_horizontal = 2
-text = "Structure save"
+text = "Structure block"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/StructureSaveEdit"]
@@ -4666,6 +5248,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 placeholder_text = "file name"
 
+[node name="LoadRawBtn" type="CheckButton" parent="CanvasLayer/StructureSaveEdit/VBoxContainer"]
+layout_mode = 2
+text = "Load raw"
+
 [node name="BackBtn" type="Button" parent="CanvasLayer/StructureSaveEdit"]
 layout_mode = 1
 anchors_preset = 12
@@ -4674,11 +5260,25 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 2.0
 offset_top = -17.0
-offset_right = -62.0
+offset_right = -82.0
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "Back"
+
+[node name="LoadBtn" type="Button" parent="CanvasLayer/StructureSaveEdit"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 41.5
+offset_top = -17.0
+offset_right = -42.5
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Load"
 
 [node name="SaveBtn" type="Button" parent="CanvasLayer/StructureSaveEdit"]
 layout_mode = 1
@@ -4686,9 +5286,9 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 62.0
+offset_left = 81.5
 offset_top = -17.0
-offset_right = -2.0
+offset_right = -2.5
 offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 0
@@ -4882,7 +5482,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("12_23g2f")
+theme = ExtResource("60_dyqfb")
 script = ExtResource("49")
 
 [node name="BG" type="TextureRect" parent="CanvasLayer/Dead"]
@@ -4920,13 +5520,8 @@ text = "Respawn"
 
 [node name="Quit" type="Button" parent="CanvasLayer/Dead/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("110_hd2va")
 text = "Quit"
-
-[node name="FPS" type="Label" parent="CanvasLayer"]
-visible = false
-offset_right = 40.0
-offset_bottom = 14.0
-text = "60 FPS"
 
 [node name="Commands" type="LineEdit" parent="CanvasLayer"]
 visible = false
@@ -5022,15 +5617,76 @@ horizontal_alignment = 1
 [node name="Pause" parent="CanvasLayer" instance=ExtResource("12")]
 visible = false
 
+[node name="CameraControls" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CameraControls"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = -13.0
+offset_right = 40.0
+offset_bottom = -1.0
+grow_vertical = 0
+theme_override_constants/separation = 1
+
+[node name="LessSpeedBtn" type="TextureButton" parent="CanvasLayer/CameraControls/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("116_0uvhl")
+texture_pressed = ExtResource("117_a2768")
+texture_hover = ExtResource("118_hhvrh")
+
+[node name="SetSpeedBtn" type="TextureButton" parent="CanvasLayer/CameraControls/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("119_7pbki")
+texture_pressed = ExtResource("120_h504k")
+texture_hover = ExtResource("121_fjie8")
+
+[node name="MoreSpeedBtn" type="TextureButton" parent="CanvasLayer/CameraControls/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("122_isq27")
+texture_pressed = ExtResource("123_ybcnv")
+texture_hover = ExtResource("124_tx4gj")
+
+[node name="Settings" parent="CanvasLayer" instance=ExtResource("135_wgqg4")]
+
+[node name="DebugMenu" type="VBoxContainer" parent="CanvasLayer"]
+visible = false
+offset_left = 3.0
+offset_top = 19.0
+offset_right = 72.0
+offset_bottom = 40.0
+theme = ExtResource("60_dyqfb")
+theme_override_constants/separation = 1
+
+[node name="VER" type="Label" parent="CanvasLayer/DebugMenu"]
+layout_mode = 2
+text = "VER: TU6"
+
+[node name="FPS" type="Label" parent="CanvasLayer/DebugMenu"]
+layout_mode = 2
+text = "FPS: 60"
+
 [node name="World" type="Node2D" parent="."]
+use_parent_material = true
 script = ExtResource("1")
 caveNoise = ExtResource("110_3l8vn")
 worldHeight = 30
 
 [node name="blocks" type="Node2D" parent="World"]
-modulate = Color(0.427451, 0.368627, 0.47451, 1)
+use_parent_material = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="World"]
+collision_layer = 512
+collision_mask = 0
 
 [node name="Left" type="CollisionShape2D" parent="World/StaticBody2D"]
 position = Vector2(-6.5, 16.625)
@@ -5083,6 +5739,9 @@ collision_mask = 64
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Cursor/ShopTest"]
 shape = SubResource("121")
 
+[node name="BreakSoundTimer" type="Timer" parent="Cursor"]
+wait_time = 0.3
+
 [node name="Player" parent="." instance=ExtResource("16")]
 z_index = 2
 position = Vector2(30, -6)
@@ -5117,32 +5776,37 @@ shape = SubResource("CircleShape2D_8j75d")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("32")
 
-[node name="sfx" type="Node" parent="."]
+[node name="EnvironmentSFX" type="Node" parent="."]
+process_mode = 3
 
-[node name="Rain" type="AudioStreamPlayer" parent="sfx"]
+[node name="Rain" type="AudioStreamPlayer" parent="EnvironmentSFX"]
 stream = ExtResource("83")
 
-[node name="DaySound" type="AudioStreamPlayer" parent="sfx"]
+[node name="DaySound" type="AudioStreamPlayer" parent="EnvironmentSFX"]
 
-[node name="NightSound" type="AudioStreamPlayer" parent="sfx"]
+[node name="NightSound" type="AudioStreamPlayer" parent="EnvironmentSFX"]
 
-[node name="ConstantSound" type="AudioStreamPlayer" parent="sfx"]
+[node name="ConstantSound" type="AudioStreamPlayer" parent="EnvironmentSFX"]
 
-[node name="The" type="AudioStreamPlayer" parent="sfx"]
+[node name="The" type="AudioStreamPlayer" parent="EnvironmentSFX"]
 stream = ExtResource("125_7ahbp")
 volume_db = -10.0
 
 [node name="Entities" type="Node2D" parent="."]
+use_parent_material = true
 script = ExtResource("43")
 
 [node name="Spawn" type="Timer" parent="Entities"]
 wait_time = 10.0
 
 [node name="Hold" type="Node2D" parent="Entities"]
+use_parent_material = true
 
 [node name="weather" type="Node2D" parent="."]
+use_parent_material = true
 
 [node name="Rain" type="GPUParticles2D" parent="weather"]
+use_parent_material = true
 position = Vector2(116, -6)
 emitting = false
 process_material = SubResource("ParticleProcessMaterial_ovjk6")
@@ -5169,18 +5833,33 @@ lifetime = 10.0
 
 [node name="Effects" type="Node2D" parent="."]
 z_index = 5
+use_parent_material = true
 script = ExtResource("47")
+
+[node name="PhotoCam" type="Camera2D" parent="."]
+enabled = false
+script = ExtResource("133_pewce")
+
+[node name="LightRenderViewport" type="SubViewport" parent="."]
+size = Vector2i(284, 160)
+
+[node name="LightRender" parent="LightRenderViewport" instance=ExtResource("146_ue3uy")]
 
 [connection signal="input_pressed" from="." to="Cursor" method="_on_main_input_pressed"]
 [connection signal="output_pressed" from="." to="Cursor" method="_on_main_output_pressed"]
-[connection signal="timeout" from="CanvasLayer/Enviroment/Meteors/MeteorTimer" to="CanvasLayer/Enviroment/Meteors" method="_on_MeteorTimer_timeout"]
-[connection signal="timeout" from="CanvasLayer/Enviroment/Meteors/StageProgress" to="CanvasLayer/Enviroment/Meteors" method="_on_StageProgress_timeout"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn" to="CanvasLayer/Inventory" method="_on_InventoryBtn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn2" to="CanvasLayer/Inventory" method="_on_InventoryBtn2_pressed"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/GoUp" to="World" method="_on_GoUp_pressed"]
+[connection signal="gained_item" from="CanvasLayer/Inventory" to="." method="_on_inventory_gained_item"]
 [connection signal="updated_armor" from="CanvasLayer/Inventory/Armor" to="Player" method="_on_Armor_updated_armor"]
 [connection signal="pressed" from="CanvasLayer/Inventory/ClearBtn" to="CanvasLayer/Inventory" method="_on_clear_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Inventory/DeleteItemBtn" to="CanvasLayer/Inventory" method="_on_delete_item_btn_pressed"]
+[connection signal="value_changed" from="CanvasLayer/Inventory/TransferUI/HSlider" to="CanvasLayer/Inventory/TransferUI" method="_on_h_slider_value_changed"]
+[connection signal="pressed" from="CanvasLayer/Inventory/TransferUI/PercentBtns/Btn25" to="CanvasLayer/Inventory/TransferUI" method="_on_btn_25_pressed"]
+[connection signal="pressed" from="CanvasLayer/Inventory/TransferUI/PercentBtns/Btn50" to="CanvasLayer/Inventory/TransferUI" method="_on_btn_50_pressed"]
+[connection signal="pressed" from="CanvasLayer/Inventory/TransferUI/PercentBtns/Btn75" to="CanvasLayer/Inventory/TransferUI" method="_on_btn_75_pressed"]
+[connection signal="pressed" from="CanvasLayer/Inventory/TransferUI/DoneBtn" to="CanvasLayer/Inventory/TransferUI" method="_on_done_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/Crafting/CraftBtn" to="CanvasLayer/Crafting" method="_on_craft_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Shop/TabBar/BuyTab" to="CanvasLayer/Shop" method="_on_BuyTab_pressed"]
 [connection signal="pressed" from="CanvasLayer/Shop/TabBar/SellTab" to="CanvasLayer/Shop" method="_on_SellTab_pressed"]
 [connection signal="timeout" from="CanvasLayer/Shop/TextTimer" to="CanvasLayer/Shop" method="_on_text_timer_timeout"]
@@ -5188,6 +5867,8 @@ script = ExtResource("47")
 [connection signal="mouse_entered" from="CanvasLayer/MusicPlayer/MusicChipSlot" to="CanvasLayer/MusicPlayer" method="_on_music_chip_slot_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer/MusicPlayer/MusicChipSlot" to="CanvasLayer/MusicPlayer" method="_on_music_chip_slot_mouse_exited"]
 [connection signal="pressed" from="CanvasLayer/MusicPlayer/MusicChipSlot" to="CanvasLayer/MusicPlayer" method="_on_music_chip_slot_pressed"]
+[connection signal="pressed" from="CanvasLayer/CookingPot/CookBtn" to="CanvasLayer/CookingPot" method="_on_cook_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/CookingPot/Bottom/FuelSlot" to="CanvasLayer/CookingPot" method="_on_fuel_slot_pressed"]
 [connection signal="text_changed" from="CanvasLayer/SignEdit/TextEdit" to="CanvasLayer/SignEdit" method="_on_text_edit_text_changed"]
 [connection signal="pressed" from="CanvasLayer/SignEdit/HBoxContainer/ModeBtn" to="CanvasLayer/SignEdit" method="_on_mode_btn_pressed"]
 [connection signal="value_changed" from="CanvasLayer/SignEdit/HBoxContainer/RadiusInt" to="CanvasLayer/SignEdit" method="_on_radius_int_value_changed"]
@@ -5199,7 +5880,9 @@ script = ExtResource("47")
 [connection signal="value_changed" from="CanvasLayer/StructureSaveEdit/VBoxContainer/Size/WidthEdit" to="CanvasLayer/StructureSaveEdit" method="_on_width_edit_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/StructureSaveEdit/VBoxContainer/Size/HeightEdit" to="CanvasLayer/StructureSaveEdit" method="_on_height_edit_value_changed"]
 [connection signal="text_changed" from="CanvasLayer/StructureSaveEdit/VBoxContainer/Name/NameEdit" to="CanvasLayer/StructureSaveEdit" method="_on_name_edit_text_changed"]
+[connection signal="toggled" from="CanvasLayer/StructureSaveEdit/VBoxContainer/LoadRawBtn" to="CanvasLayer/StructureSaveEdit" method="_on_load_raw_btn_toggled"]
 [connection signal="pressed" from="CanvasLayer/StructureSaveEdit/BackBtn" to="CanvasLayer/StructureSaveEdit" method="_on_back_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/StructureSaveEdit/LoadBtn" to="CanvasLayer/StructureSaveEdit" method="_on_load_btn_pressed"]
 [connection signal="pressed" from="CanvasLayer/StructureSaveEdit/SaveBtn" to="CanvasLayer/StructureSaveEdit" method="_on_save_btn_pressed"]
 [connection signal="text_changed" from="CanvasLayer/LineEditPopUp/VBoxContainer/GroupEdit" to="CanvasLayer/LineEditPopUp" method="_on_group_edit_text_changed"]
 [connection signal="pressed" from="CanvasLayer/LineEditPopUp/VBoxContainer/SaveBtn" to="CanvasLayer/LineEditPopUp" method="_on_save_btn_pressed"]
@@ -5212,9 +5895,13 @@ script = ExtResource("47")
 [connection signal="text_changed" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_text_changed"]
 [connection signal="text_submitted" from="CanvasLayer/Commands" to="CanvasLayer/Commands" method="_on_Commands_text_entered"]
 [connection signal="timeout" from="CanvasLayer/Title/TitleTimer" to="." method="_on_title_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/CameraControls/HBoxContainer/LessSpeedBtn" to="PhotoCam" method="_on_less_speed_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/CameraControls/HBoxContainer/SetSpeedBtn" to="PhotoCam" method="_on_set_speed_btn_pressed"]
+[connection signal="pressed" from="CanvasLayer/CameraControls/HBoxContainer/MoreSpeedBtn" to="PhotoCam" method="_on_more_speed_btn_pressed"]
 [connection signal="world_loaded" from="World" to="." method="_on_World_world_loaded"]
+[connection signal="world_loaded" from="World" to="." method="_on_world_world_loaded"]
 [connection signal="world_loaded" from="World" to="CanvasLayer/ParallaxBackground/Space" method="_on_World_world_loaded"]
-[connection signal="world_loaded" from="World" to="CanvasLayer/Enviroment" method="_on_World_world_loaded"]
+[connection signal="world_loaded" from="World" to="CanvasLayer/Environment" method="_on_World_world_loaded"]
 [connection signal="world_loaded" from="World" to="Entities" method="_on_World_world_loaded"]
 [connection signal="timeout" from="World/GlobalTick" to="World" method="_on_GlobalTick_timeout"]
 [connection signal="body_entered" from="Cursor/playerTest" to="Cursor" method="_on_playerTest_body_entered"]
@@ -5222,6 +5909,7 @@ script = ExtResource("47")
 [connection signal="animation_finished" from="Cursor/break/AnimationPlayer" to="Cursor" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="Cursor/ShopTest" to="Cursor" method="_on_ShopTest_body_entered"]
 [connection signal="body_exited" from="Cursor/ShopTest" to="Cursor" method="_on_ShopTest_body_exited"]
+[connection signal="timeout" from="Cursor/BreakSoundTimer" to="Cursor" method="_on_break_sound_timer_timeout"]
 [connection signal="area_entered" from="Player/FocusArea" to="Player/PlayerCamera" method="_on_focus_area_area_entered"]
 [connection signal="area_exited" from="Player/FocusArea" to="Player/PlayerCamera" method="_on_focus_area_area_exited"]
 [connection signal="timeout" from="Entities/Spawn" to="Entities" method="_on_Spawn_timeout"]

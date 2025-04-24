@@ -1,9 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://dgng6xl41464i"]
+[gd_scene load_steps=7 format=3 uid="uid://dgng6xl41464i"]
 
-[ext_resource type="Texture2D" uid="uid://dcfgvcvd86keu" path="res://textures/items/bucket.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://tulev4q8ukh0" path="res://textures/GUI/main/storage/item.png" id="3"]
 [ext_resource type="Script" path="res://scripts/ChestBtn.gd" id="4"]
+[ext_resource type="PackedScene" uid="uid://br7pamytrlhqh" path="res://assets/GUI/item_gui.tscn" id="4_bkwl3"]
 [ext_resource type="Theme" uid="uid://bvlk5mt2axnwa" path="res://themes/Gray.tres" id="4_yce4d"]
+[ext_resource type="Shader" path="res://shaders/item_upgrade.gdshader" id="5_86v3l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b8tp0"]
+resource_local_to_scene = true
+shader = ExtResource("5_86v3l")
+shader_parameter/bottom_color = Color(1.471, 0, 2.004, 0.271)
+shader_parameter/top_color = Color(0, 1.47843, 2, 0.270588)
+shader_parameter/wave_amp = 0.046
+shader_parameter/wave_size = 1.0
+shader_parameter/wave_time_mul = 0.58
+shader_parameter/total_phases = 4
+shader_parameter/useShine = false
 
 [node name="ChestBtn" type="TextureButton"]
 anchors_preset = -1
@@ -14,10 +26,6 @@ offset_bottom = 0.0799999
 texture_normal = ExtResource("3")
 script = ExtResource("4")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(6, 7)
-texture = ExtResource("2")
-
 [node name="Amount" type="Label" parent="."]
 layout_mode = 0
 offset_left = 11.0
@@ -27,6 +35,14 @@ offset_bottom = 11.0
 theme = ExtResource("4_yce4d")
 text = "*123"
 clip_text = true
+
+[node name="Item" parent="." instance=ExtResource("4_bkwl3")]
+material = SubResource("ShaderMaterial_b8tp0")
+layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 10.0
+offset_bottom = 11.0
 
 [connection signal="mouse_entered" from="." to="." method="_on_ChestBtn_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_ChestBtn_mouse_exited"]

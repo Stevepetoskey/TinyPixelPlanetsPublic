@@ -39,6 +39,7 @@ func update_save_list() -> void:
 			save.get_node("delete").hide()
 
 func save_clicked(save : Object) -> void:
+	GlobalAudio.play_ui_sound("button_pressed")
 	selectedSave = save.name
 	if Global.save_exists(save.name):
 		var savegame = FileAccess.open(Global.save_path + save.name + "/playerData.dat",FileAccess.READ)
@@ -54,6 +55,7 @@ func save_clicked(save : Object) -> void:
 		$"../../Scenarios".scenario_btn_pressed("sandbox")
 
 func delete_file(save : Object) -> void:
+	GlobalAudio.play_ui_sound("button_pressed")
 	Global.delete(save.name)
 	update_save_list()
 
@@ -74,8 +76,10 @@ func start(tutorial = false):
 		Global.open_save(selectedSave)
 
 func _on_back_btn_pressed() -> void:
+	GlobalAudio.play_ui_sound("button_pressed")
 	$Warning.hide()
 	selectedSave = ""
 
 func _on_ok_btn_pressed() -> void:
+	GlobalAudio.play_ui_sound("button_pressed")
 	start()

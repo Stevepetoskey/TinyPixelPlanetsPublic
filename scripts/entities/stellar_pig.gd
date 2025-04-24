@@ -30,62 +30,63 @@ func _ready():
 		health = 10
 
 func _physics_process(delta):
-	if !Global.pause:
-		var result : Dictionary
-		if position.distance_to(player.position) <= 64 and state != "sleep":
-			var space_state = get_world_2d().direct_space_state
-			var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self])
-			result = space_state.intersect_ray(params)
-		if !result.is_empty() and result.collider == player:
-			if !seePlayer:
-				waitForAnimation = true
-				$seeTimer.stop()
-				$Seen.show()
-				await get_tree().create_timer(1).timeout
-				$Seen.hide()
-				waitForAnimation = false
-			lostPlayer = false
-			seePlayer = true
-			seenPos = player.position
-		elif seePlayer and !lostPlayer:
-			lostPlayer = true
-			$seeTimer.start()
-		if !waitForAnimation:
-			if !is_on_floor():
-				if !inWater or velocity.y > -15:
-					velocity.y += GRAVITY
-			match state:
-				"idle":
-					velocity.x = 0
-					if seePlayer and !lostPlayer:
-						body.play("trot")
-						state = "run"
-					if randi_range(0,150) == 1:
-						body.play("trot")
-						setMotion = [MAX_SPEED,-MAX_SPEED].pick_random()
-						trot_timer.start(randf_range(1,5))
-						state = "roam"
-					elif randi_range(0,400) == 1 and data["energy"] < 25:
-						go_to_sleep()
-				"roam":
-					if is_on_wall() and (is_on_floor() or inWater):
-						velocity.y = -JUMPSPEED
-					if seePlayer and !lostPlayer:
-						body.play("trot")
-						state = "run"
-					velocity.x = setMotion
-					body.flip_h = velocity.x < 0
-				"run":
-					if is_on_wall() and (is_on_floor() or inWater):
-						velocity.y = -JUMPSPEED
-					velocity.x = MAX_SPEED * sign(position.x - player.position.x)
-					if lostPlayer or !seePlayer:
-						body.play("idle")
-						state = "idle"
-					body.flip_h = velocity.x < 0
-				"sleep":
-					pass
-			move_and_slide()
+	var result : Dictionary
+	if position.y > 5000:
+		queue_free()
+	if position.distance_to(player.position) <= 64 and state != "sleep":
+		var space_state = get_world_2d().direct_space_state
+		var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self])
+		result = space_state.intersect_ray(params)
+	if !result.is_empty() and result.collider == player:
+		if !seePlayer:
+			waitForAnimation = true
+			$seeTimer.stop()
+			$Seen.show()
+			await get_tree().create_timer(1).timeout
+			$Seen.hide()
+			waitForAnimation = false
+		lostPlayer = false
+		seePlayer = true
+		seenPos = player.position
+	elif seePlayer and !lostPlayer:
+		lostPlayer = true
+		$seeTimer.start()
+	if !waitForAnimation:
+		if !is_on_floor():
+			if !inWater or velocity.y > -15:
+				velocity.y += GRAVITY
+		match state:
+			"idle":
+				velocity.x = 0
+				if seePlayer and !lostPlayer:
+					body.play("trot")
+					state = "run"
+				if randi_range(0,150) == 1:
+					body.play("trot")
+					setMotion = [MAX_SPEED,-MAX_SPEED].pick_random()
+					trot_timer.start(randf_range(1,5))
+					state = "roam"
+				elif randi_range(0,400) == 1 and data["energy"] < 25:
+					go_to_sleep()
+			"roam":
+				if is_on_wall() and (is_on_floor() or inWater):
+					velocity.y = -JUMPSPEED
+				if seePlayer and !lostPlayer:
+					body.play("trot")
+					state = "run"
+				velocity.x = setMotion
+				body.flip_h = velocity.x < 0
+			"run":
+				if is_on_wall() and (is_on_floor() or inWater):
+					velocity.y = -JUMPSPEED
+				velocity.x = MAX_SPEED * sign(position.x - player.position.x)
+				if lostPlayer or !seePlayer:
+					body.play("idle")
+					state = "idle"
+				body.flip_h = velocity.x < 0
+			"sleep":
+				pass
+		move_and_slide()
 
 func go_to_sleep() -> void:
 	body.play("sleep")

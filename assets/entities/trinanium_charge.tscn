@@ -30,6 +30,7 @@ radius = 4.0
 
 [node name="TrinaniumCharge" type="CharacterBody2D"]
 collision_layer = 0
+collision_mask = 513
 script = ExtResource("1_8db2u")
 type = "trinanium_charge"
 

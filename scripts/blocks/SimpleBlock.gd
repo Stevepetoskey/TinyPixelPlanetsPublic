@@ -5,6 +5,7 @@ const SHADE_TEX = preload("res://textures/blocks/shade.png")
 @onready var mainCol : CollisionShape2D = $CollisionShape2D
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @onready var rain_col: LightOccluder2D = $RainCol
+@onready var texture: Sprite2D = $Sprite2D
 
 func _ready():
 	z_index = layer
@@ -20,7 +21,7 @@ func _ready():
 func on_update():
 	if layer < 1:
 		var blockLayer1 = world.get_block_id(pos,1)
-		if world.transparentBlocks.has(blockLayer1) and ([0,10,77].has(blockLayer1) or id != blockLayer1):
+		if GlobalData.blockData[blockLayer1]["transparent"] and ([0,10,77].has(blockLayer1) or id != blockLayer1):
 			show()
 		else:
 			hide()

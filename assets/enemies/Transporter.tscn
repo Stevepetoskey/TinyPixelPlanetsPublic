@@ -141,13 +141,15 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 
 [node name="MiniTransporter" type="CharacterBody2D" groups=["enemy"]]
+use_parent_material = true
 collision_layer = 8
-collision_mask = 0
+collision_mask = 512
 script = ExtResource("1_vnjj5")
 hostile = true
 type = "mini_transporter"
 
 [node name="Body" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
 sprite_frames = SubResource("SpriteFrames_4mtwm")
 animation = &"shoot_charge"
 

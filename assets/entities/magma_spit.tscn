@@ -11,6 +11,7 @@ radius = 3.0
 
 [node name="MagmaSpit" type="CharacterBody2D"]
 collision_layer = 0
+collision_mask = 513
 script = ExtResource("1_lpc0u")
 type = "magma_spit"
 

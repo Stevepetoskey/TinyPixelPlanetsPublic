@@ -31,7 +31,7 @@ var wiring = false
 var currentWire : TextureRect = null
 
 func _process(_delta):
-	if !Global.pause:
+	if !get_tree().paused:
 		if (inventory.inventory.size() > 0 and wires.has(inventory.inventory[0]["id"])) or (inventory.inventory.size() > 1 and wires.has(inventory.inventory[1]["id"])):
 			if !pinsShown:
 				pinsShown = true
@@ -74,7 +74,9 @@ func _process(_delta):
 		blockPos = position / world.BLOCK_SIZE
 		cursorPos = blockPos
 		
-		if world.interactableBlocks.has(world.get_block_id(cursorPos,currentLayer)) or currentShop != null:
+		var blockAtPos : int = world.get_block_id(cursorPos,currentLayer)
+		
+		if (blockAtPos != 0 and GlobalData.blockData[blockAtPos]["interactable"]) or currentShop != null:
 			texture = load("res://textures/GUI/main/interactable_cursor.png")
 			canInteract = true
 		else:
@@ -97,7 +99,7 @@ func _process(_delta):
 		oldBlockPos = blockPos
 
 func _unhandled_input(_event):
-	if !wiring and !Global.pause and cursorPos.x < world.worldSize.x and cursorPos.x >= 0 and cursorPos.y < world.worldSize.y and cursorPos.y >= 0:
+	if !wiring and !get_tree().paused and cursorPos.x < world.worldSize.x and cursorPos.x >= 0 and cursorPos.y < world.worldSize.y and cursorPos.y >= 0:
 		if Input.is_action_pressed("build") or Input.is_action_pressed("build2"):
 			if currentShop != null: #Tests if cursor is in a shop
 				match currentShop.id:
@@ -126,8 +128,11 @@ func _unhandled_input(_event):
 						currentBlock.flip_lever()
 					169:
 						$"../CanvasLayer/LogicBlockEdit".pop_up(currentBlock)
-					171:
-						currentBlock.mainBlock.interact()
+					171,301:
+						if currentBlock is GhostBlock:
+							world.get_block(currentBlock.mainBlockLoc,currentBlock.layer).interact()
+						else:
+							currentBlock.interact()
 					176:
 						currentBlock.pressed_btn()
 					186:
@@ -151,33 +156,40 @@ func _unhandled_input(_event):
 						world.set_block(currentBlock.pos, currentLayer, 0, true)
 					246:
 						var slot = {true:0,false:1}[Input.is_action_pressed("build")]
-						match inventory.inventory[slot]["id"]:
-							191:
-								if currentBlock.data["magma"] < 3:
-									currentBlock.data["magma"] += 1
-									currentBlock.updated_data()
-								elif currentBlock.data["coolant"] >= 3:
-									currentBlock.data["active"] = !currentBlock.data["active"]
-									currentBlock.updated_data()
-									if currentBlock.data["active"]:
-										$"../CanvasLayer/TeleportPrompt".show()
-							205:
-								if currentBlock.data["coolant"] < 3:
-									currentBlock.data["coolant"] += 1
-									currentBlock.updated_data()
-								elif currentBlock.data["magma"] >= 3:
-									currentBlock.data["active"] = !currentBlock.data["active"]
-									currentBlock.updated_data()
-									if currentBlock.data["active"]:
-										$"../CanvasLayer/TeleportPrompt".show()
-							_:
-								if currentBlock.data["magma"] >= 3 and currentBlock.data["coolant"] >= 3:
-									currentBlock.data["active"] = !currentBlock.data["active"]
-									currentBlock.updated_data()
-									if currentBlock.data["active"]:
-										$"../CanvasLayer/TeleportPrompt".show()
+						if inventory.inventory.size() > slot:
+							match inventory.inventory[slot]["id"]:
+								191:
+									if currentBlock.data["magma"] < 3:
+										currentBlock.data["magma"] += 1
+										currentBlock.updated_data()
+										inventory.remove_amount_at_loc(slot,1)
+									elif currentBlock.data["coolant"] >= 3:
+										currentBlock.data["active"] = !currentBlock.data["active"]
+										currentBlock.updated_data()
+										if currentBlock.data["active"]:
+											$"../CanvasLayer/TeleportPrompt".show()
+								205:
+									if currentBlock.data["coolant"] < 3:
+										currentBlock.data["coolant"] += 1
+										currentBlock.updated_data()
+										inventory.remove_amount_at_loc(slot,1)
+									elif currentBlock.data["magma"] >= 3:
+										currentBlock.data["active"] = !currentBlock.data["active"]
+										currentBlock.updated_data()
+										if currentBlock.data["active"]:
+											$"../CanvasLayer/TeleportPrompt".show()
+								_:
+									if currentBlock.data["magma"] >= 3 and currentBlock.data["coolant"] >= 3:
+										currentBlock.data["active"] = !currentBlock.data["active"]
+										currentBlock.updated_data()
+										if currentBlock.data["active"]:
+											$"../CanvasLayer/TeleportPrompt".show()
 					263:
 						inventory.inventoryToggle(false,true,"wool_work_table")
+					320:
+						inventory.inventoryToggle(false,true,"cooking_pot")
+					328:
+						inventory.inventoryToggle(false,true,"tech_workbench")
 			elif Input.is_action_just_pressed("build2") and wireIn.size() > 0:
 				if is_instance_valid(wireIn[0]):
 					wireIn[0].break_wire()
@@ -187,9 +199,9 @@ func _unhandled_input(_event):
 			elif (Input.is_action_pressed("build") and inventory.inventory.size() > 0) or (Input.is_action_pressed("build2") and inventory.inventory.size() > 1):
 				var slot = 0 if Input.is_action_pressed("build") or inventory.inventory.size() < 2 else 1
 				var selectedId = inventory.inventory[slot]["id"]
-				if (currentLayer == 0 or canPlace) and world.blockData.has(selectedId) and world.worldRules["place_blocks"]["value"]:
+				if (currentLayer == 0 or canPlace) and GlobalData.blockData.has(selectedId) and world.worldRules["place_blocks"]["value"]:
 					world.build_event("Build",cursorPos,currentLayer,selectedId)#Vector2(int(position.x),int(position.y)),1,inventory.inventory[0]["id"])
-				elif world.itemData.has(selectedId):
+				elif GlobalData.itemData.has(selectedId):
 					tool_action(selectedId,slot)
 		elif Input.is_action_pressed("action1") or Input.is_action_pressed("action2"):
 			var ref = inventory.jRef	if Input.is_action_pressed("action1") else inventory.kRef
@@ -197,7 +209,7 @@ func _unhandled_input(_event):
 				tool_action(inventory.inventory[ref]["id"],ref)
 		elif breaking:
 			stop_breaking()
-	elif wiring and !Global.pause:
+	elif wiring and !get_tree().paused:
 		if Input.is_action_just_pressed("build2"):
 			wiring = false
 			if is_instance_valid(currentWire):
@@ -205,7 +217,7 @@ func _unhandled_input(_event):
 				currentWire = null
 
 func tool_action(itemId : int, ref := 0) -> void:
-	var itemSelect = world.itemData[itemId]
+	var itemSelect = GlobalData.itemData[itemId]
 	match itemSelect["type"]:
 		"Bucket","Watering_can":
 			if world.get_block_id(cursorPos,currentLayer) == 117 and world.worldRules["break_blocks"]["value"]:
@@ -245,8 +257,8 @@ func tool_action(itemId : int, ref := 0) -> void:
 					blockAtPos.update_water_texture()
 					blockAtPos.on_update()
 		"tool":
-			if !breaking and world.get_block_id(cursorPos,currentLayer) > 0 and itemSelect["strength"] >= world.blockData[world.get_block_id(cursorPos,currentLayer)]["canHaverst"] and (world.worldRules["break_blocks"]["value"] or (world.get_block_id(cursorPos,currentLayer) == 8 and Global.inTutorial)):
-				var hardness = world.blockData[world.get_block_id(cursorPos,currentLayer)]["hardness"]
+			if !breaking and world.get_block_id(cursorPos,currentLayer) > 0 and itemSelect["strength"] >= GlobalData.blockData[world.get_block_id(cursorPos,currentLayer)]["canHaverst"] and (world.worldRules["break_blocks"]["value"] or (world.get_block_id(cursorPos,currentLayer) == 8)):
+				var hardness = GlobalData.blockData[world.get_block_id(cursorPos,currentLayer)]["hardness"]
 				if hardness <= 0:
 					world.build_event("Break",position / world.BLOCK_SIZE,currentLayer)
 				else:
@@ -255,6 +267,8 @@ func tool_action(itemId : int, ref := 0) -> void:
 						speedModifier += get_item_upgrades(inventory.inventory[ref])["speed"] * max(1,itemSelect["speed"]/2.0)
 					$break/AnimationPlayer.speed_scale = (1 / float(hardness)) * speedModifier
 					$break/AnimationPlayer.play("break")
+					_on_break_sound_timer_timeout()
+					$BreakSoundTimer.start()
 					breaking = true
 		"Hoe":
 			if [1,2].has(world.get_block_id(cursorPos,currentLayer)):
@@ -264,6 +278,12 @@ func tool_action(itemId : int, ref := 0) -> void:
 				inventory.remove_amount_at_loc(ref,1)
 				player.health += itemSelect["regen"]
 				effects.floating_text(player.position, "+" + str(itemSelect["regen"]), Color.GREEN)
+		"cooked_food":
+			if player.health < player.maxHealth:
+				var regen : int = inventory.inventory[ref]["data"]["regen"]
+				player.health = min(player.maxHealth,player.health + regen)
+				inventory.remove_amount_at_loc(ref,1)
+				effects.floating_text(player.position, "+" + str(regen), Color.GREEN)
 
 func get_item_upgrades(itemData : Dictionary) -> Dictionary:
 	var upgrades : Dictionary
@@ -277,6 +297,7 @@ func get_item_upgrades(itemData : Dictionary) -> Dictionary:
 
 func stop_breaking():
 	breaking = false
+	$BreakSoundTimer.stop()
 	$break/AnimationPlayer.play("RESET")
 
 func _on_playerTest_body_entered(_body):
@@ -289,8 +310,9 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == "break" and breaking:
 		breaking = false
 		$break/AnimationPlayer.play("RESET")
+		$BreakSoundTimer.stop()
 		GlobalGui.complete_achievement("One small step")
-		world.build_event("Break",position / world.BLOCK_SIZE,currentLayer)
+		world.build_event("Break",cursorPos,currentLayer)
 
 func _on_ShopTest_body_entered(body):
 	currentShop = body
@@ -346,3 +368,6 @@ func _on_main_input_pressed(logicBlock : LogicBlock, pin : String) -> void:
 		if good:
 			currentWire.setup()
 			currentWire = null
+
+func _on_break_sound_timer_timeout() -> void:
+	GlobalAudio.play_block_audio_2d(world.get_block_id(cursorPos,currentLayer),"step",position)

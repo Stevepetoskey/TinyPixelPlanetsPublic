@@ -2,6 +2,7 @@ extends Node2D
 
 @export var worldSize = Vector2(128,64)
 @export var noise : Noise
+@export var squashNoise : Noise
 @export var caveNoise : Noise
 @export var noiseScale = 15
 @export var worldHeight = 20
@@ -12,28 +13,37 @@ extends Node2D
 var world : Dictionary = {}
 var img : Image
 
+func get_density(y : int,squashFactor : float,offset : float) -> float:
+	return (1 - y/offset) * squashFactor
+
 func _ready() -> void:
-	#Global.currentSave = "save2"
+	randomize()
+	noise.seed = randi()
+	squashNoise.seed = randi()
+	print([122,145].hash() == [145,122].hash())
 	$Timer.start()
 	generate()
 
 func generate() -> void:
 	world.clear()
-	img = Image.create(worldSize.x,worldSize.y,false,Image.FORMAT_RGB8)
+	img = Image.create_empty(worldSize.x,worldSize.y,false,Image.FORMAT_RGB8)
 	for x in range(worldSize.x):
 		for y in range(worldSize.y):
 			if asteroids:
 				img.set_pixel(x,y,Color.WHITE if noise.get_noise_2d(x,y) > asteroidScale else Color.BLACK)
 			else:
-				var height = (worldSize.y - (int(noise.get_noise_1d(x) * noiseScale) + worldHeight))
-				if height > worldSize.y - 4:
-					height = worldSize.y - 4
-				if y < height and y >= waterLevel:
-					set_block(Vector2(x,y),0,Color.BLUE)
-					set_block(Vector2(x,y),1,Color.BLUE)
-				elif y >= height: #and caveNoise.get_noise_2d(x,y) + min(0,(y-height-6)/4.0) < 0.35:
+				var noiseValue = noise.get_noise_2d(x,y) + get_density(y,(squashNoise.get_noise_1d(x)+2)*2,32)
+				if noiseValue > 0.0:
 					set_block(Vector2(x,y),0,Color.LIGHT_GRAY)
 					set_block(Vector2(x,y),1,Color.WHITE)
+				#if height > worldSize.y - 4:
+					#height = worldSize.y - 4
+				#if y < height and y >= waterLevel:
+					#set_block(Vector2(x,y),0,Color.BLUE)
+					#set_block(Vector2(x,y),1,Color.BLUE)
+				#elif y >= height: #and caveNoise.get_noise_2d(x,y) + min(0,(y-height-6)/4.0) < 0.35:
+					#set_block(Vector2(x,y),0,Color.LIGHT_GRAY)
+					#set_block(Vector2(x,y),1,Color.WHITE)
 	#generate_dungeon("scorched","boss_scorched",randi_range(30,50))
 	for layer in range(2):
 		for x in range(worldSize.x):

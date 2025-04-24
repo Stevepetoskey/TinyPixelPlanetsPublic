@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://hy4nmedyvitw"]
+
+[ext_resource type="Texture2D" uid="uid://cjir828xi66qu" path="res://textures/particles/bubbles.png" id="1_12crv"]
+[ext_resource type="Script" path="res://scripts/effects/bubble.gd" id="2_ycv0b"]
+
+[node name="Bubble" type="Sprite2D"]
+use_parent_material = true
+texture = ExtResource("1_12crv")
+hframes = 2
+script = ExtResource("2_ycv0b")

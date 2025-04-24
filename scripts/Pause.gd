@@ -4,6 +4,8 @@ extends Control
 
 func _ready() -> void:
 	GlobalGui.autosave.connect(_on_Save_pressed)
+	if $"..".has_node("Settings"):
+		$VBoxContainer/Settings.show()
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -16,12 +18,15 @@ func _process(_delta):
 
 func toggle_pause(toggle = true, setValue = false):
 	GlobalGui.close_ach()
+	if $"..".has_node("Settings"):
+		$"../Settings".hide()
 	if toggle:
 		setValue = !visible
 	visible = setValue
-	Global.pause = setValue
+	get_tree().paused = setValue
 
 func _on_Quit_pressed():
+	get_tree().paused = false
 	GlobalGui.close_ach()
 	match type:
 		"planet":
@@ -50,3 +55,6 @@ func _on_Continue_pressed():
 
 func _on_Achievements_pressed():
 	GlobalGui.pop_up_ach()
+
+func _on_settings_pressed() -> void:
+	$"../Settings".display_settings()

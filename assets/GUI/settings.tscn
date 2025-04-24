@@ -1,0 +1,414 @@
+[gd_scene load_steps=9 format=3 uid="uid://cwe5faynqk6l8"]
+
+[ext_resource type="Theme" uid="uid://b02uwgbscq35l" path="res://themes/menu.tres" id="1_4x757"]
+[ext_resource type="Texture2D" uid="uid://dc1jvtfq8fvpf" path="res://textures/GUI/Menu/misc/settings_pnl.png" id="1_e8gwc"]
+[ext_resource type="Script" path="res://scripts/menu/Settings.gd" id="2_hbvyi"]
+[ext_resource type="Texture2D" uid="uid://r44dqw37w56g" path="res://textures/GUI/Menu/btns/back_btn.png" id="3_rllr5"]
+[ext_resource type="Texture2D" uid="uid://1tsal5j5tx0v" path="res://textures/GUI/Menu/btns/back_btn_pressed.png" id="4_omc0i"]
+[ext_resource type="Texture2D" uid="uid://di7mlktl6lmxf" path="res://textures/GUI/Menu/btns/back_btn_hover.png" id="5_mri0a"]
+[ext_resource type="Theme" uid="uid://ckhb3pd1sfe5p" path="res://themes/menu_tab.tres" id="6_j6a3l"]
+[ext_resource type="Theme" uid="uid://bb1fxr1s43xy3" path="res://themes/menu_alt.tres" id="7_pmg6f"]
+
+[node name="Settings" type="TextureRect"]
+process_mode = 3
+visible = false
+custom_minimum_size = Vector2(234, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -117.0
+offset_top = -64.5
+offset_right = 117.0
+offset_bottom = 64.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_4x757")
+texture = ExtResource("1_e8gwc")
+stretch_mode = 5
+script = ExtResource("2_hbvyi")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 64.0
+offset_top = 2.0
+offset_right = -3.0
+offset_bottom = 16.0
+grow_horizontal = 2
+text = "Gameplay Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Back" type="TextureButton" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 25.0
+offset_bottom = 16.0
+texture_normal = ExtResource("3_rllr5")
+texture_pressed = ExtResource("4_omc0i")
+texture_hover = ExtResource("5_mri0a")
+
+[node name="TabBtns" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 3.0
+offset_top = 16.0
+offset_right = 63.0
+offset_bottom = -2.0
+grow_vertical = 2
+theme = ExtResource("6_j6a3l")
+theme_override_constants/separation = 0
+
+[node name="Gameplay" type="Button" parent="TabBtns"]
+layout_mode = 2
+text = "Gameplay"
+
+[node name="Graphics" type="Button" parent="TabBtns"]
+layout_mode = 2
+text = "Graphics"
+
+[node name="Audio" type="Button" parent="TabBtns"]
+layout_mode = 2
+text = "Audio"
+
+[node name="Keybinds" type="Button" parent="TabBtns"]
+layout_mode = 2
+text = "Keybinds"
+
+[node name="Tabs" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 66.0
+offset_top = 16.0
+offset_right = -4.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Gameplay" type="ScrollContainer" parent="Tabs"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+vertical_scroll_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Gameplay"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 1
+
+[node name="AutoSaveBtn" type="Button" parent="Tabs/Gameplay/VBoxContainer"]
+layout_mode = 2
+text = "Auto Save: Off"
+
+[node name="Graphics" type="ScrollContainer" parent="Tabs"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+vertical_scroll_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Graphics"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 1
+
+[node name="VsyncBtn" type="Button" parent="Tabs/Graphics/VBoxContainer"]
+layout_mode = 2
+text = "V-sync mode: Enabled"
+
+[node name="Audio" type="ScrollContainer" parent="Tabs"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+vertical_scroll_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Audio"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 1
+
+[node name="MusicVol" type="Label" parent="Tabs/Audio/VBoxContainer"]
+layout_mode = 2
+text = "Music Volume:"
+
+[node name="music" type="HSlider" parent="Tabs/Audio/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 8)
+layout_mode = 2
+max_value = 10.0
+value = 10.0
+
+[node name="SFXVol" type="Label" parent="Tabs/Audio/VBoxContainer"]
+layout_mode = 2
+text = "Sound Effects Volume:"
+
+[node name="sfx" type="HSlider" parent="Tabs/Audio/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 8)
+layout_mode = 2
+max_value = 10.0
+value = 10.0
+
+[node name="EnvVol" type="Label" parent="Tabs/Audio/VBoxContainer"]
+layout_mode = 2
+text = "Environment Volume:"
+
+[node name="environment" type="HSlider" parent="Tabs/Audio/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 8)
+layout_mode = 2
+max_value = 10.0
+value = 10.0
+
+[node name="Keybinds" type="ScrollContainer" parent="Tabs"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+vertical_scroll_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Tabs/Keybinds"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 1
+
+[node name="build" type="HBoxContainer" parent="Tabs/Keybinds/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Tabs/Keybinds/VBoxContainer/build"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_pmg6f")
+
+[node name="ActionLbl" type="Label" parent="Tabs/Keybinds/VBoxContainer/build/Action"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Slot 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyBind" type="Button" parent="Tabs/Keybinds/VBoxContainer/build"]
+layout_mode = 2
+text = "> LMB <"
+
+[node name="build2" type="HBoxContainer" parent="Tabs/Keybinds/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Tabs/Keybinds/VBoxContainer/build2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_pmg6f")
+
+[node name="ActionLbl" type="Label" parent="Tabs/Keybinds/VBoxContainer/build2/Action"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Slot 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyBind" type="Button" parent="Tabs/Keybinds/VBoxContainer/build2"]
+layout_mode = 2
+text = "> RMB <"
+
+[node name="action1" type="HBoxContainer" parent="Tabs/Keybinds/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Tabs/Keybinds/VBoxContainer/action1"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_pmg6f")
+
+[node name="ActionLbl" type="Label" parent="Tabs/Keybinds/VBoxContainer/action1/Action"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Action 1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyBind" type="Button" parent="Tabs/Keybinds/VBoxContainer/action1"]
+layout_mode = 2
+text = "> J <"
+
+[node name="action2" type="HBoxContainer" parent="Tabs/Keybinds/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Tabs/Keybinds/VBoxContainer/action2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_pmg6f")
+
+[node name="ActionLbl" type="Label" parent="Tabs/Keybinds/VBoxContainer/action2/Action"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Action 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyBind" type="Button" parent="Tabs/Keybinds/VBoxContainer/action2"]
+layout_mode = 2
+text = "> K <"
+
+[node name="inventory" type="HBoxContainer" parent="Tabs/Keybinds/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Tabs/Keybinds/VBoxContainer/inventory"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_pmg6f")
+
+[node name="ActionLbl" type="Label" parent="Tabs/Keybinds/VBoxContainer/inventory/Action"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Inventory"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyBind" type="Button" parent="Tabs/Keybinds/VBoxContainer/inventory"]
+layout_mode = 2
+text = "> E <"
+
+[node name="background_toggle" type="HBoxContainer" parent="Tabs/Keybinds/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Tabs/Keybinds/VBoxContainer/background_toggle"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_pmg6f")
+
+[node name="ActionLbl" type="Label" parent="Tabs/Keybinds/VBoxContainer/background_toggle/Action"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Background Toggle"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyBind" type="Button" parent="Tabs/Keybinds/VBoxContainer/background_toggle"]
+layout_mode = 2
+text = "> B <"
+
+[node name="ach" type="HBoxContainer" parent="Tabs/Keybinds/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Tabs/Keybinds/VBoxContainer/ach"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_pmg6f")
+
+[node name="ActionLbl" type="Label" parent="Tabs/Keybinds/VBoxContainer/ach/Action"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Achievements"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyBind" type="Button" parent="Tabs/Keybinds/VBoxContainer/ach"]
+layout_mode = 2
+text = "> Z <"
+
+[node name="fly" type="HBoxContainer" parent="Tabs/Keybinds/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Action" type="Panel" parent="Tabs/Keybinds/VBoxContainer/fly"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_pmg6f")
+
+[node name="ActionLbl" type="Label" parent="Tabs/Keybinds/VBoxContainer/fly/Action"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 2.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Fly"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="KeyBind" type="Button" parent="Tabs/Keybinds/VBoxContainer/fly"]
+layout_mode = 2
+text = "> F <"
+
+[node name="DisableControls" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -15.5
+offset_right = -25.0
+offset_bottom = -15.5
+mouse_filter = 0
+
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Tabs/Gameplay/VBoxContainer/AutoSaveBtn" to="." method="_on_auto_save_btn_pressed"]
+[connection signal="pressed" from="Tabs/Graphics/VBoxContainer/VsyncBtn" to="." method="_on_vsync_btn_pressed"]
+[connection signal="gui_input" from="DisableControls" to="." method="_on_DisableControls_gui_input"]

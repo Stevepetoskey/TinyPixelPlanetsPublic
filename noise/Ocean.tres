@@ -1,8 +1,9 @@
 [gd_resource type="FastNoiseLite" format=3 uid="uid://tlypof52fu6"]
 
 [resource]
+noise_type = 3
 seed = 12
-frequency = 0.0325
+frequency = 0.0674
 offset = Vector3(2.08167e-14, 2.08167e-14, 2.08167e-14)
 fractal_gain = 0.1
 fractal_ping_pong_strength = 5.0

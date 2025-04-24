@@ -16,21 +16,21 @@
 [ext_resource type="Texture2D" uid="uid://c18ykvsjmgi78" path="res://textures/GUI/Menu/btns/info_pressed.png" id="11_salfa"]
 [ext_resource type="AudioStream" uid="uid://cpmnltfnbjm8v" path="res://Audio/music/TinyPlanets.ogg" id="12"]
 [ext_resource type="Texture2D" uid="uid://datjr3bbcjpau" path="res://textures/GUI/Menu/btns/info_hover.png" id="12_p73ab"]
-[ext_resource type="Texture2D" uid="uid://srw85n8vkiy2" path="res://textures/player/Body/Guy.png" id="14"]
-[ext_resource type="Theme" uid="uid://bb1fxr1s43xy3" path="res://themes/menu_alt.tres" id="14_3rqod"]
 [ext_resource type="Script" path="res://scripts/menu/character.gd" id="15"]
 [ext_resource type="Texture2D" uid="uid://r44dqw37w56g" path="res://textures/GUI/Menu/btns/back_btn.png" id="15_m3x4r"]
-[ext_resource type="Texture2D" uid="uid://5bipb0lg58vg" path="res://textures/player/Hair/Beard.png" id="16"]
+[ext_resource type="Texture2D" uid="uid://5bipb0lg58vg" path="res://textures/player/hair/Beard.png" id="16"]
 [ext_resource type="Texture2D" uid="uid://1tsal5j5tx0v" path="res://textures/GUI/Menu/btns/back_btn_pressed.png" id="16_df536"]
 [ext_resource type="Texture2D" uid="uid://di7mlktl6lmxf" path="res://textures/GUI/Menu/btns/back_btn_hover.png" id="17_56hp5"]
-[ext_resource type="Texture2D" uid="uid://4xavei1uhdk7" path="res://textures/GUI/Menu/armor-Guy.png" id="18"]
 [ext_resource type="Script" path="res://scripts/menu/CharacterEdit.gd" id="19"]
 [ext_resource type="FontFile" uid="uid://diwuxgjxhgb06" path="res://fonts/PixelPossibilities.ttf" id="21_xuqjf"]
 [ext_resource type="Texture2D" uid="uid://cjknemkmo2qse" path="res://textures/GUI/Menu/scenario_gui.png" id="22"]
+[ext_resource type="Texture2D" uid="uid://6o34p4ukt22k" path="res://textures/player/base/male.png" id="22_amnwo"]
 [ext_resource type="Texture2D" uid="uid://dpcjj07faxddk" path="res://textures/GUI/Menu/misc/character_hold.png" id="22_d81mv"]
 [ext_resource type="Script" path="res://scripts/menu/ScenarioBtn.gd" id="23"]
+[ext_resource type="Texture2D" uid="uid://b4e8yj2uosg20" path="res://textures/GUI/Menu/character_editor/armor_male.png" id="23_3ls0g"]
 [ext_resource type="Texture2D" uid="uid://cy2kr64p5herf" path="res://textures/GUI/space/h_bar_handle.png" id="24"]
 [ext_resource type="Texture2D" uid="uid://dqkgujgjvgj5g" path="res://textures/GUI/space/v_bar.png" id="25"]
+[ext_resource type="Texture2D" uid="uid://l7api10co6g3" path="res://textures/player/eyes/1.png" id="25_uyyxc"]
 [ext_resource type="Texture2D" uid="uid://45o7v1dsk3yx" path="res://textures/GUI/space/h_bar.png" id="26"]
 [ext_resource type="Texture2D" uid="uid://b0bugw7a8lksu" path="res://textures/GUI/Menu/btns/female_btn.png" id="26_ujicl"]
 [ext_resource type="Texture2D" uid="uid://cn76yxyfhxg3v" path="res://textures/GUI/space/v_bar_handle.png" id="27"]
@@ -52,10 +52,10 @@
 [ext_resource type="Texture2D" uid="uid://by3ieeeen1u56" path="res://textures/GUI/Menu/btns/left_arrow_btn_hover.png" id="36_5d8yr"]
 [ext_resource type="Texture2D" uid="uid://k5uwh53rco4k" path="res://textures/GUI/Menu/meteor_icon.png" id="37"]
 [ext_resource type="Texture2D" uid="uid://dl2vdpksu6w4j" path="res://textures/GUI/Menu/btns/right_arrow_btn.png" id="37_hd18x"]
-[ext_resource type="Script" path="res://scripts/menu/Settings.gd" id="38"]
 [ext_resource type="Texture2D" uid="uid://bagm27s4g68pk" path="res://textures/GUI/Menu/btns/right_arrow_btn_pressed.png" id="38_iora8"]
 [ext_resource type="Texture2D" uid="uid://d0d3i82ri4ryu" path="res://textures/GUI/Menu/btns/right_arrow_btn_hover.png" id="39_jygb5"]
 [ext_resource type="Script" path="res://scripts/menu/game_setttings.gd" id="41_mxtld"]
+[ext_resource type="PackedScene" uid="uid://cwe5faynqk6l8" path="res://assets/GUI/settings.tscn" id="41_thy8i"]
 
 [sub_resource type="Curve2D" id="25"]
 _data = {
@@ -130,8 +130,8 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [3]
+"update": 1,
+"values": [0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -142,8 +142,20 @@ tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [3]
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Eyes:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
 }
 
 [sub_resource type="Animation" id="19"]
@@ -157,10 +169,10 @@ tracks/0/path = NodePath("Body:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [3, 4, 5, 4]
+"values": [0, 1]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -169,10 +181,10 @@ tracks/1/path = NodePath("Armor:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [3, 4, 5, 4]
+"values": [0, 1]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -181,10 +193,22 @@ tracks/2/path = NodePath("Hair:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [3, 4, 5, 4]
+"values": [0, 1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Eyes:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vos1u"]
@@ -529,6 +553,7 @@ VScrollBar/styles/scroll = SubResource("33")
 VSlider/styles/slider = SubResource("34")
 
 [node name="Menu" type="Control"]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -644,7 +669,7 @@ text = "Play"
 [node name="Tutorial" type="Button" parent="Main/Buttons"]
 custom_minimum_size = Vector2(2.08165e-12, 18)
 layout_mode = 2
-text = "Tutorial"
+text = "Walkthrough"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Main/Buttons"]
 layout_mode = 2
@@ -661,290 +686,6 @@ layout_mode = 2
 texture_normal = ExtResource("10_oj28h")
 texture_pressed = ExtResource("11_salfa")
 texture_hover = ExtResource("12_p73ab")
-
-[node name="Settings" type="Panel" parent="."]
-visible = false
-layout_mode = 0
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -71.0
-offset_top = -60.0
-offset_right = 71.0
-offset_bottom = 60.0
-script = ExtResource("38")
-
-[node name="Title" type="Label" parent="Settings"]
-layout_mode = 0
-anchor_right = 1.0
-offset_top = 2.0
-offset_bottom = 16.0
-text = "Settings"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Settings"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 4.0
-offset_top = 16.0
-offset_right = -4.0
-offset_bottom = -3.0
-grow_horizontal = 2
-grow_vertical = 2
-vertical_scroll_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 1
-
-[node name="MusicVol" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-text = "Music Volume:"
-
-[node name="MusicSlider" type="HSlider" parent="Settings/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 8)
-layout_mode = 2
-max_value = 10.0
-value = 10.0
-
-[node name="GameplayLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-text = "Gameplay:"
-
-[node name="AutoSaveBtn" type="Button" parent="Settings/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-text = "Auto Save: Off"
-
-[node name="KeyBinds" type="Label" parent="Settings/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-text = "Keybinds:"
-
-[node name="KeybindContainer" type="VBoxContainer" parent="Settings/ScrollContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="build" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("14_3rqod")
-
-[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build/Action"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 1.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Slot 1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build"]
-layout_mode = 2
-text = "> LMB <"
-
-[node name="build2" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build2"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("14_3rqod")
-
-[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build2/Action"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 2.0
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Slot 2"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/build2"]
-layout_mode = 2
-text = "> RMB <"
-
-[node name="action1" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action1"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("14_3rqod")
-
-[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action1/Action"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 2.0
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Action 1"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action1"]
-layout_mode = 2
-text = "> J <"
-
-[node name="action2" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action2"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("14_3rqod")
-
-[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action2/Action"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 2.0
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Action 2"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/action2"]
-layout_mode = 2
-text = "> K <"
-
-[node name="inventory" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/inventory"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("14_3rqod")
-
-[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/inventory/Action"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 2.0
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Inventory"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/inventory"]
-layout_mode = 2
-text = "> E <"
-
-[node name="background_toggle" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/background_toggle"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("14_3rqod")
-
-[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/background_toggle/Action"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 2.0
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Background Toggle"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/background_toggle"]
-layout_mode = 2
-text = "> B <"
-
-[node name="ach" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/ach"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("14_3rqod")
-
-[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/ach/Action"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 2.0
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Achievements"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/ach"]
-layout_mode = 2
-text = "> Z <"
-
-[node name="fly" type="HBoxContainer" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="Action" type="Panel" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/fly"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("14_3rqod")
-
-[node name="ActionLbl" type="Label" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/fly/Action"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 2.0
-offset_bottom = -2.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Fly"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="KeyBind" type="Button" parent="Settings/ScrollContainer/VBoxContainer/KeybindContainer/fly"]
-layout_mode = 2
-text = "> F <"
-
-[node name="Back" type="TextureButton" parent="Settings"]
-layout_mode = 0
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 25.0
-offset_bottom = 16.0
-texture_normal = ExtResource("15_m3x4r")
-texture_pressed = ExtResource("16_df536")
-texture_hover = ExtResource("17_56hp5")
 
 [node name="World" type="Control" parent="."]
 visible = false
@@ -1090,30 +831,34 @@ offset_bottom = 34.5
 texture = ExtResource("22_d81mv")
 
 [node name="Body" type="Sprite2D" parent="World/character/Char"]
-position = Vector2(11, 14)
-texture = ExtResource("14")
-hframes = 3
-vframes = 6
+position = Vector2(12, 12)
+texture = ExtResource("22_amnwo")
+hframes = 4
+vframes = 5
 frame = 4
 
 [node name="Armor" type="Sprite2D" parent="World/character/Char"]
-position = Vector2(11, 14)
-texture = ExtResource("18")
-hframes = 3
-vframes = 6
-frame = 3
+position = Vector2(12, 12)
+texture = ExtResource("23_3ls0g")
+hframes = 4
+vframes = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="World/character/Char"]
 libraries = {
 "": SubResource("AnimationLibrary_vos1u")
 }
 
+[node name="Eyes" type="Sprite2D" parent="World/character/Char"]
+position = Vector2(12, 12)
+texture = ExtResource("25_uyyxc")
+hframes = 4
+vframes = 5
+
 [node name="Hair" type="Sprite2D" parent="World/character/Char"]
-position = Vector2(11, 14)
+position = Vector2(12, 12)
 texture = ExtResource("16")
-hframes = 3
-vframes = 6
-frame = 3
+hframes = 4
+vframes = 5
 
 [node name="Female" type="TextureButton" parent="World/character"]
 layout_mode = 0
@@ -1158,7 +903,7 @@ offset_bottom = 1.0
 theme = ExtResource("1_02jqt")
 text = "Name:"
 
-[node name="edit" type="VBoxContainer" parent="World/character"]
+[node name="edit" type="GridContainer" parent="World/character"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1169,10 +914,12 @@ offset_right = -5.0
 offset_bottom = -17.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = -1
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = -1
+columns = 2
 
-[node name="SkinCol" type="NinePatchRect" parent="World/character/edit"]
-custom_minimum_size = Vector2(2.08165e-12, 13)
+[node name="HairSty" type="NinePatchRect" parent="World/character/edit"]
+custom_minimum_size = Vector2(70, 13)
 layout_mode = 2
 texture = ExtResource("32_up6ad")
 patch_margin_left = 10
@@ -1181,7 +928,7 @@ patch_margin_right = 10
 patch_margin_bottom = 1
 script = ExtResource("19")
 
-[node name="Label" type="Label" parent="World/character/edit/SkinCol"]
+[node name="Label" type="Label" parent="World/character/edit/HairSty"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1193,11 +940,11 @@ offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_02jqt")
-text = "Skin Color"
+text = "Hair Style"
 label_settings = SubResource("LabelSettings_0jbs7")
 horizontal_alignment = 1
 
-[node name="left" type="TextureButton" parent="World/character/edit/SkinCol"]
+[node name="left" type="TextureButton" parent="World/character/edit/HairSty"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -1210,7 +957,7 @@ texture_normal = ExtResource("34_x100t")
 texture_pressed = ExtResource("35_eritu")
 texture_hover = ExtResource("36_5d8yr")
 
-[node name="right" type="TextureButton" parent="World/character/edit/SkinCol"]
+[node name="right" type="TextureButton" parent="World/character/edit/HairSty"]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -1226,7 +973,7 @@ texture_pressed = ExtResource("38_iora8")
 texture_hover = ExtResource("39_jygb5")
 
 [node name="HairCol" type="NinePatchRect" parent="World/character/edit"]
-custom_minimum_size = Vector2(2.08165e-12, 13)
+custom_minimum_size = Vector2(70, 13)
 layout_mode = 2
 texture = ExtResource("32_up6ad")
 patch_margin_left = 10
@@ -1279,8 +1026,8 @@ texture_normal = ExtResource("37_hd18x")
 texture_pressed = ExtResource("38_iora8")
 texture_hover = ExtResource("39_jygb5")
 
-[node name="HairSty" type="NinePatchRect" parent="World/character/edit"]
-custom_minimum_size = Vector2(2.08165e-12, 13)
+[node name="EyeSty" type="NinePatchRect" parent="World/character/edit"]
+custom_minimum_size = Vector2(70, 13)
 layout_mode = 2
 texture = ExtResource("32_up6ad")
 patch_margin_left = 10
@@ -1289,7 +1036,7 @@ patch_margin_right = 10
 patch_margin_bottom = 1
 script = ExtResource("19")
 
-[node name="Label" type="Label" parent="World/character/edit/HairSty"]
+[node name="Label" type="Label" parent="World/character/edit/EyeSty"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1301,11 +1048,11 @@ offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_02jqt")
-text = "Hair Style"
+text = "Eye Style"
 label_settings = SubResource("LabelSettings_0jbs7")
 horizontal_alignment = 1
 
-[node name="left" type="TextureButton" parent="World/character/edit/HairSty"]
+[node name="left" type="TextureButton" parent="World/character/edit/EyeSty"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -1318,7 +1065,115 @@ texture_normal = ExtResource("34_x100t")
 texture_pressed = ExtResource("35_eritu")
 texture_hover = ExtResource("36_5d8yr")
 
-[node name="right" type="TextureButton" parent="World/character/edit/HairSty"]
+[node name="right" type="TextureButton" parent="World/character/edit/EyeSty"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = 2.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 2
+texture_normal = ExtResource("37_hd18x")
+texture_pressed = ExtResource("38_iora8")
+texture_hover = ExtResource("39_jygb5")
+
+[node name="EyeCol" type="NinePatchRect" parent="World/character/edit"]
+custom_minimum_size = Vector2(70, 13)
+layout_mode = 2
+texture = ExtResource("32_up6ad")
+patch_margin_left = 10
+patch_margin_top = 1
+patch_margin_right = 10
+patch_margin_bottom = 1
+script = ExtResource("19")
+
+[node name="Label" type="Label" parent="World/character/edit/EyeCol"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_02jqt")
+text = "Eye Color"
+label_settings = SubResource("LabelSettings_0jbs7")
+horizontal_alignment = 1
+
+[node name="left" type="TextureButton" parent="World/character/edit/EyeCol"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 8.0
+offset_bottom = -1.0
+grow_vertical = 2
+texture_normal = ExtResource("34_x100t")
+texture_pressed = ExtResource("35_eritu")
+texture_hover = ExtResource("36_5d8yr")
+
+[node name="right" type="TextureButton" parent="World/character/edit/EyeCol"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -7.0
+offset_top = 2.0
+offset_bottom = -1.0
+grow_horizontal = 0
+grow_vertical = 2
+texture_normal = ExtResource("37_hd18x")
+texture_pressed = ExtResource("38_iora8")
+texture_hover = ExtResource("39_jygb5")
+
+[node name="SkinCol" type="NinePatchRect" parent="World/character/edit"]
+custom_minimum_size = Vector2(70, 13)
+layout_mode = 2
+texture = ExtResource("32_up6ad")
+patch_margin_left = 10
+patch_margin_top = 1
+patch_margin_right = 10
+patch_margin_bottom = 1
+script = ExtResource("19")
+
+[node name="Label" type="Label" parent="World/character/edit/SkinCol"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 1.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_02jqt")
+text = "Skin Color"
+label_settings = SubResource("LabelSettings_0jbs7")
+horizontal_alignment = 1
+
+[node name="left" type="TextureButton" parent="World/character/edit/SkinCol"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 2.0
+offset_right = 8.0
+offset_bottom = -1.0
+grow_vertical = 2
+texture_normal = ExtResource("34_x100t")
+texture_pressed = ExtResource("35_eritu")
+texture_hover = ExtResource("36_5d8yr")
+
+[node name="right" type="TextureButton" parent="World/character/edit/SkinCol"]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -1417,7 +1272,7 @@ layout_mode = 2
 offset_left = 5.0
 offset_top = 11.0
 offset_right = 145.0
-offset_bottom = 118.0
+offset_bottom = 117.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -1456,6 +1311,11 @@ text = "Lose blues on death"
 horizontal_alignment = 1
 autowrap_mode = 2
 
+[node name="TutorialsBtn" type="CheckButton" parent="World/GameSetttings/VBoxContainer"]
+layout_mode = 2
+text = "Tutorials"
+alignment = 1
+
 [node name="GameSettingsBtn" type="Button" parent="World/GameSetttings"]
 layout_mode = 1
 anchors_preset = 14
@@ -1479,6 +1339,22 @@ libraries = {
 "": SubResource("AnimationLibrary_58khl")
 }
 
+[node name="Version" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -11.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Tiny Pixel Planets TU5 beta 5 (v0.5.0:5)"
+horizontal_alignment = 1
+
+[node name="Settings" parent="." instance=ExtResource("41_thy8i")]
+layout_mode = 1
+
 [node name="blank" type="TextureRect" parent="."]
 layout_mode = 0
 anchor_right = 1.0
@@ -1489,19 +1365,6 @@ stretch_mode = 1
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("12")
 volume_db = -10.0
-
-[node name="Version" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -10.0
-offset_bottom = -1.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Tiny Pixel Planets TU5 beta 5 (v0.5.0:5)"
-horizontal_alignment = 1
 
 [node name="Credits" type="Panel" parent="."]
 visible = false
@@ -1742,39 +1605,34 @@ offset_right = -13.0
 offset_bottom = -8.0
 text = "Done"
 
-[node name="DisableControls" type="TextureRect" parent="."]
-visible = false
-layout_mode = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 0
-
 [connection signal="pressed" from="Main/Buttons/Play" to="." method="_on_Play_pressed"]
 [connection signal="pressed" from="Main/Buttons/Tutorial" to="." method="_on_Tutorial_pressed"]
 [connection signal="pressed" from="Main/Buttons/HBoxContainer/Settings" to="." method="_on_Settings_pressed"]
 [connection signal="pressed" from="Main/Buttons/HBoxContainer/Credits" to="." method="_on_Credits_pressed"]
-[connection signal="value_changed" from="Settings/ScrollContainer/VBoxContainer/MusicSlider" to="Settings" method="_on_MusicSlider_value_changed"]
-[connection signal="pressed" from="Settings/ScrollContainer/VBoxContainer/AutoSaveBtn" to="Settings" method="_on_auto_save_btn_pressed"]
-[connection signal="pressed" from="Settings/Back" to="." method="_on_Back_pressed"]
 [connection signal="pressed" from="World/loadSave/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="World/loadSave/Warning/BackBtn" to="World/loadSave" method="_on_back_btn_pressed"]
 [connection signal="pressed" from="World/loadSave/Warning/OkBtn" to="World/loadSave" method="_on_ok_btn_pressed"]
 [connection signal="pressed" from="World/character/Female" to="World/character" method="_on_Female_pressed"]
 [connection signal="pressed" from="World/character/Male" to="World/character" method="_on_Male_pressed"]
 [connection signal="text_changed" from="World/character/Name" to="World/character" method="_on_Name_text_changed"]
-[connection signal="pressed" from="World/character/edit/SkinCol/left" to="World/character/edit/SkinCol" method="_on_left_pressed"]
-[connection signal="pressed" from="World/character/edit/SkinCol/right" to="World/character/edit/SkinCol" method="_on_right_pressed"]
-[connection signal="pressed" from="World/character/edit/HairCol/left" to="World/character/edit/HairCol" method="_on_left_pressed"]
-[connection signal="pressed" from="World/character/edit/HairCol/right" to="World/character/edit/HairCol" method="_on_right_pressed"]
 [connection signal="pressed" from="World/character/edit/HairSty/left" to="World/character/edit/HairSty" method="_on_left_pressed"]
 [connection signal="pressed" from="World/character/edit/HairSty/right" to="World/character/edit/HairSty" method="_on_right_pressed"]
+[connection signal="pressed" from="World/character/edit/HairCol/left" to="World/character/edit/HairCol" method="_on_left_pressed"]
+[connection signal="pressed" from="World/character/edit/HairCol/right" to="World/character/edit/HairCol" method="_on_right_pressed"]
+[connection signal="pressed" from="World/character/edit/EyeSty/left" to="World/character/edit/EyeSty" method="_on_left_pressed"]
+[connection signal="pressed" from="World/character/edit/EyeSty/right" to="World/character/edit/EyeSty" method="_on_right_pressed"]
+[connection signal="pressed" from="World/character/edit/EyeCol/left" to="World/character/edit/EyeCol" method="_on_left_pressed"]
+[connection signal="pressed" from="World/character/edit/EyeCol/right" to="World/character/edit/EyeCol" method="_on_right_pressed"]
+[connection signal="pressed" from="World/character/edit/SkinCol/left" to="World/character/edit/SkinCol" method="_on_left_pressed"]
+[connection signal="pressed" from="World/character/edit/SkinCol/right" to="World/character/edit/SkinCol" method="_on_right_pressed"]
 [connection signal="pressed" from="World/character/Start" to="World/character" method="_on_Start_pressed"]
 [connection signal="pressed" from="World/character/back" to="World/character" method="_on_back_pressed"]
 [connection signal="pressed" from="World/character/Scenarios" to="World/character" method="_on_Scenarios_pressed"]
 [connection signal="pressed" from="World/character/GameSettingsBtn" to="World/character" method="_on_game_settings_btn_pressed"]
 [connection signal="pressed" from="World/GameSetttings/VBoxContainer/Mode/ModeBtn" to="World/GameSetttings" method="_on_mode_btn_pressed"]
 [connection signal="pressed" from="World/GameSetttings/VBoxContainer/Difficulty/DifficultyBtn" to="World/GameSetttings" method="_on_difficulty_btn_pressed"]
+[connection signal="toggled" from="World/GameSetttings/VBoxContainer/TutorialsBtn" to="World/GameSetttings" method="_on_tutorials_btn_toggled"]
 [connection signal="pressed" from="World/GameSetttings/GameSettingsBtn" to="World/GameSetttings" method="_on_game_settings_btn_pressed"]
+[connection signal="settings_closed" from="Settings" to="." method="_on_settings_settings_closed"]
 [connection signal="pressed" from="Credits/back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="Scenarios/Done" to="World/character" method="_on_Done_pressed"]
-[connection signal="gui_input" from="DisableControls" to="Settings" method="_on_DisableControls_gui_input"]

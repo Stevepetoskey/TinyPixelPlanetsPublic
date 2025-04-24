@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=33 format=3 uid="uid://0o5m0f0xtqt2"]
+[gd_resource type="Theme" load_steps=34 format=3 uid="uid://0o5m0f0xtqt2"]
 
 [ext_resource type="Texture2D" uid="uid://df88wx2t7pu7m" path="res://textures/GUI/space/space_btn_pressed.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://dly831r27pr5b" path="res://textures/GUI/space/space_btn.png" id="3"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ga3qa5glpysf" path="res://textures/GUI/misc/h_bar_handle_hover.png" id="5_8obno"]
 [ext_resource type="Texture2D" uid="uid://xjk2n3oku44w" path="res://textures/GUI/misc/h_bar_handle_select.png" id="6_c2rmj"]
 [ext_resource type="Texture2D" uid="uid://cd8o67b5gxjeq" path="res://textures/GUI/misc/h_bar.png" id="7_xnf82"]
+[ext_resource type="FontVariation" uid="uid://rl1mtc7dy3t7" path="res://fonts/PixelPossLineEdit.tres" id="8_j3qpg"]
 [ext_resource type="Texture2D" uid="uid://dis6mfjvxeudu" path="res://textures/GUI/space/line_edit_focus.png" id="11"]
 [ext_resource type="Texture2D" uid="uid://chrutco2wkhom" path="res://textures/GUI/misc/v_bar_handle.png" id="11_xqoct"]
 [ext_resource type="Texture2D" uid="uid://chjhdpwimkgty" path="res://textures/GUI/space/line_edit.png" id="12"]
@@ -145,6 +146,7 @@ HScrollBar/styles/grabber_highlight = SubResource("5")
 HScrollBar/styles/grabber_pressed = SubResource("6")
 HScrollBar/styles/scroll = SubResource("7")
 HScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_olb3r")
+LineEdit/fonts/font = ExtResource("8_j3qpg")
 LineEdit/styles/focus = SubResource("8")
 LineEdit/styles/normal = SubResource("9")
 Panel/styles/panel = SubResource("10")

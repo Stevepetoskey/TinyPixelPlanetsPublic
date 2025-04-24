@@ -50,6 +50,7 @@ _data = {
 }
 
 [node name="Piston" type="StaticBody2D"]
+use_parent_material = true
 script = ExtResource("1_b2jwk")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
@@ -62,6 +63,7 @@ occluder = SubResource("OccluderPolygon2D_y6fa6")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 2
+use_parent_material = true
 texture = ExtResource("2_55tww")
 region_rect = Rect2(16, 2.08165e-12, 8, 8)
 

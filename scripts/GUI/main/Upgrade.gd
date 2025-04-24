@@ -53,7 +53,7 @@ func upgrade_slot_pressed(slot : String) -> void:
 	if slots["main"]["id"] != 0:
 		var slotAnimation : AnimationPlayer = {"left":$ItemHold/LeftSlot/Animation,"top":$ItemHold/TopSlot/Animation,"right":$ItemHold/RightSlot/Animation}[slot]
 		var slotData : Dictionary = slots[slot]
-		var mainItemData : Dictionary = world.get_item_data(slots["main"]["id"])
+		var mainItemData : Dictionary = GlobalData.get_item_data(slots["main"]["id"])
 		if inventory.holding:
 			var holdingItemData : Dictionary = inventory.inventory[inventory.holdingRef]
 			var applyTo : String = world.upgrades[holdingItemData["data"]["upgrade"]]["apply_to"]
@@ -79,7 +79,7 @@ func upgrade_slot_pressed(slot : String) -> void:
 
 func _on_mainslot_pressed() -> void:
 	if slots["main"]["id"] == 0 and inventory.holding: #Checks if empty slot
-		if typeUpgradeAmount.has(world.get_item_data(inventory.inventory[inventory.holdingRef]["id"])["type"]): #Checks if item can be upgraded
+		if typeUpgradeAmount.has(GlobalData.get_item_data(inventory.inventory[inventory.holdingRef]["id"])["type"]): #Checks if item can be upgraded
 			slots["main"] = inventory.inventory[inventory.holdingRef]
 			inventory.remove_loc_from_inventory(inventory.holdingRef)
 			if slots["main"]["data"].has("upgrades"):
@@ -95,7 +95,7 @@ func _on_mainslot_pressed() -> void:
 			update_upgrade()
 			for i in range(3):
 				var currentSlot = [left_slot,top_slot,right_slot][i]
-				if i < typeUpgradeAmount[world.get_item_data(slots["main"]["id"])["type"]]:
+				if i < typeUpgradeAmount[GlobalData.get_item_data(slots["main"]["id"])["type"]]:
 					currentSlot.get_node("Animation").play("start")
 					await currentSlot.get_node("Animation").animation_finished
 					if slots["main"]["data"]["upgrades"][["left","top","right"][i]] != "":
@@ -103,7 +103,7 @@ func _on_mainslot_pressed() -> void:
 	elif slots["main"]["id"] != 0 and !inventory.holding:
 		for i in range(3):
 			var currentSlot = [left_slot,top_slot,right_slot][i]
-			if i < typeUpgradeAmount[world.get_item_data(slots["main"]["id"])["type"]]:
+			if i < typeUpgradeAmount[GlobalData.get_item_data(slots["main"]["id"])["type"]]:
 				currentSlot.get_node("Animation").play("remove")
 			else:
 				currentSlot.hide()
@@ -112,10 +112,10 @@ func _on_mainslot_pressed() -> void:
 		update_upgrade()
 
 func update_upgrade() -> void:
-	main_item.texture = null if slots["main"]["id"] == 0 else world.get_item_data(slots["main"]["id"])["texture"]
-	left_slot_btn.texture_normal = UPGRADE_HOLD if slots["left"]["id"] == 0 else world.get_item_data(slots["left"]["id"])["texture"]
-	top_slot_btn.texture_normal = UPGRADE_HOLD if slots["top"]["id"] == 0 else world.get_item_data(slots["top"]["id"])["texture"]
-	right_slot_btn.texture_normal = UPGRADE_HOLD if slots["right"]["id"] == 0 else world.get_item_data(slots["right"]["id"])["texture"]
+	main_item.set_item(slots["main"])
+	$ItemHold/LeftSlot/LeftSlotBtn/Item.set_item(slots["left"])
+	$ItemHold/TopSlot/TopSlotBtn/Item.set_item(slots["top"])
+	$ItemHold/RightSlot/RightSlotBtn/Item.set_item(slots["right"])
 
 func mouse_in_btn(slot : String):
 	$"../ItemData".display(slots[slot])

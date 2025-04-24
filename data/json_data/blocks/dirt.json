@@ -1,0 +1,12 @@
+{
+	"id":2,
+	"texture":"blocks/dirt.png",
+	"hardness":0.3,
+	"canHaverst":0,
+	"drops":[{"id":2,"amount":1}],
+	"name":"Dirt",
+	"type":"simple",
+	"transparent":false,
+	"can_collide":true,
+	"interactable":false
+},

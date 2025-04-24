@@ -13,7 +13,7 @@ var tips : Array = [
 	"They are coming.",
 	"Going to slow? Certain armors have speed debuffs that can be changed with movement+ upgrades",
 	"Put on your space suit before traveling space, you may land on a planet without an atmosphere.",
-	"Gold is the rarest mineral in the game.",
+	"Red diamonds are the rarest minerals in the game.",
 	"Alpha Andromedae was originally a background track, but is now a music chip.",
 	"Don't play Kasino Kart, it is not very good.",
 	"Have you tried Island Builder?",

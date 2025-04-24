@@ -79,6 +79,61 @@ var SecondStarName = [
 	"Dulovc"
 ]
 
+var lightData : Dictionary = {
+	"default":{
+		"sky_color":{
+			SUNSET = Color("ff462d"),
+			DAY = Color.WHITE,
+			SUNRISE = Color("ffd190"),
+			NIGHT = Color("3d1b63")
+		},
+		"light_color_atmo":{
+			SUNSET = Color("F6635C"),
+			DAY = Color.WHITE,
+			SUNRISE = Color("ffa948"),
+			NIGHT = Color("403548")
+		},
+		"light_color_no_atmo":{
+			SUNSET = Color(0.75,0.75,0.75),
+			DAY = Color.WHITE,
+			SUNRISE = Color(0.75,0.75,0.75),
+			NIGHT = Color(0.5,0.5,0.5)
+		},
+		"light_intensity":{
+			SUNSET = 7,
+			DAY = 12,
+			SUNRISE = 7,
+			NIGHT = 3
+		}
+	},
+	"mystical":{
+		"sky_color":{
+			SUNSET = Color("3d1b63"),
+			DAY = Color("3d1b63"),
+			SUNRISE = Color("3d1b63"),
+			NIGHT = Color("3d1b63")
+		},
+		"light_color_atmo":{
+			SUNSET = Color("403548"),
+			DAY = Color("403548"),
+			SUNRISE = Color("403548"),
+			NIGHT = Color("403548")
+		},
+		"light_color_no_atmo":{
+			SUNSET = Color(0.75,0.75,0.75),
+			DAY = Color.WHITE,
+			SUNRISE = Color(0.75,0.75,0.75),
+			NIGHT = Color(0.5,0.5,0.5)
+		},
+		"light_intensity":{
+			SUNSET = 4,
+			DAY = 5,
+			SUNRISE = 4,
+			NIGHT = 2
+		}
+	}
+}
+
 var weatherEvents = {
 	"terra":["rain","showers"],
 	"desert":["none"],
@@ -91,7 +146,8 @@ var weatherEvents = {
 	"ocean":["rain","showers"],
 	"grassland":["rain"],
 	"scorched":["none"],
-	"frigid":["snow","blizzard"]
+	"frigid":["snow","blizzard"],
+	"mystical":["rain","showers"]
 }
 
 var typeNames = {
@@ -109,7 +165,8 @@ var typeNames = {
 	"ocean":"Ocean",
 	"grassland":"Grassland",
 	"scorched":"Scorched",
-	"frigid":"Frigid"
+	"frigid":"Frigid",
+	"mystical":"Mystical"
 }
 
 var hostileSpawn = {
@@ -125,6 +182,7 @@ var hostileSpawn = {
 	"grassland":["slorg"],
 	"scorched":[],
 	"frigid":[],
+	"mystical":["shork"]
 }
 
 var creatureSpawn = {
@@ -140,6 +198,7 @@ var creatureSpawn = {
 	"grassland":["blue_jay"],
 	"scorched":[],
 	"frigid":[],
+	"mystical":[]
 }
 
 var sizeNames = {
@@ -175,6 +234,8 @@ var planetData = {"small_earth":{"texture":preload("res://textures/planets/terra
 	"scorched":{"texture":preload("res://textures/planets/scorchedMedium.png"),"size":sizeTypes.medium,"type":"scorched"},
 	"small_frigid":{"texture":preload("res://textures/planets/frigid.png"),"size":sizeTypes.small,"type":"frigid"},
 	"frigid":{"texture":preload("res://textures/planets/frigidMedium.png"),"size":sizeTypes.medium,"type":"frigid"},
+	"small_mystical":{"texture":preload("res://textures/planets/mystical.png"),"size":sizeTypes.small,"type":"mystical"},
+	"mystical":{"texture":preload("res://textures/planets/mysticalMedium.png"),"size":sizeTypes.medium,"type":"mystical"},
 	#"commet":{"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"},
 }
 
@@ -212,25 +273,13 @@ signal start_meteors
 
 func start_game():
 	print("---start game---")
-	if Global.new:
+	if Global.newPlanet and Global.gameStart:
 		new_game()
 		await self.found_system
 		Global.currentPlanet = find_planet("type","terra").id
 		Global.starterPlanetId = Global.currentPlanet
 		Global.playerData["original_system"] = Global.currentSystemId
 		Global.playerData["original_planet"] = Global.currentPlanet
-		#if Global.scenario == "meteor": #Adds the commet if meteor scenario
-			#var commet = PLANET.instantiate()
-			#commet.id = get_system_bodies().size()
-			#commet.type = {"texture":preload("res://textures/planets/commet.png"),"size":sizeTypes.large,"type":"commet"}
-			#commet.hasAtmosphere = false
-			#commet.orbitalDistance = 500
-			#commet.orbitingBody = find_planet_id(Global.currentPlanet)
-			#commet.orbitalSpeed = 0
-			#commet.rotationSpeed = 0
-			#commet.currentOrbit = deg_to_rad(randi() % 360)
-			#commet.currentRot = deg_to_rad(randi() % 360)
-			#$system.add_child(commet)
 		print("Current Planet: ", find_planet_id(Global.currentPlanet).pName)
 	planetReady = true
 	print("---Planet Ready---")
@@ -418,7 +467,7 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 	var planetType
 	var planets = []
 	for planetDat in planetData:
-		if (planetData[planetDat]["size"] < maxSize or (maxSize == 0 and planetData[planetDat]["size"] == 0)) and !["terra","snow","snow_terra","frigid","exotic","ocean","grassland","scorched"].has(planetData[planetDat]["type"]):
+		if (planetData[planetDat]["size"] < maxSize or (maxSize == 0 and planetData[planetDat]["size"] == 0)) and !["terra","snow","snow_terra","frigid","exotic","ocean","grassland","scorched","mystical"].has(planetData[planetDat]["type"]):
 			planets.append(planetData[planetDat])
 	planets.shuffle()
 	planetType = planets[0]
@@ -457,11 +506,13 @@ func create_planet(orbitBody = $stars, maxSize = sizeTypes.max_size, orbitingSiz
 	var size = "" if planetType["size"] > sizeTypes.small else "small_"
 	if currentStarData["habital"].has(abs(planet.orbitalDistance-orbitBody.orbitalDistance)) and randi()%2 == 1:
 		var type = "earth"
-		match randi() % 3:
-			1:
+		match randi_range(0,6):
+			0,1:
 				type = "exotic"
-			2:
+			2,3:
 				type = "ocean"
+			4:
+				type = "mystical"
 		planet.type = planetData[size + type]
 		planet.hasAtmosphere = true
 	elif !currentStarData["habital"].is_empty() and abs(planet.orbitalDistance-orbitBody.orbitalDistance) < currentStarData["habital"][currentStarData["habital"].size()-1]:

@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://c0r7r8uwsnrla"]
+
+[ext_resource type="Script" path="res://scripts/blocks/fan.gd" id="1_bal4w"]
+[ext_resource type="Texture2D" uid="uid://c5mp3jyjodjw0" path="res://textures/blocks/fan_block1.png" id="2_l4r6h"]
+[ext_resource type="Texture2D" uid="uid://gkxaqujq7tpm" path="res://textures/blocks/fan_block2.png" id="3_0t60v"]
+[ext_resource type="Texture2D" uid="uid://bn5k0gd0ilj26" path="res://textures/blocks/fan_block3.png" id="4_txxe8"]
+[ext_resource type="Texture2D" uid="uid://c8gal26ajk7o7" path="res://textures/blocks/fan_block4.png" id="5_snh0o"]
+[ext_resource type="Texture2D" uid="uid://byj524y6v4g1q" path="res://textures/blocks/fan_air/fan_air_animation.tres" id="6_y7v2w"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_y6fa6"]
+polygon = PackedVector2Array(-4, 4, 4, 4, 4, -4, -4, -4)
+
+[sub_resource type="RectangleShape2D" id="1"]
+size = Vector2(8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u07ai"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_l4r6h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_0t60v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_txxe8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_snh0o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Fan" type="StaticBody2D"]
+use_parent_material = true
+script = ExtResource("1_bal4w")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-2, -2)
+scale = Vector2(0.2, 0.2)
+rect = Rect2(-10, -10, 40, 40)
+
+[node name="RainCol" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_y6fa6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("1")
+
+[node name="shade" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0.521569)
+
+[node name="Texture" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
+sprite_frames = SubResource("SpriteFrames_u07ai")
+frame_progress = 0.928955
+
+[node name="Caster" type="RayCast2D" parent="."]
+position = Vector2(0, -4)
+target_position = Vector2(0, -256)
+collision_mask = 27
+
+[node name="BlockCaster" type="RayCast2D" parent="."]
+position = Vector2(0, -4)
+target_position = Vector2(0, -256)
+
+[node name="Air" type="TextureRect" parent="."]
+use_parent_material = true
+offset_left = 4.0
+offset_top = -4.0
+offset_right = 12.0
+offset_bottom = 4.0
+rotation = 3.14159
+texture = ExtResource("6_y7v2w")
+stretch_mode = 1
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

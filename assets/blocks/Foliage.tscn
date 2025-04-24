@@ -4,10 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://djsxxfl6fvnug" path="res://textures/blocks/water/water_4.png" id="2_a1p1s"]
 
 [node name="Foliage" type="StaticBody2D"]
+use_parent_material = true
 script = ExtResource("1_6f8ac")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 2
+use_parent_material = true
 texture = ExtResource("2_a1p1s")
 region_rect = Rect2(0, 16, 8, 8)
 

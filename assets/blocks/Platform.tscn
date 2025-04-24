@@ -7,10 +7,12 @@
 size = Vector2(8, 8)
 
 [node name="Platform" type="StaticBody2D"]
+use_parent_material = true
 script = ExtResource("1_gufsg")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 2
+use_parent_material = true
 texture = ExtResource("2_35ed5")
 region_rect = Rect2(0, 16, 8, 8)
 

@@ -17,7 +17,7 @@ func _process(delta):
 		if armor.armor[name].is_empty():
 			$Sprite2D.texture = load("res://textures/GUI/main/Armor/" + name.to_lower() + ".png")
 		else:
-			$Sprite2D.texture = world.get_item_texture(armor.armor[name]["id"])
+			$Sprite2D.texture = GlobalData.get_item_texture(armor.armor[name]["id"])
 
 func _pressed():
 	emit_signal("armor_btn_pressed",self)

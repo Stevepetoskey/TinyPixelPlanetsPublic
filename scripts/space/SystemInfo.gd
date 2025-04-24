@@ -18,6 +18,7 @@ var planetTextures = {
 	"grassland":preload("res://textures/planets/grassland.png"),
 	"scorched":preload("res://textures/planets/scorched.png"),
 	"frigid":preload("res://textures/planets/frigid.png"),
+	"mystical":preload("res://textures/planets/mystical.png"),
 }
 
 var planetTypeNames = {
@@ -36,6 +37,7 @@ var planetTypeNames = {
 	"grassland":"Grassland",
 	"scorched":"Scorched",
 	"frigid":"Frigid",
+	"mystical":'Mystical'
 }
 
 @onready var camera = $"../GalaxyView"

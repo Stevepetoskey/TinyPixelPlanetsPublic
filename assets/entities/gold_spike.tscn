@@ -7,11 +7,14 @@
 radius = 4.0
 
 [node name="GoldSpike" type="CharacterBody2D"]
+use_parent_material = true
 collision_layer = 0
+collision_mask = 513
 script = ExtResource("1_rwcpn")
 type = "gold_spike"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
 texture = ExtResource("2_3hrsc")
 
 [node name="Hitbox" type="Area2D" parent="."]

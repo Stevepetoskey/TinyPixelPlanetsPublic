@@ -1,7 +1,6 @@
 extends Entity
 
 var canPickup = true
-var motion = Vector2(0,0)
 var collected = false
 
 @onready var inventory = get_node("../../../CanvasLayer/Inventory")
@@ -13,11 +12,8 @@ func _ready():
 func _process(delta):
 	if !collected:
 		if !is_on_floor():
-			motion.y += GRAVITY
-		set_velocity(motion)
-		set_up_direction(Vector2(0,-1))
+			velocity.y += GRAVITY
 		move_and_slide()
-		motion = velocity
 
 func _on_PickupTimer_timeout():
 	canPickup = true
@@ -28,12 +24,11 @@ func _on_Area2D_body_entered(body):
 			$CollisionShape2D.shape = null
 			$Area2D/CollisionShape2D.shape = null
 			$AnimationPlayer.play("spin")
-			var ogPos = position
 			collected = true
-			var time : float = 25
-			for i in range(time):
-				position = lerp(ogPos,body.position,i/time)
-				modulate = lerp(Color(1,1,1,1),Color(1,1,1,0),i/time)
-				await get_tree().process_frame
+			var tween = create_tween()
+			tween.set_parallel()
+			tween.tween_property(self,"position",body.position,1)
+			tween.tween_property(self,"modulate",Color(1,1,1,0),1)
+			await tween.finished
 			Global.blues += data["amount"]
 			queue_free()

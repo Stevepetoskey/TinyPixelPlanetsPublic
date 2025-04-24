@@ -54,7 +54,7 @@ func spawn():
 		var possiblePos = []
 		for x in range(pos.x -6,pos.x+6):
 			for y in range(pos.y-6,pos.y+6):
-				if !world.noCollisionBlocks.has(world.get_block_id(Vector2(x,y+2),layer)) and world.noCollisionBlocks.has(world.get_block_id(Vector2(x,y+1),layer)) and world.noCollisionBlocks.has(world.get_block_id(Vector2(x,y),layer)) and world.noCollisionBlocks.has(world.get_block_id(Vector2(x,y-1),layer)):
+				if GlobalData.blockData[world.get_block_id(Vector2(x,y+2),layer)]["can_collide"] and !GlobalData.blockData[world.get_block_id(Vector2(x,y+1),1)]["can_collide"] and !GlobalData.blockData[world.get_block_id(Vector2(x,y),1)]["can_collide"] and !GlobalData.blockData[world.get_block_id(Vector2(x,y-1),1)]["can_collide"]:
 					possiblePos.append(Vector2(x,y))
 		for i in range(amount):
 			if !possiblePos.is_empty() and hAmount < 5:
@@ -68,7 +68,7 @@ func world_loaded():
 
 func on_update():
 	if layer < 1:
-		if world.transparentBlocks.has(world.get_block_id(pos,1)) and ([0,10,77].has(world.get_block_id(pos,1)) or id != world.get_block_id(pos,1)):
+		if GlobalData.blockData[world.get_block_id(pos,1)]["transparent"] and ([0,10,77].has(world.get_block_id(pos,1)) or id != world.get_block_id(pos,1)):
 			show()
 		else:
 			hide()

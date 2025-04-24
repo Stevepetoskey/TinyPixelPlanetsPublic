@@ -15,7 +15,7 @@ func _ready():
 		$Sprite2D.show()
 		viewPort.queue_free()
 		$Sprite2D.texture = load("res://textures/stars/" + StarSystem.currentStar + ".png")
-		modulate = Color(2,2,2)
+		modulate = Color(10,10,10)
 	elif planetRef.type["type"] == "commet":
 		$Sprite2D.show()
 		viewPort.queue_free()

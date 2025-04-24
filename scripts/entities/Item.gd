@@ -7,10 +7,12 @@ var collected = false
 @onready var world = get_node("../../../World")
 
 func _ready():
-	$Sprite2D.texture = world.get_item_texture(data["id"])
+	$Sprite2D.texture = GlobalData.get_item_texture(data["id"])
 	$AnimationPlayer.play("idle")
 
 func _process(delta):
+	if position.y > 5000:
+		queue_free()
 	if !collected:
 		if !is_on_floor():
 			velocity.y += GRAVITY
@@ -30,12 +32,11 @@ func _on_Area2D_body_entered(body):
 			$CollisionShape2D.shape = null
 			$Area2D/CollisionShape2D.shape = null
 			$AnimationPlayer.play("spin")
-			var ogPos = position
 			collected = true
-			var time : float = 25
-			for i in range(time):
-				position = lerp(ogPos,body.position,i/time)
-				modulate = lerp(Color(1,1,1,1),Color(1,1,1,0),i/time)
-				await get_tree().process_frame
+			var tween = create_tween()
+			tween.set_parallel()
+			tween.tween_property(self,"position",body.position,1)
+			tween.tween_property(self,"modulate",Color(1,1,1,0),1)
 			inventory.add_to_inventory(data["id"],data["amount"],true,data["data"])
+			await tween.finished
 			queue_free()
