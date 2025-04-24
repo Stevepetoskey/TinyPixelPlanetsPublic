@@ -17,7 +17,6 @@ const BLOCK_SIZE = Vector2(8,8)
 @onready var armor = $"../CanvasLayer/Inventory/Armor"
 @onready var player = $"../Player"
 @onready var entities = $"../Entities"
-@onready var meteors = $"../CanvasLayer/Environment/Meteors"
 
 var blockTypes = {
 	"block":preload("res://assets/blocks/Block.tscn"),
@@ -279,18 +278,19 @@ func start_world():
 		hasGravity = false
 	if !Global.gameStart: #erases pos if landing on a planet
 		Global.playerData.erase("pos")
-	if !(Global.newPlanet and Global.gameStart): #Loads player data if not new
+	if !Global.newSave: #Loads player data if not new
 		print("LOADING PLAYER DATA")
 		load_player_data()
+	else:
+		Global.newSave = false
+		player.health = Global.gamerules["starting_hp"]
+		player.maxHealth = Global.gamerules["max_hp"]
+		player.get_node("Textures/body").modulate = Global.playerBase["skin"]
+		player.gender = Global.playerBase["sex"]
+		inventory.add_to_inventory(4,1)
+		armor.armor = {"Helmet":{"id":46,"amount":1,"data":{}},"Hat":{},"Chestplate":{"id":47,"amount":1,"data":{}},"Shirt":{},"Leggings":{"id":48,"amount":1,"data":{}},"Pants":{},"Boots":{"id":49,"amount":1,"data":{}},"Shoes":{}}
+		armor.emit_signal("updated_armor",armor.armor)
 	if Global.newPlanet or Global.load_planet(Global.currentSystemId,Global.currentPlanet).is_empty(): #Generates if is new planet
-		if Global.gameStart: #This is if the game is a new save
-			player.health = Global.gamerules["starting_hp"]
-			player.maxHealth = Global.gamerules["max_hp"]
-			player.get_node("Textures/body").modulate = Global.playerBase["skin"]
-			player.gender = Global.playerBase["sex"]
-			inventory.add_to_inventory(4,1)
-			armor.armor = {"Helmet":{"id":46,"amount":1,"data":{}},"Hat":{},"Chestplate":{"id":47,"amount":1,"data":{}},"Shirt":{},"Leggings":{"id":48,"amount":1,"data":{}},"Pants":{},"Boots":{"id":49,"amount":1,"data":{}},"Shoes":{}}
-			armor.emit_signal("updated_armor",armor.armor)
 		#Generates like normal, unless specified to generate a custom world
 		print("generating World")
 		generateWorld(worldType if Global.gamerules["custom_generation"] == "" else Global.gamerules["custom_generation"])
@@ -914,7 +914,7 @@ func get_world_data() -> Dictionary:
 	var data = {}
 	data["player"] = {
 		"armor":armor.armor,"inventory":inventory.inventory,"inventory_refs":{"j":inventory.jRef,"k":inventory.kRef},"health":player.health,"max_health":player.maxHealth,"oxygen":player.oxygen,"suit_oxygen":player.suitOxygen,"max_oxygen":player.maxOxygen,"suit_oxygen_max":player.suitOxygenMax,"current_planet":Global.currentPlanet,"current_system":Global.currentSystemId,"pos":player.position,"save_type":"planet","achievements":GlobalGui.completedAchievements,
-		"misc_stats":{"meteor_stage":meteors.stage,"meteor_progress_time_left":$"../CanvasLayer/Environment/Meteors/StageProgress".time_left}
+		"misc_stats":{}
 	}
 	data["system"] = StarSystem.get_system_data()
 	data["planet"] = {"blocks":get_blocks_data(),"entities":entities.get_entity_data(),"rules":worldRules,"left_at_time":Global.globalGameTime,"current_weather":$"..".currentWeather,"weather_time_left":$"../weather/WeatherTimer".time_left,"wires":[]}
@@ -952,10 +952,13 @@ func load_player_data() -> void:
 	#Loads player data
 	var playerData = Global.playerData.duplicate(true)
 	print("INVENTORY: ", playerData["inventory"])
-	Global.playerBase = {"skin":playerData["skin"],"hair_style":playerData["hair_style"],"hair_color":playerData["hair_color"],"sex":playerData["sex"],"eye_color":playerData["eye_color"],"eye_style":playerData["eye_style"]}
-	player.get_node("Textures/body").modulate = playerData["skin"]
 	if !["male","female"].has(playerData["sex"]): #Ensures parity with pre TU6 saves
 		playerData["sex"] = {"Guy":"male","Woman":"female"}[playerData["sex"]]
+	if !playerData.has("eye_color"):
+		playerData["eye_color"] = Color.RED
+		playerData["eye_style"] = 2 if playerData["sex"] == "female" else 3
+	Global.playerBase = {"skin":playerData["skin"],"hair_style":playerData["hair_style"],"hair_color":playerData["hair_color"],"sex":playerData["sex"],"eye_color":playerData["eye_color"],"eye_style":playerData["eye_style"]}
+	player.get_node("Textures/body").modulate = playerData["skin"]
 	player.gender = playerData["sex"]
 	player.health = playerData["health"]
 	player.oxygen = playerData["oxygen"]
@@ -986,8 +989,6 @@ func load_world_data() -> void:#data : Dictionary) -> void:
 			if !setRules.has(rule):
 				setRules[rule] = worldRules[rule]
 	worldRules = setRules
-	meteors.stage = 0 if !Global.playerData.has("misc_stats") or !Global.playerData["misc_stats"].has("meteor_stage") else Global.playerData["misc_stats"]["meteor_stage"]
-	meteors.savedProgressTime = 60 if !Global.playerData.has("misc_stats") or !Global.playerData["misc_stats"].has("meteor_progress_time_left") else Global.playerData["misc_stats"]["meteor_progress_time_left"]
 	if planetData.has("weather_time_left"):
 		var timeElapsed = Global.globalGameTime - planetData["left_at_time"]
 		if planetData["current_weather"] != "none" and timeElapsed < planetData["weather_time_left"]: #Sets weather to what it was if not enough time has passed
@@ -1031,7 +1032,7 @@ func set_block_light(pos : Vector2, layer : int, id : int,color : Color, intensi
 	var block_data = GlobalData.get_item_data(id)
 	match layer:
 		0:
-			if GlobalData.blockData[get_block_id(pos,1)]["transparent"]:
+			if GlobalData.blockData[get_block_id(pos,1)]["transparent"] and !GlobalData.blockData[get_block_id(pos,1)].has("light_color"):
 				if block_data.has("light_color"):
 					set_light(pos,color,get_light_intensity(intensity),update)
 				elif !block_data["transparent"] or pos.y >= lightFalloffHeight:

@@ -49,7 +49,7 @@ func get_entity_data():
 	return data
 
 func load_entities(data : Array):
-	for entity in data:
+	for entity : Dictionary in data:
 		var newE = entities[entity["type"]].instantiate()
 		newE.position = entity["pos"]
 		newE.health = entity["health"]
@@ -77,7 +77,7 @@ func spawn_item(item : Dictionary, thrown = false, pos = $"../Player".position):
 	if thrown:
 		newI.canPickup = false
 		newI.velocity = Vector2(10*randf_range(-1,1),-5)
-	$Hold.add_child(newI)
+	$Hold.call_deferred("add_child",newI)
 
 func spawn_spit(pos : Vector2, direction : float, distance : float) -> void:
 	var newS = entities["magma_spit"].instantiate()
@@ -121,22 +121,20 @@ func _on_Spawn_timeout():
 			while (world.get_block_id(pos,1) != 0 or world.get_block_id(pos,0) != 0 or !GlobalData.blockData[world.get_block_id(pos + Vector2(0,1),1)]["can_collide"]) and attemps < 100:
 				pos = Vector2(randi()%int(world.worldSize.x),randi()%int(world.worldSize.y))
 				attemps += 1
-			var hostileSpawns : Array = StarSystem.hostileSpawn[StarSystem.find_planet_id(Global.currentPlanet).type["type"]]
-			var creatureSpawns : Array = StarSystem.creatureSpawn[StarSystem.find_planet_id(Global.currentPlanet).type["type"]]
-			print("spawning")
-			match randi_range(0,1):
-				0:
-					if !hostileSpawns.is_empty() and hostileCount < maxH and pos.distance_to(player.position) > 48:
-						var enemy = hostileSpawns.pick_random()
-						print("Spawning: ",enemy)
-						summon_entity(enemy,pos*Vector2(8,8))
-						hostileCount += 1
-				1:
-					if !creatureSpawns.is_empty() and creatureCount < maxE:
-						var creature = creatureSpawns.pick_random()
-						print("Spawning: ",creature)
-						summon_entity(creature,pos*Vector2(8,8))
-						creatureCount += 1
+			if attemps < 100:
+				var hostileSpawns : Array = StarSystem.hostileSpawn[StarSystem.find_planet_id(Global.currentPlanet).type["type"]]
+				var creatureSpawns : Array = StarSystem.creatureSpawn[StarSystem.find_planet_id(Global.currentPlanet).type["type"]]
+				print("spawning")
+				if randi_range(0,2) == 0 and !hostileSpawns.is_empty() and hostileCount < maxH and pos.distance_to(player.position) > 48:
+					var enemy = hostileSpawns.pick_random()
+					print("Spawning: ",enemy)
+					summon_entity(enemy,pos*Vector2(8,8))
+					hostileCount += 1
+				elif !creatureSpawns.is_empty() and creatureCount < maxE:
+					var creature = creatureSpawns.pick_random()
+					print("Spawning: ",creature)
+					summon_entity(creature,pos*Vector2(8,8))
+					creatureCount += 1
 
 func _on_World_world_loaded():
 	if StarSystem.find_planet_id(Global.currentPlanet).hasAtmosphere or StarSystem.find_planet_id(Global.currentPlanet).type["type"] == "asteroids":

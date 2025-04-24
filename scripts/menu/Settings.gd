@@ -6,10 +6,12 @@ var allowedKeybinds = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","
 var allowedMousebinds = {1:"LMB",2:"RMB",3:"MMB",8:"XMB1",9:"XMB2",4:"MBWU",5:"MBWD"}
 
 var autoSaveText : Array = ["Off","5 Minutes","15 Minutes","45 Minutes","1 Hour","2 Hours"]
+var vsyncText : Array = ["Disabled","Enabled","Adaptive","Mailbox"]
 
 @onready var disable_controls: TextureRect = $DisableControls
 @onready var keybind_container: VBoxContainer = $Tabs/Keybinds/VBoxContainer
 @onready var auto_save_btn: Button = $Tabs/Gameplay/VBoxContainer/AutoSaveBtn
+@onready var vsync_btn: Button = $Tabs/Graphics/VBoxContainer/VsyncBtn
 @onready var tab_btns: VBoxContainer = $TabBtns
 @onready var tabs: Control = $Tabs
 @onready var title: Label = $Title
@@ -106,3 +108,11 @@ func _on_auto_save_btn_pressed() -> void:
 func _on_back_pressed() -> void:
 	hide()
 	settings_closed.emit()
+
+func _on_vsync_btn_pressed() -> void:
+	Global.settings["vsync_mode"] += 1
+	if Global.settings["vsync_mode"] >= vsyncText.size():
+		Global.settings["vsync_mode"] = 0
+	vsync_btn.text = "V-sync mode: " + vsyncText[Global.settings["vsync_mode"]]
+	ProjectSettings.set_setting("display/window/vsync/vsync_mode",Global.settings["vsync_mode"])
+	Global.save_settings()

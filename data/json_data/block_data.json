@@ -4,7 +4,8 @@
 	"can_collide":false,
 	"interactable":false,
 	"exclude_shade_sides":["top","bottom","left","right"],
-	"place_on":true
+	"place_on":true,
+	"sound_file":"none"
 },
 "1":{
 	"texture":"blocks/grass_block.png",
@@ -2605,7 +2606,7 @@
 "320":{
 	"texture":"blocks/cooking_pot_unlit.png",
 	"hardness":5,
-	"canHaverst":3,
+	"canHaverst":1,
 	"drops":[{"id":304,"amount":1}],
 	"name":"Cooking pot",
 	"type":"block",
@@ -2634,7 +2635,7 @@
 "322":{
 	"texture":"blocks/coal_ore_stone.png",
 	"hardness":4,
-	"canHaverst":2,
+	"canHaverst":1,
 	"drops":[{"id":323,"amount":1}],
 	"name":"Coal ore",
 	"type":"simple",
@@ -2646,7 +2647,7 @@
 "324":{
 	"texture":"blocks/coal_ore_sandstone.png",
 	"hardness":4,
-	"canHaverst":2,
+	"canHaverst":1,
 	"drops":[{"id":323,"amount":1}],
 	"name":"Coal ore",
 	"type":"simple",

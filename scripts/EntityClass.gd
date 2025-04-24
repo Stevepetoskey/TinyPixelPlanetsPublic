@@ -30,9 +30,6 @@ func die():
 	randomize()
 	if hostile:
 		Global.killCount += 1
-		if Global.inTutorial and Global.tutorialStage == 0:
-			Global.tutorialStage = 1
-			main.new_tutorial_stage()
 	var blueDrop = randi_range(bluesDropRange[0],bluesDropRange[1])
 	for item in loot:
 		print("might drop: ",item["id"])

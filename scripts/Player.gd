@@ -444,12 +444,8 @@ func get_item_upgrades(itemData : Dictionary) -> Dictionary:
 func update_character() -> void:
 	gender = Global.playerBase["sex"]
 	$Textures/body.texture = load("res://textures/player/base/" + gender + ".png")
-	if !Global.playerBase.has("eye_color"):
-		Global.playerBase["eye_color"] = Color.RED
-		Global.playerBase["eye_style"] = 2 if gender == "female" else 3
-	else:
-		eyeTexture = GlobalData.get_eye_texture()
-		$Textures/eyes.texture = eyeTexture
+	eyeTexture = GlobalData.get_eye_texture()
+	$Textures/eyes.texture = eyeTexture
 
 func get_armor_buff() -> String:
 	for buff in GlobalData.armor_buffs:

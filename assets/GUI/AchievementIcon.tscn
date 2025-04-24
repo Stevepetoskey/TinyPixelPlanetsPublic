@@ -1,23 +1,34 @@
 [gd_scene load_steps=4 format=3 uid="uid://blmr203fe65nk"]
 
-[ext_resource type="Texture2D" uid="uid://gnk4eoow4bqh" path="res://textures/GUI/GlobalGUI/Ach_completed.png" id="1_5sw3j"]
+[ext_resource type="Theme" uid="uid://b02uwgbscq35l" path="res://themes/menu.tres" id="1_564c8"]
 [ext_resource type="Script" path="res://scripts/GUI/AchievementBtn.gd" id="2_8fxr3"]
 [ext_resource type="Texture2D" uid="uid://ccpskdvf7mnft" path="res://textures/GUI/main/all_planets_icon.png" id="3_ru5k4"]
 
-[node name="AchievementIcon" type="TextureButton"]
-offset_right = 16.0
-offset_bottom = 16.0
-texture_normal = ExtResource("1_5sw3j")
+[node name="AchievementIcon" type="Button"]
+custom_minimum_size = Vector2(20, 20)
+offset_right = 20.0
+offset_bottom = 20.0
+theme = ExtResource("1_564c8")
 script = ExtResource("2_8fxr3")
 id = "One small step"
 
 [node name="Icon" type="TextureRect" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = -1.0
-offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_ru5k4")
 stretch_mode = 3
+
+[node name="Overlay" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2

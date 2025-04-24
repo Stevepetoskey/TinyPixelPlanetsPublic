@@ -1,7 +1,7 @@
 extends Node
 
-const CURRENTVER = "TU6 Beta 6 (v0.6.0:6)"
-const VER_NUMS = [0,6,0,6]
+const CURRENTVER = "TU6 (v0.6.0)"
+const VER_NUMS = [0,6,0,0]
 const ALLOW_VERSIONS = [
 	[0,4,1,0],
 	[0,4,2,0],
@@ -21,15 +21,17 @@ const ALLOW_VERSIONS = [
 	[0,6,0,4],
 	[0,6,0,5],
 	[0,6,0,6],
+	[0,6,0,0],
 ]
 #Incompatable versions:
 #[0,4,0,8] and [0,4,0,0] (as of TU4.1). Reason: Updated to godot 4
-const STABLE = false
+const STABLE = true
 
 var save_path = "user://" #place of the file
 var currentSave : String
 var newPlanet : bool = true
 var gameStart : bool = true
+var newSave : bool = true
 var currentPlanet : int
 var currentSystem : int
 var currentSystemId : String
@@ -37,16 +39,12 @@ var playerData = {}
 var playerName = ""
 var blues = 0
 var killCount = 0
-var scenario = "sandbox"
+var scenario : String = "sandbox"
 var starterPlanetId : int
-var godmode = false
-var pause = false
+var godmode : bool = false
 var showTutorials : bool = true
-var enemySpawning = true
-var entitySpawning = true
-var inTutorial = false
-var tutorialStage = 0
-var meteorsAttacked = false
+var enemySpawning : bool = true
+var entitySpawning : bool = true
 var globalGameTime : int = 0
 var gameTimeTimer : Timer = Timer.new()
 var default_bookmarks = [
@@ -57,6 +55,7 @@ var default_settings = {
 	"sfx":10,
 	"environment":10,
 	"autosave_interval":2,
+	"vsync_mode":1,
 	"tutorial_autoset_to":true,
 	"keybinds":{"build":{"event_type":"mouse","id":1},"build2":{"event_type":"mouse","id":2},"action1":{"event_type":"key","id":74},"action2":{"event_type":"key","id":75},"background_toggle":{"event_type":"key","id":66},"inventory":{"event_type":"key","id":69},"ach":{"event_type":"key","id":90},"fly":{"event_type":"key","id":70}}
 }
@@ -100,6 +99,7 @@ func _ready():
 	else:
 		settings = default_settings.duplicate(true)
 		save_settings()
+	ProjectSettings.set_setting("display/window/vsync/vsync_mode",settings["vsync_mode"])
 	gameTimeTimer.connect("timeout", Callable(self, "game_time_second"))
 	gameTimeTimer.autostart = true
 	add_child(gameTimeTimer)
@@ -126,9 +126,9 @@ func save_exists(saveId : String) -> bool:
 	return false
 
 func open_save(saveId : String) -> void:
-	inTutorial = false
 	currentSave = saveId
 	gameStart = true
+	newSave = false
 	if DirAccess.dir_exists_absolute(save_path + saveId):
 		if FileAccess.file_exists(save_path + saveId + "/playerData.dat"):
 			if !DirAccess.dir_exists_absolute(save_path + saveId + "/structures"): #For TU4.2 and before
@@ -150,7 +150,6 @@ func open_save(saveId : String) -> void:
 			playerName = "Jerry" if !playerData.has("player_name") else playerData["player_name"]
 			scenario = "sandbox" if !playerData.has("scenario") else  playerData["scenario"]
 			globalGameTime = 0 if !playerData.has("game_time") else playerData["game_time"]
-			meteorsAttacked = false if !playerData.has("misc_stats") else playerData["misc_stats"]["meteors_attacked"]
 			StarSystem.landedPlanetTypes = [] if !playerData.has("landed_planet_types") else playerData["landed_planet_types"]
 			GlobalGui.completedAchievements = [] if !playerData.has("achievements") else playerData["achievements"]
 			GlobalGui.completedTutorials = [] if !playerData.has("tutorials") else playerData["tutorials"]
@@ -171,6 +170,7 @@ func teleport_to_planet(systemId : String, planet : int) -> void:
 	StarSystem.load_system(false,true)
 
 func new_save(saveId : String):
+	newSave = true
 	playerData.clear()
 	#Sets tutorial to the last choice
 	if !gamerules.has("tutorial"):
@@ -178,8 +178,6 @@ func new_save(saveId : String):
 	gamerules.merge(gamerulesBase.duplicate(true))
 	godmode = gamerules["start_with_godmode"]
 	bookmarks = default_bookmarks.duplicate(true)
-	meteorsAttacked = false
-	inTutorial = false
 	match scenario:
 		"temple":
 			gamerules["can_leave_planet"] = false
@@ -276,7 +274,6 @@ func save(saveType : String, saveData : Dictionary) -> void:
 			playerData["blues"] = blues
 			playerData["kill_count"] = killCount
 			playerData["landed_planet_types"] = StarSystem.landedPlanetTypes
-			playerData["misc_stats"]["meteors_attacked"] = meteorsAttacked
 			playerData["game_time"] = globalGameTime
 			playerData["version"] = VER_NUMS
 			playerData["bookmarks"] = bookmarks

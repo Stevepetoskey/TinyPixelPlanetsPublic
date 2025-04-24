@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dm1ms5hvdvb3j"]
+
+[ext_resource type="Texture2D" uid="uid://bff38od274g0r" path="res://textures/GUI/GlobalGUI/Ach_line_completed.png" id="1_euktu"]
+[ext_resource type="Script" path="res://scripts/GUI/Ach_Line.gd" id="2_ttwq7"]
+
+[node name="Line" type="TextureRect"]
+offset_left = 150.0
+offset_top = 23.0
+offset_right = 158.0
+offset_bottom = 25.0
+rotation = 1.5708
+pivot_offset = Vector2(0, 1)
+texture = ExtResource("1_euktu")
+expand_mode = 1
+script = ExtResource("2_ttwq7")
+from = "One small step"
+to = "The mechanic"

@@ -1,4 +1,4 @@
-[gd_scene load_steps=294 format=3 uid="uid://2c07adgn0vow"]
+[gd_scene load_steps=292 format=3 uid="uid://2c07adgn0vow"]
 
 [ext_resource type="Script" path="res://scripts/World.gd" id="1"]
 [ext_resource type="Shader" path="res://shaders/global_light_test.gdshader" id="1_4wm78"]
@@ -47,7 +47,6 @@
 [ext_resource type="Script" path="res://scripts/Entities.gd" id="43"]
 [ext_resource type="Script" path="res://scripts/Bars.gd" id="44"]
 [ext_resource type="Texture2D" uid="uid://dc2440kvhp48n" path="res://textures/weather/rain.png" id="45"]
-[ext_resource type="Texture2D" uid="uid://2mpdkbqjvljn" path="res://textures/weather/Cloud_Large1.png" id="46"]
 [ext_resource type="Script" path="res://scripts/Effects.gd" id="47"]
 [ext_resource type="Texture2D" uid="uid://dce32w5n6yrws" path="res://textures/GUI/main/inventory/transfer_background.png" id="47_iw2q2"]
 [ext_resource type="Texture2D" uid="uid://bu4jjvitxquwi" path="res://textures/enviroment/space-3.png" id="48"]
@@ -91,7 +90,6 @@
 [ext_resource type="Texture2D" uid="uid://cyyqftw4mthc8" path="res://textures/items/armor/space_helmet.png" id="66_i8amm"]
 [ext_resource type="Texture2D" uid="uid://37qbun2wp7lw" path="res://textures/GUI/main/logic/nand_btn_pressed.png" id="66_klnxr"]
 [ext_resource type="FontVariation" uid="uid://c4nuc5bd0kohq" path="res://fonts/PixelPossFix.tres" id="66_oustp"]
-[ext_resource type="Script" path="res://scripts/enviroment/Meteors.gd" id="67"]
 [ext_resource type="Texture2D" uid="uid://cby3yuoltp7ry" path="res://textures/GUI/main/logic/nor_btn.png" id="67_rhacj"]
 [ext_resource type="Texture2D" uid="uid://deiwekva7e5yd" path="res://textures/GUI/main/hotbar/hotbar_panel.png" id="68"]
 [ext_resource type="Texture2D" uid="uid://ddqniq8ix80j5" path="res://textures/GUI/main/logic/nor_btn_pressed.png" id="68_46ew3"]
@@ -3225,18 +3223,6 @@ script = ExtResource("35")
 process_mode = 3
 layer = 2
 
-[node name="CloudLayer1" type="ParallaxBackground" parent="CanvasLayer"]
-layer = -99
-visible = false
-scroll_ignore_camera_zoom = true
-
-[node name="ParallaxLayer" type="ParallaxLayer" parent="CanvasLayer/CloudLayer1"]
-motion_scale = Vector2(0, 0.1)
-
-[node name="CloudLarge1" type="Sprite2D" parent="CanvasLayer/CloudLayer1/ParallaxLayer"]
-position = Vector2(-39, -43)
-texture = ExtResource("46")
-
 [node name="ParallaxBackground" type="ParallaxBackground" parent="CanvasLayer"]
 scroll_ignore_camera_zoom = true
 
@@ -3291,15 +3277,6 @@ mouse_filter = 2
 texture = ExtResource("2")
 expand_mode = 1
 stretch_mode = 2
-
-[node name="Meteors" type="Node2D" parent="CanvasLayer/Environment"]
-z_index = -81
-script = ExtResource("67")
-
-[node name="MeteorTimer" type="Timer" parent="CanvasLayer/Environment/Meteors"]
-one_shot = true
-
-[node name="StageProgress" type="Timer" parent="CanvasLayer/Environment/Meteors"]
 
 [node name="back" type="ParallaxLayer" parent="CanvasLayer/Environment"]
 modulate = Color(1, 0.662745, 0.282353, 1)
@@ -5868,13 +5845,8 @@ size = Vector2i(284, 160)
 
 [node name="LightRender" parent="LightRenderViewport" instance=ExtResource("146_ue3uy")]
 
-[node name="BackBufferCopy" type="BackBufferCopy" parent="."]
-copy_mode = 2
-
 [connection signal="input_pressed" from="." to="Cursor" method="_on_main_input_pressed"]
 [connection signal="output_pressed" from="." to="Cursor" method="_on_main_output_pressed"]
-[connection signal="timeout" from="CanvasLayer/Environment/Meteors/MeteorTimer" to="CanvasLayer/Environment/Meteors" method="_on_MeteorTimer_timeout"]
-[connection signal="timeout" from="CanvasLayer/Environment/Meteors/StageProgress" to="CanvasLayer/Environment/Meteors" method="_on_StageProgress_timeout"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn" to="CanvasLayer/Inventory" method="_on_InventoryBtn_pressed"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/InventoryBtn2" to="CanvasLayer/Inventory" method="_on_InventoryBtn2_pressed"]
 [connection signal="pressed" from="CanvasLayer/Hotbar/GoUp" to="World" method="_on_GoUp_pressed"]

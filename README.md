@@ -60,3 +60,14 @@ This branch is for unstable development of TU6 (v0.6.0)
 - Removed decorational clothes for now because without an artist, updating every armor to the new model will make this update come out too late
 - Changed texture for display blocks
 - This will be the final update before the trailer (beta 7 will be the final beta for TU6!)
+## TU6 beta 7 FINAL (v0.6.0:7)
+- Fixed characters not updating from TU4-5* to TU6
+- Updated most achievements icons to look better
+- Changed achievement menu completely
+- All premade planets now have lights
+- Added vsync setting in the new graphics submenu
+- Removed some old assets and lines of code that never ended up being finished
+- Fixed armor being replaced with space suit when loading a new world that was saved from space
+- Fixed entities sometimes spawning in the air or in the ground
+- Fixed placing block behind transparent light sources blocking their light
+- Reworked entity spawning system slightly (Planning on redoing system completely in TU6.5 or TU7)

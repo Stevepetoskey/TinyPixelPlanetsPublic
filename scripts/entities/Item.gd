@@ -11,6 +11,8 @@ func _ready():
 	$AnimationPlayer.play("idle")
 
 func _process(delta):
+	if position.y > 5000:
+		queue_free()
 	if !collected:
 		if !is_on_floor():
 			velocity.y += GRAVITY

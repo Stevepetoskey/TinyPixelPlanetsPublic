@@ -93,7 +93,8 @@ size = Vector2(9, 4)
 [node name="StellarPig" type="CharacterBody2D"]
 z_index = 1
 use_parent_material = true
-collision_layer = 520
+collision_layer = 16
+collision_mask = 513
 script = ExtResource("1_1qmc1")
 bluesDropRange = [2, 7]
 type = "stellar_pig"

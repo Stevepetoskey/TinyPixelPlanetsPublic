@@ -257,7 +257,7 @@ func tool_action(itemId : int, ref := 0) -> void:
 					blockAtPos.update_water_texture()
 					blockAtPos.on_update()
 		"tool":
-			if !breaking and world.get_block_id(cursorPos,currentLayer) > 0 and itemSelect["strength"] >= GlobalData.blockData[world.get_block_id(cursorPos,currentLayer)]["canHaverst"] and (world.worldRules["break_blocks"]["value"] or (world.get_block_id(cursorPos,currentLayer) == 8 and Global.inTutorial)):
+			if !breaking and world.get_block_id(cursorPos,currentLayer) > 0 and itemSelect["strength"] >= GlobalData.blockData[world.get_block_id(cursorPos,currentLayer)]["canHaverst"] and (world.worldRules["break_blocks"]["value"] or (world.get_block_id(cursorPos,currentLayer) == 8)):
 				var hardness = GlobalData.blockData[world.get_block_id(cursorPos,currentLayer)]["hardness"]
 				if hardness <= 0:
 					world.build_event("Break",position / world.BLOCK_SIZE,currentLayer)

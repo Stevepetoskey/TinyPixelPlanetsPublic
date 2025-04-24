@@ -31,6 +31,8 @@ func _ready():
 
 func _physics_process(delta):
 	var result : Dictionary
+	if position.y > 5000:
+		queue_free()
 	if position.distance_to(player.position) <= 64 and state != "sleep":
 		var space_state = get_world_2d().direct_space_state
 		var params = PhysicsRayQueryParameters2D.create(global_position, player.global_position,3,[self])

@@ -29,8 +29,6 @@ func _ready():
 	$CanvasLayer/DebugMenu/VER.text = Global.CURRENTVER
 	StarSystem.connect("start_meteors", Callable(self, "start_meteors"))
 	$CanvasLayer/Black.show()
-	if !Global.gamerules["can_leave_planet"] or ( Global.inTutorial and Global.tutorialStage < 1):
-		go_up.hide()
 	Global.connect("screenshot", Callable(self, "screenshot"))
 
 func _process(delta):
@@ -40,15 +38,6 @@ func _process(delta):
 		showFPS = !showFPS
 		$CanvasLayer/DebugMenu.visible = showFPS
 	$weather.position = $Player/PlayerCamera.global_position - Vector2(142,120)
-	#var camera_offset = ($Player/PlayerCamera.get_screen_center_position() - Vector2(lastLightUpdatePos * 8))/8.0
-	#if camera_offset.x >= 1 or camera_offset.y >= 1:
-		#print("camera_offsetbruh")
-	#material.set_shader_parameter("offset_pos",camera_offset)
-	#if lastLightImage != lightTexture.get_image():
-		#lastLightImage = lightTexture.get_image()
-		#print("different")
-	#lastLightUpdatePos = $Player/PlayerCamera.previousPos
-	#$LightingViewport/SubViewport/LightRect.material.set_shader_parameter("position",lastLightUpdatePos-Vector2i(19,18))
 	material.set_shader_parameter("light",$LightRenderViewport.get_texture())
 
 func toggle_wire_visibility(toggle : bool):
@@ -81,12 +70,6 @@ func set_weather_volume(from : int, to : int) -> void:
 
 func set_weather(random = true,time = [200,500], weatherSet = "none",start = true):
 	weatherStartData = {"random":random,"time":time,"set":weatherSet,"start":start}
-
-func new_tutorial_stage():
-	match Global.tutorialStage:
-		1:
-			go_up.show()
-			display_text({"text":"Go to space by clicking the 'Go Up' button","text_color":Color.WHITE})
 
 func update_keybinds():
 	$CanvasLayer/Hotbar/K/Keybind.text = "?" if Global.settings["keybinds"]["action2"]["event_type"] == "mouse" else char(Global.settings["keybinds"]["action2"]["id"])

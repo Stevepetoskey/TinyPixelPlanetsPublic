@@ -1,28 +1,29 @@
 extends CanvasLayer
 
+const ACH_LINE = preload("res://assets/GUI/AchievementLine.tscn")
+
 var achievements : Dictionary= {
-	"One small step":{"desc":"Mine your first block using your pickaxe","requires":"none","icon":preload("res://textures/items/armor/space_helmet.png")},
-	"An upgrade":{"desc":"Craft a stone pickaxe","requires":"One small step","icon":preload("res://textures/items/stone_pick.png")},
-	"The mechanic":{"desc":"Fly your ship into space","requires":"One small step","icon":preload("res://textures/ships/blue_ship_icon.png")},
-	"Ready for battle":{"desc":"Craft a weapon","requires":"One small step","icon":preload("res://textures/items/barbed_club.png")},
-	"Winter ready":{"desc":"Suit up in full coat armor to survive on frigid planets","requires":"Interplanetary","icon":preload("res://textures/items/armor/coat.png")},
-	"Into ice":{"desc":"Collect a coolant shard from a frigid spike","requires":"Winter ready","icon":preload("res://textures/items/coolant_shard.png")},
-	"Scorched ready":{"desc":"Suit up in full fire armor to survive on scorched planets","requires":"Into ice","icon":preload("res://textures/items/armor/fire_chestplate.png")},
-	"Into lava":{"desc":"Collect a magma ball from a scorched guard","requires":"Scorched ready","icon":preload("res://textures/items/magma_ball.png")},
-	"Location needed":{"desc":"Craft a endgame locator","requires":"Into lava","icon":preload("res://textures/blocks/endgame_locator.png")},
+	"One small step":{"desc":"Mine your first block using your pickaxe","requires":"none","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon1.png")},
+	"An upgrade":{"desc":"Craft a stone pickaxe","requires":"One small step","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon2.png")},
+	"The mechanic":{"desc":"Fly your ship into space","requires":"One small step","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon3.png")},
+	"Ready for battle":{"desc":"Craft a weapon","requires":"One small step","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon4.png")},
+	"Winter ready":{"desc":"Suit up in full coat armor to survive on frigid planets","requires":"Interplanetary","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon5.png")},
+	"Into ice":{"desc":"Collect a coolant shard from a frigid spike","requires":"Winter ready","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon6.png")},
+	"Scorched ready":{"desc":"Suit up in full fire armor to survive on scorched planets","requires":"Into ice","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon7.png")},
+	"Into lava":{"desc":"Collect a magma ball from a scorched guard","requires":"Scorched ready","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon8.png")},
+	"Location needed":{"desc":"Craft a endgame locator","requires":"Into lava","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon9.png")},
 	"The endgame":{"desc":"Use a locator to teleport to the endgame planet","requires":"Location needed","icon":preload("res://textures/enemies/mini_transporter/trinanium_charge1.png")},
-	"The end":{"desc":"Defeat the rogue mini transporter","requires":"The endgame","icon":preload("res://textures/blocks/trinanium_crystal.png")},
-	"Top of the line":{"desc":"Craft a rhodonite pickaxe","requires":"An upgrade","icon":preload("res://textures/items/rhodonite_pick.png")},
-	"Exotic wear":{"desc":"Wear a full set of rhodonite armor","requires":"Top of the line","icon":preload("res://textures/items/rhodonite.png")},
-	"Interplanetary":{"desc":"Travel between two planets in the same star system","requires":"The mechanic","icon":preload("res://textures/planets/terra.png")},
-	"Interstellar":{"desc":"Travel between two stars","requires":"Interplanetary","icon":preload("res://textures/GUI/space/star_icon_K-type.png")},
-	"Explorer 1":{"desc":"Visit 3 different types of planets","requires":"Interplanetary","icon":preload("res://textures/GUI/main/all_planets_icon.png")},
-	"Explorer 2":{"desc":"Visit 6 different types of planets","requires":"Explorer 1","icon":preload("res://textures/GUI/main/all_planets_icon.png")},
-	"Explorer 3":{"desc":"Visit all types of planets","requires":"Explorer 2","icon":preload("res://textures/GUI/main/all_planets_icon.png")},
-	"Exterminator 1":{"desc":"Kill a enemy","requires":"Ready for battle","icon":preload("res://textures/GUI/main/broken_heart_icon.png")},
-	"Exterminator 2":{"desc":"Kill 10 enemies","requires":"Exterminator 1","icon":preload("res://textures/GUI/main/broken_heart_icon.png")},
-	"Exterminator 3":{"desc":"Kill 50 enemies","requires":"Exterminator 2","icon":preload("res://textures/GUI/main/broken_heart_icon.png")},
-	"Destroyer of worlds":{"desc":"Kill 100 enemies","requires":"Exterminator 3","icon":preload("res://textures/GUI/main/skull_icon.png")},
+	"The end":{"desc":"Defeat the rogue mini transporter","requires":"The endgame","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon11.png")},
+	"Top of the line":{"desc":"Craft a rhodonite pickaxe","requires":"An upgrade","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon12.png")},
+	"Interplanetary":{"desc":"Travel between two planets in the same star system","requires":"The mechanic","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon13.png")},
+	"Interstellar":{"desc":"Travel between two stars","requires":"Interplanetary","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon14.png")},
+	"Explorer 1":{"desc":"Visit 3 different types of planets","requires":"Interplanetary","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon15.png")},
+	"Explorer 2":{"desc":"Visit 6 different types of planets","requires":"Explorer 1","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon16.png")},
+	"Explorer 3":{"desc":"Visit all types of planets","requires":"Explorer 2","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon17.png")},
+	"Exterminator 1":{"desc":"Kill a enemy","requires":"Ready for battle","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon18.png")},
+	"Exterminator 2":{"desc":"Kill 10 enemies","requires":"Exterminator 1","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon19.png")},
+	"Exterminator 3":{"desc":"Kill 50 enemies","requires":"Exterminator 2","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon20.png")},
+	"Destroyer of worlds":{"desc":"Kill 100 enemies","requires":"Exterminator 3","icon":preload("res://textures/GUI/GlobalGUI/ach_icons/icon21.png")},
 	"Economist 1":{"desc":"Reach 1,000 blues","requires":"One small step","icon":preload("res://textures/GUI/main/Blues.png")},
 	"Economist 2":{"desc":"Reach 5,000 blues","requires":"Economist 1","icon":preload("res://textures/GUI/main/Blues.png")},
 	"Economist 3":{"desc":"Reach 10,000 blues","requires":"Economist 3","icon":preload("res://textures/GUI/main/Blues.png")},
@@ -35,7 +36,7 @@ var tutorials : Dictionary = {
 			"tutorial_popup":{
 				"display_name":"Tutorial Popup",
 				"icon":"none",
-				"content":"Welcome to Tiny Pixel Planets! These tutorial popups will help you progress through the game. You can find all tutorials by pressing esc."
+				"content":"Welcome to Tiny Pixel Planets! These tutorial popups will help you progress through the game." #You can find all tutorials by pressing esc."
 			},
 			"movement":{
 				"display_name":"Movement",
@@ -115,7 +116,7 @@ var tutorials : Dictionary = {
 			"versitalis":{
 				"display_name":"Versitalis",
 				"icon":"none",
-				"content":"Versitalis is the capital of the Blue Jays. Here you can do all your shopping/selling."
+				"content":"Versitalis is the capital of the Blue Jays. Here you can do all your shopping/selling. Make sure you bookmark any important planets before going, otherwise you won't be able to come back!"
 			},
 		}
 	},
@@ -311,6 +312,7 @@ signal tutorial_closed
 
 @onready var achievementPnl = $Achievement
 @onready var auto_save_timer: Timer = $AutoSaveTimer
+@onready var ach_hold: Control = $AchievementMenu/ScrollContainer/AchHold
 
 func _process(delta):
 	if GlobalAudio.mode != "menu":
@@ -327,6 +329,19 @@ func _process(delta):
 			backedUpRequest.remove_at(0)
 
 func _ready():
+	#Creates lines
+	for achName : String in achievements:
+		var fromAch : String = achievements[achName]["requires"]
+		if fromAch != "none":
+			var toAchNode : Button = ach_hold.get_node(achName.to_pascal_case())
+			var fromAchNode : Button = ach_hold.get_node(fromAch.to_pascal_case())
+			var line = ACH_LINE.instantiate()
+			line.position = fromAchNode.position + Vector2(10,10)
+			line.rotation = fromAchNode.position.angle_to_point(toAchNode.position)
+			line.size.x = fromAchNode.position.distance_to(toAchNode.position)
+			line.from = fromAch
+			line.to = achName
+			$AchievementMenu/ScrollContainer/AchHold/LineHold.add_child(line)
 	emit_signal("update_achievements",completedAchievements)
 	Global.entered_save.connect(entered_save)
 	Global.left_save.connect(left_save)
@@ -340,7 +355,7 @@ func end_current_tutorial() -> void:
 	$TutorialPopup.close(true,true)
 
 func complete_achievement(achievement):
-	if !completedAchievements.has(achievement) and !Global.inTutorial:
+	if !completedAchievements.has(achievement):
 		completedAchievements.append(achievement)
 		emit_signal("update_achievements",completedAchievements)
 		backedUpRequest.append(achievement)

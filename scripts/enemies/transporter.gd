@@ -57,9 +57,6 @@ func die():
 	GlobalGui.complete_achievement("The end")
 	if hostile:
 		Global.killCount += 1
-		if Global.inTutorial and Global.tutorialStage == 0:
-			Global.tutorialStage = 1
-			main.new_tutorial_stage()
 	var blueDrop = randi_range(bluesDropRange[0],bluesDropRange[1])
 	for item in loot:
 		var amount = randi_range(item["amount"][0],item["amount"][1])
