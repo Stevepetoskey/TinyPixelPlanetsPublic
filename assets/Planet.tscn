@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://by6x42xgfebsy"]
+[gd_scene load_steps=8 format=3 uid="uid://by6x42xgfebsy"]
 
 [ext_resource type="Script" path="res://scripts/planet.gd" id="2"]
 [ext_resource type="PackedScene" uid="uid://dptelr8pr6kt6" path="res://assets/PlanetShade.tscn" id="2_83da6"]
 [ext_resource type="Shader" uid="uid://b843ijxpude73" path="res://shaders/SkyBody3.tres" id="2_rshpq"]
+[ext_resource type="PackedScene" uid="uid://ccchwvab6dm3" path="res://assets/space/marker.tscn" id="4_p4est"]
 
 [sub_resource type="CircleShape2D" id="1"]
 resource_local_to_scene = true
@@ -48,5 +49,14 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Discover"]
 shape = SubResource("CircleShape2D_ysfe0")
 
+[node name="Marker" parent="." instance=ExtResource("4_p4est")]
+z_index = 10
+
+[node name="MarkerVisible" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(5.96046e-07, -13)
+scale = Vector2(0.6, 0.7)
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_entered" from="Discover" to="." method="_on_discover_body_entered"]
+[connection signal="screen_entered" from="MarkerVisible" to="." method="_on_marker_visible_screen_entered"]
+[connection signal="screen_exited" from="MarkerVisible" to="." method="_on_marker_visible_screen_exited"]

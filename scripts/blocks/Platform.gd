@@ -1,7 +1,7 @@
 extends BaseBlock
 
 const SHADE_TEX = preload("res://textures/blocks/shade.png")
-const PLATFORM_TEXTURES = {30:"res://textures/blocks/platform_",188:"res://textures/blocks/scorched_platform_",204:"res://textures/blocks/permafrost_platform_"}
+const PLATFORM_TEXTURES = {30:"res://textures/blocks/platform_",188:"res://textures/blocks/scorched_platform_",204:"res://textures/blocks/permafrost_platform_",329:"res://textures/blocks/acacia_platform_",330:"res://textures/blocks/exotic_platform_",331:"res://textures/blocks/willow_platform_",332:"res://textures/blocks/smooth_stone_platform_",333:"res://textures/blocks/mud_stone_platform_"}
 
 @onready var visible_on_screen_notifier_2d: VisibleOnScreenNotifier2D = $VisibleOnScreenNotifier2D
 @onready var mainCol: CollisionShape2D = $platform

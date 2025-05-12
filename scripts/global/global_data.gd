@@ -16,7 +16,9 @@ var itemData : Dictionary = {}
 
 var eyes : Array = [preload("res://textures/player/eyes/1.png"),preload("res://textures/player/eyes/2.png"),preload("res://textures/player/eyes/3.png"),preload("res://textures/player/eyes/4.png")]
 
-var autoSaveTimes : Array = [0,300,900,2700,3600,7200]
+var bookmark_icons : Array[String] = ["circle","square","star","triangle","house","pickaxe"]
+
+var autoSaveTimes : Array[int] = [0,300,900,2700,3600,7200]
 var timeFactor : float = 10 # 10
 var emptyItem : Dictionary = {"id":0,"amount":0,"data":{}}
 

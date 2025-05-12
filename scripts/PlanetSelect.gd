@@ -3,7 +3,6 @@ extends Node2D
 const PLANET = preload("res://assets/Planet.tscn")
 
 var planetInCursor = null
-var pause = false
 
 @onready var nav: Control = $CanvasLayer/Nav
 @onready var loading_animations: AnimationPlayer = $CanvasLayer/Loading/LoadingAnimations
@@ -65,6 +64,7 @@ func load_system():
 		var planetObj = PLANET.instantiate()
 		planetObj.planetRef = planet
 		$system.add_child(planetObj)
+	_on_new_bookmark_new_bookmark()
 	emit_signal("system_loaded")
 	$CanvasLayer/Nav.update_nav()
 
@@ -92,3 +92,10 @@ func _on_Cursor_area_entered(area: Area2D) -> void:
 
 func _on_Cursor_area_exited(_area: Area2D) -> void:
 	planetInCursor = null
+
+func _on_new_bookmark_new_bookmark() -> void:
+	for bookmark : Dictionary in Global.bookmarks: #Loads bookmarks for system
+		if bookmark["system_id"] == Global.currentSystemId:
+			for planet : Sprite2D in $system.get_children():
+				if planet.planetRef.id == bookmark["planet_id"]:
+					planet.update_bookmark(bookmark)

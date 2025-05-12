@@ -71,3 +71,8 @@ This branch is for unstable development of TU6 (v0.6.0)
 - Fixed entities sometimes spawning in the air or in the ground
 - Fixed placing block behind transparent light sources blocking their light
 - Reworked entity spawning system slightly (Planning on redoing system completely in TU6.5 or TU7)
+## TU6.1
+- Fixed hair not showing on exported versions
+- Added platforms and fences for all wood variants
+- Added smooth stone and mud stone platforms
+- Bookmarks now show up in the system naviagation, and will help you locate bookmarked planets

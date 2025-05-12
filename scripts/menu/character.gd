@@ -82,7 +82,7 @@ func update_char():
 	$Char/Armor.texture = load("res://textures/GUI/Menu/character_editor/armor_" + sex + ".png")
 	$Char/Body.modulate = skinColors[player["SkinCol"]]
 	$Char/Hair.modulate = hairColors[player["HairCol"]]
-	$Char/Hair.texture = load("res://textures/player/Hair/" + hairStyles[player["HairSty"]] + ".png")
+	$Char/Hair.texture = load("res://textures/player/hair/" + hairStyles[player["HairSty"]] + ".png")
 	$Char/Eyes.texture = GlobalData.get_eye_texture(GlobalData.eyes[player["EyeSty"]],eyeColors[player["EyeCol"]],hairColors[player["HairCol"]])
 
 func _on_Name_text_changed(new_text):

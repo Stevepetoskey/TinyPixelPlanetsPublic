@@ -56,11 +56,8 @@ func _ready():
 			texture.region_enabled = true
 		180:
 			texture.texture = load("res://textures/blocks/scorched_bricks_1.png") if fmod(pos.y,2.0) == 0 else load("res://textures/blocks/scorched_bricks_2.png")
-		183:
-			texture.texture = load("res://textures/blocks/scorched_brick_fence_atlas.png")
-			texture.region_enabled = true
-		203:
-			texture.texture = load("res://textures/blocks/permafrost_fence_atlas.png")
+		183,203,334,335,336:
+			texture.texture = load({183:"res://textures/blocks/scorched_brick_fence_atlas.png",203:"res://textures/blocks/permafrost_fence_atlas.png",334:"res://textures/blocks/planks_fence_atlas.png",335:"res://textures/blocks/willow_planks_fence_atlas.png",336:"res://textures/blocks/acacia_planks_fence_atlas.png"}[id])
 			texture.region_enabled = true
 		185:
 			if data.is_empty():
@@ -184,9 +181,9 @@ func on_update():
 						texture.region_rect.position = choices[correctSide]["atlas_pos"]
 				else:
 					texture.region_rect.position = Vector2(0,8)
-			183,203:
+			183,203,334,335,336:
 				var choices = {[false,false,false]:Vector2(16,16),[true,false,false]:Vector2(16,0),[false,true,false]:Vector2(16,16),[false,false,true]:Vector2(0,0),[true,true,false]:Vector2(16,8),[false,true,true]:Vector2(0,8),[true,false,true]:Vector2(8,0),[true,true,true]:Vector2(8,8)}
-				var sides = get_sides_vector2([183,203],true)
+				var sides = get_sides_vector2([183,203,334,335,336],true)
 				texture.region_rect.position = choices[[sides[Vector2(-1,0)],sides[Vector2(0,-1)],sides[Vector2(1,0)]]]
 
 func get_sides(blockId : int) -> Dictionary:
