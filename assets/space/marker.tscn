@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccchwvab6dm3"]
+
+[ext_resource type="Texture2D" uid="uid://dy8swj7c2dcb4" path="res://textures/GUI/space/bookmark_icons/pickaxe.png" id="1_8l2bj"]
+[ext_resource type="Texture2D" uid="uid://bqhns1fx42ghl" path="res://textures/GUI/space/bookmark_marker_back.png" id="2_64efh"]
+[ext_resource type="Texture2D" uid="uid://cbe4q8fye3lx2" path="res://textures/GUI/space/bookmark_marker_front.png" id="3_op1nn"]
+
+[node name="Marker" type="Sprite2D"]
+texture = ExtResource("1_8l2bj")
+offset = Vector2(0, -14)
+
+[node name="Background" type="Sprite2D" parent="."]
+show_behind_parent = true
+texture = ExtResource("2_64efh")
+offset = Vector2(0, -11)
+
+[node name="Highlight" type="Sprite2D" parent="."]
+show_behind_parent = true
+texture = ExtResource("3_op1nn")
+offset = Vector2(0, -11)

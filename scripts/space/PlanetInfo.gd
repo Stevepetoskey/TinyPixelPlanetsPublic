@@ -12,7 +12,7 @@ var bookmarkTextures = {false:preload("res://textures/GUI/space/bookmark_btn.png
 var currentPlanet = null
 
 func pop_up(planet : Area2D = null):
-	planet_select.pause = true
+	get_tree().paused = true
 	rename_planet.hide()
 	new_bookmark.hide()
 	var planetRef = currentPlanet if planet == null else planet.get_parent().planetRef
@@ -35,7 +35,7 @@ func pop_up(planet : Area2D = null):
 	show()
 
 func _on_Exit_pressed() -> void:
-	planet_select.pause = false
+	get_tree().paused = false
 	hide()
 	rename_planet.hide()
 	new_bookmark.hide()

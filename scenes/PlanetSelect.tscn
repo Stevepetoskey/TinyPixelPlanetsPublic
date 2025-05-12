@@ -301,6 +301,7 @@ centered = false
 region_rect = Rect2(0, 0, 256, 256)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
 
 [node name="Black" type="TextureRect" parent="CanvasLayer"]
 visible = false
@@ -889,6 +890,7 @@ shape = SubResource("114")
 [connection signal="pressed" from="CanvasLayer/PlanetInfo/Top/Exit" to="CanvasLayer/PlanetInfo" method="_on_Exit_pressed"]
 [connection signal="pressed" from="CanvasLayer/RenamePlanet/Ok" to="CanvasLayer/PlanetInfo" method="_on_Ok_pressed"]
 [connection signal="pressed" from="CanvasLayer/RenamePlanet/Back" to="CanvasLayer/PlanetInfo" method="_on_Back_pressed"]
+[connection signal="new_bookmark" from="CanvasLayer/NewBookmark" to="." method="_on_new_bookmark_new_bookmark"]
 [connection signal="pressed" from="CanvasLayer/NewBookmark/Ok" to="CanvasLayer/NewBookmark" method="_on_Ok_pressed"]
 [connection signal="pressed" from="CanvasLayer/NewBookmark/Back" to="CanvasLayer/NewBookmark" method="_on_Back_pressed"]
 [connection signal="pressed" from="CanvasLayer/NewBookmark/HBoxContainer/Left" to="CanvasLayer/NewBookmark" method="_on_Left_pressed"]
