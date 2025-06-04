@@ -26,7 +26,8 @@ occluder = SubResource("OccluderPolygon2D_y6fa6")
 light_mask = 2
 use_parent_material = true
 texture = ExtResource("4_pjqv0")
-region_rect = Rect2(16, 2.08165e-12, 8, 8)
+region_enabled = true
+region_rect = Rect2(0, 0, 8, 8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false

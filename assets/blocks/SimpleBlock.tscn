@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bbnxjoxoprltr"]
 
 [ext_resource type="Script" path="res://scripts/blocks/SimpleBlock.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://v8b2cxyd5six" path="res://textures/blocks/dirt.png" id="2_387jr"]
+[ext_resource type="Texture2D" uid="uid://fij7cwkqsnuv" path="res://textures/block_atlas/stone.png" id="2_vjxyy"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(8, 8)
@@ -15,7 +15,9 @@ script = ExtResource("1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 use_parent_material = true
-texture = ExtResource("2_387jr")
+texture = ExtResource("2_vjxyy")
+region_enabled = true
+region_rect = Rect2(0, 0, 8, 8)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("1")

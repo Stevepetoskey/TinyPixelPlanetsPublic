@@ -9,6 +9,7 @@
 },
 "1":{
 	"texture":"blocks/grass_block.png",
+	"atlas":"block_atlas/grass_block.png",
 	"hardness":0.3,
 	"canHaverst":0,
 	"drops":[{"id":1,"amount":1}],
@@ -22,6 +23,7 @@
 },
 "2":{
 	"texture":"blocks/dirt.png",
+	"atlas":"block_atlas/dirt.png",
 	"hardness":0.3,
 	"canHaverst":0,
 	"drops":[{"id":2,"amount":1}],
@@ -34,6 +36,7 @@
 },
 "3":{
 	"texture":"blocks/stone.png",
+	"atlas":"block_atlas/stone.png",
 	"hardness":2,
 	"canHaverst":1,
 	"drops":[{"id":8,"amount":1}],
@@ -143,6 +146,7 @@
 },
 "13":{
 	"texture":"blocks/planks.png",
+	"atlas":"block_atlas/planks.png",
 	"hardness":1,
 	"canHaverst":1,
 	"drops":[{"id":13,"amount":1}],
@@ -338,6 +342,7 @@
 },
 "29":{
 	"texture":"blocks/copper_ore.png",
+	"atlas":"block_atlas/copper_ore.png",
 	"hardness":4,
 	"canHaverst":2,
 	"drops":[{"id":29,"amount":1}],

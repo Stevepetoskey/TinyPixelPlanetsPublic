@@ -34,6 +34,9 @@ func _ready() -> void:
 		$ColorPanel/ColorGrid.add_child(colorBtn)
 	color_btn_pressed("red")
 
+func display() -> void:
+	show()
+
 func color_btn_pressed(color : String) -> void:
 	selectedColor = color
 	$ColorPanel/ColorSelect.position = $ColorPanel/ColorGrid.get_node(color).position + Vector2(2,2)

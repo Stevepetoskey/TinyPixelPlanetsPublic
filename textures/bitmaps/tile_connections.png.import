@@ -1,0 +1,14 @@
+[remap]
+
+importer="image"
+type="Image"
+uid="uid://oxmk4h2ofaay"
+path="res://.godot/imported/tile_connections.png-3762474dbe661168894ca8e5d3667675.image"
+
+[deps]
+
+source_file="res://textures/bitmaps/tile_connections.png"
+dest_files=["res://.godot/imported/tile_connections.png-3762474dbe661168894ca8e5d3667675.image"]
+
+[params]
+

@@ -1,5 +1,7 @@
 extends Node
 
+var atlas_connections : Dictionary = {}
+
 var item_type_defualt_data : Dictionary = {
 	"Tool":{"upgrades":[]}
 }
@@ -19,8 +21,23 @@ var eyes : Array = [preload("res://textures/player/eyes/1.png"),preload("res://t
 var bookmark_icons : Array[String] = ["circle","square","star","triangle","house","pickaxe"]
 
 var autoSaveTimes : Array[int] = [0,300,900,2700,3600,7200]
-var timeFactor : float = 10 # 10
+var timeFactor : float = 10 # 10 is default
 var emptyItem : Dictionary = {"id":0,"amount":0,"data":{}}
+
+func _ready() -> void:
+	#Loads tile atlas connection data from bitmap
+	var tile_con_bitmap : Image = load("res://textures/bitmaps/tile_connections.png")
+	for x in range(12):
+		for y in range(4):
+			var bitmap_pos : Vector2i = Vector2i(x*3+1,y*3+1)
+			if tile_con_bitmap.get_pixelv(bitmap_pos).r > 0.5:
+				var connectionsByte : String = "000000000"
+				for checkX : int in range(-1,2):
+					for checkY : int in range(-1,2):
+						if tile_con_bitmap.get_pixelv(bitmap_pos + Vector2i(checkX,checkY)).g > 0.5:
+							connectionsByte[checkX + 1 + (checkY + 1) * 3] = "1"
+				atlas_connections[connectionsByte] = Vector2i(x*8,y*8)
+	print("Loaded atlas connections: ",atlas_connections)
 
 func is_upgraded(item_data : Dictionary) -> bool:
 	return (item_data.has("upgrades") and (item_data["upgrades"]["left"] != "" or item_data["upgrades"]["top"] != "" or item_data["upgrades"]["right"] != "")) or (item_data.has("upgrade") and item_data["upgrade"] != "")
