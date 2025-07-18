@@ -11,6 +11,7 @@ func _ready():
 	if GlobalData.get_item_data(id).has("atlas"):
 		atlas_mode = true
 		texture.texture = load("res://textures/" + GlobalData.get_item_data(id)["atlas"])
+	transparent = GlobalData.get_item_data(id)["transparent"]
 	z_index = layer
 	if layer < 1:
 		modulate = Color(0.68,0.68,0.68)
@@ -25,8 +26,8 @@ func on_update():
 	if atlas_mode and world.worldLoaded:
 		texture.region_rect.position = get_atlas_pos()
 	if layer < 1:
-		var blockLayer1 = world.get_block_id(pos,1)
-		if GlobalData.blockData[blockLayer1]["transparent"] and ([0,10,77].has(blockLayer1) or id != blockLayer1):
+		var blockOnTop : BaseBlock = world.get_block(pos,1)
+		if !is_instance_valid(blockOnTop) or blockOnTop.transparent or !blockOnTop.solid:
 			show()
 		else:
 			hide()

@@ -37,7 +37,6 @@ func _ready() -> void:
 						if tile_con_bitmap.get_pixelv(bitmap_pos + Vector2i(checkX,checkY)).g > 0.5:
 							connectionsByte[checkX + 1 + (checkY + 1) * 3] = "1"
 				atlas_connections[connectionsByte] = Vector2i(x*8,y*8)
-	print("Loaded atlas connections: ",atlas_connections)
 
 func is_upgraded(item_data : Dictionary) -> bool:
 	return (item_data.has("upgrades") and (item_data["upgrades"]["left"] != "" or item_data["upgrades"]["top"] != "" or item_data["upgrades"]["right"] != "")) or (item_data.has("upgrade") and item_data["upgrade"] != "")

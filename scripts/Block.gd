@@ -16,6 +16,7 @@ func _ready():
 		atlas_mode = true
 		texture.texture = load("res://textures/" + GlobalData.get_item_data(id)["atlas"])
 	z_index = layer
+	transparent = GlobalData.get_item_data(id)["transparent"]
 	if layer < 1 or !GlobalData.get_item_data(id)["can_collide"]:
 		mainCol.disabled = true
 		rain_col.queue_free()
@@ -96,7 +97,8 @@ func on_update():
 	if atlas_mode and world.worldLoaded:
 		texture.region_rect.position = get_atlas_pos()
 	if layer < 1:
-		if GlobalData.blockData[world.get_block_id(pos,1)]["transparent"] and ([0,10,77].has(world.get_block_id(pos,1)) or id != world.get_block_id(pos,1)):
+		var blockOnTop : BaseBlock = world.get_block(pos,1)
+		if !is_instance_valid(blockOnTop) or blockOnTop.transparent or !blockOnTop.solid:
 			show()
 		else:
 			hide()
@@ -115,7 +117,7 @@ func on_update():
 	
 	if world.worldLoaded and (visible_on_screen_notifier_2d.is_on_screen() or [14,18].has(id)):
 		match id:
-			10,77,154,297: #logs
+			77,154,297: #logs
 				if world.get_block_id(pos - Vector2(0,1),layer) == id or world.get_block_id(pos + Vector2(0,1),layer) == id:
 					texture.texture = {10:load("res://textures/blocks/log_v.png"),77:load("res://textures/blocks/exotic_log_v.png"),154:load("res://textures/blocks/acacia_log_v.png"),297:load("res://textures/blocks/willow_log_v.png")}[id]
 				elif world.get_block_id(pos - Vector2(1,0),layer) == id or world.get_block_id(pos + Vector2(1,0),layer) == id:

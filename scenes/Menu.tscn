@@ -1427,12 +1427,12 @@ autowrap_mode = 3
 
 [node name="Art" type="Label" parent="Credits/VBoxContainer"]
 layout_mode = 2
-text = "Art - SP Possibilities"
+text = "Art - Jason N, PossiblyADev"
 horizontal_alignment = 1
 
 [node name="Prog" type="Label" parent="Credits/VBoxContainer"]
 layout_mode = 2
-text = "Programming - SP Possibilities"
+text = "Programming - PossiblyADev"
 horizontal_alignment = 1
 
 [node name="Prog2" type="Label" parent="Credits/VBoxContainer"]

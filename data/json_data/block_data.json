@@ -79,6 +79,7 @@
 },
 "8":{
 	"texture":"blocks/Cobble.png",
+	"atlas":"block_atlas/cobble.png",
 	"hardness":0.75,
 	"canHaverst":1,
 	"drops":[{"id":8,"amount":1}],
@@ -106,6 +107,8 @@
 },
 "10":{
 	"texture":"blocks/log_front.png",
+	"atlas":"block_atlas/log.png",
+	"atlas_connection":[10],
 	"hardness":1,
 	"canHaverst":1,
 	"drops":[{"id":10,"amount":1}],
@@ -159,6 +162,7 @@
 },
 "14":{
 	"texture":"blocks/sand.png",
+	"atlas":"block_atlas/sand.png",
 	"hardness":0.3,
 	"canHaverst":0,
 	"drops":[{"id":14,"amount":1}],
@@ -171,6 +175,7 @@
 },
 "15":{
 	"texture":"blocks/stone_bricks.png",
+	"atlas":"block_atlas/stone_bricks.png",
 	"hardness":2,
 	"canHaverst":1,
 	"drops":[{"id":15,"amount":1}],
@@ -256,6 +261,7 @@
 },
 "22":{
 	"texture":"blocks/sandstone.png",
+	"atlas":"block_atlas/sandstone.png",
 	"hardness":1.3,
 	"canHaverst":1,
 	"drops":[{"id":22,"amount":1}],
@@ -268,6 +274,7 @@
 },
 "23":{
 	"texture":"blocks/sandstone_bricks.png",
+	"atlas":"block_atlas/sandstone_bricks.png",
 	"hardness":2.2,
 	"canHaverst":1,
 	"drops":[{"id":23,"amount":1}],
@@ -280,6 +287,7 @@
 },
 "24":{
 	"texture":"blocks/grass_snow.png",
+	"atlas":"block_atlas/grass_snow.png",
 	"hardness":0.3,
 	"canHaverst":0,
 	"drops":[{"id":24,"amount":1}],
@@ -368,6 +376,7 @@
 },
 "55":{
 	"texture":"blocks/silver_ore.png",
+	"atlas":"block_atlas/silver_ore.png",
 	"hardness":5,
 	"canHaverst":3,
 	"drops":[{"id":55,"amount":1}],
@@ -606,6 +615,7 @@
 },
 "88":{
 	"texture":"blocks/copper_block.png",
+	"atlas":"block_atlas/copper_block.png",
 	"hardness":4,
 	"canHaverst":2,
 	"drops":[{"id":88,"amount":1}],
@@ -618,6 +628,7 @@
 },
 "89":{
 	"texture":"blocks/silver_block.png",
+	"atlas":"block_atlas/silver_block.png",
 	"hardness":5,
 	"canHaverst":3,
 	"drops":[{"id":89,"amount":1}],
@@ -1587,6 +1598,7 @@
 },
 "192":{
 	"texture":"blocks/sandstone_gold_ore.png",
+	"atlas":"block_atlas/gold_ore.png",
 	"hardness":4,
 	"canHaverst":3,
 	"drops":[{"id":192,"amount":1}],
@@ -1599,6 +1611,7 @@
 },
 "194":{
 	"texture":"blocks/gold_ore.png",
+	"atlas":"block_atlas/gold_ore.png",
 	"hardness":5,
 	"canHaverst":3,
 	"drops":[{"id":194,"amount":1}],
@@ -1611,6 +1624,7 @@
 },
 "195":{
 	"texture":"blocks/gold_block.png",
+	"atlas":"block_atlas/gold_block.png",
 	"hardness":5,
 	"canHaverst":3,
 	"drops":[{"id":195,"amount":1}],
@@ -2333,6 +2347,7 @@
 },
 "280":{
 	"texture":"blocks/smooth_stone.png",
+	"atlas":"block_atlas/smooth_stone.png",
 	"hardness":2,
 	"canHaverst":1,
 	"drops":[{"id":280,"amount":1}],
