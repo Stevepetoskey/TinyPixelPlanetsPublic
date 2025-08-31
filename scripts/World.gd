@@ -255,6 +255,7 @@ func start_world():
 	worldType = currentPlanetData.type["type"]
 	#Inits light renderer
 	lightFalloffHeight = worldSize.y
+	#$"../LightRenderViewport/LightRender".get_node("LightingViewport/SubViewport/LightRect").material.set_shader_parameter("size",Vector2i(get_viewport_rect().size/8))
 	$"../LightRenderViewport/LightRender".get_node("LightingViewport/SubViewport/LightRect").material.set_shader_parameter("world_size",worldSize)
 	lightMap = Image.create(worldSize.x,worldSize.y,false,Image.FORMAT_RGBA8)
 	lightIntensityMap = Image.create(worldSize.x,worldSize.y,false,Image.FORMAT_RGBA8)

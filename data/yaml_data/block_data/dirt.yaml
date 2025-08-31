@@ -1,0 +1,13 @@
+texture: blocks/grass_block.png
+atlas: block_atlas/grass_block.png
+hardness: 0.3
+can_haverst: 0
+drops:
+- id: 1
+  amount: 1
+name: Grass block
+type: block
+transparent: true
+can_collide: true
+interactable: false
+sound_file: grass

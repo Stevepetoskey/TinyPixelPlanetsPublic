@@ -26,6 +26,9 @@ var emptyItem : Dictionary = {"id":0,"amount":0,"data":{}}
 
 func _ready() -> void:
 	#Loads tile atlas connection data from bitmap
+	var parse : YAMLParser = YAMLParser.new()
+	var file = FileAccess.open("res://data/yaml_data/block_data/dirt.yaml",FileAccess.READ)
+	print(parse.parse(file.get_as_text()))
 	var tile_con_bitmap : Image = load("res://textures/bitmaps/tile_connections.png")
 	for x in range(12):
 		for y in range(4):

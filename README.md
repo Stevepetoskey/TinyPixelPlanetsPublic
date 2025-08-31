@@ -1,4 +1,4 @@
-#Title Update 7 branch (unstable)
+# Title Update 7 branch (unstable)
 TU7 maybe the last major update made to Tiny Pixel Planets, so this may take some time. Major focus for this update is improvements to most textures.
 ## TU7 beta 1 (v0.7.0:1)
 - Added crafting recipes for TU6.1 blocks
@@ -9,3 +9,4 @@ TU7 maybe the last major update made to Tiny Pixel Planets, so this may take som
 - Added improved item textures thanks to Jason N.
 - Updated game credits
 - I am going to move the block/item id system from int ids to string ids, I am pushing out beta 2 because I just feel like this is going to mess up everything.
+## TU7 beta 3 (v0.7.0:3)

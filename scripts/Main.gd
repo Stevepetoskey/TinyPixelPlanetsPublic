@@ -26,6 +26,7 @@ signal input_pressed
 signal gathered_wood
 
 func _ready():
+	$LightRenderViewport.size = get_viewport_rect().size
 	$CanvasLayer/DebugMenu/VER.text = Global.CURRENTVER
 	StarSystem.connect("start_meteors", Callable(self, "start_meteors"))
 	$CanvasLayer/Black.show()

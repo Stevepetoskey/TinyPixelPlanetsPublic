@@ -5539,13 +5539,12 @@ custom_minimum_size = Vector2(75, 0)
 layout_mode = 2
 text = "No"
 
-[node name="Black" type="TextureRect" parent="CanvasLayer"]
+[node name="Black" type="ColorRect" parent="CanvasLayer"]
 modulate = Color(0, 0, 0, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-texture = ExtResource("13")
-stretch_mode = 1
+color = Color(0, 0, 0, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Black"]
 libraries = {
@@ -5752,6 +5751,14 @@ text = "VER: TU6"
 [node name="FPS" type="Label" parent="CanvasLayer/DebugMenu"]
 layout_mode = 2
 text = "FPS: 60"
+
+[node name="NewHotbar" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="World" type="Node2D" parent="."]
 use_parent_material = true
