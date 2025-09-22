@@ -99,6 +99,10 @@ func _process(_delta):
 		oldBlockPos = blockPos
 
 func _unhandled_input(_event):
+	if Input.is_action_just_pressed("background_toggle"):
+		currentLayer = int(!bool(currentLayer))
+		$"../CanvasLayer/NewHotbar/Layer/AnimationPlayer".play(["background","foreground"][currentLayer])
+		#$"../Hotbar/HBoxContainer/BGT".texture = [BACKGROUND_TEXTURE,FOREGROUND_TEXTURE][cursor.currentLayer]
 	if !wiring and !get_tree().paused and cursorPos.x < world.worldSize.x and cursorPos.x >= 0 and cursorPos.y < world.worldSize.y and cursorPos.y >= 0:
 		if Input.is_action_pressed("build") or Input.is_action_pressed("build2"):
 			if currentShop != null: #Tests if cursor is in a shop
@@ -196,11 +200,15 @@ func _unhandled_input(_event):
 					await get_tree().process_frame
 				else:
 					wireIn.remove_at(0)
-			elif (Input.is_action_pressed("build") and inventory.inventory.size() > 0) or (Input.is_action_pressed("build2") and inventory.inventory.size() > 1):
-				var slot = 0 if Input.is_action_pressed("build") or inventory.inventory.size() < 2 else 1
-				var selectedId = inventory.inventory[slot]["id"]
+			elif (Input.is_action_pressed("build") and !inventory.hotbar[inventory.selectedHotbarSlot * 2].is_empty()) or (Input.is_action_pressed("build2") and !inventory.hotbar[inventory.selectedHotbarSlot * 2 + 1].is_empty()):
+				var slot = inventory.selectedHotbarSlot * 2 if Input.is_action_pressed("build") else inventory.selectedHotbarSlot * 2 + 1
+				var selectedId = inventory.hotbar[slot]["id"]
 				if (currentLayer == 0 or canPlace) and GlobalData.blockData.has(selectedId) and world.worldRules["place_blocks"]["value"]:
-					world.build_event("Build",cursorPos,currentLayer,selectedId)#Vector2(int(position.x),int(position.y)),1,inventory.inventory[0]["id"])
+					if world.build_event("Build",cursorPos,currentLayer,selectedId,false):
+						inventory.hotbar[slot]["amount"] -= 1
+						if inventory.hotbar[slot]["amount"] <= 0:
+							inventory.hotbar[slot] = {}
+						inventory.update_inventory()
 				elif GlobalData.itemData.has(selectedId):
 					tool_action(selectedId,slot)
 		elif Input.is_action_pressed("action1") or Input.is_action_pressed("action2"):

@@ -9,10 +9,8 @@ const ITEM_STACK_SIZE = 99
 
 @onready var main: Node2D = $"../.."
 @onready var world = get_node("../../World")
-@onready var slot1: TextureButton = $"../Hotbar/InventoryBtn"
-@onready var slot2: TextureButton = $"../Hotbar/InventoryBtn2"
-@onready var jAction = get_node("../Hotbar/J")
-@onready var kAction = get_node("../Hotbar/K")
+@onready var action_1: Control = $"../NewHotbar/Action1"
+@onready var action_2: Control = $"../NewHotbar/Action2"
 @onready var cursor = get_node("../../Cursor")
 @onready var crafting = get_node("../Crafting")
 @onready var chest = get_node("../Chest")
@@ -29,6 +27,7 @@ var blockTutorials : Dictionary = {12:"crafting_table",16:"oven",28:"smithing_ta
 var itemTutorials : Dictionary = {113:"buckets",114:"buckets",115:"buckets",116:"buckets",129:"hoes",130:"hoes",131:"watering_cans",132:"watering_cans",166:"wires",191:"magma_ball",205:"coolant_shard",215:"upgrade_module",238:"music_chips",239:"music_chips",240:"music_chips"}
 #{"id":int,"amount":int,"data":dictionary}
 var inventory : Array = []
+var hotbar : Array = []
 var jRef : int = -1 #Where the j reference is located in inventory
 var kRef : int = -1
 var jId : int = 0
@@ -36,26 +35,47 @@ var kId : int = 0
 var deleteHold : Dictionary = {}
 
 var holding : bool = false
+var fromHotbar : bool = false
 var holdingRef : int = -1
+var selectedHotbarSlot : int = 0
+
+var hotbarSlotTextures : Dictionary = {
+	slot = preload("res://textures/GUI/main/hotbar/left_slot.png"),
+	slot_hover = preload("res://textures/GUI/main/hotbar/left_slot_hover.png"),
+	slot_selected = preload("res://textures/GUI/main/hotbar/left_slot_selected.png"),
+	slot_selected_hover = preload("res://textures/GUI/main/hotbar/left_slot_selected_hover.png"),
+	slot_transfer = preload("res://textures/GUI/main/hotbar/left_slot_transfer.png"),
+	slot_selected_transfer = preload("res://textures/GUI/main/hotbar/left_slot_selected_transfer.png")
+}
 
 signal gained_item
 signal opened_inventory
 
 func _ready() -> void:
-	for slot : TextureButton in [slot1,slot2]:
-		slot.mouse_entered.connect(mouse_in_btn.bind({slot1:0,slot2:1}[slot]))
-		slot.mouse_exited.connect(mouse_out_btn)
+	if hotbar.is_empty():
+		for i in range(6):
+			hotbar.append({})
+	var id : int = 0
+	for slot : HBoxContainer in $"../NewHotbar/Slots".get_children():
+		for side : TextureButton in slot.get_children():
+			side.pressed.connect(btn_clicked.bind(id,side,true))
+			side.mouse_entered.connect(mouse_in_btn.bind(id,true))
+			side.mouse_exited.connect(mouse_out_btn)
+			id += 1
 	update_inventory()
 
-func _process(_delta):
+func _unhandled_input(event: InputEvent) -> void:
+	if ["1","2","3"].has(event.as_text()):
+		selectedHotbarSlot = int(event.as_text()) - 1
+		update_inventory()
 	if Input.is_action_just_pressed("ui_cancel") and visible:
 		await get_tree().process_frame
 		inventoryToggle(false,false,"close")
 	if Input.is_action_just_pressed("inventory") and (!get_tree().paused or visible):
 		inventoryToggle()
-	if Input.is_action_just_pressed("background_toggle") and !get_tree().paused:
-		cursor.currentLayer = int(!bool(cursor.currentLayer))
-		$"../Hotbar/HBoxContainer/BGT".texture = [BACKGROUND_TEXTURE,FOREGROUND_TEXTURE][cursor.currentLayer]
+
+func add_item_to_inventory(itemData : Dictionary,drop := true) -> Dictionary:
+	return add_to_inventory(itemData["id"],itemData["amount"],drop,itemData["data"])
 
 func add_to_inventory(id : int,amount : int,drop : bool = true,data := {}) -> Dictionary:
 	print("data added: ",data)
@@ -184,82 +204,58 @@ func count_id(id : int) -> int:
 	return count
 
 func update_inventory() -> void:
-	#updates blues amount
 	$ClearBtn.visible = Global.godmode
+	#updates blues amount
 	$Blues/Label.text = "*" + str(Global.blues)
 	
 	holding = false
 	holdingRef = -1
-	
-	#Gets j and k refs
-	#if !find_item(jId).is_empty():
-		#jRef = inventory.find(find_item(jId))
-	#else:
-		#jRef = -1
-		#jId = 0
-	#if !find_item(kId).is_empty():
-		#kRef = inventory.find(find_item(kId))
-	#else:
-		#kRef = -1
-		#kId = 0
 	
 	#clears all items
 	for item in item_container.get_children():
 		item.queue_free()
 	
 	if !inventory.is_empty():
-		#Sets first slot's texture
-		slot1.show()
-		slot1.get_node("Amount").text = str(inventory[0]["amount"])
-		slot1.get_node("Item").set_item(inventory[0])
-		if jRef == 0:
-			slot1.texture_normal = load("res://textures/GUI/main/hotbar/hotbar1_j.png")
-		elif kRef == 0:
-			slot1.texture_normal = load("res://textures/GUI/main/hotbar/hotbar1_k.png")
-		else:
-			slot1.texture_normal = load("res://textures/GUI/main/hotbar/hotbar1.png")
-		#Sets second slot's texture
-		if inventory.size() > 1:
-			slot2.show()
-			slot2.get_node("Amount").text = str(inventory[1]["amount"])
-			slot2.get_node("Item").set_item(inventory[1])
-			if jRef == 1:
-				slot2.texture_normal = load("res://textures/GUI/main/hotbar/hotbar2_j.png")
-			elif kRef == 1:
-				slot2.texture_normal = load("res://textures/GUI/main/hotbar/hotbar2_k.png")
-			else:
-				slot2.texture_normal = load("res://textures/GUI/main/hotbar/hotbar2.png")
-		else:
-			slot2.hide()
+		#Sets hotbar textures
+		for slot : int in range(3):
+			for side : int in range(2):
+				var id : int = slot * 2 + side
+				var itemHold : TextureButton = get_node("../NewHotbar/Slots/Slot" + str(slot) + "/" + ["Left","Right"][side])
+				if !hotbar[id].is_empty():
+					itemHold.get_node("Item").set_item(hotbar[id])
+					itemHold.get_node("Amount").text = str(hotbar[id]["amount"])
+				else:
+					itemHold.get_node("Item").texture = null
+					itemHold.get_node("Amount").text = ""
+				itemHold.texture_normal = hotbarSlotTextures.slot_selected if slot == selectedHotbarSlot else hotbarSlotTextures.slot
+				itemHold.texture_hover = hotbarSlotTextures.slot_selected_hover if slot == selectedHotbarSlot else hotbarSlotTextures.slot_hover
 		
 		#Sets J and K ref's texture
 		if jRef < inventory.size():
 			if jRef != -1:
-				jAction.get_node("Item").set_item(inventory[jRef])
+				action_1.get_node("Item").set_item(inventory[jRef])
 			else:
-				jAction.get_node("Item").texture = null
+				action_1.get_node("Item").texture = null
 		else:
 			jRef = -1
 		if kRef < inventory.size():
 			if kRef != -1:
-				kAction.get_node("Item").set_item(inventory[kRef])
+				action_2.get_node("Item").set_item(inventory[kRef])
 			else:
-				kAction.get_node("Item").texture = null
+				action_2.get_node("Item").texture = null
 		else:
 			kRef = -1
 		
 		#Creates items
-		for itemLoc in range(2,inventory.size()):
+		for itemLoc in range(inventory.size()):
 			var itemNode = INV_BTN.instantiate()
 			itemNode.loc = itemLoc
 			itemNode.get_node("ItemGUI").set_item(inventory[itemLoc])
 			itemNode.get_node("Amount").text = str(inventory[itemLoc]["amount"])
 			item_container.add_child(itemNode)
 	else:
-		slot1.hide()
-		slot2.hide()
-		jAction.get_node("Item").texture = null
-		kAction.get_node("Item").texture = null
+		action_1.get_node("Item").texture = null
+		action_2.get_node("Item").texture = null
 	crafting.update_crafting()
 
 func transfer_items(itemData : Dictionary, to : String, loc : int) -> void:
@@ -298,7 +294,7 @@ func transfer_items(itemData : Dictionary, to : String, loc : int) -> void:
 			update_inventory()
 			cooking_pot.update_textures()
 
-func btn_clicked(loc : int, item : TextureButton) -> void:
+func btn_clicked(loc : int, item : TextureButton,isHotbar := false) -> void:
 	if !transfer_ui.visible and visible:
 		if chest.visible:
 			transfer_ui.begin_transfer(inventory[loc],"chest",loc)
@@ -310,35 +306,41 @@ func btn_clicked(loc : int, item : TextureButton) -> void:
 		else:
 			if !holding:
 				holding = true
+				fromHotbar = isHotbar
 				holdingRef = loc
-				match item:
-					slot1:
-						item.texture_normal = load("res://textures/GUI/main/hotbar/hotbar1_selected.png")
-					slot2:
-						item.texture_normal = load("res://textures/GUI/main/hotbar/hotbar2_selected.png")
-					_:
-						item.texture_normal = load("res://textures/GUI/main/inventory/inventory_holding.png")
+				if isHotbar:
+					item.texture_normal = hotbarSlotTextures.slot_transfer if item.texture_normal != hotbarSlotTextures.slot_selected else hotbarSlotTextures.slot_selected_transfer
+				else:
+					item.texture_normal = load("res://textures/GUI/main/inventory/inventory_holding.png")
 			else:
-				GlobalAudio.play_sound_effect("GUI/inventory.ogg")
-				var new = inventory[holdingRef].duplicate(true)
-				if holdingRef == jRef:
-					jRef = loc
-				elif holdingRef == kRef:
-					kRef = loc
-				elif loc == jRef:
-					jRef = holdingRef
-				elif loc == kRef:
-					kRef = holdingRef
-				inventory[holdingRef] = inventory[loc].duplicate(true)
-				inventory[loc] = new
+				if !isHotbar or (holdingRef != jRef or holdingRef != kRef):
+					GlobalAudio.play_sound_effect("GUI/inventory.ogg")
+					var from : Array = hotbar if fromHotbar else inventory
+					var to : Array = hotbar if isHotbar else inventory
+					var new = from[holdingRef].duplicate(true)
+					if holdingRef == jRef:
+						jRef = loc
+					elif holdingRef == kRef:
+						kRef = loc
+					elif loc == jRef:
+						jRef = holdingRef
+					elif loc == kRef:
+						kRef = holdingRef
+					if !isHotbar or !hotbar[holdingRef].is_empty():
+						from[holdingRef] = to[loc].duplicate(true)
+					elif fromHotbar:
+						from[holdingRef] = {}
+					else:
+						remove_loc_from_inventory(holdingRef)
+					to[loc] = new
 				update_inventory()
 
 func inv_btn_clicked(loc : int,item : TextureButton):
 	btn_clicked(loc,item)
 
-func mouse_in_btn(loc : int):
-	if inventory.size() > loc and visible:
-		$"../ItemData".display(inventory[loc])
+func mouse_in_btn(loc : int,isHotbar := false):
+	if inventory.size() > loc and visible and (!isHotbar or !hotbar[loc].is_empty()):
+		$"../ItemData".display(inventory[loc] if !isHotbar else hotbar[loc])
 
 func mouse_out_btn():
 	$"../ItemData".hide()
@@ -377,7 +379,6 @@ func inventoryToggle(toggle = true,setValue = false,mode = "inventory"):
 		"music_player":
 			music_player.pop_up()
 		"chest":
-			print("hide chest: ",setValue)
 			chest.visible = setValue
 			chest.update_chest(world.get_block(cursor.cursorPos,cursor.currentLayer))
 		"lily_mart","skips_stones":
@@ -407,12 +408,6 @@ func inv_btn_action(location : int,action : String) -> void:
 					kId = item
 	update_inventory()
 
-func _on_InventoryBtn_pressed():
-	btn_clicked(0,slot1)
-
-func _on_InventoryBtn2_pressed():
-	btn_clicked(1,slot2)
-
 func _on_clear_btn_pressed() -> void:
 	inventory = []
 	jRef = -1
@@ -423,3 +418,9 @@ func _on_delete_item_btn_pressed() -> void:
 	if holding:
 		deleteHold = inventory[holdingRef].duplicate(true)
 		remove_loc_from_inventory(holdingRef)
+
+func _on_inventory_hold_btn_pressed() -> void:
+	if holding and fromHotbar and inventory.size() < INVENTORY_SIZE:
+		var item : Dictionary = hotbar[holdingRef].duplicate(true)
+		hotbar[holdingRef] = {}
+		add_item_to_inventory(item)

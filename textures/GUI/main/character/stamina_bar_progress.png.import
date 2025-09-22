@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsnubykgx40ui"
-path="res://.godot/imported/health_bar_front.png-5147ec63dda6584598d6f1380d6975bd.ctex"
+uid="uid://4c4y67nbxdcf"
+path="res://.godot/imported/stamina_bar_progress.png-c33b8cb9dbe25d9d8a45e37e81fe9a5f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://textures/GUI/main/character/health_bar_front.png"
-dest_files=["res://.godot/imported/health_bar_front.png-5147ec63dda6584598d6f1380d6975bd.ctex"]
+source_file="res://textures/GUI/main/character/stamina_bar_progress.png"
+dest_files=["res://.godot/imported/stamina_bar_progress.png-c33b8cb9dbe25d9d8a45e37e81fe9a5f.ctex"]
 
 [params]
 

@@ -91,6 +91,8 @@ var clothesSpritesheets : Dictionary = {
 	210:{"name":"coat","contains":["shoes"]},
 }
 
+signal stat_changed
+
 func _ready():
 	update_character()
 	if health < 0:
@@ -350,6 +352,7 @@ func damage(dmg,enemyLevel : int = 1,knockback : float = 0.0):
 		var totalDmg = int(round(dmg * max(1-(defPoints/(enemyLevel*25.0)),0)))
 		effects.floating_text(position, "-" + str(totalDmg), Color.RED)
 		health -= totalDmg
+		stat_changed.emit()
 		knockedBack = true
 		velocity.x += knockback
 		velocity.y -= abs(knockback)
@@ -576,8 +579,10 @@ func _on_tick_timeout() -> void:
 				suitOxygen -= 1
 				if oxygen > maxOxygen:
 					oxygen = maxOxygen
+			stat_changed.emit()
 		elif oxygen > 0:
 			oxygen -= 1
+			stat_changed.emit()
 		else:
 			damage(1)
 	else:
@@ -589,6 +594,7 @@ func _on_tick_timeout() -> void:
 			suitOxygen += 5
 			if suitOxygen > suitOxygenMax:
 				suitOxygen = suitOxygenMax
+		stat_changed.emit()
 	if (currentTemp > 0 and armorBuff != "heat_resistance") or (currentTemp < 0 and armorBuff != "cold_resistance"):
 		damage(1)
 

@@ -915,7 +915,8 @@ func get_world_data() -> Dictionary:
 	var data = {}
 	data["player"] = {
 		"armor":armor.armor,"inventory":inventory.inventory,"inventory_refs":{"j":inventory.jRef,"k":inventory.kRef},"health":player.health,"max_health":player.maxHealth,"oxygen":player.oxygen,"suit_oxygen":player.suitOxygen,"max_oxygen":player.maxOxygen,"suit_oxygen_max":player.suitOxygenMax,"current_planet":Global.currentPlanet,"current_system":Global.currentSystemId,"pos":player.position,"save_type":"planet","achievements":GlobalGui.completedAchievements,
-		"misc_stats":{}
+		"misc_stats":{},
+		"hotbar":inventory.hotbar
 	}
 	data["system"] = StarSystem.get_system_data()
 	data["planet"] = {"blocks":get_blocks_data(),"entities":entities.get_entity_data(),"rules":worldRules,"left_at_time":Global.globalGameTime,"current_weather":$"..".currentWeather,"weather_time_left":$"../weather/WeatherTimer".time_left,"wires":[]}
@@ -972,6 +973,8 @@ func load_player_data() -> void:
 		if !item.has("data"):
 			item["data"] = {}
 	inventory.inventory = inventorySet
+	if playerData.has("hotbar"):
+		inventory.hotbar = playerData["hotbar"]
 	armor.armor = playerData["armor"]
 	armor.emit_signal("updated_armor",armor.armor)
 	if playerData.has("inventory_refs"):
@@ -1124,16 +1127,6 @@ func can_place_big_block(id : int, pos : Vector2, layer : int) -> Dictionary:
 	var xMax : int = floor(0.5 * area[0] + 1)
 	var yMin : int = -floor(0.5 * area[1] - 0.5)
 	var yMax : int = floor(0.5 * area[1] + 1)
-	print(area)
-	print(xMin)
-	print(xMax)
-	print(yMin)
-	print(yMax)
-	print("REVERSED VARS:")
-	print(-xMax + 1)
-	print( -1 * xMin + 1)
-	print(-yMax + 1)
-	print( -1 * yMin + 1)
 	for newX : int in range(-xMax + 1,-1 * xMin + 1):
 		for newY : int in range(-yMax + 1,-1 * yMin + 1):
 			print("Current check: ", Vector2(newX,newY))
@@ -1149,10 +1142,8 @@ func can_place_big_block(id : int, pos : Vector2, layer : int) -> Dictionary:
 				if !canPlace:
 					break
 			if canPlace:
-				print("can place at: ",pos + Vector2(newX,newY))
 				pos += Vector2(newX,newY)
 				return {"can_place":true,"pos":pos}
-	printerr("Cannot place block!")
 	return {"can_place":false,"pos":pos}
 
 func update_area(pos):
@@ -1167,12 +1158,11 @@ func update_light_texture() -> void:
 	$"../LightRenderViewport/LightRender".get_node("LightingViewport/SubViewport/LightRect").material.set_shader_parameter("light_map",ImageTexture.create_from_image(lightMap))
 	$"../LightRenderViewport/LightRender".get_node("LightingViewport/SubViewport/LightRect").material.set_shader_parameter("light_intensity_map",ImageTexture.create_from_image(lightIntensityMap))
 
-func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction = true) -> void:
+func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction = true) -> bool:
 	if action == "Build" and GlobalData.blockData.has(id) and (!GlobalData.blockData[id].has("can_place_on") or GlobalData.blockData[id]["can_place_on"].has(float(get_block_id(pos + Vector2(0,1),layer)))) and GlobalData.get_item_data(get_block_id(pos,layer)).has("place_on"):
 		var canPlace = true
 		#Makes sure all blocks are clear for blocks with ghost blocks (such as doors)
 		if GlobalData.get_item_data(id).has("custom_area"):
-			print_rich("[color=blue]CHECKING![/color]")
 			var result : Dictionary = can_place_big_block(id,pos,layer)
 			canPlace = result["can_place"]
 		elif GlobalData.get_item_data(id).has("support_by"): #Makes sure blocks that need support, are supported
@@ -1186,6 +1176,7 @@ func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction 
 			set_block(pos,layer,id,true,{},true)
 			if itemAction:
 				inventory.remove_id_from_inventory(id,1)
+			return true
 	elif action == "Break" and get_block(pos,layer) != null:
 		var block : int = get_block_id(pos,layer)
 		GlobalAudio.play_block_audio_2d(block,"break",pos * BLOCK_SIZE)
@@ -1205,6 +1196,8 @@ func build_event(action : String, pos : Vector2, layer : int,id = 0, itemAction 
 					entities.spawn_item({"id":itemsToDrop[i]["id"],"amount":int(randf_range(itemsToDrop[i]["amount"][0],itemsToDrop[i]["amount"][1] + 1)),"data":{}},false,pos*BLOCK_SIZE)
 					#inventory.add_to_inventory(itemsToDrop[i]["id"],int(rand_range(itemsToDrop[i]["amount"][0],itemsToDrop[i]["amount"][1] + 1)))
 		set_block(pos,layer,0,true)
+		return true
+	return false
 
 func _on_GoUp_pressed():
 	Global.save("planet", get_world_data())
